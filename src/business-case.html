@@ -1,0 +1,1550 @@
+<title>HCIG Passport</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+:root{
+  --ground:#F2F6F6;
+  --surface:#FFFFFF;
+  --surface-2:#E6EEEE;
+  --surface-3:#D9E5E5;
+  --ink:#08202A;
+  --ink-2:#3A545D;
+  --ink-3:#6B8189;
+  --line:#D1DDDD;
+  --line-2:#B3C4C4;
+  --aqua:#0B807C;
+  --aqua-soft:#D6EDEB;
+  --deep:#0C3D48;
+  --signal:#C93F1B;
+  --signal-soft:#FAE1D8;
+  --gold:#94661A;
+  --gold-soft:#F4E7CF;
+  --ok:#1A6B45;
+  --ok-soft:#DAEEE2;
+  --crit:#A82C15;
+  --scrim:rgba(6,26,33,.72);
+  --shadow:0 1px 2px rgba(8,32,42,.06), 0 8px 24px -12px rgba(8,32,42,.18);
+  --lift:0 2px 4px rgba(8,32,42,.07), 0 22px 50px -20px rgba(8,32,42,.32);
+  --ff-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --ff-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --ff-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#051820; --surface:#0A232A; --surface-2:#0F2E38; --surface-3:#153A45;
+    --ink:#E2EFEF; --ink-2:#A4BDC2; --ink-3:#728F98;
+    --line:#1A3A44; --line-2:#29505A;
+    --aqua:#3CC5BC; --aqua-soft:#0C3736; --deep:#0C3D48;
+    --signal:#FF7A4C; --signal-soft:#3A1A10;
+    --gold:#D5A141; --gold-soft:#34270E;
+    --ok:#4CBC84; --ok-soft:#0E3123; --crit:#FF6A49;
+    --scrim:rgba(3,14,19,.76);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    --lift:0 2px 4px rgba(0,0,0,.45), 0 22px 50px -20px rgba(0,0,0,.78);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#051820; --surface:#0A232A; --surface-2:#0F2E38; --surface-3:#153A45;
+  --ink:#E2EFEF; --ink-2:#A4BDC2; --ink-3:#728F98;
+  --line:#1A3A44; --line-2:#29505A;
+  --aqua:#3CC5BC; --aqua-soft:#0C3736; --deep:#0C3D48;
+  --signal:#FF7A4C; --signal-soft:#3A1A10;
+  --gold:#D5A141; --gold-soft:#34270E;
+  --ok:#4CBC84; --ok-soft:#0E3123; --crit:#FF6A49;
+  --scrim:rgba(3,14,19,.76);
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  --lift:0 2px 4px rgba(0,0,0,.45), 0 22px 50px -20px rgba(0,0,0,.78);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--ff-body);font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5{font-family:var(--ff-display);text-wrap:balance;margin:0;line-height:1.14;letter-spacing:-.025em}
+p{margin:0}
+img{max-width:100%;display:block}
+a{color:var(--aqua)}
+:focus-visible{outline:2px solid var(--aqua);outline-offset:3px;border-radius:2px}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:min(94vh,860px);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;background:var(--deep)}
+.hero-img{position:absolute;inset:0;background-image:url('%%HUB%%');background-size:cover;background-position:center 62%}
+.hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,20,26,.62) 0%,rgba(4,20,26,.30) 32%,rgba(4,20,26,.80) 72%,rgba(4,20,26,.95) 100%)}
+.hero-in{position:relative;width:100%;max-width:1360px;margin:0 auto;padding:56px 28px 44px;color:#EAF4F4}
+@media (min-width:900px){.hero-in{padding:70px 48px 52px}}
+.hero-top{position:absolute;top:0;left:0;right:0;padding:26px 28px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+@media (min-width:900px){.hero-top{padding:30px 48px}}
+.hero-top-in{width:100%;max-width:1360px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.logochip{background:#fff;border-radius:3px;padding:9px 13px;display:flex;align-items:center;gap:9px;box-shadow:0 2px 14px rgba(0,0,0,.28)}
+.logochip img{height:30px;width:auto}
+.hero-flag{font-family:var(--ff-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#B7D2D4;display:flex;align-items:center;gap:10px;background:rgba(6,26,33,.5);border:1px solid rgba(255,255,255,.16);padding:8px 14px;border-radius:2px;backdrop-filter:blur(6px)}
+.hero-flag b{color:#FF7A4C;font-weight:600}
+h1{font-size:clamp(48px,9.5vw,124px);font-weight:900;letter-spacing:-.05em;line-height:.9;color:#fff}
+h1 em{font-style:normal;color:#4FD3C9;display:block}
+.hero-deck{font-size:clamp(18px,2.1vw,24px);color:#CFE3E4;max-width:58ch;margin-top:26px;line-height:1.48}
+.hero-strip{display:flex;flex-wrap:wrap;gap:0;margin-top:40px;border-top:1px solid rgba(255,255,255,.2)}
+.hero-strip div{flex:1 1 168px;padding:18px 22px 4px 0;margin-right:22px;border-right:1px solid rgba(255,255,255,.14)}
+.hero-strip div:last-child{border-right:none}
+.hero-strip .k{font-family:var(--ff-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8FB2B5}
+.hero-strip .v{font-family:var(--ff-display);font-size:15px;font-weight:600;color:#fff;margin-top:6px;line-height:1.3;letter-spacing:-.01em}
+
+/* ============ SHELL ============ */
+.shell{max-width:1400px;margin:0 auto;padding:0 28px 120px;display:grid;grid-template-columns:minmax(0,1fr)}
+@media (min-width:1160px){.shell{grid-template-columns:206px minmax(0,1fr);gap:60px;padding:0 44px 140px}}
+.rail{display:none}
+@media (min-width:1160px){.rail{display:block;position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;padding:46px 0;scrollbar-width:thin}}
+.rail-title{font-family:var(--ff-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
+.rail a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--ink-2);font-family:var(--ff-display);font-size:12.5px;font-weight:500;line-height:1.3;padding:7px 0;border-top:1px solid var(--line);transition:color .15s}
+.rail a:first-of-type{border-top:none}
+.rail a:hover{color:var(--aqua)}
+.rail a span{font-family:var(--ff-mono);font-size:10px;color:var(--ink-3);flex:none;width:18px}
+.rail a.on{color:var(--ink);font-weight:700}
+.rail a.on span{color:var(--signal)}
+.col{min-width:0}
+.prose{max-width:67ch}
+.prose p + p{margin-top:1em}
+@media (min-width:1160px){.prose,.wide,.sec-body{margin-left:30px}.sec-sub{margin-left:30px}}
+
+section{padding:82px 0 0;scroll-margin-top:20px}
+.sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:8px}
+.sec-num{font-family:var(--ff-mono);font-size:11px;color:var(--signal);font-weight:600;letter-spacing:.08em;flex:none;padding-top:7px}
+h2{font-size:clamp(29px,4.2vw,44px);font-weight:800;letter-spacing:-.035em}
+.sec-sub{font-family:var(--ff-display);font-size:15px;color:var(--ink-3);margin:7px 0 32px 0;font-weight:500;letter-spacing:0}
+h3{font-size:21px;font-weight:700;margin:44px 0 12px}
+h4{font-size:14px;font-weight:700;margin:0 0 6px;letter-spacing:-.01em}
+.lede{font-size:20.5px;line-height:1.55}
+.lede strong{color:var(--signal);font-weight:600}
+.kicker{font-family:var(--ff-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+
+/* ============ FOOTPRINT BAND ============ */
+.fp{display:grid;gap:14px;margin:0 0 6px}
+@media (min-width:820px){.fp{grid-template-columns:1.35fr 1fr}}
+.fpcard{position:relative;border-radius:5px;overflow:hidden;min-height:230px;border:1px solid var(--line);background:var(--surface-3)}
+.fpcard .ph{position:absolute;inset:0;background-size:cover;background-position:center}
+.fpcard .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,20,26,0) 30%,rgba(4,20,26,.88) 100%)}
+.fpcard .tx{position:relative;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:20px 22px;color:#fff;min-height:230px}
+.fpcard .tx .n{font-family:var(--ff-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#9CC0C2}
+.fpcard .tx h4{font-size:19px;color:#fff;margin-top:7px;letter-spacing:-.025em}
+.fpcard .tx p{font-family:var(--ff-display);font-size:12.5px;color:#C6DDDE;margin-top:5px;line-height:1.45}
+.fpgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:5px;padding:18px 20px;display:flex;flex-direction:column;justify-content:center}
+.stat .n{font-family:var(--ff-display);font-size:clamp(28px,4vw,38px);font-weight:800;letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums}
+.stat .n.sig{color:var(--signal)} .stat .n.aq{color:var(--aqua)}
+.stat .l{font-size:12.5px;color:var(--ink-2);margin-top:9px;line-height:1.4;font-family:var(--ff-display);font-weight:500}
+.stat .s{font-family:var(--ff-mono);font-size:9px;color:var(--ink-3);margin-top:7px;letter-spacing:.07em;text-transform:uppercase}
+
+/* ============ COMMON ============ */
+.callout{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--signal);padding:22px 26px;margin:28px 0;border-radius:3px}
+.callout.aqua{border-left-color:var(--aqua)}
+.callout.gold{border-left-color:var(--gold)}
+.callout p{font-size:16.5px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(285px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(232px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:5px;padding:20px 22px}
+.card p{font-size:14.5px;color:var(--ink-2);line-height:1.55}
+.card .tag{font-family:var(--ff-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:9px}
+.card.ph{padding:0;overflow:hidden}
+.card.ph .im{height:132px;background-size:cover;background-position:center}
+.card.ph .bd{padding:18px 20px 20px}
+
+.tw{overflow-x:auto;margin:24px 0;border:1px solid var(--line);border-radius:5px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:620px;font-family:var(--ff-display);font-size:13.5px}
+th{text-align:left;font-family:var(--ff-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:500;padding:13px 16px;border-bottom:1px solid var(--line-2);vertical-align:bottom;white-space:nowrap}
+td{padding:13px 16px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:top;line-height:1.45}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:600}
+td.num,th.num{text-align:right;font-family:var(--ff-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr.sum td{background:var(--surface-2);font-weight:700;color:var(--ink);border-top:1px solid var(--line-2)}
+tbody tr.grand td{background:var(--deep);color:#EAF4F4;font-weight:700}
+.pill{display:inline-block;font-family:var(--ff-mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px;font-weight:600;white-space:nowrap}
+.pill.new{background:var(--aqua-soft);color:var(--aqua)}
+.pill.rec{background:var(--gold-soft);color:var(--gold)}
+.pill.p0{background:var(--signal-soft);color:var(--signal)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+
+.journey{display:grid;border:1px solid var(--line);border-radius:5px;overflow:hidden;background:var(--surface);margin:24px 0}
+@media (min-width:780px){.journey{grid-template-columns:repeat(5,1fr)}}
+.jstep{padding:18px;border-bottom:1px solid var(--line)}
+@media (min-width:780px){.jstep{border-bottom:none;border-right:1px solid var(--line)}.jstep:last-child{border-right:none}}
+.jstep:last-child{border-bottom:none}
+.jstep .jn{font-family:var(--ff-mono);font-size:9.5px;color:var(--ink-3);letter-spacing:.12em;margin-bottom:8px}
+.jstep h5{font-family:var(--ff-display);font-size:14px;font-weight:700;margin-bottom:6px}
+.jstep p{font-size:12.5px;color:var(--ink-2);line-height:1.45;font-family:var(--ff-display)}
+.jstep.leak{background:var(--signal-soft)} .jstep.leak .jn{color:var(--signal)}
+.jstep.win{background:var(--aqua-soft)} .jstep.win .jn{color:var(--aqua)}
+.jlabel{font-family:var(--ff-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:26px 0 8px;display:flex;align-items:center;gap:10px}
+.jlabel:after{content:"";flex:1;height:1px;background:var(--line)}
+
+ul.clean{list-style:none;padding:0;margin:12px 0}
+ul.clean li{padding:9px 0 9px 22px;border-bottom:1px solid var(--line);position:relative;font-size:15px;color:var(--ink-2);line-height:1.55}
+ul.clean li:before{content:"";position:absolute;left:2px;top:18px;width:7px;height:1.5px;background:var(--signal)}
+ul.clean li:last-child{border-bottom:none}
+.mono-list{font-family:var(--ff-mono);font-size:11.5px;line-height:1.88;color:var(--ink-2)}
+.mono-list b{color:var(--ink);font-weight:600}
+
+/* ============ SCREENS BAND ============ */
+.band{background:var(--deep);margin:0 -28px;padding:74px 28px 78px;position:relative;overflow:hidden}
+@media (min-width:1160px){.band{margin:0 -44px 0 -104px;padding:78px 44px 84px 104px;border-radius:0}}
+.band:before{content:"";position:absolute;inset:0;background:radial-gradient(1100px 480px at 12% -8%, rgba(79,211,201,.15), transparent 62%);pointer-events:none}
+.band-in{position:relative;max-width:1290px}
+.band h2{color:#fff}
+.band .sec-num{color:#FF9770}
+.band .sec-sub{color:#8FB2B5;margin-left:0}
+.band .sec-head{margin-bottom:8px}
+.band-lede{font-size:19px;color:#C6DDDE;max-width:64ch;line-height:1.55;margin-bottom:8px}
+.band-lede strong{color:#4FD3C9;font-weight:600}
+.flowhead{display:flex;align-items:baseline;gap:14px;margin:44px 0 4px;flex-wrap:wrap}
+.flowhead .fl{font-family:var(--ff-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#FF9770;border:1px solid rgba(255,151,112,.42);padding:5px 10px;border-radius:2px}
+.flowhead h3{color:#fff;margin:0;font-size:21px}
+.flowhead p{font-family:var(--ff-display);font-size:13px;color:#8FB2B5;flex-basis:100%;margin-top:2px}
+.rail-scroll{display:flex;gap:22px;overflow-x:auto;padding:22px 4px 26px;scroll-snap-type:x mandatory}
+.rail-scroll::-webkit-scrollbar{height:9px}
+.rail-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.24);border-radius:5px}
+.rail-scroll::-webkit-scrollbar-track{background:rgba(255,255,255,.07);border-radius:5px}
+.screen{flex:none;scroll-snap-align:start;width:278px}
+.screen.wide{width:452px}
+.screen figcaption{margin-top:14px}
+.screen figcaption .cn{font-family:var(--ff-mono);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:#FF9770}
+.screen figcaption b{display:block;color:#fff;font-weight:700;font-size:14px;margin:5px 0 4px;font-family:var(--ff-display);letter-spacing:-.02em}
+.screen figcaption p{font-family:var(--ff-display);font-size:12.5px;color:#9EBEC0;line-height:1.45}
+.screen figcaption .why{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.14);font-family:var(--ff-display);font-size:12px;color:#C6DDDE;line-height:1.45}
+.screen figcaption .why b{display:inline;color:#4FD3C9;font-size:12px;margin:0}
+
+/* device frames */
+.phone{width:278px;height:576px;background:#0E1D22;border:1px solid rgba(255,255,255,.18);border-radius:30px;padding:9px;box-shadow:var(--lift);position:relative}
+.phone:after{content:"";position:absolute;top:15px;left:50%;transform:translateX(-50%);width:66px;height:5px;border-radius:3px;background:rgba(255,255,255,.16);z-index:5}
+.tablet{width:452px;height:322px;background:#0E1D22;border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:8px;box-shadow:var(--lift)}
+.tablet .vp{border-radius:10px}
+.vp{width:100%;height:100%;border-radius:22px;overflow:hidden;background:#F2F6F6;display:flex;flex-direction:column;position:relative;font-family:var(--ff-display);color:#08202A}
+.vp.dk{background:#07222B;color:#E2EFEF}
+.sbar{display:flex;justify-content:space-between;align-items:center;padding:12px 16px 5px;font-family:var(--ff-mono);font-size:8.5px;color:#3A545D;font-weight:500;flex:none}
+.vp.dk .sbar{color:#8FB0B5}
+.vbody{flex:1;overflow:hidden;padding:7px 15px 12px;display:flex;flex-direction:column;gap:9px}
+.vp .h{font-size:17.5px;font-weight:800;letter-spacing:-.035em;line-height:1.14}
+.vp .sub{font-size:10.5px;color:#6B8189;line-height:1.42}
+.vp.dk .sub{color:#8FB0B5}
+.vp .eyebrow{font-family:var(--ff-mono);font-size:7.5px;letter-spacing:.15em;text-transform:uppercase;color:#6B8189}
+.vp.dk .eyebrow{color:#7FA3A9}
+.blk{background:#fff;border:1px solid #D1DDDD;border-radius:10px;padding:11px 12px}
+.vp.dk .blk{background:rgba(255,255,255,.065);border-color:rgba(255,255,255,.12)}
+.blk .t{font-size:11.5px;font-weight:700;line-height:1.3}
+.blk .d{font-size:9.5px;color:#6B8189;line-height:1.4;margin-top:3px}
+.vp.dk .blk .d{color:#93B2B8}
+.btn{background:#C93F1B;color:#fff;border-radius:9px;padding:11px;text-align:center;font-size:12px;font-weight:700;letter-spacing:-.01em}
+.btn.aq{background:#0B807C}
+.btn.ghost{background:transparent;border:1px solid #B3C4C4;color:#08202A}
+.vp.dk .btn.ghost{border-color:rgba(255,255,255,.25);color:#E2EFEF}
+.chip{display:inline-flex;align-items:center;gap:4px;font-family:var(--ff-mono);font-size:7.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:600;padding:3px 7px;border-radius:20px;white-space:nowrap}
+.chip.a{background:#D6EDEB;color:#0B807C}
+.chip.s{background:#FAE1D8;color:#C93F1B}
+.chip.g{background:#F4E7CF;color:#94661A}
+.chip.o{background:#DAEEE2;color:#1A6B45}
+.chip.w{background:rgba(255,255,255,.16);color:#E2EFEF}
+.tabbar{display:flex;justify-content:space-around;padding:9px 8px 12px;border-top:1px solid #D1DDDD;flex:none;background:#fff}
+.vp.dk .tabbar{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}
+.tabbar div{font-family:var(--ff-mono);font-size:7px;letter-spacing:.05em;text-transform:uppercase;color:#6B8189;text-align:center;line-height:1.7}
+.tabbar div.act{color:#C93F1B;font-weight:600}
+.ico{display:block;font-size:12px;line-height:1}
+.rowl{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ava{width:34px;height:34px;border-radius:50%;flex:none;background-size:cover;border:1.5px solid rgba(255,255,255,.5)}
+.ava.lg{width:44px;height:44px}
+.ava.doc{background-image:url('%%CONSULT%%');background-position:24% 22%;background-size:230%}
+.ava.dent{background-image:url('%%DENTAL%%');background-position:62% 22%;background-size:190%}
+.ava.ini{background:#0B807C;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:var(--ff-display);border:none}
+.tl{display:flex;gap:9px}
+.tl .bar{width:1px;background:#D1DDDD;position:relative;flex:none;margin-left:4px}
+.vp.dk .tl .bar{background:rgba(255,255,255,.16)}
+.tl .bar:before{content:"";position:absolute;left:-3px;top:2px;width:7px;height:7px;border-radius:50%;background:#0B807C}
+.tl.done .bar:before{background:#1A6B45}
+.tl.wait .bar:before{background:#B3C4C4}
+.tl .c{padding-bottom:11px}
+.tl .c .tt{font-size:10.5px;font-weight:700;line-height:1.3}
+.tl .c .td{font-size:9px;color:#6B8189;margin-top:2px}
+.vp.dk .tl .c .td{color:#93B2B8}
+.thumb{border-radius:8px;background-size:cover;background-position:center;flex:none}
+.qr{width:70px;height:70px;border-radius:5px;background:repeating-conic-gradient(#08202A 0% 25%, #fff 0% 50%) 0 0/11px 11px;border:4px solid #fff;outline:1px solid #D1DDDD;flex:none}
+.mapbg{height:118px;border-radius:10px;position:relative;overflow:hidden;border:1px solid #D1DDDD;
+ background:linear-gradient(90deg,transparent 49.6%,#C3D6D6 50%,transparent 50.4%) 0 0/36px 36px,
+ linear-gradient(0deg,transparent 49.6%,#C3D6D6 50%,transparent 50.4%) 0 0/36px 36px, #E2EFED}
+.pinme{position:absolute;left:24%;top:62%;width:11px;height:11px;border-radius:50%;background:#0B807C;border:2.5px solid #fff;box-shadow:0 0 0 5px rgba(11,128,124,.22)}
+.pinc{position:absolute;left:64%;top:28%;width:21px;height:21px;border-radius:50%;background:#C93F1B;color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.route{position:absolute;left:27%;top:33%;width:38%;height:29%;border-top:2px dashed #C93F1B;border-right:2px dashed #C93F1B;border-top-right-radius:16px;opacity:.7}
+.bignum{font-family:var(--ff-display);font-size:26px;font-weight:800;letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums}
+.priceline{display:flex;align-items:baseline;gap:5px}
+.strike{text-decoration:line-through;color:#6B8189;font-size:10px}
+.hero-shot{height:104px;border-radius:10px;background-size:cover;background-position:center;position:relative;overflow:hidden}
+.hero-shot .cap{position:absolute;left:0;right:0;bottom:0;padding:8px 10px;background:linear-gradient(180deg,transparent,rgba(4,20,26,.86));color:#fff;font-size:10px;font-weight:600}
+
+/* ============ ARCH ============ */
+.arch{border:1px solid var(--line);border-radius:5px;overflow:hidden;margin:26px 0;background:var(--surface)}
+.layer{padding:16px 18px;border-bottom:1px solid var(--line)}
+.layer:last-child{border-bottom:none}
+.layer.accent{background:var(--surface-2)}
+.layer.core{background:var(--aqua-soft)}
+.lname{font-family:var(--ff-mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-bottom:11px}
+.lname b{color:var(--signal);font-weight:600}
+.nodes{display:flex;gap:8px;flex-wrap:wrap}
+.node{background:var(--surface);border:1px solid var(--line-2);border-radius:3px;padding:8px 11px;font-family:var(--ff-display);font-size:12px;font-weight:600;line-height:1.3}
+.node small{display:block;font-family:var(--ff-mono);font-size:8.5px;font-weight:400;color:var(--ink-3);margin-top:3px}
+.node.hot{border-color:var(--signal);border-width:1.5px}
+.node.key{background:var(--deep);color:#EAF4F4;border-color:var(--deep)}
+.node.key small{color:#8FB2B5}
+.flowarrow{text-align:center;font-family:var(--ff-mono);font-size:13px;color:var(--line-2);padding:3px 0;background:var(--surface)}
+
+/* ============ CALC ============ */
+.calc{border:1px solid var(--line-2);border-radius:6px;overflow:hidden;margin:28px 0;background:var(--surface)}
+.calc-in{padding:22px 24px;background:var(--surface-2);border-bottom:1px solid var(--line-2)}
+.ctrls{display:grid;gap:18px 26px;grid-template-columns:repeat(auto-fit,minmax(238px,1fr))}
+.ctrl label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-family:var(--ff-display);font-size:12.5px;font-weight:600;margin-bottom:7px;color:var(--ink-2)}
+.ctrl output{font-family:var(--ff-mono);font-size:13px;font-weight:600;color:var(--signal);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;background:transparent;height:18px;cursor:pointer;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:3px;background:var(--line-2);border-radius:2px}
+input[type=range]::-moz-range-track{height:3px;background:var(--line-2);border-radius:2px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--signal);margin-top:-6px;border:2px solid var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--signal);border:2px solid var(--surface)}
+.calc-note{font-family:var(--ff-mono);font-size:10px;color:var(--ink-3);padding:12px 24px;border-top:1px solid var(--line);line-height:1.65}
+.calc .tw{margin:0;border:none;border-radius:0}
+.tot{display:flex;flex-wrap:wrap;border-top:1px solid var(--line-2)}
+.tot div{flex:1 1 186px;padding:18px 24px;border-right:1px solid var(--line)}
+.tot div:last-child{border-right:none}
+.tot .tl2{font-family:var(--ff-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.tot .tv{font-family:var(--ff-display);font-size:29px;font-weight:800;letter-spacing:-.045em;margin-top:6px;font-variant-numeric:tabular-nums;line-height:1}
+.tot .tv.a{color:var(--aqua)} .tot .tv.g{color:var(--gold)} .tot .tv.s{color:var(--signal)}
+
+/* ============ MISC ============ */
+.obj{border:1px solid var(--line);border-radius:5px;background:var(--surface);margin:14px 0;overflow:hidden}
+.obj .q{padding:15px 20px;font-family:var(--ff-display);font-size:15px;font-weight:700;background:var(--surface-2);border-bottom:1px solid var(--line);display:flex;gap:11px}
+.obj .q:before{content:"Q";font-family:var(--ff-mono);font-size:10px;color:var(--signal);flex:none;padding-top:4px;font-weight:600}
+.obj .a{padding:16px 20px;font-size:15px;color:var(--ink-2);line-height:1.6}
+.obj .a strong{color:var(--ink);font-weight:600}
+.phase{display:grid;border:1px solid var(--line);border-radius:5px;overflow:hidden;background:var(--surface);margin:14px 0}
+@media (min-width:820px){.phase{grid-template-columns:154px 1fr 196px}}
+.phase .p1{padding:18px 20px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.phase .p2{padding:18px 20px;border-bottom:1px solid var(--line)}
+.phase .p3{padding:18px 20px}
+@media (min-width:820px){.phase .p1,.phase .p2{border-bottom:none;border-right:1px solid var(--line)}}
+.phase .pn{font-family:var(--ff-mono);font-size:10px;letter-spacing:.12em;color:var(--signal);font-weight:600}
+.phase h4{margin-top:6px;font-size:15px}
+.phase .pt{font-family:var(--ff-mono);font-size:10px;color:var(--ink-3);margin-top:8px}
+.phase ul{margin:0;padding-left:17px;font-size:13.5px;color:var(--ink-2);font-family:var(--ff-display);line-height:1.55}
+.phase li{margin-bottom:3px}
+.phase .p3 p{font-size:13px;color:var(--ink-2);font-family:var(--ff-display);line-height:1.5}
+.ask{border:2px solid var(--deep);border-radius:5px;margin:30px 0;overflow:hidden;background:var(--surface)}
+.ask-h{background:var(--deep);color:#EAF4F4;padding:20px 24px}
+.ask-h h3{margin:0;font-size:20px;color:#fff}
+.ask-h p{font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8FB2B5;margin-top:6px}
+.ask-b{padding:22px 24px}
+.subh{font-size:12px;font-family:var(--ff-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px;font-weight:500}
+footer{margin-top:84px;padding-top:26px;border-top:1px solid var(--line);font-family:var(--ff-mono);font-size:10.5px;color:var(--ink-3);line-height:1.9}
+@media (min-width:1160px){footer{margin-left:30px}}
+.logorow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:22px 0 0}
+.logorow .lg{background:#fff;border:1px solid var(--line);border-radius:4px;padding:11px 15px;display:flex;align-items:center;justify-content:center;height:60px}
+.logorow .lg img{height:34px;width:auto}
+</style>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-top"><div class="hero-top-in">
+    <div class="logochip"><img src="%%LOGOHCIG%%" alt="Healthcare International Group"></div>
+    <div class="hero-flag"><b>Internal proposal</b> · Draft for Group IT</div>
+  </div></div>
+  <div class="hero-in">
+    <h1>HCIG<em>Passport</em></h1>
+    <p class="hero-deck">One patient identity across every HCIG clinic, hospital and health hub. One medical record that survives the flight home. And when the guest lands in Egypt again — next season, next resort — we already know them, and the nearest HCIG facility is minutes away.</p>
+    <div class="hero-strip">
+      <div><div class="k">Prepared by</div><div class="v">Mohamed Amin<br>Application Development</div></div>
+      <div><div class="k">Audience</div><div class="v">Head of IT<br>Healthcare International Group</div></div>
+      <div><div class="k">Decision sought</div><div class="v">90-day pilot<br>approval</div></div>
+      <div><div class="k">Version</div><div class="v">Draft 2<br>August 2026</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+
+<nav class="rail" aria-label="Sections">
+  <div class="rail-title">Contents</div>
+  <a href="#gap"><span>01</span>The gap</a>
+  <a href="#idea"><span>02</span>What we build</a>
+  <a href="#screens"><span>03</span>Screen previews</a>
+  <a href="#features"><span>04</span>Feature set</a>
+  <a href="#tech"><span>05</span>Next-gen layer</a>
+  <a href="#record"><span>06</span>Medical history</a>
+  <a href="#arch"><span>07</span>Architecture</a>
+  <a href="#money"><span>08</span>Revenue model</a>
+  <a href="#ads"><span>09</span>Reach &amp; ads</a>
+  <a href="#roadmap"><span>10</span>Roadmap</a>
+  <a href="#risk"><span>11</span>Risks &amp; answers</a>
+  <a href="#ask"><span>12</span>The ask</a>
+  <a href="#sa"><span>13</span>Analysis backbone</a>
+</nav>
+
+<div class="col">
+
+<!-- ============ FOOTPRINT ============ -->
+<section id="footprint" style="padding-top:52px">
+  <div class="kicker">The network this app sits on</div>
+  <div class="fp">
+    <div class="fpcard">
+      <div class="ph" style="background-image:url('%%HUB%%')"></div><div class="ov"></div>
+      <div class="tx"><div class="n">Hurghada</div><h4>MedPark Health Hub</h4><p>Emergency, diagnostics, pharmacy and wellness under one roof, with its own ambulance fleet.</p></div>
+    </div>
+    <div class="fpgrid">
+      <div class="stat"><div class="n sig">~150</div><div class="l">On-site clinics inside Red Sea resorts</div><div class="s">Capture points</div></div>
+      <div class="stat"><div class="n">28</div><div class="l">Fully equipped 24/7 urgent care clinics</div><div class="s">Hurghada · Marsa Alam · North Coast</div></div>
+      <div class="stat"><div class="n aq">3</div><div class="l">MedPark hospitals &amp; health hubs</div><div class="s">CT · ICU · 24/7 emergency</div></div>
+      <div class="stat"><div class="n">0</div><div class="l">Patient-facing digital products today</div><div class="s">No app · no portal · no record</div></div>
+    </div>
+  </div>
+  <div class="fp" style="margin-top:14px">
+    <div class="fpgrid" style="grid-template-columns:1fr">
+      <div class="fpcard" style="min-height:196px">
+        <div class="ph" style="background-image:url('%%HOSPITAL%%')"></div><div class="ov"></div>
+        <div class="tx" style="min-height:196px"><div class="n">El Quseir · Sahl Hasheesh</div><h4>MedPark Hospital</h4><p>Inpatient, ICU, surgery and 24/7 emergency for the southern Red Sea coast.</p></div>
+      </div>
+    </div>
+    <div class="fpcard" style="min-height:196px">
+      <div class="ph" style="background-image:url('%%CORRIDOR%%')"></div><div class="ov"></div>
+      <div class="tx" style="min-height:196px"><div class="n">Every resort we serve</div><h4>24/7 Clinic · in-hotel urgent care</h4><p>A doctor to the guest's room, day or night, in the language they speak.</p></div>
+    </div>
+  </div>
+  <div class="logorow">
+    <div class="lg"><img src="%%LOGOHCIG%%" alt="Healthcare International Group"></div>
+    <div class="lg"><img src="%%LOGO247%%" alt="24/7 Clinic"></div>
+    <div class="lg"><img src="%%LOGOMP%%" alt="MedPark Health Group"></div>
+  </div>
+</section>
+
+<!-- ============ 01 GAP ============ -->
+<section id="gap">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Every encounter dies at the airport</h2></div>
+  <p class="sec-sub">What actually happens today, and where the money leaks out</p>
+
+  <div class="prose">
+    <p class="lede">The clinical operation is excellent. The <strong>memory</strong> is non-existent.</p>
+    <p style="margin-top:18px">A German guest at a Hurghada resort sprains an ankle. The hotel calls. A 24/7 Clinic doctor is in her room in twenty minutes. Good care, insurance billed, case closed. Eleven months later she is back on the same coast — and to us she is a stranger. We re-take her history through a language barrier. We re-do the X-ray because we cannot see the old one. If she instead walks into MedPark Sahl Hasheesh, she is a stranger there too, because our hospitals and our resort clinics do not share a patient identity.</p>
+  </div>
+
+  <div class="jlabel">Today · the guest journey</div>
+  <div class="journey">
+    <div class="jstep"><div class="jn">01</div><h5>Books the trip</h5><p>Chooses a Red Sea resort from Germany, Czechia, Russia, Italy. HCIG is invisible at this moment.</p></div>
+    <div class="jstep"><div class="jn">02</div><h5>Falls ill on site</h5><p>Asks reception. Reception may call us — or may call whoever left a card at the desk.</p></div>
+    <div class="jstep"><div class="jn">03</div><h5>Is treated</h5><p>Encounter recorded on that clinic's own local sheet. Claim assembled by hand, days later.</p></div>
+    <div class="jstep leak"><div class="jn">04 · leak</div><h5>Flies home</h5><p>No record to hand her own doctor. No follow-up. No reason to think of HCIG again.</p></div>
+    <div class="jstep leak"><div class="jn">05 · leak</div><h5>Returns to Egypt</h5><p>Treated as a first-time walk-in. History re-taken, tests repeated, relationship restarted at zero.</p></div>
+  </div>
+
+  <div class="jlabel">With HCIG Passport</div>
+  <div class="journey">
+    <div class="jstep win"><div class="jn">01 · capture</div><h5>Books the trip</h5><p>The hotel confirmation carries the Passport invite. She installs before she flies.</p></div>
+    <div class="jstep win"><div class="jn">02 · capture</div><h5>Falls ill on site</h5><p>App shows the nearest HCIG facility, doctor ETA and cashless status. No reception lottery.</p></div>
+    <div class="jstep"><div class="jn">03</div><h5>Is treated</h5><p>Clinician tablet pre-loaded with her history. Encounter captured as structured data; claim packet auto-built.</p></div>
+    <div class="jstep win"><div class="jn">04 · retain</div><h5>Flies home</h5><p>Discharge summary in German plus a portable record for her GP. Follow-up teleconsult on day five.</p></div>
+    <div class="jstep win"><div class="jn">05 · monetise</div><h5>Returns to Egypt</h5><p>Arrival detected. "Welcome back. Your record is with us, and MedPark Sahl Hasheesh is 6 km away."</p></div>
+  </div>
+
+  <div class="callout">
+    <div class="kicker">The reframe for this meeting</div>
+    <p>This is not "let's build an app." It is: <strong>HCIG has no Master Patient Index.</strong> A group running around 150 care points cannot say how many unique patients it has ever treated. The app is simply the most visible — and most monetisable — client of the identity layer we need regardless.</p>
+  </div>
+</section>
+
+<!-- ============ 02 IDEA ============ -->
+<section id="idea">
+  <div class="sec-head"><span class="sec-num">02</span><h2>What we actually build</h2></div>
+  <p class="sec-sub">Three components, in dependency order</p>
+
+  <div class="grid g3">
+    <div class="card ph"><div class="im" style="background-image:url('%%PASSPORT%%');background-position:center 40%"></div>
+      <div class="bd"><span class="tag">Component 1 · foundation</span><h4>The identity spine</h4>
+      <p>One HCIG ID per human being, created at first contact anywhere in the group — resort clinic, urgent care, hospital emergency. Passport or national ID scanned once, matched forever after.</p></div></div>
+    <div class="card ph"><div class="im" style="background-image:url('%%SCAN%%')"></div>
+      <div class="bd"><span class="tag">Component 2 · the asset</span><h4>The longitudinal record</h4>
+      <p>Every encounter, allergy, prescription, lab and image attached to that ID in a standards-based store, readable by any HCIG clinician with consent — and exportable to the patient's own doctor at home.</p></div></div>
+    <div class="card ph"><div class="im" style="background-image:url('%%CONSULT%%');background-position:center 35%"></div>
+      <div class="bd"><span class="tag">Component 3 · the surface</span><h4>The apps</h4>
+      <p>What the guest, the clinician and the dispatcher each see. Routing to the nearest capable HCIG facility, live case tracking, cashless status, and the commercial layer on top.</p></div></div>
+  </div>
+
+  <div class="prose">
+    <h3>The routing question, precisely</h3>
+    <p>"Nearest HCIG facility" is not a straight distance sort. A guest in Marsa Alam with chest pain should not be routed to the closest dental chair. The dispatcher — human or automatic — scores every facility on five axes:</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Axis</th><th>What it reads</th><th>Why it changes the answer</th></tr></thead>
+      <tbody>
+        <tr><td>Proximity</td><td>Guest GPS or hotel geocode → facility coordinates, road time not straight line</td><td>Along the Red Sea coast, road distance and straight-line distance diverge badly</td></tr>
+        <tr><td>Capability</td><td>Capability tags per facility: CT, ICU, ventilator, dental chair, hyperbaric, obstetrics, imaging</td><td>Only MedPark sites carry CT and ICU; a diving accident has exactly one correct destination</td></tr>
+        <tr><td>Language</td><td>On-shift staff language coverage: DE, RU, CS, IT, FR, EN, AR</td><td>A Czech guest sent to a shift with no Czech or German cover is a clinical risk, not an inconvenience</td></tr>
+        <tr><td>Coverage</td><td>Which insurers that facility bills cashless; the guest's active policy</td><td>Routing to a site that cannot bill her insurer turns a cashless case into a payment dispute</td></tr>
+        <tr><td>Load</td><td>Live queue depth and doctor availability at that facility</td><td>Nearest is worthless if the wait is ninety minutes and the next site is eight minutes further</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout aqua">
+    <div class="kicker">Return detection</div>
+    <p>Three independent triggers tell us a known guest is back in Egypt: a <strong>hotel check-in event</strong> matching their ID, a <strong>geofence entry</strong> at Hurghada, Marsa Alam, Sharm or Cairo airports, or simply an <strong>app open inside Egypt</strong>. Any one of them fires the welcome-back flow, pre-loads their record and pins their nearest HCIG facility. This is the single feature the whole proposal turns on.</p>
+  </div>
+</section>
+
+<!-- ============ 03 SCREENS ============ -->
+<section id="screens" style="padding-top:82px">
+<div class="band"><div class="band-in">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Screen previews</h2></div>
+  <p class="sec-sub">Fourteen screens across four flows · scroll each row sideways</p>
+  <p class="band-lede">Every screen below answers one question a sceptic will ask: <strong>where exactly does this create money or prevent harm?</strong> The note under each frame says which.</p>
+
+  <!-- FLOW A -->
+  <div class="flowhead"><span class="fl">Flow A</span><h3>Arrival &amp; urgent care</h3>
+    <p>From landing in Egypt to a doctor in the room — the path that recaptures the guests we currently lose.</p></div>
+  <div class="rail-scroll">
+
+    <figure class="screen">
+      <div class="phone"><div class="vp dk">
+        <div class="sbar"><span>09:41</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="hero-shot" style="background-image:url('%%PASSPORT%%');background-position:center 30%">
+            <div class="cap">Hurghada · arrival detected</div>
+          </div>
+          <div class="h">Welcome back,<br>Klaus.</div>
+          <div class="sub">We last treated you at the 24/7 Clinic in Hurghada — 14 May 2025. Your record is still with us.</div>
+          <div class="blk">
+            <div class="rowl"><div class="t">Passport verified</div><span class="chip o">Matched</span></div>
+            <div class="d">DE · P•••4471 · face check passed in 1.8 s</div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn">Continue as Klaus 🚀</div>
+          <div class="btn ghost" style="padding:8px">Not me</div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">A1</div><b>Return re-identification</b>
+        <p>Passport MRZ scan plus optional face match links the guest to a record created on a previous trip, even if they changed phone or lost their card.</p>
+        <div class="why"><b>Why it matters —</b> this is the mechanism that converts a one-off encounter into a lifetime relationship. Without it, nothing else in this deck works.</div></figcaption>
+    </figure>
+
+    <figure class="screen">
+      <div class="phone"><div class="vp">
+        <div class="sbar"><span>09:42</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="rowl">
+            <div><div class="eyebrow">Good morning</div><div class="h" style="margin-top:3px">Klaus M.</div></div>
+            <div class="ava ini">KM</div>
+          </div>
+          <div class="mapbg"><div class="route"></div><div class="pinme"></div><div class="pinc">+</div></div>
+          <div class="blk" style="border-color:#C93F1B">
+            <div class="rowl"><div class="t">Need a doctor now?</div><span class="chip s">24/7</span></div>
+            <div class="d">Doctor to your room in ≈ 18 min · no appointment</div>
+            <div class="btn" style="margin-top:9px;padding:9px">Request urgent care</div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div style="display:flex;gap:9px;align-items:center">
+              <div class="thumb" style="width:44px;height:44px;background-image:url('%%HUB%%')"></div>
+              <div style="flex:1"><div class="t">MedPark Health Hub</div><div class="d">6.2 km · CT &amp; ICU · open now</div></div>
+            </div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div style="display:flex;gap:9px;align-items:center">
+              <div class="thumb" style="width:44px;height:44px;background-image:url('%%CORRIDOR%%')"></div>
+              <div style="flex:1"><div class="t">24/7 Clinic · your resort</div><div class="d">On site · DE, RU, EN · Allianz cashless</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="tabbar"><div class="act"><span class="ico">◉</span>Care</div><div><span class="ico">▤</span>Record</div><div><span class="ico">✦</span>Offers</div><div><span class="ico">☰</span>More</div></div>
+      </div></div>
+      <figcaption><div class="cn">A2</div><b>Home · nearest HCIG facility</b>
+        <p>Ranked by the five-axis score from section 02, not by distance alone. Capability, language and cashless status are shown before the guest chooses.</p>
+        <div class="why"><b>Why it matters —</b> the guest currently asks reception and may be sent anywhere. This screen is how we stop paying for a clinic on site and losing the patient anyway.</div></figcaption>
+    </figure>
+
+    <figure class="screen">
+      <div class="phone"><div class="vp">
+        <div class="sbar"><span>09:44</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="eyebrow">Schritt 1 von 3 · Deutsch</div>
+          <div class="h">Was ist passiert?</div>
+          <div class="sub">Ihre Antworten gehen verschlüsselt an den Arzt, bevor er ankommt.</div>
+          <div class="blk" style="border-color:#C93F1B;background:#FAE1D8">
+            <div class="t">Bauchschmerzen &amp; Übelkeit</div>
+            <div class="d">Seit heute Nacht · nach dem Abendbuffet</div>
+          </div>
+          <div class="blk"><div class="t">Fieber</div><div class="d">38,4 °C selbst gemessen</div></div>
+          <div class="blk"><div class="t">Durchfall</div><div class="d">4× seit Mitternacht</div></div>
+          <div class="blk" style="border-style:dashed"><div class="d" style="margin:0">+ Weitere Symptome hinzufügen</div></div>
+          <div class="blk" style="background:#D6EDEB;border-color:#0B807C">
+            <div class="eyebrow" style="color:#0B807C">Triage-Einstufung</div>
+            <div class="t" style="margin-top:4px">Dringend · nicht lebensbedrohlich</div>
+            <div class="d">Arzt kommt aufs Zimmer. Bitte trinken Sie Wasser.</div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn">Arzt anfordern</div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">A3</div><b>Triage in the guest's language</b>
+        <p>Structured symptom capture in DE, RU, CS, IT and FR. Sets the priority tier and pre-fills the encounter note before the doctor leaves the clinic.</p>
+        <div class="why"><b>Why it matters —</b> right-tier routing avoids both under-triage risk and expensive over-dispatch, and saves five minutes of translated history-taking per call-out.</div></figcaption>
+    </figure>
+
+    <figure class="screen">
+      <div class="phone"><div class="vp">
+        <div class="sbar"><span>09:52</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="eyebrow">Case #HG-24810 · live</div>
+          <div class="h">Dr Nour is on the way</div>
+          <div class="blk" style="padding:10px">
+            <div class="rowl">
+              <div class="ava lg doc"></div>
+              <div style="flex:1"><div class="t">Dr Nour Abdel-Aziz</div><div class="d">General practice · DE, EN, AR · ⭐ 4.9</div></div>
+            </div>
+          </div>
+          <div class="blk" style="text-align:center;padding:13px">
+            <div class="eyebrow">Arrives in</div>
+            <div class="bignum" style="color:#C93F1B;margin-top:5px">6 min</div>
+            <div class="d">Room 2214 · your resort</div>
+          </div>
+          <div>
+            <div class="tl done"><div class="bar"></div><div class="c"><div class="tt">Request received</div><div class="td">09:44 · triaged urgent</div></div></div>
+            <div class="tl done"><div class="bar"></div><div class="c"><div class="tt">Doctor assigned</div><div class="td">09:46 · German-speaking</div></div></div>
+            <div class="tl"><div class="bar"></div><div class="c"><div class="tt">En route to your room</div><div class="td">09:52 · 1.2 km away</div></div></div>
+            <div class="tl wait"><div class="bar"></div><div class="c"><div class="tt">Consultation</div><div class="td">Pending</div></div></div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn ghost">Message the clinic</div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">A4</div><b>Live case tracking</b>
+        <p>Ride-hailing mechanics applied to a doctor call-out: who is coming, what languages they speak, and exactly when they arrive.</p>
+        <div class="why"><b>Why it matters —</b> it removes the anxious "did anyone actually book this?" calls that clog the dispatch line, and it is the single most screenshot-and-shared feature guests will talk about.</div></figcaption>
+    </figure>
+
+    <figure class="screen">
+      <div class="phone"><div class="vp dk">
+        <div class="sbar"><span>10:04</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="eyebrow">In consultation</div>
+          <div class="h">Dr Nour has arrived</div>
+          <div class="blk" style="padding:9px 10px">
+            <div style="display:flex;gap:9px;align-items:center">
+              <div class="ava doc"></div>
+              <div style="flex:1"><div class="t">Live translation is on</div><div class="d">Deutsch ↔ English · transcript saved to your record</div></div>
+              <span class="chip w">DE</span>
+            </div>
+          </div>
+          <div class="blk">
+            <div class="eyebrow">Consent requested</div>
+            <div class="t" style="margin-top:4px">Share your HCIG history with Dr Nour</div>
+            <div class="d">Allergies, medications and your last three encounters. You can withdraw this at any time.</div>
+            <div style="display:flex;gap:7px;margin-top:9px">
+              <div class="btn aq" style="flex:1;padding:8px;font-size:11px">Allow</div>
+              <div class="btn ghost" style="flex:1;padding:8px;font-size:11px">Not now</div>
+            </div>
+          </div>
+          <div class="blk" style="background:rgba(255,122,76,.13);border-color:rgba(255,122,76,.35)">
+            <div class="eyebrow" style="color:#FF7A4C">Shared with the doctor</div>
+            <div class="t" style="margin-top:3px;font-size:11px">⚠ Penicillin allergy · Type 2 diabetes</div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="d" style="text-align:center">Consultation started 10:04</div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">A5</div><b>Bedside consent &amp; live translation</b>
+        <p>Consent is captured at the bedside, in the guest's language, scoped and revocable — not buried in a sign-up checkbox.</p>
+        <div class="why"><b>Why it matters —</b> this is the screen that makes the GDPR answer real rather than theoretical. It is also where the largest clinical-safety risk in our patient mix gets closed.</div></figcaption>
+    </figure>
+
+  </div>
+
+  <!-- FLOW B -->
+  <div class="flowhead"><span class="fl">Flow B</span><h3>The record that survives the flight home</h3>
+    <p>The asset a competitor clinic cannot replicate, and the reason the app is opened again next year.</p></div>
+  <div class="rail-scroll">
+
+    <figure class="screen">
+      <div class="phone"><div class="vp">
+        <div class="sbar"><span>10:15</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="eyebrow">HCIG Passport</div>
+          <div class="h">Your health record</div>
+          <div class="blk" style="background:#FAE1D8;border-color:#C93F1B;padding:9px 11px">
+            <div class="eyebrow" style="color:#C93F1B">Alerts</div>
+            <div class="t" style="margin-top:3px">Penicillin allergy · Type 2 diabetes</div>
+          </div>
+          <div class="eyebrow">Timeline · 4 encounters</div>
+          <div class="blk" style="padding:9px 10px">
+            <div class="rowl"><div class="t">Gastroenteritis</div><span class="chip s">Today</span></div>
+            <div class="d">24/7 Clinic · in-resort · Dr Nour</div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div class="rowl"><div class="t">Ankle sprain · X-ray</div><span class="chip a">May 2025</span></div>
+            <div class="d">MedPark Hospital · imaging attached</div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div class="rowl"><div class="t">Dental extraction</div><span class="chip a">May 2025</span></div>
+            <div class="d">24/7 Clinic · in-resort</div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div class="rowl"><div class="t">Sunburn, grade 2</div><span class="chip a">Aug 2023</span></div>
+            <div class="d">24/7 Clinic · Marsa Alam</div>
+          </div>
+        </div>
+        <div class="tabbar"><div><span class="ico">◉</span>Care</div><div class="act"><span class="ico">▤</span>Record</div><div><span class="ico">✦</span>Offers</div><div><span class="ico">☰</span>More</div></div>
+      </div></div>
+      <figcaption><div class="cn">B1</div><b>The Passport timeline</b>
+        <p>One timeline spanning resort clinics and MedPark hospitals, with a persistent clinical alert banner pinned at the top.</p>
+        <div class="why"><b>Why it matters —</b> today no such view exists anywhere in the group, for any patient, at any facility.</div></figcaption>
+    </figure>
+
+    <figure class="screen">
+      <div class="phone"><div class="vp">
+        <div class="sbar"><span>10:17</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="eyebrow">May 2025 · MedPark Hospital</div>
+          <div class="h">Ankle sprain</div>
+          <div class="thumb" style="height:112px;background-image:url('%%SCAN%%')"></div>
+          <div class="blk" style="padding:9px 10px">
+            <div class="rowl"><div class="t">X-ray · left ankle</div><span class="chip o">No fracture</span></div>
+            <div class="d">Reported by Dr H. Fathy · 16 May 2025</div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div class="t">Treatment given</div>
+            <div class="d">Compression bandage · ibuprofen 400 mg TDS · rest 5 days</div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div class="t">Billed to</div>
+            <div class="d">Allianz Worldwide Care · settled cashless</div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn ghost" style="padding:9px">Share with a doctor</div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">B2</div><b>Encounter detail with imaging</b>
+        <p>Prior imaging and reports are attached to the encounter and readable a year later, at any HCIG facility.</p>
+        <div class="why"><b>Why it matters —</b> this is the screen that stops the second X-ray being ordered. Duplicate diagnostics are a direct, measurable cost line.</div></figcaption>
+    </figure>
+
+    <figure class="screen">
+      <div class="phone"><div class="vp">
+        <div class="sbar"><span>11:40</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="h" style="margin-top:4px">You're all set 🎉</div>
+          <div class="sub">Dr Nour has closed case HG-24810. Feel better, Klaus.</div>
+          <div class="blk">
+            <div class="eyebrow">Diagnosis</div>
+            <div class="t" style="margin-top:4px">Acute gastroenteritis</div>
+            <div class="d">Ondansetron 4 mg · ORS sachets · rest 24 h</div>
+          </div>
+          <div class="blk" style="display:flex;gap:11px;align-items:center">
+            <div class="qr"></div>
+            <div><div class="t">For your doctor at home</div>
+              <div class="d">Portable summary in German — allergies, medication, findings. Works offline.</div></div>
+          </div>
+          <div class="btn aq" style="padding:9px">Download summary (PDF)</div>
+          <div class="blk" style="border-style:dashed;padding:10px">
+            <div class="t">Free follow-up call · day 5</div>
+            <div class="d">An HCIG doctor checks in after you fly home.</div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="d" style="text-align:center">How was your care? ⭐⭐⭐⭐⭐</div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">B3</div><b>Discharge &amp; portable summary</b>
+        <p>An International Patient Summary the guest's own GP can read, delivered as a translated PDF plus a machine-readable bundle behind the QR.</p>
+        <div class="why"><b>Why it matters —</b> it is the reason the app is kept after the flight home rather than deleted at baggage claim. Retention is the whole thesis.</div></figcaption>
+    </figure>
+
+    <figure class="screen">
+      <div class="phone"><div class="vp">
+        <div class="sbar"><span>10:26</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="hero-shot" style="background-image:url('%%FAMILY%%');background-position:center 34%"><div class="cap">Everyone on one account</div></div>
+          <div class="h">Your family</div>
+          <div class="blk" style="padding:9px 10px">
+            <div class="rowl"><div style="display:flex;gap:8px;align-items:center"><div class="ava ini" style="width:28px;height:28px;font-size:10px">AM</div><div><div class="t">Anna Müller</div><div class="d">Partner · 54</div></div></div><span class="chip a">Linked</span></div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div class="rowl"><div style="display:flex;gap:8px;align-items:center"><div class="ava ini" style="width:28px;height:28px;font-size:10px;background:#C93F1B">LM</div><div><div class="t">Lena Müller</div><div class="d">Daughter · 9 · asthma</div></div></div><span class="chip s">Alert</span></div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div class="rowl"><div style="display:flex;gap:8px;align-items:center"><div class="ava ini" style="width:28px;height:28px;font-size:10px;background:#94661A">TM</div><div><div class="t">Tim Müller</div><div class="d">Son · 6</div></div></div><span class="chip a">Linked</span></div>
+          </div>
+          <div class="blk" style="border-style:dashed;padding:10px"><div class="d" style="margin:0">+ Add a family member</div></div>
+          <div style="flex:1"></div>
+          <div class="btn">Request care for Lena</div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">B4</div><b>Family &amp; dependants</b>
+        <p>One account covers the whole travelling party, with each child's own record, allergies and alerts.</p>
+        <div class="why"><b>Why it matters —</b> families are the majority of our resort guests. One install captures four or five patient identities instead of one.</div></figcaption>
+    </figure>
+
+  </div>
+
+  <!-- FLOW C -->
+  <div class="flowhead"><span class="fl">Flow C</span><h3>The revenue surfaces</h3>
+    <p>Where the app stops costing money and starts making it — sold to an audience that already trusts us clinically.</p></div>
+  <div class="rail-scroll">
+
+    <figure class="screen">
+      <div class="phone"><div class="vp">
+        <div class="sbar"><span>10:22</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="eyebrow">Membership</div>
+          <div class="h">HCIG Care Pass 👑</div>
+          <div class="sub">Cover your whole trip for less than one consultation.</div>
+          <div class="blk" style="border-color:#94661A;border-width:1.5px;background:#F4E7CF">
+            <div class="rowl"><div class="t">Trip Pass</div><span class="chip g">Most chosen</span></div>
+            <div class="priceline" style="margin-top:7px"><span class="bignum">€25</span><span class="d" style="margin:0">/ 14 days</span></div>
+            <div class="d" style="margin-top:8px">Unlimited teleconsults · no call-out fee · 20% off dental &amp; wellness · priority dispatch</div>
+          </div>
+          <div class="blk">
+            <div class="rowl"><div class="t">Family Pass</div><span class="chip a">Up to 5</span></div>
+            <div class="priceline" style="margin-top:6px"><span class="bignum" style="font-size:21px">€45</span><span class="d" style="margin:0">/ 14 days</span></div>
+          </div>
+          <div class="blk">
+            <div class="rowl"><div class="t">Resident Pass</div><span class="chip a">Annual</span></div>
+            <div class="priceline" style="margin-top:6px"><span class="bignum" style="font-size:21px">€180</span><span class="d" style="margin:0">/ year</span></div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn">Activate Trip Pass</div>
+          <div class="d" style="text-align:center">🎁 Refer a friend, both get €10 off</div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">C1</div><b>Care Pass membership</b>
+        <p>Trip, family and resident tiers, sold at booking time and again on arrival.</p>
+        <div class="why"><b>Why it matters —</b> recurring consumer revenue, and our best lever on demand smoothing — pass holders call earlier, when the case is cheaper to treat.</div></figcaption>
+    </figure>
+
+    <figure class="screen">
+      <div class="phone"><div class="vp">
+        <div class="sbar"><span>10:30</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="eyebrow">While you're here</div>
+          <div class="h">Wellness &amp; dental 🔥</div>
+          <div class="blk" style="padding:0;overflow:hidden">
+            <div class="thumb" style="height:74px;border-radius:0;background-image:url('%%SMILE%%')"></div>
+            <div style="padding:9px 11px">
+              <div class="rowl"><div class="t">Dental check, scale &amp; polish</div><span class="chip s">−42%</span></div>
+              <div class="d">MedPark Health Hub · 45 min · DE-speaking</div>
+              <div class="rowl" style="margin-top:7px"><div class="priceline"><span class="strike">€120</span><b style="font-size:14px">€69</b></div><span class="chip a">Book</span></div>
+            </div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div style="display:flex;gap:9px;align-items:center">
+              <div class="thumb" style="width:42px;height:42px;background-image:url('%%DRIP%%')"></div>
+              <div style="flex:1"><div class="t">IV hydration &amp; vitamin drip</div><div class="d">To your room · 40 min · ⭐ 4.8</div></div>
+              <b style="font-size:12px">€55</b>
+            </div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div style="display:flex;gap:9px;align-items:center">
+              <div class="thumb" style="width:42px;height:42px;background-image:url('%%AESTH%%')"></div>
+              <div style="flex:1"><div class="t">Aesthetic &amp; skin consult</div><div class="d">MedPark Health Hub · today 16:00</div></div>
+              <b style="font-size:12px">€40</b>
+            </div>
+          </div>
+          <div class="blk" style="padding:9px 10px">
+            <div style="display:flex;gap:9px;align-items:center">
+              <div class="thumb" style="width:42px;height:42px;background-image:url('%%PHYSIO%%')"></div>
+              <div style="flex:1"><div class="t">Physiotherapy session</div><div class="d">Rehab &amp; sports injury · 50 min</div></div>
+              <b style="font-size:12px">€35</b>
+            </div>
+          </div>
+        </div>
+        <div class="tabbar"><div><span class="ico">◉</span>Care</div><div><span class="ico">▤</span>Record</div><div class="act"><span class="ico">✦</span>Offers</div><div><span class="ico">☰</span>More</div></div>
+      </div></div>
+      <figcaption><div class="cn">C2</div><b>Elective marketplace</b>
+        <p>Dental, wellness, aesthetics and physiotherapy — all delivered in HCIG's own facilities, sold in-app at the moment of highest intent.</p>
+        <div class="why"><b>Why it matters —</b> high-margin non-urgent revenue from a captive audience. This is also the only screen where sponsored placements are permitted.</div></figcaption>
+    </figure>
+
+    <figure class="screen">
+      <div class="phone"><div class="vp dk">
+        <div class="sbar"><span>10:18</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="eyebrow">Coverage</div>
+          <div class="h">Cashless is active</div>
+          <div class="blk" style="padding:14px;background:rgba(60,197,188,.12);border-color:rgba(60,197,188,.34)">
+            <div class="eyebrow" style="color:#3CC5BC">Allianz Worldwide Care</div>
+            <div class="t" style="font-size:15px;margin-top:6px">Policy AZ-8842-••17</div>
+            <div class="d" style="margin-top:8px">Klaus Müller · valid to 04 Sep 2026</div>
+            <div class="rowl" style="margin-top:11px"><span class="chip o">GOP approved</span>
+              <span style="font-family:var(--ff-mono);font-size:8px;color:#8FB0B5">in 4 min 12 s</span></div>
+          </div>
+          <div class="blk">
+            <div class="t">Today's case · HG-24810</div>
+            <div class="d">Consultation + IV fluids + antiemetic</div>
+            <div class="rowl" style="margin-top:8px"><div class="d" style="margin:0">Your co-pay</div><b style="font-size:14px">€0.00</b></div>
+          </div>
+          <div class="blk" style="border-style:dashed">
+            <div class="t">Not covered?</div>
+            <div class="d">Pay by card in the app — no cash, no front-desk queue.</div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="btn aq">Show card to the doctor</div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">C3</div><b>Coverage, GOP &amp; card fallback</b>
+        <p>Policy on file, guarantee-of-payment status in real time, and a card path for guests whose treatment is not covered.</p>
+        <div class="why"><b>Why it matters —</b> uninsured and underinsured guests are currently turned away or chased for cash. This converts them at the bedside.</div></figcaption>
+    </figure>
+
+    <figure class="screen">
+      <div class="phone"><div class="vp">
+        <div class="sbar"><span>18:02</span><span>▲ ▮▮▮</span></div>
+        <div class="vbody">
+          <div class="hero-shot" style="background-image:url('%%TELE%%');background-position:center 40%"><div class="cap">Day 5 · you are back home</div></div>
+          <div class="h">How is your recovery?</div>
+          <div class="sub">Included with your Trip Pass — a follow-up call with an HCIG doctor, wherever you are.</div>
+          <div class="blk" style="padding:9px 10px">
+            <div style="display:flex;gap:9px;align-items:center">
+              <div class="ava doc"></div>
+              <div style="flex:1"><div class="t">Dr Nour Abdel-Aziz</div><div class="d">Treated you on 12 Aug · speaks German</div></div>
+            </div>
+          </div>
+          <div class="btn aq">Start video consultation</div>
+          <div class="blk" style="border-style:dashed;padding:10px">
+            <div class="t">Planning your next trip?</div>
+            <div class="d">Your dental package quote is saved — €69 check-up, valid next visit.</div>
+          </div>
+          <div style="flex:1"></div>
+          <div class="d" style="text-align:center">Prefer a message? Chat with the clinic</div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">C4</div><b>Post-trip follow-up &amp; teleconsult</b>
+        <p>A clinician calls back on day five, after the guest has flown home — and quietly carries the next trip's offer with it.</p>
+        <div class="why"><b>Why it matters —</b> near-zero marginal cost, high perceived value, and it re-opens the relationship at exactly the moment the guest is deciding where to holiday next year.</div></figcaption>
+    </figure>
+
+  </div>
+
+  <!-- FLOW D -->
+  <div class="flowhead"><span class="fl">Flow D</span><h3>Staff tools — where the economics actually land</h3>
+    <p>The guest app wins the relationship. These two screens win the money.</p></div>
+  <div class="rail-scroll">
+
+    <figure class="screen wide">
+      <div class="tablet"><div class="vp dk">
+        <div class="sbar"><span>Clinician · Dr Nour Abdel-Aziz</span><span>Offline-ready ✓ · Synced 09:51</span></div>
+        <div class="vbody" style="padding:8px 13px 12px">
+          <div class="rowl">
+            <div style="display:flex;gap:9px;align-items:center">
+              <div class="ava ini">KM</div>
+              <div><div class="t" style="font-size:14px">Klaus Müller · 58 · M</div>
+                <div class="d">HCIG ID 4471-8820 · DE · Allianz cashless · 4th encounter</div></div>
+            </div>
+            <span class="chip s">Urgent</span>
+          </div>
+          <div class="blk" style="background:rgba(255,122,76,.14);border-color:rgba(255,122,76,.38);padding:7px 11px">
+            <div class="eyebrow" style="color:#FF7A4C">Clinical alerts</div>
+            <div class="t" style="margin-top:3px;font-size:11.5px">⚠ Penicillin allergy · Type 2 diabetes (metformin 1000 mg BD)</div>
+          </div>
+          <div style="display:flex;gap:9px;flex:1;min-height:0">
+            <div style="flex:1;display:flex;flex-direction:column;gap:7px">
+              <div class="blk" style="padding:7px 10px">
+                <div class="eyebrow">Pre-visit triage · auto-translated</div>
+                <div class="d" style="margin-top:4px;color:#C6DCE0">Abdominal pain + nausea since 02:00, post-buffet. Self-reported 38.4 °C. Diarrhoea ×4. No blood.</div>
+              </div>
+              <div class="blk" style="padding:7px 10px;flex:1">
+                <div class="eyebrow">Prior encounters</div>
+                <div class="d" style="margin-top:4px;color:#C6DCE0">May 2025 — ankle sprain, X-ray on file (no fracture)<br>May 2025 — dental extraction #36<br>Aug 2023 — sunburn grade 2</div>
+              </div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:7px">
+              <div class="blk" style="padding:7px 10px;flex:1">
+                <div class="eyebrow">Encounter note · ambient scribe</div>
+                <div class="d" style="margin-top:4px;color:#C6DCE0">🎙 Listening — the draft note builds as you speak. Review and edit before signing.</div>
+              </div>
+              <div class="btn aq" style="padding:8px;font-size:11px">Sign &amp; build claim packet</div>
+            </div>
+          </div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">D1</div><b>Clinician tablet · offline-first</b>
+        <p>Prior history visible, allergies surfaced, note dictated, and a complete coded claim packet assembled before the doctor leaves the room.</p>
+        <div class="why"><b>Why it matters —</b> the largest single recovered-revenue line in section 08 is claim denial reduction, and it is earned here or nowhere. Note the offline badge: resort connectivity is unreliable and always will be.</div></figcaption>
+    </figure>
+
+    <figure class="screen wide">
+      <div class="tablet"><div class="vp">
+        <div class="sbar"><span>Dispatch · Hurghada North sector</span><span>14 active · 3 unassigned</span></div>
+        <div class="vbody" style="padding:8px 13px 12px">
+          <div class="rowl">
+            <div><div class="eyebrow">Live queue</div><div class="h" style="font-size:15px;margin-top:2px">Dispatch console</div></div>
+            <div style="display:flex;gap:6px"><span class="chip s">3 urgent</span><span class="chip a">11 routine</span></div>
+          </div>
+          <div style="display:flex;gap:9px;flex:1;min-height:0">
+            <div style="flex:1.15;display:flex;flex-direction:column;gap:6px">
+              <div class="blk" style="padding:7px 10px;border-color:#C93F1B">
+                <div class="rowl"><div class="t" style="font-size:10.5px">HG-24810 · K. Müller</div><span class="chip s">Urgent</span></div>
+                <div class="d">Gastroenteritis · DE · Allianz · room 2214</div>
+                <div class="d" style="color:#0B807C">→ Dr Nour · en route · ETA 6 min</div>
+              </div>
+              <div class="blk" style="padding:7px 10px">
+                <div class="rowl"><div class="t" style="font-size:10.5px">HG-24811 · P. Novák</div><span class="chip g">Unassigned</span></div>
+                <div class="d">Laceration, forearm · CS · self-pay</div>
+                <div class="d" style="color:#C93F1B">→ No Czech cover on shift · escalate</div>
+              </div>
+              <div class="blk" style="padding:7px 10px">
+                <div class="rowl"><div class="t" style="font-size:10.5px">HG-24812 · A. Rossi</div><span class="chip a">Routine</span></div>
+                <div class="d">Dental pain · IT · MedPark Health Hub 16:00</div>
+              </div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+              <div class="mapbg" style="flex:1;height:auto"><div class="route"></div><div class="pinme"></div><div class="pinc">+</div></div>
+              <div class="blk" style="padding:7px 10px">
+                <div class="eyebrow">Forecast · next 7 days</div>
+                <div class="d" style="margin-top:3px">Occupancy up 18% · expect ≈ 31 encounters/day. Add one German-speaking shift Thu–Sun.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div></div>
+      <figcaption><div class="cn">D2</div><b>Dispatch console &amp; demand forecast</b>
+        <p>One live queue across the sector, with language gaps flagged before they become clinical risk, and a seven-day staffing forecast from occupancy data.</p>
+        <div class="why"><b>Why it matters —</b> staffing ~150 sites on intuition is expensive in both directions — idle shifts and missed calls. This is the operations win that has nothing to do with the guest app at all.</div></figcaption>
+    </figure>
+
+  </div>
+</div></div>
+</section>
+
+<!-- ============ 04 FEATURES ============ -->
+<section id="features">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Feature set by audience</h2></div>
+  <p class="sec-sub">Four user groups, all inside HCIG's own operation</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Guest &amp; family</th><th>Clinician</th><th>Dispatch &amp; operations</th><th>Insurer &amp; assistance</th></tr></thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:400;color:var(--ink-2)">
+            Passport / ID onboarding<br>Return re-identification<br>Arrival detection<br>Nearest capable HCIG facility<br>Request doctor to room<br>Live case tracking &amp; ETA<br>Multilingual symptom triage<br>Bedside consent<br>Teleconsult, pre and post trip<br>Health passport timeline<br>Allergy &amp; medication list<br>Lab &amp; imaging results<br>Portable summary for home GP<br>Cashless insurance card<br>Card payment &amp; invoices<br>Dependants &amp; children<br>Care Pass membership<br>Dental &amp; wellness booking<br>Pharmacy delivery to room<br>Emergency SOS with location<br>Fit-to-dive certificates
+          </td>
+          <td style="font-weight:400;color:var(--ink-2)">
+            Offline-first encounter capture<br>Patient banner: allergies, chronics<br>Full cross-facility history<br>Ambient voice scribe<br>Live medical translation<br>Structured ICD-10 coding<br>e-Prescribing<br>Lab &amp; imaging ordering<br>Referral to MedPark hospital<br>Photo &amp; wound documentation<br>Auto-assembled claim packet<br>Route &amp; navigation to room<br>Consent capture at bedside<br>Clinical protocol prompts<br>Drug interaction checks
+          </td>
+          <td style="font-weight:400;color:var(--ink-2)">
+            Live queue across the sector<br>Five-axis routing score<br>Language-gap alerts<br>Shift roster &amp; availability<br>Demand forecast by resort<br>Predictive staffing<br>Unique-patient counts<br>Revenue by facility and channel<br>Denial-rate analytics<br>Clinical quality &amp; audit trail<br>NPS by facility and doctor<br>Campaign attribution<br>Accreditation evidence<br>Epidemiology &amp; outbreak view
+          </td>
+          <td style="font-weight:400;color:var(--ink-2)">
+            Real-time GOP request &amp; approval<br>Digital claim packet, first time right<br>Case coordination timeline<br>Cost-containment dashboards<br>Medical evacuation coordination<br>Fraud &amp; duplicate-claim signals<br>Network utilisation reporting<br>Direct-billing reconciliation<br>Repatriation case file
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 05 TECH ============ -->
+<section id="tech">
+  <div class="sec-head"><span class="sec-num">05</span><h2>The next-gen layer</h2></div>
+  <p class="sec-sub">Six capabilities that are genuinely differentiating — each with the reason it pays for itself</p>
+
+  <div class="grid g2">
+    <div class="card ph"><div class="im" style="background-image:url('%%PASSPORT%%');background-position:center 45%"></div>
+      <div class="bd"><span class="tag">Identity</span><h4>Biometric re-identification</h4>
+      <p>Passport MRZ scan plus optional on-device face match. A returning guest who lost their card, changed phone, or whose name is transliterated differently is still matched in under two seconds. <b style="color:var(--aqua)">Pays for itself:</b> it is the mechanism that turns a one-off encounter into a lifetime relationship.</p></div></div>
+
+    <div class="card ph"><div class="im" style="background-image:url('%%CONSULT%%');background-position:center 30%"></div>
+      <div class="bd"><span class="tag">Language</span><h4>Real-time medical translation</h4>
+      <p>Speech-to-speech DE / RU / CS / IT / FR / PL ↔ EN / AR during the consultation, with a medical glossary and a transcript attached to the encounter. <b style="color:var(--aqua)">Pays for itself:</b> removes the biggest clinical risk in our patient mix and lets us staff on clinical skill rather than language.</p></div></div>
+
+    <div class="card ph"><div class="im" style="background-image:url('%%TELE%%')"></div>
+      <div class="bd"><span class="tag">Documentation</span><h4>Ambient clinical scribe</h4>
+      <p>The consultation is transcribed and structured into a draft note the doctor reviews and signs. Never filed unreviewed. <b style="color:var(--aqua)">Pays for itself:</b> complete, coded documentation is precisely what insurers reject claims for lacking.</p></div></div>
+
+    <div class="card ph"><div class="im" style="background-image:url('%%SCAN%%')"></div>
+      <div class="bd"><span class="tag">Decision support</span><h4>AI triage &amp; protocol prompts</h4>
+      <p>Symptom intake scores urgency and routes to the right capability tier. Clinician-side it surfaces protocol reminders — drug interactions against the record, dive-medicine red flags, sepsis criteria. Support, never diagnosis; a human always decides. <b style="color:var(--aqua)">Pays for itself:</b> right-tier routing avoids both under-triage risk and expensive over-dispatch.</p></div></div>
+
+    <div class="card ph"><div class="im" style="background-image:url('%%HOSPITAL%%')"></div>
+      <div class="bd"><span class="tag">Operations</span><h4>Demand forecasting</h4>
+      <p>Resort occupancy, arrivals, season and historical incidence predict encounter volume per cluster, seven days ahead. <b style="color:var(--aqua)">Pays for itself:</b> staffing ~150 sites on intuition is expensive in both directions — idle shifts and missed calls.</p></div></div>
+
+    <div class="card ph"><div class="im" style="background-image:url('%%CORRIDOR%%')"></div>
+      <div class="bd"><span class="tag">Resilience</span><h4>Offline-first clinical client</h4>
+      <p>Resort connectivity is unreliable and that will not change. The clinician app holds an encrypted local store, works fully offline and reconciles on reconnect with conflict resolution. <b style="color:var(--aqua)">Pays for itself:</b> it is the difference between a system doctors use and one they abandon in week three.</p></div></div>
+  </div>
+
+  <div class="prose">
+    <h3>Deliberately out of scope</h3>
+    <p>Naming what we are <em>not</em> doing is how this proposal survives contact with a sceptical room. No autonomous AI diagnosis. No wearable-driven clinical alerting in v1 — read-only vitals import only. No blockchain health records. No replacement of MedPark's hospital information system. No health-condition-based advertising targeting, ever, for the reasons in section 09.</p>
+  </div>
+</section>
+
+<!-- ============ 06 RECORD ============ -->
+<section id="record">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Preserving the medical history</h2></div>
+  <p class="sec-sub">How the record is built, matched, protected and handed on</p>
+
+  <div class="prose">
+    <p class="lede">The clinical value is simple: <strong>a doctor who can see the last four encounters makes a faster, safer, cheaper decision</strong> than one starting from a blank page across a language barrier. The commercial value is that this record is the only thing a competitor clinic cannot replicate.</p>
+  </div>
+
+  <h3 style="margin-left:0">Matching a human being across every HCIG facility</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Tier</th><th>Signal</th><th>Confidence</th><th>Behaviour</th></tr></thead>
+      <tbody>
+        <tr><td>Deterministic</td><td>Passport or national ID number + date of birth</td><td><span class="pill ok">Certain</span></td><td>Auto-merge into existing HCIG ID</td></tr>
+        <tr><td>Strong probabilistic</td><td>Name (transliteration-normalised) + DOB + nationality + phone or email</td><td><span class="pill new">High</span></td><td>Auto-merge above threshold, logged for audit</td></tr>
+        <tr><td>Weak probabilistic</td><td>Partial name + DOB + resort + arrival window</td><td><span class="pill rec">Review</span></td><td>Queued for human review — never auto-merged</td></tr>
+        <tr><td>Biometric</td><td>Face template match, on device, opt-in</td><td><span class="pill new">High</span></td><td>Confirms a probabilistic match; never the sole basis</td></tr>
+        <tr><td>Self-assert</td><td>Guest signs into their own account</td><td><span class="pill ok">Certain</span></td><td>Direct link</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:14px;color:var(--ink-3);font-family:var(--ff-display)" class="prose">Transliteration is a real problem here, not a theoretical one. Cyrillic and Arabic names arrive spelled four different ways across four visits. The normaliser and the review queue are not optional.</p>
+
+  <h3 style="margin-left:0">What we store, in a standard</h3>
+  <div class="prose"><p>Build on <strong>HL7 FHIR R4</strong> rather than an in-house schema. It costs nothing extra at design time, and it means the record is portable, auditable, and already speaks the language of MedPark's hospital systems and any system we later integrate.</p></div>
+  <div class="card" style="margin-top:14px">
+    <div class="mono-list">
+      <b>Patient</b> · identity, demographics, nationality, languages<br>
+      <b>Encounter</b> · each visit, facility, clinician<br>
+      <b>Condition</b> · diagnoses, ICD-10 coded<br>
+      <b>AllergyIntolerance</b> · the banner that prevents harm<br>
+      <b>MedicationRequest / MedicationStatement</b> · prescribed and home meds<br>
+      <b>Observation</b> · vitals, point-of-care results<br>
+      <b>DiagnosticReport + ImagingStudy</b> · labs and DICOM references<br>
+      <b>Coverage + Claim</b> · policy, GOP, billing<br>
+      <b>Consent</b> · scope, purpose, expiry, withdrawal — first-class, not a checkbox<br>
+      <b>Organization / Location / Practitioner</b> · the facility directory that drives routing
+    </div>
+  </div>
+
+  <h3 style="margin-left:0">Handing it on: the International Patient Summary</h3>
+  <div class="prose">
+    <p>On discharge the guest receives an <strong>IPS</strong> — the international standard summary of problems, allergies, medications, procedures and results. Delivered as a PDF in their own language plus a machine-readable FHIR bundle behind a QR code. Their doctor in Munich or Prague can read it without ever having heard of us.</p>
+    <p>This is the feature that makes the app worth keeping after the flight home, and the reason a guest opens it again next year rather than deleting it at baggage claim.</p>
+  </div>
+
+  <div class="callout gold">
+    <div class="kicker">Raise this before the IT head does</div>
+    <p>Most of our patients are <strong>EU data subjects</strong>. GDPR applies to us extraterritorially because we offer services to them, and health data is Article 9 special-category. Egypt has <strong>no EU adequacy decision</strong>, so a Cairo-only datastore is not a defensible design. Section 11 sets out the answer; the short version is an EU-region primary store, Standard Contractual Clauses plus a transfer impact assessment for operational access from Egypt, and Egypt's PDPL 151/2018 handled in parallel. Budget a DPIA and external counsel from day one — roughly €8–15k, and it is the cheapest risk we will ever retire.</p>
+  </div>
+</section>
+
+<!-- ============ 07 ARCH ============ -->
+<section id="arch">
+  <div class="sec-head"><span class="sec-num">07</span><h2>System architecture</h2></div>
+  <p class="sec-sub">Five layers · the identity and record services are the only genuinely new build</p>
+
+  <div class="sec-body">
+  <div class="arch">
+    <div class="layer">
+      <div class="lname">Layer 1 <b>—</b> Clients</div>
+      <div class="nodes">
+        <div class="node">Guest app<small>React Native / Expo · iOS + Android</small></div>
+        <div class="node">Clinician tablet<small>Offline-first · encrypted local store</small></div>
+        <div class="node">Dispatch console<small>Sector queue · routing</small></div>
+        <div class="node">Insurer portal<small>GOP + claims</small></div>
+        <div class="node">HQ analytics<small>Web</small></div>
+      </div>
+    </div>
+    <div class="flowarrow">▼</div>
+    <div class="layer accent">
+      <div class="lname">Layer 2 <b>—</b> Edge</div>
+      <div class="nodes">
+        <div class="node">API gateway<small>Rate limit · WAF · TLS 1.3</small></div>
+        <div class="node">Identity provider<small>OAuth 2.1 / OIDC · MFA for staff</small></div>
+        <div class="node">Consent enforcement<small>Every read checked against scope</small></div>
+        <div class="node">Audit log<small>Append-only · who saw what</small></div>
+      </div>
+    </div>
+    <div class="flowarrow">▼</div>
+    <div class="layer core">
+      <div class="lname">Layer 3 <b>—</b> Core services · the new build</div>
+      <div class="nodes">
+        <div class="node key">Master Patient Index<small>Deterministic + probabilistic matching</small></div>
+        <div class="node key">Clinical record service<small>FHIR R4 · longitudinal</small></div>
+        <div class="node hot">Routing &amp; dispatch<small>Geo + capability + language + load</small></div>
+        <div class="node">Facility directory<small>Capability tags · rosters · hours</small></div>
+        <div class="node">Claims &amp; coverage<small>GOP · packet assembly</small></div>
+        <div class="node">Payments &amp; Care Pass<small>Subscriptions · invoices</small></div>
+        <div class="node">Messaging &amp; push<small>Events → notifications</small></div>
+        <div class="node">Marketplace &amp; campaigns<small>Offers · attribution</small></div>
+      </div>
+    </div>
+    <div class="flowarrow">▼</div>
+    <div class="layer">
+      <div class="lname">Layer 4 <b>—</b> Data</div>
+      <div class="nodes">
+        <div class="node">PostgreSQL<small>Operational · EU region primary</small></div>
+        <div class="node">FHIR store<small>HAPI or managed</small></div>
+        <div class="node">Object store<small>DICOM · documents · encrypted</small></div>
+        <div class="node">Redis<small>Sessions · dispatch queue</small></div>
+        <div class="node">Event bus<small>Encounter · arrival · claim events</small></div>
+        <div class="node">Warehouse<small>Analytics · de-identified</small></div>
+      </div>
+    </div>
+    <div class="flowarrow">▼</div>
+    <div class="layer accent">
+      <div class="lname">Layer 5 <b>—</b> Integrations</div>
+      <div class="nodes">
+        <div class="node hot">Resort check-in feed<small>Arrival events</small></div>
+        <div class="node">MedPark HIS / LIS / RIS<small>HL7 v2</small></div>
+        <div class="node">PACS<small>DICOMweb</small></div>
+        <div class="node">Insurers &amp; assistance<small>Allianz · AXA · Cigna · Bupa</small></div>
+        <div class="node">Payments<small>Paymob / Fawry · Stripe EUR</small></div>
+        <div class="node">WhatsApp &amp; SMS<small>Business API · OTP</small></div>
+        <div class="node">Translation / ASR<small>Speech + medical glossary</small></div>
+        <div class="node">Push<small>APNs · FCM</small></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="prose">
+    <p style="font-size:14.5px;color:var(--ink-2)">Nothing in layer 5 is replaced. MedPark keeps its HIS; we read from it. The resort clinics — which mostly have no system at all — get the clinician client. The value is created in layer 3, which is roughly six services, and that is why this is an IT infrastructure project with an app attached rather than the reverse.</p>
+  </div>
+</section>
+
+<!-- ============ 08 MONEY ============ -->
+<section id="money">
+  <div class="sec-head"><span class="sec-num">08</span><h2>How it makes money</h2></div>
+  <p class="sec-sub">Nine streams in two categories · every input below is a slider — replace the defaults with Finance's real numbers</p>
+
+  <div class="prose">
+    <p>Two kinds of money, and they must not be presented as one number. <strong>New revenue</strong> is cash that does not exist today. <strong>Recovered revenue</strong> is cash we already earn but lose to denials, leakage and repeated work. Recovered revenue is larger, lands sooner, and is the harder half to argue with — so lead with it.</p>
+  </div>
+
+  <div class="calc">
+    <div class="calc-in">
+      <div class="ctrls">
+        <div class="ctrl"><label for="s1">Patient encounters per year, group-wide <output id="o1">180,000</output></label>
+          <input type="range" id="s1" min="40000" max="400000" step="5000" value="180000"></div>
+        <div class="ctrl"><label for="s2">Share of encounters that register in the app <output id="o2">35%</output></label>
+          <input type="range" id="s2" min="5" max="75" step="1" value="35"></div>
+        <div class="ctrl"><label for="s3">Care Pass price <output id="o3">€25</output></label>
+          <input type="range" id="s3" min="10" max="60" step="1" value="25"></div>
+        <div class="ctrl"><label for="s4">Care Pass attach rate <output id="o4">8%</output></label>
+          <input type="range" id="s4" min="1" max="25" step="1" value="8"></div>
+        <div class="ctrl"><label for="s5">Encounters recaptured from leakage <output id="o5">4%</output></label>
+          <input type="range" id="s5" min="0" max="12" step="1" value="4"></div>
+        <div class="ctrl"><label for="s6">Claim denial rate reduction <output id="o6">3.0 pts</output></label>
+          <input type="range" id="s6" min="0" max="60" step="1" value="30"></div>
+        <div class="ctrl"><label for="s7">Elective bookings per 100 app users <output id="o7">1.5</output></label>
+          <input type="range" id="s7" min="0" max="60" step="1" value="15"></div>
+        <div class="ctrl"><label for="s8">Average net revenue per encounter <output id="o8">€90</output></label>
+          <input type="range" id="s8" min="40" max="200" step="5" value="90"></div>
+      </div>
+    </div>
+
+    <div class="tw">
+      <table>
+        <thead><tr><th>Stream</th><th>Who pays</th><th>Mechanism</th><th class="num">Annual €</th></tr></thead>
+        <tbody>
+          <tr><td>Leakage recapture <span class="pill rec">Recovered</span></td><td>Insurers &amp; guests</td><td>Guests who today reach a competitor clinic or a pharmacy counter instead of us, because they did not know we were on site</td><td class="num" id="r_leak">648,000</td></tr>
+          <tr><td>Denial reduction <span class="pill rec">Recovered</span></td><td>Insurers</td><td>Structured, coded, photo-documented claim packets built at the bedside instead of reassembled a week later</td><td class="num" id="r_den">415,800</td></tr>
+          <tr><td>Duplicate tests avoided <span class="pill rec">Recovered</span></td><td>Cost line</td><td>Prior labs and imaging visible, so the second X-ray is never ordered</td><td class="num" id="r_dup">126,000</td></tr>
+          <tr class="sum"><td colspan="3">Recovered revenue &amp; avoided cost</td><td class="num" id="r_recsum">1,189,800</td></tr>
+          <tr><td>Care Pass <span class="pill new">New</span></td><td>Guests</td><td>Trip, family and resident memberships sold at booking and on arrival</td><td class="num" id="r_pass">126,000</td></tr>
+          <tr><td>Teleconsults <span class="pill new">New</span></td><td>Guests</td><td>Pre-trip advice, in-trip non-urgent, and the day-five post-trip follow-up</td><td class="num" id="r_tele">105,840</td></tr>
+          <tr><td>Elective bookings <span class="pill new">New</span></td><td>Guests</td><td>Dental, wellness, aesthetics and physiotherapy delivered in HCIG's own facilities</td><td class="num" id="r_mkt">170,100</td></tr>
+          <tr><td>Treatment packages <span class="pill new">New</span></td><td>Guests</td><td>Dental and aesthetic packages booked for a return trip — attributable to the app</td><td class="num" id="r_mt">264,600</td></tr>
+          <tr><td>Insurer coordination &amp; reporting <span class="pill new">New</span></td><td>Insurers</td><td>Real-time GOP workflow and cost-containment dashboards sold to assistance partners</td><td class="num" id="r_ins">108,000</td></tr>
+          <tr><td>Partner placements <span class="pill new">New</span></td><td>Partners</td><td>Direct-sold sponsored slots in the marketplace only — see section 09 for the limits</td><td class="num" id="r_ads">90,000</td></tr>
+          <tr class="sum"><td colspan="3">New revenue</td><td class="num" id="r_newsum">864,540</td></tr>
+          <tr class="grand"><td colspan="3">Total annual contribution at steady state</td><td class="num" id="r_total">2,054,340</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tot">
+      <div><div class="tl2">Recovered</div><div class="tv g" id="t_rec">€1.19M</div></div>
+      <div><div class="tl2">New revenue</div><div class="tv a" id="t_new">€0.86M</div></div>
+      <div><div class="tl2">Steady state total</div><div class="tv" id="t_tot">€2.05M</div></div>
+      <div><div class="tl2">Year 1 at 35% ramp</div><div class="tv s" id="t_y1">€0.72M</div></div>
+    </div>
+
+    <div class="calc-note">
+      Held constant: insured share of encounters 70% · average insured billing €110 · teleconsult €20 at 6% uptake × 1.4 consults · average elective booking €180 · treatment packages 0.15% of app users × €2,800 · insurer fees and partner placements entered flat · duplicate test €35 avoided on 2% of encounters. Steady state assumed from year 2; year 1 shown at 35% ramp. <b>These are illustrative placeholders, not HCIG figures — replace encounters, net revenue per encounter and the current denial rate with Finance's actuals before this is shown to anyone outside IT.</b>
+    </div>
+  </div>
+
+  <div class="prose">
+    <h3>Why the recovered half is the strong half</h3>
+    <p>New revenue asks a room to believe a forecast. Recovered revenue asks them to believe a measurement they can take next month. Before the pilot, pull three numbers from Finance: the current claim rejection and short-payment rate, the number of encounters where a diagnostic was repeated within twelve months, and the number of resort calls that ended without an HCIG encounter. Every one of those is a leak with a euro sign on it, and every one is closed by the identity spine alone — before a single guest downloads anything.</p>
+  </div>
+
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card"><span class="tag">Cost side · build</span><h4>Mostly internal</h4><p>The dominant cost is engineering time we already employ. Present the build as headcount allocation, not a capital request — it changes the conversation entirely.</p></div>
+    <div class="card"><span class="tag">Cost side · run</span><h4>Concrete line items</h4><p>Cloud €900–1,800/mo · FHIR store €0–1,200/mo · WhatsApp API €0.02–0.08 per conversation · translation ≈ €0.02/min · monitoring €100/mo · app stores $99/yr + $25 · pen test &amp; DPIA €8–15k one-off.</p></div>
+    <div class="card"><span class="tag">Cost side · the trap</span><h4>What kills these projects</h4><p>Not the build. It is the second year — clinical content upkeep, translation QA, support in six languages, and the person who owns the MPI review queue. Fund the owner or do not start.</p></div>
+  </div>
+</section>
+
+<!-- ============ 09 ADS ============ -->
+<section id="ads">
+  <div class="sec-head"><span class="sec-num">09</span><h2>Reach, audience &amp; advertising</h2></div>
+  <p class="sec-sub">Where the guests actually come from, and the channel we already own and are not using</p>
+
+  <div class="prose">
+    <p class="lede">Our source markets are visible in our own patient testimonials: <strong>Germany, Switzerland, Czechia, Russia, Italy, France, Poland and the UK</strong>. That is who to buy media against — and almost none of our current marketing speaks to them in their own language.</p>
+  </div>
+
+  <h3 style="margin-left:0">Channels, ranked by cost per acquired guest</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Rank</th><th>Channel</th><th>Mechanism</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>The resorts our clinics are already inside</td><td>In-room QR card, welcome email, TV channel, wristband QR, and a scripted line at the front desk. The guest is already physically in our catchment.</td><td><span class="pill ok">≈ Zero</span></td></tr>
+        <tr><td>2</td><td>Our own past patients</td><td>Once the record exists, every previous guest is a reachable, consented audience for next season's dental and wellness packages. This is the channel the app <em>creates</em>.</td><td><span class="pill ok">≈ Zero</span></td></tr>
+        <tr><td>3</td><td>Insurer co-op budgets</td><td>Allianz, AXA, Cigna and Bupa all fund presence in the assistance journey. Ask them to co-fund the app that reduces their claim cost.</td><td><span class="pill new">Co-funded</span></td></tr>
+        <tr><td>4</td><td>High-intent multilingual search</td><td>"Arzt Hurghada", "врач Хургада", "zubař Hurghada", "dentista Marsa Alam", "doctor Red Sea", "diving accident Egypt". These convert because they are typed by someone who needs care today.</td><td><span class="pill rec">Low</span></td></tr>
+        <tr><td>5</td><td>App store optimisation</td><td>Localised store listings and keywords in DE, RU, CS, IT, FR, PL. "Arzt Ägypten", "Urlaub Arzt" — nobody owns these terms.</td><td><span class="pill rec">Low</span></td></tr>
+        <tr><td>6</td><td>Paid social, two audiences</td><td>Geo-fenced to Red Sea resort clusters for guests already here, and travel-intent audiences in source markets four to six weeks pre-departure.</td><td><span class="pill p0">Paid</span></td></tr>
+        <tr><td>7</td><td>Dive community</td><td>Dive schools, liveaboards and PADI centres. Fit-to-dive certificates and diving-accident capability are a genuinely differentiated offer.</td><td><span class="pill rec">Low</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <div class="kicker">Fix the website before buying a single ad</div>
+    <p>We currently run <strong>three separate domains</strong> — healthcareig.com, 247clinic.net and medparkhospitals.com — competing for the same search terms and splitting our authority three ways. Consolidate into a hub-and-spoke: healthcareig.com as the authority hub with proper country subfolders (<span style="font-family:var(--ff-mono);font-size:13px">/de/ /ru/ /cs/ /it/</span>), brand sites as spokes with canonical links back. Add hreflang, local business schema for every facility, and a real German-language content set answering "what do I do if I get ill in Hurghada". That work costs almost nothing and raises the return on every ad euro that follows it.</p>
+  </div>
+
+  <h3 style="margin-left:0">Advertising inside the app — and the hard limits</h3>
+  <div class="grid g2">
+    <div class="card" style="border-left:3px solid var(--ok)">
+      <span class="tag">Permitted inventory</span><h4>Direct-sold partner placements</h4>
+      <p>Featured slots in the wellness and dental marketplace. Resort spa, dive centre and excursion partners. Diagnostic labs. OTC pharmacy brands. Insurer brand presence on the coverage screen. Priced as flat monthly placements, not programmatic — our audience is seasonal and high-value, which is worth more sold by hand.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--crit)">
+      <span class="tag">Prohibited — non-negotiable</span><h4>No ad networks, no health targeting</h4>
+      <p>No AdMob or programmatic SDK: passing health-app signals to an ad network is a GDPR breach waiting to be found, and the eCPM would be trivial anyway. No targeting on health conditions — Article 9 makes that effectively unlawful. No prescription-drug advertising to consumers, which is illegal across the EU. And no advertising of any kind on the triage, active-case or medical-record screens.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-left:0">What to measure</h3>
+  <ul class="clean">
+    <li><strong>Install → register → first encounter → repeat encounter.</strong> Four numbers. Everything else is decoration.</li>
+    <li><strong>Unique QR per property</strong> so every resort's contribution is attributable and factual.</li>
+    <li><strong>Re-identification rate</strong> — of guests treated this season, how many were matched to a prior record. This is the single KPI that proves the thesis.</li>
+    <li><strong>Lifetime value per registered guest</strong> across all facilities, a number HCIG has never been able to calculate.</li>
+    <li><strong>Denial rate, app-documented encounters vs paper</strong> — run these side by side during the pilot so the finance case writes itself.</li>
+  </ul>
+</section>
+
+<!-- ============ 10 ROADMAP ============ -->
+<section id="roadmap">
+  <div class="sec-head"><span class="sec-num">10</span><h2>Phasing</h2></div>
+  <p class="sec-sub">Each phase ships something usable and unlocks the next · nothing here is a big-bang launch</p>
+
+  <div class="sec-body">
+    <div class="phase">
+      <div class="p1"><div class="pn">Phase 0</div><h4>Identity spine</h4><div class="pt">Months 0–3</div></div>
+      <div class="p2"><ul>
+        <li>Master Patient Index with matching tiers and a human review queue</li>
+        <li>Passport / ID capture at every point of contact</li>
+        <li>Facility directory with capability, language and roster tags</li>
+        <li>Consent model and DPIA completed</li></ul></div>
+      <div class="p3"><div class="kicker">Unlocks</div><p>Every encounter group-wide gets one HCIG ID. No app required. HCIG can state its unique patient count for the first time.</p></div>
+    </div>
+    <div class="phase">
+      <div class="p1"><div class="pn">Phase 1</div><h4>Guest app v1</h4><div class="pt">Months 3–7</div></div>
+      <div class="p2"><ul>
+        <li>Onboarding, return re-identification, arrival detection</li>
+        <li>Nearest capable facility, request a doctor, live case tracking</li>
+        <li>Health passport view and IPS export</li>
+        <li>Card payments and cashless status · pilot at 10 resorts</li></ul></div>
+      <div class="p3"><div class="kicker">Unlocks</div><p>Leakage recapture begins. First measurable re-identification rate. The pilot data that funds everything after it.</p></div>
+    </div>
+    <div class="phase">
+      <div class="p1"><div class="pn">Phase 2</div><h4>Clinician client</h4><div class="pt">Months 6–10</div></div>
+      <div class="p2"><ul>
+        <li>Offline-first encounter capture on tablet</li>
+        <li>Ambient scribe and live translation</li>
+        <li>Structured coding and auto-assembled claim packets</li>
+        <li>Lab, imaging and HIS integration at MedPark</li></ul></div>
+      <div class="p3"><div class="kicker">Unlocks</div><p>The denial-reduction line — the largest single recovered-revenue item — plus duplicate-test avoidance.</p></div>
+    </div>
+    <div class="phase">
+      <div class="p1"><div class="pn">Phase 3</div><h4>Revenue layer</h4><div class="pt">Months 9–14</div></div>
+      <div class="p2"><ul>
+        <li>Care Pass memberships and teleconsults</li>
+        <li>Wellness, dental and aesthetics marketplace</li>
+        <li>Post-trip follow-up and re-engagement campaigns</li>
+        <li>Direct-sold partner placements and campaign attribution</li></ul></div>
+      <div class="p3"><div class="kicker">Unlocks</div><p>All new-revenue streams. The app stops being a cost centre and starts carrying its own run cost.</p></div>
+    </div>
+    <div class="phase">
+      <div class="p1"><div class="pn">Phase 4</div><h4>Network effects</h4><div class="pt">Months 12–20</div></div>
+      <div class="p2"><ul>
+        <li>Insurer portal with real-time GOP</li>
+        <li>Dispatch console and predictive staffing across all sectors</li>
+        <li>De-identified analytics for accreditation and quality reporting</li>
+        <li>Full rollout to the remaining resort clinics</li></ul></div>
+      <div class="p3"><div class="kicker">Unlocks</div><p>B2B revenue that scales without more encounters, and accreditation evidence for GHA and UCA MENA.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11 RISK ============ -->
+<section id="risk">
+  <div class="sec-head"><span class="sec-num">11</span><h2>The questions IT will ask</h2></div>
+  <p class="sec-sub">Prepared answers · take these into the meeting rather than discovering them in it</p>
+
+  <div class="sec-body">
+    <div class="obj"><div class="q">MedPark already has hospital systems. Why another one?</div><div class="a">We are not replacing anything. MedPark keeps its HIS; we read from it over HL7. The gap is that <strong>around 150 on-site resort clinics have no system at all</strong>, and no two facilities share a patient identity. This is an index and an integration layer above what exists, not a competitor to it.</div></div>
+
+    <div class="obj"><div class="q">GDPR. Most of these patients are EU citizens.</div><div class="a">Correct, and it is the biggest single risk. The design answer: <strong>EU-region primary datastore</strong>, Standard Contractual Clauses plus a transfer impact assessment for operational access from Egypt (there is no adequacy decision), Article 9(2)(h) as the lawful basis for treatment records with separate explicit consent for the app and any marketing, a DPIA before the pilot because this is large-scale special-category processing, and multilingual consent capture with a working withdrawal path. Egypt's PDPL 151/2018 runs in parallel.</div></div>
+
+    <div class="obj"><div class="q">Who maintains this after you build it?</div><div class="a">A fair question and the one that sinks most internal apps. The honest answer is that phases 0–1 are buildable by a small team, but steady state needs a named owner for the <strong>MPI review queue</strong>, clinical content and six-language support. That should be part of the approval, not an afterthought — I would rather argue it now than discover it in month nine.</div></div>
+
+    <div class="obj"><div class="q">Doctors will not use it. They never do.</div><div class="a">They will not, if it costs them time. So phase 2 leads with the ambient scribe and offline capture — the two features that make a shift <em>faster</em>, not slower. The rule for the clinician client is that it must save more minutes than it takes, measured, or we stop and redesign. Adoption is a product problem, not a training problem.</div></div>
+
+    <div class="obj"><div class="q">Will the resorts cooperate? They guard their guest data.</div><div class="a">They are not processors for us — they are separate controllers, and the handoff needs its own agreement. What makes them say yes is that this is a <strong>guest-safety differentiator they can market</strong>, and it cuts front-desk workload during a medical incident. Start with the ten properties where our relationship is strongest and let the results recruit the rest.</div></div>
+
+    <div class="obj"><div class="q">What if a guest asks us to delete their record?</div><div class="a">They can, and we must honour it — with the standard medical-retention carve-out, which we document upfront rather than argue about later. Erasure removes the account, the identity links and marketing data; clinical records are retained under the legal retention obligation and put beyond further use. This has to be built in phase 0, not bolted on.</div></div>
+
+    <div class="obj"><div class="q">Connectivity in the resorts is unreliable.</div><div class="a">Which is exactly why the clinician client is offline-first with an encrypted local store and reconciliation on reconnect. Any design that assumes a working connection at a Marsa Alam resort at 02:00 will fail in its first week.</div></div>
+
+    <div class="obj"><div class="q">What is the smallest version that proves this?</div><div class="a">Phase 0 alone. Identity spine, no app, ninety days. If the re-identification rate across facilities is meaningfully above zero, the thesis is proven and everything downstream is justified. If it is near zero, we have learned that cheaply and we stop.</div></div>
+  </div>
+</section>
+
+<!-- ============ 12 ASK ============ -->
+<section id="ask">
+  <div class="sec-head"><span class="sec-num">12</span><h2>What I am asking for</h2></div>
+  <p class="sec-sub">One decision, three unblocks</p>
+
+  <div class="sec-body">
+    <div class="ask">
+      <div class="ask-h">
+        <h3>A 90-day pilot · phase 0 plus a limited phase 1</h3>
+        <p>10 resort clinics · 2 MedPark sites · target 3,000 registered guests</p>
+      </div>
+      <div class="ask-b">
+        <div class="subh">Success is measured on five numbers, agreed before we start</div>
+        <ul class="clean" style="margin-top:0">
+          <li><strong>Registration rate</strong> — share of treated guests who create an HCIG ID</li>
+          <li><strong>Re-identification rate</strong> — share of guests matched to a prior record across facilities</li>
+          <li><strong>Claim rejection delta</strong> — app-documented encounters against paper, same period</li>
+          <li><strong>Documentation time per encounter</strong> — clinician minutes, before and after</li>
+          <li><strong>Guest NPS</strong> and the count of leaked calls we recaptured</li>
+        </ul>
+        <div class="subh" style="margin-top:26px">Three decisions only IT can make</div>
+        <ul class="clean" style="margin-top:0">
+          <li><strong>Data residency</strong> — EU-region primary store, or a documented alternative with counsel's sign-off</li>
+          <li><strong>Brand architecture</strong> — one HCIG app across all facilities, or per-brand shells on one backend. I recommend one app; the identity layer is worthless if it is fragmented at the surface.</li>
+          <li><strong>Integration access</strong> — a route to the resort check-in feed and to MedPark's HIS, even read-only, for the pilot</li>
+        </ul>
+        <div class="subh" style="margin-top:26px">Budget outside existing headcount</div>
+        <p style="font-size:15px;color:var(--ink-2)">Cloud and services for the pilot period, a DPIA with external counsel, and one penetration test before any real patient data is loaded. Everything else is time we already pay for.</p>
+      </div>
+    </div>
+
+    <div class="callout aqua">
+      <div class="kicker">If the room only remembers one line</div>
+      <p>HCIG treats hundreds of thousands of international patients and cannot say how many of them it has ever met twice. <strong>Fixing that is not a marketing project — it is the missing spine of a group that grew to 150 care points without one</strong>, and the guest app is simply the most profitable thing we can hang on it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13 SA ============ -->
+<section id="sa">
+  <div class="sec-head"><span class="sec-num">13</span><h2>System analysis backbone</h2></div>
+  <p class="sec-sub">The skeleton to fill in for the full SRS — actors, use cases, entities, non-functionals</p>
+
+  <div class="grid g2">
+    <div class="card"><span class="tag">Actors</span>
+      <div class="mono-list">Guest / patient · dependant<br>Resort front desk · duty manager<br>On-site clinic nurse · doctor<br>Hospital clinician · radiologist<br>Dispatcher · call centre agent<br>Case coordinator<br>Insurer / assistance agent<br>Pharmacy · lab technician<br>Finance &amp; billing<br>Data protection officer<br>Group administrator · marketing</div></div>
+    <div class="card"><span class="tag">Primary use cases</span>
+      <div class="mono-list">UC-01 Register &amp; verify identity<br>UC-02 Re-identify returning guest<br>UC-03 Detect arrival in Egypt<br>UC-04 Find nearest capable facility<br>UC-05 Request urgent care<br>UC-06 Dispatch &amp; assign clinician<br>UC-07 Capture encounter (offline)<br>UC-08 Prescribe &amp; order diagnostics<br>UC-09 Refer / escalate to hospital<br>UC-10 Request GOP &amp; build claim<br>UC-11 Take payment<br>UC-12 Export patient summary<br>UC-13 Buy Care Pass<br>UC-14 Book elective service<br>UC-15 Teleconsult<br>UC-16 Manage &amp; withdraw consent<br>UC-17 Merge / unmerge patient records</div></div>
+    <div class="card"><span class="tag">Non-functional requirements</span>
+      <div class="mono-list">Dispatch path availability 99.9%<br>P95 API response &lt; 2 s<br>Clinician client fully offline-capable<br>RPO 15 min · RTO 1 h<br>7 languages incl. Arabic RTL<br>WCAG 2.2 AA<br>AES-256 at rest · TLS 1.3 in transit<br>Append-only audit log, 7-year retention<br>Annual penetration test<br>Seasonal peak: 4× baseline load<br>Zero PHI in analytics without de-identification</div></div>
+    <div class="card"><span class="tag">Recommended stack</span>
+      <div class="mono-list"><b>Clients</b> React Native / Expo<br><b>API</b> .NET or Node · REST + FHIR<br><b>Store</b> PostgreSQL + HAPI FHIR<br><b>Cache/queue</b> Redis · event bus<br><b>Objects</b> S3-compatible, encrypted<br><b>Auth</b> OAuth 2.1 / OIDC · MFA staff<br><b>Push</b> Expo Push → APNs / FCM<br><b>Comms</b> WhatsApp Business API · SMS<br><b>Payments</b> Paymob / Fawry · Stripe EUR<br><b>Region</b> EU primary · Egypt edge cache</div></div>
+  </div>
+
+  <div class="prose">
+    <h3>Before the meeting</h3>
+    <ul class="clean" style="margin-left:0">
+      <li>Get <strong>real encounter volume</strong> from operations and drop it into the model in section 08. Every number on that page moves with it.</li>
+      <li>Get the <strong>current claim rejection rate</strong> from finance. It is the strongest single figure in the whole case.</li>
+      <li>Ask operations how many <strong>resort calls end without an HCIG encounter</strong>. Nobody tracks this. If they can estimate it, the leakage line stops being a guess.</li>
+      <li>Confirm what <strong>check-in system</strong> the top ten resorts run. A usable arrival feed makes phase 1 materially easier.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  HCIG Passport · internal draft for discussion with Group IT · August 2026<br>
+  Facility photography and brand marks are HCIG's own, from healthcareig.com and medparkhospitals.com. Financial figures in section 08 are illustrative placeholders pending HCIG actuals.
+</footer>
+
+</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var eur=function(n){return Math.round(n).toLocaleString("en-US")};
+  var m=function(n){return "€"+(n/1e6).toFixed(2)+"M"};
+  var K={insuredShare:.70,insuredBill:110,telePrice:20,teleUptake:.06,telePer:1.4,
+         mktValue:180,mtRate:.0015,mtValue:2800,insurerFees:108000,adsFlat:90000,
+         dupRate:.02,dupCost:35,ramp:.35};
+  var S={},O={};
+  ["s1","s2","s3","s4","s5","s6","s7","s8"].forEach(function(i){S[i]=document.getElementById(i)});
+  ["o1","o2","o3","o4","o5","o6","o7","o8"].forEach(function(i){O[i]=document.getElementById(i)});
+  var g=function(i){return document.getElementById(i)};
+
+  function calc(){
+    var E=+S.s1.value, reg=+S.s2.value/100, pp=+S.s3.value, pa=+S.s4.value/100,
+        leak=+S.s5.value/100, den=(+S.s6.value/10)/100, mkt=(+S.s7.value/10)/100, net=+S.s8.value;
+
+    O.o1.textContent=E.toLocaleString("en-US");
+    O.o2.textContent=S.s2.value+"%";
+    O.o3.textContent="€"+pp;
+    O.o4.textContent=S.s4.value+"%";
+    O.o5.textContent=S.s5.value+"%";
+    O.o6.textContent=(+S.s6.value/10).toFixed(1)+" pts";
+    O.o7.textContent=(+S.s7.value/10).toFixed(1);
+    O.o8.textContent="€"+net;
+
+    var U=E*reg;
+    var vLeak=E*leak*net, vDen=E*K.insuredShare*K.insuredBill*den, vDup=E*K.dupRate*K.dupCost;
+    var rec=vLeak+vDen+vDup;
+    var vPass=U*pa*pp, vTele=U*K.teleUptake*K.telePer*K.telePrice,
+        vMkt=U*mkt*K.mktValue, vMt=U*K.mtRate*K.mtValue,
+        vIns=K.insurerFees, vAds=K.adsFlat;
+    var nw=vPass+vTele+vMkt+vMt+vIns+vAds;
+    var tot=rec+nw;
+
+    g("r_leak").textContent=eur(vLeak);   g("r_den").textContent=eur(vDen);
+    g("r_dup").textContent=eur(vDup);     g("r_recsum").textContent=eur(rec);
+    g("r_pass").textContent=eur(vPass);   g("r_tele").textContent=eur(vTele);
+    g("r_mkt").textContent=eur(vMkt);     g("r_mt").textContent=eur(vMt);
+    g("r_ins").textContent=eur(vIns);     g("r_ads").textContent=eur(vAds);
+    g("r_newsum").textContent=eur(nw);    g("r_total").textContent=eur(tot);
+    g("t_rec").textContent=m(rec); g("t_new").textContent=m(nw);
+    g("t_tot").textContent=m(tot); g("t_y1").textContent=m(tot*K.ramp);
+  }
+  Object.keys(S).forEach(function(k){S[k].addEventListener("input",calc)});
+  calc();
+
+  var links=Array.prototype.slice.call(document.querySelectorAll(".rail a"));
+  var secs=links.map(function(a){return document.getElementById(a.getAttribute("href").slice(1))});
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting)return;
+        var i=secs.indexOf(e.target); if(i<0)return;
+        links.forEach(function(l){l.classList.remove("on")});
+        links[i].classList.add("on");
+      });
+    },{rootMargin:"-15% 0px -75% 0px"});
+    secs.forEach(function(s){if(s)io.observe(s)});
+  }
+})();
+</script>

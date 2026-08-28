@@ -1,0 +1,20 @@
+# Build output — regenerate with `npm run build` / `npm run build:artifacts`
+dist/
+artifacts/
+
+# Vercel
+.vercel/
+
+# Node
+node_modules/
+npm-debug.log*
+*.log
+
+# Private working material — screenshots, Search Console exports, other projects.
+# Deliberately excluded: this repo is pushed to GitHub.
+Proof/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

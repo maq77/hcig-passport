@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>HCIG Passport</title>
+<meta name="description" content="Business case and interface library for a group-wide patient identity and care app for Healthcare International Group.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<style>
+:root{
+  --ground:#F2F6F6; --surface:#FFFFFF; --ink:#08202A; --ink2:#3A545D; --ink3:#6B8189;
+  --line:#D1DDDD; --line2:#B3C4C4; --aqua:#0B807C; --signal:#C93F1B; --deep:#0B3A45;
+  --ff:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --fb:"Source Serif 4",Georgia,serif;
+  --fm:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --ground:#04141A; --surface:#0A2630; --ink:#E2EFEF; --ink2:#A4BDC2; --ink3:#71909A;
+  --line:#173741; --line2:#265059; --aqua:#3CC5BC; --signal:#FF7A4C;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--fb);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--ff);margin:0;letter-spacing:-.035em;line-height:1.1;text-wrap:balance}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--aqua);outline-offset:4px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.hero{position:relative;min-height:min(62vh,520px);display:flex;align-items:flex-end;overflow:hidden;background:var(--deep)}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%}
+.hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,20,26,.58),rgba(4,20,26,.36) 34%,rgba(4,20,26,.94))}
+.hero .in{position:relative;width:100%;max-width:1120px;margin:0 auto;padding:48px 26px 40px;color:#EAF4F4}
+@media(min-width:820px){.hero .in{padding:64px 44px 48px}}
+.top{position:absolute;top:0;left:0;right:0;padding:24px 26px}
+@media(min-width:820px){.top{padding:28px 44px}}
+.top .in2{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.chip{background:#fff;border-radius:4px;padding:9px 13px;display:flex;align-items:center;box-shadow:0 3px 16px rgba(0,0,0,.3)}
+.chip img{height:30px;width:auto;display:block}
+.flag{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#B7D2D4;background:rgba(6,26,33,.55);border:1px solid rgba(255,255,255,.18);padding:8px 14px;border-radius:3px}
+.flag b{color:#FF9770;font-weight:500}
+h1{font-size:clamp(42px,8vw,86px);font-weight:900;letter-spacing:-.05em;line-height:.92;color:#fff}
+h1 em{font-style:normal;color:#4FD3C9;display:block}
+.deck{font-size:clamp(17px,2vw,21px);color:#CFE3E4;max-width:56ch;margin-top:22px;line-height:1.5}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 26px 90px}
+@media(min-width:820px){.wrap{padding:0 44px 110px}}
+.cards{display:grid;gap:16px;margin-top:-38px;position:relative;z-index:2}
+@media(min-width:760px){.cards{grid-template-columns:1fr 1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:26px 26px 24px;display:flex;flex-direction:column;gap:12px;transition:border-color .18s, transform .18s, box-shadow .18s;box-shadow:0 1px 2px rgba(8,32,42,.05),0 14px 34px -22px rgba(8,32,42,.35)}
+.card:hover{border-color:var(--aqua);transform:translateY(-2px);box-shadow:0 1px 2px rgba(8,32,42,.06),0 22px 46px -22px rgba(8,32,42,.45)}
+.card .k{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal)}
+.card h2{font-size:26px;font-weight:800}
+.card p{font-size:15px;color:var(--ink2);line-height:1.55}
+.card ul{margin:2px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.card li{font-family:var(--fm);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);border:1px solid var(--line2);border-radius:20px;padding:4px 9px}
+.go{margin-top:auto;padding-top:14px;font-family:var(--ff);font-size:14px;font-weight:700;color:var(--aqua);display:flex;align-items:center;gap:8px}
+.go svg{width:16px;height:16px}
+
+.meta{display:flex;flex-wrap:wrap;gap:0;margin-top:52px;border-top:1px solid var(--line)}
+.meta div{flex:1 1 156px;padding:18px 22px 4px 0;margin-right:22px;border-right:1px solid var(--line)}
+.meta div:last-child{border-right:none;margin-right:0}
+.meta .k{font-family:var(--fm);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.meta .v{font-family:var(--ff);font-size:15px;font-weight:600;margin-top:6px;line-height:1.35;letter-spacing:-.01em}
+
+.note{margin-top:40px;border:1px solid var(--line);border-left:3px solid var(--signal);border-radius:4px;background:var(--surface);padding:18px 22px;font-size:15px;color:var(--ink2);line-height:1.6}
+.note b{color:var(--ink)}
+footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--fm);font-size:10.5px;color:var(--ink3);line-height:1.9}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img src="%%HUB%%" alt="MedPark Health Hub, Hurghada">
+  <div class="scrim"></div>
+  <div class="top"><div class="in2">
+    <div class="chip"><img src="%%LOGOHCIG%%" alt="Healthcare International Group"></div>
+    <div class="flag"><b>Internal</b> · draft for Group IT</div>
+  </div></div>
+  <div class="in">
+    <h1>HCIG<em>Passport</em></h1>
+    <p class="deck">One patient identity across every HCIG clinic, hospital and health hub. One medical record that survives the flight home. And when the guest lands in Egypt again, we already know them.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="cards">
+    <a class="card" href="/business-case">
+      <span class="k">01 · The case</span>
+      <h2>Business case &amp; system analysis</h2>
+      <p>Why the group needs a Master Patient Index, how the money is made and recovered, the architecture, the phasing, and prepared answers to every question IT will ask. Includes a live revenue model you can drive with real figures.</p>
+      <ul><li>Revenue model</li><li>Architecture</li><li>GDPR</li><li>Roadmap</li><li>Objections</li></ul>
+      <span class="go">Open the business case
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+    <a class="card" href="/ui-kit">
+      <span class="k">02 · The product</span>
+      <h2>Interface library · 74 screens</h2>
+      <p>The complete design system and every screen of the guest app, clinician client and dispatch board — drawn to iPhone 16 Pro Max, in light and dark, with real HCIG branding, accreditations, patient reviews, video, maps and scannable QR.</p>
+      <ul><li>Design system</li><li>Onboarding</li><li>74 screens</li><li>Light + dark</li><li>Staff tools</li></ul>
+      <span class="go">Open the interface library
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
+  </div>
+
+  <div class="meta">
+    <div><div class="k">Prepared by</div><div class="v">Mohamed Amin<br>Application Development</div></div>
+    <div><div class="k">Audience</div><div class="v">Head of IT<br>Healthcare International Group</div></div>
+    <div><div class="k">Decision sought</div><div class="v">90-day pilot<br>approval</div></div>
+    <div><div class="k">Version</div><div class="v">Draft · August 2026</div></div>
+  </div>
+
+  <div class="note"><b>Internal document.</b> The financial figures in the business case are illustrative placeholders pending HCIG actuals, and the patient shown throughout the interface library is fictional. This site is set to <span style="font-family:var(--fm);font-size:13px">noindex</span> and is not intended for public distribution.</div>
+
+  <footer>
+    HCIG Passport · internal draft · August 2026<br>
+    Photography, brand marks, accreditations and partner logos are HCIG's own. Written reviews are verbatim from 247clinic.net. Map tiles © Esri, HERE, Garmin, Maxar and the OpenStreetMap contributors.
+  </footer>
+</div>
+
+</body>
+</html>
