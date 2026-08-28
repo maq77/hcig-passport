@@ -49,7 +49,8 @@ h1 em{font-style:normal;color:#4FD3C9;display:block}
 .wrap{max-width:1120px;margin:0 auto;padding:0 26px 90px}
 @media(min-width:820px){.wrap{padding:0 44px 110px}}
 .cards{display:grid;gap:16px;margin-top:-38px;position:relative;z-index:2}
-@media(min-width:760px){.cards{grid-template-columns:1fr 1fr}}
+@media(min-width:700px){.cards{grid-template-columns:1fr 1fr}}
+@media(min-width:1060px){.cards{grid-template-columns:repeat(3,1fr)}}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:26px 26px 24px;display:flex;flex-direction:column;gap:12px;transition:border-color .18s, transform .18s, box-shadow .18s;box-shadow:0 1px 2px rgba(8,32,42,.05),0 14px 34px -22px rgba(8,32,42,.35)}
 .card:hover{border-color:var(--aqua);transform:translateY(-2px);box-shadow:0 1px 2px rgba(8,32,42,.06),0 22px 46px -22px rgba(8,32,42,.45)}
 .card .k{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--signal)}
@@ -96,8 +97,16 @@ footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);font-fa
       <span class="go">Open the business case
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
     </a>
+    <a class="card" href="/business-model">
+      <span class="k">02 · The model</span>
+      <h2>Business model canvas</h2>
+      <p>The CEO view. Nine canvas blocks, where the revenue and the cost sit, and exactly how we reach a German family before they fly and a Russian guest already in a Hurghada lobby — Google Maps, Yandex, SEO, GEO and B2B.</p>
+      <ul><li>Canvas</li><li>Revenue</li><li>Google &amp; Yandex ads</li><li>SEO / GEO</li><li>B2B</li><li>12-month plan</li></ul>
+      <span class="go">Open the business model
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </a>
     <a class="card" href="/ui-kit">
-      <span class="k">02 · The product</span>
+      <span class="k">03 · The product</span>
       <h2>Interface library · 74 screens</h2>
       <p>The complete design system and every screen of the guest app, clinician client and dispatch board — drawn to iPhone 16 Pro Max, in light and dark, with real HCIG branding, accreditations, patient reviews, video, maps and scannable QR.</p>
       <ul><li>Design system</li><li>Onboarding</li><li>74 screens</li><li>Light + dark</li><li>Staff tools</li></ul>

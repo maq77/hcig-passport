@@ -95,6 +95,13 @@ const PAGES = [
     favicon: '📱',
     renumber: true,
   },
+  {
+    src: 'bmc.html',
+    dist: 'business-model.html',
+    artifact: 'hcig-business-model.html',
+    title: 'HCIG Passport — Business Model',
+    favicon: '📊',
+  },
 ];
 
 /* -------------------------------------------------------------- helpers */

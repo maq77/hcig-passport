@@ -1,0 +1,685 @@
+<title>HCIG Passport Business Model</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+:root{
+  --ground:#F2F6F6; --surface:#FFFFFF; --surface-2:#E6EEEE; --surface-3:#D9E5E5;
+  --ink:#08202A; --ink-2:#3A545D; --ink-3:#6B8189;
+  --line:#D1DDDD; --line-2:#B3C4C4;
+  --aqua:#0B807C; --aqua-soft:#D6EDEB; --deep:#0B3A45;
+  --signal:#C93F1B; --signal-soft:#FAE1D8;
+  --gold:#94661A; --gold-soft:#F4E7CF;
+  --ok:#1A6B45; --ok-soft:#DAEEE2;
+  --ff:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --fb:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --fm:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --sh:0 1px 2px rgba(8,32,42,.05),0 12px 30px -18px rgba(8,32,42,.3);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#051820; --surface:#0A232A; --surface-2:#0F2E38; --surface-3:#153A45;
+  --ink:#E2EFEF; --ink-2:#A4BDC2; --ink-3:#728F98;
+  --line:#1A3A44; --line-2:#29505A;
+  --aqua:#3CC5BC; --aqua-soft:#0C3736; --signal:#FF7A4C; --signal-soft:#3A1A10;
+  --gold:#D5A141; --gold-soft:#34270E; --ok:#4CBC84; --ok-soft:#0E3123;
+  --sh:0 1px 2px rgba(0,0,0,.5),0 12px 30px -18px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  --ground:#051820; --surface:#0A232A; --surface-2:#0F2E38; --surface-3:#153A45;
+  --ink:#E2EFEF; --ink-2:#A4BDC2; --ink-3:#728F98;
+  --line:#1A3A44; --line-2:#29505A;
+  --aqua:#3CC5BC; --aqua-soft:#0C3736; --signal:#FF7A4C; --signal-soft:#3A1A10;
+  --gold:#D5A141; --gold-soft:#34270E; --ok:#4CBC84; --ok-soft:#0E3123;
+  --sh:0 1px 2px rgba(0,0,0,.5),0 12px 30px -18px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--fb);font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5{font-family:var(--ff);margin:0;letter-spacing:-.03em;line-height:1.13;text-wrap:balance}
+p{margin:0}
+img{display:block;max-width:100%}
+a{color:var(--aqua)}
+:focus-visible{outline:2px solid var(--aqua);outline-offset:3px;border-radius:3px}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:min(58vh,470px);display:flex;align-items:flex-end;overflow:hidden;background:var(--deep)}
+.hero .ph{position:absolute;inset:0;background:url('%%HOSPITAL%%') center 58%/cover}
+.hero .sc{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,20,26,.6),rgba(4,20,26,.34) 32%,rgba(4,20,26,.95))}
+.hero .in{position:relative;width:100%;max-width:1440px;margin:0 auto;padding:46px 24px 38px;color:#EAF4F4}
+@media(min-width:900px){.hero .in{padding:60px 44px 44px}}
+.top{position:absolute;top:0;left:0;right:0;padding:22px 24px}
+@media(min-width:900px){.top{padding:26px 44px}}
+.top .i2{max-width:1440px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.chip{background:#fff;border-radius:4px;padding:8px 12px;display:flex;box-shadow:0 3px 16px rgba(0,0,0,.3)}
+.chip img{height:28px;width:auto}
+.flag{font-family:var(--fm);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#B7D2D4;background:rgba(6,26,33,.55);border:1px solid rgba(255,255,255,.18);padding:7px 13px;border-radius:3px}
+.flag b{color:#FF9770;font-weight:500}
+h1{font-size:clamp(38px,7vw,76px);font-weight:900;letter-spacing:-.05em;line-height:.94;color:#fff}
+h1 em{font-style:normal;color:#4FD3C9;display:block}
+.deck{font-size:clamp(17px,2vw,21px);color:#CFE3E4;max-width:60ch;margin-top:20px;line-height:1.5}
+
+/* ---------- shell ---------- */
+.wrap{max-width:1440px;margin:0 auto;padding:0 24px 100px}
+@media(min-width:900px){.wrap{padding:0 44px 120px}}
+section{padding-top:70px;scroll-margin-top:16px}
+.sh{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin-bottom:5px}
+.num{font-family:var(--fm);font-size:11px;font-weight:600;color:var(--signal);letter-spacing:.09em;flex:none}
+h2{font-size:clamp(26px,3.6vw,38px);font-weight:800}
+.sub{color:var(--ink-3);font-size:14.5px;font-family:var(--ff);max-width:80ch;margin:7px 0 26px}
+.lede{font-size:19px;line-height:1.55;max-width:70ch}
+.lede strong{color:var(--signal);font-weight:600}
+.kick{font-family:var(--fm);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);margin-bottom:9px}
+
+/* ---------- BMC canvas ---------- */
+.bmc{display:grid;gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:6px;overflow:hidden;margin:8px 0 0}
+@media(min-width:1040px){
+  .bmc{grid-template-columns:repeat(10,1fr)}
+  .b1{grid-column:1/3;grid-row:1/3} .b2{grid-column:3/5;grid-row:1/2}
+  .b3{grid-column:3/5;grid-row:2/3} .b4{grid-column:5/7;grid-row:1/3}
+  .b5{grid-column:7/9;grid-row:1/2} .b6{grid-column:7/9;grid-row:2/3}
+  .b7{grid-column:9/11;grid-row:1/3} .b8{grid-column:1/6;grid-row:3/4}
+  .b9{grid-column:6/11;grid-row:3/4}
+}
+.cell{background:var(--surface);padding:16px 16px 18px;display:flex;flex-direction:column;gap:9px;min-width:0}
+.cell.hero-cell{background:var(--aqua-soft)}
+.cell.cost{background:var(--gold-soft)}
+.cell.rev{background:var(--ok-soft)}
+.cell h3{font-size:13px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.cell h3 span{font-family:var(--fm);font-size:9px;font-weight:600;color:var(--signal);letter-spacing:.08em}
+.cell ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px}
+.cell li{font-family:var(--ff);font-size:12.5px;line-height:1.42;color:var(--ink-2);padding-left:12px;position:relative}
+.cell li:before{content:"";position:absolute;left:0;top:8px;width:5px;height:1.5px;background:var(--signal)}
+.cell li b{color:var(--ink);font-weight:700}
+.cell .grp{font-family:var(--fm);font-size:8.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);margin-top:3px}
+.cell.hero-cell li:before{background:var(--aqua)}
+.cell.cost li:before{background:var(--gold)}
+.cell.rev li:before{background:var(--ok)}
+.cell li.warn{color:var(--ink)}
+.cell li.warn:before{background:var(--signal);height:2px;width:7px}
+
+/* ---------- generic blocks ---------- */
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px 22px}
+.card .tag{font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:9px}
+.card h4{font-size:16px;font-weight:800;margin-bottom:8px}
+.card p{font-size:14.5px;color:var(--ink-2);line-height:1.55}
+.card ul{list-style:none;margin:9px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+.card li{font-family:var(--ff);font-size:13.5px;line-height:1.45;color:var(--ink-2);padding-left:13px;position:relative}
+.card li:before{content:"";position:absolute;left:0;top:8px;width:6px;height:1.5px;background:var(--signal)}
+.card li b{color:var(--ink);font-weight:700}
+.card.acc{border-left:3px solid var(--aqua)}
+.card.warn{border-left:3px solid var(--signal)}
+
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px}
+.stat .n{font-family:var(--ff);font-size:clamp(26px,3.4vw,34px);font-weight:800;letter-spacing:-.045em;line-height:1;font-variant-numeric:tabular-nums}
+.stat .n.s{color:var(--signal)} .stat .n.a{color:var(--aqua)} .stat .n.g{color:var(--gold)} .stat .n.o{color:var(--ok)}
+.stat .l{font-size:12.5px;color:var(--ink-2);margin-top:8px;font-family:var(--ff);font-weight:500;line-height:1.4}
+.stat .x{font-family:var(--fm);font-size:9px;color:var(--ink-3);margin-top:6px;letter-spacing:.06em;text-transform:uppercase}
+
+.tw{overflow-x:auto;margin:22px 0;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:660px;font-family:var(--ff);font-size:13.5px}
+th{text-align:left;font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:500;padding:12px 15px;border-bottom:1px solid var(--line-2);white-space:nowrap;vertical-align:bottom}
+td{padding:12px 15px;border-bottom:1px solid var(--line);color:var(--ink-2);vertical-align:top;line-height:1.45}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:700}
+td.n,th.n{text-align:right;font-family:var(--fm);font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr.sum td{background:var(--surface-2);font-weight:700;color:var(--ink);border-top:1px solid var(--line-2)}
+tbody tr.big td{background:var(--deep);color:#EAF4F4;font-weight:700}
+.pill{display:inline-block;font-family:var(--fm);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px;font-weight:600;white-space:nowrap}
+.p-hi{background:var(--signal-soft);color:var(--signal)}
+.p-md{background:var(--gold-soft);color:var(--gold)}
+.p-lo{background:var(--surface-2);color:var(--ink-3)}
+.p-ok{background:var(--ok-soft);color:var(--ok)}
+.p-aq{background:var(--aqua-soft);color:var(--aqua)}
+
+.callout{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--signal);padding:20px 24px;margin:24px 0;border-radius:4px}
+.callout.a{border-left-color:var(--aqua)}
+.callout.g{border-left-color:var(--gold)}
+.callout p{font-size:16px}
+.callout b{color:var(--ink)}
+
+.phase{display:grid;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface);margin:12px 0}
+@media(min-width:820px){.phase{grid-template-columns:150px 1fr 200px}}
+.phase .a{padding:16px 18px;background:var(--surface-2);border-bottom:1px solid var(--line)}
+.phase .b{padding:16px 18px;border-bottom:1px solid var(--line)}
+.phase .c{padding:16px 18px}
+@media(min-width:820px){.phase .a,.phase .b{border-bottom:none;border-right:1px solid var(--line)}}
+.phase .q{font-family:var(--fm);font-size:10px;letter-spacing:.11em;color:var(--signal);font-weight:600}
+.phase h4{margin-top:5px;font-size:15px}
+.phase .t{font-family:var(--fm);font-size:10px;color:var(--ink-3);margin-top:7px}
+.phase ul{margin:0;padding-left:16px;font-size:13.5px;color:var(--ink-2);font-family:var(--ff);line-height:1.5}
+.phase li{margin-bottom:3px}
+.phase .c p{font-size:13px;color:var(--ink-2);font-family:var(--ff);line-height:1.5}
+
+.kw{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.kw span{font-family:var(--fm);font-size:11px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:3px;padding:5px 9px;white-space:nowrap}
+.kw span b{color:var(--signal);font-weight:600}
+
+.bar{display:flex;height:26px;border-radius:4px;overflow:hidden;border:1px solid var(--line-2);margin-top:12px}
+.bar div{display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:9.5px;font-weight:600;color:#fff;letter-spacing:.04em}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:11px}
+.legend span{font-family:var(--ff);font-size:12.5px;color:var(--ink-2);display:flex;align-items:center;gap:7px}
+.legend i{width:11px;height:11px;border-radius:2px;flex:none}
+
+footer{margin-top:70px;padding-top:24px;border-top:1px solid var(--line);font-family:var(--fm);font-size:10.5px;color:var(--ink-3);line-height:1.9}
+.backlinks{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+.backlinks a{font-family:var(--ff);font-size:13.5px;font-weight:700;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line-2);border-radius:5px;padding:11px 16px;display:flex;align-items:center;gap:9px;transition:border-color .15s}
+.backlinks a:hover{border-color:var(--aqua);color:var(--aqua)}
+</style>
+
+<header class="hero">
+  <div class="ph"></div><div class="sc"></div>
+  <div class="top"><div class="i2">
+    <div class="chip"><img src="%%LOGOHCIG%%" alt="Healthcare International Group"></div>
+    <div class="flag"><b>Board paper</b> · for the Group CEO</div>
+  </div></div>
+  <div class="in">
+    <h1>Business<em>Model</em></h1>
+    <p class="deck">How HCIG Passport makes money, what it costs, who it serves — and exactly how we reach a German family in Hamburg before they fly, and a Russian guest already standing in a Hurghada lobby.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ 01 THE BET ============ -->
+<section id="bet">
+  <div class="sh"><span class="num">01</span><h2>The bet, in one page</h2></div>
+  <p class="sub">What we are asking the board to back</p>
+
+  <p class="lede">HCIG treats hundreds of thousands of international patients and <strong>cannot say how many it has met twice.</strong> Every encounter is anonymous, one-time, and forgotten the moment the guest boards a plane. HCIG Passport turns each of those encounters into a permanent relationship — and each relationship into recurring revenue.</p>
+
+  <div class="grid g4" style="margin-top:26px">
+    <div class="stat"><div class="n s">€2.05M</div><div class="l">Annual contribution at steady state</div><div class="x">Modelled · year 2</div></div>
+    <div class="stat"><div class="n g">58%</div><div class="l">Of it is money we already earn and lose today</div><div class="x">Recovered, not forecast</div></div>
+    <div class="stat"><div class="n a">100+</div><div class="l">Owned facilities the app plugs into on day one</div><div class="x">No new estate needed</div></div>
+    <div class="stat"><div class="n o">≈ 0</div><div class="l">Cost to acquire a guest already inside our clinics</div><div class="x">Our unfair advantage</div></div>
+  </div>
+
+  <div class="callout">
+    <div class="kick">Why now</div>
+    <p><b>Healthcare is no longer a backup service — it is part of the guest experience.</b> Hotels are being held responsible for guest safety, insurers are squeezing cost per case, and international standards are becoming a requirement rather than a differentiator. We already hold the accreditations and the estate. What we do not hold is the guest relationship. This is the asset the app creates.</p>
+  </div>
+</section>
+
+<!-- ============ 02 CANVAS ============ -->
+<section id="canvas">
+  <div class="sh"><span class="num">02</span><h2>Business Model Canvas</h2></div>
+  <p class="sub">Nine blocks · read the middle column first — everything else exists to deliver it</p>
+
+  <div class="bmc">
+
+    <div class="cell b1">
+      <h3><span>KP</span>Key Partners</h3>
+      <div class="grp">Hospitality</div>
+      <ul>
+        <li><b>Hilton, Marriott, Fairmont, Rixos</b> — our clinics sit inside their resorts</li>
+        <li><b>Steigenberger, Jaz, Iberotel, Sunrise, Reef Oasis, Baron Palace</b></li>
+      </ul>
+      <div class="grp">Demand</div>
+      <ul>
+        <li><b>Tour operators</b> — TUI, FTI, Anex, Coral. They own the guest before we do</li>
+      </ul>
+      <div class="grp">Payment</div>
+      <ul>
+        <li><b>25+ insurers</b> — Allianz, AXA, ERGO, UNIQA, ERV, ADAC, HanseMerkur, Mondial</li>
+        <li><b>Paymob, Fawry, Stripe</b> — local and euro card rails</li>
+      </ul>
+      <div class="grp">Standards</div>
+      <ul>
+        <li><b>GHA, DMWV, UCA</b> — accreditation is our door-opener, not our paperwork</li>
+      </ul>
+    </div>
+
+    <div class="cell b2">
+      <h3><span>KA</span>Key Activities</h3>
+      <ul>
+        <li><b>Deliver care</b> to international standard, in the guest's language</li>
+        <li><b>Run the identity spine</b> — one HCIG ID per human, across every facility</li>
+        <li><b>Coordinate insurance</b> — guarantee of payment, cashless, clean claims</li>
+        <li><b>Forecast demand</b> and staff 100+ sites against it</li>
+        <li><b>Acquire guests</b> before they fly and the moment they land</li>
+        <li><b>Sign partners</b> — hotels, operators, insurers</li>
+      </ul>
+    </div>
+
+    <div class="cell b3">
+      <h3><span>KR</span>Key Resources</h3>
+      <ul>
+        <li><b>100+ owned facilities</b> — hospitals, urgent care, pharmacies, spas</li>
+        <li><b>40 years</b> of operating history</li>
+        <li><b>GHA · DMWV · UCA</b> accreditations. Founder of UCA MENA</li>
+        <li><b>The longitudinal record</b> — the one asset a competitor cannot copy</li>
+        <li><b>Multilingual clinicians</b> — DE, RU, CS, IT, FR, EN, AR</li>
+        <li><b>Direct-billing agreements</b> with 25+ insurers</li>
+      </ul>
+    </div>
+
+    <div class="cell b4 hero-cell">
+      <h3><span>VP</span>Value Propositions</h3>
+      <div class="grp">For the guest</div>
+      <ul>
+        <li><b>A doctor in your room in 20 minutes</b> — day or night, in your language</li>
+        <li><b>You never start from zero again.</b> One record across every HCIG facility</li>
+        <li><b>Pay nothing.</b> Cashless with your insurer, settled while you rest</li>
+        <li><b>Your record flies home with you</b> — readable by your own doctor</li>
+        <li><b>Accredited, not just advertised.</b> GHA, DMWV, UCA</li>
+      </ul>
+      <div class="grp">For the hotel</div>
+      <ul>
+        <li><b>Guest safety you can market</b> — and a front desk that stops firefighting</li>
+      </ul>
+      <div class="grp">For the insurer</div>
+      <ul>
+        <li><b>Fewer denials, lower cost per case.</b> Clean claims built at the bedside</li>
+      </ul>
+    </div>
+
+    <div class="cell b5">
+      <h3><span>CR</span>Customer Relationships</h3>
+      <ul>
+        <li><b>Self-service app, human backup 24/7</b></li>
+        <li><b>Named clinician, tracked arrival</b> — the guest sees who is coming</li>
+        <li><b>Day-5 follow-up call</b> after they fly home. Near-zero cost, high loyalty</li>
+        <li><b>Care Pass membership</b> — the subscription that makes us their default</li>
+        <li><b>Reviews and patient stories</b> — proof, in their own language</li>
+      </ul>
+    </div>
+
+    <div class="cell b6">
+      <h3><span>CH</span>Channels</h3>
+      <ul>
+        <li><b>Our own 100+ clinics</b> — in-room QR, wristband, front desk. Zero CAC</li>
+        <li><b>Google Search &amp; Google Maps</b> — high intent, in-destination</li>
+        <li><b>Yandex</b> — the Russian market Google does not reach</li>
+        <li><b>healthcareig.com</b> + brand sites — SEO, GEO, long-tail blog</li>
+        <li><b>Tour operator and insurer co-marketing</b></li>
+        <li><b>LinkedIn, trade events, direct outreach</b> for B2B</li>
+      </ul>
+    </div>
+
+    <div class="cell b7">
+      <h3><span>CS</span>Customer Segments</h3>
+      <div class="grp">B2C — the volume</div>
+      <ul>
+        <li><b>International resort guests</b> — DE, RU, CZ, IT, FR, PL, UK</li>
+        <li><b>Families with children</b> — one install captures four or five identities</li>
+        <li><b>Residents and expats</b> — year-round revenue, not seasonal</li>
+        <li><b>Divers</b> — fit-to-dive, hyperbaric. Small, loyal, high margin</li>
+      </ul>
+      <div class="grp">B2C — the margin</div>
+      <ul>
+        <li><b>Medical tourists</b> — dental, aesthetic, longevity</li>
+      </ul>
+      <div class="grp">B2B</div>
+      <ul>
+        <li><b>Hotels and resorts</b></li>
+        <li><b>Tour operators</b></li>
+        <li><b>Insurers and assistance companies</b></li>
+      </ul>
+    </div>
+
+    <div class="cell b8 cost">
+      <h3><span>C$</span>Cost Structure</h3>
+      <ul>
+        <li><b>Clinical staff and facilities</b> — dominant, and already on the books. The app adds load, not estate</li>
+        <li><b>Engineering</b> — internal headcount. This is an allocation, not a capital request</li>
+        <li><b>Cloud and services</b> — €1–3k / month at pilot scale</li>
+        <li><b>Translation and speech</b> — ≈ €0.02 / minute, variable with volume</li>
+        <li><b>Compliance</b> — DPIA, legal, penetration test. €8–15k one-off, and the cheapest risk we ever retire</li>
+        <li><b>Marketing</b> — paid media, events, partner co-marketing</li>
+        <li class="warn"><b>The real risk is year two:</b> content upkeep, six-language support, and one named owner for the patient-matching queue. Fund the owner or do not start</li>
+      </ul>
+    </div>
+
+    <div class="cell b9 rev">
+      <h3><span>R$</span>Revenue Streams</h3>
+      <div class="grp">Recovered — money we already earn and lose · €1.19M</div>
+      <ul>
+        <li><b>Leakage recapture</b> — guests who reach a competitor because they never knew we were on site</li>
+        <li><b>Denial reduction</b> — clean, coded claims built at the bedside</li>
+        <li><b>Duplicate tests avoided</b> — the second X-ray never ordered</li>
+      </ul>
+      <div class="grp">New — cash that does not exist today · €0.86M</div>
+      <ul>
+        <li><b>Care Pass</b> — €25 trip, €45 family, €180 resident. Recurring</li>
+        <li><b>Teleconsults</b> — pre-trip, in-trip, day-5 follow-up</li>
+        <li><b>Elective bookings</b> — dental, wellness, aesthetics, physiotherapy</li>
+        <li><b>Treatment packages</b> — booked in-app for a return trip</li>
+        <li><b>Insurer coordination fees</b> — real-time GOP, cost-containment reporting</li>
+        <li><b>Partner placements</b> — direct-sold, never an ad network</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="callout g" style="margin-top:22px">
+    <div class="kick">The line to remember</div>
+    <p><b>Recovered revenue is the stronger half of this business case.</b> New revenue asks the board to believe a forecast. Recovered revenue asks them to believe a measurement they can take next month — from the claim rejection rate, the repeated-diagnostic count, and the number of hotel calls that ended without an HCIG encounter. Lead with it.</p>
+  </div>
+</section>
+
+<!-- ============ 03 UNIT ECONOMICS ============ -->
+<section id="economics">
+  <div class="sh"><span class="num">03</span><h2>Where the money comes from</h2></div>
+  <p class="sub">Modelled at 180,000 encounters a year and 35% app registration · figures are illustrative until Finance supplies actuals</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Stream</th><th>Who pays</th><th>Type</th><th class="n">Annual €</th></tr></thead>
+      <tbody>
+        <tr><td>Leakage recapture</td><td>Insurers &amp; guests</td><td><span class="pill p-md">Recovered</span></td><td class="n">648,000</td></tr>
+        <tr><td>Denial reduction</td><td>Insurers</td><td><span class="pill p-md">Recovered</span></td><td class="n">415,800</td></tr>
+        <tr><td>Duplicate tests avoided</td><td>Cost line</td><td><span class="pill p-md">Recovered</span></td><td class="n">126,000</td></tr>
+        <tr class="sum"><td colspan="3">Recovered — measurable next month</td><td class="n">1,189,800</td></tr>
+        <tr><td>Treatment packages</td><td>Guests</td><td><span class="pill p-ok">New</span></td><td class="n">264,600</td></tr>
+        <tr><td>Elective bookings</td><td>Guests</td><td><span class="pill p-ok">New</span></td><td class="n">170,100</td></tr>
+        <tr><td>Care Pass</td><td>Guests</td><td><span class="pill p-ok">New</span></td><td class="n">126,000</td></tr>
+        <tr><td>Insurer coordination</td><td>Insurers</td><td><span class="pill p-ok">New</span></td><td class="n">108,000</td></tr>
+        <tr><td>Teleconsults</td><td>Guests</td><td><span class="pill p-ok">New</span></td><td class="n">105,840</td></tr>
+        <tr><td>Partner placements</td><td>Partners</td><td><span class="pill p-ok">New</span></td><td class="n">90,000</td></tr>
+        <tr class="sum"><td colspan="3">New — cash that does not exist today</td><td class="n">864,540</td></tr>
+        <tr class="big"><td colspan="3">Total annual contribution, steady state</td><td class="n">2,054,340</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid g3">
+    <div class="card acc"><span class="tag">The moat</span><h4>Switching cost we create</h4>
+      <p>A guest with three years of history on their HCIG ID will not restart that record at a competitor clinic for the sake of a cheaper consultation. Every encounter deepens the moat.</p></div>
+    <div class="card acc"><span class="tag">The multiplier</span><h4>Families, not individuals</h4>
+      <p>Families are the majority of resort guests. One install captures four or five patient identities. We should measure installs, but we should target <b>identities per install</b>.</p></div>
+    <div class="card warn"><span class="tag">The honest caveat</span><h4>Year-one is a fraction</h4>
+      <p>Ramp is real. Plan year one at roughly <b>35% of steady state</b> — about €0.72M — and judge the pilot on rates, not absolute revenue.</p></div>
+  </div>
+</section>
+
+<!-- ============ 04 REACHING GUESTS ============ -->
+<section id="reach">
+  <div class="sh"><span class="num">04</span><h2>How we reach the guest</h2></div>
+  <p class="sub">Three moments, three completely different playbooks</p>
+
+  <p class="lede">Our guest is reachable in exactly three windows: <strong>when they are planning</strong> at home, <strong>when they have landed</strong> and something has gone wrong, and <strong>when they are back home</strong> deciding where to go next year. Most healthcare marketing only ever plays the second one.</p>
+
+  <div class="grid g3" style="margin-top:26px">
+
+    <div class="card">
+      <span class="tag">Window 1 · pre-trip</span>
+      <h4>Before they fly</h4>
+      <p>Four to six weeks out, in their own country and language. The cheapest install we will ever buy, because they are calm and comparing.</p>
+      <ul>
+        <li><b>Google Ads — Search</b> in DE, RU, CS, IT, FR, PL. Travel-health intent</li>
+        <li><b>Yandex Direct</b> for Russia. Google is not the search engine there</li>
+        <li><b>Meta &amp; TikTok</b> travel-intent and Egypt-interest audiences</li>
+        <li><b>Tour operator inserts</b> in TUI / FTI / Anex booking confirmations</li>
+        <li><b>Insurer co-marketing</b> — Allianz and AXA already fund presence in the assistance journey</li>
+        <li><b>Local networks</b> per market — Seznam in Czechia, dive and travel forums</li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-left:3px solid var(--signal)">
+      <span class="tag">Window 2 · in destination</span>
+      <h4>The moment it goes wrong</h4>
+      <p>Highest intent in the entire funnel. They are in pain, in a foreign country, and searching on a phone. <b>This is where Google Maps decides who they call.</b></p>
+      <ul>
+        <li><b>Google Maps Ads</b> — sponsored pins for "doctor near me", "clinic", "pharmacy" inside Hurghada, Marsa Alam, Sahl Hasheesh</li>
+        <li><b>Google Business Profile</b> for every one of our facilities — hours, languages, photos, reviews. Free, and it beats any ad</li>
+        <li><b>Google Search</b> — "Arzt Hurghada", "врач Хургада", "doctor Red Sea"</li>
+        <li><b>Geo-fenced Meta &amp; TikTok</b> around resort clusters</li>
+        <li><b>In-room QR, wristband, TV channel, front desk script</b> — zero CAC and our biggest lever</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <span class="tag">Window 3 · post-trip</span>
+      <h4>The channel the app creates</h4>
+      <p>Once the record exists, every past guest is a consented, addressable audience. <b>This channel does not exist today and costs nothing to run.</b></p>
+      <ul>
+        <li><b>Day-5 follow-up call</b> — clinical value, and it opens the next conversation</li>
+        <li><b>Off-season dental and aesthetic offers</b> at the moment they book next year's holiday</li>
+        <li><b>Saved treatment quotes</b> that travel to the next trip</li>
+        <li><b>Referral</b> — €10 each way. Families and dive groups travel together</li>
+        <li><b>Arrival detection</b> — they land, we already know, we say welcome back</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="kick">The unfair advantage, said plainly</div>
+    <p><b>We already own the most valuable advertising channel in this market, and we are not using it.</b> Around 150 clinics sit inside resorts full of exactly our customer. An in-room card costs cents and converts better than any keyword we can buy. Paid media should be the accelerant — never the engine.</p>
+  </div>
+</section>
+
+<!-- ============ 05 PAID MEDIA ============ -->
+<section id="ads">
+  <div class="sh"><span class="num">05</span><h2>Paid media plan</h2></div>
+  <p class="sub">Where the budget goes, in priority order</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Channel</th><th>Market &amp; moment</th><th>What it buys</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td>Google Maps Ads</td><td>In Egypt · in destination</td><td>Sponsored pin when a guest searches "doctor near me" in Hurghada or Marsa Alam. Highest-intent inventory that exists in this market.</td><td><span class="pill p-hi">First</span></td></tr>
+        <tr><td>Google Business Profile</td><td>In Egypt · always on</td><td>Every facility claimed, with languages, hours, photos and review velocity. Free, and it powers Maps ranking.</td><td><span class="pill p-hi">First</span></td></tr>
+        <tr><td>Google Search</td><td>Egypt + DE, CZ, IT, FR, PL, UK</td><td>High-intent local and travel-health keywords in each language.</td><td><span class="pill p-hi">First</span></td></tr>
+        <tr><td>Yandex Direct &amp; Maps</td><td>Russia · pre-trip and in destination</td><td>Russia is a top source market and Google barely serves it. Yandex is not optional.</td><td><span class="pill p-md">Second</span></td></tr>
+        <tr><td>Meta &amp; Instagram</td><td>Source markets + geo-fenced resorts</td><td>Travel-intent audiences pre-departure, and a geo-fence around resort clusters for guests already here.</td><td><span class="pill p-md">Second</span></td></tr>
+        <tr><td>App Store Optimisation</td><td>All markets</td><td>Localised listings for "Arzt Ägypten", "врач Египет". Nobody owns these terms.</td><td><span class="pill p-md">Second</span></td></tr>
+        <tr><td>TikTok</td><td>DE, PL, CZ · younger travellers</td><td>Patient stories and "what to do if you get ill on holiday". Cheap reach, strong for dive and family segments.</td><td><span class="pill p-lo">Third</span></td></tr>
+        <tr><td>Dive &amp; travel communities</td><td>DE, UK, IT</td><td>Fit-to-dive certificates and diving-accident capability. Small audience, very high intent.</td><td><span class="pill p-lo">Third</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:6px">
+    <span class="tag">Suggested first-year split</span>
+    <h4>Weighted to intent, not to reach</h4>
+    <div class="bar">
+      <div style="width:34%;background:var(--signal)">34% Google Maps + GBP</div>
+      <div style="width:24%;background:var(--aqua)">24% Google Search</div>
+      <div style="width:16%;background:var(--gold)">16% Yandex</div>
+      <div style="width:14%;background:var(--ok)">14% Meta / TikTok</div>
+      <div style="width:12%;background:var(--ink-3)">12% Content</div>
+    </div>
+    <p style="margin-top:14px">Spend follows intent. A guest typing "doctor" into Maps two kilometres from our clinic is worth many times a cold impression in Hamburg. Start narrow in Hurghada, prove cost per encounter, then widen to Marsa Alam and the North Coast.</p>
+  </div>
+
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card" style="border-left:3px solid var(--ok)">
+      <span class="tag">Permitted in-app inventory</span><h4>Direct-sold only</h4>
+      <p>Featured placements in the wellness and dental marketplace. Resort spa, dive centre and diagnostic partners. Insurer brand presence on the coverage screen. Sold by hand as flat monthly placements — our audience is seasonal and high-value, which is worth more than programmatic.</p>
+    </div>
+    <div class="card" style="border-left:3px solid var(--signal)">
+      <span class="tag">Non-negotiable</span><h4>No ad networks. No health targeting.</h4>
+      <p>No AdMob or programmatic SDK — passing health-app signals to an ad network is a GDPR breach waiting to be found, and the revenue would be trivial. No targeting on medical conditions; Article 9 makes it effectively unlawful. No advertising on triage, active-case or record screens. <b>Raising this limit ourselves is what makes us credible to insurers.</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 ORGANIC ============ -->
+<section id="organic">
+  <div class="sh"><span class="num">06</span><h2>Organic: SEO, GEO and content</h2></div>
+  <p class="sub">The compounding channel · costs almost nothing and raises the return on every paid euro</p>
+
+  <div class="callout">
+    <div class="kick">Fix this before buying a single ad</div>
+    <p>We run <b>three separate domains</b> — healthcareig.com, 247clinic.net and medparkhospitals.com — competing for the same terms and splitting our authority three ways. Consolidate into hub-and-spoke: healthcareig.com as the authority hub with country subfolders <span style="font-family:var(--fm);font-size:14px">/de/ /ru/ /cs/ /it/</span>, brand sites as spokes with canonical links back. This is a few weeks of work and it lifts everything downstream.</p>
+  </div>
+
+  <div class="grid g3">
+    <div class="card"><span class="tag">Technical SEO</span><h4>Be findable</h4>
+      <ul>
+        <li><b>hreflang</b> for seven languages, Arabic right-to-left included</li>
+        <li><b>LocalBusiness + MedicalClinic schema</b> on every facility page — this is what feeds Google Maps</li>
+        <li><b>One page per facility</b>, with real photos, languages on shift and capability</li>
+        <li><b>Core Web Vitals</b> — guests search on hotel wifi</li>
+      </ul></div>
+    <div class="card"><span class="tag">GEO</span><h4>Be recommended by AI</h4>
+      <ul>
+        <li>Guests increasingly ask ChatGPT, Gemini and Perplexity <b>"what do I do if I get ill in Hurghada"</b></li>
+        <li>Write clean, factual, <b>citable</b> answers — structured, sourced, unambiguous</li>
+        <li>Keep our accreditations, coverage and languages in machine-readable form</li>
+        <li><b>Nobody in this market is doing this yet.</b> The window is now</li>
+      </ul></div>
+    <div class="card"><span class="tag">Content</span><h4>Own the long tail</h4>
+      <ul>
+        <li>A blog per language answering the questions guests actually type</li>
+        <li>Low competition, high intent, compounding forever</li>
+        <li>Reviewed by a clinician — accuracy is the brand</li>
+        <li>Every article routes to the nearest facility and the app</li>
+      </ul></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <span class="tag">Long-tail targets · illustrative</span>
+    <h4>The words a sick guest actually types</h4>
+    <div class="kw">
+      <span><b>DE</b> Arzt Hurghada</span><span><b>DE</b> Arzt Ägypten Urlaub</span><span><b>DE</b> Durchfall im Urlaub Ägypten</span>
+      <span><b>DE</b> Zahnarzt Hurghada Notdienst</span><span><b>DE</b> Sonnenbrand Behandlung Rotes Meer</span>
+      <span><b>RU</b> врач Хургада</span><span><b>RU</b> клиника Египет русскоязычный</span><span><b>RU</b> страховка лечение Египет</span>
+      <span><b>CS</b> lékař Hurghada</span><span><b>CS</b> zubař Egypt dovolená</span>
+      <span><b>IT</b> medico Sharm dottore italiano</span><span><b>FR</b> médecin Hurghada urgence</span>
+      <span><b>EN</b> diving accident Red Sea</span><span><b>EN</b> fit to dive certificate Hurghada</span>
+      <span><b>EN</b> travel insurance direct billing Egypt</span><span><b>PL</b> lekarz Hurghada</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 B2B ============ -->
+<section id="b2b">
+  <div class="sh"><span class="num">07</span><h2>Business development</h2></div>
+  <p class="sub">One hotel group signed is worth ten thousand app installs</p>
+
+  <p class="lede">B2C gets us volume. <strong>B2B gets us distribution.</strong> A single agreement with a hotel group or a tour operator puts HCIG Passport in front of every guest they carry, at zero acquisition cost, for the life of the contract.</p>
+
+  <div class="grid g2" style="margin-top:26px">
+    <div class="card"><span class="tag">Target 1</span><h4>Hotels &amp; resort groups</h4>
+      <p><b>The pitch:</b> guest safety you can put in your brochure, a front desk that stops firefighting during a medical incident, and a revenue share on every Care Pass sold in your rooms.</p>
+      <ul>
+        <li>Start with the ten properties where our relationship is already strongest</li>
+        <li>Unique QR per property so their contribution is provable</li>
+        <li>Let the results recruit the rest — hoteliers talk to each other</li>
+      </ul></div>
+
+    <div class="card"><span class="tag">Target 2</span><h4>Tour operators</h4>
+      <p><b>The pitch:</b> differentiate the Egypt product with accredited on-site healthcare, reduce the incidents that generate complaints and refunds.</p>
+      <ul>
+        <li>TUI, FTI, DER Touristik, Anex, Coral — Germany first, then Czechia and Poland</li>
+        <li>Fund it with a Care Pass revenue share, not cash</li>
+        <li>Entry point is the product manager for Egypt, not head office</li>
+      </ul></div>
+
+    <div class="card"><span class="tag">Target 3</span><h4>Insurers &amp; assistance</h4>
+      <p><b>The pitch:</b> lower cost per case, faster guarantee of payment, cleaner claims, and reporting they currently cannot get from anyone in this region.</p>
+      <ul>
+        <li>Allianz, AXA, ERGO, UNIQA, ERV, ADAC, HanseMerkur, Mondial</li>
+        <li>Ask them to co-fund the app that reduces their claim cost</li>
+        <li>Our denial-rate data is the whole argument — bring numbers, not slides</li>
+      </ul></div>
+
+    <div class="card"><span class="tag">How we get in the room</span><h4>Four routes, in order of yield</h4>
+      <ul>
+        <li><b>Trade events</b> — ITB Berlin, WTM London, Arabian Travel Market. Where these deals actually get done</li>
+        <li><b>LinkedIn</b> — targeted outreach to Egypt product managers and insurer network heads, plus visible thought leadership from our own board</li>
+        <li><b>Direct email</b> — short, specific, one number in the subject line. Not a brochure</li>
+        <li><b>healthcareig.com</b> — a real partner page with case studies and the accreditations above the fold</li>
+      </ul></div>
+  </div>
+
+  <div class="callout a">
+    <div class="kick">Our strongest opening line</div>
+    <p><b>We are the founder of UCA MENA and the official GHA partner in Egypt.</b> That sentence opens doors that a price list never will. Accreditation is not compliance overhead — it is our most effective business development asset, and it should lead every conversation.</p>
+  </div>
+</section>
+
+<!-- ============ 08 ROADMAP ============ -->
+<section id="roadmap">
+  <div class="sh"><span class="num">08</span><h2>Twelve-month plan</h2></div>
+  <p class="sub">Each quarter proves something before the next one spends anything</p>
+
+  <div class="phase">
+    <div class="a"><div class="q">Q1</div><h4>Prove it</h4><div class="t">Months 1–3</div></div>
+    <div class="b"><ul>
+      <li>Identity spine live — every encounter gets one HCIG ID</li>
+      <li>Claim all Google Business Profiles; fix domain consolidation</li>
+      <li>Pilot at 10 resorts and 2 MedPark sites</li>
+      <li>No paid media yet</li></ul></div>
+    <div class="c"><div class="kick">Gate</div><p>Cross-facility re-identification rate meaningfully above zero. If it is not, we stop cheaply.</p></div>
+  </div>
+
+  <div class="phase">
+    <div class="a"><div class="q">Q2</div><h4>Turn on intent</h4><div class="t">Months 4–6</div></div>
+    <div class="b"><ul>
+      <li>Guest app v1 across pilot properties</li>
+      <li>Google Maps Ads and Search live in Hurghada only</li>
+      <li>In-room QR in every pilot room</li>
+      <li>First hotel group agreement signed</li></ul></div>
+    <div class="c"><div class="kick">Gate</div><p>Cost per registered guest, and a measurable drop in leaked calls.</p></div>
+  </div>
+
+  <div class="phase">
+    <div class="a"><div class="q">Q3</div><h4>Monetise</h4><div class="t">Months 7–9</div></div>
+    <div class="b"><ul>
+      <li>Care Pass, teleconsults and the elective marketplace live</li>
+      <li>Yandex and source-market campaigns switched on</li>
+      <li>Blog live in DE and RU</li>
+      <li>Insurer conversations opened with real denial data</li></ul></div>
+    <div class="c"><div class="kick">Gate</div><p>Care Pass attach rate and first attributable elective bookings.</p></div>
+  </div>
+
+  <div class="phase">
+    <div class="a"><div class="q">Q4</div><h4>Scale</h4><div class="t">Months 10–12</div></div>
+    <div class="b"><ul>
+      <li>Roll out to the remaining resort clinics</li>
+      <li>Tour operator agreements for the next season</li>
+      <li>ITB Berlin with live product, not slides</li>
+      <li>Clinician client and claim packet across all sites</li></ul></div>
+    <div class="c"><div class="kick">Gate</div><p>Denial-rate delta proven against paper. This is the number that funds year two.</p></div>
+  </div>
+</section>
+
+<!-- ============ 09 KPI ============ -->
+<section id="kpi">
+  <div class="sh"><span class="num">09</span><h2>What the board should watch</h2></div>
+  <p class="sub">Six numbers · everything else is decoration</p>
+
+  <div class="grid g3">
+    <div class="card"><span class="tag">01 · proves the thesis</span><h4>Re-identification rate</h4>
+      <p>Of guests treated this season, how many were matched to a record from a previous visit. <b>If this rises, we have built an asset. If it does not, we have built an app.</b></p></div>
+    <div class="card"><span class="tag">02 · proves the economics</span><h4>Claim denial rate</h4>
+      <p>App-documented encounters against paper, same period. The single strongest figure in the whole case, and it is measurable within one quarter.</p></div>
+    <div class="card"><span class="tag">03 · proves the reach</span><h4>Cost per registered guest</h4>
+      <p>By channel. Expect near zero from in-room QR and single-digit euros from Google Maps. If a channel cannot beat the front desk, cut it.</p></div>
+    <div class="card"><span class="tag">04 · proves the value</span><h4>Lifetime value per guest</h4>
+      <p>Across every facility and every visit. A number HCIG has never been able to calculate, and the one that sets what we can afford to spend.</p></div>
+    <div class="card"><span class="tag">05 · proves the capture</span><h4>Identities per install</h4>
+      <p>Families are the majority of our guests. Target four, not one.</p></div>
+    <div class="card"><span class="tag">06 · proves the quality</span><h4>Leaked calls recaptured</h4>
+      <p>Hotel calls that today end without an HCIG encounter. Nobody tracks this. The moment we do, the leakage line stops being an estimate.</p></div>
+  </div>
+
+  <div class="callout">
+    <div class="kick">If the board remembers one line</div>
+    <p><b>We are not building an app. We are building the guest relationship we have never owned</b> — on top of an estate, a workforce and a set of accreditations we already have. The app is simply the most profitable thing we can hang on it.</p>
+  </div>
+
+  <div class="backlinks">
+    <a href="/business-case">Business case &amp; system analysis
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a href="/ui-kit">Interface library · 74 screens
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    <a href="/">Back to index
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+</section>
+
+<footer>
+  HCIG Passport · business model canvas · internal board paper · August 2026<br>
+  Partner, insurer and accreditation names are taken from the HCIG company profile. Revenue and cost figures are illustrative placeholders pending HCIG actuals and must be replaced before this leaves the group.
+</footer>
+
+</div>
