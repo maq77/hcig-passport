@@ -102,10 +102,19 @@ if ($saGiven) {
     </div>
 
     <div class="field">
-      <label>SEMrush API key</label>
-      <p class="hint">Optional. SEMrush, Subscription info, API units. Note that API access is a
-        separate product from the normal subscription and it consumes units per request.</p>
+      <label>SEMrush API key <span class="tag">not needed</span></label>
+      <p class="hint">Left here in case you ever buy it, but nothing depends on it. Keyword discovery
+        runs on Google's own suggest endpoint, which is free and needs no key, and Search Console
+        gives real positions for your own site rather than SEMrush's estimates. The one thing a paid
+        tool would add is backlink data.</p>
       <input type="text" name="semrush_api_key" value="<?php echo e(mp_get('semrush_api_key')); ?>">
+    </div>
+
+    <div class="field">
+      <label>Competitor sites</label>
+      <p class="hint">One domain per line. Checked daily for speed, technical setup and whether they
+        serve German. No paid tool required.</p>
+      <textarea name="competitor_sites" style="min-height:74px"><?php echo e(mp_get('competitor_sites')); ?></textarea>
     </div>
 
     <div class="field">
@@ -155,6 +164,38 @@ if ($saGiven) {
     <div class="field">
       <label>Competitors to watch for</label>
       <input type="text" name="ai_competitors" value="<?php echo e(mp_get('ai_competitors')); ?>">
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Website assistant</h3>
+    <div class="field">
+      <label>Anthropic API key</label>
+      <p class="hint">Optional. The assistant already works without one: it answers from the knowledge
+        base and runs the booking flow. With a key it holds a real conversation in all three languages
+        instead. console.anthropic.com, API keys.</p>
+      <input type="text" name="anthropic_api_key" value="<?php echo e(mp_get('anthropic_api_key')); ?>" placeholder="sk-ant-...">
+    </div>
+    <div class="field">
+      <label>Model</label>
+      <p class="hint">Only used when a key is set.</p>
+      <input type="text" name="chat_model" value="<?php echo e(mp_get('chat_model')); ?>">
+    </div>
+    <div class="field">
+      <label>Where appointment requests are emailed</label>
+      <p class="hint">Comma separated. Every request captured by the assistant is sent here immediately.</p>
+      <input type="text" name="staff_email" value="<?php echo e(mp_get('staff_email')); ?>">
+    </div>
+    <div class="field">
+      <label>Urgent case alerts</label>
+      <p class="hint">Additional addresses that also receive the immediate alert when the assistant
+        detects a possible emergency. Leave blank to use the address above only.</p>
+      <input type="text" name="staff_alert_email" value="<?php echo e(mp_get('staff_alert_email')); ?>">
+    </div>
+    <div class="field">
+      <label>Assistant enabled</label>
+      <p class="hint">Set to 0 to switch the assistant off across the whole site immediately.</p>
+      <input type="text" name="chat_enabled" value="<?php echo e(mp_get('chat_enabled')); ?>">
     </div>
   </div>
 

@@ -138,6 +138,14 @@ function mp_pull_ga4(string $from, string $to): array {
         array('dims'=>array('date','pagePath'),                   'mets'=>array('screenPageViews'), 'store'=>'views_page'),
         array('dims'=>array('date','pagePath'),                   'mets'=>array('userEngagementDuration'), 'store'=>'engagement_page'),
         array('dims'=>array('date','eventName'),                  'mets'=>array('eventCount'), 'store'=>'events'),
+        /* Cross-dimension rows. Storing country and language together in dim
+           and dim2 is what makes real filtering possible: without it the
+           dashboard can show German visitors OR mobile visitors, but never
+           German visitors on mobile. */
+        array('dims'=>array('date','country','language'),         'mets'=>array('sessions'), 'store'=>'x_country_lang', 'pair'=>true),
+        array('dims'=>array('date','deviceCategory','language'),  'mets'=>array('sessions'), 'store'=>'x_device_lang',  'pair'=>true),
+        array('dims'=>array('date','country','deviceCategory'),   'mets'=>array('sessions'), 'store'=>'x_country_dev',  'pair'=>true),
+        array('dims'=>array('date','city'),                       'mets'=>array('sessions'), 'store'=>'sessions_city'),
     );
 
     $errors = array();
@@ -164,6 +172,12 @@ function mp_pull_ga4(string $from, string $to): array {
                 foreach ($names as $i => $n) {
                     if (isset($mv[$i])) { mp_metric_put($day, 'ga4', $n, $mv[$i]); $rows++; }
                 }
+            } elseif (!empty($q['pair'])) {
+                $dim  = isset($dv[1]) ? $dv[1] : '';
+                $dim2 = isset($dv[2]) ? $dv[2] : '';
+                if ($dim === '' || $dim === '(not set)') continue;
+                mp_metric_put($day, 'ga4', $q['store'], $mv[0], $dim, $dim2);
+                $rows++;
             } else {
                 $dim = isset($dv[1]) ? $dv[1] : '';
                 if ($dim === '' || $dim === '(not set)') continue;
@@ -489,6 +503,132 @@ function mp_pull_yandex(string $from, string $to): array {
 }
 
 /* ==========================================================================
+   Keyword discovery.
+
+   This is the SEMrush replacement, and it is worth being clear about what it
+   is and is not. Google's own suggest endpoint returns the queries people
+   actually type, for free, with no key. That gives real demand signals and
+   long-tail phrasing in all three languages.
+
+   What it does NOT give is search volume or difficulty. Those are modelled
+   numbers that only a paid tool sells, and rather than invent them the
+   keywords page says so plainly. Search Console supplies the real impressions
+   and positions for anything the site already ranks for, which for your own
+   site is better data than any third party estimate.
+   ========================================================================== */
+function mp_suggest(string $term, string $lang, string $country): array {
+    $url = 'https://suggestqueries.google.com/complete/search?'
+         . http_build_query(array('client' => 'firefox', 'q' => $term, 'hl' => $lang, 'gl' => $country));
+    $r = mp_http('GET', $url, array('timeout' => 15));
+    if ($r['code'] !== 200) return array();
+    $j = json_decode($r['body'], true);
+    /* Response is [query, [suggestions], ...]. */
+    return (is_array($j) && isset($j[1]) && is_array($j[1])) ? $j[1] : array();
+}
+
+function mp_keyword_seeds(): array {
+    return array(
+        'en' => array(
+            'hospital in hurghada', 'doctor in hurghada', 'emergency hurghada',
+            'clinic sahl hasheesh', 'hospital el gouna', 'dentist hurghada',
+            'travel insurance egypt hospital', 'diving accident hurghada',
+        ),
+        'de' => array(
+            'krankenhaus hurghada', 'arzt hurghada', 'notfall hurghada',
+            'zahnarzt hurghada', 'klinik sahl hasheesh', 'reiseversicherung aegypten arzt',
+        ),
+        'pl' => array(
+            'szpital hurghada', 'lekarz hurghada', 'pogotowie hurghada',
+            'dentysta hurghada', 'klinika sahl hasheesh', 'ubezpieczenie egipt lekarz',
+        ),
+    );
+}
+
+function mp_pull_keywords(string $from, string $to): array {
+    $seeds = mp_keyword_seeds();
+    $rows = 0; $errors = array();
+    $now = gmdate('c');
+
+    $st = mp_db()->prepare(
+        "INSERT INTO keywords (seen_at, term, seed, lang, source) VALUES (:t,:k,:s,:l,'suggest')
+         ON CONFLICT(term, lang) DO UPDATE SET seen_at = :t"
+    );
+
+    foreach ($seeds as $lang => $terms) {
+        $country = 'eg';
+        foreach ($terms as $seed) {
+            $out = mp_suggest($seed, $lang, $country);
+            if (!$out) { $errors[] = $seed; continue; }
+            foreach ($out as $sug) {
+                $sug = trim((string)$sug);
+                if ($sug === '' || mb_strlen($sug) > 90) continue;
+                $st->execute(array(':t' => $now, ':k' => $sug, ':s' => $seed, ':l' => $lang));
+                $rows++;
+            }
+            /* Google is being generous here. Do not abuse it. */
+            usleep(400000);
+        }
+    }
+
+    if ($rows === 0) {
+        mp_log_run('keywords', 'error', 'no suggestions returned for ' . count($errors) . ' seeds');
+        return array('ok' => false, 'msg' => 'Google returned no suggestions. This usually clears on its own.', 'rows' => 0);
+    }
+    mp_log_run('keywords', 'ok', $rows . ' suggestions');
+    return array('ok' => true, 'msg' => $rows . ' keyword ideas stored.', 'rows' => $rows);
+}
+
+/* ==========================================================================
+   Competitors. No paid API, so this compares what can be measured honestly:
+   whether their site is fast, whether it is technically sound, and whether it
+   is reachable. That is a real competitive picture for a local market, and it
+   costs nothing.
+   ========================================================================== */
+function mp_pull_competitors(string $from, string $to): array {
+    $list = array_values(array_filter(array_map('trim', explode("\n", mp_get('competitor_sites', '')))));
+    if (!$list) return array('ok' => false, 'msg' => 'No competitor sites listed in Settings.', 'rows' => 0);
+
+    $day = gmdate('Y-m-d');
+    $rows = 0;
+    foreach (array_slice($list, 0, 6) as $site) {
+        $site = preg_replace('~^https?://~', '', $site);
+        $site = rtrim(strtok($site, '/'), '/');
+        if ($site === '') continue;
+        $url = 'https://' . $site . '/';
+
+        $ch = curl_init();
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => $url, CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_TIMEOUT => 25, CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (compatible; MedPark-Dashboard/' . MP_VERSION . ')',
+        ));
+        $body = curl_exec($ch);
+        $code = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+        $ttfb = (float)curl_getinfo($ch, CURLINFO_STARTTRANSFER_TIME) * 1000;
+        curl_close($ch);
+
+        mp_metric_put($day, 'competitor', 'status', (float)$code, $site);
+        mp_metric_put($day, 'competitor', 'ttfb_ms', $ttfb, $site);
+        mp_metric_put($day, 'competitor', 'bytes', (float)strlen((string)$body), $site);
+        $rows += 3;
+
+        if ($code === 200 && $body) {
+            $b = (string)$body;
+            mp_metric_put($day, 'competitor', 'has_schema',   strpos($b, 'application/ld+json') !== false ? 1 : 0, $site);
+            mp_metric_put($day, 'competitor', 'has_hreflang', stripos($b, 'hreflang') !== false ? 1 : 0, $site);
+            mp_metric_put($day, 'competitor', 'has_german',   preg_match('~hreflang=["\']de~i', $b) ? 1 : 0, $site);
+            mp_metric_put($day, 'competitor', 'has_whatsapp', stripos($b, 'wa.me') !== false ? 1 : 0, $site);
+            preg_match('~<title[^>]*>(.*?)</title>~is', $b, $m);
+            mp_metric_put($day, 'competitor', 'title_len', isset($m[1]) ? (float)mb_strlen(trim($m[1])) : 0, $site);
+            $rows += 5;
+        }
+    }
+
+    mp_log_run('competitor', 'ok', $rows . ' checks');
+    return array('ok' => true, 'msg' => $rows . ' competitor checks stored.', 'rows' => $rows);
+}
+
+/* ==========================================================================
    Site health. No credentials needed, so this one works from day one.
    Checks every address variant, the key pages, and the files that decide
    whether Google and the AI crawlers can read the site at all.
@@ -581,7 +721,8 @@ function mp_pull_health(string $from, string $to): array {
 function mp_pull_all(string $from, string $to, array $only = array()): array {
     $all = array('ga4'=>'mp_pull_ga4', 'gsc'=>'mp_pull_gsc', 'gbp'=>'mp_pull_gbp',
                  'psi'=>'mp_pull_psi', 'semrush'=>'mp_pull_semrush',
-                 'yandex'=>'mp_pull_yandex', 'health'=>'mp_pull_health');
+                 'yandex'=>'mp_pull_yandex', 'health'=>'mp_pull_health',
+                 'keywords'=>'mp_pull_keywords', 'competitor'=>'mp_pull_competitors');
     $out = array();
     foreach ($all as $k => $fn) {
         if ($only && !in_array($k, $only, true)) continue;

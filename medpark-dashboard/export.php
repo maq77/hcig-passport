@@ -1,7 +1,18 @@
 <?php
-/* Export. CSV for anyone who wants the raw numbers, and a printable monthly
-   report laid out for a CEO. The report prints to PDF straight from the
-   browser, so no PDF library has to be installed on the server. */
+/* ==========================================================================
+   Export.
+
+   CSV for anyone who wants the raw numbers, and a printable report laid out in
+   HCIG identity: turquoise #12C0C6 as the single accent, dim gray #565759 for
+   secondary, Inter throughout, per the HCIG brand guideline.
+
+   The report is deliberately short. One page of numbers, one page of what to do.
+   A CEO report that runs to six pages does not get read, and everything longer
+   is already in the dashboard.
+
+   It prints to PDF straight from the browser, so no PDF library is needed on
+   the server.
+   ========================================================================== */
 declare(strict_types=1);
 require __DIR__ . '/lib/bootstrap.php';
 require __DIR__ . '/lib/connectors.php';
@@ -32,29 +43,54 @@ if ($format === 'csv') {
     exit;
 }
 
-/* ---------- printable report ---------------------------------------------- */
+/* ---------- gather -------------------------------------------------------- */
 $f = $R['from']; $t = $R['to']; $pf = $R['prev_from']; $pt = $R['prev_to'];
-$calls = mp_sum('ga4','events',$f,$t,'call_click');
-$whats = mp_sum('ga4','events',$f,$t,'whatsapp_click');
-$enq = $calls + $whats;
-$penq = mp_sum('ga4','events',$pf,$pt,'call_click') + mp_sum('ga4','events',$pf,$pt,'whatsapp_click');
-$sessions = mp_sum('ga4','sessions',$f,$t);
-$psessions= mp_sum('ga4','sessions',$pf,$pt);
-$clicks = mp_sum('gsc','clicks',$f,$t);
-$pclicks= mp_sum('gsc','clicks',$pf,$pt);
-$impr = mp_sum('gsc','impressions',$f,$t);
-$pos = mp_avg('gsc','position',$f,$t);
-$gbpCalls = mp_sum('gbp','call_clicks',$f,$t);
-$gbpDir = mp_sum('gbp','direction_requests',$f,$t);
+$today = gmdate('Y-m-d');
+
+function ex_count(string $sql, array $a): float {
+    try { $st = mp_db()->prepare($sql); $st->execute($a); return (float)$st->fetchColumn(); }
+    catch (Throwable $e) { return 0.0; }
+}
+
+$calls  = mp_sum('ga4','events',$f,$t,'call_click');
+$whats  = mp_sum('ga4','events',$f,$t,'whatsapp_click');
+$forms  = mp_sum('ga4','events',$f,$t,'enquiry_submit');
+$chat   = ex_count("SELECT COUNT(*) FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b", array(':a'=>$f, ':b'=>$today));
+$pcalls = mp_sum('ga4','events',$pf,$pt,'call_click');
+$pwhats = mp_sum('ga4','events',$pf,$pt,'whatsapp_click');
+$pforms = mp_sum('ga4','events',$pf,$pt,'enquiry_submit');
+$pchat  = ex_count("SELECT COUNT(*) FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b", array(':a'=>$pf, ':b'=>$pt));
+
+$enq  = $calls + $whats + $forms + $chat;
+$penq = $pcalls + $pwhats + $pforms + $pchat;
+
+$sessions  = mp_sum('ga4','sessions',$f,$t);
+$psessions = mp_sum('ga4','sessions',$pf,$pt);
+$clicks    = mp_sum('gsc','clicks',$f,$t);
+$pclicks   = mp_sum('gsc','clicks',$pf,$pt);
+$impr      = mp_sum('gsc','impressions',$f,$t);
+$pimpr     = mp_sum('gsc','impressions',$pf,$pt);
+$pos       = mp_avg('gsc','position',$f,$t);
+$ppos      = mp_avg('gsc','position',$pf,$pt);
+$gbpCalls  = mp_sum('gbp','call_clicks',$f,$t);
+$pgbpCalls = mp_sum('gbp','call_clicks',$pf,$pt);
+$gbpDir    = mp_sum('gbp','direction_requests',$f,$t);
+$pgbpDir   = mp_sum('gbp','direction_requests',$pf,$pt);
+
+$rate  = $sessions > 0 ? ($enq / $sessions) * 100 : 0;
+$prate = $psessions > 0 ? ($penq / $psessions) * 100 : 0;
+
 $findings = mp_insights($R);
 $conn = mp_connectors_status();
+$connected = 0; $waiting = array();
+foreach ($conn as $c) { $c['ready'] ? $connected++ : $waiting[] = $c['name']; }
 
-function rp($now, $prev) {
-    $d = mp_delta((float)$now, (float)$prev);
-    if ($d['pct'] === null) return '<span style="color:#7A8FA4">no prior period</span>';
-    $c = $d['dir'] === 'up' ? '#128C4A' : ($d['dir'] === 'down' ? '#C0392B' : '#7A8FA4');
-    $a = $d['dir'] === 'up' ? '&#9650;' : ($d['dir'] === 'down' ? '&#9660;' : '&#9679;');
-    return '<span style="color:' . $c . ';font-weight:700">' . $a . ' ' . number_format(abs($d['pct']), 1) . '%</span>';
+function ex_delta($now, $prev, bool $higherBetter = true): string {
+    $d = $higherBetter ? mp_delta((float)$now, (float)$prev) : mp_delta((float)$prev, (float)$now);
+    if ($d['pct'] === null) return '<span class="flat">no prior period</span>';
+    $cls = $d['dir'] === 'up' ? 'up' : ($d['dir'] === 'down' ? 'down' : 'flat');
+    $arrow = $d['dir'] === 'up' ? '&#9650;' : ($d['dir'] === 'down' ? '&#9660;' : '&#9679;');
+    return '<span class="' . $cls . '">' . $arrow . ' ' . number_format(abs($d['pct']), 1) . '%</span>';
 }
 ?>
 <!doctype html>
@@ -63,58 +99,141 @@ function rp($now, $prev) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>MedPark performance report, <?php echo e($f); ?> to <?php echo e($t); ?></title>
+<title>MedPark performance, <?php echo e($f); ?> to <?php echo e($t); ?></title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
 <style>
-  body{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;color:#0A2A4A;max-width:820px;
-       margin:0 auto;padding:38px 30px 60px;line-height:1.55;font-size:14px}
-  h1{font-size:25px;margin:0 0 4px;letter-spacing:-.02em}
-  h2{font-size:15px;text-transform:uppercase;letter-spacing:.07em;color:#12C0C6;
-     margin:34px 0 12px;padding-bottom:7px;border-bottom:2px solid #E2EAF1}
-  .sub{color:#7A8FA4;margin:0 0 6px;font-size:13.5px}
-  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:6px}
-  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#7A8FA4;
-     padding:0 0 8px;border-bottom:1px solid #E2EAF1}
-  td{padding:9px 0;border-bottom:1px solid #F0F4F8}
-  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
-  .big{font-size:31px;font-weight:700;letter-spacing:-.03em}
-  .hero{background:#0A2A4A;color:#fff;border-radius:14px;padding:22px 26px;margin:22px 0 6px;
-        display:flex;gap:36px;flex-wrap:wrap}
-  .hero div{min-width:120px}
-  .hero small{display:block;color:#8FB3C9;text-transform:uppercase;letter-spacing:.07em;font-size:11px}
-  .find{padding:13px 0;border-bottom:1px solid #F0F4F8}
-  .find b{display:block}
-  .find i{display:block;font-style:normal;color:#3B546E;font-size:13px;margin-top:3px}
-  .find em{display:block;font-style:normal;background:#E6F9FA;border-left:3px solid #12C0C6;
-           padding:9px 12px;margin-top:8px;border-radius:0 8px 8px 0;font-size:13px}
-  .note{background:#E6F9FA;border-radius:10px;padding:13px 16px;font-size:13px;color:#0B5F62;margin:14px 0}
-  .noprint{margin-bottom:20px}
-  @media print{.noprint{display:none}body{padding:0}}
+/* HCIG identity: turquoise #12C0C6, dim gray #565759, black, white.
+   Inter throughout, which is the guideline's specified paragraph face. */
+:root{
+  --t:#12C0C6; --t-d:#0B8B90;
+  --gray:#565759; --ink:#0B0C0D; --ink-2:#565759; --ink-3:#8B8D8F;
+  --line:#E4E6E7; --line-2:#F1F2F3; --paper:#FFFFFF;
+  --ok:#0E7C4A; --bad:#B4291D;
+}
+*{box-sizing:border-box}
+body{
+  font-family:Inter,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color:var(--ink); background:var(--paper);
+  max-width:760px; margin:0 auto; padding:34px 30px 60px;
+  line-height:1.55; font-size:14px; -webkit-font-smoothing:antialiased;
+}
+.n,td,th,.big{font-variant-numeric:tabular-nums}
+
+/* masthead */
+.mast{display:flex; align-items:flex-start; justify-content:space-between; gap:20px; padding-bottom:16px; border-bottom:3px solid var(--t)}
+.mast h1{margin:0; font-size:25px; font-weight:800; letter-spacing:-.025em; line-height:1.1}
+.mast .who{font-size:11px; text-transform:uppercase; letter-spacing:.15em; color:var(--t-d); font-weight:700; margin-bottom:7px}
+.mast .when{text-align:right; font-size:12px; color:var(--ink-3); white-space:nowrap; line-height:1.6}
+.mast .when b{display:block; color:var(--ink-2); font-weight:600}
+.mark{width:34px;height:34px;border-radius:9px;background:var(--t);display:inline-grid;place-items:center;color:#04282A;font-weight:900;font-size:14px;margin-bottom:10px}
+
+h2{
+  font-size:11.5px; text-transform:uppercase; letter-spacing:.13em; color:var(--t-d);
+  margin:30px 0 11px; font-weight:800;
+}
+
+/* headline numbers */
+.head{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:9px; overflow:hidden; margin-top:20px}
+.head div{background:var(--paper); padding:15px 16px}
+.head small{display:block; font-size:10px; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-3); font-weight:700}
+.head .big{display:block; font-size:29px; font-weight:800; letter-spacing:-.035em; margin:5px 0 2px; line-height:1}
+.head em{font-style:normal; font-size:11.5px; font-weight:700}
+
+table{width:100%; border-collapse:collapse; font-size:13px}
+th{text-align:left; font-size:10px; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-3); padding:0 0 8px; border-bottom:1px solid var(--line); font-weight:700}
+td{padding:8px 0; border-bottom:1px solid var(--line-2); color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right}
+td:first-child{color:var(--ink); font-weight:500}
+.up{color:var(--ok); font-weight:700}
+.down{color:var(--bad); font-weight:700}
+.flat{color:var(--ink-3); font-weight:600}
+
+.act{padding:11px 0; border-bottom:1px solid var(--line-2); display:flex; gap:11px}
+.act:last-child{border-bottom:0}
+.act__i{flex:0 0 3px; background:var(--ink-3); border-radius:2px}
+.act--high .act__i{background:var(--bad)}
+.act--medium .act__i{background:#B8860B}
+.act--low .act__i{background:var(--t)}
+.act b{display:block; font-size:13.5px; color:var(--ink); font-weight:650}
+.act span{display:block; font-size:12.5px; color:var(--ink-2); margin-top:2px}
+.act i{display:block; font-style:normal; font-size:12.5px; color:var(--ink); margin-top:5px}
+.act i::before{content:"Do this. "; font-weight:700; color:var(--t-d)}
+
+.note{background:#F0FCFC; border-left:3px solid var(--t); padding:11px 14px; font-size:12.5px; color:var(--ink-2); margin:14px 0; border-radius:0 7px 7px 0}
+.note b{color:var(--ink)}
+.foot{margin-top:26px; padding-top:14px; border-top:1px solid var(--line); font-size:11px; color:var(--ink-3); line-height:1.65}
+.noprint{margin-bottom:22px; display:flex; gap:9px; align-items:center}
+.pbtn{padding:8px 16px; border-radius:7px; border:0; background:var(--t); color:#04282A; font:inherit; font-size:12.5px; font-weight:700; cursor:pointer}
+.pbtn:hover{background:var(--t-d); color:#fff}
+
+@media print{
+  .noprint{display:none}
+  body{padding:0; max-width:none; font-size:11pt}
+  h2{margin-top:20pt}
+  .head,.act,table{break-inside:avoid}
+  a{color:inherit; text-decoration:none}
+}
+@media (max-width:560px){
+  .head{grid-template-columns:repeat(2,1fr)}
+  body{padding:20px 16px 40px}
+  .mast{flex-direction:column}
+  .mast .when{text-align:left}
+}
 </style>
 </head>
 <body>
 
 <div class="noprint">
-  <button onclick="window.print()" style="padding:9px 18px;border-radius:9px;border:0;background:#12C0C6;
-    color:#fff;font-weight:700;font-size:13px;cursor:pointer">Print or save as PDF</button>
-  <a href="index.php" style="margin-left:10px;color:#0E9AA0;font-size:13px">Back to the dashboard</a>
+  <button class="pbtn" onclick="window.print()">Print or save as PDF</button>
+  <a href="index.php" style="color:var(--t-d);font-size:12.5px;text-decoration:none">Back to the dashboard</a>
 </div>
 
-<h1><?php echo e(mp_get('brand_name')); ?> performance report</h1>
-<p class="sub"><?php echo e($R['label']); ?>: <?php echo e($f); ?> to <?php echo e($t); ?>.
-   Compared against <?php echo e($pf); ?> to <?php echo e($pt); ?>.</p>
-<p class="sub">Prepared <?php echo e(gmdate('j F Y')); ?>.</p>
+<header class="mast">
+  <div>
+    <span class="mark">M</span>
+    <div class="who">Healthcare International Group</div>
+    <h1><?php echo e(mp_get('brand_name')); ?> performance</h1>
+  </div>
+  <div class="when">
+    <b><?php echo e($R['label']); ?></b>
+    <?php echo e($f); ?> to <?php echo e($t); ?><br>
+    <span style="color:var(--ink-3)">vs <?php echo e($pf); ?> to <?php echo e($pt); ?></span><br>
+    <span style="color:var(--ink-3)">Issued <?php echo e(gmdate('j M Y')); ?></span>
+  </div>
+</header>
 
-<div class="hero">
-  <div><small>Enquiries</small><span class="big"><?php echo mp_num($enq); ?></span></div>
-  <div><small>Calls</small><span class="big"><?php echo mp_num($calls); ?></span></div>
-  <div><small>WhatsApp</small><span class="big"><?php echo mp_num($whats); ?></span></div>
-  <div><small>Sessions</small><span class="big"><?php echo mp_num($sessions); ?></span></div>
+<div class="head">
+  <div>
+    <small>Enquiries</small>
+    <span class="big"><?php echo mp_num($enq); ?></span>
+    <em><?php echo ex_delta($enq, $penq); ?></em>
+  </div>
+  <div>
+    <small>Calls</small>
+    <span class="big"><?php echo mp_num($calls); ?></span>
+    <em><?php echo ex_delta($calls, $pcalls); ?></em>
+  </div>
+  <div>
+    <small>WhatsApp</small>
+    <span class="big"><?php echo mp_num($whats); ?></span>
+    <em><?php echo ex_delta($whats, $pwhats); ?></em>
+  </div>
+  <div>
+    <small>Enquiry rate</small>
+    <span class="big"><?php echo $sessions > 0 ? number_format($rate, 2) . '%' : '0%'; ?></span>
+    <em><?php echo ex_delta($rate, $prate); ?></em>
+  </div>
 </div>
 
 <?php if (!mp_has_data('ga4')): ?>
 <div class="note">
-  Analytics is not connected yet, so the figures above are blank. The tracking script is live on the
-  site and recording, the dashboard just needs read access to the GA4 property to display it.
+  <b>Analytics is not connected yet, so the figures above are incomplete.</b>
+  Conversion tracking is live on the site and recording. The dashboard needs read access to the
+  GA4 property to display it. Assistant requests are already counted here because they are stored
+  on your own server and need no external access.
 </div>
 <?php endif; ?>
 
@@ -122,65 +241,70 @@ function rp($now, $prev) {
 <table>
   <thead><tr><th>Metric</th><th class="n">This period</th><th class="n">Previous</th><th class="n">Change</th></tr></thead>
   <tbody>
-    <tr><td><b>Total enquiries</b></td><td class="n"><b><?php echo mp_num($enq); ?></b></td><td class="n"><?php echo mp_num($penq); ?></td><td class="n"><?php echo rp($enq,$penq); ?></td></tr>
-    <tr><td>Calls</td><td class="n"><?php echo mp_num($calls); ?></td><td class="n"><?php echo mp_num(mp_sum('ga4','events',$pf,$pt,'call_click')); ?></td><td class="n"><?php echo rp($calls, mp_sum('ga4','events',$pf,$pt,'call_click')); ?></td></tr>
-    <tr><td>WhatsApp</td><td class="n"><?php echo mp_num($whats); ?></td><td class="n"><?php echo mp_num(mp_sum('ga4','events',$pf,$pt,'whatsapp_click')); ?></td><td class="n"><?php echo rp($whats, mp_sum('ga4','events',$pf,$pt,'whatsapp_click')); ?></td></tr>
-    <tr><td>Sessions</td><td class="n"><?php echo mp_num($sessions); ?></td><td class="n"><?php echo mp_num($psessions); ?></td><td class="n"><?php echo rp($sessions,$psessions); ?></td></tr>
-    <tr><td>Enquiry rate</td><td class="n"><?php echo $sessions > 0 ? number_format(($enq/$sessions)*100,2).'%' : '0%'; ?></td><td class="n"><?php echo $psessions > 0 ? number_format(($penq/$psessions)*100,2).'%' : '0%'; ?></td><td class="n"></td></tr>
-    <tr><td>Clicks from Google</td><td class="n"><?php echo mp_num($clicks); ?></td><td class="n"><?php echo mp_num($pclicks); ?></td><td class="n"><?php echo rp($clicks,$pclicks); ?></td></tr>
-    <tr><td>Impressions in Google</td><td class="n"><?php echo mp_num($impr); ?></td><td class="n"><?php echo mp_num(mp_sum('gsc','impressions',$pf,$pt)); ?></td><td class="n"><?php echo rp($impr, mp_sum('gsc','impressions',$pf,$pt)); ?></td></tr>
-    <tr><td>Average position</td><td class="n"><?php echo $pos > 0 ? number_format($pos,1) : '-'; ?></td><td class="n"><?php echo mp_avg('gsc','position',$pf,$pt) > 0 ? number_format(mp_avg('gsc','position',$pf,$pt),1) : '-'; ?></td><td class="n"></td></tr>
-    <tr><td>Calls from map listings</td><td class="n"><?php echo mp_num($gbpCalls); ?></td><td class="n"><?php echo mp_num(mp_sum('gbp','call_clicks',$pf,$pt)); ?></td><td class="n"><?php echo rp($gbpCalls, mp_sum('gbp','call_clicks',$pf,$pt)); ?></td></tr>
-    <tr><td>Direction requests</td><td class="n"><?php echo mp_num($gbpDir); ?></td><td class="n"><?php echo mp_num(mp_sum('gbp','direction_requests',$pf,$pt)); ?></td><td class="n"><?php echo rp($gbpDir, mp_sum('gbp','direction_requests',$pf,$pt)); ?></td></tr>
+    <tr><td><strong>Total enquiries</strong></td><td class="n"><strong><?php echo mp_num($enq); ?></strong></td><td class="n"><?php echo mp_num($penq); ?></td><td class="n"><?php echo ex_delta($enq, $penq); ?></td></tr>
+    <tr><td>Calls</td><td class="n"><?php echo mp_num($calls); ?></td><td class="n"><?php echo mp_num($pcalls); ?></td><td class="n"><?php echo ex_delta($calls, $pcalls); ?></td></tr>
+    <tr><td>WhatsApp</td><td class="n"><?php echo mp_num($whats); ?></td><td class="n"><?php echo mp_num($pwhats); ?></td><td class="n"><?php echo ex_delta($whats, $pwhats); ?></td></tr>
+    <tr><td>Website assistant requests</td><td class="n"><?php echo mp_num($chat); ?></td><td class="n"><?php echo mp_num($pchat); ?></td><td class="n"><?php echo ex_delta($chat, $pchat); ?></td></tr>
+    <tr><td>Calls from map listings</td><td class="n"><?php echo mp_num($gbpCalls); ?></td><td class="n"><?php echo mp_num($pgbpCalls); ?></td><td class="n"><?php echo ex_delta($gbpCalls, $pgbpCalls); ?></td></tr>
+    <tr><td>Direction requests</td><td class="n"><?php echo mp_num($gbpDir); ?></td><td class="n"><?php echo mp_num($pgbpDir); ?></td><td class="n"><?php echo ex_delta($gbpDir, $pgbpDir); ?></td></tr>
+    <tr><td>Sessions</td><td class="n"><?php echo mp_num($sessions); ?></td><td class="n"><?php echo mp_num($psessions); ?></td><td class="n"><?php echo ex_delta($sessions, $psessions); ?></td></tr>
+    <tr><td>Clicks from Google</td><td class="n"><?php echo mp_num($clicks); ?></td><td class="n"><?php echo mp_num($pclicks); ?></td><td class="n"><?php echo ex_delta($clicks, $pclicks); ?></td></tr>
+    <tr><td>Impressions in Google</td><td class="n"><?php echo mp_num($impr); ?></td><td class="n"><?php echo mp_num($pimpr); ?></td><td class="n"><?php echo ex_delta($impr, $pimpr); ?></td></tr>
+    <tr><td>Average position <span style="color:var(--ink-3);font-size:11px">lower is better</span></td><td class="n"><?php echo $pos > 0 ? number_format($pos, 1) : '-'; ?></td><td class="n"><?php echo $ppos > 0 ? number_format($ppos, 1) : '-'; ?></td><td class="n"><?php echo ex_delta($pos, $ppos, false); ?></td></tr>
   </tbody>
 </table>
 
-<?php if (mp_has_data('ga4')): ?>
-<h2>Where visitors came from</h2>
+<?php
+  $topQ = mp_top('gsc','clicks_query',$f,$t,5);
+  $topC = mp_top('ga4','sessions_country',$f,$t,5);
+  if ($topQ || $topC):
+?>
+<h2>Where it came from</h2>
 <table>
-  <thead><tr><th>Country</th><th class="n">Sessions</th></tr></thead>
+  <thead><tr><th>Top search queries</th><th class="n">Clicks</th><th>Top countries</th><th class="n">Sessions</th></tr></thead>
   <tbody>
-  <?php foreach (mp_top('ga4','sessions_country',$f,$t,6) as $r)
-    echo '<tr><td>' . e($r['dim']) . '</td><td class="n">' . mp_num($r['v']) . '</td></tr>'; ?>
+  <?php for ($i = 0; $i < max(count($topQ), count($topC), 1); $i++): if ($i >= 5) break; ?>
+    <tr>
+      <td><?php echo isset($topQ[$i]) ? e((string)$topQ[$i]['dim']) : '<span style="color:var(--ink-3)">-</span>'; ?></td>
+      <td class="n"><?php echo isset($topQ[$i]) ? mp_num($topQ[$i]['v']) : '-'; ?></td>
+      <td><?php echo isset($topC[$i]) ? e((string)$topC[$i]['dim']) : '<span style="color:var(--ink-3)">-</span>'; ?></td>
+      <td class="n"><?php echo isset($topC[$i]) ? mp_num($topC[$i]['v']) : '-'; ?></td>
+    </tr>
+  <?php endfor; ?>
   </tbody>
 </table>
 <?php endif; ?>
 
-<?php if (mp_has_data('gsc')): ?>
-<h2>Top search queries</h2>
-<table>
-  <thead><tr><th>Query</th><th class="n">Clicks</th></tr></thead>
-  <tbody>
-  <?php foreach (mp_top('gsc','clicks_query',$f,$t,8) as $r)
-    echo '<tr><td>' . e($r['dim']) . '</td><td class="n">' . mp_num($r['v']) . '</td></tr>'; ?>
-  </tbody>
-</table>
-<?php endif; ?>
-
-<h2>What needs attention</h2>
+<h2>What to do next</h2>
 <?php if (!$findings): ?>
-  <p style="color:#7A8FA4">Nothing was flagged for this period.</p>
-<?php else: foreach (array_slice($findings, 0, 8) as $x): ?>
-  <div class="find">
-    <b><?php echo e($x['title']); ?></b>
-    <i><?php echo e($x['detail']); ?></i>
-    <em><b>What to do.</b> <?php echo e($x['advice']); ?></em>
+  <p style="color:var(--ink-3);font-size:13px">Nothing was flagged for this period.</p>
+<?php else: foreach (array_slice($findings, 0, 5) as $x): ?>
+  <div class="act act--<?php echo e($x['severity']); ?>">
+    <span class="act__i"></span>
+    <span>
+      <b><?php echo e($x['title']); ?></b>
+      <span><?php echo e($x['detail']); ?></span>
+      <i><?php echo e($x['advice']); ?></i>
+    </span>
   </div>
 <?php endforeach; endif; ?>
+<?php if (count($findings) > 5): ?>
+  <p style="font-size:12px;color:var(--ink-3);margin-top:10px">
+    <?php echo count($findings) - 5; ?> further items are in the dashboard, ordered by severity.
+  </p>
+<?php endif; ?>
 
-<h2>Where the data comes from</h2>
-<table>
-  <thead><tr><th>Source</th><th>Status</th></tr></thead>
-  <tbody>
-  <?php foreach ($conn as $c)
-    echo '<tr><td>' . e($c['name']) . '</td><td>' . ($c['ready'] ? 'Connected' : 'Waiting for access') . '</td></tr>'; ?>
-  </tbody>
-</table>
-
-<p class="sub" style="margin-top:26px;font-size:12px">
-  Conversion tracking went live on 2 September 2026. Call and WhatsApp figures have no history before
-  that date, so the first full month is the baseline.
-</p>
+<div class="foot">
+  <strong style="color:var(--ink-2)">About this report.</strong>
+  Generated from the MedPark dashboard on <?php echo e(gmdate('j F Y')); ?>.
+  <?php echo (int)$connected; ?> of <?php echo count($conn); ?> data sources connected<?php
+    if ($waiting) echo '; waiting on ' . e(implode(', ', array_slice($waiting, 0, 4)));
+  ?>.
+  Conversion tracking went live on 2 September 2026, so call and WhatsApp figures have no history
+  before that date and the first full month is the baseline.
+  Every figure here can be traced to its source in the dashboard, and the underlying rows are
+  available as a CSV export.
+</div>
 
 </body>
 </html>

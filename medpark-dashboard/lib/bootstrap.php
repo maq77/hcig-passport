@@ -13,7 +13,9 @@ declare(strict_types=1);
 define('MP_DATA_DIR', dirname(__DIR__, 3) . '/dashboard-data');
 define('MP_SECRETS',  MP_DATA_DIR . '/secrets.php');
 define('MP_DB',       MP_DATA_DIR . '/metrics.sqlite');
-define('MP_VERSION',  '1.0');
+define('MP_VERSION',  '1.1');
+/* Bump this whenever mp_install() changes, so the schema is reapplied once. */
+define('MP_SCHEMA',   '4');
 
 if (!is_dir(MP_DATA_DIR)) { @mkdir(MP_DATA_DIR, 0700, true); }
 
@@ -41,6 +43,10 @@ function mp_default_settings(): array {
         'yandex_oauth_token' => '',
 
         'kpi_targets'        => '{}',
+        'primary_market'     => 'Hurghada, Sahl Hasheesh, El Gouna, Makadi Bay, Safaga, El Quseir, Marsa Alam',
+        'competitor_sites'   => "royalhospital-hurghada.com\nnilehospital.com",
+        'competitors'        => "Royal Hospital Hurghada\nNile Hospital Hurghada\nAseel Medical Center\nHurghada Medical Center",
+        'heat_pages'         => "/\n/emergency-urgent-care/\n/services/\n/contact-us/\n/de/\n/pl/",
         'anthropic_api_key'  => '',
         'chat_enabled'       => '1',
         'chat_model'         => 'claude-sonnet-5',
@@ -89,7 +95,19 @@ function mp_db(): PDO {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ));
     $pdo->exec('PRAGMA journal_mode = WAL');
-    mp_install($pdo);
+    $pdo->exec('PRAGMA busy_timeout = 4000');
+    $pdo->exec('PRAGMA synchronous = NORMAL');
+
+    /* Schema installation used to run on every single request: six CREATE
+       TABLE IF NOT EXISTS statements per page load and per beacon. Harmless at
+       low volume, wasteful on a shared server under load. A version marker in
+       a stamp file means the DDL runs once per deploy instead. */
+    $stamp = MP_DATA_DIR . '/.schema-' . MP_SCHEMA;
+    if ($fresh || !is_file($stamp)) {
+        mp_install($pdo);
+        @file_put_contents($stamp, gmdate('c'));
+        @chmod($stamp, 0600);
+    }
     if ($fresh) @chmod(MP_DB, 0600);
     return $pdo;
 }
@@ -186,6 +204,80 @@ function mp_install(PDO $db): void {
     )");
     $db->exec("CREATE INDEX IF NOT EXISTS idx_chat_lead_created ON chat_leads(created_at)");
 
+    /* ---- behaviour -----------------------------------------------------
+       Clicks are stored pre-binned into a 20x20 grid per page, not as raw
+       coordinates, and the browser sends one batched beacon per visit rather
+       than a request per click. That keeps the whole feature to roughly one
+       extra request per session on a shared server. */
+    $db->exec("CREATE TABLE IF NOT EXISTS heat_clicks (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        day TEXT NOT NULL,
+        page TEXT NOT NULL,
+        device TEXT NOT NULL DEFAULT '',
+        gx INTEGER NOT NULL,
+        gy INTEGER NOT NULL,
+        hits INTEGER NOT NULL DEFAULT 0,
+        UNIQUE(day, page, device, gx, gy)
+    )");
+    $db->exec("CREATE INDEX IF NOT EXISTS idx_heat_page ON heat_clicks(page, day)");
+
+    $db->exec("CREATE TABLE IF NOT EXISTS heat_scroll (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        day TEXT NOT NULL,
+        page TEXT NOT NULL,
+        device TEXT NOT NULL DEFAULT '',
+        bucket INTEGER NOT NULL,
+        hits INTEGER NOT NULL DEFAULT 0,
+        UNIQUE(day, page, device, bucket)
+    )");
+
+    /* What was clicked, by label, which is more actionable than coordinates. */
+    $db->exec("CREATE TABLE IF NOT EXISTS heat_targets (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        day TEXT NOT NULL,
+        page TEXT NOT NULL,
+        label TEXT NOT NULL,
+        hits INTEGER NOT NULL DEFAULT 0,
+        UNIQUE(day, page, label)
+    )");
+
+    /* Hour-by-weekday activity, for the when-do-people-need-us heatmap. */
+    $db->exec("CREATE TABLE IF NOT EXISTS heat_hours (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        day TEXT NOT NULL,
+        dow INTEGER NOT NULL,
+        hour INTEGER NOT NULL,
+        kind TEXT NOT NULL DEFAULT 'visit',
+        hits INTEGER NOT NULL DEFAULT 0,
+        UNIQUE(day, dow, hour, kind)
+    )");
+
+    /* The keywords we are deliberately trying to rank for, as opposed to the
+       ones we happen to rank for. Position comes from Search Console daily;
+       this table only holds the intent and the target. */
+    $db->exec("CREATE TABLE IF NOT EXISTS kw_targets (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        term TEXT NOT NULL,
+        lang TEXT NOT NULL DEFAULT 'en',
+        target_pos INTEGER NOT NULL DEFAULT 1,
+        landing TEXT NOT NULL DEFAULT '',
+        note TEXT NOT NULL DEFAULT '',
+        added_at TEXT NOT NULL,
+        UNIQUE(term, lang)
+    )");
+
+    /* Keyword ideas gathered from free sources, kept so trends are visible. */
+    $db->exec("CREATE TABLE IF NOT EXISTS keywords (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        seen_at TEXT NOT NULL,
+        term TEXT NOT NULL,
+        seed TEXT NOT NULL DEFAULT '',
+        lang TEXT NOT NULL DEFAULT 'en',
+        source TEXT NOT NULL DEFAULT 'suggest',
+        UNIQUE(term, lang)
+    )");
+    $db->exec("CREATE INDEX IF NOT EXISTS idx_kw_lang ON keywords(lang, seen_at)");
+
     /* Simple per-IP throttle for the public endpoint. */
     $db->exec("CREATE TABLE IF NOT EXISTS chat_throttle (
         ip TEXT PRIMARY KEY,
@@ -250,6 +342,33 @@ function mp_series(string $source, string $metric, string $from, string $to): ar
          GROUP BY day ORDER BY day"
     );
     $st->execute(array(':s'=>$source, ':m'=>$metric, ':a'=>$from, ':b'=>$to));
+    return $st->fetchAll();
+}
+
+/* Cross-dimension lookup. Sums a paired metric with optional filters on
+   either side, which is what the advanced filter bar drives. Passing null for
+   a side means "any". */
+function mp_pair_sum(string $metric, string $from, string $to, ?string $dim = null, ?string $dim2 = null): float {
+    $sql = "SELECT COALESCE(SUM(value),0) FROM metrics
+            WHERE source='ga4' AND metric=:m AND day BETWEEN :a AND :b";
+    $args = array(':m'=>$metric, ':a'=>$from, ':b'=>$to);
+    if ($dim  !== null && $dim  !== '') { $sql .= " AND dim=:x";  $args[':x'] = $dim; }
+    if ($dim2 !== null && $dim2 !== '') { $sql .= " AND dim2=:y"; $args[':y'] = $dim2; }
+    $st = mp_db()->prepare($sql); $st->execute($args);
+    return (float)$st->fetchColumn();
+}
+
+/* Top values on one side of a paired metric, optionally filtered by the other. */
+function mp_pair_top(string $metric, string $from, string $to, string $side = 'dim',
+                     ?string $filter = null, int $limit = 10): array {
+    $col   = $side === 'dim2' ? 'dim2' : 'dim';
+    $other = $side === 'dim2' ? 'dim'  : 'dim2';
+    $sql = "SELECT $col dim, SUM(value) v FROM metrics
+            WHERE source='ga4' AND metric=:m AND day BETWEEN :a AND :b AND $col <> ''";
+    $args = array(':m'=>$metric, ':a'=>$from, ':b'=>$to);
+    if ($filter !== null && $filter !== '') { $sql .= " AND $other=:f"; $args[':f'] = $filter; }
+    $sql .= " GROUP BY $col ORDER BY v DESC LIMIT " . (int)$limit;
+    $st = mp_db()->prepare($sql); $st->execute($args);
     return $st->fetchAll();
 }
 
@@ -364,6 +483,8 @@ function mp_connectors_status(): array {
         'gsc'     => array('name'=>'Search Console',     'ready'=>$sa && mp_get('gsc_site_url') !== '',      'needs'=>'Verified site URL and the Google service account'),
         'gbp'     => array('name'=>'Business Profile',   'ready'=>$sa && mp_get('gbp_location_ids') !== '',  'needs'=>'Location IDs for both branches'),
         'psi'     => array('name'=>'PageSpeed Insights', 'ready'=>true,  'needs'=>'Runs without a key, an API key just raises the rate limit'),
+        'keywords'=> array('name'=>'Keyword discovery', 'ready'=>true, 'needs'=>'Nothing. Uses Google suggest, which is free and needs no key.'),
+        'competitor'=> array('name'=>'Competitor checks', 'ready'=>mp_get('competitor_sites') !== '', 'needs'=>'A list of competitor domains in Settings.'),
         'semrush' => array('name'=>'SEMrush',            'ready'=>mp_get('semrush_api_key') !== '',         'needs'=>'API key from an account with API units'),
         'yandex'  => array('name'=>'Yandex Metrica',     'ready'=>mp_get('yandex_oauth_token') !== '',      'needs'=>'OAuth token for counter ' . mp_get('yandex_counter_id')),
         'chat'    => array('name'=>'Assistant (Claude)', 'ready'=>mp_get('anthropic_api_key') !== '', 'needs'=>'Anthropic API key. The assistant runs scripted without one.'),
