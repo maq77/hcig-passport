@@ -1,0 +1,16 @@
+# Dashboard. Never indexed, never cached, nothing here is public.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow, noarchive"
+  Header set X-Frame-Options "DENY"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "same-origin"
+  Header set Cache-Control "no-store, no-cache, must-revalidate, private"
+</IfModule>
+
+# Nothing but the entry points should be reachable from a browser.
+<FilesMatch "\.(sqlite|db|log|bak|json|md)$">
+  Require all denied
+</FilesMatch>
+
+# lib and views are includes, not pages.
+RedirectMatch 404 ^/dashboard/(lib|views)/

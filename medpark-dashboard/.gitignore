@@ -1,0 +1,7 @@
+# Credentials and collected data live on the server, above the web root.
+# They must never end up in the repository.
+secrets.php
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+dashboard-data/
