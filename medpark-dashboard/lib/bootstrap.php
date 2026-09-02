@@ -40,6 +40,15 @@ function mp_default_settings(): array {
         'yandex_counter_id'  => '110789001',
         'yandex_oauth_token' => '',
 
+        'kpi_targets'        => '{}',
+        'anthropic_api_key'  => '',
+        'chat_enabled'       => '1',
+        'chat_model'         => 'claude-sonnet-5',
+        'staff_email'        => 'info@medparkhospitals.com',
+        'staff_alert_email'  => '',
+        'chat_whatsapp'      => '201222710888',
+        'chat_phone'         => '+201222710888',
+
         'ai_prompts'         => "Which hospitals are in Hurghada?\nBest hospital in Hurghada for tourists\nEmergency doctor Hurghada at night\nKrankenhaus Hurghada Notfall\nSzpital Hurghada dla turystow\nWhere to see a doctor in Sahl Hasheesh\nDental clinic Hurghada for travellers\nDoes travel insurance work in Hurghada hospitals",
         'ai_brand_terms'     => 'MedPark, Med Park, MedPark Hospitals, MedPark Health Hub',
         'ai_competitors'     => 'Royal Hospital, Nile Hospital, Aseel Medical, Hurghada Medical Center',
@@ -126,6 +135,63 @@ function mp_install(PDO $db): void {
         resolved INTEGER NOT NULL DEFAULT 0
     )");
     $db->exec("CREATE UNIQUE INDEX IF NOT EXISTS idx_issue_fp ON issues(fingerprint)");
+
+    /* ---- assistant ----------------------------------------------------
+       One row per conversation, one per message, one per captured lead.
+       Kept in the same database as the metrics so the chatbot can be reported
+       next to calls and WhatsApp rather than in a separate silo. */
+    $db->exec("CREATE TABLE IF NOT EXISTS chat_sessions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        sid TEXT NOT NULL UNIQUE,
+        started_at TEXT NOT NULL,
+        last_at TEXT NOT NULL,
+        lang TEXT NOT NULL DEFAULT 'en',
+        entry_page TEXT NOT NULL DEFAULT '',
+        device TEXT NOT NULL DEFAULT '',
+        country TEXT NOT NULL DEFAULT '',
+        messages INTEGER NOT NULL DEFAULT 0,
+        outcome TEXT NOT NULL DEFAULT 'open',
+        emergency INTEGER NOT NULL DEFAULT 0,
+        engine TEXT NOT NULL DEFAULT 'scripted',
+        handed_to_whatsapp INTEGER NOT NULL DEFAULT 0
+    )");
+    $db->exec("CREATE INDEX IF NOT EXISTS idx_chat_started ON chat_sessions(started_at)");
+
+    $db->exec("CREATE TABLE IF NOT EXISTS chat_messages (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        sid TEXT NOT NULL,
+        at TEXT NOT NULL,
+        role TEXT NOT NULL,
+        text TEXT NOT NULL,
+        intent TEXT NOT NULL DEFAULT ''
+    )");
+    $db->exec("CREATE INDEX IF NOT EXISTS idx_chat_msg_sid ON chat_messages(sid, id)");
+
+    $db->exec("CREATE TABLE IF NOT EXISTS chat_leads (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        sid TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        kind TEXT NOT NULL DEFAULT 'appointment',
+        name TEXT NOT NULL DEFAULT '',
+        phone TEXT NOT NULL DEFAULT '',
+        email TEXT NOT NULL DEFAULT '',
+        lang TEXT NOT NULL DEFAULT 'en',
+        branch TEXT NOT NULL DEFAULT '',
+        service TEXT NOT NULL DEFAULT '',
+        preferred_time TEXT NOT NULL DEFAULT '',
+        note TEXT NOT NULL DEFAULT '',
+        urgency TEXT NOT NULL DEFAULT 'routine',
+        status TEXT NOT NULL DEFAULT 'new',
+        notified INTEGER NOT NULL DEFAULT 0
+    )");
+    $db->exec("CREATE INDEX IF NOT EXISTS idx_chat_lead_created ON chat_leads(created_at)");
+
+    /* Simple per-IP throttle for the public endpoint. */
+    $db->exec("CREATE TABLE IF NOT EXISTS chat_throttle (
+        ip TEXT PRIMARY KEY,
+        window_start INTEGER NOT NULL,
+        hits INTEGER NOT NULL DEFAULT 0
+    )");
 
     $db->exec("CREATE TABLE IF NOT EXISTS runs (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -300,6 +366,7 @@ function mp_connectors_status(): array {
         'psi'     => array('name'=>'PageSpeed Insights', 'ready'=>true,  'needs'=>'Runs without a key, an API key just raises the rate limit'),
         'semrush' => array('name'=>'SEMrush',            'ready'=>mp_get('semrush_api_key') !== '',         'needs'=>'API key from an account with API units'),
         'yandex'  => array('name'=>'Yandex Metrica',     'ready'=>mp_get('yandex_oauth_token') !== '',      'needs'=>'OAuth token for counter ' . mp_get('yandex_counter_id')),
+        'chat'    => array('name'=>'Assistant (Claude)', 'ready'=>mp_get('anthropic_api_key') !== '', 'needs'=>'Anthropic API key. The assistant runs scripted without one.'),
         'ai'      => array('name'=>'AI visibility',      'ready'=>true,  'needs'=>'Prompt results are recorded in the AI page each month'),
     );
 }

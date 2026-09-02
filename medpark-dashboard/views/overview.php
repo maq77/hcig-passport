@@ -25,6 +25,18 @@ $ppos    = mp_avg('gsc','position',$R['prev_from'],$R['prev_to']);
 $gbpCalls = mp_sum('gbp','call_clicks',$R['from'],$R['to']);
 $gbpDir   = mp_sum('gbp','direction_requests',$R['from'],$R['to']);
 
+/* The assistant is a third source of enquiries alongside calls and WhatsApp,
+   so it belongs in the headline number rather than in a separate silo. */
+try {
+    $st = mp_db()->prepare("SELECT COUNT(*) FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b");
+    $st->execute(array(':a'=>$R['from'], ':b'=>gmdate('Y-m-d')));
+    $chatLeads = (float)$st->fetchColumn();
+    $st->execute(array(':a'=>$R['prev_from'], ':b'=>$R['prev_to']));
+    $pChatLeads = (float)$st->fetchColumn();
+} catch (Throwable $ex) { $chatLeads = 0.0; $pChatLeads = 0.0; }
+$enq  += $chatLeads;
+$penq += $pChatLeads;
+
 $rate  = $sessions > 0 ? ($enq / $sessions) * 100 : 0;
 $prate = $psessions > 0 ? ($penq / $psessions) * 100 : 0;
 $findings = mp_insights($R);
@@ -37,14 +49,15 @@ $high = 0; foreach ($findings as $x) { if ($x['severity'] === 'high') $high++; }
            $hasGA ? 'First period on record' : 'Connect GA4', true);
     ui_kpi('Calls', $hasGA ? mp_num($calls) : '--', $hasGA ? mp_delta($calls,$pcalls) : null, 'Connect GA4');
     ui_kpi('WhatsApp', $hasGA ? mp_num($whats) : '--', $hasGA ? mp_delta($whats,$pwhats) : null, 'Connect GA4');
-    ui_kpi('Enquiry rate', $hasGA ? number_format($rate,2).'%' : '--', $hasGA ? mp_delta($rate,$prate) : null, 'Connect GA4');
+    /* Needs no credentials, so this one shows a real number from day one. */
+    ui_kpi('Assistant requests', mp_num($chatLeads), mp_delta($chatLeads, $pChatLeads), 'Live now, no setup needed');
   ?>
 </div>
 
 <div class="grid g4" style="margin-bottom:16px">
   <?php
+    ui_kpi('Enquiry rate', $hasGA ? number_format($rate,2).'%' : '--', $hasGA ? mp_delta($rate,$prate) : null, 'Connect GA4');
     ui_kpi('Sessions', $hasGA ? mp_num($sessions) : '--', $hasGA ? mp_delta($sessions,$psessions) : null, 'Connect GA4');
-    ui_kpi('Visitors', $hasGA ? mp_num($users) : '--', $hasGA ? mp_delta($users,$pusers) : null, 'Connect GA4');
     ui_kpi('Clicks from Google', $hasGSC ? mp_num($clicks) : '--', $hasGSC ? mp_delta($clicks,$pclicks) : null, 'Connect Search Console');
     /* Position improves as the number falls, so the arrow is inverted. */
     $posDelta = $hasGSC && $ppos > 0 ? mp_delta($ppos,$pos) : null;

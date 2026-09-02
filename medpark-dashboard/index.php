@@ -18,8 +18,10 @@ $R = mp_range($rangeKey);
 
 $PAGES = array(
     'overview'    => 'Overview',
+    'kpi'         => 'KPIs and targets',
     'traffic'     => 'Audience and traffic',
     'conversions' => 'Enquiries',
+    'chat'        => 'Assistant',
     'seo'         => 'Search',
     'local'       => 'Maps and local',
     'ai'          => 'AI visibility',
@@ -97,8 +99,8 @@ $title = $PAGES[$page];
     </div>
     <?php
       $groups = array(
-        'Report'   => array('overview','conversions','traffic'),
-        'Channels' => array('seo','local','ai'),
+        'Report'   => array('overview','kpi','conversions','traffic'),
+        'Channels' => array('chat','seo','local','ai'),
         'Technical'=> array('health','issues'),
         ''         => array('settings'),
       );
