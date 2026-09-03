@@ -422,3 +422,64 @@ input[readonly],textarea[readonly]{background:var(--surface-2); color:var(--ink-
 
 /* Old sidebar had no icons; keep the spacing honest without them. */
 .side__brand b{font-size:14px}
+
+/* ==========================================================================
+   CEO SCREEN
+   Added 2026-09-03. A sentence before a number, an explanation on everything,
+   and an action against anything that needs one.
+   ========================================================================== */
+
+/* ---- quick actions ------------------------------------------------------ */
+.qa{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.qa__btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:10px 15px;border-radius:9px;
+  border:1px solid var(--line);background:var(--surface);color:var(--ink);
+  font:inherit;font-size:13px;font-weight:650;cursor:pointer;white-space:nowrap;
+  transition:border-color .15s,background .15s,color .15s;
+}
+.qa__btn:hover{border-color:var(--a);color:var(--a-d);text-decoration:none;background:var(--a-w)}
+.qa__btn--pri{background:var(--a);border-color:var(--a);color:var(--a-on)}
+.qa__btn--pri:hover{background:var(--a-d);border-color:var(--a-d);color:#fff}
+.qa__btn svg{flex:0 0 15px}
+
+/* ---- the written summary ------------------------------------------------ */
+.say{
+  background:var(--surface);border:1px solid var(--line);
+  border-left:3px solid var(--ink-4);
+  border-radius:0 var(--r) var(--r) 0;padding:18px 22px;margin-bottom:16px;
+}
+.say--good{border-left-color:var(--ok);background:var(--ok-w)}
+.say--bad{border-left-color:var(--bad);background:var(--bad-w)}
+.say--flat{border-left-color:var(--a);background:var(--a-w)}
+.say--none{border-left-color:var(--ink-4)}
+.say__head{
+  margin:0;font-size:18px;font-weight:700;letter-spacing:-.02em;
+  color:var(--ink);line-height:1.4;max-width:68ch;text-wrap:balance;
+}
+.say__line{margin:7px 0 0;font-size:14.5px;color:var(--ink-2);max-width:70ch}
+
+/* ---- self-explaining tiles ---------------------------------------------- */
+.kpi{cursor:help}
+.kpi__q{
+  display:inline-grid;place-items:center;width:13px;height:13px;border-radius:50%;
+  border:1px solid var(--ink-4);color:var(--ink-4);
+  font-size:9px;font-weight:800;line-height:1;vertical-align:1px;
+}
+.kpi:hover .kpi__q{border-color:var(--a);color:var(--a)}
+.kpi--hero .kpi__q{border-color:#8FB3C9;color:#8FB3C9}
+.kpi__cap{
+  margin-top:9px;padding-top:9px;border-top:1px solid var(--line-2);
+  font-size:11.5px;line-height:1.45;color:var(--ink-3);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+.kpi--hero .kpi__cap{border-top-color:rgba(255,255,255,.14);color:#9FBDD1}
+
+/* On a phone there is no hover, so the caption is the explanation and it is
+   shown in full rather than clamped. */
+@media (max-width:900px){
+  .kpi__cap{-webkit-line-clamp:none;display:block}
+  .qa{gap:7px}
+  .qa__btn{flex:1 1 auto;justify-content:center;min-height:42px}
+  .say__head{font-size:16.5px}
+}

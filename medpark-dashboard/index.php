@@ -8,17 +8,20 @@ require __DIR__ . '/lib/bootstrap.php';
 require __DIR__ . '/lib/connectors.php';
 require __DIR__ . '/lib/insights.php';
 require __DIR__ . '/lib/ui.php';
+require __DIR__ . '/lib/definitions.php';
+require __DIR__ . '/lib/narrative.php';
 
 if (!mp_is_configured()) { header('Location: login.php'); exit; }
 mp_require_login();
 
-$page  = isset($_GET['p']) ? preg_replace('~[^a-z_]~', '', (string)$_GET['p']) : 'overview';
+$page  = isset($_GET['p']) ? preg_replace('~[^a-z_]~', '', (string)$_GET['p']) : 'ceo';
 $rangeKey = isset($_GET['r']) ? (string)$_GET['r'] : '28d';
 $R = mp_range($rangeKey);
 
 /* label, icon, group */
 $PAGES = array(
-    'overview'    => array('Overview',            'gauge',    'Report'),
+    'ceo'         => array('Summary',             'gauge',    'Report'),
+    'overview'    => array('All numbers',         'pulse',    'Report'),
     'kpi'         => array('KPIs and targets',    'target',   'Report'),
     'conversions' => array('Enquiries',           'phone',    'Report'),
     'traffic'     => array('Audience',            'users',    'Report'),
@@ -33,7 +36,7 @@ $PAGES = array(
     'issues'      => array('Issues and advice',   'alert',    'Technical'),
     'settings'    => array('Settings and access', 'settings', 'Technical'),
 );
-if (!isset($PAGES[$page])) $page = 'overview';
+if (!isset($PAGES[$page])) $page = 'ceo';
 
 /* ---------- actions ------------------------------------------------------- */
 $flash = null;
@@ -123,6 +126,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
         $flash = array('t'=>'ok', 'm'=>$n . ' target keywords loaded across English, German and Polish.');
     }
 
+    /* ---- quick actions ---------------------------------------------------
+       Each one is a thing a chief executive would actually press. Refresh is
+       deliberately absent from their screen: the data collects itself, and if
+       a chief executive ever has to fetch it the system is broken. */
+    if ($act === 'schedule_report') {
+        $on = mp_get('report_email_on') === '1' ? '0' : '1';
+        mp_save_settings(array('report_email_on' => $on));
+        $flash = $on === '1'
+            ? array('t'=>'ok', 'm'=>'Scheduled. The report will arrive on the first of each month at ' . mp_get('staff_email') . '. Nobody needs to remember to send it.')
+            : array('t'=>'ok', 'm'=>'Monthly report turned off.');
+    }
+
+    if ($act === 'toggle_alerts') {
+        $on = mp_get('alerts_on') === '1' ? '0' : '1';
+        mp_save_settings(array('alerts_on' => $on));
+        $flash = $on === '1'
+            ? array('t'=>'ok', 'm'=>'Alerts on. You will be emailed if a headline number falls more than ' . mp_get('alert_threshold', '25') . '% week on week.')
+            : array('t'=>'ok', 'm'=>'Alerts turned off.');
+    }
+
     if ($act === 'ai_add') {
         $st = mp_db()->prepare("INSERT INTO ai_checks (checked_at,engine,prompt,mentioned,rank_position,cited_url,competitors,notes)
                                 VALUES (:t,:e,:p,:m,:r,:u,:c,:n)");
@@ -203,13 +226,22 @@ $title = $PAGES[$page][0];
                class="<?php echo $R['preset'] === $k ? 'on' : ''; ?>"><?php echo e($lab); ?></a>
           <?php endforeach; ?>
         </div>
+<?php /* CSV is an analyst's tool. It stays, but not on the executive screen. */ ?>
+<?php if ($page !== 'ceo'): ?>
         <a class="btn" href="export.php?r=<?php echo e($R['preset']); ?>&amp;f=csv"><?php echo ui_icon('download', 14); ?>CSV</a>
         <a class="btn" href="export.php?r=<?php echo e($R['preset']); ?>&amp;f=report" target="_blank">Report</a>
+<?php endif; ?>
+<?php /* Refresh is hidden on the CEO summary. Data collects itself on a
+           schedule, and asking a chief executive to fetch their own numbers is
+           the clearest sign a dashboard was built for the wrong reader. It
+           stays available on the working pages. */ ?>
+<?php if ($page !== 'ceo'): ?>
         <form method="post" style="display:inline">
           <input type="hidden" name="csrf" value="<?php echo e(mp_csrf()); ?>">
           <input type="hidden" name="act" value="refresh">
           <button class="btn btn--pri" type="submit"><?php echo ui_icon('refresh', 14); ?>Refresh</button>
         </form>
+<?php endif; ?>
       </div>
     </div>
 

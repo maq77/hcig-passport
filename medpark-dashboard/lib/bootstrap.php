@@ -43,6 +43,10 @@ function mp_default_settings(): array {
         'yandex_oauth_token' => '',
 
         'kpi_targets'        => '{}',
+        'report_email_on'    => '0',
+        'alerts_on'          => '0',
+        'alert_threshold'    => '25',
+        'share_token'        => '',
         'primary_market'     => 'Hurghada, Sahl Hasheesh, El Gouna, Makadi Bay, Safaga, El Quseir, Marsa Alam',
         'competitor_sites'   => "royalhospital-hurghada.com\nnilehospital.com",
         'competitors'        => "Royal Hospital Hurghada\nNile Hospital Hurghada\nAseel Medical Center\nHurghada Medical Center",
