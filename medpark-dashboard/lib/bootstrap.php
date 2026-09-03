@@ -483,6 +483,7 @@ function mp_connectors_status(): array {
         'gsc'     => array('name'=>'Search Console',     'ready'=>$sa && mp_get('gsc_site_url') !== '',      'needs'=>'Verified site URL and the Google service account'),
         'gbp'     => array('name'=>'Business Profile',   'ready'=>$sa && mp_get('gbp_location_ids') !== '',  'needs'=>'Location IDs for both branches'),
         'psi'     => array('name'=>'PageSpeed Insights', 'ready'=>true,  'needs'=>'Runs without a key, an API key just raises the rate limit'),
+        'behaviour'=> array('name'=>'On-page behaviour', 'ready'=>true, 'needs'=>'Nothing. Collected on your own server, imported from a spool file.'),
         'keywords'=> array('name'=>'Keyword discovery', 'ready'=>true, 'needs'=>'Nothing. Uses Google suggest, which is free and needs no key.'),
         'competitor'=> array('name'=>'Competitor checks', 'ready'=>mp_get('competitor_sites') !== '', 'needs'=>'A list of competitor domains in Settings.'),
         'semrush' => array('name'=>'SEMrush',            'ready'=>mp_get('semrush_api_key') !== '',         'needs'=>'API key from an account with API units'),

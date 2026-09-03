@@ -717,12 +717,108 @@ function mp_pull_health(string $from, string $to): array {
     return array('ok'=>true, 'msg'=>$rows . ' checks stored.', 'rows'=>$rows);
 }
 
+/* ==========================================================================
+   Behaviour spool importer.
+
+   The public beacon at /track/heat.php deliberately never touches the
+   database. It appends one JSON line per visit to a spool file, which costs
+   microseconds and cannot block. This drains that spool into SQLite in a
+   single transaction, on the dashboard's schedule rather than the visitor's.
+
+   That split is the whole point: visitor requests stay off the database, and
+   all the write contention happens once, here, where nobody is waiting.
+   ========================================================================== */
+function mp_pull_behaviour(string $from, string $to): array {
+    $spool = MP_DATA_DIR . '/heat-spool.ndjson';
+    if (!is_file($spool) || filesize($spool) === 0) {
+        return array('ok'=>true, 'msg'=>'Nothing new in the spool.', 'rows'=>0);
+    }
+
+    /* Move the spool aside first. A beacon arriving mid-import then writes to
+       a fresh file and is picked up next time, rather than being lost or
+       double counted. */
+    $work = $spool . '.' . gmdate('YmdHis');
+    if (!@rename($spool, $work)) {
+        return array('ok'=>false, 'msg'=>'Could not claim the spool file.', 'rows'=>0);
+    }
+
+    $fh = @fopen($work, 'r');
+    if (!$fh) { return array('ok'=>false, 'msg'=>'Could not read the spool.', 'rows'=>0); }
+
+    $db = mp_db();
+    $db->beginTransaction();
+    $qClick  = $db->prepare("INSERT INTO heat_clicks (day,page,device,gx,gy,hits) VALUES (:d,:p,:v,:x,:y,:h)
+                             ON CONFLICT(day,page,device,gx,gy) DO UPDATE SET hits = hits + :h");
+    $qScroll = $db->prepare("INSERT INTO heat_scroll (day,page,device,bucket,hits) VALUES (:d,:p,:v,:b,1)
+                             ON CONFLICT(day,page,device,bucket) DO UPDATE SET hits = hits + 1");
+    $qTarget = $db->prepare("INSERT INTO heat_targets (day,page,label,hits) VALUES (:d,:p,:l,:h)
+                             ON CONFLICT(day,page,label) DO UPDATE SET hits = hits + :h");
+    $qHour   = $db->prepare("INSERT INTO heat_hours (day,dow,hour,kind,hits) VALUES (:d,:w,:h,'visit',1)
+                             ON CONFLICT(day,dow,hour,kind) DO UPDATE SET hits = hits + 1");
+
+    $rows = 0; $lines = 0; $bad = 0;
+    try {
+        while (($line = fgets($fh)) !== false) {
+            $lines++;
+            if ($lines > 200000) break;           /* hard ceiling, never spin */
+            $r = json_decode(trim($line), true);
+            if (!is_array($r) || empty($r['t']) || empty($r['p'])) { $bad++; continue; }
+
+            $day = (string)$r['t']; $page = (string)$r['p'];
+            $dev = ($r['v'] ?? '') === 'mobile' ? 'mobile' : 'desktop';
+
+            foreach ((is_array($r['c'] ?? null) ? $r['c'] : array()) as $c) {
+                if (!is_array($c) || count($c) < 3) continue;
+                $qClick->execute(array(':d'=>$day, ':p'=>$page, ':v'=>$dev,
+                                       ':x'=>(int)$c[0], ':y'=>(int)$c[1], ':h'=>(int)$c[2]));
+                $rows++;
+            }
+            foreach ((is_array($r['g'] ?? null) ? $r['g'] : array()) as $label => $n) {
+                $qTarget->execute(array(':d'=>$day, ':p'=>$page, ':l'=>(string)$label, ':h'=>(int)$n));
+                $rows++;
+            }
+            if (isset($r['d']) && $r['d'] !== null) {
+                $qScroll->execute(array(':d'=>$day, ':p'=>$page, ':v'=>$dev,
+                                        ':b'=>(int)(floor((int)$r['d'] / 10) * 10)));
+                $rows++;
+            }
+            if (isset($r['w'], $r['h']) && $r['w'] !== null && $r['h'] !== null) {
+                $qHour->execute(array(':d'=>$day, ':w'=>(int)$r['w'], ':h'=>(int)$r['h']));
+                $rows++;
+            }
+        }
+        $db->commit();
+    } catch (Throwable $ex) {
+        if ($db->inTransaction()) $db->rollBack();
+        fclose($fh);
+        /* Put it back so nothing is lost, and try again next run. */
+        @rename($work, $spool);
+        mp_log_run('behaviour', 'error', $ex->getMessage());
+        return array('ok'=>false, 'msg'=>'Import failed, spool kept: ' . $ex->getMessage(), 'rows'=>0);
+    }
+    fclose($fh);
+    @unlink($work);
+
+    /* Tidy the rate-limit files while we are here, so they cannot accumulate. */
+    $rl = MP_DATA_DIR . '/rl';
+    if (is_dir($rl)) {
+        $cut = time() - 3600;
+        foreach ((glob($rl . '/*') ?: array()) as $f) {
+            if (@filemtime($f) < $cut) @unlink($f);
+        }
+    }
+
+    mp_log_run('behaviour', 'ok', $lines . ' beacons, ' . $rows . ' rows' . ($bad ? ", $bad malformed" : ''));
+    return array('ok'=>true, 'msg'=>$lines . ' beacons imported, ' . $rows . ' rows.', 'rows'=>$rows);
+}
+
 /* ---------- one entry point ---------------------------------------------- */
 function mp_pull_all(string $from, string $to, array $only = array()): array {
     $all = array('ga4'=>'mp_pull_ga4', 'gsc'=>'mp_pull_gsc', 'gbp'=>'mp_pull_gbp',
                  'psi'=>'mp_pull_psi', 'semrush'=>'mp_pull_semrush',
                  'yandex'=>'mp_pull_yandex', 'health'=>'mp_pull_health',
-                 'keywords'=>'mp_pull_keywords', 'competitor'=>'mp_pull_competitors');
+                 'keywords'=>'mp_pull_keywords', 'competitor'=>'mp_pull_competitors',
+                 'behaviour'=>'mp_pull_behaviour');
     $out = array();
     foreach ($all as $k => $fn) {
         if ($only && !in_array($k, $only, true)) continue;
