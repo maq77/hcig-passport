@@ -104,7 +104,8 @@ function rp($now, $prev, bool $higherBetter = true): string {
 function sev_label(string $s): string {
     return array('high'=>'Priority', 'medium'=>'Important', 'low'=>'Opportunity', 'good'=>'Working')[$s] ?? 'Note';
 }
-$logo = is_file(__DIR__ . '/assets/hcig-logo.png') ? 'assets/hcig-logo.png' : '';
+$logo   = is_file(__DIR__ . '/assets/hcig-logo.png')    ? 'assets/hcig-logo.png'    : '';
+$logoMp = is_file(__DIR__ . '/assets/medpark-logo.png') ? 'assets/medpark-logo.png' : '';
 ?>
 <!doctype html>
 <html lang="en">
@@ -149,11 +150,12 @@ strong{font-weight:650}
 
 /* ---- cover ---- */
 .cover{padding:52px 0 30px; border-bottom:3px solid var(--a)}
-.cover__brand{display:flex; align-items:center; gap:20px; margin-bottom:36px}
-.cover__brand img{width:118px; height:auto; display:block}
-.cover__org{font-size:10.5px; font-weight:700; letter-spacing:.17em; text-transform:uppercase; color:var(--ink-3); line-height:1.7;
-  border-left:1px solid var(--line); padding-left:20px}
-.cover__org b{display:block; font-size:17px; letter-spacing:-.02em; text-transform:none; color:var(--ink); font-weight:800; margin-bottom:2px}
+.cover__brand{display:flex; align-items:center; gap:22px; margin-bottom:34px; flex-wrap:wrap}
+.cover__brand .lg-mp{width:184px; height:auto; display:block}
+.cover__brand .lg-hc{width:52px; height:auto; display:block}
+.cover__div{width:1px; align-self:stretch; background:var(--line); min-height:46px}
+.cover__grp{display:flex; align-items:center; gap:11px}
+.cover__grp span{font-size:9.5px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--ink-3); max-width:74px; line-height:1.5}
 .cover h1{font-size:39px; font-weight:900; line-height:1.05}
 .cover .sub{margin:13px 0 0; font-size:17px; color:var(--ink-2); max-width:56ch}
 /* A grid rather than a wrapping flex row, so four items never break as
@@ -284,12 +286,18 @@ th:last-child,td:last-child{padding-right:0}
 <?php /* The logo already carries the "Healthcare International Group" wordmark,
      so printing it again beside the image says the same thing twice. Only the
      operating company name goes next to it. */ ?>
+<?php /* Both marks. HCIG is the group, MedPark is the operating company this
+     report is about, and showing only one loses that relationship. Neither
+     wordmark is repeated in text beside them. */ ?>
   <div class="cover__brand">
-    <?php if ($logo): ?><img src="<?php echo e($logo); ?>" alt="Healthcare International Group"><?php endif; ?>
-    <div class="cover__org">
-      <b><?php echo e(mp_get('brand_name')); ?></b>
-      Website performance
-    </div>
+    <?php if ($logoMp): ?><img class="lg-mp" src="<?php echo e($logoMp); ?>" alt="<?php echo e(mp_get('brand_name')); ?>"><?php endif; ?>
+    <?php if ($logo && $logoMp): ?><span class="cover__div" aria-hidden="true"></span><?php endif; ?>
+    <?php if ($logo): ?>
+      <span class="cover__grp">
+        <img class="lg-hc" src="<?php echo e($logo); ?>" alt="Healthcare International Group">
+        <span>part of the group</span>
+      </span>
+    <?php endif; ?>
   </div>
   <h1>Website performance report</h1>
   <p class="sub">Visibility, reach, and the enquiries they produced.</p>
@@ -420,6 +428,17 @@ th:last-child,td:last-child{padding-right:0}
   </div>
 </div>
 
+<?php /* ---------------------------------------------------------------
+   Findings, the glossary and the source table are switched off for now.
+
+   They are not deleted: the recommendation engine, the definitions and the
+   source status are all still built and still used on the dashboard, and this
+   is the section a chief executive will want most once there is real data
+   behind it rather than mostly "awaiting access".
+
+   Turn back on with report_sections = 1 in Settings.
+   --------------------------------------------------------------- */ ?>
+<?php if (mp_get('report_sections', '0') === '1'): ?>
 <!-- ================= FINDINGS AND ACTIONS ================= -->
 <h2>Findings, recommended action, and what to expect</h2>
 
@@ -489,6 +508,8 @@ th:last-child,td:last-child{padding-right:0}
   </tbody>
 </table>
 </div>
+
+<?php endif; ?>
 
 <div class="foot">
   <p>Figures are measured, not estimated, and traceable to the dashboard. A dash means not yet

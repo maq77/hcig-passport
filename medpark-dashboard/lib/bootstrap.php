@@ -44,6 +44,9 @@ function mp_default_settings(): array {
 
         'kpi_targets'        => '{}',
         'report_email_on'    => '0',
+        /* Findings, glossary and source table in the exported report.
+           Off until there is real data behind them. */
+        'report_sections'    => '0',
         'alerts_on'          => '0',
         'alert_threshold'    => '25',
         'share_token'        => '',
