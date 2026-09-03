@@ -483,3 +483,17 @@ input[readonly],textarea[readonly]{background:var(--surface-2); color:var(--ink-
   .qa__btn{flex:1 1 auto;justify-content:center;min-height:42px}
   .say__head{font-size:16.5px}
 }
+
+/* Expected outcome, shown under a recommendation. Visually separated from the
+   action so a reader can tell what to do from what will happen. */
+.find__x{
+  margin-top:7px;font-size:12.5px;color:var(--ink-2);line-height:1.5;
+  background:var(--surface-2);border:1px dashed var(--line);
+  padding:8px 11px;border-radius:var(--r-sm);
+}
+.find__x b{color:var(--ink);font-weight:650}
+.find__t2{
+  display:inline-block;margin-left:6px;padding:1px 7px;border-radius:20px;
+  background:var(--line-2);color:var(--ink-3);font-size:10.5px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;
+}

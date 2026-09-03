@@ -39,7 +39,11 @@ $aiC = $aiRow ? (int)$aiRow['c'] : 0;
 $aiM = $aiRow ? (int)$aiRow['m'] : 0;
 
 $findings = mp_insights($R);
-$urgent = array_values(array_filter($findings, function ($x) { return $x['severity'] === 'high'; }));
+/* Recommendations carry evidence and an expected outcome, which is what turns
+   "something is wrong" into a decision a chief executive can actually take. */
+$recs = mp_recommendations($R);
+$urgent = array_values(array_filter($recs, function ($x) { return $x['severity'] === 'high'; }));
+$wins   = array_values(array_filter($recs, function ($x) { return $x['severity'] === 'good'; }));
 
 /* A tile that explains itself. The caption is the difference between a number
    an executive trusts and one they ignore. */
@@ -170,21 +174,99 @@ function ceo_tile(string $key, string $value, ?array $delta, bool $hero = false,
     <div class="find s-high">
       <div class="find__sev"></div>
       <div class="find__b">
-        <div class="find__t"><?php echo ($i + 1) . '. ' . e($x['title']); ?>
+        <div class="find__t"><?php echo ($i + 1) . '. ' . e($x['finding']); ?>
           <span class="tag"><?php echo e($x['area']); ?></span></div>
-        <div class="find__d"><?php echo e($x['detail']); ?></div>
-        <div class="find__a"><b>What to do.</b> <?php echo e($x['advice']); ?></div>
+        <div class="find__d"><?php echo e($x['problem'] !== '' ? $x['problem'] : $x['evidence']); ?></div>
+        <div class="find__a"><b>Do this.</b> <?php echo e($x['solution']); ?></div>
+        <?php if ($x['expect'] !== ''): ?>
+          <div class="find__x"><b>Expect.</b> <?php echo e($x['expect']); ?>
+            <?php if ($x['timeframe'] !== ''): ?>
+              <span class="find__t2"><?php echo e($x['timeframe']); ?></span>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
       </div>
     </div>
   <?php endforeach; endif; ?>
   <?php if (count($findings) > count(array_slice($urgent, 0, 3))): ?>
     <div style="padding:13px 15px;border-top:1px solid var(--line-2)">
       <a class="btn btn--sm" href="?p=issues&amp;r=<?php echo e($R['preset']); ?>">
-        See all <?php echo count($findings); ?>, including the less urgent
+        See all <?php echo count($recs); ?>, including the less urgent
       </a>
     </div>
   <?php endif; ?>
 </div>
+
+<!-- ---------- reach and momentum ---------- -->
+<div class="grid g-2-1">
+  <div class="card card--pad0">
+    <h3>How far the brand reached <span class="hint">Everywhere someone could have seen us</span></h3>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Channel</th><th class="n">Reach</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Google search</td>
+            <td class="n"><strong><?php echo $impr > 0 ? mp_num($impr) : '&ndash;'; ?></strong></td>
+            <td>Times we were put in front of somebody searching. Moves before clicks do, so it is the earliest sign the search work is landing.</td>
+          </tr>
+          <tr>
+            <td>Google Maps</td>
+            <td class="n"><strong><?php
+              $mapViews = mp_sum('gbp','impressions_maps_mobile',$f,$t) + mp_sum('gbp','impressions_maps_desktop',$f,$t)
+                        + mp_sum('gbp','impressions_search_mobile',$f,$t) + mp_sum('gbp','impressions_search_desktop',$f,$t);
+              echo $mapViews > 0 ? mp_num($mapViews) : '&ndash;'; ?></strong></td>
+            <td>For a local search the map sits above the website, so this is often the larger audience of the two.</td>
+          </tr>
+          <tr>
+            <td>AI assistants</td>
+            <td class="n"><strong><?php echo $aiC > 0 ? $aiM . ' / ' . $aiC : '&ndash;'; ?></strong></td>
+            <td>Questions where an assistant named MedPark. A growing share of travellers ask before they search.</td>
+          </tr>
+          <tr>
+            <td>Knew us already</td>
+            <td class="n"><strong><?php
+              $direct = mp_sum('ga4','sessions_channel',$f,$t,'Direct');
+              echo $direct > 0 ? mp_num($direct) : '&ndash;'; ?></strong></td>
+            <td>People who typed the address or searched the name. The clearest measure of brand awareness we have.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Position over time <span class="hint">Falling means moving up the page</span></h3>
+    <?php
+      $posSeries = mp_series('gsc','position',$f,$t);
+      if (count($posSeries) >= 5) {
+          ui_line(array(array('name'=>'Average position', 'rows'=>$posSeries)), 'chart chart--sm');
+          echo '<p class="card__note">Averaged across every term we appear for. A fall of one place across the whole site is a large move.</p>';
+      } else {
+          ui_empty('Not enough history yet',
+            'Ranking history arrives with Search Console access, and it carries up to 16 months, so this chart will fill in backwards rather than starting from today.', 'search');
+      }
+    ?>
+  </div>
+</div>
+
+<?php if ($wins): ?>
+<div class="card card--pad0">
+  <h3>What is already working <span class="hint">Groundwork that removes the obstacles</span></h3>
+  <?php foreach (array_slice($wins, 0, 2) as $w): ?>
+    <div class="find s-low">
+      <div class="find__sev" style="background:var(--ok)"></div>
+      <div class="find__b">
+        <div class="find__t"><?php echo e($w['finding']); ?></div>
+        <div class="find__d"><?php echo e($w['evidence']); ?></div>
+        <?php if ($w['expect'] !== ''): ?>
+          <div class="find__x"><b>Why it matters.</b> <?php echo e($w['expect']); ?></div>
+        <?php endif; ?>
+      </div>
+    </div>
+  <?php endforeach; ?>
+</div>
+<?php endif; ?>
 
 <!-- ---------- where it came from ---------- -->
 <div class="grid g3">
