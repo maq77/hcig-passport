@@ -1,4 +1,12 @@
 <?php
+/* Source switch added 2026-09-03. Our own tracking and Google answer different
+   questions, so neither side is trimmed to match the other. Ours is composed in
+   lib/ownpanels.php; everything below the else is the original Google view,
+   unchanged. */
+ui_source_toggle('traffic', $R, 'GA4');
+if (mp_source() === 'own') { own_page_traffic($R); } else {
+?>
+<?php
 /* Audience.
 
    Two things this page does that a stock analytics view does not.
@@ -223,3 +231,5 @@ foreach (mp_pair_top('x_country_lang', $f, $t, 'dim2', 'Egypt', 200) as $r) {
 </div>
 
 <?php endif; ?>
+
+<?php } /* end of the Google branch */ ?>

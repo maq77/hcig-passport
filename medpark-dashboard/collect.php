@@ -38,6 +38,20 @@ foreach ($results as $k => $r) {
     printf("%-8s %-5s %s\n", $k, $r['ok'] ? 'ok' : 'fail', $r['msg']);
 }
 
+/* Our own analytics. The five minute cron normally does this; running it here
+   too means a missed run catches up on the next daily pass. */
+if (mp_get('analytics_on') === '1') {
+    $a = mpa_import();
+    printf("%-8s %-5s %s\n", 'own', $a['ok'] ? 'ok' : 'fail', $a['msg']);
+
+    $keep = max(90, (int)mp_get('analytics_retain', '730'));
+    $pruned = mpa_prune($keep);
+    if (array_sum($pruned) > 0) {
+        printf("%-8s %-5s removed %d rows older than %d days\n",
+               'prune', 'ok', array_sum($pruned), $keep);
+    }
+}
+
 /* Keep the file small. Two years of daily rows is plenty of history and stops
    the database growing without limit on shared hosting. */
 $cut = gmdate('Y-m-d', strtotime('-730 day'));

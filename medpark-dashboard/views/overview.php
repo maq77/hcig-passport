@@ -1,4 +1,12 @@
 <?php
+/* Source switch added 2026-09-03. Our own tracking and Google answer different
+   questions, so neither side is trimmed to match the other. Ours is composed in
+   lib/ownpanels.php; everything below the else is the original Google view,
+   unchanged. */
+ui_source_toggle('overview', $R, 'GA4');
+if (mp_source() === 'own') { own_page_overview($R); } else {
+?>
+<?php
 /* Overview. The page a CEO should be able to read in under a minute:
    what came in, what it produced, and what needs attention. */
 $hasGA  = mp_has_data('ga4');
@@ -142,3 +150,5 @@ $high = 0; foreach ($findings as $x) { if ($x['severity'] === 'high') $high++; }
     </div>
   <?php endif; ?>
 </div>
+
+<?php } /* end of the Google branch */ ?>

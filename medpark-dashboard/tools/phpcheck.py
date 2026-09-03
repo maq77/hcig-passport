@@ -62,6 +62,17 @@ def check(path):
     code = strip_noise(php_regions(src))
     problems = []
 
+    # A cron schedule documented inside a block comment ends the comment at its
+    # own "*/", and everything after is parsed as PHP. Added 2026-09-03 after
+    # import.php shipped as a syntax error and this checker called it sound:
+    # it modelled quotes and braces but not comment terminators, so the damage
+    # was invisible to every other check here.
+    for n, line in enumerate(src.split(chr(10)), 1):
+        st = line.strip()
+        if st.startswith("*/") and len(st) > 2 and st[2].isdigit():
+            problems.append(
+                "line %d: a cron schedule closes the block comment: %s" % (n, st[:60]))
+
     if code.count("{") != code.count("}"):
         problems.append("braces %d open / %d close" % (code.count("{"), code.count("}")))
     if code.count("(") != code.count(")"):

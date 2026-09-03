@@ -10,9 +10,33 @@ require __DIR__ . '/lib/insights.php';
 require __DIR__ . '/lib/ui.php';
 require __DIR__ . '/lib/definitions.php';
 require __DIR__ . '/lib/narrative.php';
+/* views/ceo.php calls mp_recommendations() unconditionally and only
+   export.php ever required the file that defines it, so the Summary page,
+   which is also the dashboard's default page, died with an undefined
+   function. Found 2026-09-03 while rendering every page through the same
+   include chain index.php uses. */
+require __DIR__ . '/lib/recommend.php';
+require __DIR__ . '/lib/aicheck.php';
+require __DIR__ . '/lib/ownpanels.php';
 
 if (!mp_is_configured()) { header('Location: login.php'); exit; }
 mp_require_login();
+
+/* ---------- near real time -----------------------------------------------
+   Opening the dashboard is the moment somebody wants current numbers, so the
+   spool is drained here as well as on the five minute cron. Two guards: only
+   when a beacon is actually waiting, and at most once every fifteen seconds.
+   When the spool is empty this is a single filesize() call. */
+if (mp_get('analytics_on') === '1' && function_exists('mpa_import')) {
+    $spoolFile = MP_DATA_DIR . '/' . A_SPOOL;
+    $lockFile  = MP_DATA_DIR . '/.a-live';
+    if (is_file($spoolFile) && filesize($spoolFile) > 0
+        && (!is_file($lockFile) || (time() - (int)@filemtime($lockFile)) > 15)) {
+        @touch($lockFile);
+        @chmod($lockFile, 0600);
+        try { mpa_import(); } catch (Throwable $e) { /* never block the page */ }
+    }
+}
 
 $page  = isset($_GET['p']) ? preg_replace('~[^a-z_]~', '', (string)$_GET['p']) : 'ceo';
 $rangeKey = isset($_GET['r']) ? (string)$_GET['r'] : '28d';
@@ -25,12 +49,15 @@ $PAGES = array(
     'kpi'         => array('KPIs and targets',    'target',   'Report'),
     'conversions' => array('Enquiries',           'phone',    'Report'),
     'traffic'     => array('Audience',            'users',    'Report'),
+    'whatsapp'    => array('WhatsApp',            'bubble',   'Channels'),
     'chat'        => array('Assistant',           'chat',     'Channels'),
     'seo'         => array('Search',              'search',   'Channels'),
     'keywords'    => array('Keywords',            'sparkles', 'Channels'),
     'local'       => array('Maps and local',      'map',      'Channels'),
     'geo'         => array('Geography',           'globe',    'Channels'),
     'ai'          => array('AI visibility',       'pulse',    'Channels'),
+    'analysis'    => array('Analysis',            'pulse',    'Behaviour'),
+    'visits'      => array('Visits, one by one',  'list',     'Behaviour'),
     'heatmap'     => array('Heatmap',             'heat',     'Behaviour'),
     'health'      => array('Site health',         'alert',    'Technical'),
     'issues'      => array('Issues and advice',   'alert',    'Technical'),
@@ -56,9 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
         $keys = array('site_url','brand_name','ga4_property_id','ga4_measurement_id','google_sa_json',
                       'gsc_site_url','gbp_account_id','gbp_location_ids','psi_api_key','semrush_api_key',
                       'semrush_database','yandex_counter_id','yandex_oauth_token','ai_prompts',
-                      'ai_brand_terms','ai_competitors','anthropic_api_key','chat_model',
+                      'ai_brand_terms','ai_competitors','anthropic_api_key','perplexity_api_key','gemini_api_key','chat_model',
                       'staff_email','staff_alert_email','chat_enabled','competitors',
-                      'competitor_sites','primary_market');
+                      'competitor_sites','primary_market',
+                      'maxmind_account','maxmind_key','analytics_on',
+                      'analytics_retain','consent_banner_on');
         $patch = array();
         foreach ($keys as $k) { if (isset($_POST[$k])) $patch[$k] = trim((string)$_POST[$k]); }
         if (!empty($_POST['new_password'])) {
@@ -146,6 +175,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
             : array('t'=>'ok', 'm'=>'Alerts turned off.');
     }
 
+    /* ---- run the AI visibility checks -----------------------------------
+       Only the engines with an API that searches the web can be driven this
+       way. The rest stay a monthly human check and the page says which. */
+    if ($act === 'ai_run') {
+        $res = mp_ai_run_all(100);
+        $flash = array('t' => $res['ok'] ? 'ok' : 'bad', 'm' => $res['msg']);
+    }
+
     if ($act === 'ai_add') {
         $st = mp_db()->prepare("INSERT INTO ai_checks (checked_at,engine,prompt,mentioned,rank_position,cited_url,competitors,notes)
                                 VALUES (:t,:e,:p,:m,:r,:u,:c,:n)");
@@ -161,6 +198,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
         ));
         $flash = array('t'=>'ok', 'm'=>'Result recorded.');
     }
+}
+/* ---------- a POST that failed its token check ---------------------------
+   Every form above sits behind `POST && mp_csrf_ok(...)` with, until now, no
+   else. When the token had expired the whole block was skipped and the page
+   reloaded looking identical: no save, no error, no clue. Clicking Save
+   appeared to do nothing at all, on every form in the dashboard.
+
+   A session expires if the tab is left open for a while, or the browser drops
+   the cookie. That is normal, and it must say so. */
+elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $flash = array('t' => 'bad',
+        'm' => 'Nothing was saved: that form had been open long enough for its security token to expire. '
+             . 'Reload this page and submit it again. Your entry was not recorded.');
 }
 
 $conn = mp_connectors_status();
@@ -221,7 +271,7 @@ $title = $PAGES[$page][0];
       </div>
       <div class="tools">
         <div class="seg" role="group" aria-label="Date range">
-          <?php foreach (array('7d'=>'7d','28d'=>'28d','90d'=>'90d','365d'=>'12m') as $k=>$lab): ?>
+          <?php foreach (array('today'=>'Today','7d'=>'7d','28d'=>'28d','90d'=>'90d','365d'=>'12m') as $k=>$lab): ?>
             <a href="?p=<?php echo e($page); ?>&amp;r=<?php echo $k; ?>"
                class="<?php echo $R['preset'] === $k ? 'on' : ''; ?>"><?php echo e($lab); ?></a>
           <?php endforeach; ?>

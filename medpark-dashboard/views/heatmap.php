@@ -105,7 +105,13 @@ foreach ($scrollRows as $r) {
               $grid[(int)$c['gy']][(int)$c['gx']] = (float)$c['v'];
               $max = max($max, (float)$c['v']);
           }
-          echo '<div style="display:grid;grid-template-columns:repeat(20,1fr);gap:2px;aspect-ratio:20/20;max-width:520px;margin:0 auto">';
+          /* width:100% is load-bearing. The card is a flex column, so this grid
+             is a flex item; without an explicit width it shrinks to fit twenty
+             1fr columns that have no content of their own, and the whole map
+             rendered as a 68 pixel smudge in the middle of an empty card.
+             Measured in the browser, not guessed. */
+          echo '<div style="display:grid;grid-template-columns:repeat(20,1fr);gap:2px;'
+             . 'aspect-ratio:1;width:100%;max-width:520px;margin:0 auto">';
           for ($y = 0; $y < 20; $y++) {
               for ($x = 0; $x < 20; $x++) {
                   $v = isset($grid[$y][$x]) ? $grid[$y][$x] : 0.0;

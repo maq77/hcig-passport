@@ -1,7 +1,14 @@
 <?php
-/* AI visibility. There is no API that reports whether ChatGPT names MedPark,
-   so this is a structured record of a monthly manual check. Structured means
-   it can be charted and put in the report, which a spreadsheet cannot. */
+/* AI visibility.
+
+   Part automated since 2026-09-03. Engines whose API actually searches the web
+   while answering (Claude, Perplexity, Gemini) can be asked the whole prompt
+   set on a button press, and the answer is recorded with the model that gave
+   it. ChatGPT's consumer interface, Google's AI Overviews and Copilot have no
+   public API for their search product, so those remain a monthly check by
+   hand, recorded in the same table. The coverage panel below says which is
+   which, because a mention rate that quietly mixes the two would be worthless.
+   See lib/aicheck.php. */
 $prompts = array_values(array_filter(array_map('trim', explode("\n", mp_get('ai_prompts')))));
 $engines = array('ChatGPT','Google AI Overview','Gemini','Perplexity','Copilot','Claude');
 
@@ -30,15 +37,51 @@ $byEngine = mp_db()->query(
     <?php ui_top_table($byEngine, 'Engine', 'Mentioned', function ($v) { return round($v).'%'; }, 8); ?>
   </div>
   <div class="card">
-    <h3>How this is measured</h3>
+    <h3>Run the checks</h3>
+    <?php $ready = mp_ai_ready_engines(); ?>
     <p style="color:var(--ink-2);font-size:13px;margin:0 0 10px">
-      Once a month, ask each engine the prompts below in a fresh session with no history, and record
-      whether MedPark is named, in what position, and which competitors appeared instead.
-      A fresh session matters: an engine that has been talking to you about MedPark all day will name it.</p>
-    <p style="color:var(--ink-2);font-size:13px;margin:0">
-      It takes about ten minutes and it is the only honest way to report this. Any tool claiming to
-      automate it is sampling the same way, just less carefully.</p>
+      <?php if ($ready): ?>
+        Asks every prompt below to
+        <strong><?php echo e(implode(', ', array_keys($ready))); ?></strong>
+        and records each answer with the model that produced it. Takes a minute or two.
+      <?php else: ?>
+        No engine can be run automatically yet. Add a Perplexity, Gemini or Anthropic key in Settings.
+        The engines without an API stay a check by hand.
+      <?php endif; ?>
+    </p>
+    <form method="post" style="display:inline">
+      <input type="hidden" name="csrf" value="<?php echo e(mp_csrf()); ?>">
+      <input type="hidden" name="act" value="ai_run">
+      <button class="btn btn--pri" type="submit" <?php echo $ready ? '' : 'disabled'; ?>>
+        <?php echo ui_icon('sparkles', 14); ?>Run the automated checks now
+      </button>
+    </form>
+    <p style="color:var(--ink-3);font-size:12.5px;margin:12px 0 0">
+      An engine's API and its consumer chat interface are not the same product and can answer
+      differently on the same day. Treat an automated result as a repeatable measurement of that
+      engine's API, and keep checking ChatGPT by hand for what a patient actually sees.
+    </p>
   </div>
+</div>
+
+<div class="card card--pad0" style="margin-bottom:16px">
+  <h3>What is automated and what is not
+      <span class="hint">so the mention rate is never a mix of two different things</span></h3>
+  <?php
+    echo '<div class="tw"><table><thead><tr><th>Engine</th><th>How it is checked</th>'
+       . '<th>Status</th><th>What to know</th></tr></thead><tbody>';
+    foreach (mp_ai_engines() as $name => $x) {
+        $has = $x['auto'] && $x['key'] !== '' && trim(mp_get($x['key'])) !== '';
+        if (!$x['auto'])   $pill = '<span class="pill pill--idle">By hand</span>';
+        elseif ($has)      $pill = '<span class="pill pill--ok">Automated</span>';
+        else               $pill = '<span class="pill pill--wait">Needs a key</span>';
+        echo '<tr><td><strong>' . e($name) . '</strong></td>'
+           . '<td class="muted">' . e($x['auto'] ? 'API with web search' . ($x['model'] !== '' ? ' (' . $x['model'] . ')' : '') : 'A person, monthly') . '</td>'
+           . '<td>' . $pill . '</td>'
+           . '<td class="muted" style="font-size:12.5px">' . e($x['note']) . '</td></tr>';
+    }
+    echo '</tbody></table></div>';
+  ?>
 </div>
 
 <div class="card" style="margin-bottom:16px">

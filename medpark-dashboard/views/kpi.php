@@ -5,6 +5,8 @@
    Targets are editable here and stored with the settings, so they survive and
    can be argued about openly rather than living in someone's head. */
 
+ui_source_toggle('kpi', $R);
+
 $saved = json_decode(mp_get('kpi_targets', '{}'), true);
 if (!is_array($saved)) $saved = array();
 
@@ -30,16 +32,28 @@ $chatArgs = array(':a'=>$f, ':b'=>$today);
 $chatLeads = kpi_chat("SELECT COUNT(*) FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b", $chatArgs);
 $pChatLeads = kpi_chat("SELECT COUNT(*) FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b", array(':a'=>$pf, ':b'=>$pt));
 
-$calls = mp_sum('ga4','events',$f,$t,'call_click');
-$whats = mp_sum('ga4','events',$f,$t,'whatsapp_click');
-$forms = mp_sum('ga4','events',$f,$t,'enquiry_submit');
-$sessions = mp_sum('ga4','sessions',$f,$t);
+/* Source switch, 2026-09-03. This page is the one place where switching does
+   not change which numbers are shown, only who counted them: a target for
+   "calls this month" is the same target whoever measured it. The rows that
+   only Google can supply (search impressions, Business Profile activity) stay
+   Google-sourced whatever is selected, and each row already names its source.
+
+   Our own counts run higher than GA4's on the same days, because a first-party
+   script is not blocked the way a Google tag is. That is a real difference in
+   what reached the site, not a discrepancy to reconcile away, so a target set
+   against one source should be re-read after switching. */
+$useOwn = mp_source() === 'own';
+
+$calls = $useOwn ? (float)mpa_ev_count('call_click', $f, $t)     : mp_sum('ga4','events',$f,$t,'call_click');
+$whats = $useOwn ? (float)mpa_ev_count('whatsapp_click', $f, $t) : mp_sum('ga4','events',$f,$t,'whatsapp_click');
+$forms = $useOwn ? (float)mpa_ev_count('enquiry_submit', $f, $t) : mp_sum('ga4','events',$f,$t,'enquiry_submit');
+$sessions = $useOwn ? mpa_kpis($f, $t)['sessions'] : mp_sum('ga4','sessions',$f,$t);
 $enq = $calls + $whats + $forms + $chatLeads;
 
-$pcalls = mp_sum('ga4','events',$pf,$pt,'call_click');
-$pwhats = mp_sum('ga4','events',$pf,$pt,'whatsapp_click');
-$pforms = mp_sum('ga4','events',$pf,$pt,'enquiry_submit');
-$psessions = mp_sum('ga4','sessions',$pf,$pt);
+$pcalls = $useOwn ? (float)mpa_ev_count('call_click', $pf, $pt)     : mp_sum('ga4','events',$pf,$pt,'call_click');
+$pwhats = $useOwn ? (float)mpa_ev_count('whatsapp_click', $pf, $pt) : mp_sum('ga4','events',$pf,$pt,'whatsapp_click');
+$pforms = $useOwn ? (float)mpa_ev_count('enquiry_submit', $pf, $pt) : mp_sum('ga4','events',$pf,$pt,'enquiry_submit');
+$psessions = $useOwn ? mpa_kpis($pf, $pt)['sessions'] : mp_sum('ga4','sessions',$pf,$pt);
 $penq = $pcalls + $pwhats + $pforms + $pChatLeads;
 
 $psiDay = mp_db()->query("SELECT MAX(day) FROM metrics WHERE source='psi'")->fetchColumn();
@@ -85,7 +99,22 @@ $K = array(
 $conn = mp_connectors_status();
 function kpi_ready(array $conn, string $src): bool {
     if ($src === 'chat') return true;
+    /* Our own tracking needs no credential, so it is ready whenever it is
+       switched on. Without this a row measured by us would have been marked
+       "needs access" because GA4 is not connected, which is the opposite of
+       the truth. */
+    if ($src === 'own') return mp_get('analytics_on') === '1';
     return isset($conn[$src]) ? (bool)$conn[$src]['ready'] : true;
+}
+
+/* When the reader has chosen our own tracking, the rows we measure ourselves
+   are ours: they are counted here, gated on our collection, and labelled as
+   ours. The rows only Google can supply keep their own source whatever is
+   selected, so the table never claims we measured something we did not. */
+if ($useOwn) {
+    foreach ($K as $i => $x) {
+        if ($x['src'] === 'ga4') $K[$i]['src'] = 'own';
+    }
 }
 
 $met = 0; $missing = 0; $tracked = 0;

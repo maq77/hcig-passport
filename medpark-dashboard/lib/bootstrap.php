@@ -15,7 +15,7 @@ define('MP_SECRETS',  MP_DATA_DIR . '/secrets.php');
 define('MP_DB',       MP_DATA_DIR . '/metrics.sqlite');
 define('MP_VERSION',  '1.1');
 /* Bump this whenever mp_install() changes, so the schema is reapplied once. */
-define('MP_SCHEMA',   '4');
+define('MP_SCHEMA',   '5');
 
 if (!is_dir(MP_DATA_DIR)) { @mkdir(MP_DATA_DIR, 0700, true); }
 
@@ -37,10 +37,27 @@ function mp_default_settings(): array {
         'gbp_location_ids'   => '',
         'psi_api_key'        => '',
 
+        /* MaxMind GeoLite2, for country and city on our own traffic.
+           Free account. The database is downloaded by tools/geoip-update.sh
+           and read locally, so no address ever leaves this server. */
+        'maxmind_account'    => '',
+        'maxmind_key'        => '',
+
         'semrush_api_key'    => '',
         'semrush_database'   => 'eg',
         'yandex_counter_id'  => '110789001',
         'yandex_oauth_token' => '',
+
+        /* First-party analytics. On by default: the cookieless tier needs
+           no permission from anyone and is the foundation everything else
+           is measured against. */
+        'analytics_on'       => '1',
+        /* Raw rows are pruned past this; the daily rollups are kept for
+           good, so long comparisons survive the pruning. */
+        'analytics_retain'   => '730',
+        /* The consent banner is visible copy and waits for approval.
+           Off means the site runs cookieless, which is the default tier. */
+        'consent_banner_on'  => '0',
 
         'kpi_targets'        => '{}',
         'report_email_on'    => '0',
@@ -55,6 +72,11 @@ function mp_default_settings(): array {
         'competitors'        => "Royal Hospital Hurghada\nNile Hospital Hurghada\nAseel Medical Center\nHurghada Medical Center",
         'heat_pages'         => "/\n/emergency-urgent-care/\n/services/\n/contact-us/\n/de/\n/pl/",
         'anthropic_api_key'  => '',
+        /* Engines whose API actually searches the web while answering, so an
+           AI visibility check can be run without a person. Everything else
+           on that page stays a manual check. See lib/aicheck.php. */
+        'perplexity_api_key' => '',
+        'gemini_api_key'     => '',
         'chat_enabled'       => '1',
         'chat_model'         => 'claude-sonnet-5',
         'staff_email'        => 'info@medparkhospitals.com',
@@ -299,6 +321,10 @@ function mp_install(PDO $db): void {
         status TEXT NOT NULL,
         message TEXT NOT NULL DEFAULT ''
     )");
+
+    /* Our own analytics keeps its tables in the same database, so traffic can
+       be reported next to calls and search rather than in a separate silo. */
+    if (function_exists('mpa_install')) mpa_install($db);
 }
 
 function mp_metric_put(string $day, string $source, string $metric, float $value, string $dim = '', string $dim2 = ''): void {
@@ -468,6 +494,19 @@ function mp_delta(float $now, float $prev): array {
 }
 
 function mp_range(string $preset): array {
+    /* Today, and today against yesterday. Only our own analytics can answer
+       this: Google publishes complete days, so every other preset deliberately
+       stops at yesterday and those are left exactly as they were. */
+    if ($preset === 'today' || $preset === '1d') {
+        $t = new DateTimeImmutable('today');
+        $y = $t->sub(new DateInterval('P1D'));
+        return array(
+            'from' => $t->format('Y-m-d'), 'to' => $t->format('Y-m-d'),
+            'prev_from' => $y->format('Y-m-d'), 'prev_to' => $y->format('Y-m-d'),
+            'days' => 1, 'preset' => 'today', 'label' => 'Today',
+        );
+    }
+
     $end = new DateTimeImmutable('yesterday');
     $map = array('7d'=>7, '28d'=>28, '90d'=>90, '365d'=>365);
     $days = isset($map[$preset]) ? $map[$preset] : 28;
@@ -491,6 +530,8 @@ function mp_connectors_status(): array {
         'gbp'     => array('name'=>'Business Profile',   'ready'=>$sa && mp_get('gbp_location_ids') !== '',  'needs'=>'Location IDs for both branches'),
         'psi'     => array('name'=>'PageSpeed Insights', 'ready'=>true,  'needs'=>'Runs without a key, an API key just raises the rate limit'),
         'behaviour'=> array('name'=>'On-page behaviour', 'ready'=>true, 'needs'=>'Nothing. Collected on your own server, imported from a spool file.'),
+        'analytics'=> array('name'=>'First-party analytics', 'ready'=>mp_get('analytics_on') === '1', 'needs'=>'Nothing. Sessions, pages and events collected on your own server.'),
+        'geoip'   => array('name'=>'Country and city', 'ready'=>function_exists('mpa_geo_ready') && mpa_geo_ready(), 'needs'=>'A free MaxMind licence key in Settings, then run tools/geoip-update.sh once.'),
         'keywords'=> array('name'=>'Keyword discovery', 'ready'=>true, 'needs'=>'Nothing. Uses Google suggest, which is free and needs no key.'),
         'competitor'=> array('name'=>'Competitor checks', 'ready'=>mp_get('competitor_sites') !== '', 'needs'=>'A list of competitor domains in Settings.'),
         'semrush' => array('name'=>'SEMrush',            'ready'=>mp_get('semrush_api_key') !== '',         'needs'=>'API key from an account with API units'),
@@ -499,3 +540,13 @@ function mp_connectors_status(): array {
         'ai'      => array('name'=>'AI visibility',      'ready'=>true,  'needs'=>'Prompt results are recorded in the AI page each month'),
     );
 }
+
+/* ---------------------------------------------------------------------------
+   First-party analytics.
+
+   Loaded last, so its schema and helpers are available everywhere without
+   bootstrap having to know anything about them. Function definitions are
+   hoisted, so mp_install() above can call mpa_install() even though it is
+   defined in a file required after it.
+   ------------------------------------------------------------------------ */
+require_once __DIR__ . '/analytics.php';

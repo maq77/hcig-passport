@@ -21,6 +21,10 @@ function ui_icon(string $name, int $size = 16): string {
         'phone'    => '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/>',
         'users'    => '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/>',
         'chat'     => '<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 21l1.9-4.9A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/>',
+        /* A message thread, kept distinct from the plain bubble the assistant
+           uses, since the two sit next to each other in the sidebar. */
+        'bubble'   => '<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.8-.8L3 21l1.9-4.9A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/><path d="M8.5 11.5h.01"/><path d="M12 11.5h.01"/><path d="M15.5 11.5h.01"/>',
+        'list'     => '<path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/>',
         'search'   => '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
         'map'      => '<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
         'globe'    => '<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/>',
@@ -459,4 +463,49 @@ function ui_stat(string $key, string $value, ?array $delta, array $spark = array
     }
     if (count($spark) > 1) { echo '<div class="kpi__spark">'; ui_spark($spark, $colour); echo '</div>'; }
     echo '</div>';
+}
+
+/* ==========================================================================
+   Source switch: our tracking, or Google's.
+
+   Added 2026-09-03 to a specific instruction: the pages built before we had
+   our own tracker still read GA4 only, and went blank without a Google
+   service account. Each page now offers both, and **each side shows its own
+   full feature set** rather than the subset the two share. The panels for our
+   side live in lib/ownpanels.php; the reasoning is at the top of that file.
+   ========================================================================== */
+
+/* Which source the reader has chosen. Defaults to ours, because ours is
+   collecting today and Google's is waiting on an account. */
+function mp_source(): string {
+    static $s = null;
+    if ($s !== null) return $s;
+    $v = isset($_GET['src']) ? (string)$_GET['src'] : '';
+    if ($v === 'own' || $v === 'ga4') return ($s = $v);
+    return ($s = (mp_get('analytics_on') === '1') ? 'own' : 'ga4');
+}
+
+function ui_source_toggle(string $page, array $R, string $googleLabel = 'GA4'): void {
+    $cur = mp_source();
+    $url = function (string $src) use ($page, $R) {
+        $q = array('p' => $page, 'r' => $R['preset'], 'src' => $src);
+        return '?' . http_build_query($q);
+    };
+    $ours   = mpa_has_data($R['from'], $R['to']);
+    $note   = $cur === 'own'
+        ? 'Measured on this server. Not blocked by ad blockers, keeps every visit individually, and '
+        . 'needs no Google account.'
+        : $googleLabel . ' holds what only Google can see: search queries, advertising cost, '
+        . 'cross-device identity and demographics.';
+
+    echo '<div class="card"><div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">';
+    echo '<div class="seg" role="group" aria-label="Data source">'
+       . '<a href="' . e($url('own')) . '" class="' . ($cur === 'own' ? 'on' : '') . '">Our tracking</a>'
+       . '<a href="' . e($url('ga4')) . '" class="' . ($cur === 'ga4' ? 'on' : '') . '">' . e($googleLabel) . '</a>'
+       . '</div>';
+    echo '<span class="muted" style="font-size:12.5px;flex:1;min-width:220px">' . e($note) . '</span>';
+    if ($cur === 'ga4' && $ours) {
+        echo '<span class="pill pill--info">Our tracking has data for these dates</span>';
+    }
+    echo '</div></div>';
 }

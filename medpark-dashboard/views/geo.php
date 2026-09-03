@@ -1,4 +1,12 @@
 <?php
+/* Source switch added 2026-09-03. Our own tracking and Google answer different
+   questions, so neither side is trimmed to match the other. Ours is composed in
+   lib/ownpanels.php; everything below the else is the original Google view,
+   unchanged. */
+ui_source_toggle('geo', $R, 'GA4');
+if (mp_source() === 'own') { own_page_geo($R); } else {
+?>
+<?php
 /* Geography.
 
    For a hospital serving tourists this is not a vanity page. Where a visitor is
@@ -180,3 +188,5 @@ $ppl = mp_sum('ga4','sessions_country',$pf,$pt,'Poland');
 </div>
 
 <?php endif; ?>
+
+<?php } /* end of the Google branch */ ?>

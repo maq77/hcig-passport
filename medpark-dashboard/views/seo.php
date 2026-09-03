@@ -1,4 +1,12 @@
 <?php
+/* Source switch added 2026-09-03. Our own tracking and Google answer different
+   questions, so neither side is trimmed to match the other. Ours is composed in
+   lib/ownpanels.php; everything below the else is the original Google view,
+   unchanged. */
+ui_source_toggle('seo', $R, 'Search Console');
+if (mp_source() === 'own') { own_page_seo($R); } else {
+?>
+<?php
 /* Search. Search Console for what is really happening, SEMrush for the
    competitive picture if a key is present. */
 $hasGSC = mp_has_data('gsc');
@@ -105,3 +113,5 @@ $ppos   = mp_avg('gsc','position',$pf,$pt);
       'Search Console already covers what is actually happening on this site. SEMrush adds competitor positions, keyword volumes and backlinks, which Search Console cannot see. If a subscription is bought, paste the API key in Settings and this fills in. Nothing else breaks without it.'); ?>
   <?php endif; ?>
 </div>
+
+<?php } /* end of the Google branch */ ?>

@@ -1,4 +1,12 @@
 <?php
+/* Source switch added 2026-09-03. Our own tracking and Google answer different
+   questions, so neither side is trimmed to match the other. Ours is composed in
+   lib/ownpanels.php; everything below the else is the original Google view,
+   unchanged. */
+ui_source_toggle('conversions', $R, 'GA4');
+if (mp_source() === 'own') { own_page_conversions($R); } else {
+?>
+<?php
 /* Enquiries. Every event the tracking script sends, broken down by the thing
    the CEO cares about: which control produced the contact, in which language. */
 $hasGA = mp_has_data('ga4');
@@ -102,3 +110,5 @@ $enq = $calls + $whats + $mail + $forms;
 </div>
 
 <?php endif; ?>
+
+<?php } /* end of the Google branch */ ?>

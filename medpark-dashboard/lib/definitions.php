@@ -21,6 +21,101 @@ function mp_definitions(): array {
     return array(
 
     /* ---- the numbers a chief executive reads first -------------------- */
+    /* ---- our own analytics ---------------------------------------------
+       These come from our own tracking rather than Google, so the wording
+       says what we measure and not what a Google help page says. */
+    'live_active' => array(
+        'label' => 'On the site now',
+        'what'  => 'Different people seen in the last five minutes.',
+        'why'   => 'No analytics can honestly say who is on a site right now, because a browser never announces that somebody left. This is the nearest honest version.',
+        'good'  => 'Any number above zero during opening hours.',
+    ),
+    'live_today_visits' => array(
+        'label' => 'Visits today',
+        'what'  => 'Visits since midnight UTC.',
+        'why'   => 'Google only publishes complete days, so today is a number only our own tracking can give you.',
+        'good'  => 'Ahead of the same hour yesterday.',
+    ),
+    'live_today_visitors' => array(
+        'label' => 'People today',
+        'what'  => 'Different people today, rather than visits.',
+        'why'   => 'Separates ten visits from one person off ten visits from ten people.',
+        'good'  => 'Close to the visit count, which means new interest rather than repeat checking.',
+    ),
+    'live_today_enquiries' => array(
+        'label' => 'Enquiries today',
+        'what'  => 'Calls, WhatsApp messages, emails, forms and assistant leads today.',
+        'why'   => 'The only number on this page that represents a patient.',
+        'good'  => 'Above zero every day, and growing week on week.',
+    ),
+    'own_visitors' => array(
+        'label' => 'Visitors',
+        'what'  => 'People, rather than visits. Somebody who came three times counts once.',
+        'why'   => 'Visits go up when the same people return. Visitors going up means the audience is growing.',
+        'good'  => 'Rising month on month, and rising faster than visits during a campaign.',
+    ),
+    'own_conversions' => array(
+        'label' => 'Enquiries',
+        'what'  => 'Visits where somebody called, sent a WhatsApp message, emailed, submitted the form or gave the assistant their details.',
+        'why'   => 'This is the closest thing to a patient that a website can produce.',
+        'good'  => 'Growing month on month, and growing faster than visits.',
+    ),
+    'own_conv_rate' => array(
+        'label' => 'Enquiry rate',
+        'what'  => 'The share of visits that produced an enquiry.',
+        'why'   => 'It separates a traffic problem from a website problem. More visits with a falling rate means the wrong people are arriving.',
+        'good'  => 'Above 2% for an urgent care site. Below 1% means the contact options are hard to find.',
+    ),
+    /* WhatsApp. Its own page since 2026-09-03, because it is the channel this
+       business actually runs on and it was one row in a table. */
+    'wa_taps' => array(
+        'label' => 'WhatsApp taps',
+        'what'  => 'Every tap on a WhatsApp link anywhere on the website, in any language.',
+        'why'   => 'For a hospital serving tourists this is the first contact more often than the phone is. It is free to receive and it is answered in writing, which suits somebody who does not speak the language.',
+        'good'  => 'Growing month on month. A drop with visits flat means a button moved or broke.',
+    ),
+    'wa_visits' => array(
+        'label' => 'Visits that used it',
+        'what'  => 'The number of visits in which at least one WhatsApp tap happened.',
+        'why'   => 'One worried person tapping four times is one enquiry, not four. This is the number to compare against visits.',
+        'good'  => 'Close to the tap count. A large gap means people are tapping and coming back, which usually means the tap did not work.',
+    ),
+    'wa_rate' => array(
+        'label' => 'Tap rate',
+        'what'  => 'The share of all visits that produced a WhatsApp tap.',
+        'why'   => 'It separates a traffic problem from a website problem. More visits with a falling rate means the wrong people are arriving, or the button got harder to find.',
+        'good'  => 'Steady or rising. Judge it against the site enquiry rate on the Analysis page rather than against another business.',
+    ),
+    'wa_share' => array(
+        'label' => 'Share of enquiries',
+        'what'  => 'WhatsApp taps as a share of every enquiry: calls, WhatsApp, forms, emails and assistant leads together.',
+        'why'   => 'It says how much of the enquiry flow depends on one channel. A channel carrying most of the business deserves most of the attention when it breaks.',
+        'good'  => 'There is no right number. What matters is knowing it, and noticing when it moves.',
+    ),
+    'own_pageviews' => array(
+        'label' => 'Pages viewed',
+        'what'  => 'Every page opened, across every visit.',
+        'why'   => 'With visits beside it, it says whether people explore the site or leave from where they landed.',
+        'good'  => 'Two or more pages per visit.',
+    ),
+    'own_engaged' => array(
+        'label' => 'Time on site',
+        'what'  => 'Time the page was actually being read: the tab in front of the visitor, and something done in the last thirty seconds.',
+        'why'   => 'Google Analytics counts a page left open in a background tab. This does not, so the number is honest and usually lower.',
+        'good'  => 'Above 45 seconds for an information page.',
+    ),
+    'own_pages_per' => array(
+        'label' => 'Pages per visit',
+        'what'  => 'How many pages the average visit opened.',
+        'why'   => 'One page per visit means people are not finding a reason to go further.',
+        'good'  => 'Above 1.8.',
+    ),
+    'own_bounce' => array(
+        'label' => 'Left immediately',
+        'what'  => 'Visits that opened one page, did nothing on it, and stayed under fifteen seconds.',
+        'why'   => 'A stricter definition than Google uses. Somebody who read one page for two minutes and then called is not counted here, because that visit worked.',
+        'good'  => 'Below 55%. Falling is better.',
+    ),
     'enquiries' => array(
         'label' => 'Enquiries',
         'what'  => 'Everyone who contacted us through the website: tapped the phone number, opened WhatsApp, sent the contact form, or asked the website assistant for an appointment.',

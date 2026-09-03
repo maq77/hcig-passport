@@ -92,6 +92,63 @@ if ($saGiven) {
   </div>
 
   <div class="card">
+    <h3>Our own analytics</h3>
+    <p class="hint">Sessions, pages, referrers, country and every event, collected on this server
+      rather than by Google. Nothing here can be blocked by an ad blocker, and no visitor address
+      is ever stored or sent anywhere.</p>
+
+    <div class="field">
+      <label>Collect first-party analytics</label>
+      <p class="hint">On by default. The cookieless tier stores nothing at all on a visitor's
+        device, so it needs no permission from anyone and is the foundation every other number
+        on the dashboard is compared against.</p>
+      <select name="analytics_on">
+        <option value="1"<?php echo mp_get('analytics_on') === '1' ? ' selected' : ''; ?>>On</option>
+        <option value="0"<?php echo mp_get('analytics_on') !== '1' ? ' selected' : ''; ?>>Off</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>MaxMind account ID</label>
+      <p class="hint">Free account at maxmind.com. Needed for country and city. Everything else
+        works without it.</p>
+      <input type="text" name="maxmind_account" value="<?php echo e(mp_get('maxmind_account')); ?>" placeholder="1234567">
+    </div>
+
+    <div class="field">
+      <label>MaxMind licence key</label>
+      <p class="hint">Generated under Account, then Manage License Keys. After saving, run
+        <code>tools/geoip-update.sh</code> once to download the database. A weekly cron keeps it
+        current.
+        <?php if (function_exists('mpa_geo_ready') && mpa_geo_ready()): ?>
+          <strong>Database installed<?php $a = mpa_geo_age(); echo $a !== null ? ', ' . (int)$a . ' days old' : ''; ?>.</strong>
+        <?php else: ?>
+          <strong>Database not installed yet.</strong>
+        <?php endif; ?>
+      </p>
+      <input type="text" name="maxmind_key" value="<?php echo e(mp_get('maxmind_key')); ?>">
+    </div>
+
+    <div class="field">
+      <label>Keep raw rows for</label>
+      <p class="hint">Days. Individual visits and events are removed past this; the daily totals
+        are kept for good, so year-on-year comparisons survive the pruning.</p>
+      <input type="text" name="analytics_retain" value="<?php echo e(mp_get('analytics_retain')); ?>" placeholder="730">
+    </div>
+
+    <div class="field">
+      <label>Consent banner</label>
+      <p class="hint">Off until the wording is approved. Leaving it off changes nothing: the site
+        collects the cookieless tier either way. Turning it on adds the option for a visitor to
+        accept, which is what makes returning visitors measurable across days.</p>
+      <select name="consent_banner_on">
+        <option value="0"<?php echo mp_get('consent_banner_on') !== '1' ? ' selected' : ''; ?>>Off, cookieless only</option>
+        <option value="1"<?php echo mp_get('consent_banner_on') === '1' ? ' selected' : ''; ?>>On, ask for consent</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card">
     <h3>Everything else</h3>
 
     <div class="field">
@@ -165,6 +222,28 @@ if ($saGiven) {
       <label>Competitors to watch for</label>
       <input type="text" name="ai_competitors" value="<?php echo e(mp_get('ai_competitors')); ?>">
     </div>
+  </div>
+
+  <div class="card">
+    <h3>AI visibility checks</h3>
+    <p class="hint" style="margin:0 0 12px;max-width:75ch">A key here lets the AI visibility page run
+      its prompts by itself and record the answers. Only engines whose API actually searches the web
+      can be automated. ChatGPT's consumer interface, Google's AI Overviews and Copilot have no public
+      API for their search product, so those stay a monthly check by hand.</p>
+    <div class="field">
+      <label>Perplexity API key</label>
+      <p class="hint">The closest of these to what a person sees, because search is the product.
+        perplexity.ai, API settings.</p>
+      <input type="text" name="perplexity_api_key" value="<?php echo e(mp_get('perplexity_api_key')); ?>" placeholder="pplx-...">
+    </div>
+    <div class="field">
+      <label>Google Gemini API key</label>
+      <p class="hint">Answers grounded with Google Search. Not the same as an AI Overview in the search
+        results, which cannot be automated at all. aistudio.google.com.</p>
+      <input type="text" name="gemini_api_key" value="<?php echo e(mp_get('gemini_api_key')); ?>" placeholder="AIza...">
+    </div>
+    <p class="hint" style="margin:6px 0 0">The Anthropic key below is used for Claude checks as well as
+      for the assistant.</p>
   </div>
 
   <div class="card">

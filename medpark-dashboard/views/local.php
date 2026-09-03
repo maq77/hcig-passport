@@ -1,4 +1,12 @@
 <?php
+/* Source switch added 2026-09-03. Our own tracking and Google answer different
+   questions, so neither side is trimmed to match the other. Ours is composed in
+   lib/ownpanels.php; everything below the else is the original Google view,
+   unchanged. */
+ui_source_toggle('local', $R, 'Business Profile');
+if (mp_source() === 'own') { own_page_local($R); } else {
+?>
+<?php
 /* Maps and local. For a hospital serving tourists this is often the largest
    single source of contact, and it is currently reported nowhere. */
 $hasGBP = mp_has_data('gbp');
@@ -85,3 +93,5 @@ $site  = mp_sum('gbp','website_clicks',$f,$t);
 </div>
 
 <?php endif; ?>
+
+<?php } /* end of the Google branch */ ?>

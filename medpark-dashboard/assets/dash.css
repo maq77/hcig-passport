@@ -232,8 +232,18 @@ tbody tr{transition:background .12s ease}
 tbody tr:hover{background:var(--surface-2)}
 td.n,th.n{text-align:right}
 td strong,td b{color:var(--ink); font-weight:650}
-.trunc{max-width:1px; width:55%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+/* The 1px maximum is the table-cell truncation trick: a table cell ignores it
+   when the table algorithm distributes width but honours it for overflow, so
+   long text ellipses instead of stretching the column. Anything that is not a
+   table cell takes it literally. A flex item with it collapses to one pixel,
+   which is what happened to the bar-chart row labels and the donut legend:
+   both rendered as an invisible label beside a bar, so the reader saw numbers
+   with nothing to say what they counted. Scoped to cells now. */
+.trunc{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0}
+td.trunc,th.trunc{max-width:1px; width:55%}
 .rank{color:var(--ink-4); font-size:11.5px; font-weight:700; width:22px}
+/* For cells whose value is meaningless once it wraps: a time, an age. */
+.nw{white-space:nowrap}
 
 /* proportion bar inside a row */
 .bar{position:relative; height:5px; background:var(--line-2); border-radius:3px; overflow:hidden; min-width:52px}
@@ -377,7 +387,7 @@ input[readonly],textarea[readonly]{background:var(--surface-2); color:var(--ink-
   .main{padding:16px 13px 40px}
   .g2,.g3,.g4,.g5{grid-template-columns:1fr}
   .top h1{font-size:19px}
-  .trunc{width:auto; max-width:none}
+  td.trunc,th.trunc{width:auto; max-width:none}
   /* Tap targets stay comfortable on a phone. */
   .btn,.seg a{min-height:38px; display:inline-flex; align-items:center}
 }
