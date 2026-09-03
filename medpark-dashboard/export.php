@@ -125,6 +125,11 @@ $logo = is_file(__DIR__ . '/assets/hcig-logo.png') ? 'assets/hcig-logo.png' : ''
   --ok:#0E7247; --ok-w:#E9F5EF;
   --hi:#AE2A1E;  --hi-w:#FBEDEA;
   --md:#8A5B00;  --md-w:#FCF4E5;
+  /* Chart series. ui_stack() and ui_line() are shared with the dashboard and
+     reference these; without them here the bars render transparent. */
+  --c1:#12C0C6; --c2:#0A2A4A; --c3:#D98324; --c4:#6B4E9E; --c5:#2E8B57; --c6:#AE2A1E;
+  --ink-4:#BFC1C3; --line-2:#F1F2F2; --surface:#FFFFFF; --surface-2:#FAFBFB;
+  --r-sm:7px;
 }
 *{box-sizing:border-box}
 body{
@@ -212,6 +217,32 @@ th:last-child,td:last-child{padding-right:0}
 .expect{background:var(--a-w); border-radius:8px; padding:11px 14px; margin-top:4px}
 
 /* ---- glossary ---- */
+.cols{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px}
+.chartbox{border:1px solid var(--line); border-radius:10px; overflow:hidden; break-inside:avoid}
+.chartbox h3{margin:0; padding:11px 15px; font-size:11px; font-weight:800; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3); border-bottom:1px solid var(--line-2)}
+.hb{display:flex; flex-direction:column; gap:9px; padding:14px 15px}
+.hb__r{display:grid; grid-template-columns:minmax(66px,34%) 1fr auto; gap:10px; align-items:center; font-size:12.5px}
+.hb__l{color:var(--ink); font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.hb__t{height:9px; background:var(--line-2); border-radius:5px; overflow:hidden; position:relative}
+.hb__t i{position:absolute; inset:0 auto 0 0; border-radius:5px}
+.hb__v{font-variant-numeric:tabular-nums; color:var(--ink); font-weight:700; min-width:36px; text-align:right}
+.stk{display:flex; height:16px; border-radius:8px; overflow:hidden; margin:14px 15px 10px; background:var(--line-2)}
+.stk i{display:block; height:100%}
+.stk__k{display:flex; flex-wrap:wrap; gap:6px 14px; padding:0 15px 14px; font-size:11.5px; color:var(--ink-2)}
+.stk__k span{display:inline-flex; align-items:center; gap:5px}
+.stk__k i{width:9px; height:9px; border-radius:2px; flex:0 0 9px}
+.stk__k b{color:var(--ink); font-variant-numeric:tabular-nums}
+.chart{display:block; width:100%; height:150px}
+.chart--sm{height:132px}
+.axis{font-size:9px; fill:var(--ink-4)}
+.gridline{stroke:var(--line-2); stroke-width:1}
+.who{display:block; margin-top:4px; font-size:11.5px; color:var(--ink-3)}
+.empty{padding:18px 15px; text-align:center; color:var(--ink-3); font-size:12.5px}
+.empty svg{display:none}
+.empty b{display:block; color:var(--ink-2); font-size:13px; margin-bottom:3px}
+.empty p{margin:0 auto; max-width:44ch}
+@media (max-width:700px){.cols{grid-template-columns:1fr}}
 .gl{border-top:1px solid var(--line-2); padding:12px 0}
 .gl b{display:block; font-size:14px; color:var(--ink)}
 .gl p{font-size:13px; color:var(--ink-2); margin:4px 0 0}
@@ -261,10 +292,7 @@ th:last-child,td:last-child{padding-right:0}
     </div>
   </div>
   <h1>Website performance report</h1>
-  <p class="sub">
-    Visibility, reach, and the enquiries they produced. Prepared from measured data, with
-    recommended action and the outcome to expect from each.
-  </p>
+  <p class="sub">Visibility, reach, and the enquiries they produced.</p>
   <dl>
     <div><dt>Prepared for</dt><dd>Chief Executive Officer</dd></div>
     <div><dt>Period</dt><dd><?php echo e($R['from']); ?> to <?php echo e($R['to']); ?></dd></div>
@@ -339,96 +367,61 @@ th:last-child,td:last-child{padding-right:0}
 
 <!-- ================= WHERE CUSTOMERS CAME FROM ================= -->
 <h2>Where the customers came from</h2>
-<?php if ($topCountry || $topChannel || $topQuery): ?>
-<div class="tw">
-<table>
-  <thead><tr><th>Country</th><th class="n">Visits</th><th>How they arrived</th><th class="n">Visits</th></tr></thead>
-  <tbody>
-  <?php for ($i = 0; $i < 5; $i++): ?>
-    <tr>
-      <td><?php echo isset($topCountry[$i]) ? e((string)$topCountry[$i]['dim']) : '<span style="color:var(--ink-4)">&ndash;</span>'; ?></td>
-      <td class="n"><?php echo isset($topCountry[$i]) ? mp_num($topCountry[$i]['v']) : '&ndash;'; ?></td>
-      <td><?php echo isset($topChannel[$i]) ? e((string)$topChannel[$i]['dim']) : '<span style="color:var(--ink-4)">&ndash;</span>'; ?></td>
-      <td class="n"><?php echo isset($topChannel[$i]) ? mp_num($topChannel[$i]['v']) : '&ndash;'; ?></td>
-    </tr>
-  <?php endfor; ?>
-  </tbody>
-</table>
+<div class="cols">
+  <div class="chartbox">
+    <h3>Country</h3>
+    <?php ui_hbars($topCountry, 6); ?>
+  </div>
+  <div class="chartbox">
+    <h3>How they arrived</h3>
+    <?php ui_hbars($topChannel, 6, 'var(--a)'); ?>
+  </div>
 </div>
-<?php if ($topQuery): ?>
-<h3>What they searched for</h3>
-<div class="tw">
-<table>
-  <thead><tr><th>Search term</th><th class="n">Clicks to our site</th></tr></thead>
-  <tbody>
-  <?php foreach ($topQuery as $q): ?>
-    <tr><td><?php echo e((string)$q['dim']); ?></td><td class="n"><?php echo mp_num($q['v']); ?></td></tr>
-  <?php endforeach; ?>
-  </tbody>
-</table>
+<div class="cols">
+  <div class="chartbox">
+    <h3>What they searched for</h3>
+    <?php ui_hbars($topQuery, 6, 'var(--md)'); ?>
+  </div>
+  <div class="chartbox">
+    <h3>What they used to contact us</h3>
+    <?php ui_stack(array(
+      array('dim'=>'Calls','v'=>$calls),
+      array('dim'=>'WhatsApp','v'=>$whats),
+      array('dim'=>'Assistant','v'=>$chat),
+      array('dim'=>'Forms','v'=>$forms),
+    )); ?>
+  </div>
 </div>
-<?php endif; ?>
-<?php else: ?>
-<p style="color:var(--ink-3)">
-  Traffic sources cannot be reported until Analytics and Search Console are connected. The tracking on
-  our own server records every enquiry and the language it came in, but not where the visitor arrived
-  from.
-</p>
-<?php endif; ?>
 
 <!-- ================= VISIBILITY ================= -->
 <h2>Visibility and brand reach</h2>
-<div class="tw">
-<table>
-  <thead><tr><th>Channel</th><th class="n">Reach this period</th><th>What it means</th></tr></thead>
-  <tbody>
-    <tr>
-      <td>Google search</td>
-      <td class="n"><?php echo $impr > 0 ? mp_num($impr) . ' appearances' : '&ndash;'; ?></td>
-      <td>How often we were put in front of someone searching. This moves before clicks do, so it is the earliest sign search work is landing.</td>
-    </tr>
-    <tr>
-      <td>Google Maps</td>
-      <td class="n"><?php
-        $mv = mp_sum('gbp','impressions_maps_mobile',$f,$t) + mp_sum('gbp','impressions_maps_desktop',$f,$t)
-            + mp_sum('gbp','impressions_search_mobile',$f,$t) + mp_sum('gbp','impressions_search_desktop',$f,$t);
-        echo $mv > 0 ? mp_num($mv) . ' listing views' : '&ndash;'; ?></td>
-      <td>For a local search the map results sit above the website, so this is often the larger audience of the two.</td>
-    </tr>
-    <tr>
-      <td>AI assistants</td>
-      <td class="n"><?php echo $aiC > 0 ? $aiM . ' of ' . $aiC . ' questions' : '&ndash;'; ?></td>
-      <td>How often ChatGPT and similar tools name MedPark when asked about hospitals here. A growing share of travellers ask before they search.</td>
-    </tr>
-    <tr>
-      <td>Direct and brand</td>
-      <td class="n"><?php
-        $direct = mp_sum('ga4','sessions_channel',$f,$t,'Direct');
-        echo $direct > 0 ? mp_num($direct) . ' visits' : '&ndash;'; ?></td>
-      <td>People who typed the address or already knew the name. The clearest measure of brand awareness we have.</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
 <?php
-/* Ranking progress over time, only shown when there is enough history for it
-   to mean anything. A two-point line is not a trend. */
-$posSeries = mp_series('gsc','position',$f,$t);
-if (count($posSeries) >= 7): ?>
-<h3>Search position over time</h3>
-<p style="font-size:13px;color:var(--ink-2)">
-  Average position across all terms we appear for. The line falling means we are moving up the page.
-</p>
-<?php ui_line(array(array('name'=>'Average position', 'rows'=>$posSeries))); ?>
-<?php endif; ?>
+  $mv = mp_sum('gbp','impressions_maps_mobile',$f,$t) + mp_sum('gbp','impressions_maps_desktop',$f,$t)
+      + mp_sum('gbp','impressions_search_mobile',$f,$t) + mp_sum('gbp','impressions_search_desktop',$f,$t);
+  $direct = mp_sum('ga4','sessions_channel',$f,$t,'Direct');
+?>
+<div class="cols">
+  <div class="chartbox">
+    <h3>Where we were seen</h3>
+    <?php ui_hbars(array(
+      array('dim'=>'Google search', 'v'=>$impr),
+      array('dim'=>'Google Maps',   'v'=>$mv),
+      array('dim'=>'Knew us already','v'=>$direct),
+      array('dim'=>'AI assistants', 'v'=>$aiM),
+    ), 4, 'var(--a)'); ?>
+  </div>
+  <div class="chartbox">
+    <h3>Search position over time <span style="font-weight:500;color:var(--ink-3)">falling is better</span></h3>
+    <?php
+      $ps = mp_series('gsc','position',$f,$t);
+      if (count($ps) >= 5) { ui_line(array(array('name'=>'Position','rows'=>$ps)), 'chart chart--sm'); }
+      else { echo '<p style="padding:14px 15px;margin:0;font-size:12.5px;color:var(--ink-3)">Awaiting Search Console. It carries up to 16 months, so this chart fills in backwards rather than starting today.</p>'; }
+    ?>
+  </div>
+</div>
 
 <!-- ================= FINDINGS AND ACTIONS ================= -->
 <h2>Findings, recommended action, and what to expect</h2>
-<p style="font-size:13.5px;color:var(--ink-2)">
-  Each item states what was found, the number it came from, what it is costing, what to do, and the
-  outcome to expect. Ordered by priority.
-</p>
 
 <?php foreach ($recs as $i => $r): ?>
 <div class="rec rec--<?php echo e($r['severity']); ?>">
@@ -438,18 +431,17 @@ if (count($posSeries) >= 7): ?>
     <span class="badge b-area"><?php echo e($r['area']); ?></span>
   </div>
   <div class="rec__b">
+<?php /* Evidence and impact are kept short. A reader who wants the full
+     reasoning has the dashboard; a report that argues its case at length does
+     not get read. */ ?>
     <?php if ($r['evidence'] !== ''): ?>
-    <div class="rec__row"><div class="rec__k">Evidence</div><div class="rec__v"><?php echo e($r['evidence']); ?></div></div>
-    <?php endif; ?>
-    <?php if ($r['problem'] !== ''): ?>
-    <div class="rec__row"><div class="rec__k">Impact</div><div class="rec__v"><?php echo e($r['problem']); ?></div></div>
+    <div class="rec__row"><div class="rec__k">Because</div><div class="rec__v"><?php echo e($r['evidence']); ?></div></div>
     <?php endif; ?>
     <?php if ($r['solution'] !== ''): ?>
-    <div class="rec__row"><div class="rec__k">Action</div><div class="rec__v"><?php echo e($r['solution']); ?></div></div>
-    <?php endif; ?>
-    <?php if ($r['owner'] !== '' || $r['effort'] !== 'none'): ?>
-    <div class="rec__row"><div class="rec__k">Effort</div><div class="rec__v">
-      <?php echo e(ucfirst($r['effort'])); ?><?php echo $r['owner'] !== '' ? ' &middot; ' . e($r['owner']) : ''; ?>
+    <div class="rec__row"><div class="rec__k">Do</div><div class="rec__v"><?php echo e($r['solution']); ?>
+      <?php if ($r['owner'] !== '' && $r['effort'] !== 'none'): ?>
+        <span class="who"><?php echo e(ucfirst($r['effort'])); ?> &middot; <?php echo e($r['owner']); ?></span>
+      <?php endif; ?>
     </div></div>
     <?php endif; ?>
     <?php if ($r['expect'] !== ''): ?>
@@ -471,9 +463,6 @@ if (count($posSeries) >= 7): ?>
 
 <!-- ================= GLOSSARY ================= -->
 <h2>What the measures mean</h2>
-<p style="font-size:13.5px;color:var(--ink-2)">
-  The same definitions used on the dashboard, so the two can never disagree.
-</p>
 <?php foreach (array('enquiries','enquiry_rate','impressions','position','directions','ai_mentions') as $k):
         $d = mp_def($k); if (!$d) continue; ?>
   <div class="gl">
@@ -502,25 +491,11 @@ if (count($posSeries) >= 7): ?>
 </div>
 
 <div class="foot">
-  <p>
-    <strong>Basis of this report.</strong> Every figure is measured, not estimated, and traceable to
-    its source in the dashboard. The underlying rows are available as a data export. Where a figure
-    could not be measured it is shown as a dash rather than as zero.
-  </p>
-  <p>
-    Conversion tracking went live on 2 September 2026. Telephone and WhatsApp enquiries have no
-    history before that date, so the first full month is the baseline against which later months are
-    compared.
-  </p>
-  <p>
-    Expected outcomes are calculated from our own figures or from published click-through behaviour,
-    and are stated as ranges rather than promises. Recommendations are generated from measured
-    thresholds; where a claim could not be supported by data it has been left out.
-  </p>
-  <p style="margin-top:14px">
-    Healthcare International Group &middot; <?php echo e(mp_get('brand_name')); ?> &middot;
-    Generated <?php echo e(gmdate('j F Y')); ?>
-  </p>
+  <p>Figures are measured, not estimated, and traceable to the dashboard. A dash means not yet
+     measurable, not zero. Conversion tracking began 2 September 2026, so telephone and WhatsApp have
+     no earlier history. Expected outcomes are ranges calculated from our own figures, not promises.</p>
+  <p style="margin-top:12px">Healthcare International Group &middot; <?php echo e(mp_get('brand_name')); ?>
+     &middot; <?php echo e(gmdate('j F Y')); ?></p>
 </div>
 
 </div>

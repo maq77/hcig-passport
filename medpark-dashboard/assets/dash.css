@@ -107,8 +107,12 @@ h1,h2,h3,h4{margin:0; font-weight:650; letter-spacing:-.015em; text-wrap:balance
   width:32px; height:32px; flex:0 0 32px; border-radius:9px; background:var(--a);
   display:grid; place-items:center; color:var(--a-on); font-weight:800; font-size:14px;
 }
+.side__brand .side__mark{font-size:14px;color:var(--a-on);text-transform:none;letter-spacing:0;font-weight:800;margin-top:0}
 .side__brand b{display:block; font-size:14px; letter-spacing:-.015em; line-height:1.25}
-.side__brand span{
+/* Must not reach the monogram. `.side__brand span` is 0,1,1 and beat
+   `.side__mark` at 0,1,0, so the letter rendered at 10px in pale grey
+   on a turquoise ground and read as an empty square. */
+.side__brand > span span{
   display:block; font-size:10px; color:#7E9DB5; margin-top:2px;
   text-transform:uppercase; letter-spacing:.11em; font-weight:600;
 }
@@ -497,3 +501,29 @@ input[readonly],textarea[readonly]{background:var(--surface-2); color:var(--ink-
   background:var(--line-2);color:var(--ink-3);font-size:10.5px;font-weight:700;
   text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;
 }
+
+/* ---- compact charts ------------------------------------------------------ */
+.hb{display:flex;flex-direction:column;gap:9px;padding:14px 15px}
+.hb__r{display:grid;grid-template-columns:minmax(70px,30%) 1fr auto;gap:11px;align-items:center;font-size:12.5px}
+.hb__l{color:var(--ink);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hb__t{height:9px;background:var(--line-2);border-radius:5px;overflow:hidden;position:relative}
+.hb__t i{position:absolute;inset:0 auto 0 0;border-radius:5px}
+.hb__v{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:700;min-width:38px;text-align:right}
+
+.stk{display:flex;height:16px;border-radius:8px;overflow:hidden;margin:14px 15px 10px;background:var(--line-2)}
+.stk i{display:block;height:100%}
+.stk__k{display:flex;flex-wrap:wrap;gap:7px 16px;padding:0 15px 14px;font-size:11.5px;color:var(--ink-2)}
+.stk__k span{display:inline-flex;align-items:center;gap:5px}
+.stk__k i{width:9px;height:9px;border-radius:2px;flex:0 0 9px}
+.stk__k b{color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* tighter tiles, the explanation lives in the tooltip */
+.kpi__cap{display:none}
+.kpi__d{gap:3px}
+.kpi__spark{margin-top:6px;height:26px}
+
+/* compact findings */
+.find{padding:11px 15px;gap:10px}
+.find__d{font-size:12.5px}
+.find__a{margin-top:5px;padding:6px 10px;font-size:12.5px}
+.find__x{margin-top:5px;padding:6px 10px;font-size:12px}

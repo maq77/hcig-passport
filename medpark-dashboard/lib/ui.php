@@ -395,3 +395,68 @@ function ui_filtered_sessions(string $from, string $to): float {
     }
     return mp_sum('ga4', 'sessions', $from, $to);
 }
+
+/* ==========================================================================
+   Compact chart set. Added 2026-09-03 after review: the screens were carrying
+   too much prose and not enough picture. Explanations move to tooltips.
+   ========================================================================== */
+
+/* Horizontal bar list. Denser than a table and reads at a glance. */
+function ui_hbars(array $rows, int $limit = 6, string $colour = 'var(--c1)'): void {
+    if (!$rows) { ui_empty('No data yet', 'Fills in on the next collection.', 'pulse'); return; }
+    $max = 0.0;
+    foreach ($rows as $r) { $max = max($max, (float)$r['v']); }
+    if ($max <= 0) $max = 1;
+    echo '<div class="hb">';
+    foreach (array_slice($rows, 0, $limit) as $r) {
+        $pct = ((float)$r['v'] / $max) * 100;
+        echo '<div class="hb__r">'
+           . '<span class="hb__l" title="' . e($r['dim']) . '">' . e($r['dim']) . '</span>'
+           . '<span class="hb__t"><i style="width:' . round($pct) . '%;background:' . $colour . '"></i></span>'
+           . '<b class="hb__v">' . e(ui_short((float)$r['v'])) . '</b></div>';
+    }
+    echo '</div>';
+}
+
+/* Stacked composition bar: one row, showing what makes up a total. */
+function ui_stack(array $rows): void {
+    $total = 0.0;
+    foreach ($rows as $r) { $total += (float)$r['v']; }
+    if ($total <= 0) { ui_empty('Nothing recorded yet', 'Fills in as enquiries arrive.', 'pulse'); return; }
+    $cols = array('var(--c1)','var(--c2)','var(--c3)','var(--c4)','var(--c5)','var(--c6)');
+    echo '<div class="stk">';
+    foreach ($rows as $i => $r) {
+        $pct = ((float)$r['v'] / $total) * 100;
+        if ($pct <= 0) continue;
+        echo '<i style="width:' . round($pct, 2) . '%;background:' . $cols[$i % 6] . '" '
+           . 'title="' . e($r['dim'] . ': ' . mp_num($r['v']) . ' (' . number_format($pct, 1) . '%)') . '"></i>';
+    }
+    echo '</div><div class="stk__k">';
+    foreach ($rows as $i => $r) {
+        if ((float)$r['v'] <= 0) continue;
+        echo '<span><i style="background:' . $cols[$i % 6] . '"></i>' . e($r['dim'])
+           . ' <b>' . e(ui_short((float)$r['v'])) . '</b></span>';
+    }
+    echo '</div>';
+}
+
+/* A number with its own trend line underneath. The tile does the explaining
+   through its tooltip, not through a paragraph on the page. */
+function ui_stat(string $key, string $value, ?array $delta, array $spark = array(),
+                 bool $hero = false, string $foot = '', string $colour = 'var(--c1)'): void {
+    $d = mp_def($key);
+    $label = $d ? $d['label'] : $key;
+    $tip = $d ? mp_def_text($key) : '';
+    echo '<div class="kpi' . ($hero ? ' kpi--hero' : '') . '"' . ($tip ? ' title="' . e($tip) . '"' : '') . '>';
+    echo '<div class="kpi__l">' . e($label) . ($tip ? ' <span class="kpi__q">?</span>' : '') . '</div>';
+    echo '<div class="kpi__v">' . e($value) . '</div>';
+    if ($delta && $delta['pct'] !== null) {
+        $icon = $delta['dir'] === 'up' ? ui_icon('up', 11) : ($delta['dir'] === 'down' ? ui_icon('down', 11) : ui_icon('dot', 11));
+        echo '<div class="kpi__d ' . e($delta['dir']) . '">' . $icon
+           . '<span>' . e(number_format(abs($delta['pct']), 1)) . '%</span></div>';
+    } else {
+        echo '<div class="kpi__d flat">' . e($foot !== '' ? $foot : 'no prior period') . '</div>';
+    }
+    if (count($spark) > 1) { echo '<div class="kpi__spark">'; ui_spark($spark, $colour); echo '</div>'; }
+    echo '</div>';
+}
