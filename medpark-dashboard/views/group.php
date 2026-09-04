@@ -28,9 +28,17 @@ foreach ($sites as $key => $s) {
     mp_current_site($key);
     $H = mp_headline($f, $t);
     $P = mp_headline($pf, $pt);
+    /* Not recorded from here: the hourly cron owns recording, and a page
+       render should not write a row every time somebody opens it. */
+    $alerts = mp_alerts_run(false);
+    $last   = mp_q("SELECT MAX(at) FROM a_pageviews WHERE site = :site")->fetchColumn();
+
     $rows[$key] = array(
         'site' => $s, 'now' => $H, 'prev' => $P,
         'series' => mpa_series('conversions', $f, $t),
+        'alerts' => $alerts,
+        'last'   => (string)$last,
+        'live'   => $last && (time() - (int)strtotime((string)$last)) < 86400,
     );
     $total['visits']    += $H['sessions'];
     $total['contacts']  += $H['contacts'];
@@ -85,6 +93,10 @@ $rate = function (array $h) {
   </a>
   <a class="qa__btn" href="?p=partners&amp;r=<?php echo e($R['preset']); ?>"
      title="Who sends the patients."><?php echo ui_icon('users', 15); ?> Partners</a>
+  <a class="qa__btn" href="?p=properties&amp;r=<?php echo e($R['preset']); ?>"
+     title="Register another website. One line pasted on it, nothing else.">
+    <?php echo ui_icon('globe', 15); ?> Add a website
+  </a>
 </div>
 
 <div class="grid g4">
@@ -112,13 +124,56 @@ $rate = function (array $h) {
   </div>
 <?php endif; ?>
 
+<?php
+  $allAlerts = array();
+  foreach ($rows as $key => $r) {
+      foreach ($r['alerts'] as $a) {
+          $a['property'] = (string)$r['site']['label'];
+          $a['key']      = $key;
+          $allAlerts[]   = $a;
+      }
+  }
+  usort($allAlerts, function ($x, $y) {
+      $w = array('high' => 0, 'medium' => 1, 'low' => 2);
+      return ($w[$x['severity']] ?? 9) <=> ($w[$y['severity']] ?? 9);
+  });
+?>
+<div class="card card--pad0">
+  <h3>What needs attention, anywhere
+      <span class="hint">checked across every property just now</span></h3>
+  <?php
+    if (!$allAlerts) {
+        ui_empty('Nothing is wrong on any property',
+                 'Every rule was checked against every website just now and none of them fired: '
+               . 'the trackers are sending, the contact buttons are being used, and nobody is '
+               . 'waiting for a call.', 'pulse');
+    } else {
+        echo '<div class="tw"><table><thead><tr><th></th><th>Property</th><th>What is wrong</th>'
+           . '<th>What to do</th><th></th></tr></thead><tbody>';
+        foreach ($allAlerts as $a) {
+            $cls = $a['severity'] === 'high' ? 'off' : 'wait';
+            echo '<tr><td><span class="pill pill--' . $cls . '">'
+               . e($a['severity'] === 'high' ? 'Urgent' : 'Check') . '</span></td>'
+               . '<td><strong>' . e((string)$a['property']) . '</strong></td>'
+               . '<td>' . e((string)$a['title'])
+               . '<div class="muted" style="font-size:12px;margin-top:2px">' . e((string)$a['evidence']) . '</div></td>'
+               . '<td class="muted">' . e((string)$a['action']) . '</td>'
+               . '<td class="n"><a class="btn btn--sm" href="?p=alerts&amp;site=' . e((string)$a['key']) . '">Open</a></td>'
+               . '</tr>';
+        }
+        echo '</tbody></table></div>';
+    }
+  ?>
+</div>
+
 <div class="card card--pad0">
   <h3>Every property <span class="hint">ranked by what they produce, not by traffic</span></h3>
   <?php
     if (!$rows) {
         ui_empty('No properties registered', 'This fills in as websites are added.', 'globe');
     } else {
-        echo '<div class="tw"><table><thead><tr><th>Property</th><th class="n">Requests</th>'
+        echo '<div class="tw"><table><thead><tr><th>Property</th><th>Collecting</th>'
+           . '<th class="n">Requests</th>'
            . '<th class="n">Contacts</th><th class="n">Visits</th><th style="width:100px"></th>'
            . '<th class="n">Rate</th><th class="n">Waiting</th><th></th></tr></thead><tbody>';
 
@@ -138,6 +193,11 @@ $rate = function (array $h) {
             echo '<tr>'
                . '<td><strong>' . e((string)$r['site']['label']) . '</strong>'
                . '<div class="muted" style="font-size:11.5px">' . e((string)$r['site']['site_url']) . '</div></td>'
+               . '<td>' . ($r['last'] === ''
+                   ? '<span class="pill pill--off" title="Nothing has ever arrived. Usually the tag was not pasted, or was pasted on a host that is not registered.">nothing yet</span>'
+                   : ($r['live']
+                       ? '<span class="pill pill--ok">yes</span>'
+                       : '<span class="pill pill--wait" title="Last beacon ' . e(substr((string)$r['last'], 0, 16)) . '">stopped</span>')) . '</td>'
                . '<td class="n"><strong>' . e(mp_num($h['requests'])) . '</strong></td>'
                . '<td class="n">' . e(mp_num($h['contacts'])) . $arrow . '</td>'
                . '<td class="n muted">' . e(mp_num($h['sessions'])) . '</td>'
@@ -153,7 +213,7 @@ $rate = function (array $h) {
 
         if (count($rows) > 1) {
             echo '<tr style="background:var(--surface-2)">'
-               . '<td><strong>Group</strong></td>'
+               . '<td><strong>Group</strong></td><td></td>'
                . '<td class="n"><strong>' . e(mp_num($total['requests'])) . '</strong></td>'
                . '<td class="n"><strong>' . e(mp_num($total['contacts'])) . '</strong></td>'
                . '<td class="n">' . e(mp_num($total['visits'])) . '</td><td></td>'

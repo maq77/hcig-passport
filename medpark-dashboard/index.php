@@ -41,13 +41,19 @@ if (mp_get('analytics_on') === '1' && function_exists('mpa_import')) {
     }
 }
 
-$page  = isset($_GET['p']) ? preg_replace('~[^a-z_]~', '', (string)$_GET['p']) : 'ceo';
+/* The management dashboard is the front door: every website at once, then
+   down into whichever one needs attention. */
+$page  = isset($_GET['p']) ? preg_replace('~[^a-z_]~', '', (string)$_GET['p']) : 'group';
 $rangeKey = isset($_GET['r']) ? (string)$_GET['r'] : '28d';
 $R = mp_range($rangeKey);
 
 /* label, icon, group */
 $PAGES = array(
-    'group'       => array('All properties',     'globe',    'Report'),
+    /* Group level: about every website at once. */
+    'group'       => array('Management dashboard','gauge',    'Group'),
+    'properties'  => array('Websites',            'globe',    'Group'),
+
+    /* Everything below is about the one property currently selected. */
     'ceo'         => array('Summary',             'gauge',    'Report'),
     'overview'    => array('All numbers',         'pulse',    'Report'),
     'kpi'         => array('KPIs and targets',    'target',   'Report'),
@@ -76,7 +82,7 @@ $PAGES = array(
     'issues'      => array('Issues and advice',   'alert',    'Technical'),
     'settings'    => array('Settings and access', 'settings', 'Technical'),
 );
-if (!isset($PAGES[$page])) $page = 'ceo';
+if (!isset($PAGES[$page])) $page = 'group';
 
 /* ---------- actions ------------------------------------------------------- */
 $flash = null;
@@ -193,6 +199,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
     /* ---- run the AI visibility checks -----------------------------------
        Only the engines with an API that searches the web can be driven this
        way. The rest stay a monthly human check and the page says which. */
+    /* ---- properties --------------------------------------------------- */
+    if ($act === 'site_save') {
+        $key = strtolower(trim((string)($_POST['site_key'] ?? '')));
+        $key = (string)preg_replace('~[^a-z0-9_.\-]~', '', $key);
+        $url = trim((string)($_POST['site_url'] ?? ''));
+        $existing = mp_site($key);
+
+        $ok = $key !== '' && mp_site_save(array(
+            'site_key' => $key,
+            /* The key is permanent once rows carry it, so an existing property
+               keeps its token and domains unless they were filled in. */
+            'token'    => (string)($_POST['token'] ?? ''),
+            'label'    => (string)($_POST['label'] ?? ''),
+            'site_url' => $url,
+            'domains'  => trim((string)($_POST['domains'] ?? '')) !== ''
+                            ? (string)$_POST['domains']
+                            : ($existing ? (string)$existing['domains'] : ''),
+            'timezone' => 'UTC',
+            'active'   => 1,
+            'sort'     => $existing ? (int)$existing['sort'] : count(mp_sites()),
+        ));
+
+        if ($ok) {
+            $s = mp_site($key);
+            $flash = array('t'=>'ok', 'm'=>'Registered. Copy its line from the table above and paste '
+                . 'it into that website before the closing body tag. It appears here within five '
+                . 'minutes of the first visit.'
+                . ($s ? ' Token: ' . $s['token'] . '.' : ''));
+        } else {
+            $flash = array('t'=>'bad', 'm'=>'A website needs a name, an address and a key. Nothing was saved.');
+        }
+    }
+
     /* ---- satisfaction ------------------------------------------------ */
     if ($act === 'rating_add') {
         $ok = mp_rating_save(
@@ -290,38 +329,54 @@ $title = $PAGES[$page][0];
       </span>
     </div>
     <?php
-      /* The property switcher. Hidden while there is only one, so a single-site
-         install looks exactly as it did. The choice is kept in the session, so
-         every link on the page keeps working without carrying the site in its
-         query string. */
-      $allSites = mp_sites();
-      if (count($allSites) > 1):
-        $curSite = mp_current_site();
+      /* Two levels, and the sidebar says which one you are in.
+
+         Above the rule: the whole group. Below it: the property you have
+         selected, with the same pages MedPark has always had. That is the
+         shape the system is meant to have, so it is the shape the navigation
+         shows rather than a flat list of twenty-three things. */
+      $allSites  = mp_sites();
+      $curSite   = mp_current_site();
+      $curLabel  = isset($allSites[$curSite]) ? (string)$allSites[$curSite]['label'] : $curSite;
+
+      $groups = array();
+      foreach ($PAGES as $key => $meta) { $groups[$meta[2]][$key] = $meta; }
+
+      $link = function ($key, $meta) use ($page, $R) {
+          echo '<a href="?p=' . e($key) . '&amp;r=' . e($R['preset']) . '"'
+             . ' class="' . ($page === $key ? 'on' : '') . '"'
+             . ($page === $key ? ' aria-current="page"' : '') . '>'
+             . ui_icon($meta[1]) . '<span>' . e($meta[0]) . '</span></a>';
+      };
     ?>
-      <div class="side__sep">Property</div>
+
+    <div class="side__sep">All properties</div>
+    <?php foreach (($groups['Group'] ?? array()) as $key => $meta) $link($key, $meta); ?>
+
+    <div class="side__sep" style="margin-top:16px">
+      <?php echo count($allSites) > 1 ? 'This property' : 'Website'; ?>
+    </div>
+
+    <?php if (count($allSites) > 1): ?>
       <?php foreach ($allSites as $sk => $sv): ?>
-        <a href="?p=<?php echo e($page); ?>&amp;r=<?php echo e($R['preset']); ?>&amp;site=<?php echo e($sk); ?>"
+        <a href="?p=<?php echo e($page === 'group' || $page === 'properties' ? 'ceo' : $page); ?>&amp;r=<?php echo e($R['preset']); ?>&amp;site=<?php echo e($sk); ?>"
            class="<?php echo $sk === $curSite ? 'on' : ''; ?>"
            title="<?php echo e((string)$sv['site_url']); ?>">
           <?php echo ui_icon($sk === $curSite ? 'dot' : 'globe'); ?>
           <span><?php echo e((string)$sv['label']); ?></span>
         </a>
       <?php endforeach; ?>
+      <div class="side__sep" style="margin-top:10px;color:#7E9DB5"><?php echo e($curLabel); ?></div>
+    <?php else: ?>
+      <div style="padding:2px 18px 8px;font-size:12px;color:#7E9DB5"><?php echo e($curLabel); ?></div>
     <?php endif; ?>
 
-    <?php
-      $groups = array();
-      foreach ($PAGES as $key => $meta) { $groups[$meta[2]][$key] = $meta; }
-      foreach ($groups as $groupName => $items): ?>
-        <div class="side__sep"><?php echo e($groupName); ?></div>
-        <?php foreach ($items as $k => $meta): ?>
-          <a href="?p=<?php echo e($k); ?>&amp;r=<?php echo e($R['preset']); ?>"
-             class="<?php echo $page === $k ? 'on' : ''; ?>"
-             <?php echo $page === $k ? 'aria-current="page"' : ''; ?>>
-            <?php echo ui_icon($meta[1]); ?><span><?php echo e($meta[0]); ?></span>
-          </a>
-        <?php endforeach; ?>
+    <?php foreach ($groups as $groupName => $items): ?>
+      <?php if ($groupName === 'Group') continue; ?>
+      <div class="side__sep"><?php echo e($groupName); ?></div>
+      <?php foreach ($items as $k => $meta) $link($k, $meta); ?>
     <?php endforeach; ?>
+
     <div class="side__spacer"></div>
     <div class="side__sep">Session</div>
     <a href="logout.php"><?php echo ui_icon('logout'); ?><span>Sign out</span></a>
