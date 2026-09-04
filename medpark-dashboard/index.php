@@ -52,6 +52,7 @@ $PAGES = array(
     'kpi'         => array('KPIs and targets',    'target',   'Report'),
     'conversions' => array('Enquiries',           'phone',    'Report'),
     'leads'       => array('Appointment requests','inbox',    'Report'),
+    'partners'    => array('Partners',            'users',    'Channels'),
     'traffic'     => array('Audience',            'users',    'Report'),
     'whatsapp'    => array('WhatsApp',            'bubble',   'Channels'),
     'chat'        => array('Assistant',           'chat',     'Channels'),
@@ -184,6 +185,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
     /* ---- run the AI visibility checks -----------------------------------
        Only the engines with an API that searches the web can be driven this
        way. The rest stay a monthly human check and the page says which. */
+    /* ---- partners --------------------------------------------------- */
+    if ($act === 'partner_save') {
+        $ok = mp_partner_save(array(
+            'code'    => $_POST['code']    ?? '',
+            'label'   => $_POST['label']   ?? '',
+            'kind'    => $_POST['kind']    ?? 'other',
+            'contact' => $_POST['contact'] ?? '',
+            'note'    => $_POST['note']    ?? '',
+            'landing' => $_POST['landing'] ?? '/',
+        ));
+        $flash = $ok
+            ? array('t'=>'ok', 'm'=>'Partner saved. Their link is in the table on the right, and any visit arriving through it counts from now on.')
+            : array('t'=>'bad', 'm'=>'A partner needs a name and a short code. Nothing was saved.');
+    }
+
+    if ($act === 'partner_toggle') {
+        mp_partner_set_active((int)($_POST['id'] ?? 0), (string)($_POST['on'] ?? '0') === '1');
+        $flash = array('t'=>'ok', 'm'=>'Updated. Pausing a partner keeps its history and stops it counting as active.');
+    }
+
     if ($act === 'ai_run') {
         $res = mp_ai_run_all(100);
         $flash = array('t' => $res['ok'] ? 'ok' : 'bad', 'm' => $res['msg']);

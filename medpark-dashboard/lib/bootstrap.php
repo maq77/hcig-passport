@@ -15,7 +15,11 @@ define('MP_SECRETS',  MP_DATA_DIR . '/secrets.php');
 define('MP_DB',       MP_DATA_DIR . '/metrics.sqlite');
 define('MP_VERSION',  '1.1');
 /* Bump this whenever mp_install() changes, so the schema is reapplied once. */
-define('MP_SCHEMA',   '6');   /* 6 = multi-site: every table carries `site` */
+define('MP_SCHEMA',   '7');   /* 6 = multi-site; 7 = the partner registry.
+                                  Bump this whenever a table or column is added:
+                                  mp_install() only runs when the stamp changes, so a
+                                  new table silently never appears on an existing
+                                  install otherwise. */
 
 if (!is_dir(MP_DATA_DIR)) { @mkdir(MP_DATA_DIR, 0700, true); }
 
@@ -376,6 +380,9 @@ function mp_install(PDO $db): void {
     /* The site registry. Everything above is per property; this is the list
        of properties. See lib/sites.php. */
     if (function_exists('mp_sites_install')) mp_sites_install($db);
+    /* Partners: who sends patients. A registry plus one extra column on
+       chat_leads. See lib/partners.php. */
+    if (function_exists('mp_partners_install')) mp_partners_install($db);
 
     /* Our own analytics keeps its tables in the same database, so traffic can
        be reported next to calls and search rather than in a separate silo. */
@@ -639,6 +646,7 @@ function mp_connectors_status(): array {
    before analytics.php because mpa_site() now asks the registry which
    property is current instead of deriving one from a setting. */
 require_once __DIR__ . '/sites.php';
+require_once __DIR__ . '/partners.php';
 require_once __DIR__ . '/migrate.php';
 
 require_once __DIR__ . '/analytics.php';
