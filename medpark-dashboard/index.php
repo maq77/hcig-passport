@@ -64,6 +64,7 @@ $PAGES = array(
     'analysis'    => array('Analysis',            'pulse',    'Behaviour'),
     'visits'      => array('Visits, one by one',  'list',     'Behaviour'),
     'heatmap'     => array('Heatmap',             'heat',     'Behaviour'),
+    'alerts'      => array('Alerts',              'alert',    'Technical'),
     'health'      => array('Site health',         'alert',    'Technical'),
     'issues'      => array('Issues and advice',   'alert',    'Technical'),
     'settings'    => array('Settings and access', 'settings', 'Technical'),

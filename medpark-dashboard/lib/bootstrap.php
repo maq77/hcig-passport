@@ -15,7 +15,7 @@ define('MP_SECRETS',  MP_DATA_DIR . '/secrets.php');
 define('MP_DB',       MP_DATA_DIR . '/metrics.sqlite');
 define('MP_VERSION',  '1.1');
 /* Bump this whenever mp_install() changes, so the schema is reapplied once. */
-define('MP_SCHEMA',   '7');   /* 6 = multi-site; 7 = the partner registry.
+define('MP_SCHEMA',   '8');   /* 6 = multi-site; 7 = the partner registry.
                                   Bump this whenever a table or column is added:
                                   mp_install() only runs when the stamp changes, so a
                                   new table silently never appears on an existing
@@ -383,6 +383,8 @@ function mp_install(PDO $db): void {
     /* Partners: who sends patients. A registry plus one extra column on
        chat_leads. See lib/partners.php. */
     if (function_exists('mp_partners_install')) mp_partners_install($db);
+    /* Alerts: the failures nobody reports. See lib/alerts.php. */
+    if (function_exists('mp_alerts_install')) mp_alerts_install($db);
 
     /* Our own analytics keeps its tables in the same database, so traffic can
        be reported next to calls and search rather than in a separate silo. */
@@ -647,6 +649,7 @@ function mp_connectors_status(): array {
    property is current instead of deriving one from a setting. */
 require_once __DIR__ . '/sites.php';
 require_once __DIR__ . '/partners.php';
+require_once __DIR__ . '/alerts.php';
 require_once __DIR__ . '/migrate.php';
 
 require_once __DIR__ . '/analytics.php';
