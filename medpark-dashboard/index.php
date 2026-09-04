@@ -17,6 +17,9 @@ require __DIR__ . '/lib/narrative.php';
    include chain index.php uses. */
 require __DIR__ . '/lib/recommend.php';
 require __DIR__ . '/lib/aicheck.php';
+/* One definition of the headline numbers, shared by the Summary, the KPI
+   page and the exported report, so they can never disagree. */
+require __DIR__ . '/lib/headline.php';
 require __DIR__ . '/lib/ownpanels.php';
 
 if (!mp_is_configured()) { header('Location: login.php'); exit; }
@@ -48,6 +51,7 @@ $PAGES = array(
     'overview'    => array('All numbers',         'pulse',    'Report'),
     'kpi'         => array('KPIs and targets',    'target',   'Report'),
     'conversions' => array('Enquiries',           'phone',    'Report'),
+    'leads'       => array('Appointment requests','inbox',    'Report'),
     'traffic'     => array('Audience',            'users',    'Report'),
     'whatsapp'    => array('WhatsApp',            'bubble',   'Channels'),
     'chat'        => array('Assistant',           'chat',     'Channels'),

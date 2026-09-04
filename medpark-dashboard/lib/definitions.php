@@ -92,6 +92,51 @@ function mp_definitions(): array {
         'why'   => 'It says how much of the enquiry flow depends on one channel. A channel carrying most of the business deserves most of the attention when it breaks.',
         'good'  => 'There is no right number. What matters is knowing it, and noticing when it moves.',
     ),
+    /* Requests and contacts, the two halves of the Summary page. The
+       distinction between them is the most important one in this dashboard,
+       so both are defined rather than assumed. */
+    'requests' => array(
+        'label' => 'Appointment requests',
+        'what'  => 'People who left a name and a number: the booking form on the website, and the assistant when a visitor gives their details.',
+        'why'   => 'This is the closest thing a website produces to a patient. Somebody the team can ring back, not a tap that may have gone nowhere.',
+        'good'  => 'Growing month on month, and every one of them answered.',
+    ),
+    'requests_form' => array(
+        'label' => 'From the booking form',
+        'what'  => 'Requests sent through the appointment form on the website.',
+        'why'   => 'The form asks for what the team needs to call somebody back: name, number, hospital, and what they want.',
+        'good'  => 'Rising as a share of all requests. A form request is more complete than anything else here.',
+    ),
+    'requests_assistant' => array(
+        'label' => 'From the assistant',
+        'what'  => 'Requests captured by the website assistant during a conversation.',
+        'why'   => 'These come from people who had a question first. They often would not have used a form at all.',
+        'good'  => 'Any number above zero. It is capturing people the form was losing.',
+    ),
+    'requests_waiting' => array(
+        'label' => 'Waiting for a reply',
+        'what'  => 'Requests still marked new, from any date, not just the selected period.',
+        'why'   => 'A request nobody has answered is worse than one that never arrived, because the person is expecting a call.',
+        'good'  => 'Zero. Anything else is somebody waiting.',
+    ),
+    'contacts' => array(
+        'label' => 'Contact attempts',
+        'what'  => 'Every press of a way to reach us: a phone number, a WhatsApp button, an email link, a submitted form.',
+        'why'   => 'It measures intent at the moment it happens, including everyone who never fills in a form.',
+        'good'  => 'Growing, and growing faster than visits. Read it next to requests: attempts are real but unfinished.',
+    ),
+    'contact_rate' => array(
+        'label' => 'Contact rate',
+        'what'  => 'The share of visits where somebody pressed a way of reaching us.',
+        'why'   => 'It separates a traffic problem from a website problem. More visits with a falling rate means the wrong people are arriving, or the buttons got harder to find.',
+        'good'  => 'Above 2% for an urgent care site. Below 1% means the contact options are hard to find.',
+    ),
+    'request_rate' => array(
+        'label' => 'Request rate',
+        'what'  => 'The share of visits that ended with somebody leaving their name and number.',
+        'why'   => 'The hardest number on the page to move and the most valuable. It says how much of the traffic turns into somebody the team can actually call.',
+        'good'  => 'Rising. It is normally far smaller than the contact rate, and that gap is the opportunity.',
+    ),
     'own_pageviews' => array(
         'label' => 'Pages viewed',
         'what'  => 'Every page opened, across every visit.',

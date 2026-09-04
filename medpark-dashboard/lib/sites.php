@@ -156,6 +156,27 @@ function mp_current_site(?string $set = null): string {
     return $cur;
 }
 
+/* Which property a public request belongs to.
+
+   For anything running on a tracked website (the booking form, the assistant)
+   rather than in the dashboard: resolve from the host the browser asked for,
+   so a lead submitted on one brand's site is stored against that brand. Falls
+   back to the current property, which on a single-property install is the only
+   one there is.
+
+   This exists because the migration that added the `site` column gave it a
+   default of '', and a public writer that does not name the column stores rows
+   no site-scoped query will ever find. That is a silent loss of enquiries,
+   which is the worst thing this system could do. */
+function mp_site_for_request(): string {
+    $host = (string)($_SERVER['HTTP_HOST'] ?? '');
+    if ($host !== '') {
+        $s = mp_site_by_domain($host);
+        if ($s) return (string)$s['site_key'];
+    }
+    return mp_current_site();
+}
+
 /* The key the very first property gets: whatever the existing rows already
    carry, so nothing has to be rewritten when the registry appears. */
 function mp_site_default_key(): string {

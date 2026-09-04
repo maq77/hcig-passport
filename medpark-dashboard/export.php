@@ -21,6 +21,10 @@ require __DIR__ . '/lib/ui.php';
 require __DIR__ . '/lib/definitions.php';
 require __DIR__ . '/lib/narrative.php';
 require __DIR__ . '/lib/recommend.php';
+/* The same headline numbers the Summary screen shows, so the report and the
+   screen can never disagree, and so the report follows the source the reader
+   chose rather than always speaking for Google. */
+require __DIR__ . '/lib/headline.php';
 
 mp_require_login();
 $R = mp_range(isset($_GET['r']) ? (string)$_GET['r'] : '28d');
@@ -33,9 +37,12 @@ if ($format === 'csv') {
     header('Content-Disposition: attachment; filename="' . $name . '"');
     $out = fopen('php://output', 'w');
     fputcsv($out, array('date', 'source', 'metric', 'dimension', 'dimension2', 'value'));
+    /* Scoped to the selected property. Without this the export would hand one
+       brand every other brand's numbers the moment a second site is added. */
     $st = mp_db()->prepare("SELECT day, source, metric, dim, dim2, value FROM metrics
-                            WHERE day BETWEEN :a AND :b ORDER BY day, source, metric, dim");
-    $st->execute(array(':a'=>$R['prev_from'], ':b'=>gmdate('Y-m-d')));
+                            WHERE site = :site AND day BETWEEN :a AND :b
+                            ORDER BY day, source, metric, dim");
+    $st->execute(array(':site'=>mp_current_site(), ':a'=>$R['prev_from'], ':b'=>gmdate('Y-m-d')));
     while ($row = $st->fetch()) {
         fputcsv($out, array($row['day'], $row['source'], $row['metric'], $row['dim'], $row['dim2'], $row['value']));
     }
@@ -47,20 +54,25 @@ if ($format === 'csv') {
 $f = $R['from']; $t = $R['to']; $pf = $R['prev_from']; $pt = $R['prev_to'];
 $today = gmdate('Y-m-d');
 
-$calls  = mp_sum('ga4','events',$f,$t,'call_click');
-$pcalls = mp_sum('ga4','events',$pf,$pt,'call_click');
-$whats  = mp_sum('ga4','events',$f,$t,'whatsapp_click');
-$pwhats = mp_sum('ga4','events',$pf,$pt,'whatsapp_click');
-$forms  = mp_sum('ga4','events',$f,$t,'enquiry_submit');
-$pforms = mp_sum('ga4','events',$pf,$pt,'enquiry_submit');
-$chat   = mp_count_leads($f, $today);
-$pchat  = mp_count_leads($pf, $pt);
-$enq    = $calls + $whats + $forms + $chat;
-$penq   = $pcalls + $pwhats + $pforms + $pchat;
+/* Whichever source the reader selected, named on the cover so a number in this
+   report can always be traced to who counted it. mp_source() reads ?src=, which
+   the Summary page's toggle passes straight through to this link. */
+$SRC = mp_source();
+$H   = mp_headline($f, $t, $SRC);
+$PH  = mp_headline($pf, $pt, $SRC);
+$req = mp_requests($f, $t);
 
-$sessions  = mp_sum('ga4','sessions',$f,$t);
-$psessions = mp_sum('ga4','sessions',$pf,$pt);
-$users     = mp_sum('ga4','users',$f,$t);
+$calls  = $H['calls'];    $pcalls = $PH['calls'];
+$whats  = $H['whatsapp']; $pwhats = $PH['whatsapp'];
+$forms  = $H['forms'];    $pforms = $PH['forms'];
+$chat   = $H['requests']; $pchat  = $PH['requests'];
+/* Contact attempts, which is what this report has always called "enquiries". */
+$enq    = $H['contacts'];
+$penq   = $PH['contacts'];
+
+$sessions  = $H['sessions'];
+$psessions = $PH['sessions'];
+$users     = $H['visitors'];
 $clicks    = mp_sum('gsc','clicks',$f,$t);
 $pclicks   = mp_sum('gsc','clicks',$pf,$pt);
 $impr      = mp_sum('gsc','impressions',$f,$t);
@@ -87,9 +99,28 @@ foreach ($conn as $c) { $c['ready'] ? $connected++ : $waiting[] = $c['name']; }
 
 $topCountry = mp_top('ga4','sessions_country',$f,$t,6);
 $topChannel = mp_top('ga4','sessions_channel',$f,$t,5);
-$topQuery   = mp_top('ga4','sessions_source',$f,$t,0);
+/* Overwritten below when the reader has selected our own tracking. */
 $topQuery   = mp_top('gsc','clicks_query',$f,$t,6);
-$topPage    = mp_top('ga4','views_page',$f,$t,5);
+
+/* Where they came from and what they read, from whichever source is selected.
+   Our own tracking answers these itself; it is only search queries that
+   genuinely require Search Console, because a search happens on Google. */
+if ($SRC === 'own') {
+    $topCountry = array();
+    foreach (mpa_top('by_country', $f, $t, 6) as $r) {
+        $topCountry[] = array('dim' => mpa_country_name((string)$r['dim']), 'v' => (float)$r['v']);
+    }
+    $topChannel = array();
+    foreach (mpa_top('by_ref_type', $f, $t, 5) as $r) {
+        $topChannel[] = array('dim' => mpa_channel_label((string)$r['dim']), 'v' => (float)$r['v']);
+    }
+    $topPage = array();
+    foreach (mpa_pages($f, $t, 5) as $r) {
+        $topPage[] = array('dim' => (string)$r['path'], 'v' => (float)$r['views']);
+    }
+} else {
+    $topPage = mp_top('ga4','views_page',$f,$t,5);
+}
 
 function rp($now, $prev, bool $higherBetter = true): string {
     /* Both sides empty means the measure is not being collected yet. A change
@@ -176,13 +207,15 @@ h3{font-size:16px; font-weight:700; margin:22px 0 7px}
 .say p:first-child{font-size:17px; font-weight:700; color:var(--ink); line-height:1.45; margin-bottom:8px}
 .say p{font-size:14px; color:var(--ink-2); margin-bottom:5px}
 
-.head{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);
+.head{display:grid; grid-template-columns:repeat(auto-fit,minmax(135px,1fr)); gap:1px; background:var(--line);
       border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-bottom:8px}
 .head div{background:var(--paper); padding:15px 16px}
 .head small{display:block; font-size:9.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-3); font-weight:700}
 .head .big{display:block; font-size:27px; font-weight:800; letter-spacing:-.035em; margin:5px 0 2px; line-height:1}
 .head em{font-style:normal; font-size:11.5px}
 .head u{display:block; text-decoration:none; font-size:10.5px; color:var(--ink-4); margin-top:5px; line-height:1.35}
+.src-note{font-size:11px; color:var(--ink-3); line-height:1.5; margin:8px 0 18px;
+          border-left:2px solid var(--a); padding-left:10px; max-width:none}
 
 /* ---- tables ---- */
 .tw{overflow-x:auto}
@@ -306,6 +339,7 @@ th:last-child,td:last-child{padding-right:0}
     <div><dt>Period</dt><dd><?php echo e($R['from']); ?> to <?php echo e($R['to']); ?></dd></div>
     <div><dt>Compared with</dt><dd><?php echo e($pf); ?> to <?php echo e($pt); ?></dd></div>
     <div><dt>Issued</dt><dd><?php echo e(gmdate('j F Y')); ?></dd></div>
+    <div><dt>Data source</dt><dd><?php echo e(mp_source_short($SRC)); ?></dd></div>
   </dl>
 </header>
 
@@ -318,10 +352,16 @@ th:last-child,td:last-child{padding-right:0}
 
 <div class="head">
   <div>
-    <small>Enquiries</small>
+    <small>Appointment requests</small>
+    <span class="big"><?php echo mp_num($H['requests']); ?></span>
+    <em><?php echo rp($H['requests'], $PH['requests']); ?></em>
+    <u>People who left a name and a number, through the booking form or the assistant</u>
+  </div>
+  <div>
+    <small>Contact attempts</small>
     <span class="big"><?php echo mp_num($enq); ?></span>
     <em><?php echo rp($enq, $penq); ?></em>
-    <u>People who contacted us: calls, WhatsApp, forms and the website assistant</u>
+    <u>Calls, WhatsApp taps, emails and forms. An attempt, not necessarily a conversation</u>
   </div>
   <div>
     <small>Visits</small>
@@ -342,6 +382,17 @@ th:last-child,td:last-child{padding-right:0}
     <u>Questions where an AI assistant named MedPark</u>
   </div>
 </div>
+
+<p class="src-note">
+  <strong>Where these numbers come from.</strong>
+  Visits and contact attempts above are measured with
+  <strong><?php echo e(mp_source_label($SRC)); ?></strong>.
+  <?php echo e(mp_source_note($SRC)); ?>
+  Appointment requests are counted the same way whichever source is selected, because they are
+  stored by the website's own booking form and assistant rather than by any analytics.
+  A contact attempt means somebody pressed a way of reaching us; whether they then spoke to
+  anyone happens off the website and cannot be measured from here.
+</p>
 
 <?php if ($waiting): ?>
 <div class="note">

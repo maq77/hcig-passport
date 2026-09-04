@@ -489,6 +489,9 @@ function own_segment_table(string $column, string $head, string $f, string $t,
 
 function own_page_overview(array $R): void {
     $f = $R['from']; $t = $R['to'];
+    /* Requests come before the guard: they are stored by the website, not by
+       the tracker, so they exist even on a date range the tracker never saw. */
+    own_requests($f, $t, $R['preset']);
     if (!own_guard($f, $t)) return;
     own_headline($f, $t, $R['prev_from'], $R['prev_to']);
     own_channels($f, $t);
@@ -516,6 +519,7 @@ function own_page_traffic(array $R): void {
 
 function own_page_conversions(array $R): void {
     $f = $R['from']; $t = $R['to'];
+    own_requests($f, $t, $R['preset']);
     if (!own_guard($f, $t)) return;
     $K = mpa_kpis($f, $t);
     $P = mpa_kpis($R['prev_from'], $R['prev_to']);
@@ -569,4 +573,72 @@ function own_page_local(array $R): void {
     if (!own_guard($f, $t)) return;
     own_local($f, $t);
     own_footnote();
+}
+
+/* ---------------------------------------------------------------------------
+   Appointment requests.
+
+   Added 2026-09-04, when the booking form started capturing real requests.
+   Deliberately not source-dependent: a request is stored by the website's own
+   form handler whichever analytics anybody prefers to read, so this panel says
+   the same thing on both sides of the source switch. The note explains why,
+   because a number that does not move when the toggle moves looks broken.
+   ------------------------------------------------------------------------ */
+function own_requests(string $f, string $t, string $rangePreset = '28d'): void {
+    $req = mp_requests($f, $t);
+
+    echo '<div class="grid g4">';
+    ui_stat('requests', mp_num($req['total']), null, mp_requests_series($f, $t), true,
+            'name and number left', 'var(--c2)');
+    ui_stat('requests_form', mp_num($req['form']), null, array(), false, 'the booking form');
+    ui_stat('requests_assistant', mp_num($req['assistant']), null, array(), false, 'the assistant');
+    ui_stat('requests_waiting', mp_num($req['waiting_all']), null, array(), $req['waiting_all'] > 0,
+            $req['waiting_all'] > 0 ? 'nobody has answered these' : 'all dealt with',
+            $req['waiting_all'] > 0 ? 'var(--c6)' : 'var(--c5)');
+    echo '</div>';
+
+    echo '<div class="card card--pad0"><h3>The requests themselves '
+       . '<span class="hint">the closest thing this website produces to a patient</span></h3>';
+
+    try {
+        $st = mp_db()->prepare(
+            "SELECT created_at, kind, name, phone, branch, service, status
+             FROM chat_leads WHERE site = :site AND date(created_at) BETWEEN :a AND :b
+             ORDER BY id DESC LIMIT 12");
+        $st->execute(array(':site' => mp_current_site(), ':a' => $f, ':b' => $t));
+        $rows = $st->fetchAll();
+    } catch (Throwable $e) { $rows = array(); }
+
+    if (!$rows) {
+        ui_empty('No requests in this period',
+                 $req['ever'] > 0
+                   ? 'There are requests, just not between these dates. Widen the range above.'
+                   : 'The booking form writes here the moment somebody sends it, and so does the '
+                   . 'assistant when a visitor leaves their details.', 'inbox');
+    } else {
+        echo '<div class="tw"><table><thead><tr><th>Arrived</th><th>From</th><th>Name</th>'
+           . '<th>Hospital</th><th>Wants</th><th>Status</th><th></th></tr></thead><tbody>';
+        foreach ($rows as $r) {
+            $ts  = strtotime((string)$r['created_at']);
+            $ago = $ts ? time() - $ts : 0;
+            $when = !$ts ? '-'
+                  : ($ago < 5400 ? max(1, (int)round($ago / 60)) . 'm ago'
+                  : ($ago < 172800 ? (int)round($ago / 3600) . 'h ago' : gmdate('j M', $ts)));
+            $st2 = (string)$r['status'];
+            $cls = $st2 === 'new' ? 'wait' : ($st2 === 'closed' ? 'idle' : 'ok');
+            echo '<tr><td class="muted nw">' . e($when) . '</td>'
+               . '<td>' . e($r['kind'] === 'appointment_form' ? 'Booking form' : 'Assistant') . '</td>'
+               . '<td><strong>' . e((string)$r['name']) . '</strong></td>'
+               . '<td class="trunc muted">' . e((string)$r['branch'] !== '' ? (string)$r['branch'] : '-') . '</td>'
+               . '<td class="trunc">' . e((string)$r['service'] !== '' ? (string)$r['service'] : '-') . '</td>'
+               . '<td><span class="pill pill--' . $cls . '">' . e($st2) . '</span></td>'
+               . '<td class="n"><a class="btn btn--sm" href="?p=leads&amp;r=' . e($rangePreset) . '">Open</a></td>'
+               . '</tr>';
+        }
+        echo '</tbody></table></div>';
+    }
+    echo '<p class="card__note">Counted the same way whichever data source is selected above, '
+       . 'because these are stored by the website itself rather than by any analytics. '
+       . 'Names and numbers live only here and on the Appointment requests page.</p>';
+    echo '</div>';
 }

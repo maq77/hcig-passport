@@ -29,6 +29,12 @@ function kpi_chat(string $sql, array $args): float {
     catch (Throwable $e) { return 0.0; }
 }
 $chatArgs = array(':a'=>$f, ':b'=>$today);
+/* Requests, the strongest number on this page: somebody left a name and a
+   number. Stored by the website itself, so it is the same figure whichever
+   analytics source is selected. */
+$reqNow  = mp_requests($f, $today);
+$reqPrev = mp_requests($pf, $pt);
+
 $chatLeads = kpi_chat("SELECT COUNT(*) FROM chat_leads WHERE site = :site AND date(created_at) BETWEEN :a AND :b", $chatArgs);
 $pChatLeads = kpi_chat("SELECT COUNT(*) FROM chat_leads WHERE site = :site AND date(created_at) BETWEEN :a AND :b", array(':a'=>$pf, ':b'=>$pt));
 
@@ -76,6 +82,16 @@ $K = array(
         'src'=>'ga4', 'why'=>'Preferred by tourists who do not want to pay for an international call.'),
   array('k'=>'chat_leads', 'g'=>'Demand', 'label'=>'Assistant requests', 'now'=>$chatLeads, 'prev'=>$pChatLeads, 'unit'=>'', 'higher'=>true,
         'src'=>'chat', 'why'=>'Appointment requests captured by the website assistant, with a name and a number.'),
+  array('k'=>'requests', 'g'=>'Demand', 'label'=>'Appointment requests',
+        'now'=>$reqNow['total'], 'prev'=>$reqPrev['total'], 'unit'=>'', 'higher'=>true,
+        'src'=>'own', 'why'=>'People who left a name and a number through the booking form or the assistant. The closest thing the website produces to a patient, and the only number here that is the same whichever data source is selected.'),
+  array('k'=>'requests_waiting', 'g'=>'Demand', 'label'=>'Requests waiting for a reply',
+        'now'=>$reqNow['waiting_all'], 'prev'=>0, 'unit'=>'', 'higher'=>false,
+        'src'=>'own', 'why'=>'Requests nobody has marked contacted, from any date. A person expecting a call who has not had one.'),
+  array('k'=>'request_rate', 'g'=>'Efficiency', 'label'=>'Request rate',
+        'now'=>$sessions > 0 ? ($reqNow['total'] / $sessions) * 100 : 0,
+        'prev'=>$psessions > 0 ? ($reqPrev['total'] / $psessions) * 100 : 0, 'unit'=>'%', 'higher'=>true, 'dp'=>2,
+        'src'=>'own', 'why'=>'The share of visits that ended with somebody leaving their details. Far smaller than the enquiry rate, and that gap is the opportunity.'),
   array('k'=>'enquiry_rate', 'g'=>'Efficiency', 'label'=>'Enquiry rate',
         'now'=>$sessions > 0 ? ($enq / $sessions) * 100 : 0,
         'prev'=>$psessions > 0 ? ($penq / $psessions) * 100 : 0, 'unit'=>'%', 'higher'=>true, 'dp'=>2,
