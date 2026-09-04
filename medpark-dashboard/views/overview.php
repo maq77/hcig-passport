@@ -36,7 +36,7 @@ $gbpDir   = mp_sum('gbp','direction_requests',$R['from'],$R['to']);
 /* The assistant is a third source of enquiries alongside calls and WhatsApp,
    so it belongs in the headline number rather than in a separate silo. */
 try {
-    $st = mp_db()->prepare("SELECT COUNT(*) FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b");
+    $st = mp_db()->prepare("SELECT COUNT(*) FROM chat_leads WHERE site = :site AND date(created_at) BETWEEN :a AND :b");
     $st->execute(array(':a'=>$R['from'], ':b'=>gmdate('Y-m-d')));
     $chatLeads = (float)$st->fetchColumn();
     $st->execute(array(':a'=>$R['prev_from'], ':b'=>$R['prev_to']));

@@ -11,21 +11,23 @@
 $f = $R['from']; $b = gmdate('Y-m-d');
 $args = array(':a'=>$f, ':b'=>$b);
 
+/* Both helpers bind the current property, but only for statements that ask
+   for it, so adding the filter to one query cannot break the others. */
 function hm_all(string $sql, array $a = array()): array {
-    try { $st = mp_db()->prepare($sql); $st->execute($a); return $st->fetchAll(); }
+    try { $st = mp_db()->prepare($sql); $st->execute(mp_bind_site($a, $sql)); return $st->fetchAll(); }
     catch (Throwable $e) { return array(); }
 }
 function hm_one(string $sql, array $a = array()) {
-    try { $st = mp_db()->prepare($sql); $st->execute($a); return $st->fetchColumn(); }
+    try { $st = mp_db()->prepare($sql); $st->execute(mp_bind_site($a, $sql)); return $st->fetchColumn(); }
     catch (Throwable $e) { return 0; }
 }
 
-$pages = hm_all("SELECT page dim, SUM(hits) v FROM heat_clicks WHERE day BETWEEN :a AND :b
+$pages = hm_all("SELECT page dim, SUM(hits) v FROM heat_clicks WHERE site = :site AND day BETWEEN :a AND :b
                  GROUP BY page ORDER BY v DESC LIMIT 20", $args);
 $sel = isset($_GET['pg']) ? (string)$_GET['pg'] : (isset($pages[0]) ? (string)$pages[0]['dim'] : '/');
 $device = (isset($_GET['dev']) && $_GET['dev'] === 'mobile') ? 'mobile' : (isset($_GET['dev']) && $_GET['dev'] === 'desktop' ? 'desktop' : '');
 
-$totalClicks = (float)hm_one("SELECT COALESCE(SUM(hits),0) FROM heat_clicks WHERE day BETWEEN :a AND :b", $args);
+$totalClicks = (float)hm_one("SELECT COALESCE(SUM(hits),0) FROM heat_clicks WHERE site = :site AND day BETWEEN :a AND :b", $args);
 $anyData = $totalClicks > 0;
 ?>
 
@@ -47,8 +49,8 @@ $devWhere = $device !== '' ? " AND device = :d" : "";
 $pArgs = array(':a'=>$f, ':b'=>$b, ':p'=>$sel);
 if ($device !== '') $pArgs[':d'] = $device;
 
-$pageClicks = (float)hm_one("SELECT COALESCE(SUM(hits),0) FROM heat_clicks WHERE day BETWEEN :a AND :b AND page = :p$devWhere", $pArgs);
-$scrollRows = hm_all("SELECT bucket, SUM(hits) v FROM heat_scroll WHERE day BETWEEN :a AND :b AND page = :p$devWhere GROUP BY bucket ORDER BY bucket", $pArgs);
+$pageClicks = (float)hm_one("SELECT COALESCE(SUM(hits),0) FROM heat_clicks WHERE site = :site AND day BETWEEN :a AND :b AND page = :p$devWhere", $pArgs);
+$scrollRows = hm_all("SELECT bucket, SUM(hits) v FROM heat_scroll WHERE site = :site AND day BETWEEN :a AND :b AND page = :p$devWhere GROUP BY bucket ORDER BY bucket", $pArgs);
 $views = 0.0; foreach ($scrollRows as $r) { $views += (float)$r['v']; }
 
 /* Median depth: the point half your visitors never get past. */
@@ -95,7 +97,7 @@ foreach ($scrollRows as $r) {
     <h3>Click map <span class="hint"><?php echo e($sel); ?><?php echo $device ? ', ' . e($device) : ''; ?></span></h3>
     <?php
       $cells = hm_all("SELECT gx, gy, SUM(hits) v FROM heat_clicks
-                       WHERE day BETWEEN :a AND :b AND page = :p$devWhere
+                       WHERE site = :site AND day BETWEEN :a AND :b AND page = :p$devWhere
                        GROUP BY gx, gy", $pArgs);
       if (!$cells) {
           ui_empty('No clicks on this page yet', 'Pick another page above, or wait for more visits.', 'heat');
@@ -157,7 +159,7 @@ foreach ($scrollRows as $r) {
     <h3>What actually gets clicked</h3>
     <?php
       $t = hm_all("SELECT label dim, SUM(hits) v FROM heat_targets
-                   WHERE day BETWEEN :a AND :b AND page = :p GROUP BY label ORDER BY v DESC LIMIT 15",
+                   WHERE site = :site AND day BETWEEN :a AND :b AND page = :p GROUP BY label ORDER BY v DESC LIMIT 15",
                   array(':a'=>$f, ':b'=>$b, ':p'=>$sel));
       ui_top_table($t, 'Control', 'Clicks', null, 15);
     ?>
@@ -169,7 +171,7 @@ foreach ($scrollRows as $r) {
     <h3>Most clicked, every page</h3>
     <?php
       $t2 = hm_all("SELECT label dim, SUM(hits) v FROM heat_targets
-                    WHERE day BETWEEN :a AND :b GROUP BY label ORDER BY v DESC LIMIT 15", $args);
+                    WHERE site = :site AND day BETWEEN :a AND :b GROUP BY label ORDER BY v DESC LIMIT 15", $args);
       ui_top_table($t2, 'Control', 'Clicks', null, 15);
     ?>
   </div>
@@ -179,7 +181,7 @@ foreach ($scrollRows as $r) {
   <h3>When people need you <span class="hint">Visitor local time</span></h3>
   <?php
     $hours = hm_all("SELECT dow, hour, SUM(hits) v FROM heat_hours
-                     WHERE day BETWEEN :a AND :b AND kind='visit' GROUP BY dow, hour", $args);
+                     WHERE site = :site AND day BETWEEN :a AND :b AND kind='visit' GROUP BY dow, hour", $args);
     if (!$hours) {
         ui_empty('Not enough activity yet', 'This fills in as visits accumulate across the week.', 'pulse');
     } else {

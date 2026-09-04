@@ -57,6 +57,9 @@ if (mp_get('analytics_on') === '1') {
 $cut = gmdate('Y-m-d', strtotime('-730 day'));
 $st = mp_db()->prepare("DELETE FROM metrics WHERE day < :c");
 $st->execute(array(':c'=>$cut));
-mp_db()->exec("DELETE FROM runs WHERE id NOT IN (SELECT id FROM runs ORDER BY id DESC LIMIT 200)");
+/* Trim per property, not globally. A busy site would otherwise push a quiet
+   one's entire run history out of the table. */
+mp_q("DELETE FROM runs WHERE site = :site
+      AND id NOT IN (SELECT id FROM runs WHERE site = :site ORDER BY id DESC LIMIT 200)");
 
 echo "done\n";

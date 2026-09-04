@@ -29,8 +29,8 @@ function kpi_chat(string $sql, array $args): float {
     catch (Throwable $e) { return 0.0; }
 }
 $chatArgs = array(':a'=>$f, ':b'=>$today);
-$chatLeads = kpi_chat("SELECT COUNT(*) FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b", $chatArgs);
-$pChatLeads = kpi_chat("SELECT COUNT(*) FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b", array(':a'=>$pf, ':b'=>$pt));
+$chatLeads = kpi_chat("SELECT COUNT(*) FROM chat_leads WHERE site = :site AND date(created_at) BETWEEN :a AND :b", $chatArgs);
+$pChatLeads = kpi_chat("SELECT COUNT(*) FROM chat_leads WHERE site = :site AND date(created_at) BETWEEN :a AND :b", array(':a'=>$pf, ':b'=>$pt));
 
 /* Source switch, 2026-09-03. This page is the one place where switching does
    not change which numbers are shown, only who counted them: a target for
@@ -63,7 +63,7 @@ if ($psiDay) {
     $st->execute(array(':d'=>$psiDay));
     $mobileSpeed = (float)$st->fetchColumn();
 }
-$aiRow = mp_db()->query("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE checked_at >= date('now','-45 day')")->fetch();
+$aiRow = mp_q("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE site = :site AND checked_at >= date('now','-45 day')")->fetch();
 $aiRate = ($aiRow && (int)$aiRow['c'] > 0) ? ((float)$aiRow['m'] / (float)$aiRow['c']) * 100 : 0.0;
 
 /* Each KPI: label, current, previous, target, unit, direction, source, why it matters. */

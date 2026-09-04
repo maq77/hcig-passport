@@ -206,7 +206,7 @@ function mp_insights(array $r): array {
     }
 
     /* ---------- AI visibility ---------------------------------------------- */
-    $st = mp_db()->query("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE checked_at >= date('now','-45 day')");
+    $st = mp_q("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE site = :site AND checked_at >= date('now','-45 day')");
     $ai = $st->fetch();
     if ($ai && (int)$ai['c'] > 0) {
         $rate = ((float)$ai['m'] / (float)$ai['c']) * 100;

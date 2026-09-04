@@ -132,7 +132,7 @@ function mp_narrative(array $R): array {
 /* Assistant leads, guarded so a missing table never breaks the summary. */
 function mp_count_leads(string $from, string $to): float {
     try {
-        $st = mp_db()->prepare("SELECT COUNT(*) FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b");
+        $st = mp_db()->prepare("SELECT COUNT(*) FROM chat_leads WHERE site = :site AND date(created_at) BETWEEN :a AND :b");
         $st->execute(array(':a'=>$from, ':b'=>$to));
         return (float)$st->fetchColumn();
     } catch (Throwable $e) { return 0.0; }

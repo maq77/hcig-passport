@@ -75,7 +75,7 @@ $pdirs     = mp_sum('gbp','direction_requests',$pf,$pt);
 $rate  = $sessions > 0 ? ($enq / $sessions) * 100 : 0;
 $prate = $psessions > 0 ? ($penq / $psessions) * 100 : 0;
 
-$aiRow = mp_db()->query("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE checked_at >= date('now','-45 day')")->fetch();
+$aiRow = mp_q("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE site = :site AND checked_at >= date('now','-45 day')")->fetch();
 $aiC = $aiRow ? (int)$aiRow['c'] : 0;
 $aiM = $aiRow ? (int)$aiRow['m'] : 0;
 

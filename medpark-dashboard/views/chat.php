@@ -9,27 +9,29 @@ $f = $R['from']; $t = $R['to']; $pf = $R['prev_from']; $pt = $R['prev_to'];
 $a = $f; $b = gmdate('Y-m-d');
 
 function ch_one(string $sql, array $args = array()) {
-    $st = mp_db()->prepare($sql); $st->execute($args); return $st->fetchColumn();
+    $st = mp_db()->prepare($sql); $st->execute(mp_bind_site($args, $sql)); return $st->fetchColumn();
 }
 function ch_all(string $sql, array $args = array()): array {
-    $st = mp_db()->prepare($sql); $st->execute($args); return $st->fetchAll();
+    $st = mp_db()->prepare($sql); $st->execute(mp_bind_site($args, $sql)); return $st->fetchAll();
 }
 
-$inRange = "date(started_at) BETWEEN :a AND :b";
+/* Carries the property as well as the dates, so every conversation query on
+   this page is scoped by construction rather than by remembering. */
+$inRange = "site = :site AND date(started_at) BETWEEN :a AND :b";
 $args = array(':a'=>$a, ':b'=>$b);
 $prevArgs = array(':a'=>$pf, ':b'=>$pt);
 
 $convs  = (int)ch_one("SELECT COUNT(*) FROM chat_sessions WHERE $inRange", $args);
 $pconvs = (int)ch_one("SELECT COUNT(*) FROM chat_sessions WHERE $inRange", $prevArgs);
-$leads  = (int)ch_one("SELECT COUNT(*) FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b", $args);
-$pleads = (int)ch_one("SELECT COUNT(*) FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b", $prevArgs);
+$leads  = (int)ch_one("SELECT COUNT(*) FROM chat_leads WHERE site = :site AND date(created_at) BETWEEN :a AND :b", $args);
+$pleads = (int)ch_one("SELECT COUNT(*) FROM chat_leads WHERE site = :site AND date(created_at) BETWEEN :a AND :b", $prevArgs);
 $emerg  = (int)ch_one("SELECT COUNT(*) FROM chat_sessions WHERE emergency=1 AND $inRange", $args);
 $wa     = (int)ch_one("SELECT COUNT(*) FROM chat_sessions WHERE handed_to_whatsapp=1 AND $inRange", $args);
-$msgs   = (int)ch_one("SELECT COUNT(*) FROM chat_messages WHERE date(at) BETWEEN :a AND :b", $args);
+$msgs   = (int)ch_one("SELECT COUNT(*) FROM chat_messages WHERE site = :site AND date(at) BETWEEN :a AND :b", $args);
 $rate   = $convs > 0 ? ($leads / $convs) * 100 : 0;
 $prate  = $pconvs > 0 ? ($pleads / $pconvs) * 100 : 0;
 $avgMsg = $convs > 0 ? $msgs / $convs : 0;
-$anyChat = (int)ch_one("SELECT COUNT(*) FROM chat_sessions") > 0;
+$anyChat = (int)ch_one("SELECT COUNT(*) FROM chat_sessions WHERE site = :site") > 0;
 ?>
 
 <?php if (!$anyChat): ?>
@@ -85,7 +87,7 @@ $anyChat = (int)ch_one("SELECT COUNT(*) FROM chat_sessions") > 0;
   <h3>Appointment requests</h3>
   <p style="padding:0 18px;margin:-4px 0 12px;color:var(--ink-3);font-size:13px">
     Nothing here was confirmed to the patient. Each person was told the team would come back to them.</p>
-  <?php $rows = ch_all("SELECT * FROM chat_leads WHERE date(created_at) BETWEEN :a AND :b ORDER BY id DESC LIMIT 50", $args);
+  <?php $rows = ch_all("SELECT * FROM chat_leads WHERE site = :site AND date(created_at) BETWEEN :a AND :b ORDER BY id DESC LIMIT 50", $args);
   if (!$rows): ui_empty('No requests in this period', 'Conversations happened but nobody asked for an appointment.');
   else: ?>
   <div style="overflow-x:auto">
@@ -132,7 +134,7 @@ $anyChat = (int)ch_one("SELECT COUNT(*) FROM chat_sessions") > 0;
       The topics behind real questions. A large "handed to menu" number means the assistant is being
       asked things it cannot answer, which is the signal to add a key or extend what it knows.</p>
     <?php ui_top_table(ch_all("SELECT intent dim, COUNT(*) v FROM chat_messages
-        WHERE role='assistant' AND intent NOT IN ('','greeting') AND date(at) BETWEEN :a AND :b
+        WHERE site = :site AND role='assistant' AND intent NOT IN ('','greeting') AND date(at) BETWEEN :a AND :b
         GROUP BY intent ORDER BY v DESC LIMIT 12", $args), 'Topic', 'Times', null, 12); ?>
   </div>
   <div class="card card--pad0">

@@ -298,9 +298,9 @@ function mp_ai_run_all(int $maxSeconds = 100): array {
     }
 
     $ins = mp_db()->prepare(
-        "INSERT INTO ai_checks (checked_at, engine, prompt, mentioned, rank_position,
+        "INSERT INTO ai_checks (site, checked_at, engine, prompt, mentioned, rank_position,
                                 cited_url, competitors, notes)
-         VALUES (:t,:e,:p,:m,:r,:u,:c,:n)");
+         VALUES (:site,:t,:e,:p,:m,:r,:u,:c,:n)");
 
     $ran = 0; $saved = 0; $errors = array(); $stopped = false;
     foreach ($engines as $name => $meta) {
@@ -313,6 +313,7 @@ function mp_ai_run_all(int $maxSeconds = 100): array {
 
             $v = mp_ai_evaluate((string)$res['answer'], $brand, $rivals);
             $ins->execute(array(
+                ':site' => mp_current_site(),
                 ':t' => gmdate('Y-m-d'),
                 ':e' => $name,
                 ':p' => mb_substr($prompt, 0, 300),

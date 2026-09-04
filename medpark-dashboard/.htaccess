@@ -1,4 +1,4 @@
-# Dashboard. Never indexed, never cached, nothing here is public.
+# The hub. The dashboard itself is private; two files are deliberately public.
 <IfModule mod_headers.c>
   Header set X-Robots-Tag "noindex, nofollow, noarchive"
   Header set X-Frame-Options "DENY"
@@ -14,3 +14,24 @@
 
 # lib and views are includes, not pages.
 RedirectMatch 404 ^/dashboard/(lib|views)/
+
+# ---------------------------------------------------------------------------
+# The two public endpoints of the hub.
+#
+#   t.js  the tracker, served to every property from here, which is what makes
+#         one improvement reach every website at once.
+#   c.php the collector every property posts its beacons to.
+#
+# Both must escape the blanket no-store above: the tracker is cached for five
+# minutes on purpose, and both are read cross-origin by other websites.
+# ---------------------------------------------------------------------------
+RewriteEngine On
+RewriteRule ^t\.js$ t.js.php [L]
+
+<FilesMatch "^(t\.js\.php|c\.php)$">
+  <IfModule mod_headers.c>
+    Header unset Cache-Control
+    Header unset X-Frame-Options
+    Header set Referrer-Policy "no-referrer"
+  </IfModule>
+</FilesMatch>

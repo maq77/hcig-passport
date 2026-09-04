@@ -155,7 +155,7 @@ function mp_recommendations(array $R): array {
     /* ---------------------------------------------------------------------
        4. AI visibility.
        --------------------------------------------------------------------- */
-    $ai = mp_db()->query("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE checked_at >= date('now','-45 day')")->fetch();
+    $ai = mp_q("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE site = :site AND checked_at >= date('now','-45 day')")->fetch();
     $aiC = $ai ? (int)$ai['c'] : 0; $aiM = $ai ? (int)$ai['m'] : 0;
     if ($aiC === 0) {
         $out[] = mp_rec(array(

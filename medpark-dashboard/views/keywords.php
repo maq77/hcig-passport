@@ -17,13 +17,14 @@ $f = $R['from']; $t = $R['to']; $pf = $R['prev_from']; $pt = $R['prev_to'];
 $hasGSC = mp_has_data('gsc');
 
 function kw_all(string $sql, array $a = array()): array {
-    try { $st = mp_db()->prepare($sql); $st->execute($a); return $st->fetchAll(); }
+    try { $st = mp_db()->prepare($sql); $st->execute(mp_bind_site($a, $sql)); return $st->fetchAll(); }
     catch (Throwable $e) { return array(); }
 }
 
 /* ---------- rank targets --------------------------------------------------- */
 $tLang = isset($_GET['tl']) && in_array($_GET['tl'], array('all','en','de','pl'), true) ? (string)$_GET['tl'] : 'all';
-$where = $tLang === 'all' ? '' : ' WHERE lang = :l';
+/* The property is always in the clause; the language only when one is chosen. */
+$where = $tLang === 'all' ? ' WHERE site = :site' : ' WHERE site = :site AND lang = :l';
 $targets = kw_all("SELECT * FROM kw_targets$where ORDER BY lang, term",
                   $tLang === 'all' ? array() : array(':l'=>$tLang));
 
@@ -284,7 +285,7 @@ $totalTargets = count($targets);
 
 <?php
   $iLang = isset($_GET['kl']) && in_array($_GET['kl'], array('en','de','pl'), true) ? (string)$_GET['kl'] : 'en';
-  $ideas = kw_all("SELECT term, seed FROM keywords WHERE lang = :l ORDER BY seed, term LIMIT 400", array(':l'=>$iLang));
+  $ideas = kw_all("SELECT term, seed FROM keywords WHERE site = :site AND lang = :l ORDER BY seed, term LIMIT 400", array(':l'=>$iLang));
 ?>
 <div class="card card--pad0">
   <h3>What people actually type <span class="hint">Google suggest, free, no subscription</span></h3>
@@ -307,7 +308,7 @@ $totalTargets = count($targets);
       $ranking[mb_strtolower((string)$r['dim'])] = true;
     }
     $targeted = array();
-    foreach (kw_all("SELECT term FROM kw_targets") as $r) { $targeted[mb_strtolower((string)$r['term'])] = true; }
+    foreach (kw_all("SELECT term FROM kw_targets WHERE site = :site") as $r) { $targeted[mb_strtolower((string)$r['term'])] = true; }
   ?>
     <div style="padding:14px 15px;display:flex;flex-direction:column;gap:15px">
       <?php foreach ($bySeed as $seed => $terms): ?>

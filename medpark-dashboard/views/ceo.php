@@ -28,7 +28,7 @@ $pos   = mp_avg('gsc','position',$f,$t);     $ppos  = mp_avg('gsc','position',$p
 $dirs  = mp_sum('gbp','direction_requests',$f,$t); $pdirs = mp_sum('gbp','direction_requests',$pf,$pt);
 $mapCalls = mp_sum('gbp','call_clicks',$f,$t);     $pmapCalls = mp_sum('gbp','call_clicks',$pf,$pt);
 
-$aiRow = mp_db()->query("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE checked_at >= date('now','-45 day')")->fetch();
+$aiRow = mp_q("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE site = :site AND checked_at >= date('now','-45 day')")->fetch();
 $aiC = $aiRow ? (int)$aiRow['c'] : 0;  $aiM = $aiRow ? (int)$aiRow['m'] : 0;
 
 $recs   = mp_recommendations($R);

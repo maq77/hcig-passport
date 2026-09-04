@@ -12,13 +12,14 @@
 $prompts = array_values(array_filter(array_map('trim', explode("\n", mp_get('ai_prompts')))));
 $engines = array('ChatGPT','Google AI Overview','Gemini','Perplexity','Copilot','Claude');
 
-$all = mp_db()->query("SELECT * FROM ai_checks ORDER BY checked_at DESC, id DESC LIMIT 200")->fetchAll();
-$recent = mp_db()->query("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE checked_at >= date('now','-45 day')")->fetch();
+$all = mp_q("SELECT * FROM ai_checks WHERE site = :site ORDER BY checked_at DESC, id DESC LIMIT 200")->fetchAll();
+$recent = mp_q("SELECT COUNT(*) c, SUM(mentioned) m FROM ai_checks WHERE site = :site AND checked_at >= date('now','-45 day')")->fetch();
 $rate = ($recent && (int)$recent['c'] > 0) ? ((float)$recent['m'] / (float)$recent['c']) * 100 : 0;
 
-$byEngine = mp_db()->query(
+$byEngine = mp_q(
   "SELECT engine dim, ROUND(100.0*SUM(mentioned)/COUNT(*),0) v FROM ai_checks
-   WHERE checked_at >= date('now','-45 day') GROUP BY engine ORDER BY v DESC")->fetchAll();
+   WHERE site = :site AND checked_at >= date('now','-45 day')
+   GROUP BY engine ORDER BY v DESC")->fetchAll();
 ?>
 
 <div class="grid g4" style="margin-bottom:16px">

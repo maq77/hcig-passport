@@ -47,15 +47,14 @@ const A_SPOOL     = 'a-spool.ndjson';
 const A_GAP       = 1800;    /* seconds of inactivity that ends a session */
 const A_MAX_LINES = 40000;   /* per run, so one import can never stall */
 
-/* Which site these rows belong to. One value today, a list tomorrow. */
+/* Which property these rows belong to.
+
+   This used to derive one name from one setting, which is precisely what made
+   the system single-site. It now asks the registry which property is current,
+   so the dashboard answers for whichever site is selected and the importer
+   answers for whichever site a beacon came from. */
 function mpa_site(): string {
-    static $s = null;
-    if ($s !== null) return $s;
-    $u = strtolower(mp_get('site_url', 'medpark'));
-    $u = (string)preg_replace('~^https?://(www\.)?~', '', $u);
-    $u = trim($u, '/');
-    $s = ($u === '') ? 'medpark' : substr($u, 0, 60);
-    return $s;
+    return mp_current_site();
 }
 
 /* ---------------------------------------------------------------------------
@@ -381,8 +380,15 @@ function mpa_import(): array {
         $ua = (string)($in['ua'] ?? '');
         if (mpa_is_bot($ua)) { $bots++; continue; }
 
-        $r = mpa_normalise($in, $site);
+        /* The hub collector stamps each line with the property it came from.
+            Lines written by the older per-site collector have no such field, so
+            they fall back to the property this install started as. */
+        $lineSite = isset($in['site']) && is_string($in['site']) && $in['site'] !== ''
+                  ? substr(preg_replace('~[^A-Za-z0-9_.\-]~', '', $in['site']) ?? '', 0, 60)
+                  : $site;
+        $r = mpa_normalise($in, $lineSite);
         if ($r === null) { $bad++; continue; }
+        $r['site'] = $lineSite;
         $rows[] = $r;
     }
     fclose($fh);
@@ -423,18 +429,24 @@ function mpa_import(): array {
             "UPDATE a_pageviews SET is_exit = 0
              WHERE site = :s AND sid = :sid AND seq < :seq");
 
-        $seen  = array();   /* vid -> array(sid, ts, seq) within this batch */
-        $sids  = array();   /* touched sessions */
-        $days  = array();   /* touched days */
+        $seen  = array();   /* "site|vid" -> array(sid, ts, seq) within this batch */
+        $sids  = array();   /* touched sessions, as "site|sid" */
+        $days  = array();   /* touched days, as "site|day" */
         $nPv = 0; $nEv = 0;
 
         foreach ($rows as $r) {
-            $vid = $r['vid'];
+            $vid  = $r['vid'];
+            /* Keyed by property as well as visitor. The same person on two
+               group sites in one day produces the same hash, and stitching
+               those into one session would be wrong: they are two visits, to
+               two different websites. */
+            $rSite = (string)$r['site'];
+            $vkey  = $rSite . '|' . $vid;
 
-            if (isset($seen[$vid])) {
-                $prev = $seen[$vid];
+            if (isset($seen[$vkey])) {
+                $prev = $seen[$vkey];
             } else {
-                $lastQ->execute(array(':site' => $site, ':vid' => $vid));
+                $lastQ->execute(array(':site' => $rSite, ':vid' => $vid));
                 $hit  = $lastQ->fetch();
                 $prev = $hit ? array($hit['sid'], (int)$hit['ts'], (int)$hit['seq']) : null;
             }
@@ -443,15 +455,15 @@ function mpa_import(): array {
                 $sid = $prev[0];
                 $seq = $prev[2] + 1;
             } else {
-                $sid = substr(hash('sha256', $site . '|' . $vid . '|' . $r['ts']), 0, 16);
+                $sid = substr(hash('sha256', $rSite . '|' . $vid . '|' . $r['ts']), 0, 16);
                 $seq = 1;
             }
-            $seen[$vid] = array($sid, $r['ts'], $seq);
-            $sids[$sid] = true;
-            $days[$r['day']] = true;
+            $seen[$vkey] = array($sid, $r['ts'], $seq);
+            $sids[$rSite . '|' . $sid] = true;
+            $days[$rSite . '|' . $r['day']] = true;
 
             $pvIns->execute(array(
-                ':site' => $site, ':sid' => $sid, ':vid' => $vid, ':day' => $r['day'],
+                ':site' => $rSite, ':sid' => $sid, ':vid' => $vid, ':day' => $r['day'],
                 ':at' => $r['at'], ':ts' => $r['ts'], ':path' => $r['path'],
                 ':title' => $r['title'], ':ptype' => $r['ptype'], ':seq' => $seq,
                 ':eng' => $r['engaged'], ':scroll' => $r['scroll'], ':load' => $r['load'],
@@ -461,12 +473,12 @@ function mpa_import(): array {
             $nPv++;
 
             if ($seq > 1) {
-                $unExit->execute(array(':s' => $site, ':sid' => $sid, ':seq' => $seq));
+                $unExit->execute(array(':s' => $rSite, ':sid' => $sid, ':seq' => $seq));
             }
 
             foreach ($r['events'] as $e) {
                 $evIns->execute(array(
-                    ':site' => $site, ':sid' => $sid, ':vid' => $vid, ':day' => $r['day'],
+                    ':site' => $rSite, ':sid' => $sid, ':vid' => $vid, ':day' => $r['day'],
                     ':at' => gmdate('c', $e['ts']), ':ts' => $e['ts'],
                     ':name' => $e['name'], ':cat' => $e['cat'], ':label' => $e['label'],
                     ':place' => $e['place'], ':path' => $r['path'], ':val' => $e['val'],
@@ -478,11 +490,19 @@ function mpa_import(): array {
 
             /* Session-level facts are carried on the first pageview of a visit
                and stashed for the rebuild that follows. */
-            if ($seq === 1) mpa_stash_session($db, $site, $sid, $vid, $r);
+            if ($seq === 1) mpa_stash_session($db, $rSite, $sid, $vid, $r);
         }
 
-        foreach (array_keys($sids) as $sid) mpa_rebuild_session($db, $site, $sid);
-        mpa_rebuild_visitors($db, $site, array_keys($seen));
+        foreach (array_keys($sids) as $key) {
+            list($ks, $ksid) = explode('|', $key, 2);
+            mpa_rebuild_session($db, $ks, $ksid);
+        }
+        $bySite = array();
+        foreach (array_keys($seen) as $key) {
+            list($ks, $kvid) = explode('|', $key, 2);
+            $bySite[$ks][] = $kvid;
+        }
+        foreach ($bySite as $ks => $vids) mpa_rebuild_visitors($db, $ks, $vids);
 
         $db->commit();
     } catch (Throwable $ex) {
@@ -491,7 +511,16 @@ function mpa_import(): array {
         return array('ok' => false, 'msg' => 'import failed: ' . $ex->getMessage(), 'rows' => 0);
     }
 
-    foreach (array_keys($days) as $d) mpa_rollup($d);
+    /* Roll up each property's touched days as that property, since the rollup
+       reads and writes through mpa_site(). Restored afterwards so a caller's
+       idea of the current property survives an import. */
+    $wasSite = mp_current_site();
+    foreach (array_keys($days) as $key) {
+        list($ks, $kday) = explode('|', $key, 2);
+        mp_current_site($ks);
+        mpa_rollup($kday);
+    }
+    mp_current_site($wasSite);
 
     $ms = (int)round((microtime(true) - $t0) * 1000);
     mpa_log_run($lines, $nPv, $nEv, $bots, $bad, $ms, 'ok');

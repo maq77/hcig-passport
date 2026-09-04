@@ -15,7 +15,7 @@ define('MP_SECRETS',  MP_DATA_DIR . '/secrets.php');
 define('MP_DB',       MP_DATA_DIR . '/metrics.sqlite');
 define('MP_VERSION',  '1.1');
 /* Bump this whenever mp_install() changes, so the schema is reapplied once. */
-define('MP_SCHEMA',   '5');
+define('MP_SCHEMA',   '6');   /* 6 = multi-site: every table carries `site` */
 
 if (!is_dir(MP_DATA_DIR)) { @mkdir(MP_DATA_DIR, 0700, true); }
 
@@ -99,9 +99,20 @@ function mp_settings(bool $reload = false): array {
     return $cache;
 }
 
+/* A setting, for the property currently selected.
+
+   Some settings belong to a property (its GA4 id, its competitors, its target
+   keywords) and some belong to the installation (the login, the API keys we
+   pay for). Only the first kind can be overridden per site, and the list lives
+   in mp_site_scoped_keys(). Everything reading mp_get() therefore became
+   per-site without a single call site changing, which is the same trick the
+   metric accessors use. */
 function mp_get(string $key, string $default = ''): string {
     $s = mp_settings();
-    return isset($s[$key]) ? (string)$s[$key] : $default;
+    $global = isset($s[$key]) ? (string)$s[$key] : $default;
+    if (!function_exists('mp_site_override')) return $global;
+    $own = mp_site_override($key);
+    return $own !== null ? $own : $global;
 }
 
 function mp_save_settings(array $patch): bool {
@@ -125,7 +136,11 @@ function mp_db(): PDO {
     ));
     $pdo->exec('PRAGMA journal_mode = WAL');
     $pdo->exec('PRAGMA busy_timeout = 4000');
-    $pdo->exec('PRAGMA synchronous = NORMAL');
+    /* FULL rather than NORMAL. With WAL, NORMAL can lose the last commit on a
+       power cut; FULL cannot. Writes here are one batched transaction every
+       five minutes, so the throughput cost is not measurable and the
+       durability is worth having on a shared host we do not control. */
+    $pdo->exec('PRAGMA synchronous = FULL');
 
     /* Schema installation used to run on every single request: six CREATE
        TABLE IF NOT EXISTS statements per page load and per beacon. Harmless at
@@ -134,8 +149,31 @@ function mp_db(): PDO {
     $stamp = MP_DATA_DIR . '/.schema-' . MP_SCHEMA;
     if ($fresh || !is_file($stamp)) {
         mp_install($pdo);
-        @file_put_contents($stamp, gmdate('c'));
-        @chmod($stamp, 0600);
+        /* Existing databases predate the site column on the older tables. The
+           migration is idempotent and aborts without changing anything if a
+           row count does not match. See lib/migrate.php. */
+        $migrated = true;
+        if (function_exists('mp_migrate')) {
+            $log = mp_migrate($pdo, mp_site_default_key());
+            @file_put_contents(MP_DATA_DIR . '/migration-' . MP_SCHEMA . '.log',
+                               gmdate('c') . "
+" . implode("
+", $log) . "
+");
+            /* A migration that could not run must be retried on the next
+               request, not recorded as done. Stamping regardless would have
+               left the database half-converted and silent about it. */
+            foreach ($log as $line) {
+                if (strpos($line, 'ROLLED BACK') === 0 || strpos($line, 'snapshot FAILED') === 0) {
+                    $migrated = false;
+                }
+            }
+        }
+        if ($migrated) {
+            if (function_exists('mp_sites_bootstrap')) mp_sites_bootstrap();
+            @file_put_contents($stamp, gmdate('c'));
+            @chmod($stamp, 0600);
+        }
     }
     if ($fresh) @chmod(MP_DB, 0600);
     return $pdo;
@@ -147,19 +185,21 @@ function mp_install(PDO $db): void {
        version can reuse this table with a site column added. */
     $db->exec("CREATE TABLE IF NOT EXISTS metrics (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         day TEXT NOT NULL,
         source TEXT NOT NULL,
         metric TEXT NOT NULL,
         dim TEXT NOT NULL DEFAULT '',
         dim2 TEXT NOT NULL DEFAULT '',
         value REAL NOT NULL DEFAULT 0,
-        UNIQUE(day, source, metric, dim, dim2)
+        UNIQUE(site, day, source, metric, dim, dim2)
     )");
-    $db->exec("CREATE INDEX IF NOT EXISTS idx_metrics_day ON metrics(day)");
-    $db->exec("CREATE INDEX IF NOT EXISTS idx_metrics_lookup ON metrics(source, metric, day)");
+    $db->exec("CREATE INDEX IF NOT EXISTS idx_metrics_day ON metrics(site, day)");
+    $db->exec("CREATE INDEX IF NOT EXISTS idx_metrics_lookup ON metrics(site, source, metric, day)");
 
     $db->exec("CREATE TABLE IF NOT EXISTS ai_checks (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         checked_at TEXT NOT NULL,
         engine TEXT NOT NULL,
         prompt TEXT NOT NULL,
@@ -172,6 +212,7 @@ function mp_install(PDO $db): void {
 
     $db->exec("CREATE TABLE IF NOT EXISTS issues (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         found_at TEXT NOT NULL,
         severity TEXT NOT NULL,
         area TEXT NOT NULL,
@@ -181,7 +222,7 @@ function mp_install(PDO $db): void {
         fingerprint TEXT NOT NULL DEFAULT '',
         resolved INTEGER NOT NULL DEFAULT 0
     )");
-    $db->exec("CREATE UNIQUE INDEX IF NOT EXISTS idx_issue_fp ON issues(fingerprint)");
+    $db->exec("CREATE UNIQUE INDEX IF NOT EXISTS idx_issue_fp ON issues(site, fingerprint)");
 
     /* ---- assistant ----------------------------------------------------
        One row per conversation, one per message, one per captured lead.
@@ -189,6 +230,7 @@ function mp_install(PDO $db): void {
        next to calls and WhatsApp rather than in a separate silo. */
     $db->exec("CREATE TABLE IF NOT EXISTS chat_sessions (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         sid TEXT NOT NULL UNIQUE,
         started_at TEXT NOT NULL,
         last_at TEXT NOT NULL,
@@ -206,6 +248,7 @@ function mp_install(PDO $db): void {
 
     $db->exec("CREATE TABLE IF NOT EXISTS chat_messages (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         sid TEXT NOT NULL,
         at TEXT NOT NULL,
         role TEXT NOT NULL,
@@ -216,6 +259,7 @@ function mp_install(PDO $db): void {
 
     $db->exec("CREATE TABLE IF NOT EXISTS chat_leads (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         sid TEXT NOT NULL,
         created_at TEXT NOT NULL,
         kind TEXT NOT NULL DEFAULT 'appointment',
@@ -240,45 +284,49 @@ function mp_install(PDO $db): void {
        extra request per session on a shared server. */
     $db->exec("CREATE TABLE IF NOT EXISTS heat_clicks (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         day TEXT NOT NULL,
         page TEXT NOT NULL,
         device TEXT NOT NULL DEFAULT '',
         gx INTEGER NOT NULL,
         gy INTEGER NOT NULL,
         hits INTEGER NOT NULL DEFAULT 0,
-        UNIQUE(day, page, device, gx, gy)
+        UNIQUE(site, day, page, device, gx, gy)
     )");
-    $db->exec("CREATE INDEX IF NOT EXISTS idx_heat_page ON heat_clicks(page, day)");
+    $db->exec("CREATE INDEX IF NOT EXISTS idx_heat_page ON heat_clicks(site, page, day)");
 
     $db->exec("CREATE TABLE IF NOT EXISTS heat_scroll (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         day TEXT NOT NULL,
         page TEXT NOT NULL,
         device TEXT NOT NULL DEFAULT '',
         bucket INTEGER NOT NULL,
         hits INTEGER NOT NULL DEFAULT 0,
-        UNIQUE(day, page, device, bucket)
+        UNIQUE(site, day, page, device, bucket)
     )");
 
     /* What was clicked, by label, which is more actionable than coordinates. */
     $db->exec("CREATE TABLE IF NOT EXISTS heat_targets (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         day TEXT NOT NULL,
         page TEXT NOT NULL,
         label TEXT NOT NULL,
         hits INTEGER NOT NULL DEFAULT 0,
-        UNIQUE(day, page, label)
+        UNIQUE(site, day, page, label)
     )");
 
     /* Hour-by-weekday activity, for the when-do-people-need-us heatmap. */
     $db->exec("CREATE TABLE IF NOT EXISTS heat_hours (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         day TEXT NOT NULL,
         dow INTEGER NOT NULL,
         hour INTEGER NOT NULL,
         kind TEXT NOT NULL DEFAULT 'visit',
         hits INTEGER NOT NULL DEFAULT 0,
-        UNIQUE(day, dow, hour, kind)
+        UNIQUE(site, day, dow, hour, kind)
     )");
 
     /* The keywords we are deliberately trying to rank for, as opposed to the
@@ -286,26 +334,28 @@ function mp_install(PDO $db): void {
        this table only holds the intent and the target. */
     $db->exec("CREATE TABLE IF NOT EXISTS kw_targets (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         term TEXT NOT NULL,
         lang TEXT NOT NULL DEFAULT 'en',
         target_pos INTEGER NOT NULL DEFAULT 1,
         landing TEXT NOT NULL DEFAULT '',
         note TEXT NOT NULL DEFAULT '',
         added_at TEXT NOT NULL,
-        UNIQUE(term, lang)
+        UNIQUE(site, term, lang)
     )");
 
     /* Keyword ideas gathered from free sources, kept so trends are visible. */
     $db->exec("CREATE TABLE IF NOT EXISTS keywords (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         seen_at TEXT NOT NULL,
         term TEXT NOT NULL,
         seed TEXT NOT NULL DEFAULT '',
         lang TEXT NOT NULL DEFAULT 'en',
         source TEXT NOT NULL DEFAULT 'suggest',
-        UNIQUE(term, lang)
+        UNIQUE(site, term, lang)
     )");
-    $db->exec("CREATE INDEX IF NOT EXISTS idx_kw_lang ON keywords(lang, seen_at)");
+    $db->exec("CREATE INDEX IF NOT EXISTS idx_kw_lang ON keywords(site, lang, seen_at)");
 
     /* Simple per-IP throttle for the public endpoint. */
     $db->exec("CREATE TABLE IF NOT EXISTS chat_throttle (
@@ -316,51 +366,86 @@ function mp_install(PDO $db): void {
 
     $db->exec("CREATE TABLE IF NOT EXISTS runs (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        site TEXT NOT NULL DEFAULT '',
         ran_at TEXT NOT NULL,
         source TEXT NOT NULL,
         status TEXT NOT NULL,
         message TEXT NOT NULL DEFAULT ''
     )");
 
+    /* The site registry. Everything above is per property; this is the list
+       of properties. See lib/sites.php. */
+    if (function_exists('mp_sites_install')) mp_sites_install($db);
+
     /* Our own analytics keeps its tables in the same database, so traffic can
        be reported next to calls and search rather than in a separate silo. */
     if (function_exists('mpa_install')) mpa_install($db);
 }
 
-function mp_metric_put(string $day, string $source, string $metric, float $value, string $dim = '', string $dim2 = ''): void {
-    $st = mp_db()->prepare(
-        "INSERT INTO metrics (day, source, metric, dim, dim2, value)
-         VALUES (:d,:s,:m,:x,:y,:v)
-         ON CONFLICT(day, source, metric, dim, dim2) DO UPDATE SET value = excluded.value"
-    );
-    $st->execute(array(':d'=>$day, ':s'=>$source, ':m'=>$metric, ':x'=>$dim, ':y'=>$dim2, ':v'=>$value));
+/* ---------------------------------------------------------------------------
+   Reading and writing numbers.
+
+   Every one of these is scoped to the current property. That single decision
+   is what made seventeen existing views multi-tenant without editing any of
+   them: a page still calls mp_sum('ga4','sessions',...) and now gets the
+   sessions of whichever site is selected. Pass $site explicitly only where the
+   caller genuinely means another property, such as the group roll-up.
+   ------------------------------------------------------------------------ */
+/* Bind the current property, but only when the statement actually asks for
+   it. PDO rejects a parameter the SQL does not use, so a helper that bound it
+   unconditionally would break every query that is already site-free. This lets
+   a view add "site = :site AND" to one query without touching the others. */
+/* A prepared query in one call, with the current property bound when the
+   statement asks for it. PDO::query() cannot bind parameters at all, so every
+   site-scoped one-liner goes through here instead. */
+function mp_q(string $sql, array $args = array()): PDOStatement {
+    $st = mp_db()->prepare($sql);
+    $st->execute(mp_bind_site($args, $sql));
+    return $st;
 }
 
-function mp_sum(string $source, string $metric, string $from, string $to, ?string $dim = null): float {
+function mp_bind_site(array $args, string $sql, ?string $site = null): array {
+    if (strpos($sql, ':site') !== false) $args[':site'] = $site ?? mp_current_site();
+    return $args;
+}
+
+function mp_metric_put(string $day, string $source, string $metric, float $value,
+                       string $dim = '', string $dim2 = '', ?string $site = null): void {
+    $st = mp_db()->prepare(
+        "INSERT INTO metrics (site, day, source, metric, dim, dim2, value)
+         VALUES (:t,:d,:s,:m,:x,:y,:v)
+         ON CONFLICT(site, day, source, metric, dim, dim2) DO UPDATE SET value = excluded.value"
+    );
+    $st->execute(array(':t'=>$site ?? mp_current_site(), ':d'=>$day, ':s'=>$source,
+                       ':m'=>$metric, ':x'=>$dim, ':y'=>$dim2, ':v'=>$value));
+}
+
+function mp_sum(string $source, string $metric, string $from, string $to, ?string $dim = null, ?string $site = null): float {
     $sql = "SELECT COALESCE(SUM(value),0) v FROM metrics
-            WHERE source=:s AND metric=:m AND day BETWEEN :a AND :b";
-    $args = array(':s'=>$source, ':m'=>$metric, ':a'=>$from, ':b'=>$to);
+            WHERE site=:t AND source=:s AND metric=:m AND day BETWEEN :a AND :b";
+    $args = array(':t'=>$site ?? mp_current_site(), ':s'=>$source, ':m'=>$metric, ':a'=>$from, ':b'=>$to);
     if ($dim !== null) { $sql .= " AND dim=:x"; $args[':x'] = $dim; }
     $st = mp_db()->prepare($sql); $st->execute($args);
     return (float)$st->fetchColumn();
 }
 
 /* Averages, for rates and durations that must not be added up. */
-function mp_avg(string $source, string $metric, string $from, string $to): float {
+function mp_avg(string $source, string $metric, string $from, string $to, ?string $site = null): float {
     $st = mp_db()->prepare(
         "SELECT COALESCE(AVG(value),0) v FROM metrics
-         WHERE source=:s AND metric=:m AND day BETWEEN :a AND :b"
+         WHERE site=:t AND source=:s AND metric=:m AND day BETWEEN :a AND :b"
     );
-    $st->execute(array(':s'=>$source, ':m'=>$metric, ':a'=>$from, ':b'=>$to));
+    $st->execute(array(':t'=>$site ?? mp_current_site(), ':s'=>$source, ':m'=>$metric, ':a'=>$from, ':b'=>$to));
     return (float)$st->fetchColumn();
 }
 
 function mp_top(string $source, string $metric, string $from, string $to, int $limit = 5): array {
     $st = mp_db()->prepare(
         "SELECT dim, dim2, SUM(value) v FROM metrics
-         WHERE source=:s AND metric=:m AND day BETWEEN :a AND :b AND dim <> ''
+         WHERE site=:t AND source=:s AND metric=:m AND day BETWEEN :a AND :b AND dim <> ''
          GROUP BY dim ORDER BY v DESC LIMIT :l"
     );
+    $st->bindValue(':t', mp_current_site());
     $st->bindValue(':s', $source); $st->bindValue(':m', $metric);
     $st->bindValue(':a', $from);   $st->bindValue(':b', $to);
     $st->bindValue(':l', $limit, PDO::PARAM_INT);
@@ -371,10 +456,10 @@ function mp_top(string $source, string $metric, string $from, string $to, int $l
 function mp_series(string $source, string $metric, string $from, string $to): array {
     $st = mp_db()->prepare(
         "SELECT day, SUM(value) v FROM metrics
-         WHERE source=:s AND metric=:m AND day BETWEEN :a AND :b
+         WHERE site=:t AND source=:s AND metric=:m AND day BETWEEN :a AND :b
          GROUP BY day ORDER BY day"
     );
-    $st->execute(array(':s'=>$source, ':m'=>$metric, ':a'=>$from, ':b'=>$to));
+    $st->execute(array(':t'=>mp_current_site(), ':s'=>$source, ':m'=>$metric, ':a'=>$from, ':b'=>$to));
     return $st->fetchAll();
 }
 
@@ -383,8 +468,8 @@ function mp_series(string $source, string $metric, string $from, string $to): ar
    a side means "any". */
 function mp_pair_sum(string $metric, string $from, string $to, ?string $dim = null, ?string $dim2 = null): float {
     $sql = "SELECT COALESCE(SUM(value),0) FROM metrics
-            WHERE source='ga4' AND metric=:m AND day BETWEEN :a AND :b";
-    $args = array(':m'=>$metric, ':a'=>$from, ':b'=>$to);
+            WHERE site=:t AND source='ga4' AND metric=:m AND day BETWEEN :a AND :b";
+    $args = array(':t'=>mp_current_site(), ':m'=>$metric, ':a'=>$from, ':b'=>$to);
     if ($dim  !== null && $dim  !== '') { $sql .= " AND dim=:x";  $args[':x'] = $dim; }
     if ($dim2 !== null && $dim2 !== '') { $sql .= " AND dim2=:y"; $args[':y'] = $dim2; }
     $st = mp_db()->prepare($sql); $st->execute($args);
@@ -397,8 +482,8 @@ function mp_pair_top(string $metric, string $from, string $to, string $side = 'd
     $col   = $side === 'dim2' ? 'dim2' : 'dim';
     $other = $side === 'dim2' ? 'dim'  : 'dim2';
     $sql = "SELECT $col dim, SUM(value) v FROM metrics
-            WHERE source='ga4' AND metric=:m AND day BETWEEN :a AND :b AND $col <> ''";
-    $args = array(':m'=>$metric, ':a'=>$from, ':b'=>$to);
+            WHERE site=:t AND source='ga4' AND metric=:m AND day BETWEEN :a AND :b AND $col <> ''";
+    $args = array(':t'=>mp_current_site(), ':m'=>$metric, ':a'=>$from, ':b'=>$to);
     if ($filter !== null && $filter !== '') { $sql .= " AND $other=:f"; $args[':f'] = $filter; }
     $sql .= " GROUP BY $col ORDER BY v DESC LIMIT " . (int)$limit;
     $st = mp_db()->prepare($sql); $st->execute($args);
@@ -406,14 +491,15 @@ function mp_pair_top(string $metric, string $from, string $to, string $side = 'd
 }
 
 function mp_has_data(string $source): bool {
-    $st = mp_db()->prepare("SELECT 1 FROM metrics WHERE source=:s LIMIT 1");
-    $st->execute(array(':s'=>$source));
+    $st = mp_db()->prepare("SELECT 1 FROM metrics WHERE site=:t AND source=:s LIMIT 1");
+    $st->execute(array(':t'=>mp_current_site(), ':s'=>$source));
     return (bool)$st->fetchColumn();
 }
 
 function mp_log_run(string $source, string $status, string $message = ''): void {
-    $st = mp_db()->prepare("INSERT INTO runs (ran_at, source, status, message) VALUES (:t,:s,:st,:m)");
-    $st->execute(array(':t'=>gmdate('c'), ':s'=>$source, ':st'=>$status, ':m'=>mb_substr($message, 0, 500)));
+    $st = mp_db()->prepare("INSERT INTO runs (site, ran_at, source, status, message) VALUES (:site,:t,:s,:st,:m)");
+    $st->execute(array(':site'=>mp_current_site(), ':t'=>gmdate('c'), ':s'=>$source,
+                       ':st'=>$status, ':m'=>mb_substr($message, 0, 500)));
 }
 
 function mp_last_run(string $source): ?array {
@@ -549,4 +635,10 @@ function mp_connectors_status(): array {
    hoisted, so mp_install() above can call mpa_install() even though it is
    defined in a file required after it.
    ------------------------------------------------------------------------ */
+/* The site registry and the migration that made room for it. Required
+   before analytics.php because mpa_site() now asks the registry which
+   property is current instead of deriving one from a setting. */
+require_once __DIR__ . '/sites.php';
+require_once __DIR__ . '/migrate.php';
+
 require_once __DIR__ . '/analytics.php';

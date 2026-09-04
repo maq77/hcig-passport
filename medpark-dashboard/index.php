@@ -106,10 +106,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
         $term = mb_strtolower(trim((string)($_POST['term'] ?? '')));
         $lang = in_array($_POST['lang'] ?? '', array('en','de','pl'), true) ? (string)$_POST['lang'] : 'en';
         if ($term !== '') {
-            $st = mp_db()->prepare("INSERT INTO kw_targets (term,lang,target_pos,landing,note,added_at)
-                                    VALUES (:t,:l,:p,:u,:n,:a)
-                                    ON CONFLICT(term,lang) DO UPDATE SET target_pos=:p, landing=:u, note=:n");
+            $st = mp_db()->prepare("INSERT INTO kw_targets (site,term,lang,target_pos,landing,note,added_at)
+                                    VALUES (:site,:t,:l,:p,:u,:n,:a)
+                                    ON CONFLICT(site,term,lang) DO UPDATE SET target_pos=:p, landing=:u, note=:n");
             $st->execute(array(
+                ':site'=>mp_current_site(),
                 ':t'=>mb_substr($term, 0, 90), ':l'=>$lang,
                 ':p'=>max(1, min(20, (int)($_POST['target_pos'] ?? 1))),
                 ':u'=>mb_substr(trim((string)($_POST['landing'] ?? '')), 0, 160),
@@ -121,8 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
     }
 
     if ($act === 'kw_del') {
-        mp_db()->prepare("DELETE FROM kw_targets WHERE id=:i")
-               ->execute(array(':i'=>(int)($_POST['id'] ?? 0)));
+        mp_db()->prepare("DELETE FROM kw_targets WHERE id=:i AND site=:site")
+               ->execute(array(':i'=>(int)($_POST['id'] ?? 0), ':site'=>mp_current_site()));
         $flash = array('t'=>'ok', 'm'=>'Target removed.');
     }
 
@@ -142,13 +143,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
                           'polski lekarz hurghada', 'dentysta hurghada'),
         );
         $landing = array('en'=>'/', 'de'=>'/de/', 'pl'=>'/pl/');
-        $st = mp_db()->prepare("INSERT INTO kw_targets (term,lang,target_pos,landing,note,added_at)
-                                VALUES (:t,:l,1,:u,'seeded',:a)
-                                ON CONFLICT(term,lang) DO NOTHING");
+        $st = mp_db()->prepare("INSERT INTO kw_targets (site,term,lang,target_pos,landing,note,added_at)
+                                VALUES (:site,:t,:l,1,:u,'seeded',:a)
+                                ON CONFLICT(site,term,lang) DO NOTHING");
         $n = 0;
         foreach ($seed as $lg => $terms) {
             foreach ($terms as $term) {
-                $st->execute(array(':t'=>$term, ':l'=>$lg, ':u'=>$landing[$lg], ':a'=>gmdate('c')));
+                $st->execute(array(':site'=>mp_current_site(), ':t'=>$term, ':l'=>$lg,
+                                   ':u'=>$landing[$lg], ':a'=>gmdate('c')));
                 $n++;
             }
         }
@@ -184,9 +186,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
     }
 
     if ($act === 'ai_add') {
-        $st = mp_db()->prepare("INSERT INTO ai_checks (checked_at,engine,prompt,mentioned,rank_position,cited_url,competitors,notes)
-                                VALUES (:t,:e,:p,:m,:r,:u,:c,:n)");
+        $st = mp_db()->prepare("INSERT INTO ai_checks (site,checked_at,engine,prompt,mentioned,rank_position,cited_url,competitors,notes)
+                                VALUES (:site,:t,:e,:p,:m,:r,:u,:c,:n)");
         $st->execute(array(
+            ':site' => mp_current_site(),
             ':t' => (string)($_POST['checked_at'] ?: gmdate('Y-m-d')),
             ':e' => (string)($_POST['engine'] ?? 'ChatGPT'),
             ':p' => (string)($_POST['prompt'] ?? ''),
@@ -241,6 +244,26 @@ $title = $PAGES[$page][0];
       </span>
     </div>
     <?php
+      /* The property switcher. Hidden while there is only one, so a single-site
+         install looks exactly as it did. The choice is kept in the session, so
+         every link on the page keeps working without carrying the site in its
+         query string. */
+      $allSites = mp_sites();
+      if (count($allSites) > 1):
+        $curSite = mp_current_site();
+    ?>
+      <div class="side__sep">Property</div>
+      <?php foreach ($allSites as $sk => $sv): ?>
+        <a href="?p=<?php echo e($page); ?>&amp;r=<?php echo e($R['preset']); ?>&amp;site=<?php echo e($sk); ?>"
+           class="<?php echo $sk === $curSite ? 'on' : ''; ?>"
+           title="<?php echo e((string)$sv['site_url']); ?>">
+          <?php echo ui_icon($sk === $curSite ? 'dot' : 'globe'); ?>
+          <span><?php echo e((string)$sv['label']); ?></span>
+        </a>
+      <?php endforeach; ?>
+    <?php endif; ?>
+
+    <?php
       $groups = array();
       foreach ($PAGES as $key => $meta) { $groups[$meta[2]][$key] = $meta; }
       foreach ($groups as $groupName => $items): ?>
@@ -257,7 +280,7 @@ $title = $PAGES[$page][0];
     <div class="side__sep">Session</div>
     <a href="logout.php"><?php echo ui_icon('logout'); ?><span>Sign out</span></a>
     <div class="side__foot">Last collection <?php
-      $last = mp_db()->query("SELECT MAX(ran_at) FROM runs")->fetchColumn();
+      $last = mp_q("SELECT MAX(ran_at) FROM runs WHERE site = :site")->fetchColumn();
       echo $last ? e(str_replace('T', ' ', substr((string)$last, 0, 16))) . ' UTC' : 'never';
     ?></div>
   </nav>

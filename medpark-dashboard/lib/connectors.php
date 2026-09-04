@@ -550,7 +550,7 @@ function mp_pull_keywords(string $from, string $to): array {
     $now = gmdate('c');
 
     $st = mp_db()->prepare(
-        "INSERT INTO keywords (seen_at, term, seed, lang, source) VALUES (:t,:k,:s,:l,'suggest')
+        "INSERT INTO keywords (site, seen_at, term, seed, lang, source) VALUES (:site,:t,:k,:s,:l,'suggest')
          ON CONFLICT(term, lang) DO UPDATE SET seen_at = :t"
     );
 
@@ -562,7 +562,8 @@ function mp_pull_keywords(string $from, string $to): array {
             foreach ($out as $sug) {
                 $sug = trim((string)$sug);
                 if ($sug === '' || mb_strlen($sug) > 90) continue;
-                $st->execute(array(':t' => $now, ':k' => $sug, ':s' => $seed, ':l' => $lang));
+                $st->execute(array(':site' => mp_current_site(), ':t' => $now, ':k' => $sug,
+                                   ':s' => $seed, ':l' => $lang));
                 $rows++;
             }
             /* Google is being generous here. Do not abuse it. */
@@ -747,14 +748,17 @@ function mp_pull_behaviour(string $from, string $to): array {
 
     $db = mp_db();
     $db->beginTransaction();
-    $qClick  = $db->prepare("INSERT INTO heat_clicks (day,page,device,gx,gy,hits) VALUES (:d,:p,:v,:x,:y,:h)
-                             ON CONFLICT(day,page,device,gx,gy) DO UPDATE SET hits = hits + :h");
-    $qScroll = $db->prepare("INSERT INTO heat_scroll (day,page,device,bucket,hits) VALUES (:d,:p,:v,:b,1)
-                             ON CONFLICT(day,page,device,bucket) DO UPDATE SET hits = hits + 1");
-    $qTarget = $db->prepare("INSERT INTO heat_targets (day,page,label,hits) VALUES (:d,:p,:l,:h)
-                             ON CONFLICT(day,page,label) DO UPDATE SET hits = hits + :h");
-    $qHour   = $db->prepare("INSERT INTO heat_hours (day,dow,hour,kind,hits) VALUES (:d,:w,:h,'visit',1)
-                             ON CONFLICT(day,dow,hour,kind) DO UPDATE SET hits = hits + 1");
+    /* Every behaviour row now carries the property it belongs to, and the
+       conflict key includes it, so two sites recording a click on the same grid
+       cell of the same path on the same day are two rows rather than one. */
+    $qClick  = $db->prepare("INSERT INTO heat_clicks (site,day,page,device,gx,gy,hits) VALUES (:site,:d,:p,:v,:x,:y,:h)
+                             ON CONFLICT(site,day,page,device,gx,gy) DO UPDATE SET hits = hits + :h");
+    $qScroll = $db->prepare("INSERT INTO heat_scroll (site,day,page,device,bucket,hits) VALUES (:site,:d,:p,:v,:b,1)
+                             ON CONFLICT(site,day,page,device,bucket) DO UPDATE SET hits = hits + 1");
+    $qTarget = $db->prepare("INSERT INTO heat_targets (site,day,page,label,hits) VALUES (:site,:d,:p,:l,:h)
+                             ON CONFLICT(site,day,page,label) DO UPDATE SET hits = hits + :h");
+    $qHour   = $db->prepare("INSERT INTO heat_hours (site,day,dow,hour,kind,hits) VALUES (:site,:d,:w,:h,'visit',1)
+                             ON CONFLICT(site,day,dow,hour,kind) DO UPDATE SET hits = hits + 1");
 
     $rows = 0; $lines = 0; $bad = 0;
     try {
@@ -769,21 +773,23 @@ function mp_pull_behaviour(string $from, string $to): array {
 
             foreach ((is_array($r['c'] ?? null) ? $r['c'] : array()) as $c) {
                 if (!is_array($c) || count($c) < 3) continue;
-                $qClick->execute(array(':d'=>$day, ':p'=>$page, ':v'=>$dev,
+                $qClick->execute(array(':site'=>mp_current_site(), ':d'=>$day, ':p'=>$page, ':v'=>$dev,
                                        ':x'=>(int)$c[0], ':y'=>(int)$c[1], ':h'=>(int)$c[2]));
                 $rows++;
             }
             foreach ((is_array($r['g'] ?? null) ? $r['g'] : array()) as $label => $n) {
-                $qTarget->execute(array(':d'=>$day, ':p'=>$page, ':l'=>(string)$label, ':h'=>(int)$n));
+                $qTarget->execute(array(':site'=>mp_current_site(), ':d'=>$day, ':p'=>$page,
+                                        ':l'=>(string)$label, ':h'=>(int)$n));
                 $rows++;
             }
             if (isset($r['d']) && $r['d'] !== null) {
-                $qScroll->execute(array(':d'=>$day, ':p'=>$page, ':v'=>$dev,
+                $qScroll->execute(array(':site'=>mp_current_site(), ':d'=>$day, ':p'=>$page, ':v'=>$dev,
                                         ':b'=>(int)(floor((int)$r['d'] / 10) * 10)));
                 $rows++;
             }
             if (isset($r['w'], $r['h']) && $r['w'] !== null && $r['h'] !== null) {
-                $qHour->execute(array(':d'=>$day, ':w'=>(int)$r['w'], ':h'=>(int)$r['h']));
+                $qHour->execute(array(':site'=>mp_current_site(), ':d'=>$day,
+                                      ':w'=>(int)$r['w'], ':h'=>(int)$r['h']));
                 $rows++;
             }
         }

@@ -67,7 +67,7 @@ arsort($byArea);
     <thead><tr><th>When</th><th>Source</th><th>Result</th><th>Detail</th></tr></thead>
     <tbody>
     <?php
-      $runs = mp_db()->query("SELECT * FROM runs ORDER BY id DESC LIMIT 25")->fetchAll();
+      $runs = mp_q("SELECT * FROM runs WHERE site = :site ORDER BY id DESC LIMIT 25")->fetchAll();
       if (!$runs) { echo '<tr><td colspan="4" style="color:var(--ink-3)">No collection has run yet. Press Refresh data.</td></tr>'; }
       foreach ($runs as $r) {
         echo '<tr><td>' . e(str_replace('T', ' ', substr((string)$r['ran_at'], 0, 16))) . '</td>'
