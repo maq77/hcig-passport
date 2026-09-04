@@ -15,7 +15,7 @@ define('MP_SECRETS',  MP_DATA_DIR . '/secrets.php');
 define('MP_DB',       MP_DATA_DIR . '/metrics.sqlite');
 define('MP_VERSION',  '1.1');
 /* Bump this whenever mp_install() changes, so the schema is reapplied once. */
-define('MP_SCHEMA',   '8');   /* 6 = multi-site; 7 = the partner registry.
+define('MP_SCHEMA',   '9');   /* 6 = multi-site; 7 = the partner registry.
                                   Bump this whenever a table or column is added:
                                   mp_install() only runs when the stamp changes, so a
                                   new table silently never appears on an existing
@@ -84,6 +84,10 @@ function mp_default_settings(): array {
         'chat_enabled'       => '1',
         'chat_model'         => 'claude-sonnet-5',
         'staff_email'        => 'info@medparkhospitals.com',
+        /* One per line: listing name | write-a-review link, taken from that
+           listing's Business Profile. Never guessed: a wrong link sends a
+           patient to review the wrong hospital. */
+        'review_links'       => '',
         'staff_alert_email'  => '',
         'chat_whatsapp'      => '201222710888',
         'chat_phone'         => '+201222710888',
@@ -385,6 +389,8 @@ function mp_install(PDO $db): void {
     if (function_exists('mp_partners_install')) mp_partners_install($db);
     /* Alerts: the failures nobody reports. See lib/alerts.php. */
     if (function_exists('mp_alerts_install')) mp_alerts_install($db);
+    /* Satisfaction: reply time, ratings, what people ask. See lib/satisfaction.php. */
+    if (function_exists('mp_satisfaction_install')) mp_satisfaction_install($db);
 
     /* Our own analytics keeps its tables in the same database, so traffic can
        be reported next to calls and search rather than in a separate silo. */
@@ -650,6 +656,7 @@ function mp_connectors_status(): array {
 require_once __DIR__ . '/sites.php';
 require_once __DIR__ . '/partners.php';
 require_once __DIR__ . '/alerts.php';
+require_once __DIR__ . '/satisfaction.php';
 require_once __DIR__ . '/migrate.php';
 
 require_once __DIR__ . '/analytics.php';

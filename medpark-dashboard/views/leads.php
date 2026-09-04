@@ -30,8 +30,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'
     $to  = (string)($_POST['status'] ?? '');
     $id  = (int)($_POST['id'] ?? 0);
     if ($id > 0 && in_array($to, $allowed, true)) {
-        mp_db()->prepare("UPDATE chat_leads SET status = :s WHERE id = :i AND site = :site")
-               ->execute(array(':s' => $to, ':i' => $id, ':site' => mp_current_site()));
+        /* status_at is what makes "how long did somebody wait" answerable at
+           all. Set on the first move away from new, and left alone after that,
+           so it records the first response rather than the last edit. */
+        mp_db()->prepare(
+            "UPDATE chat_leads SET status = :s,
+                    status_at = CASE WHEN status_at = '' THEN :now ELSE status_at END
+             WHERE id = :i AND site = :site")
+               ->execute(array(':s' => $to, ':now' => gmdate('c'),
+                               ':i' => $id, ':site' => mp_current_site()));
         $leadFlash = 'Request #' . $id . ' marked ' . $to . '.';
     }
 }

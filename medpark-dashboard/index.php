@@ -47,12 +47,14 @@ $R = mp_range($rangeKey);
 
 /* label, icon, group */
 $PAGES = array(
+    'group'       => array('All properties',     'globe',    'Report'),
     'ceo'         => array('Summary',             'gauge',    'Report'),
     'overview'    => array('All numbers',         'pulse',    'Report'),
     'kpi'         => array('KPIs and targets',    'target',   'Report'),
     'conversions' => array('Enquiries',           'phone',    'Report'),
     'leads'       => array('Appointment requests','inbox',    'Report'),
     'partners'    => array('Partners',            'users',    'Channels'),
+    'satisfaction'=> array('Satisfaction',        'sparkles', 'Channels'),
     'traffic'     => array('Audience',            'users',    'Report'),
     'whatsapp'    => array('WhatsApp',            'bubble',   'Channels'),
     'chat'        => array('Assistant',           'chat',     'Channels'),
@@ -92,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
                       'ai_brand_terms','ai_competitors','anthropic_api_key','perplexity_api_key','gemini_api_key','chat_model',
                       'staff_email','staff_alert_email','chat_enabled','competitors',
                       'competitor_sites','primary_market',
-                      'maxmind_account','maxmind_key','analytics_on',
+                      'maxmind_account','maxmind_key','analytics_on','review_links',
                       'analytics_retain','consent_banner_on');
         $patch = array();
         foreach ($keys as $k) { if (isset($_POST[$k])) $patch[$k] = trim((string)$_POST[$k]); }
@@ -186,6 +188,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && mp_csrf_ok($_POST['csrf'] ?? null))
     /* ---- run the AI visibility checks -----------------------------------
        Only the engines with an API that searches the web can be driven this
        way. The rest stay a monthly human check and the page says which. */
+    /* ---- satisfaction ------------------------------------------------ */
+    if ($act === 'rating_add') {
+        $ok = mp_rating_save(
+            (string)($_POST['listing'] ?? ''),
+            (float)($_POST['rating'] ?? 0),
+            (int)($_POST['reviews'] ?? 0),
+            (string)($_POST['note'] ?? '')
+        );
+        $flash = $ok
+            ? array('t'=>'ok', 'm'=>'Recorded. Record it again next month and the change appears as a trend.')
+            : array('t'=>'bad', 'm'=>'A listing name and a rating between 1 and 5 are needed. Nothing was recorded.');
+    }
+
     /* ---- partners --------------------------------------------------- */
     if ($act === 'partner_save') {
         $ok = mp_partner_save(array(

@@ -225,6 +225,17 @@ if ($saGiven) {
   </div>
 
   <div class="card">
+    <h3>Asking for reviews</h3>
+    <div class="field">
+      <label>Review links</label>
+      <p class="hint">One per line, as <code>Listing name | link</code>. Each listing has its own
+        "write a review" link inside its Google Business Profile. They are never guessed here,
+        because a wrong link sends a patient to review the wrong hospital.</p>
+      <textarea name="review_links" rows="3" placeholder="MedPark Health Hub, Hurghada | https://..."><?php echo e(mp_get('review_links')); ?></textarea>
+    </div>
+  </div>
+
+  <div class="card">
     <h3>AI visibility checks</h3>
     <p class="hint" style="margin:0 0 12px;max-width:75ch">A key here lets the AI visibility page run
       its prompts by itself and record the answers. Only engines whose API actually searches the web
