@@ -52,10 +52,15 @@ $PAGES = array(
     'overview'    => array('All numbers',         'pulse',    'Report'),
     'kpi'         => array('KPIs and targets',    'target',   'Report'),
     'conversions' => array('Enquiries',           'phone',    'Report'),
-    'leads'       => array('Appointment requests','inbox',    'Report'),
-    'partners'    => array('Partners',            'users',    'Channels'),
-    'satisfaction'=> array('Satisfaction',        'sparkles', 'Channels'),
     'traffic'     => array('Audience',            'users',    'Report'),
+
+    /* The people, rather than the numbers about them. Satisfaction is not a
+       channel and reads wrong filed as one: for a hospital these two belong
+       together and near the top. */
+    'leads'       => array('Appointment requests','inbox',    'Patients'),
+    'satisfaction'=> array('Satisfaction',        'sparkles', 'Patients'),
+
+    'partners'    => array('Partners',            'users',    'Channels'),
     'whatsapp'    => array('WhatsApp',            'bubble',   'Channels'),
     'chat'        => array('Assistant',           'chat',     'Channels'),
     'seo'         => array('Search',              'search',   'Channels'),
