@@ -264,13 +264,16 @@ const COMPANIES = [
         detail: [
           'Approved by Irina on 2026-09-08. The URL structure, the page plan and the one template approach all stand.',
           'Three clinics first: Steigenberger Ras Soma, Amwaj Beach Club Abu Soma, Premier Le Rêve Sahl Hasheesh.',
-          'Design system and three working demo pages are built. Photography is the clinic’s own, pulled from their films.',
-          'Premier Le Rêve is complete. The other two carry a marked question on every fact still waiting on Irina.',
+          'The pages carry no review notes. They read exactly as they will read on 247clinic.net.',
+          'Built from their own material: their vector logo, their films, their campaign posters, their published guest reviews and their own title language.',
+          'Guest story films, a poster carousel, a Google map, a walking plan that draws itself, and the network of 28 hotels.',
+          'Every open question lives in one document instead, linked above.',
         ],
         checklist: [
           { text: 'Approve the URL structure and page plan', done: true, who: 'Irina' },
           { text: 'Build the design system and the three demo pages', done: true, who: 'Us' },
           { text: 'Review the UI kit and the three demos', done: false, who: 'Irina' },
+          { text: 'Confirm the published guest reviews may be reused on the landing pages', done: false, who: 'Irina' },
           { text: 'Settle the phone number: the site says 122 112 2246, the films say 122 222 8247', done: false, who: 'Irina' },
           { text: 'Replace the placeholder WhatsApp number shared by every clinic', done: false, who: 'Irina' },
           { text: 'Confirm whether "Steigenberger soma bay" is the same property as Ras Soma', done: false, who: 'Irina' },
@@ -285,22 +288,23 @@ const COMPANIES = [
             items: [
               { slug: 'proposal', name: 'Proposal', kind: 'html', src: 'docs/247clinic-landing-pages-proposal.html', status: 'approved', note: 'The short version, for reading' },
               { slug: 'plan', name: 'Full plan, all seven answers', kind: 'md', src: 'docs/247clinic-hotel-landing-pages-plan.md', status: 'approved', note: 'URLs, keywords, wireframe, SEO, tracking' },
+              { slug: 'open-items', name: 'What is still open', kind: 'md', src: 'docs/247clinic-open-items.md', status: 'review', note: 'Every note kept off the pages, with the evidence' },
             ],
           },
           {
             name: 'UI kit',
             note: 'Design system, components, page blocks.',
             items: [
-              { slug: 'ui-kit', name: 'Landing page kit', kind: 'page', src: '247-ui-kit.html', status: 'review', note: 'Colour, type, 15 icons, 11 components, page anatomy, tracking' },
+              { slug: 'ui-kit', name: 'Landing page kit', kind: 'page', src: '247-ui-kit.html', status: 'review', note: 'Colour, type, 15 icons, 15 components, page anatomy, tracking' },
             ],
           },
           {
             name: 'Live demo',
             note: 'Three working pages from one template. Open them on a phone.',
             items: [
-              { slug: 'le-reve', name: 'Premier Le Rêve, Sahl Hasheesh', kind: 'page', src: '247-lp-le-reve.html', status: 'review', note: 'Complete. Own photographs, verified walking route, dental room' },
-              { slug: 'steigenberger', name: 'Steigenberger Ras Soma, Soma Bay', kind: 'page', src: '247-lp-steigenberger.html', status: 'review', note: 'Waiting on location, hours and photographs' },
-              { slug: 'amwaj', name: 'Amwaj Beach Club, Abu Soma', kind: 'page', src: '247-lp-amwaj.html', status: 'review', note: 'Waiting on location, hours and photographs' },
+              { slug: 'le-reve', name: 'Premier Le Rêve, Sahl Hasheesh', kind: 'page', src: '247-lp-le-reve.html', status: 'review', note: 'The full page. Own film, walking route, map, dental room' },
+              { slug: 'steigenberger', name: 'Steigenberger Ras Soma, Soma Bay', kind: 'page', src: '247-lp-steigenberger.html', status: 'review', note: 'Same template, Soma Bay content' },
+              { slug: 'amwaj', name: 'Amwaj Beach Club, Abu Soma', kind: 'page', src: '247-lp-amwaj.html', status: 'review', note: 'Same template, Abu Soma content' },
             ],
           },
         ],

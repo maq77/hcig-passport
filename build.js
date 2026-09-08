@@ -68,6 +68,25 @@ const ASSETS = {
   C7TEAM: 'c7-team.webp',
   C7RESPONSE: 'c7-response.webp',
 
+  /* Their own vector logo and their own campaign creatives, taken from
+     247clinic.net and from the films they publish. */
+  C7LOGO: 'c7-logo.svg',
+  C7LOGOW: 'c7-logo-white.svg',
+  C7FILM: 'c7-film.mp4',
+  C7FILMPOSTER: 'c7-film-poster.jpg',
+  C7WALK: 'c7-walk.mp4',
+  C7WALKPOSTER: 'c7-walk-poster.jpg',
+  C7POSHEALTH: 'c7-pos-health.webp',
+  C7POSSMILE: 'c7-pos-smile.webp',
+  C7POSDENTALSAHL: 'c7-pos-dental-sahl.webp',
+  C7POSTEAM: 'c7-pos-team.webp',
+  C7POSFIND: 'c7-pos-find.webp',
+  C7POSDENTALHUR: 'c7-pos-dental-hur.webp',
+  C7STORYDENTAL: 'c7-story-dental.mp4',
+  C7STORYDENTALP: 'c7-story-dental-poster.jpg',
+  C7STORYIV: 'c7-story-iv.mp4',
+  C7STORYIVP: 'c7-story-iv-poster.jpg',
+
   LOGOHCIG: 'logo-hcig.jpg',
   LOGO247: 'logo-247.png',
   LOGOMP: 'logo-medpark.webp',

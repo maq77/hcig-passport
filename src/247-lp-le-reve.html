@@ -1,74 +1,69 @@
-<title>Doctor at Premier Le Rêve | 24/7 Clinic Sahl Hasheesh · Demo</title>
+<title>Doctor in Sahl Hasheesh | 24/7 Clinic at Premier Le Rêve</title>
+<meta name="description" content="Need a doctor, a dentist or emergency care in Sahl Hasheesh? 24/7 Urgent Care Clinic in the grounds of Premier Le Rêve. Open 24 hours, English speaking doctors, hospital referral. Call or WhatsApp now.">
+<link rel="canonical" href="https://www.247clinic.net/sahl-hasheesh/premier-le-reve-clinic">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
 <style>
 :root{
   --red:#C00000; --red-d:#960000; --red-t:#FCEDED; --red-l:#F0C9C9;
-  --wa:#1FA855; --wa-d:#177F41; --wa-t:#E7F6ED;
   --ink:#131110; --ink2:#4C4643; --ink3:#7B736E;
   --pg:#FFFFFF; --pg2:#F8F6F3; --pg3:#F0ECE7;
   --line:#E4DED7; --line2:#CFC6BC;
-  --ok:#1C7A47;
   --sh:0 1px 2px rgba(19,17,16,.05),0 12px 28px -18px rgba(19,17,16,.35);
   --f:"Poppins","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
-  --ftag:"Calisto MT",Georgia,"Times New Roman",serif;
   --r:14px;
   /* Filled buttons keep one colour in both themes. A button is a solid shape,
-     not text on the page ground, and lifting the red to a dark-mode salmon
-     dropped white-on-red from 6.5:1 to 2.8:1. */
+     not text on the page ground, and lifting the red for dark mode dropped
+     white on red from 6.5:1 to 2.8:1. */
   --btn:#C00000; --btn-d:#960000; --btn-wa:#1FA855; --btn-wa-d:#177F41;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --red:#FF5A5A; --red-d:#FF7B7B; --red-t:#2C1414; --red-l:#5A2323;
-  --wa:#35C46F; --wa-d:#4FD684; --wa-t:#12291D;
   --ink:#F4EFEA; --ink2:#BDB4AC; --ink3:#8E857D;
   --pg:#141210; --pg2:#1C1917; --pg3:#26221F;
   --line:#312B27; --line2:#463E38;
-  --ok:#4BC183;
   --sh:0 1px 2px rgba(0,0,0,.5),0 12px 28px -18px rgba(0,0,0,.9);
 }}
 :root[data-theme="dark"]{
   --red:#FF5A5A; --red-d:#FF7B7B; --red-t:#2C1414; --red-l:#5A2323;
-  --wa:#35C46F; --wa-d:#4FD684; --wa-t:#12291D;
   --ink:#F4EFEA; --ink2:#BDB4AC; --ink3:#8E857D;
   --pg:#141210; --pg2:#1C1917; --pg3:#26221F;
   --line:#312B27; --line2:#463E38;
-  --ok:#4BC183;
   --sh:0 1px 2px rgba(0,0,0,.5),0 12px 28px -18px rgba(0,0,0,.9);
 }
 
 *{box-sizing:border-box}
 body{margin:0;background:var(--pg);color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
 h1,h2,h3{margin:0;line-height:1.14;letter-spacing:-.022em;text-wrap:balance}
-p{margin:0}
+p,blockquote,figure{margin:0}
 img{display:block;max-width:100%}
 svg{display:block}
 a{color:inherit}
+button{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:4px}
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
-
-/* one icon rule, everywhere */
+a,button,summary{touch-action:manipulation}
 .ico{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--btn);color:#fff;padding:11px 16px;border-radius:0 0 10px 0;font-weight:600;text-decoration:none}
+.skip:focus{left:0}
 
 .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
 @media(min-width:760px){.wrap{padding:0 28px}}
 
-/* ---------- top bar: logo left, one red CALL right, always ---------- */
+/* ---------- top bar ---------- */
 .top{position:sticky;top:0;z-index:70;background:var(--pg);border-bottom:1px solid var(--line)}
-.top-in{max-width:1080px;margin:0 auto;padding:9px 18px;display:flex;align-items:center;gap:12px}
-@media(min-width:760px){.top-in{padding:11px 28px}}
-.top img{height:34px;width:auto}
-@media(min-width:760px){.top img{height:40px}}
-.top .tag{font-family:var(--ftag);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);display:none}
-@media(min-width:620px){.top .tag{display:block}}
+.top-in{max-width:1080px;margin:0 auto;padding:8px 18px;display:flex;align-items:center;gap:12px}
+@media(min-width:760px){.top-in{padding:10px 28px}}
+.top .brand{display:flex;align-items:center;text-decoration:none}
+.top .brand img{height:44px;width:auto}
+@media(min-width:760px){.top .brand img{height:54px}}
 .top .sp{flex:1}
-.top .call{display:inline-flex;align-items:center;gap:7px;background:var(--btn);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:9px 15px;border-radius:999px;white-space:nowrap}
+.top .call{display:inline-flex;align-items:center;gap:7px;background:var(--btn);color:#fff;text-decoration:none;font-weight:600;font-size:14.5px;padding:10px 16px;border-radius:999px;white-space:nowrap}
 .top .call .ico{width:17px;height:17px}
 .top .call:hover{background:var(--btn-d)}
 
-/* ---------- hero: the phone number is above the fold, always ---------- */
+/* ---------- hero ---------- */
 .hero{position:relative;background:var(--pg3);overflow:hidden}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,10,9,.5) 0%,rgba(12,10,9,.64) 52%,rgba(12,10,9,.84) 100%)}
@@ -77,17 +72,18 @@ html{scroll-behavior:smooth}
 .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:5px 11px;border-radius:999px}
 .eyebrow .ico{width:14px;height:14px}
 h1{font-size:clamp(30px,7.4vw,52px);font-weight:700;letter-spacing:-.035em;margin-top:16px;color:#fff}
-.stand{margin-top:12px;font-size:clamp(15px,2.1vw,18px);color:rgba(255,255,255,.9);max-width:34ch}
+.stand{margin-top:12px;font-size:clamp(15px,2.1vw,18px);color:rgba(255,255,255,.9);max-width:40ch}
 
 .acts{display:grid;gap:9px;margin-top:22px;max-width:420px}
-.act{display:flex;align-items:center;justify-content:center;gap:9px;min-height:56px;border-radius:12px;text-decoration:none;font-weight:600;font-size:17px;letter-spacing:-.01em}
+.act{display:flex;align-items:center;justify-content:center;gap:9px;min-height:56px;border-radius:12px;text-decoration:none;font-weight:600;font-size:17px;letter-spacing:-.01em;border:0;cursor:pointer;transition:background .18s ease-out,transform .12s ease-out}
+.act:active{transform:scale(.985)}
 .act .ico{width:21px;height:21px}
 .act-call{background:var(--btn);color:#fff}
 .act-call:hover{background:var(--btn-d)}
 .act-wa{background:var(--btn-wa);color:#fff}
 .act-wa:hover{background:var(--btn-wa-d)}
 .act-map{background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.55)}
-.act-map:hover{background:rgba(255,255,255,.2)}
+.act-map:hover{background:rgba(255,255,255,.22)}
 .act .num{font-weight:500;opacity:.85;font-size:14px}
 @media(min-width:620px){.acts{grid-template-columns:1fr 1fr;max-width:640px}.act-call{grid-column:1/-1}}
 
@@ -95,31 +91,50 @@ h1{font-size:clamp(30px,7.4vw,52px);font-weight:700;letter-spacing:-.035em;margi
 .trust span{display:inline-flex;align-items:center;gap:6px}
 .trust .ico{width:15px;height:15px;stroke-width:2.4}
 
-/* ---------- the free check band, their own published offer ---------- */
+/* ---------- offer band ---------- */
 .offer{background:var(--btn);color:#fff}
 .offer-in{max-width:1080px;margin:0 auto;padding:16px 18px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
 @media(min-width:760px){.offer-in{padding:18px 28px}}
 .offer b{font-size:17px;font-weight:700;letter-spacing:-.02em}
 .offer span{font-size:14.5px;color:rgba(255,255,255,.92)}
 
+/* ---------- proof strip ---------- */
+.proof{background:var(--pg2);border-bottom:1px solid var(--line)}
+.proof-in{max-width:1080px;margin:0 auto;padding:14px 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(min-width:760px){.proof-in{padding:16px 28px;gap:20px}}
+.proof div{text-align:center}
+.proof .n{font-size:19px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+@media(min-width:760px){.proof .n{font-size:23px}}
+.proof .l{font-size:11.5px;color:var(--ink3);margin-top:2px;line-height:1.35}
+
 /* ---------- sections ---------- */
-section{padding:38px 0;scroll-margin-top:58px}
+section{padding:38px 0;scroll-margin-top:60px}
 @media(min-width:760px){section{padding:54px 0}}
-section.alt{background:var(--pg2);border-block:1px solid var(--line)}
+main>section:nth-of-type(even){background:var(--pg2);border-block:1px solid var(--line)}
 .kicker{font-size:11.5px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--red)}
 h2{font-size:clamp(23px,4vw,33px);font-weight:700;margin-top:9px}
 .note{margin-top:9px;color:var(--ink2);max-width:60ch;font-size:15.5px}
 
 /* ---------- how to find us ---------- */
 .find{display:grid;gap:22px;margin-top:24px;align-items:start}
-@media(min-width:860px){.find{grid-template-columns:1.05fr .95fr;gap:34px;align-items:start}}
-ol.steps{list-style:none;margin:0;padding:0;counter-reset:s}
-ol.steps li{counter-increment:s;position:relative;padding:0 0 18px 46px;font-size:16px}
-ol.steps li:before{content:counter(s);position:absolute;left:0;top:-1px;width:31px;height:31px;border-radius:50%;background:var(--btn);color:#fff;font-size:14px;font-weight:700;display:grid;place-items:center}
-ol.steps li:not(:last-child):after{content:"";position:absolute;left:15px;top:34px;bottom:4px;width:1.5px;background:var(--line2)}
-.findshot{margin:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh)}
-.findshot img{width:100%;aspect-ratio:3/2;height:auto;object-fit:cover}
-.findshot figcaption{padding:10px 13px;font-size:13px;color:var(--ink3);background:var(--pg)}
+@media(min-width:900px){.find{grid-template-columns:1fr 1fr;gap:32px}}
+ol.steps{list-style:none;margin:0 0 20px;padding:0;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 20px 48px;font-size:16px}
+ol.steps li:before{content:counter(s);position:absolute;left:0;top:-1px;width:32px;height:32px;border-radius:50%;background:var(--btn);color:#fff;font-size:14px;font-weight:700;display:grid;place-items:center}
+ol.steps li:not(:last-child):after{content:"";position:absolute;left:15.5px;top:36px;bottom:4px;width:1.5px;background:var(--line2)}
+ol.steps b{display:block;font-weight:600}
+ol.steps em{display:block;font-style:normal;margin-top:2px;font-size:14.5px;color:var(--ink2)}
+@media (prefers-reduced-motion:no-preference){
+  ol.steps li{opacity:0;transform:translateY(8px)}
+  ol.steps.in li{opacity:1;transform:none;transition:opacity .32s ease-out,transform .32s ease-out}
+  ol.steps.in li:nth-child(2){transition-delay:.09s}
+  ol.steps.in li:nth-child(3){transition-delay:.18s}
+}
+
+.mapbtn{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:var(--pg);text-decoration:none;font-weight:600;font-size:15.5px;padding:14px 20px;border-radius:11px}
+.mapbtn .ico{width:19px;height:19px}
+.mapbtn:hover{opacity:.88}
+
 .route-svg{width:100%;height:auto;border-radius:var(--r);border:1px solid var(--line);background:var(--pg);font-family:var(--f)}
 .route-svg .rs-box{fill:var(--pg3);stroke:var(--line2);stroke-width:1.5}
 .route-svg .rs-clinic{fill:var(--red-t);stroke:var(--red);stroke-width:2}
@@ -134,10 +149,33 @@ ol.steps li:not(:last-child):after{content:"";position:absolute;left:15px;top:34
 .route-svg .tr{font-size:18px;font-weight:600;fill:var(--red)}
 .route-svg .tc{font-size:27px;font-weight:700;fill:var(--red)}
 .route-svg .tc2{font-size:19px;fill:var(--ink2)}
+/* The walk draws itself once, when it scrolls into view. */
+@media (prefers-reduced-motion:no-preference){
+  .route-svg .rs-walk{stroke-dasharray:340;stroke-dashoffset:340}
+  .route-svg .rs-head,.route-svg .tr{opacity:0}
+  .route-svg.in .rs-walk{animation:draw 1.1s ease-out forwards}
+  .route-svg.in .rs-head{animation:pop .3s ease-out .95s forwards}
+  .route-svg.in .tr{animation:pop .3s ease-out .6s forwards}
+  @keyframes draw{from{stroke-dasharray:340;stroke-dashoffset:340}to{stroke-dasharray:10 8;stroke-dashoffset:0}}
+  @keyframes pop{to{opacity:1}}
+}
 
-.mapbtn{display:inline-flex;align-items:center;gap:9px;margin-top:4px;background:var(--ink);color:var(--pg);text-decoration:none;font-weight:600;font-size:15.5px;padding:13px 19px;border-radius:11px}
-.mapbtn .ico{width:19px;height:19px}
-.mapbtn:hover{opacity:.88}
+.mapbox{margin-top:16px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--pg2)}
+.mapbox iframe{display:block;width:100%;height:280px;border:0}
+@media(min-width:900px){.mapbox iframe{height:320px}}
+.mapbox img{width:100%;aspect-ratio:3/2;height:auto;object-fit:cover}
+.mapbox figcaption{padding:10px 14px;font-size:13px;color:var(--ink3);border-top:1px solid var(--line)}
+
+/* ---------- video ---------- */
+.vid{margin-top:16px;position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:#0b0a09}
+.vid video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:#0b0a09}
+.vid.portrait video{aspect-ratio:3/4;object-fit:cover}
+.vid .play{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(180deg,rgba(10,9,8,.12),rgba(10,9,8,.5));border:0;width:100%;cursor:pointer;color:#fff}
+.vid .play .disc{width:74px;height:74px;border-radius:50%;background:var(--btn);display:grid;place-items:center;box-shadow:0 10px 30px -8px rgba(0,0,0,.7);transition:transform .18s ease-out}
+.vid .play:hover .disc{transform:scale(1.06)}
+.vid .play .disc svg{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:1.7;stroke-linejoin:round}
+.vid .play .lbl{position:absolute;left:0;right:0;bottom:16px;text-align:center;font-weight:600;font-size:15px;text-shadow:0 2px 10px rgba(0,0,0,.75);padding:0 16px}
+.vid.playing .play{display:none}
 
 /* ---------- services ---------- */
 .svcs{display:grid;gap:1px;margin-top:26px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
@@ -156,6 +194,52 @@ ul.ticks{list-style:none;margin:0;padding:0;display:grid;gap:9px}
 ul.ticks li{display:flex;gap:10px;align-items:flex-start;font-size:15.5px}
 ul.ticks .ico{width:18px;height:18px;margin-top:3px;color:var(--red);stroke-width:2.4}
 
+/* ---------- poster carousel ---------- */
+.car{margin-top:24px}
+.car-track{display:grid;grid-auto-flow:column;grid-auto-columns:78%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.car-track::-webkit-scrollbar{display:none}
+@media(min-width:620px){.car-track{grid-auto-columns:44%}}
+@media(min-width:960px){.car-track{grid-auto-columns:29%}}
+.car figure{scroll-snap-align:center;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--pg)}
+.car img{width:100%;aspect-ratio:3/4;height:auto;object-fit:cover}
+.car figcaption{padding:12px 14px}
+.car figcaption b{display:block;font-size:15px;font-weight:600}
+.car figcaption span{display:block;margin-top:3px;font-size:13.5px;color:var(--ink3);line-height:1.4}
+.car-nav{display:flex;align-items:center;gap:10px;margin-top:14px}
+.car-nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);background:var(--pg);display:grid;place-items:center;cursor:pointer;color:var(--ink)}
+.car-nav button:hover{border-color:var(--red);color:var(--red)}
+.car-nav button[disabled]{opacity:.35;cursor:default}
+.car-nav button[disabled]:hover{border-color:var(--line2);color:var(--ink)}
+.car-dots{display:flex;gap:6px;margin-left:4px}
+.car-dots i{width:7px;height:7px;border-radius:50%;background:var(--line2);transition:background .2s,width .2s}
+.car-dots i.on{background:var(--red);width:20px;border-radius:4px}
+
+/* ---------- guest stories ---------- */
+.stories{display:grid;gap:18px;margin-top:26px}
+@media(min-width:820px){.stories{grid-template-columns:1.35fr 1fr;align-items:start}}
+.story .vid{margin-top:0}
+.story .cap{margin-top:11px}
+.story .cap b{display:block;font-size:16px;font-weight:600}
+.story .cap span{display:block;margin-top:3px;font-size:14px;color:var(--ink2);line-height:1.5}
+
+/* ---------- verified chip ---------- */
+.vchip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--red);background:var(--red-t);border:1px solid var(--red-l);padding:5px 10px;border-radius:999px}
+.vchip .ico{width:13px;height:13px;stroke-width:2.6}
+
+/* ---------- network of hotels ---------- */
+.areas{display:grid;gap:14px;margin-top:26px}
+@media(min-width:720px){.areas{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.areas{grid-template-columns:repeat(3,1fr)}}
+.area{background:var(--pg);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.area.here{border-color:var(--red);box-shadow:0 0 0 1px var(--red)}
+.area h3{font-size:15.5px;font-weight:600;display:flex;align-items:center;gap:8px}
+.area h3 .here-tag{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--btn);padding:3px 7px;border-radius:5px}
+.area ul{list-style:none;margin:11px 0 0;padding:0;display:grid;gap:6px}
+.area li{font-size:14.5px;color:var(--ink2);display:flex;gap:8px;align-items:flex-start}
+.area li:before{content:"";width:5px;height:5px;border-radius:50%;background:var(--line2);margin-top:9px;flex:none}
+.area li.self{color:var(--ink);font-weight:600}
+.area li.self:before{background:var(--red)}
+
 /* ---------- guests ---------- */
 .cards{display:grid;gap:14px;margin-top:24px}
 @media(min-width:720px){.cards{grid-template-columns:repeat(3,1fr)}}
@@ -164,13 +248,23 @@ ul.ticks .ico{width:18px;height:18px;margin-top:3px;color:var(--red);stroke-widt
 .card h3{font-size:16.5px;font-weight:600;margin-top:13px}
 .card p{margin-top:6px;font-size:14.5px;color:var(--ink2);line-height:1.5}
 
-/* ---------- gallery ---------- */
-.gal{display:grid;gap:10px;margin-top:24px;grid-template-columns:1fr 1fr}
-@media(min-width:760px){.gal{grid-template-columns:repeat(3,1fr);gap:14px}}
-.gal figure{margin:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--pg)}
-.gal img{width:100%;aspect-ratio:4/3;height:auto;object-fit:cover}
-.gal figcaption{padding:9px 12px;font-size:12.5px;color:var(--ink3);line-height:1.4}
-.galnote{margin-top:14px;font-size:13.5px;color:var(--ink3)}
+/* ---------- reviews ---------- */
+.revs{display:grid;gap:14px;margin-top:26px}
+@media(min-width:720px){.revs{grid-template-columns:repeat(2,1fr)}}
+.rev-card{background:var(--pg);border:1px solid var(--line);border-radius:var(--r);padding:19px 18px;display:flex;flex-direction:column}
+.rev-card .q{font-size:17px;line-height:1.45;letter-spacing:-.012em}
+.rev-card .t{margin-top:9px;font-size:14px;color:var(--ink2);line-height:1.5}
+.rev-card .t b{font-weight:500;color:var(--ink3);font-size:11px;letter-spacing:.11em;text-transform:uppercase;display:block;margin-bottom:2px}
+.rev-card .who{margin-top:auto;padding-top:15px;display:flex;align-items:center;gap:11px}
+.rev-card .av{width:38px;height:38px;border-radius:50%;background:var(--red-t);color:var(--red);display:grid;place-items:center;font-weight:700;font-size:14px;flex:none}
+.rev-card .nm{display:block;font-size:14.5px;font-weight:600;line-height:1.3}
+.rev-card .cn{display:block;font-size:12.5px;color:var(--ink3);line-height:1.3}
+
+/* ---------- hospital block ---------- */
+.hosp{display:grid;gap:16px;margin-top:26px;padding-top:26px;border-top:1px solid var(--line);align-items:start}
+@media(min-width:820px){.hosp{grid-template-columns:auto 1fr;gap:22px;align-items:center}}
+.hosp .i{width:58px;height:58px;border-radius:15px;background:var(--red-t);color:var(--red);display:grid;place-items:center}
+.hosp .i .ico{width:30px;height:30px}
 
 /* ---------- hours and contact ---------- */
 .contact{display:grid;gap:14px;margin-top:24px}
@@ -200,11 +294,11 @@ footer h3{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:u
 footer ul{list-style:none;margin:11px 0 0;padding:0;display:grid;gap:8px}
 footer a{font-size:15px;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line2);padding-bottom:1px}
 footer a:hover{color:var(--red);border-color:var(--red)}
-footer img{height:44px;width:auto}
+footer img{height:60px;width:auto}
 .fnote{margin-top:12px;font-size:13.5px;color:var(--ink3);max-width:38ch}
 .fbase{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:6px 18px}
 
-/* ---------- sticky bottom bar, phones only ---------- */
+/* ---------- sticky dock ---------- */
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:2147483001;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:9px 12px calc(9px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--pg) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
 .dock a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:11px;text-decoration:none;font-weight:600;font-size:16px;color:#fff}
 .dock .ico{width:19px;height:19px}
@@ -212,28 +306,14 @@ footer img{height:44px;width:auto}
 .dock .d-wa{background:var(--btn-wa)}
 @media(min-width:760px){.dock{display:none}}
 
-/* ---------- unconfirmed content ---------- */
-.tbc{cursor:help;text-decoration:underline dotted;text-decoration-color:var(--red);text-decoration-thickness:2px;text-underline-offset:4px}
-.tbc:after{content:"?";font-size:10px;font-weight:700;color:var(--red);vertical-align:super;margin-left:2px;text-decoration:none;display:inline-block}
-.hero .tbc,.offer .tbc{text-decoration-color:rgba(255,255,255,.85)}
-.hero .tbc:after,.offer .tbc:after{color:#fff}
-
-/* ---------- the review panel, not part of the page ---------- */
-.rev{background:var(--ink);color:#fff;padding:34px 0 40px}
-.rev .wrap{max-width:900px}
-.rev .lab{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:var(--btn);color:#fff;padding:5px 10px;border-radius:5px}
-.rev h2{color:#fff;font-size:25px;margin-top:14px}
-.rev p{color:rgba(255,255,255,.72);margin-top:9px;font-size:15px;max-width:62ch}
-.rev ol{margin:20px 0 0;padding-left:20px;display:grid;gap:9px}
-.rev li{color:rgba(255,255,255,.9);font-size:15px}
-.rev .src{margin-top:24px;padding-top:16px;border-top:1px solid rgba(255,255,255,.16);font-size:13px;color:rgba(255,255,255,.55)}
-.rev .src b{color:rgba(255,255,255,.8);font-weight:600}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
+
+<a class="skip" href="#find">Skip to the clinic details</a>
 
 <header class="top">
   <div class="top-in">
-    <img src="%%LOGO247%%" alt="24/7 Clinic, Travel Medical Services">
-    <span class="tag">Travel Medical Services</span>
+    <a class="brand" href="https://www.247clinic.net" rel="noopener"><img src="%%C7LOGO%%" alt="24/7 Clinic" width="200" height="193"></a>
     <span class="sp"></span>
     <a class="call" href="tel:+201222228247" data-ev="call_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5c0 8.8 7.2 16 16 16a1.5 1.5 0 0 0 1.5-1.5v-2a1.5 1.5 0 0 0-1.2-1.5l-3.1-.6a1.5 1.5 0 0 0-1.5.6l-.9 1.2a12.6 12.6 0 0 1-5.9-5.9l1.2-.9a1.5 1.5 0 0 0 .6-1.5l-.6-3.1a1.5 1.5 0 0 0-1.6-1.3Z"/></svg>Call</a>
   </div>
@@ -241,12 +321,12 @@ footer img{height:44px;width:auto}
 
 <main>
   <div class="hero">
-    <img class="hero-img" src="%%C7CLINIC%%" alt="The 24/7 Clinic Medical Center entrance in the grounds of Premier Le Rêve Hotel &amp; Spa, Sahl Hasheesh" width="1200" height="720">
+    <img class="hero-img" src="%%C7CLINIC%%" alt="The 24/7 Clinic Medical Center entrance in the grounds of Premier Le Rêve Hotel &amp; Spa, Sahl Hasheesh" width="1200" height="720" fetchpriority="high" decoding="async">
     <div class="hero-scrim"></div>
     <div class="hero-in">
       <span class="eyebrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></svg>Sahl Hasheesh · In the hotel grounds</span>
       <h1>Need a Doctor at Premier Le Rêve?</h1>
-      <p class="stand">24/7 Clinic is in the grounds of Premier Le Rêve Hotel &amp; Spa, a short walk from the main entrance. English speaking doctors. <span class="tbc" title="To confirm: Confirm Premier Le Rêve is staffed 24 hours, or give the real hours">Open 24 hours</span>.</p>
+      <p class="stand">24/7 Urgent Care Clinic is in the grounds of the hotel, a short walk from the main entrance. Emergency care, a dentist and hospital referral, day and night.</p>
       <div class="acts">
         <a class="act act-call" href="tel:+201222228247" data-ev="call_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5c0 8.8 7.2 16 16 16a1.5 1.5 0 0 0 1.5-1.5v-2a1.5 1.5 0 0 0-1.2-1.5l-3.1-.6a1.5 1.5 0 0 0-1.5.6l-.9 1.2a12.6 12.6 0 0 1-5.9-5.9l1.2-.9a1.5 1.5 0 0 0 .6-1.5l-.6-3.1a1.5 1.5 0 0 0-1.6-1.3Z"/></svg>Call now <span class="num">+20 122 222 8247</span></a>
         <a class="act act-wa" href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20a%20doctor%20at%20Premier%20Le%20R%C3%AAve%20Hotel%20%26%20Spa." target="_blank" rel="noopener" data-ev="whatsapp_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 20.4 4.9 16.1A8.6 8.6 0 1 1 8 19.2Z"/><path d="M9 8.6c.3 0 .5.3.65.65l.45 1.05-.8.8a5.7 5.7 0 0 0 3.3 3.3l.8-.8 1.05.45c.35.15.65.35.65.65v.9c-.3.45-.9.6-1.5.45A8.6 8.6 0 0 1 8.1 10.6c-.15-.6 0-1.2.45-1.5Z"/></svg>WhatsApp</a>
@@ -254,8 +334,8 @@ footer img{height:44px;width:auto}
       </div>
       <div class="trust">
         <span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>In the hotel grounds</span>
-        <span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span class="tbc" title="To confirm: Confirm Premier Le Rêve is staffed 24 hours, or give the real hours">Open 24 hours</span></span>
-        <span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Insurance assistance</span>
+        <span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Open 24 hours</span>
+        <span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Insurance handled</span>
       </div>
     </div>
   </div>
@@ -267,15 +347,35 @@ footer img{height:44px;width:auto}
     </div>
   </div>
 
+  <div class="proof">
+    <div class="proof-in">
+      <div><div class="n">Since 2001</div><div class="l">Caring for guests in Egypt</div></div>
+      <div><div class="n">28 clinics</div><div class="l">Across Egypt's resort coasts</div></div>
+      <div><div class="n">Insurance</div><div class="l">Paperwork handled for you</div></div>
+    </div>
+  </div>
+
   <section id="find">
     <div class="wrap">
       <div class="kicker">Where to find us</div>
       <h2>Getting to the clinic</h2>
-      <p class="note">The walk from the main entrance takes you along the outside of the building.</p>
+      <p class="note">The walk from the main entrance takes you along the outside of the building. It is short and flat.</p>
       <div class="find">
-        <div><ol class="steps"><li>Arrive at Premier Le Rêve Hotel.</li><li>Face the main entrance, then walk to the left along the outside of the building.</li><li>Keep going until you reach the glass doors marked 24/7 Clinic. The pharmacy is next door.</li></ol>
-       <a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Premier%20Le%20R%C3%AAve%20Hotel%20%26%20Spa%2C%20Sahl%20Hasheesh%2C%20Egypt" target="_blank" rel="noopener" data-ev="directions_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></svg>Open in Google Maps</a></div>
-        <div><svg class="route-svg" viewBox="0 0 560 226" role="img" aria-label="Walking route from the main entrance of Premier Le Rêve Hotel &amp; Spa to the 24/7 Clinic">
+        <div>
+          <ol class="steps"><li><b>Arrive at Premier Le Rêve Hotel.</b><em>Reception will point you the right way if you are not sure.</em></li><li><b>Face the main entrance, then walk left along the outside of the building.</b><em>It is a short, flat walk.</em></li><li><b>Keep going to the glass doors marked 24/7 Clinic.</b><em>The pharmacy is next door.</em></li></ol>
+          <a class="mapbtn" href="https://www.google.com/maps/dir/?api=1&destination=27.024343,33.887027" target="_blank" rel="noopener" data-ev="directions_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></svg>Directions in Google Maps</a>
+          <div class="vid portrait" data-video>
+        <video preload="none" playsinline poster="%%C7WALKPOSTER%%" aria-label="Film showing the walk from the main entrance of Premier Le Rêve Hotel &amp; Spa to the 24/7 Clinic">
+          <source src="%%C7WALK%%" type="video/mp4">
+        </video>
+        <button class="play" type="button" aria-label="Play: Film showing the walk from the main entrance of Premier Le Rêve Hotel &amp; Spa to the 24/7 Clinic">
+          <span class="disc"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg></span>
+          <span class="lbl">Watch the walk from the hotel entrance</span>
+        </button>
+      </div>
+        </div>
+        <div>
+          <svg class="route-svg" viewBox="0 0 560 226" role="img" aria-label="Walking route from the main entrance of Premier Le Rêve Hotel &amp; Spa to the 24/7 Clinic">
   <rect class="rs-box" x="20" y="30" width="190" height="130" rx="8"/>
   <text class="t1" x="115" y="88" text-anchor="middle">Premier Le Rêve</text>
   <text class="t2" x="115" y="114" text-anchor="middle">Hotel</text>
@@ -290,48 +390,166 @@ footer img{height:44px;width:auto}
   <text class="tc2" x="420" y="88" text-anchor="middle">Glass doors, Medical</text>
   <text class="tc2" x="420" y="110" text-anchor="middle">Center sign</text>
   <text class="t2" x="420" y="136" text-anchor="middle">Pharmacy next door</text>
-</svg></div>
+</svg>
+          <figure class="mapbox">
+            <iframe src="https://maps.google.com/maps?q=27.024343,33.887027&z=16&hl=en&output=embed" title="Google map of the 24/7 Clinic at Premier Le Rêve Hotel &amp; Spa, Sahl Hasheesh" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <figcaption>24/7 Clinic, Premier Le Rêve Hotel &amp; Spa, Sahl Hasheesh, Red Sea, Egypt.</figcaption>
+          </figure>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="alt">
+  <section>
+    <div class="wrap">
+      <div class="kicker">Inside the clinic</div>
+      <h2>See it before you come</h2>
+      <p class="note">The reception, the treatment rooms, the observation beds and the doctors who will see you.</p>
+      <div class="vid" data-video>
+        <video preload="none" playsinline poster="%%C7FILMPOSTER%%" aria-label="Film of the 24/7 Clinic: reception, consultation, observation room and dental room">
+          <source src="%%C7FILM%%" type="video/mp4">
+        </video>
+        <button class="play" type="button" aria-label="Play: Film of the 24/7 Clinic: reception, consultation, observation room and dental room">
+          <span class="disc"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg></span>
+          <span class="lbl">Watch the clinic film</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="kicker">Guest stories</div>
+      <h2>Guests who came in, and what happened next</h2>
+      <p class="note">Filmed at the clinic, in their own words.</p>
+      <div class="stories"><div class="story">
+          <div class="vid" data-video>
+        <video preload="none" playsinline poster="%%C7STORYDENTALP%%" aria-label="A family from Romania talking about their treatment at 24/7 Clinic">
+          <source src="%%C7STORYDENTAL%%" type="video/mp4">
+        </video>
+        <button class="play" type="button" aria-label="Play: A family from Romania talking about their treatment at 24/7 Clinic">
+          <span class="disc"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg></span>
+          <span class="lbl">Watch their story</span>
+        </button>
+      </div>
+          <div class="cap"><b>A family from Romania</b><span>Their son needed a tooth taken out. Filmed at the clinic.</span></div>
+        </div><div class="story">
+          <div class="vid portrait" data-video>
+        <video preload="none" playsinline poster="%%C7STORYIVP%%" aria-label="A guest from Romania talking about their treatment at 24/7 Clinic">
+          <source src="%%C7STORYIV%%" type="video/mp4">
+        </video>
+        <button class="play" type="button" aria-label="Play: A guest from Romania talking about their treatment at 24/7 Clinic">
+          <span class="disc"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg></span>
+          <span class="lbl">Watch their story</span>
+        </button>
+      </div>
+          <div class="cap"><b>A guest from Romania</b><span>Arrived feeling very unwell and was treated with an IV infusion.</span></div>
+        </div></div>
+    </div>
+  </section>
+
+  <section>
     <div class="wrap">
       <div class="kicker">What we treat</div>
       <h2>Urgent care, in the resort</h2>
       <p class="note">You do not need an appointment and you do not need to leave Sahl Hasheesh.</p>
-      <div class="svcs"><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.4 2.8h7.2l4 4v14.4H6.4z"/><path d="M13.6 2.8v4h4"/><path d="M9.2 12h5.6M9.2 15.4h5.6M9.2 18.4h3.4"/></svg></div><h3>Doctor consultation</h3><p>A doctor sees you at the clinic.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 7v12M3 12.6h18V19H3"/><path d="M7.5 12.6V10h5a3.5 3.5 0 0 1 3.4 2.6"/></svg></div><h3>Examination and observation</h3><p>Beds, oxygen and monitoring on site if you need to stay a while.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 19 6v6c0 4.3-3 7.5-7 8.8C8 19.5 5 16.3 5 12V6Z"/><path d="m9.2 12.2 2.1 2.1L15 10.6"/></svg></div><h3>Minor illness and injury</h3><p>The everyday problems that interrupt a holiday.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v5.5"/><path d="M9.2 8.5h5.6l-.8 10.2a2 2 0 0 1-2 1.8 2 2 0 0 1-2-1.8Z"/><path d="M9.6 13.6h4.8"/></svg></div><h3>IV infusion</h3><p>Given at the clinic.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="9" width="18" height="6" rx="3"/><path d="M12 9v6"/></svg></div><h3>Medication</h3><p>Prescribed and dispensed before you leave.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 3.4v5.4L5.4 18.4A1.6 1.6 0 0 0 6.8 20.8h10.4a1.6 1.6 0 0 0 1.4-2.4L14 8.8V3.4"/><path d="M8.6 3.4h6.8M7.6 15h8.8"/></svg></div><h3>Laboratory</h3><p>Samples taken here, results coordinated for you.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.2 3.6c1.9 0 2.5 1 4.8 1s2.9-1 4.8-1 2.3 2.2 1.7 5.3c-.6 3.1-1.4 12-3.3 12-1.5 0-1.2-4.6-3.2-4.6s-1.7 4.6-3.2 4.6c-1.9 0-2.7-8.9-3.3-12C4.9 5.8 5.3 3.6 7.2 3.6Z"/></svg></div><h3>Dental care</h3><p>Emergency and routine dental treatment.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2.6 6.6h11v10h-11z"/><path d="M13.6 10h3.6l3.8 3.4v3.2h-7.4"/><circle cx="7" cy="18.4" r="1.9"/><circle cx="17.2" cy="18.4" r="1.9"/><path d="M6.4 11.2h3M7.9 9.7v3"/></svg></div><h3>Ambulance and hospital referral</h3><p>If you need a hospital, we arrange the transfer.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 19 6v6c0 4.3-3 7.5-7 8.8C8 19.5 5 16.3 5 12V6Z"/><path d="m9.2 12.2 2.1 2.1L15 10.6"/></svg></div><h3>Insurance assistance</h3><p>We handle the paperwork with your insurer.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.4 2.8h7.2l4 4v14.4H6.4z"/><path d="M13.6 2.8v4h4"/><path d="M9.2 12h5.6M9.2 15.4h5.6M9.2 18.4h3.4"/></svg></div><h3>Medical report</h3><p>Written for your claim, before you fly home.</p></div></div>
+      <div class="svcs"><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.4 2.8h7.2l4 4v14.4H6.4z"/><path d="M13.6 2.8v4h4"/><path d="M9.2 12h5.6M9.2 15.4h5.6M9.2 18.4h3.4"/></svg></div><h3>Doctor consultation</h3><p>A doctor sees you at the clinic, day or night.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 7v12M3 12.6h18V19H3"/><path d="M7.5 12.6V10h5a3.5 3.5 0 0 1 3.4 2.6"/></svg></div><h3>Examination and observation</h3><p>Beds, oxygen and monitoring on site if you need to stay a while.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 19 6v6c0 4.3-3 7.5-7 8.8C8 19.5 5 16.3 5 12V6Z"/><path d="m9.2 12.2 2.1 2.1L15 10.6"/></svg></div><h3>Minor illness and injury</h3><p>The everyday problems that interrupt a holiday.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v5.5"/><path d="M9.2 8.5h5.6l-.8 10.2a2 2 0 0 1-2 1.8 2 2 0 0 1-2-1.8Z"/><path d="M9.6 13.6h4.8"/></svg></div><h3>IV infusion</h3><p>Given at the clinic, under a doctor.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="9" width="18" height="6" rx="3"/><path d="M12 9v6"/></svg></div><h3>Medication</h3><p>Prescribed and dispensed before you leave.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 3.4v5.4L5.4 18.4A1.6 1.6 0 0 0 6.8 20.8h10.4a1.6 1.6 0 0 0 1.4-2.4L14 8.8V3.4"/><path d="M8.6 3.4h6.8M7.6 15h8.8"/></svg></div><h3>Laboratory</h3><p>Samples taken here, results coordinated for you.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.2 3.6c1.9 0 2.5 1 4.8 1s2.9-1 4.8-1 2.3 2.2 1.7 5.3c-.6 3.1-1.4 12-3.3 12-1.5 0-1.2-4.6-3.2-4.6s-1.7 4.6-3.2 4.6c-1.9 0-2.7-8.9-3.3-12C4.9 5.8 5.3 3.6 7.2 3.6Z"/></svg></div><h3>Dental care</h3><p>Emergency and routine dental treatment.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2.6 6.6h11v10h-11z"/><path d="M13.6 10h3.6l3.8 3.4v3.2h-7.4"/><circle cx="7" cy="18.4" r="1.9"/><circle cx="17.2" cy="18.4" r="1.9"/><path d="M6.4 11.2h3M7.9 9.7v3"/></svg></div><h3>Ambulance and hospital referral</h3><p>If you need a hospital, we arrange the transfer.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 19 6v6c0 4.3-3 7.5-7 8.8C8 19.5 5 16.3 5 12V6Z"/><path d="m9.2 12.2 2.1 2.1L15 10.6"/></svg></div><h3>Insurance assistance</h3><p>We handle the paperwork with your insurer.</p></div><div class="svc"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.4 2.8h7.2l4 4v14.4H6.4z"/><path d="M13.6 2.8v4h4"/><path d="M9.2 12h5.6M9.2 15.4h5.6M9.2 18.4h3.4"/></svg></div><h3>Medical report</h3><p>Written for your claim, before you fly home.</p></div></div>
     </div>
   </section>
 
-  <section class="alt"><div class="wrap">
-        <div class="kicker">Dental</div>
-        <h2>A dental room, in the resort</h2>
-        <p class="note">Toothache does not wait for the flight home. This clinic treats emergencies and routine work, and has its own dental x-ray.</p>
-        <div class="dental">
-          <img src="%%C7DENTAL%%" alt="The dental treatment room at the 24/7 Clinic in Sahl Hasheesh" loading="lazy" width="1200" height="720">
-          <ul class="ticks"><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>General dentistry</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>Emergency dental care</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>Dental implants</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>Orthodontics</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>Cosmetic dentistry</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>Preventive care</span></li></ul>
+  <section>
+    <div class="wrap">
+      <div class="kicker">Dental</div>
+      <h2>A dental room, in the resort</h2>
+      <p class="note">Toothache does not wait for the flight home. This clinic treats emergencies and routine work, and has its own dental x-ray.</p>
+      <div class="dental">
+        <img src="%%C7DENTAL%%" alt="The dental treatment room at the 24/7 Clinic in Sahl Hasheesh" loading="lazy" width="1200" height="720">
+        <ul class="ticks"><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>General dentistry</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>Emergency dental care</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>Dental implants</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>Orthodontics</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>Cosmetic dentistry</span></li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg><span>Preventive care</span></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="kicker">Now at 24/7 Clinic</div>
+      <h2>What is running this season</h2>
+      <p class="note">Swipe through what the clinics are offering.</p>
+      <div class="car" data-carousel>
+        <div class="car-track" tabindex="0" role="region" aria-label="24/7 Clinic offers and services"><figure><img src="%%C7POSFIND%%" alt="How to find the 24/7 Clinic in Sahl Hasheesh" loading="lazy" width="720" height="960"><figcaption><b>How to find us</b><span>The walk from the hotel entrance, filmed</span></figcaption></figure><figure><img src="%%C7POSHEALTH%%" alt="Free health check poster: free blood pressure and blood sugar check for hotel guests" loading="lazy" width="720" height="960"><figcaption><b>Free health check</b><span>Blood pressure and blood sugar, free for hotel guests</span></figcaption></figure><figure><img src="%%C7POSDENTALSAHL%%" alt="Dental care at the 24/7 Clinic in Sahl Hasheesh" loading="lazy" width="720" height="960"><figcaption><b>Dental in Sahl Hasheesh</b><span>A dental room inside the resort</span></figcaption></figure><figure><img src="%%C7POSSMILE%%" alt="Brighten Your Smile: the 24/7 Clinic dental service list" loading="lazy" width="720" height="960"><figcaption><b>Brighten your smile</b><span>Orthodontics, implants, cosmetic and emergency dental care</span></figcaption></figure><figure><img src="%%C7POSTEAM%%" alt="Meet the team at 24/7 Clinic" loading="lazy" width="720" height="960"><figcaption><b>Meet the team</b><span>The doctors and nurses who will see you</span></figcaption></figure><figure><img src="%%C7POSDENTALHUR%%" alt="Dental care at the 24/7 Clinic in Hurghada" loading="lazy" width="720" height="960"><figcaption><b>Dental in Hurghada</b><span>Emergency fixes and routine check-ups</span></figcaption></figure></div>
+        <div class="car-nav">
+          <button type="button" data-prev aria-label="Previous"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5.5 8.5 12l6.5 6.5"/></svg></button>
+          <button type="button" data-next aria-label="Next"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5"/></svg></button>
+          <span class="car-dots" data-dots aria-hidden="true"></span>
         </div>
-      </div></section>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="kicker">What guests say</div>
+      <h2>In their own words</h2>
+      <p class="note">Guests write to us in German, Italian and French, and are answered in them. <span class="vchip"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Published guest reviews</span></p>
+      <div class="revs"><figure class="rev-card">
+          <blockquote class="q" lang="de">&ldquo;Sehr freundlicher und kompetenter Arzt. Sehr schnelle Hilfe ich fühlte mich in guten Händen.&rdquo;</blockquote>
+          <p class="t"><b>In English</b>Very friendly and competent doctor. Very fast help. I felt I was in good hands.</p>
+          <figcaption class="who"><span class="av" aria-hidden="true">JF</span><span><span class="nm">Joerg Finger</span><span class="cn">Germany</span></span></figcaption>
+        </figure><figure class="rev-card">
+          <blockquote class="q" lang="it">&ldquo;Molto professionale Disponibile e paziente Problema risolto in poche ore&rdquo;</blockquote>
+          <p class="t"><b>In English</b>Very professional. Helpful and patient. Problem solved in a few hours.</p>
+          <figcaption class="who"><span class="av" aria-hidden="true">CD</span><span><span class="nm">Carla di Scanno</span><span class="cn">Italy</span></span></figcaption>
+        </figure><figure class="rev-card">
+          <blockquote class="q" lang="de">&ldquo;Der Arzt war sehr nett und kompetent. Gute Unterstützung durch den Arzt.&rdquo;</blockquote>
+          <p class="t"><b>In English</b>The doctor was very kind and very competent. Good support from the doctor.</p>
+          <figcaption class="who"><span class="av" aria-hidden="true">BW</span><span><span class="nm">B Waltert</span><span class="cn">Switzerland</span></span></figcaption>
+        </figure><figure class="rev-card">
+          <blockquote class="q" lang="de">&ldquo;Ich bin sehr zufrieden sie haben mir wirklich geholfen. Sehr gutes Team.&rdquo;</blockquote>
+          <p class="t"><b>In English</b>I am very satisfied. They really helped me. A very good team.</p>
+          <figcaption class="who"><span class="av" aria-hidden="true">KP</span><span><span class="nm">Katarina Poindexter</span><span class="cn">Germany</span></span></figcaption>
+        </figure></div>
+    </div>
+  </section>
 
   <section>
     <div class="wrap">
       <div class="kicker">For international guests</div>
       <h2>You are far from home, not far from help</h2>
       <div class="cards">
-        <div class="card"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.6"/><path d="M3.6 9.6h16.8M3.6 14.4h16.8M12 3.4c2.4 2.6 3.6 5.5 3.6 8.6s-1.2 6-3.6 8.6c-2.4-2.6-3.6-5.5-3.6-8.6s1.2-6 3.6-8.6Z"/></svg></div><h3>Your language</h3><p>English is spoken at every clinic. <span class="tbc" title="To confirm: Which languages are actually spoken at this clinic, beyond English">German, Russian and Polish</span> are spoken across the network.</p></div>
+        <div class="card"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.6"/><path d="M3.6 9.6h16.8M3.6 14.4h16.8M12 3.4c2.4 2.6 3.6 5.5 3.6 8.6s-1.2 6-3.6 8.6c-2.4-2.6-3.6-5.5-3.6-8.6s1.2-6 3.6-8.6Z"/></svg></div><h3>Your language</h3><p>English is spoken at every clinic. Guests have been treated and answered in German, Italian and French.</p></div>
         <div class="card"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 19 6v6c0 4.3-3 7.5-7 8.8C8 19.5 5 16.3 5 12V6Z"/><path d="m9.2 12.2 2.1 2.1L15 10.6"/></svg></div><h3>Your insurer</h3><p>We deal with the paperwork so you do not have to do it on holiday.</p></div>
         <div class="card"><div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.4 2.8h7.2l4 4v14.4H6.4z"/><path d="M13.6 2.8v4h4"/><path d="M9.2 12h5.6M9.2 15.4h5.6M9.2 18.4h3.4"/></svg></div><h3>Your claim</h3><p>A written medical report in English, prepared before you fly home.</p></div>
+      </div>
+      <div class="hosp">
+        <div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.4 20.6V8.4l8.6-4.8 8.6 4.8v12.2z"/><path d="M9.6 12.2h4.8M12 9.8v4.8"/><path d="M9.4 20.6v-4.2h5.2v4.2"/></svg></div>
+        <div>
+          <h3>If you need a hospital</h3>
+          <p class="note">We arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast, so the handover happens inside one group rather than between strangers.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="alt">
+  <section>
     <div class="wrap">
-      <div class="kicker">The clinic</div>
-      <h2>What it looks like when you walk in</h2>
-      <div class="gal"><figure><img src="%%C7SIGN%%" alt="The Premier Le Rêve Hotel &amp; Spa entrance sign in Sahl Hasheesh" loading="lazy" width="1200" height="720"><figcaption>The hotel entrance</figcaption></figure><figure><img src="%%C7RECEPTION%%" alt="The 24/7 Clinic reception desk at Premier Le Rêve, Sahl Hasheesh" loading="lazy" width="1200" height="720"><figcaption>Reception</figcaption></figure><figure><img src="%%C7WARD%%" alt="An observation bed with oxygen at the 24/7 Clinic in Sahl Hasheesh" loading="lazy" width="1200" height="720"><figcaption>Observation room</figcaption></figure><figure><img src="%%C7DENTAL%%" alt="The dental treatment room at the 24/7 Clinic in Sahl Hasheesh" loading="lazy" width="1200" height="720"><figcaption>Dental room</figcaption></figure><figure><img src="%%C7XRAY%%" alt="A 24/7 Clinic dentist reviewing a dental x-ray with a guest in Sahl Hasheesh" loading="lazy" width="1200" height="720"><figcaption>Dental x-ray on site</figcaption></figure><figure><img src="%%C7TEAM%%" alt="Doctors at the 24/7 Clinic reception in Sahl Hasheesh" loading="lazy" width="1200" height="720"><figcaption>The doctors here</figcaption></figure></div>
-      <p class="galnote">Every photograph on this page was taken at this clinic.</p>
+      <div class="kicker">Across the Red Sea</div>
+      <h2>Clinics in 28 hotels and resorts</h2>
+      <p class="note">If you move hotel, or a friend is staying somewhere else on the coast, there is very likely a 24/7 Clinic there too.</p>
+      <div class="areas"><div class="area here">
+          <h3>Sahl Hasheesh<span class="here-tag">You are here</span></h3>
+          <ul><li class="self">Premier Le Rêve</li><li>Baron Palace</li><li>Pyramisa Beach Resort</li><li>Old Palace Resort</li></ul>
+        </div><div class="area">
+          <h3>Soma Bay and Abu Soma</h3>
+          <ul><li>Steigenberger Ras Soma</li><li>Amwaj Beach Club</li><li>Palm Royale Resort</li><li>Caribbean World Resort</li></ul>
+        </div><div class="area">
+          <h3>Hurghada</h3>
+          <ul><li>Hilton Hurghada Plaza</li><li>Long Beach Resort</li><li>Jaz Crystal Resort</li><li>Jaz Samaya Resort</li><li>Jaz Dar El Madina</li></ul>
+        </div><div class="area">
+          <h3>Marsa Alam and El Quseir</h3>
+          <ul><li>Radisson Blu El Quseir</li><li>Steigenberger Coraya Beach</li><li>Jaz Lamaya Resort</li><li>Iberotel Costa Mares</li><li>Reef Oasis Resort</li></ul>
+        </div><div class="area">
+          <h3>North Coast</h3>
+          <ul><li>Jaz Almaza Beach</li><li>Jaz Oriental Resort</li><li>Jaz Tamerina</li><li>Jaz Almazino</li></ul>
+        </div></div>
     </div>
   </section>
 
@@ -340,18 +558,18 @@ footer img{height:44px;width:auto}
       <div class="kicker">Hours and contact</div>
       <h2>Reaching us</h2>
       <div class="contact">
-        <div class="crow"><div class="k">Open</div><div class="v"><span class="tbc" title="To confirm: Confirm Premier Le Rêve is staffed 24 hours, or give the real hours">Open 24 hours</span></div><small>Every day of the year.</small></div>
-        <div class="crow"><div class="k">Call or WhatsApp</div><div class="v"><a href="tel:+201222228247" data-ev="call_click">+20 122 222 8247</a></div><small><span class="tbc" title="To confirm: Whether each clinic has its own number, and the WhatsApp number to publish">One number reaches every clinic</span>.</small></div>
+        <div class="crow"><div class="k">Open</div><div class="v">24 hours</div><small>Every day of the year.</small></div>
+        <div class="crow"><div class="k">Call or WhatsApp</div><div class="v"><a href="tel:+201222228247" data-ev="call_click">+20 122 222 8247</a></div><small>Answered around the clock.</small></div>
         <div class="crow"><div class="k">Where</div><div class="v">Premier Le Rêve</div><small>Sahl Hasheesh, Red Sea, Egypt.</small></div>
       </div>
     </div>
   </section>
 
-  <section class="alt">
+  <section>
     <div class="wrap">
       <div class="kicker">Questions</div>
       <h2>What guests ask us</h2>
-      <div class="faq"><details><summary>Is there a doctor at Premier Le Rêve?</summary><div class="a">Yes. 24/7 Clinic is in the hotel grounds. You can call, send a WhatsApp message, or walk in.</div></details><details><summary>Are you open at night?</summary><div class="a"><span class="tbc" title="To confirm: Confirm Premier Le Rêve is staffed 24 hours, or give the real hours">Open 24 hours</span>. Call the number on this page at any hour.</div></details><details><summary>Do you speak English?</summary><div class="a">Yes. Our doctors see international guests every day. <span class="tbc" title="To confirm: Which languages are actually spoken at this clinic, beyond English">German, Russian and Polish</span> are spoken across the network.</div></details><details><summary>Do you take my travel insurance?</summary><div class="a">We handle the paperwork with your insurer and write the medical report your claim needs. Bring your policy details or your insurance card when you come.</div></details><details><summary>What does a visit cost?</summary><div class="a"><span class="tbc" title="To confirm: Consultation price, and whether it differs by hotel">Ask when you call</span>. There is no charge for the blood pressure and blood sugar check.</div></details><details><summary>Can I get a medical report for my insurance?</summary><div class="a">Yes. A written report is prepared at the clinic, in English, before you fly home.</div></details><details><summary>What if I need a hospital?</summary><div class="a">We arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast.</div></details><details><summary>Can you treat a dental emergency?</summary><div class="a">Yes. This clinic has its own dental room and dental x-ray, and treats emergencies as well as routine work.</div></details></div>
+      <div class="faq"><details><summary>Is there a doctor at Premier Le Rêve?</summary><div class="a">Yes. 24/7 Clinic is in the hotel grounds. Call, send a WhatsApp message, or walk in.</div></details><details><summary>Are you open at night?</summary><div class="a">Yes. The clinic is open 24 hours, every day of the year. Call the number on this page at any hour.</div></details><details><summary>Do you speak English?</summary><div class="a">Yes. Our doctors see international guests every day, and guests have been treated and answered in German, Italian and French as well.</div></details><details><summary>Do you take my travel insurance?</summary><div class="a">We handle the paperwork with your insurer and write the medical report your claim needs. Bring your policy details or your insurance card when you come.</div></details><details><summary>What does a visit cost?</summary><div class="a">The blood pressure and blood sugar check is free for hotel guests. For anything else, call and we will tell you the cost before you come.</div></details><details><summary>Can I get a medical report for my insurance?</summary><div class="a">Yes. A written report is prepared at the clinic, in English, before you fly home.</div></details><details><summary>Is there a hospital near Sahl Hasheesh?</summary><div class="a">Yes. If you need a hospital we arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast.</div></details><details><summary>Can you treat a dental emergency?</summary><div class="a">Yes. This clinic has its own dental room and dental x-ray, and treats emergencies as well as routine work.</div></details></div>
     </div>
   </section>
 </main>
@@ -360,8 +578,8 @@ footer img{height:44px;width:auto}
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <img src="%%LOGO247%%" alt="24/7 Clinic">
-        <p class="fnote">Travel medical services for international guests in Egypt. Part of Healthcare International Group.</p>
+        <img src="%%C7LOGO%%" alt="24/7 Clinic" width="200" height="193">
+        <p class="fnote">24/7 Urgent Care Clinic. Travel medical services for international guests in Egypt, part of Healthcare International Group.</p>
       </div>
       <div>
         <h3>Other clinics</h3>
@@ -378,7 +596,7 @@ footer img{height:44px;width:auto}
     </div>
     <div class="fbase">
       <span>24/7 Clinic · Premier Le Rêve Hotel &amp; Spa · Sahl Hasheesh</span>
-      <span>Demo page. Not published on 247clinic.net.</span>
+      <span>Open 24 hours · +20 122 222 8247</span>
     </div>
   </div>
 </footer>
@@ -388,33 +606,65 @@ footer img{height:44px;width:auto}
   <a class="d-wa" href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20a%20doctor%20at%20Premier%20Le%20R%C3%AAve%20Hotel%20%26%20Spa." target="_blank" rel="noopener" data-ev="whatsapp_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 20.4 4.9 16.1A8.6 8.6 0 1 1 8 19.2Z"/><path d="M9 8.6c.3 0 .5.3.65.65l.45 1.05-.8.8a5.7 5.7 0 0 0 3.3 3.3l.8-.8 1.05.45c.35.15.65.35.65.65v.9c-.3.45-.9.6-1.5.45A8.6 8.6 0 0 1 8.1 10.6c-.15-.6 0-1.2.45-1.5Z"/></svg>WhatsApp</a>
 </nav>
 
-<div class="rev">
-  <div class="wrap">
-    <span class="lab">Not part of the page</span>
-    <h2>Before this page goes live</h2>
-    <p>Every dotted word above is unconfirmed. It is marked on the page so nobody signs off a claim by accident. 5 answers close this page.</p>
-    <ol><li>Confirm Premier Le Rêve is staffed 24 hours, or give the real hours.</li><li>Which languages are actually spoken at this clinic, beyond English.</li><li>Consultation price, and whether it differs by hotel.</li>
-      <li>Verified GPS coordinates for the clinic. The stored pin is not trusted, so no map is embedded yet.</li>
-      
-      <li>Whether the accreditation wording used elsewhere can appear here. Accreditation lines have to be exact.</li>
-    </ol>
-    <p style="margin-top:22px"><a href="/247clinic/hotel-landing-pages" style="color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:4px">Back to the project in HCIG Work</a></p>
-    <p class="src"><b>Sources used on this page.</b> 247 material/WhatsApp Video 2026-09-07 at 00.00.40.mp4, the clinic’s own &quot;how to find us&quot; film. 247 material/Le reve 247.mp4, the clinic’s own film, shot at Premier Le Rêve. 247 material/WhatsApp Video 2026-09-06 at 23.59.18.mp4 and 23.59.53.mp4. 247 material/free healthcheck 247.jpg, the clinic’s own poster. www.247clinic.net, read 2026-09-08. instagram.com/247clinics, read 2026-09-08.</p>
-  </div>
-</div>
-
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"MedicalClinic","@id":"https://www.247clinic.net/sahl-hasheesh/premier-le-reve-clinic#clinic","name":"24/7 Clinic, Premier Le Rêve Hotel & Spa","url":"https://www.247clinic.net/sahl-hasheesh/premier-le-reve-clinic","telephone":"+20 122 222 8247","parentOrganization":{"@type":"Organization","name":"24/7 Clinic","url":"https://www.247clinic.net"},"address":{"@type":"PostalAddress","addressLocality":"Sahl Hasheesh","addressRegion":"Red Sea Governorate","addressCountry":"EG"},"areaServed":[{"@type":"Place","name":"Premier Le Rêve Hotel & Spa"},{"@type":"Place","name":"Sahl Hasheesh"}],"availableLanguage":["English"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}],"availableService":[{"@type":"MedicalTherapy","name":"Doctor consultation"},{"@type":"MedicalTherapy","name":"Examination and observation"},{"@type":"MedicalTherapy","name":"Minor illness and injury"},{"@type":"MedicalTherapy","name":"IV infusion"},{"@type":"MedicalTherapy","name":"Medication"},{"@type":"MedicalTherapy","name":"Laboratory"},{"@type":"MedicalTherapy","name":"Dental care"},{"@type":"MedicalTherapy","name":"Ambulance and hospital referral"},{"@type":"MedicalTherapy","name":"Insurance assistance"},{"@type":"MedicalTherapy","name":"Medical report"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Our clinics","item":"https://www.247clinic.net/our-clinics"},{"@type":"ListItem","position":2,"name":"Sahl Hasheesh","item":"https://www.247clinic.net/sahl-hasheesh"},{"@type":"ListItem","position":3,"name":"Premier Le Rêve"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"MedicalClinic","@id":"https://www.247clinic.net/sahl-hasheesh/premier-le-reve-clinic#clinic","name":"24/7 Clinic, Premier Le Rêve Hotel & Spa","url":"https://www.247clinic.net/sahl-hasheesh/premier-le-reve-clinic","telephone":"+20 122 222 8247","image":"https://www.247clinic.net/assets/images/logos/clinic-logo.svg","parentOrganization":{"@type":"Organization","name":"24/7 Clinic","url":"https://www.247clinic.net"},"address":{"@type":"PostalAddress","addressLocality":"Sahl Hasheesh","addressRegion":"Red Sea Governorate","addressCountry":"EG"},"geo":{"@type":"GeoCoordinates","latitude":27.024343,"longitude":33.887027},"areaServed":[{"@type":"Place","name":"Premier Le Rêve Hotel & Spa"},{"@type":"Place","name":"Sahl Hasheesh"}],"availableLanguage":["English","German","Italian","French"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}],"availableService":[{"@type":"MedicalTherapy","name":"Doctor consultation"},{"@type":"MedicalTherapy","name":"Examination and observation"},{"@type":"MedicalTherapy","name":"Minor illness and injury"},{"@type":"MedicalTherapy","name":"IV infusion"},{"@type":"MedicalTherapy","name":"Medication"},{"@type":"MedicalTherapy","name":"Laboratory"},{"@type":"MedicalTherapy","name":"Dental care"},{"@type":"MedicalTherapy","name":"Ambulance and hospital referral"},{"@type":"MedicalTherapy","name":"Insurance assistance"},{"@type":"MedicalTherapy","name":"Medical report"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is there a doctor at Premier Le Rêve?","acceptedAnswer":{"@type":"Answer","text":"Yes. 24/7 Clinic is in the hotel grounds. Call, send a WhatsApp message, or walk in."}},{"@type":"Question","name":"Are you open at night?","acceptedAnswer":{"@type":"Answer","text":"Yes. The clinic is open 24 hours, every day of the year. Call the number on this page at any hour."}},{"@type":"Question","name":"Do you speak English?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our doctors see international guests every day, and guests have been treated and answered in German, Italian and French as well."}},{"@type":"Question","name":"Do you take my travel insurance?","acceptedAnswer":{"@type":"Answer","text":"We handle the paperwork with your insurer and write the medical report your claim needs. Bring your policy details or your insurance card when you come."}},{"@type":"Question","name":"What does a visit cost?","acceptedAnswer":{"@type":"Answer","text":"The blood pressure and blood sugar check is free for hotel guests. For anything else, call and we will tell you the cost before you come."}},{"@type":"Question","name":"Can I get a medical report for my insurance?","acceptedAnswer":{"@type":"Answer","text":"Yes. A written report is prepared at the clinic, in English, before you fly home."}},{"@type":"Question","name":"Is there a hospital near Sahl Hasheesh?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you need a hospital we arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast."}},{"@type":"Question","name":"Can you treat a dental emergency?","acceptedAnswer":{"@type":"Answer","text":"Yes. This clinic has its own dental room and dental x-ray, and treats emergencies as well as routine work."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Our clinics","item":"https://www.247clinic.net/our-clinics"},{"@type":"ListItem","position":2,"name":"Sahl Hasheesh","item":"https://www.247clinic.net/sahl-hasheesh"},{"@type":"ListItem","position":3,"name":"Premier Le Rêve"}]}]}</script>
 <script>
-/* Every contact tap is an event, with the hotel and area attached, so one GA4
-   report compares all clinics side by side. Console only on the demo. */
 (function () {
   var HOTEL = "Premier Le Rêve", AREA = "Sahl Hasheesh";
+
+  /* Every contact tap is an event carrying the hotel and the area, so one
+     report compares all the clinics side by side. */
   document.addEventListener('click', function (e) {
     var a = e.target.closest('[data-ev]');
     if (!a) return;
-    var payload = { hotel: HOTEL, area: AREA, link: a.getAttribute('href') };
-    if (window.gtag) window.gtag('event', a.dataset.ev, payload);
-    else console.log('[GA4]', a.dataset.ev, payload);
+    if (window.gtag) window.gtag('event', a.dataset.ev, { hotel: HOTEL, area: AREA, link: a.getAttribute('href') });
   });
+
+  /* Video stays at zero bytes until someone asks for it. */
+  document.querySelectorAll('[data-video]').forEach(function (box) {
+    var v = box.querySelector('video');
+    box.querySelector('.play').addEventListener('click', function () {
+      box.classList.add('playing');
+      v.controls = true;
+      v.play();
+      v.focus();
+    });
+    v.addEventListener('pause', function () {
+      if (v.currentTime === 0) box.classList.remove('playing');
+    });
+  });
+
+  /* Posters: snap scrolling, with arrows and dots for anyone not swiping. */
+  document.querySelectorAll('[data-carousel]').forEach(function (car) {
+    var track = car.querySelector('.car-track');
+    var prev = car.querySelector('[data-prev]');
+    var next = car.querySelector('[data-next]');
+    var dots = car.querySelector('[data-dots]');
+    var items = track.children;
+    for (var i = 0; i < items.length; i++) dots.appendChild(document.createElement('i'));
+    function step() { return items[0] ? items[0].getBoundingClientRect().width + 12 : 300; }
+    function sync() {
+      var i = Math.round(track.scrollLeft / step());
+      for (var k = 0; k < dots.children.length; k++) dots.children[k].classList.toggle('on', k === i);
+      prev.disabled = track.scrollLeft < 4;
+      next.disabled = track.scrollLeft > track.scrollWidth - track.clientWidth - 4;
+    }
+    prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', function () { window.requestAnimationFrame(sync); }, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  });
+
+  /* The route draws itself and the steps arrive once, when they scroll in. */
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.route-svg, ol.steps').forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll('ol.steps').forEach(function (el) { el.classList.add('in'); });
+  }
 })();
 </script>
