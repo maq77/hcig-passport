@@ -37,6 +37,9 @@
   --surface-3:   var(--n-100);
   --line:        var(--n-150);
   --line-strong: var(--n-200);
+  /* table rules are darker than a divider on purpose: a ruled grid is what
+     makes a table scannable across six columns */
+  --rule:        var(--n-300);
 
   --ink:      var(--n-900);
   --ink-2:    var(--n-600);
@@ -94,6 +97,7 @@
   --surface-3:   #20252a;
   --line:        #262c31;
   --line-strong: #333a41;
+  --rule:        #454d55;
 
   --ink:   #e9edef;
   --ink-2: #a8b1b7;
@@ -681,17 +685,16 @@ main { min-width: 0; overflow-x: clip; }
    somebody is reading across six columns. */
 table.data {
   width: 100%; border-collapse: collapse; font-size: 14.5px;
-  background: var(--surface); border: 1px solid var(--line-strong);
+  background: var(--surface); border: 1px solid var(--rule);
 }
 table.data th,
-table.data td { border: 1px solid var(--line); padding: 12px 16px; text-align: left; }
+table.data td { border: 1px solid var(--rule); padding: 12px 16px; text-align: left; }
 table.data th {
-  white-space: nowrap; font-size: 13.5px; font-weight: 650; letter-spacing: 0;
-  color: var(--ink); background: var(--surface-3);
-  border-color: var(--line-strong);
+  white-space: nowrap; font-size: 13.5px; font-weight: 700; letter-spacing: 0;
+  color: var(--accent-ink); background: var(--surface);
   cursor: pointer; user-select: none; position: sticky; top: var(--bar); z-index: 2;
 }
-table.data th:hover { background: var(--surface-2); }
+table.data th:hover { background: var(--surface-3); }
 table.data th::after {
   content: ""; display: inline-block; width: 0; height: 0; margin-left: 7px;
   vertical-align: middle; opacity: .25;
@@ -701,7 +704,23 @@ table.data th::after {
 table.data th[aria-sort="ascending"]::after { opacity: 1; border-top: 0; border-bottom: 5px solid currentColor; }
 table.data th[aria-sort="descending"]::after { opacity: 1; }
 table.data td { vertical-align: middle; }
-table.data tbody tr:hover td { background: var(--surface-2); }
+
+/* Rows are tinted by status, the way a marked-up schedule is: the thing
+   waiting on the reviewer is yellow, work that came back is amber, anything
+   stuck is red. This is a SECOND cue. The pill in the status column already
+   says the same thing in a word and an icon, so nothing is lost if the colour
+   is not seen. */
+table.data tr[data-status="review"]  td { background: var(--row-wait); }
+table.data tr[data-status="changes"] td { background: var(--row-back); }
+table.data tr[data-status="blocked"] td { background: var(--row-stuck); }
+table.data tr[data-status="review"]  td:first-child { box-shadow: inset 3px 0 0 var(--t-warn-fg); }
+table.data tr[data-status="changes"] td:first-child { box-shadow: inset 3px 0 0 var(--t-warn-fg); }
+table.data tr[data-status="blocked"] td:first-child { box-shadow: inset 3px 0 0 var(--t-stop-fg); }
+
+table.data tbody tr:hover td { background: var(--surface-3); }
+table.data tbody tr[data-status="review"]:hover  td { background: var(--row-wait-hi); }
+table.data tbody tr[data-status="changes"]:hover td { background: var(--row-back-hi); }
+table.data tbody tr[data-status="blocked"]:hover td { background: var(--row-stuck-hi); }
 table.data a { color: inherit; text-decoration: none; font-weight: 600; }
 table.data a:hover { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
 table.data td:first-child { min-width: 210px; }
@@ -709,11 +728,11 @@ table.data .chip { display: inline-block; vertical-align: middle; margin-right: 
 
 /* Markdown documents get the same ruled grid, so a brief and the estate table
    read as one system. */
-.prose table { border: 1px solid var(--line-strong); }
-.prose th, .prose td { border: 1px solid var(--line); padding: 11px 15px; }
+.prose table { border: 1px solid var(--rule); }
+.prose th, .prose td { border: 1px solid var(--rule); padding: 11px 15px; }
 .prose th {
-  font-size: 13.5px; font-weight: 650; letter-spacing: 0;
-  color: var(--ink); background: var(--surface-3); border-color: var(--line-strong);
+  font-size: 13.5px; font-weight: 700; letter-spacing: 0;
+  color: var(--accent-ink); background: var(--surface);
 }
 .prose tbody tr:hover td { background: var(--surface-2); }
 
@@ -727,8 +746,18 @@ mark, .hl {
   color: inherit; padding: 0 3px; border-radius: 2px;
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
-:root { --hl: #ffe27a; }
-:root[data-theme="dark"] { --hl: rgba(250, 204, 21, .32); }
+:root {
+  --hl: #ffe27a;
+  --row-wait:  #fff4cf; --row-wait-hi:  #ffedb4;
+  --row-back:  #fde9d2; --row-back-hi:  #fbdfbd;
+  --row-stuck: #fbdedd; --row-stuck-hi: #f8cecd;
+}
+:root[data-theme="dark"] {
+  --hl: rgba(250, 204, 21, .32);
+  --row-wait:  #2a2210; --row-wait-hi:  #372c13;
+  --row-back:  #2b1f12; --row-back-hi:  #382817;
+  --row-stuck: #2b1618; --row-stuck-hi: #371c1f;
+}
 
 /* ---------------------------------------------------------- live previews */
 
@@ -856,15 +885,24 @@ mark, .hl {
   table.data thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   table.data tbody, table.data tr, table.data td { display: block; }
 
+  /* the tint moves to the card itself, so a stacked row still reads as
+     waiting, back with us, or stuck */
   table.data tr {
-    background: var(--surface); border: 1px solid var(--line);
+    background: var(--surface); border: 1px solid var(--rule);
     border-radius: var(--r-lg); box-shadow: var(--shadow-1);
     margin-bottom: var(--s3); padding: var(--s2) 0; overflow: hidden;
   }
+  table.data tr[data-status="review"]  { background: var(--row-wait); }
+  table.data tr[data-status="changes"] { background: var(--row-back); }
+  table.data tr[data-status="blocked"] { background: var(--row-stuck); }
+
+  table.data td,
+  table.data tbody tr:hover td,
+  table.data tbody tr[data-status]:hover td { background: none; }
   table.data td {
     border: 0; border-bottom: 1px solid var(--line);
     display: flex; align-items: center; gap: var(--s3);
-    padding: 9px var(--s4); min-height: 44px;
+    padding: 9px var(--s4); min-height: 44px; box-shadow: none;
   }
   table.data tr td:last-child { border-bottom: 0; }
   table.data td::before {
@@ -874,12 +912,10 @@ mark, .hl {
   }
   table.data td:first-child {
     min-width: 0; font-size: 15.5px;
-    background: var(--surface-2); border-bottom-color: var(--line-strong);
+    border-bottom-color: var(--rule);
   }
   table.data td:first-child::before { display: none; }
   table.data td:first-child a { font-weight: 700; }
-  table.data tbody tr:hover td { background: none; }
-  table.data tbody tr:hover td:first-child { background: var(--surface-2); }
 }
 
 /* The pipeline is a single run of connected segments. It cannot wrap without

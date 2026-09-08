@@ -241,8 +241,10 @@ function allWorkPage(ctx) {
       const href = itemHref(c, p, it);
       const ext = it.kind === 'link';
       // data-label carries the column name so the table can stack into cards
-      // on a phone without losing what each value means
-      return `<tr>
+      // on a phone without losing what each value means. data-status tints the
+      // whole row: a second, redundant cue on top of the pill, never the only
+      // one, so the meaning survives for anyone who cannot see the colour.
+      return `<tr data-status="${it.status}">
   <td data-label="Deliverable"><a href="${esc(href)}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${esc(it.name)}${
         ext ? ' ' + icon('arrow-up-right', 12) : ''
       }</a></td>
