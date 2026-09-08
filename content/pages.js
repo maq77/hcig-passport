@@ -146,33 +146,29 @@ function homePage(ctx) {
   const live = allProjects.filter(({ p }) => p.status === 'live').length;
 
   const body = `
-<section class="hero" id="hero" aria-labelledby="h-hero">
-  <div class="hero-in">
-    <p class="eyebrow">Healthcare International Group</p>
-    <h1 id="h-hero">Every design, page and site the group is building</h1>
-    <p class="lede">Built here. Reviewed here. Deployed to the company only once it is approved.</p>
-    <div class="stats">
-      <span class="stat"><b class="num">${companies.length}</b> companies</span>
-      <span class="stat"><b class="num">${allProjects.length}</b> projects</span>
-      <span class="stat"><b class="num">${deliverables}</b> deliverables</span>
-      <span class="stat"><b class="num">${moving.length}</b> in motion</span>
-      <span class="stat"><b class="num">${live}</b> live</span>
-    </div>
-
-    <p class="folders-h" id="h-folders">Open a company</p>
-    <nav class="folders" aria-labelledby="h-folders">${withWork.map(folderTile).join('')}</nav>
-
-    <p class="folders-h" id="h-folders-quiet">Nothing built yet</p>
-    <nav class="folders" aria-labelledby="h-folders-quiet">${noWork.map(folderTile).join('')}</nav>
-
-    <p class="scroll-hint">${icon('arrow-right', 14).replace('<svg', '<svg style="transform:rotate(90deg)"')} Scroll for what is moving</p>
+<header class="landing">
+  <p class="eyebrow">Healthcare International Group</p>
+  <h1>Every design, page and site the group is building</h1>
+  <p class="lede">Built here. Reviewed here. Deployed to the company only once it is approved.</p>
+  <div class="stats">
+    <span class="stat"><b class="num">${companies.length}</b> companies</span>
+    <span class="stat"><b class="num">${allProjects.length}</b> projects</span>
+    <span class="stat"><b class="num">${deliverables}</b> deliverables</span>
+    <span class="stat"><b class="num">${moving.length}</b> in motion</span>
+    <span class="stat"><b class="num">${live}</b> live</span>
   </div>
+</header>
+
+<section class="section" style="margin-top:var(--s6)" aria-labelledby="h-open">
+  <div class="section-head">
+    <h2 id="h-open">Open a company</h2>
+    <p class="note">${withWork.length} with work under way, ${noWork.length} waiting.</p>
+  </div>
+  <nav class="folders" aria-labelledby="h-open">${withWork.map(folderTile).join('')}</nav>
+  <nav class="folders" aria-label="Companies with nothing built yet" style="margin-top:var(--s3)">${noWork.map(folderTile).join('')}</nav>
 </section>
 
-<div class="ground">
-<div class="wrap">
-
-<section class="section" style="margin-top:0" aria-labelledby="h-flow">
+<section class="section" aria-labelledby="h-flow">
   <div class="section-head">
     <h2 id="h-flow">How work reaches a live site</h2>
     <p class="note"><a href="/workflow">The full process</a></p>
@@ -211,9 +207,6 @@ function homePage(ctx) {
   </div>
   <div class="grid three">${withWork.map(companyCard).join('')}</div>
 </section>
-
-</div>
-</div>
 `;
 
   return shell({
@@ -223,13 +216,6 @@ function homePage(ctx) {
     companies,
     active: { home: true },
     index: ctx.index,
-    bare: true,
-    stage: true,
-    head:
-      `<script type="importmap">{"imports":{` +
-      `"three":"https://unpkg.com/three@0.143.0/build/three.module.js",` +
-      `"three/addons/":"https://unpkg.com/three@0.143.0/examples/jsm/"}}</script>` +
-      `<script type="module" src="/tunnel.js"></script>`,
   });
 }
 

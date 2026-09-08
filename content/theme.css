@@ -582,189 +582,105 @@ main { min-width: 0; }
     transition-duration: .01ms !important; scroll-behavior: auto !important;
   }
   .card.link:hover { transform: none; }
+  .folder:hover { transform: none; }
 }
 
 /* ==========================================================================
-   The stage: the WebGL hero on the overview page
+   The landing masthead
    --------------------------------------------------------------------------
-   The scene is a fixed full-window canvas. Everything below the hero scrolls up
-   over it on an opaque ground, so no body text is ever read against moving
-   points. The gradient on .stage is not a placeholder: it is what carries the
-   hero when WebGL is unavailable or when the reader has asked for reduced
-   motion, and the canvas simply draws on top of it.
+   Quiet by choice. One turquoise wash behind the opening block, and after that
+   the page is white space and type. Nothing moves.
    ========================================================================== */
 
-.stage {
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+.landing {
+  position: relative;
+  padding: var(--s7) 0 var(--s6);
+  margin-bottom: var(--s2);
+}
+.landing::before {
+  content: ""; position: absolute; z-index: -1;
+  left: 50%; transform: translateX(-50%);
+  top: calc(var(--bar) * -1 - var(--s6)); width: 100vw; height: 100%;
   background:
-    radial-gradient(120% 80% at 50% 45%, #1b1140 0%, #0a0524 55%, #04030f 100%),
-    #04030f;
+    radial-gradient(70% 120% at 12% 0%, color-mix(in srgb, var(--accent) 13%, transparent) 0%, transparent 62%),
+    linear-gradient(180deg, var(--surface) 0%, var(--ground) 100%);
+  border-bottom: 1px solid var(--line);
 }
-.stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+@supports not (background: color-mix(in srgb, red 10%, transparent)) {
+  .landing::before { background: linear-gradient(180deg, var(--surface) 0%, var(--ground) 100%); }
+}
 
-/* Reduced motion never gets the canvas at all: 120,000 moving points is exactly
-   the kind of motion that causes trouble. The gradient stands in for it. */
-@media (prefers-reduced-motion: reduce) { .stage canvas { display: none; } }
-
-.hero {
-  position: relative; z-index: 1;
-  min-height: 100svh;
-  display: flex; flex-direction: column; justify-content: center;
-  padding: calc(var(--bar) + var(--s6)) var(--s4) var(--s8);
-  color: #fff;
+.landing .eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase;
+  color: var(--accent-ink); margin: 0 0 var(--s3);
 }
-@media (min-width: 768px) { .hero { padding-left: var(--s6); padding-right: var(--s6); } }
-
-.hero-in { width: 100%; max-width: var(--content); margin: 0 auto; }
-
-.hero .eyebrow {
-  font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-  color: #8fe6ff; margin: 0 0 var(--s3);
+.landing h1 {
+  font-size: clamp(30px, 4.6vw, 46px); font-weight: 800; letter-spacing: -.035em;
+  line-height: 1.08; max-width: 18ch;
 }
-.hero h1 {
-  font-size: clamp(32px, 6.2vw, 60px); font-weight: 800; letter-spacing: -.035em;
-  line-height: 1.05; color: #fff; max-width: 20ch;
-  text-shadow: 0 2px 40px rgba(0, 0, 0, .55);
+.landing .lede {
+  margin: var(--s4) 0 0; max-width: 56ch; font-size: 17.5px; color: var(--ink-2);
 }
-.hero .lede {
-  margin: var(--s4) 0 0; max-width: 60ch; font-size: 17px; line-height: 1.6;
-  color: rgba(255, 255, 255, .8); text-shadow: 0 1px 20px rgba(0, 0, 0, .6);
-}
-.hero .stats { margin-top: var(--s5); }
-.hero .stat {
-  background: rgba(10, 12, 16, .5); border-color: rgba(255, 255, 255, .16);
-  color: rgba(255, 255, 255, .72); backdrop-filter: blur(10px);
-}
-.hero .stat b { color: #fff; }
-
-.hero-cta {
-  display: inline-flex; align-items: center; gap: 8px; margin-top: var(--s5);
-  padding: 11px 18px; border-radius: var(--r-full); text-decoration: none;
-  font-size: 14px; font-weight: 650;
-  background: var(--accent); color: #04292b; border: 1px solid transparent;
-  transition: transform var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
-}
-.hero-cta:hover { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(18, 192, 198, .35); }
+.landing .stats { margin-top: var(--s5); }
 
 /* ------------------------------------------------------------- folders */
 
-.folders {
-  display: grid; gap: var(--s3); margin-top: var(--s7);
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
+.folders { display: grid; gap: var(--s3); grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (min-width: 640px)  { .folders { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 1000px) { .folders { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
-.folders-h {
-  display: flex; align-items: baseline; gap: var(--s3); flex-wrap: wrap;
-  margin-top: var(--s7); color: rgba(255, 255, 255, .55); font-size: 12px;
-  font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-}
-
-/* A folder: a tab on the top left, then the face. The tab is drawn rather than
-   imaged so it takes the company accent without shipping eight more files. */
+/* A folder: a tab in the company's own accent, then the face. Drawn rather
+   than imaged, so it takes any brand colour without shipping more files. */
 .folder {
-  position: relative; display: block; padding-top: 13px;
-  text-decoration: none; color: #fff;
+  position: relative; display: block; padding-top: 12px;
+  text-decoration: none; color: inherit;
   transition: transform var(--mid) var(--ease);
 }
 .folder::before {
   content: ""; position: absolute; top: 0; left: 0;
-  width: 44%; height: 15px;
-  background: var(--brand); opacity: .85;
-  border-radius: 8px 10px 0 0;
-  transition: opacity var(--mid) var(--ease), width var(--mid) var(--ease);
+  width: 42%; height: 14px;
+  background: var(--brand); border-radius: 7px 9px 0 0;
+  transition: width var(--mid) var(--ease);
 }
 .folder-face {
-  position: relative; display: flex; flex-direction: column; gap: 10px;
-  padding: var(--s4); min-height: 132px;
+  display: flex; flex-direction: column; gap: 10px;
+  padding: var(--s4); min-height: 124px;
   border-radius: 0 var(--r-lg) var(--r-lg) var(--r-lg);
-  background: rgba(10, 12, 16, .55);
-  border: 1px solid rgba(255, 255, 255, .14);
-  backdrop-filter: blur(14px) saturate(1.4);
-  box-shadow: 0 10px 34px rgba(0, 0, 0, .35);
-  transition: border-color var(--mid) var(--ease), box-shadow var(--mid) var(--ease), background var(--mid) var(--ease);
+  background: var(--surface); border: 1px solid var(--line);
+  box-shadow: var(--shadow-1);
+  transition: border-color var(--mid) var(--ease), box-shadow var(--mid) var(--ease);
 }
-@supports not (backdrop-filter: blur(1px)) { .folder-face { background: rgba(6, 8, 12, .86); } }
-
-.folder:hover { transform: translateY(-3px); }
-.folder:hover::before { opacity: 1; width: 52%; }
-.folder:hover .folder-face {
-  border-color: var(--brand);
-  background: rgba(14, 18, 24, .62);
-  box-shadow: 0 16px 44px rgba(0, 0, 0, .45), 0 0 0 1px var(--brand), 0 0 34px -8px var(--brand);
-}
+.folder:hover { transform: translateY(-2px); }
+.folder:hover::before { width: 52%; }
+.folder:hover .folder-face { border-color: var(--brand); box-shadow: var(--shadow-2); }
 .folder:focus-visible { outline: none; }
-.folder:focus-visible .folder-face { outline: 3px solid #fff; outline-offset: 3px; }
+.folder:focus-visible .folder-face { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-/* Brand marks sit on white, never on a tinted or low-contrast ground. */
+/* Brand marks always sit on white, never on a tinted or dark ground. */
 .folder-logo {
-  width: 46px; height: 34px; border-radius: 8px; background: #fff;
-  display: grid; place-items: center; padding: 5px; flex: none;
+  width: 44px; height: 32px; border-radius: 7px; flex: none;
+  background: #fff; border: 1px solid var(--line);
+  display: grid; place-items: center; padding: 4px;
 }
 .folder-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
 .folder-name { font-size: 15px; font-weight: 700; letter-spacing: -.01em; line-height: 1.25; }
 .folder-meta {
-  margin-top: auto; font-size: 12px; color: rgba(255, 255, 255, .62);
+  margin-top: auto; font-size: 12.5px; color: var(--ink-3);
   display: flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums;
 }
 .folder-meta .live-dot {
-  width: 6px; height: 6px; border-radius: 50%; background: #45d8dd; flex: none;
-  box-shadow: 0 0 0 3px rgba(69, 216, 221, .18);
+  width: 6px; height: 6px; border-radius: 50%; background: var(--t-live-fg); flex: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--t-live-fg) 20%, transparent);
 }
-.folder.quiet .folder-face { min-height: 104px; }
-.folder.quiet .folder-meta { color: rgba(255, 255, 255, .42); }
-
-.scroll-hint {
-  margin: var(--s7) auto 0; display: flex; align-items: center; gap: 8px;
-  font-size: 11px; letter-spacing: .16em; text-transform: uppercase;
-  color: rgba(255, 255, 255, .55);
-}
-.scroll-hint svg { animation: nudge 2.4s var(--ease) infinite; }
-@keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
-@media (prefers-reduced-motion: reduce) { .scroll-hint svg { animation: none; } }
-
-/* The ground covers the canvas, so every word below the hero is read on a
-   solid surface rather than over moving points. */
-.ground { position: relative; z-index: 1; background: var(--ground); border-top: 1px solid var(--line); }
-
-/* While the hero is on screen the chrome floats over the scene instead of
-   sitting on a pale bar that would look pasted on. */
-:root[data-over-stage] .topbar {
-  background: rgba(8, 10, 14, .45); border-bottom-color: rgba(255, 255, 255, .12);
-  color: #fff;
-}
-:root[data-over-stage] .brandmark { color: #fff; }
-:root[data-over-stage] .brandmark:hover { background: rgba(255, 255, 255, .1); }
-:root[data-over-stage] .brandmark .sub { color: rgba(255, 255, 255, .6); }
-:root[data-over-stage] .searchbtn,
-:root[data-over-stage] .iconbtn {
-  background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .18); color: rgba(255, 255, 255, .8);
-}
-:root[data-over-stage] .searchbtn:hover,
-:root[data-over-stage] .iconbtn:hover { background: rgba(255, 255, 255, .16); color: #fff; }
-:root[data-over-stage] .kbd { color: rgba(255, 255, 255, .6); border-color: rgba(255, 255, 255, .2); background: transparent; }
-:root[data-over-stage] .rail {
-  background: rgba(8, 10, 14, .42); border-right-color: rgba(255, 255, 255, .1);
-  backdrop-filter: blur(14px);
-}
-:root[data-over-stage] .rail-h { color: rgba(255, 255, 255, .45); }
-:root[data-over-stage] .rail-link { color: rgba(255, 255, 255, .75); }
-:root[data-over-stage] .rail-link:hover,
-:root[data-over-stage] .rail-link[aria-current] { background: rgba(255, 255, 255, .12); color: #fff; }
-:root[data-over-stage] .rail-link .count { color: rgba(255, 255, 255, .5); }
-:root[data-over-stage] .strip a { background: rgba(10, 12, 16, .55); border-color: rgba(255, 255, 255, .16); color: rgba(255, 255, 255, .8); }
-
-/* The overview page has no wrap padding of its own: the hero and the ground
-   each set theirs. */
-.wrap.bare { max-width: none; padding: 0; }
-.ground .wrap { padding-top: var(--s7); }
+.folder.quiet .folder-face { min-height: 104px; background: var(--surface-2); }
+.folder.quiet .folder::before { opacity: .5; }
+.folder.quiet .folder-meta { color: var(--ink-4); }
 
 @media print {
-  .topbar, .rail, .strip, .sdim, .foot-bar, .stage, .scroll-hint { display: none !important; }
+  .topbar, .rail, .strip, .sdim, .foot-bar { display: none !important; }
   .shell { display: block; }
-  .hero { min-height: 0; color: #000; padding-top: 0; }
-  .hero h1, .hero .lede { color: #000; text-shadow: none; }
+  .landing::before { display: none; }
   body { background: #fff; }
 }
+

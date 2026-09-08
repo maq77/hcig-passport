@@ -300,7 +300,6 @@ for (const file of Object.values(ASSETS)) {
 
 write('studio.css', fs.readFileSync(path.join(CONTENT, 'theme.css'), 'utf8'));
 write('studio.js', fs.readFileSync(path.join(CONTENT, 'studio.js'), 'utf8'));
-write('tunnel.js', fs.readFileSync(path.join(CONTENT, 'tunnel.js'), 'utf8'));
 write('robots.txt', 'User-agent: *\nDisallow: /\n');
 write(
   'favicon.svg',

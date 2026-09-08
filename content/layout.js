@@ -168,7 +168,7 @@ function crumbsHtml(trail) {
  * chrome, the theme toggle, the search and the skip link can never disagree
  * between pages.
  */
-function shell({ title, desc, body, companies, active = {}, index, brand, wide, head = '', bare, stage }) {
+function shell({ title, desc, body, companies, active = {}, index, brand, wide, head = '' }) {
   const bar = `<header class="topbar">
 <a class="brandmark" href="/"><span class="dot">HC</span>HCIG&nbsp;<span class="sub">Studio</span></a>
 <span class="spacer"></span>
@@ -209,13 +209,12 @@ ${head}
 </head>
 <body${style}>
 <a class="skip" href="#main">Skip to content</a>
-${stage ? '<div class="stage" id="stage" aria-hidden="true"><canvas id="scene"></canvas></div>' : ''}
 ${bar}
 <div class="shell">
 ${railHtml(companies, active)}
 <main id="main" tabindex="-1">
-<div class="wrap${bare ? ' bare' : ''}"${wide ? ' style="max-width:none"' : ''}>
-${bare ? '' : stripHtml(companies, active)}
+<div class="wrap"${wide ? ' style="max-width:none"' : ''}>
+${stripHtml(companies, active)}
 ${body}
 </div>
 <footer class="foot-bar">

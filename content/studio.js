@@ -23,24 +23,6 @@
     });
   }
 
-  /* --------------------------------------------------------- the stage */
-
-  /* While the WebGL hero is on screen the chrome floats over it. This lives
-     here rather than in the scene module so it still works when WebGL is
-     unavailable or motion is reduced and the gradient carries the hero. */
-  var hero = document.getElementById('hero');
-  if (hero) {
-    var bar = 60;
-    var setOverStage = function () {
-      var past = hero.getBoundingClientRect().bottom <= bar;
-      if (past) root.removeAttribute('data-over-stage');
-      else root.setAttribute('data-over-stage', '');
-    };
-    setOverStage();
-    window.addEventListener('scroll', setOverStage, { passive: true });
-    window.addEventListener('resize', setOverStage);
-  }
-
   /* ------------------------------------------------------------ search */
 
   var dim = document.getElementById('sdim');
