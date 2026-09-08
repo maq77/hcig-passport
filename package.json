@@ -10,6 +10,7 @@
     "test": "node build.js && node check.js",
     "dev": "node build.js && node serve.js",
     "activity": "node scripts/activity.js",
+    "gen:247": "node scripts/gen-247-pages.js",
     "report": "node scripts/report.js",
     "publish": "node scripts/publish.js",
     "watch": "node watch.js"

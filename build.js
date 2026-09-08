@@ -49,6 +49,25 @@ const ASSETS = {
   SMILE: 'smile.webp',
   FAMILY: 'family.webp',
 
+  /* 24/7 Clinic. Stills pulled from the clinic's own films in
+     `247 material/`, chiefly `Le reve 247.mp4`, which was shot at the
+     Premier Le Reve clinic in Sahl Hasheesh. Real places, real staff. */
+  C7RESORT: 'c7-lereve-resort.webp',
+  C7SIGN: 'c7-lereve-sign.webp',
+  C7CLINIC: 'c7-lereve-clinic.webp',
+  C7RECEPTION: 'c7-reception.webp',
+  C7DOCTOR: 'c7-doctor.webp',
+  C7CONSULT: 'c7-consult.webp',
+  C7WARD: 'c7-ward.webp',
+  C7OBS: 'c7-observation.webp',
+  C7DENTAL: 'c7-dental.webp',
+  C7XRAY: 'c7-xray.webp',
+  C7REPORT: 'c7-report.webp',
+  C7MEDS: 'c7-medication.webp',
+  C7WELCOME: 'c7-welcome.webp',
+  C7TEAM: 'c7-team.webp',
+  C7RESPONSE: 'c7-response.webp',
+
   LOGOHCIG: 'logo-hcig.jpg',
   LOGO247: 'logo-247.png',
   LOGOMP: 'logo-medpark.webp',

@@ -1,6 +1,10 @@
 [
   {
     "date": "2026-09-08",
+    "subject": "Publish and watch: drop the shell that broke commits on Windows"
+  },
+  {
+    "date": "2026-09-08",
     "subject": "HCIG Work: rename, report, activity, due dates, checklists"
   },
   {

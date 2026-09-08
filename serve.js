@@ -16,7 +16,13 @@ const PORT = Number(process.env.PORT) || 4173;
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
+  /* Without these two the preview served the stylesheet and the script as
+     application/octet-stream, so the browser dropped them and every portal
+     page rendered unstyled with no theme toggle and no search. */
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',

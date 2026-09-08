@@ -1,0 +1,700 @@
+<title>24/7 Clinic Landing Page Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --red:#C00000; --red-d:#960000; --red-t:#FCEDED; --red-l:#F0C9C9;
+  --wa:#1FA855; --wa-d:#177F41; --wa-t:#E7F6ED;
+  --ink:#131110; --ink2:#4C4643; --ink3:#7B736E;
+  --pg:#FFFFFF; --pg2:#F8F6F3; --pg3:#F0ECE7;
+  --line:#E4DED7; --line2:#CFC6BC;
+  --ok:#1C7A47; --ok-t:#E4F3EA;
+  --amb:#8A5A0B; --amb-t:#FBF0DA;
+  --sh:0 1px 2px rgba(19,17,16,.05),0 12px 28px -18px rgba(19,17,16,.35);
+  --f:"Poppins","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --fm:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --ftag:"Calisto MT",Georgia,"Times New Roman",serif;
+  --r:14px;
+  /* Filled buttons keep one colour in both themes. A button is a solid shape,
+     not text on the page ground, and lifting the red to a dark-mode salmon
+     dropped white-on-red from 6.5:1 to 2.8:1. */
+  --btn:#C00000; --btn-d:#960000; --btn-wa:#1FA855; --btn-wa-d:#177F41;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --red:#FF5A5A; --red-d:#FF7B7B; --red-t:#2C1414; --red-l:#5A2323;
+  --wa:#35C46F; --wa-d:#4FD684; --wa-t:#12291D;
+  --ink:#F4EFEA; --ink2:#BDB4AC; --ink3:#8E857D;
+  --pg:#141210; --pg2:#1C1917; --pg3:#26221F;
+  --line:#312B27; --line2:#463E38;
+  --ok:#4BC183; --ok-t:#122A1E;
+  --amb:#DFAE55; --amb-t:#2B2112;
+  --sh:0 1px 2px rgba(0,0,0,.5),0 12px 28px -18px rgba(0,0,0,.9);
+}}
+:root[data-theme="dark"]{
+  --red:#FF5A5A; --red-d:#FF7B7B; --red-t:#2C1414; --red-l:#5A2323;
+  --wa:#35C46F; --wa-d:#4FD684; --wa-t:#12291D;
+  --ink:#F4EFEA; --ink2:#BDB4AC; --ink3:#8E857D;
+  --pg:#141210; --pg2:#1C1917; --pg3:#26221F;
+  --line:#312B27; --line2:#463E38;
+  --ok:#4BC183; --ok-t:#122A1E;
+  --amb:#DFAE55; --amb-t:#2B2112;
+  --sh:0 1px 2px rgba(0,0,0,.5),0 12px 28px -18px rgba(0,0,0,.9);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--pg);color:var(--ink);font-family:var(--f);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;line-height:1.14;letter-spacing:-.025em;text-wrap:balance}
+p{margin:0}
+img{display:block;max-width:100%}
+svg{display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px;border-radius:4px}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+.ico{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+@media(min-width:800px){.wrap{padding:0 34px}}
+
+/* ---------- masthead ---------- */
+.mast{padding:54px 0 30px}
+@media(min-width:800px){.mast{padding:72px 0 38px}}
+.eyebrow{font-family:var(--fm);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.eyebrow b{color:var(--red);font-weight:600}
+h1{font-size:clamp(36px,6.6vw,66px);font-weight:700;letter-spacing:-.045em;margin-top:20px;line-height:1.02}
+h1 em{font-style:normal;color:var(--red)}
+.deck{font-size:clamp(16px,2vw,19px);color:var(--ink2);max-width:56ch;margin-top:18px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));margin-top:32px;border-top:1px solid var(--line)}
+.stats div{padding:15px 20px 8px 0;border-right:1px solid var(--line)}
+.stats div:last-child{border-right:none}
+.stats .k{font-family:var(--fm);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);min-height:3.4em}
+.stats .v{font-size:21px;font-weight:600;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+
+/* ---------- nav ---------- */
+.bar{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--pg) 90%,transparent);backdrop-filter:blur(14px);border-block:1px solid var(--line)}
+.bar-in{max-width:1180px;margin:0 auto;padding:9px 20px;display:flex;gap:12px;align-items:center}
+@media(min-width:800px){.bar-in{padding:9px 34px}}
+.chips{display:flex;gap:6px;overflow-x:auto;flex:1;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;font-family:var(--fm);font-size:10px;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;color:var(--ink2);border:1px solid var(--line2);padding:6px 11px;border-radius:3px;white-space:nowrap}
+.chips a:hover{border-color:var(--red);color:var(--red)}
+.tbtn{flex:none;font-family:var(--fm);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);background:none;border:1px solid var(--line2);padding:6px 11px;border-radius:3px;cursor:pointer}
+.tbtn:hover{border-color:var(--red);color:var(--red)}
+
+/* ---------- sections ---------- */
+section{padding:46px 0}
+@media(min-width:800px){section{padding:64px 0}}
+section.alt{background:var(--pg2);border-block:1px solid var(--line)}
+.kicker{font-family:var(--fm);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+h2{font-size:clamp(25px,3.7vw,38px);font-weight:700;margin-top:10px}
+h3{font-size:17px;font-weight:600}
+.lede{margin-top:11px;color:var(--ink2);max-width:62ch;font-size:16px}
+.hr{height:1px;background:var(--line);margin:34px 0}
+
+/* ---------- generic grid ---------- */
+.g2{display:grid;gap:16px;margin-top:26px}
+@media(min-width:720px){.g2{grid-template-columns:1fr 1fr}}
+.g3{display:grid;gap:16px;margin-top:26px}
+@media(min-width:680px){.g3{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.g3{grid-template-columns:repeat(3,1fr)}}
+.box{background:var(--pg);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.box .n{font-family:var(--fm);font-size:10px;letter-spacing:.14em;color:var(--red);text-transform:uppercase}
+.box h3{margin-top:9px}
+.box p{margin-top:7px;color:var(--ink2);font-size:14.5px;line-height:1.5}
+
+/* ---------- swatches ---------- */
+.sw{display:grid;gap:14px;margin-top:26px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:700px){.sw{grid-template-columns:repeat(4,1fr)}}
+.swatch{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--pg)}
+.swatch .chip{height:88px}
+.swatch .m{padding:12px 14px}
+.swatch .m b{font-size:14.5px;font-weight:600;display:block}
+.swatch .m code{font-family:var(--fm);font-size:12px;color:var(--ink3);display:block;margin-top:3px}
+.swatch .m span{display:block;margin-top:7px;font-size:13px;color:var(--ink2);line-height:1.45}
+
+/* ---------- type ---------- */
+.type{margin-top:26px;border-top:1px solid var(--line)}
+.type .row{display:grid;gap:6px;padding:17px 0;border-bottom:1px solid var(--line)}
+@media(min-width:820px){.type .row{grid-template-columns:190px 1fr;gap:24px;align-items:baseline}}
+.type .spec{font-family:var(--fm);font-size:11px;color:var(--ink3);letter-spacing:.05em}
+.t-h1{font-size:clamp(30px,5vw,46px);font-weight:700;letter-spacing:-.04em;line-height:1.06}
+.t-h2{font-size:29px;font-weight:700;letter-spacing:-.028em}
+.t-h3{font-size:17px;font-weight:600}
+.t-body{font-size:16px}
+.t-small{font-size:13.5px;color:var(--ink2)}
+.t-tag{font-family:var(--ftag);font-size:19px;letter-spacing:.14em;text-transform:uppercase}
+.t-num{font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+
+/* ---------- icons ---------- */
+.icons{display:grid;gap:10px;margin-top:26px;grid-template-columns:repeat(3,1fr)}
+@media(min-width:620px){.icons{grid-template-columns:repeat(5,1fr)}}
+@media(min-width:960px){.icons{grid-template-columns:repeat(8,1fr)}}
+.icons figure{margin:0;border:1px solid var(--line);border-radius:11px;padding:15px 8px 11px;text-align:center;background:var(--pg);color:var(--red)}
+.icons .ico{width:24px;height:24px;margin:0 auto}
+.icons figcaption{margin-top:9px;font-family:var(--fm);font-size:9.5px;letter-spacing:.07em;color:var(--ink3);text-transform:uppercase}
+
+/* ---------- component demos ---------- */
+.demo{margin-top:26px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--pg)}
+.demo .head{display:flex;gap:12px;align-items:baseline;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--pg2);flex-wrap:wrap}
+.demo .head b{font-size:14.5px;font-weight:600}
+.demo .head span{font-size:13px;color:var(--ink3)}
+.demo .body{padding:18px 16px}
+.demo .body.flush{padding:0}
+
+/* the real components, copied from the page stylesheet so this kit shows
+   what actually ships, not an approximation */
+.c-top{display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--pg)}
+.c-top img{height:34px;width:auto}
+.c-top .tag{font-family:var(--ftag);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.c-top .sp{flex:1}
+.c-call{display:inline-flex;align-items:center;gap:7px;background:var(--btn);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:9px 15px;border-radius:999px}
+.c-call .ico{width:17px;height:17px}
+
+.acts{display:grid;gap:9px;max-width:420px}
+.act{display:flex;align-items:center;justify-content:center;gap:9px;min-height:56px;border-radius:12px;text-decoration:none;font-weight:600;font-size:17px}
+.act .ico{width:21px;height:21px}
+.act-call{background:var(--btn);color:#fff}
+.act-wa{background:var(--btn-wa);color:#fff}
+.act-map{background:var(--pg3);color:var(--ink);border:1.5px solid var(--line2)}
+.act .num{font-weight:500;opacity:.85;font-size:14px}
+
+.c-offer{background:var(--btn);color:#fff;padding:16px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.c-offer b{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.c-offer span{font-size:14.5px;color:rgba(255,255,255,.92)}
+
+ol.steps{list-style:none;margin:0;padding:0;counter-reset:s;max-width:44ch}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 18px 46px;font-size:15.5px}
+ol.steps li:before{content:counter(s);position:absolute;left:0;top:-1px;width:31px;height:31px;border-radius:50%;background:var(--btn);color:#fff;font-size:14px;font-weight:700;display:grid;place-items:center}
+ol.steps li:not(:last-child):after{content:"";position:absolute;left:15px;top:34px;bottom:4px;width:1.5px;background:var(--line2)}
+
+.svc{background:var(--pg);border:1px solid var(--line);border-radius:var(--r);padding:18px 17px;max-width:320px}
+.svc .i{width:36px;height:36px;border-radius:10px;background:var(--red-t);color:var(--red);display:grid;place-items:center}
+.svc h3{margin-top:12px;font-size:16px}
+.svc p{margin-top:5px;font-size:14.5px;color:var(--ink2);line-height:1.5}
+
+.c-crow{background:var(--pg);border:1px solid var(--line);border-radius:var(--r);padding:18px;max-width:320px}
+.c-crow .k{font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.c-crow .v{font-size:19px;font-weight:600;margin-top:7px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.c-crow .v a{text-decoration:none;color:var(--red)}
+.c-crow small{display:block;margin-top:6px;font-size:13.5px;color:var(--ink2);font-weight:400}
+
+.c-faq{border-top:1px solid var(--line);max-width:640px}
+.c-faq details{border-bottom:1px solid var(--line)}
+.c-faq summary{cursor:pointer;list-style:none;padding:15px 34px 15px 0;font-weight:600;font-size:16px;position:relative}
+.c-faq summary::-webkit-details-marker{display:none}
+.c-faq summary:after{content:"";position:absolute;right:6px;top:22px;width:9px;height:9px;border-right:2px solid var(--ink3);border-bottom:2px solid var(--ink3);transform:rotate(45deg)}
+.c-faq details[open] summary:after{transform:rotate(-135deg);top:25px}
+.c-faq .a{padding:0 0 16px;color:var(--ink2);font-size:15px}
+
+.c-dock{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:9px 12px;background:var(--pg2);border-top:1px solid var(--line)}
+.c-dock a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:11px;text-decoration:none;font-weight:600;font-size:16px;color:#fff}
+.c-dock .ico{width:19px;height:19px}
+.c-dock .d-call{background:var(--btn)}
+.c-dock .d-wa{background:var(--btn-wa)}
+
+.tbc{border-bottom:2px dotted var(--red);cursor:help}
+.tbc:after{content:"?";font-size:10px;font-weight:700;color:var(--red);vertical-align:super;margin-left:2px}
+
+/* ---------- photo grid ---------- */
+.photos{display:grid;gap:12px;margin-top:26px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:760px){.photos{grid-template-columns:repeat(4,1fr)}}
+.photos figure{margin:0;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--pg)}
+.photos img{width:100%;aspect-ratio:4/3;height:auto;object-fit:cover}
+.photos figcaption{padding:9px 11px;font-size:12px;color:var(--ink3);line-height:1.4}
+.photos code{font-family:var(--fm);font-size:10.5px;color:var(--red);display:block}
+
+/* ---------- tables ---------- */
+.tw{margin-top:26px;overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px;background:var(--pg)}
+th{text-align:left;font-family:var(--fm);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);font-weight:500;padding:12px 15px;background:var(--pg2);border-bottom:1px solid var(--line)}
+td{padding:12px 15px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink2)}
+td:first-child{color:var(--ink);font-weight:500}
+tr:last-child td{border-bottom:none}
+code.k{font-family:var(--fm);font-size:12.5px;color:var(--red);background:var(--red-t);padding:2px 6px;border-radius:4px}
+
+/* ---------- callouts ---------- */
+.call{display:grid;gap:6px;padding:16px 18px;border-radius:var(--r);border:1px solid var(--line);margin-top:24px;background:var(--pg)}
+.call .lab{font-family:var(--fm);font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:600}
+.call p{font-size:14.5px;color:var(--ink2)}
+.call.rule{background:var(--red-t);border-color:var(--red-l)}
+.call.rule .lab{color:var(--red)}
+.call.done{background:var(--ok-t);border-color:color-mix(in srgb,var(--ok) 34%,transparent)}
+.call.done .lab{color:var(--ok)}
+.call.open{background:var(--amb-t);border-color:color-mix(in srgb,var(--amb) 40%,transparent)}
+.call.open .lab{color:var(--amb)}
+
+/* ---------- anatomy diagram ---------- */
+.anat{margin-top:26px;border:1px solid var(--line);border-radius:var(--r);background:var(--pg);padding:18px;overflow-x:auto}
+.anat svg{min-width:620px;width:100%;height:auto;font-family:var(--f)}
+.anat .ab{fill:var(--pg2);stroke:var(--line2);stroke-width:1.4}
+.anat .ah{fill:var(--red-t);stroke:var(--red);stroke-width:1.8}
+.anat .ad{fill:var(--pg3);stroke:var(--line2);stroke-width:1.4}
+.anat .an{font-size:12.5px;font-weight:600;fill:var(--ink)}
+.anat .as{font-size:11px;fill:var(--ink3)}
+.anat .ar{font-size:11px;font-weight:600;fill:var(--red)}
+.anat .fold{stroke:var(--red);stroke-width:1.6;stroke-dasharray:6 5;fill:none}
+
+/* ---------- links out ---------- */
+.outs{display:grid;gap:12px;margin-top:26px}
+@media(min-width:760px){.outs{grid-template-columns:repeat(3,1fr)}}
+.out{display:block;text-decoration:none;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--pg);transition:border-color .15s}
+.out:hover{border-color:var(--red)}
+.out img{width:100%;aspect-ratio:16/10;height:auto;object-fit:cover}
+.out .m{padding:15px 16px}
+.out .m b{font-size:16px;font-weight:600;display:block}
+.out .m span{display:block;margin-top:4px;font-size:13.5px;color:var(--ink3)}
+.out .m i{display:inline-flex;align-items:center;gap:6px;margin-top:11px;font-style:normal;font-size:13px;font-weight:600;color:var(--red)}
+.out .m i .ico{width:15px;height:15px}
+
+footer{border-top:1px solid var(--line);padding:30px 0 44px;color:var(--ink3);font-size:13.5px}
+footer b{color:var(--ink2);font-weight:600}
+</style>
+
+<svg class="sprite" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+<g id="i-phone"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5c0 8.8 7.2 16 16 16a1.5 1.5 0 0 0 1.5-1.5v-2a1.5 1.5 0 0 0-1.2-1.5l-3.1-.6a1.5 1.5 0 0 0-1.5.6l-.9 1.2a12.6 12.6 0 0 1-5.9-5.9l1.2-.9a1.5 1.5 0 0 0 .6-1.5l-.6-3.1a1.5 1.5 0 0 0-1.6-1.3Z"/></g>
+<g id="i-wa"><path d="M3.6 20.4 4.9 16.1A8.6 8.6 0 1 1 8 19.2Z"/><path d="M9 8.6c.3 0 .5.3.65.65l.45 1.05-.8.8a5.7 5.7 0 0 0 3.3 3.3l.8-.8 1.05.45c.35.15.65.35.65.65v.9c-.3.45-.9.6-1.5.45A8.6 8.6 0 0 1 8.1 10.6c-.15-.6 0-1.2.45-1.5Z"/></g>
+<g id="i-pin"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></g>
+<g id="i-clock"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.2v5.1l3.3 1.9"/></g>
+<g id="i-shield"><path d="M12 3 19 6v6c0 4.3-3 7.5-7 8.8C8 19.5 5 16.3 5 12V6Z"/><path d="m9.2 12.2 2.1 2.1L15 10.6"/></g>
+<g id="i-globe"><circle cx="12" cy="12" r="8.6"/><path d="M3.6 9.6h16.8M3.6 14.4h16.8M12 3.4c2.4 2.6 3.6 5.5 3.6 8.6s-1.2 6-3.6 8.6c-2.4-2.6-3.6-5.5-3.6-8.6s1.2-6 3.6-8.6Z"/></g>
+<g id="i-bed"><path d="M3 7v12M3 12.6h18V19H3"/><path d="M7.5 12.6V10h5a3.5 3.5 0 0 1 3.4 2.6"/></g>
+<g id="i-drip"><path d="M12 3v5.5"/><path d="M9.2 8.5h5.6l-.8 10.2a2 2 0 0 1-2 1.8 2 2 0 0 1-2-1.8Z"/><path d="M9.6 13.6h4.8"/></g>
+<g id="i-pill"><rect x="3" y="9" width="18" height="6" rx="3"/><path d="M12 9v6"/></g>
+<g id="i-flask"><path d="M10 3.4v5.4L5.4 18.4A1.6 1.6 0 0 0 6.8 20.8h10.4a1.6 1.6 0 0 0 1.4-2.4L14 8.8V3.4"/><path d="M8.6 3.4h6.8M7.6 15h8.8"/></g>
+<g id="i-tooth"><path d="M7.2 3.6c1.9 0 2.5 1 4.8 1s2.9-1 4.8-1 2.3 2.2 1.7 5.3c-.6 3.1-1.4 12-3.3 12-1.5 0-1.2-4.6-3.2-4.6s-1.7 4.6-3.2 4.6c-1.9 0-2.7-8.9-3.3-12C4.9 5.8 5.3 3.6 7.2 3.6Z"/></g>
+<g id="i-ambulance"><path d="M2.6 6.6h11v10h-11z"/><path d="M13.6 10h3.6l3.8 3.4v3.2h-7.4"/><circle cx="7" cy="18.4" r="1.9"/><circle cx="17.2" cy="18.4" r="1.9"/><path d="M6.4 11.2h3M7.9 9.7v3"/></g>
+<g id="i-doc"><path d="M6.4 2.8h7.2l4 4v14.4H6.4z"/><path d="M13.6 2.8v4h4"/><path d="M9.2 12h5.6M9.2 15.4h5.6M9.2 18.4h3.4"/></g>
+<g id="i-check"><path d="m4.6 12.4 5 5 9.8-10.8"/></g>
+<g id="i-arrow"><path d="M5 12h13M12.6 6.2 18.4 12l-5.8 5.8"/></g>
+</defs></svg>
+
+<div class="wrap mast">
+  <div class="eyebrow"><span>24/7 Clinic</span><b>Travel Medical Services</b><span>Design system · 2026-09-08</span></div>
+  <h1>The in-hotel landing page, <em>built once</em></h1>
+  <p class="deck">A guest at a Red Sea resort types "doctor" into a phone. This kit decides what they see, how fast they can press Call, and why the page is theirs and not a template with a name swapped in.</p>
+  <div class="stats">
+    <div><div class="k">Pages live in demo</div><div class="v">3</div></div>
+    <div><div class="k">Clinics in the network</div><div class="v">28</div></div>
+    <div><div class="k">Components</div><div class="v">11</div></div>
+    <div><div class="k">Colours</div><div class="v">3 + neutrals</div></div>
+    <div><div class="k">Photography</div><div class="v">Their own</div></div>
+  </div>
+</div>
+
+<nav class="bar" aria-label="Sections">
+  <div class="bar-in">
+    <div class="chips">
+      <a href="#rules">Rules</a>
+      <a href="#colour">Colour</a>
+      <a href="#type">Type</a>
+      <a href="#icons">Icons</a>
+      <a href="#components">Components</a>
+      <a href="#anatomy">Page anatomy</a>
+      <a href="#photos">Photography</a>
+      <a href="#unconfirmed">Unconfirmed</a>
+      <a href="#template">One template</a>
+      <a href="#tracking">Tracking</a>
+      <a href="#demos">The demos</a>
+    </div>
+    <button class="tbtn" type="button" id="tt">Dark</button>
+  </div>
+</nav>
+
+<main>
+
+<section id="rules">
+  <div class="wrap">
+    <div class="kicker">The brief, as rules</div>
+    <h2>Six rules this kit obeys</h2>
+    <p class="lede">Every one comes from the brief. They are here because a design system that forgets the brief is decoration.</p>
+    <div class="g3">
+      <div class="box"><div class="n">01</div><h3>The phone number sits above the fold</h3><p>No corporate scroll before it. Call, WhatsApp and Find the clinic are the first things under the headline.</p></div>
+      <div class="box"><div class="n">02</div><h3>Mobile is the design, not the adaptation</h3><p>Drawn at 390 pixels wide, then allowed to grow. A thumb reaches every action without stretching.</p></div>
+      <div class="box"><div class="n">03</div><h3>No two pages are the same page</h3><p>The template holds the layout. The content table holds the words, and every hotel writes its own.</p></div>
+      <div class="box"><div class="n">04</div><h3>Do not overdesign</h3><p>Three colours, one typeface, outline icons, real photographs. No gradients, no glass, no illustration.</p></div>
+      <div class="box"><div class="n">05</div><h3>Emergency red, WhatsApp green</h3><p>The two colours a distressed guest already knows. Nothing else competes with them on the page.</p></div>
+      <div class="box"><div class="n">06</div><h3>Nothing unverified passes silently</h3><p>Anything still waiting on an answer is marked on the page and listed at the bottom of it.</p></div>
+    </div>
+    <div class="call rule">
+      <span class="lab">Rule</span>
+      <p>Conversion and local search, not a brochure. If an element does not help a guest call, find or trust the clinic, it does not ship.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="colour">
+  <div class="wrap">
+    <div class="kicker">Colour</div>
+    <h2>Three colours carry the whole page</h2>
+    <p class="lede">Classic Red is the brand and the primary action. WhatsApp green is the only other saturated colour allowed. Everything else is a warm neutral, so the two that matter always win.</p>
+    <div class="sw">
+      <div class="swatch"><div class="chip" style="background:#C00000"></div><div class="m"><b>Classic Red</b><code>#C00000</code><span>Brand, primary button, section kickers, icons. From the 24/7 Clinic guideline.</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#1FA855"></div><div class="m"><b>WhatsApp green</b><code>#1FA855</code><span>WhatsApp only. Never a decorative green.</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#131110"></div><div class="m"><b>Ink</b><code>#131110</code><span>Body text and the Directions button. Warm black, not pure black.</span></div></div>
+      <div class="swatch"><div class="chip" style="background:#F0ECE7;border-bottom:1px solid var(--line)"></div><div class="m"><b>Sand</b><code>#F0ECE7</code><span>Alternate section ground. Reads as resort, not as hospital.</span></div></div>
+    </div>
+    <div class="call done">
+      <span class="lab">Checked</span>
+      <p>Ink on white measures 17.2:1. White on Classic Red measures 6.5:1. White on WhatsApp green measures 3.6:1, which is why that button never carries text smaller than 17 pixels at 600 weight. In dark mode the red text lifts to #FF5A5A, because #C00000 on a dark ground fails as text. Filled buttons do not lift: they keep #C00000 and #1FA855 in both themes, because lifting them dropped white on red to 2.8:1.</p>
+    </div>
+  </div>
+</section>
+
+<section id="type">
+  <div class="wrap">
+    <div class="kicker">Type</div>
+    <h2>Poppins does the work</h2>
+    <p class="lede">The guideline sets Poppins as the main face and reserves Calisto MT for the tagline and headlines. On the web Calisto MT is not a licensed web font, so it is used only for the tagline, with Georgia behind it. Nothing structural depends on it loading.</p>
+    <div class="type">
+      <div class="row"><div class="spec">H1 · 700 · clamp 30 to 52px</div><div class="t-h1">Need a Doctor at Premier Le Rêve?</div></div>
+      <div class="row"><div class="spec">H2 · 700 · clamp 23 to 33px</div><div class="t-h2">Getting to the clinic</div></div>
+      <div class="row"><div class="spec">H3 · 600 · 16 to 17px</div><div class="t-h3">Ambulance and hospital referral</div></div>
+      <div class="row"><div class="spec">Body · 400 · 16px · 1.6</div><div class="t-body">You do not need an appointment and you do not need to leave Sahl Hasheesh.</div></div>
+      <div class="row"><div class="spec">Small · 400 · 13.5px</div><div class="t-small">Photographs of the Steigenberger clinic are needed before launch.</div></div>
+      <div class="row"><div class="spec">Tagline · Calisto MT · 0.14em</div><div class="t-tag">Travel Medical Services</div></div>
+      <div class="row"><div class="spec">Numbers · 600 · tabular</div><div class="t-num">+20 122 222 8247</div></div>
+    </div>
+    <div class="call rule">
+      <span class="lab">Rule</span>
+      <p>Prose stops at about 62 characters. Tables, diagrams and photo grids break out to full width inside their own scrolling container, so the page never scrolls sideways.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="icons">
+  <div class="wrap">
+    <div class="kicker">Icons</div>
+    <h2>One weight, one colour, no exceptions</h2>
+    <p class="lede">Outline only, 1.9 stroke, drawn on a 24 grid and coloured by whatever sits behind them. That is why the same file works on a red button, a pink tile and a dark background without a second copy.</p>
+    <div class="icons">
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg><figcaption>Call</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg><figcaption>WhatsApp</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg><figcaption>Find us</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-clock"/></svg><figcaption>Hours</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg><figcaption>Insurance</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-globe"/></svg><figcaption>Language</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bed"/></svg><figcaption>Observation</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-drip"/></svg><figcaption>IV</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pill"/></svg><figcaption>Medication</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flask"/></svg><figcaption>Laboratory</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-tooth"/></svg><figcaption>Dental</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ambulance"/></svg><figcaption>Referral</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-doc"/></svg><figcaption>Report</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-check"/></svg><figcaption>Confirmed</figcaption></figure>
+      <figure><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg><figcaption>Onward</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="components">
+  <div class="wrap">
+    <div class="kicker">Components</div>
+    <h2>Eleven pieces build every page</h2>
+    <p class="lede">These are the real elements, styled with the same rules the pages ship with. Change one here and it changes on all twenty eight clinics.</p>
+
+    <div class="demo">
+      <div class="head"><b>01 · Top bar</b><span>Sticky. Logo, tagline, and one red Call that never leaves the screen.</span></div>
+      <div class="body flush">
+        <div class="c-top">
+          <img src="%%LOGO247%%" alt="24/7 Clinic, Travel Medical Services">
+          <span class="tag">Travel Medical Services</span>
+          <span class="sp"></span>
+          <a class="c-call" href="#components"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>Call</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="head"><b>02 · The action trio</b><span>Call first and full width. WhatsApp green. Directions outlined, because it is not the emergency.</span></div>
+      <div class="body">
+        <div class="acts">
+          <a class="act act-call" href="#components"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>Call now <span class="num">+20 122 222 8247</span></a>
+          <a class="act act-wa" href="#components"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+          <a class="act act-map" href="#components"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-pin"/></svg>Find the clinic</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="head"><b>03 · Offer band</b><span>Their own published offer, directly under the hero. Free, and free is the strongest word on the page.</span></div>
+      <div class="body flush">
+        <div class="c-offer"><b>Free health check for hotel guests</b><span>Blood pressure and blood sugar, no appointment needed.</span></div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="head"><b>04 · Walking steps</b><span>Numbered, connected, and never more than three. A guest reads this in the sun.</span></div>
+      <div class="body">
+        <ol class="steps">
+          <li>Arrive at Premier Le Rêve Hotel.</li>
+          <li>Face the main entrance, then walk to the left along the outside of the building.</li>
+          <li>Keep going until you reach the glass doors marked 24/7 Clinic. The pharmacy is next door.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="head"><b>05 · Service tile</b><span>Icon, name, one line. Ten of them, in a grid that goes one, two, then three across.</span></div>
+      <div class="body">
+        <div class="svc">
+          <div class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ambulance"/></svg></div>
+          <h3>Ambulance and hospital referral</h3>
+          <p>If you need a hospital, we arrange the transfer.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="head"><b>06 · Contact row</b><span>Label, value, one line of context. The number is the only red thing in it.</span></div>
+      <div class="body">
+        <div class="c-crow">
+          <div class="k">Call or WhatsApp</div>
+          <div class="v"><a href="#components">+20 122 222 8247</a></div>
+          <small><span class="tbc" title="To confirm">One number reaches every clinic</span>.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="head"><b>07 · FAQ</b><span>Native details and summary. No JavaScript, so it works before the page finishes loading and Google reads it as an answer.</span></div>
+      <div class="body">
+        <div class="c-faq">
+          <details open><summary>Is there a doctor at Premier Le Rêve?</summary><div class="a">Yes. 24/7 Clinic is in the hotel grounds. You can call, send a WhatsApp message, or walk in.</div></details>
+          <details><summary>Do you take my travel insurance?</summary><div class="a">We handle the paperwork with your insurer and write the medical report your claim needs.</div></details>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="head"><b>08 · Sticky dock</b><span>Phones only. Call and WhatsApp stay in the thumb zone the whole way down the page.</span></div>
+      <div class="body flush">
+        <div class="c-dock">
+          <a class="d-call" href="#components"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>Call</a>
+          <a class="d-wa" href="#components"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="lede" style="margin-top:26px">The three remaining pieces are the hero with its scrim, the photograph grid and the footer with its links to sibling clinics. All three are visible on the demo pages.</p>
+  </div>
+</section>
+
+<section class="alt" id="anatomy">
+  <div class="wrap">
+    <div class="kicker">Page anatomy</div>
+    <h2>What a phone shows, in order</h2>
+    <p class="lede">The fold is drawn where a 390 by 844 phone cuts the page. Everything above it exists to get a guest to press one of three buttons.</p>
+    <div class="anat">
+      <svg viewBox="0 0 700 470" role="img" aria-label="Diagram of the landing page in order: top bar, hero with headline and three buttons, then the fold, then offer band, directions, services, guests, photographs, hours, FAQ, footer">
+        <rect class="ab" x="20" y="14" width="300" height="30" rx="5"/>
+        <text class="an" x="34" y="34">Top bar</text><text class="as" x="120" y="34">logo · Call</text>
+
+        <rect class="ah" x="20" y="50" width="300" height="150" rx="6"/>
+        <text class="an" x="34" y="74">Hero</text>
+        <text class="as" x="34" y="94">Sahl Hasheesh · in the hotel grounds</text>
+        <text class="an" x="34" y="120" style="font-size:15px">Need a Doctor at Premier Le Rêve?</text>
+        <rect x="34" y="132" width="272" height="20" rx="5" fill="#C00000"/>
+        <text x="46" y="146" style="font-size:11px;font-weight:600;fill:#fff">CALL NOW  +20 122 222 8247</text>
+        <rect x="34" y="156" width="132" height="19" rx="5" fill="#1FA855"/>
+        <text x="46" y="169" style="font-size:10.5px;font-weight:600;fill:#fff">WHATSAPP</text>
+        <rect class="ad" x="174" y="156" width="132" height="19" rx="5"/>
+        <text class="as" x="186" y="169">FIND THE CLINIC</text>
+        <text class="as" x="34" y="191">Inside the resort · Open 24 hours · Insurance</text>
+
+        <path class="fold" d="M14 208h312"/>
+        <text class="ar" x="14" y="222">the fold on a 390 phone</text>
+
+        <rect x="20" y="232" width="300" height="26" rx="5" fill="#C00000"/>
+        <text x="34" y="249" style="font-size:11.5px;font-weight:600;fill:#fff">Free health check for hotel guests</text>
+
+        <rect class="ab" x="20" y="264" width="300" height="34" rx="5"/>
+        <text class="an" x="34" y="285">Where to find us</text><text class="as" x="160" y="285">3 steps · map · plan</text>
+        <rect class="ab" x="20" y="304" width="300" height="34" rx="5"/>
+        <text class="an" x="34" y="325">What we treat</text><text class="as" x="160" y="325">10 services</text>
+        <rect class="ab" x="20" y="344" width="300" height="34" rx="5"/>
+        <text class="an" x="34" y="365">For international guests</text>
+        <rect class="ab" x="20" y="384" width="300" height="34" rx="5"/>
+        <text class="an" x="34" y="405">Photographs</text><text class="as" x="160" y="405">real, this clinic</text>
+        <rect class="ab" x="20" y="424" width="300" height="34" rx="5"/>
+        <text class="an" x="34" y="445">Hours, contact, FAQ, footer</text>
+
+        <rect class="ad" x="368" y="14" width="312" height="444" rx="8"/>
+        <text class="an" x="386" y="42">Why this order</text>
+        <text class="as" x="386" y="70">A guest in trouble does one thing: call.</text>
+        <text class="as" x="386" y="90">So the number is above the fold and the</text>
+        <text class="as" x="386" y="110">dock keeps it there for the whole scroll.</text>
+        <text class="an" x="386" y="146">The free check sits second</text>
+        <text class="as" x="386" y="172">It converts the guest who is unsure</text>
+        <text class="as" x="386" y="192">whether their problem is worth a doctor.</text>
+        <text class="an" x="386" y="228">Directions before services</text>
+        <text class="as" x="386" y="254">Someone who has decided to come needs</text>
+        <text class="as" x="386" y="274">the walk, not the service list.</text>
+        <text class="an" x="386" y="310">Photographs before the FAQ</text>
+        <text class="as" x="386" y="336">A clean reception answers the doubt</text>
+        <text class="as" x="386" y="356">that no paragraph can.</text>
+        <text class="an" x="386" y="392">The FAQ is the SEO surface</text>
+        <text class="as" x="386" y="418">Written from real guest searches, and</text>
+        <text class="as" x="386" y="438">marked up as FAQPage.</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="photos">
+  <div class="wrap">
+    <div class="kicker">Photography</div>
+    <h2>Their own clinics, nothing else</h2>
+    <p class="lede">Fifteen stills, pulled from 24/7 Clinic's own films. No stock, no illustration, no borrowed hospital. The alt text names the place, because a page that lies in its alt text lies to Google too.</p>
+    <div class="photos">
+      <figure><img src="%%C7CLINIC%%" alt="The 24/7 Clinic Medical Center entrance at Premier Le Rêve, Sahl Hasheesh" loading="lazy" width="1200" height="720"><figcaption><code>C7CLINIC</code>Clinic entrance, Sahl Hasheesh</figcaption></figure>
+      <figure><img src="%%C7SIGN%%" alt="The Premier Le Rêve Hotel and Spa entrance sign in Sahl Hasheesh" loading="lazy" width="1200" height="720"><figcaption><code>C7SIGN</code>Hotel sign</figcaption></figure>
+      <figure><img src="%%C7RECEPTION%%" alt="The 24/7 Clinic reception desk at Premier Le Rêve" loading="lazy" width="1200" height="720"><figcaption><code>C7RECEPTION</code>Reception</figcaption></figure>
+      <figure><img src="%%C7WELCOME%%" alt="A guest being received at the 24/7 Clinic reception" loading="lazy" width="1200" height="720"><figcaption><code>C7WELCOME</code>Arriving</figcaption></figure>
+      <figure><img src="%%C7DOCTOR%%" alt="A 24/7 Clinic doctor at the consulting desk" loading="lazy" width="1200" height="720"><figcaption><code>C7DOCTOR</code>Consultation</figcaption></figure>
+      <figure><img src="%%C7CONSULT%%" alt="A 24/7 Clinic doctor examining a guest with a stethoscope" loading="lazy" width="1200" height="720"><figcaption><code>C7CONSULT</code>Examination</figcaption></figure>
+      <figure><img src="%%C7WARD%%" alt="An observation bed with oxygen at the 24/7 Clinic" loading="lazy" width="1200" height="720"><figcaption><code>C7WARD</code>Observation room</figcaption></figure>
+      <figure><img src="%%C7OBS%%" alt="A 24/7 Clinic nurse caring for a guest on an observation bed" loading="lazy" width="1200" height="720"><figcaption><code>C7OBS</code>Under observation</figcaption></figure>
+      <figure><img src="%%C7DENTAL%%" alt="The dental treatment room at the 24/7 Clinic in Sahl Hasheesh" loading="lazy" width="1200" height="720"><figcaption><code>C7DENTAL</code>Dental room</figcaption></figure>
+      <figure><img src="%%C7XRAY%%" alt="A 24/7 Clinic dentist reviewing a dental x-ray with a guest" loading="lazy" width="1200" height="720"><figcaption><code>C7XRAY</code>Dental x-ray</figcaption></figure>
+      <figure><img src="%%C7MEDS%%" alt="Medication being dispensed into a 24/7 Clinic envelope" loading="lazy" width="1200" height="720"><figcaption><code>C7MEDS</code>Medication</figcaption></figure>
+      <figure><img src="%%C7REPORT%%" alt="A 24/7 Clinic doctor writing a medical report" loading="lazy" width="1200" height="720"><figcaption><code>C7REPORT</code>Medical report</figcaption></figure>
+      <figure><img src="%%C7RESPONSE%%" alt="A 24/7 Clinic doctor and nurse leaving to see a guest" loading="lazy" width="1200" height="720"><figcaption><code>C7RESPONSE</code>Going to a guest</figcaption></figure>
+      <figure><img src="%%C7TEAM%%" alt="Doctors at the 24/7 Clinic reception in Sahl Hasheesh" loading="lazy" width="1200" height="720"><figcaption><code>C7TEAM</code>The team</figcaption></figure>
+      <figure><img src="%%C7RESORT%%" alt="The main entrance of Premier Le Rêve Hotel and Spa in Sahl Hasheesh" loading="lazy" width="1200" height="720"><figcaption><code>C7RESORT</code>The resort</figcaption></figure>
+    </div>
+    <div class="call open">
+      <span class="lab">Open</span>
+      <p>Every one of these was shot at the Sahl Hasheesh clinic. Steigenberger Ras Soma and Amwaj Beach Club have no photographs of their own yet, so their pages borrow these and say so in the caption. That is a launch blocker, not a nice to have.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="unconfirmed">
+  <div class="wrap">
+    <div class="kicker">Unconfirmed content</div>
+    <h2>The dotted underline</h2>
+    <p class="lede">A landing page for a clinic is a medical claim in public. Anything not verified is wrapped, so it is visible to a reviewer and impossible to approve by accident.</p>
+    <div class="g2">
+      <div class="box">
+        <div class="n">On the page</div>
+        <h3>It looks like this</h3>
+        <p style="margin-top:14px;font-size:16px;color:var(--ink)">Open every day, <span class="tbc" title="To confirm: staffed 24 hours, or the real hours">open 24 hours</span>, with <span class="tbc" title="To confirm: which languages are actually spoken">German and Polish</span> spoken.</p>
+        <p>Hovering shows the question. It survives copy and paste into an email, because it is text and not a colour.</p>
+      </div>
+      <div class="box">
+        <div class="n">At the foot of the page</div>
+        <h3>And again as a list</h3>
+        <p>Each page ends with a dark panel that is not part of the page: every open question, numbered, plus the named source for every fact that is on it. A reviewer never has to ask where a claim came from.</p>
+        <p>The list is generated as the page is built, so it cannot fall out of step with the page above it.</p>
+      </div>
+    </div>
+    <div class="call rule">
+      <span class="lab">Rule</span>
+      <p>A page cannot go live with a dotted underline still on it. That is the definition of ready.</p>
+    </div>
+  </div>
+</section>
+
+<section id="template">
+  <div class="wrap">
+    <div class="kicker">One template</div>
+    <h2>Three pages today, twenty eight without new code</h2>
+    <p class="lede">The three demos are generated from a single template plus a content table. Adding a clinic is a data entry. The schema, the canonical, the tracking and the layout are written once, so quality cannot drift across the network.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Lives in the template</th><th>Lives in the content table</th></tr></thead>
+        <tbody>
+          <tr><td>Layout and every component</td><td>Hotel name, area, region</td></tr>
+          <tr><td>MedicalClinic, BreadcrumbList and FAQ schema</td><td>Title, meta description, H1, standfirst</td></tr>
+          <tr><td>Canonical, sitemap entry, hreflang</td><td>The walking route, step by step</td></tr>
+          <tr><td>GA4 events and their parameters</td><td>Which photographs, and their alt text</td></tr>
+          <tr><td>The ten services and their icons</td><td>Whether this clinic has a dental room</td></tr>
+          <tr><td>Seven shared FAQ answers</td><td>Extra FAQs for this hotel</td></tr>
+          <tr><td>The unconfirmed marker and the review panel</td><td>What is still unconfirmed here</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="call done">
+      <span class="lab">Built</span>
+      <p><code class="k">scripts/gen-247-pages.js</code> holds both. Running it writes all three pages. The Premier Le Rêve entry is the worked example of a complete clinic; the other two show what a clinic looks like before its answers arrive.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="tracking">
+  <div class="wrap">
+    <div class="kicker">Tracking</div>
+    <h2>Every tap is a comparable number</h2>
+    <p class="lede">Each contact element carries a data attribute. One listener sends the event with the hotel and area attached, so a single GA4 report ranks all twenty eight clinics against each other.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Event</th><th>Fires on</th><th>Parameters</th><th>Key event</th></tr></thead>
+        <tbody>
+          <tr><td><code class="k">call_click</code></td><td>Top bar, hero, contact row, dock</td><td>hotel, area, link</td><td>Yes</td></tr>
+          <tr><td><code class="k">whatsapp_click</code></td><td>Hero, dock</td><td>hotel, area, link</td><td>Yes</td></tr>
+          <tr><td><code class="k">directions_click</code></td><td>Find the clinic, Open in Google Maps</td><td>hotel, area, link</td><td>Yes</td></tr>
+          <tr><td><code class="k">page_view</code></td><td>Automatic, one distinct path per clinic</td><td>page_location</td><td>No</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="call open">
+      <span class="lab">Open</span>
+      <p>247clinic.net shows no GA4 today. The property and measurement ID have to be created or confirmed before launch, and Cloudflare has to be checked so the tag is not cached or blocked at the edge. On the demo the events log to the browser console instead.</p>
+    </div>
+  </div>
+</section>
+
+<section id="demos">
+  <div class="wrap">
+    <div class="kicker">The demos</div>
+    <h2>The three pages, working</h2>
+    <p class="lede">Open them on a phone. Call, WhatsApp and Directions all work. Each ends with its own list of what is still needed.</p>
+    <div class="outs">
+      <a class="out" href="/247clinic/hotel-landing-pages/le-reve">
+        <img src="%%C7CLINIC%%" alt="The 24/7 Clinic entrance at Premier Le Rêve, Sahl Hasheesh" loading="lazy" width="1200" height="720">
+        <div class="m"><b>Premier Le Rêve</b><span>Sahl Hasheesh · complete, own photographs, verified walking route</span><i>Open the page<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></i></div>
+      </a>
+      <a class="out" href="/247clinic/hotel-landing-pages/steigenberger">
+        <img src="%%C7CONSULT%%" alt="A 24/7 Clinic doctor examining a guest" loading="lazy" width="1200" height="720">
+        <div class="m"><b>Steigenberger Ras Soma</b><span>Soma Bay · waiting on location, hours and photographs</span><i>Open the page<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></i></div>
+      </a>
+      <a class="out" href="/247clinic/hotel-landing-pages/amwaj">
+        <img src="%%C7OBS%%" alt="A 24/7 Clinic nurse caring for a guest" loading="lazy" width="1200" height="720">
+        <div class="m"><b>Amwaj Beach Club</b><span>Abu Soma · waiting on location, hours and photographs</span><i>Open the page<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-arrow"/></svg></i></div>
+      </a>
+    </div>
+    <div class="call open">
+      <span class="lab">Open across all three</span>
+      <p>Two phone numbers are in circulation. The website carries +20 122 112 2246 and the clinic's own films and Instagram carry +20 122 222 8247. The pages use the second, because that is the one guests are already given. One word decides it.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>24/7 Clinic landing page kit.</b> Built for review before development, 2026-09-08. Colour and type from the 24/7 Clinic brand guideline. Photography from the clinic's own films. Nothing on these pages was invented.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var b = document.getElementById('tt');
+  var r = document.documentElement;
+  function paint() {
+    var dark = r.getAttribute('data-theme') === 'dark' ||
+      (!r.hasAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    b.textContent = dark ? 'Light' : 'Dark';
+  }
+  b.addEventListener('click', function () {
+    var dark = r.getAttribute('data-theme') === 'dark' ||
+      (!r.hasAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    r.setAttribute('data-theme', dark ? 'light' : 'dark');
+    paint();
+  });
+  paint();
+})();
+</script>
