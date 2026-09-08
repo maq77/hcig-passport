@@ -93,6 +93,31 @@ const ASSETS = {
   C7MAPSTEIG: 'c7-map-steigenberger.png',
   C7MAPAMWAJ: 'c7-map-amwaj.png',
 
+  /* 24/7 Clinic's own image library, taken from 247clinic.net. Photography they
+     already license and already use, plus their insurance partner marks and the
+     country flags they show on their own reviews. */
+  C7SCOAT: 'c7s-coat.webp',
+  C7SAMBULANCE: 'c7s-ambulance.webp',
+  C7SROOM: 'c7s-roomvisit.webp',
+  C7STELE: 'c7s-tele.webp',
+  C7SLAB: 'c7s-lab.webp',
+  C7SCONSULT: 'c7s-consult.webp',
+  C7SMINOR: 'c7s-minor.webp',
+  C7SESSENTIAL: 'c7s-essential.webp',
+  C7INSADAC: 'c7ins-adac.webp',
+  C7INSSOS: 'c7ins-international-sos.webp',
+  C7INSMONDIAL: 'c7ins-mondial.webp',
+  C7INSCONNECX: 'c7ins-connecx.webp',
+  C7FLAGDE: 'c7flag-de.svg',
+  C7FLAGIT: 'c7flag-it.svg',
+  C7FLAGCH: 'c7flag-ch.svg',
+  C7FLAGCZ: 'c7flag-cz.svg',
+  C7FLAGFR: 'c7flag-fr.svg',
+  /* Short, silent, looping previews. The full film with sound opens in the
+     lightbox, so nothing large downloads unless someone asks for it. */
+  C7LOOPCLINIC: 'c7-loop-clinic.mp4',
+  C7LOOPWALK: 'c7-loop-walk.mp4',
+
   LOGOHCIG: 'logo-hcig.jpg',
   LOGO247: 'logo-247.png',
   LOGOMP: 'logo-medpark.webp',
