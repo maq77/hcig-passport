@@ -120,6 +120,7 @@ function railHtml(companies, active) {
 <div class="rail-group">
   <a class="rail-link" href="/"${active.home ? ' aria-current="page"' : ''}>${icon('layers', 16)}Overview</a>
   <a class="rail-link" href="/programmes"${active.programmes ? ' aria-current="page"' : ''}>${icon('building', 16)}Programmes</a>
+  <a class="rail-link" href="/all"${active.all ? ' aria-current="page"' : ''}>${icon('file-text', 16)}All work</a>
   <a class="rail-link" href="/workflow"${active.workflow ? ' aria-current="page"' : ''}>${icon('route', 16)}How review works</a>
 </div>
 <p class="rail-h">Companies</p>
@@ -171,7 +172,7 @@ function crumbsHtml(trail) {
  */
 function shell({ title, desc, body, companies, active = {}, index, brand, wide, head = '' }) {
   const bar = `<header class="topbar">
-<a class="brandmark" href="/"><span class="dot">HC</span>HCIG&nbsp;<span class="sub">Studio</span></a>
+<a class="brandmark" href="/"><span class="mark"><img src="/assets/logo-hcig.jpg" alt=""></span>HCIG&nbsp;<span class="sub">Studio</span></a>
 <span class="spacer"></span>
 <button class="searchbtn" id="sopen" type="button" aria-label="Search the estate">
   ${icon('search', 16)}<span class="lbl">Search</span><span class="spacer"></span><span class="kbd">Ctrl K</span>

@@ -21,6 +21,45 @@
     });
   }
 
+  /* ------------------------------------------------------- sortable table */
+
+  /* Sorts on data-sort when a cell carries one (dates sort by their ISO form,
+     not by "8 Sep 2026"), otherwise on the visible text. */
+  var table = document.getElementById('allwork');
+  if (table) {
+    var heads = table.tHead.rows[0].cells;
+    var tbody = table.tBodies[0];
+
+    var keyOf = function (row, i) {
+      var cell = row.cells[i];
+      return (cell.getAttribute('data-sort') || cell.textContent).trim().toLowerCase();
+    };
+
+    Array.prototype.forEach.call(heads, function (th, i) {
+      th.setAttribute('tabindex', '0');
+      th.setAttribute('role', 'columnheader');
+
+      var sort = function () {
+        var asc = th.getAttribute('aria-sort') !== 'ascending';
+        Array.prototype.forEach.call(heads, function (h) { h.setAttribute('aria-sort', 'none'); });
+        th.setAttribute('aria-sort', asc ? 'ascending' : 'descending');
+
+        var rows = Array.prototype.slice.call(tbody.rows);
+        rows.sort(function (a, b) {
+          var x = keyOf(a, i);
+          var y = keyOf(b, i);
+          return (x < y ? -1 : x > y ? 1 : 0) * (asc ? 1 : -1);
+        });
+        rows.forEach(function (r) { tbody.appendChild(r); });
+      };
+
+      th.addEventListener('click', sort);
+      th.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sort(); }
+      });
+    });
+  }
+
   /* ------------------------------------------------------------ search */
 
   var dim = document.getElementById('sdim');

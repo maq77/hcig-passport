@@ -85,6 +85,32 @@ function itemRow(company, project, item) {
 </a>`;
 }
 
+/**
+ * A live preview of a hosted deliverable.
+ *
+ * The iframe is the real page, not a screenshot, so it can never go stale and
+ * nothing has to be re-rendered when a document changes. Sizing it 400% wide
+ * and scaling it to a quarter makes the thumbnail resolution-independent: the
+ * frame always gets a desktop-width viewport whatever the card width happens
+ * to be. It is lazy, inert and pointer-transparent, so it costs nothing until
+ * it scrolls into view and never steals a click or a tab stop from the link.
+ */
+function previewCard(company, project, item) {
+  const href = itemHref(company, project, item);
+  return `<a class="pv" href="${esc(href)}">
+  <span class="pv-frame">
+    <iframe src="${esc(href)}" loading="lazy" inert tabindex="-1" aria-hidden="true" title=""></iframe>
+  </span>
+  <span class="pv-body">
+    <span class="pv-t">
+      <span class="pv-name">${esc(item.name)}</span>
+      <span class="pv-sub">${esc(KIND_WORD[item.kind])}${item.note ? ' &middot; ' + esc(item.note) : ''}</span>
+    </span>
+    ${pill(item.status, 12)}
+  </span>
+</a>`;
+}
+
 function emptyState(title, body, ico = 'inbox') {
   return `<div class="empty">
   <span class="ico">${icon(ico, 22)}</span>
@@ -193,6 +219,76 @@ ${crumbsHtml([{ name: 'Studio', href: '/' }, { name: 'Programmes' }])}
   });
 }
 
+/**
+ * Every deliverable in the group, in one sortable table. The view for someone
+ * who wants to see the whole estate at once rather than open nine folders.
+ */
+function allWorkPage(ctx) {
+  const rows = [];
+  for (const c of ctx.companies) {
+    for (const p of c.projects) {
+      for (const st of p.stages || []) {
+        for (const it of st.items || []) {
+          rows.push({ c, p, st, it });
+        }
+      }
+    }
+  }
+  rows.sort((a, b) => String(b.p.updated).localeCompare(String(a.p.updated)));
+
+  const body = rows
+    .map(({ c, p, st, it }) => {
+      const href = itemHref(c, p, it);
+      const ext = it.kind === 'link';
+      return `<tr>
+  <td><a href="${esc(href)}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${esc(it.name)}${
+        ext ? ' ' + icon('arrow-up-right', 12) : ''
+      }</a></td>
+  <td><span class="chip" style="--chip:${c.accent}"></span> <a href="/${c.slug}">${esc(c.short)}</a></td>
+  <td><a href="/${c.slug}/${p.slug}">${esc(p.name)}</a></td>
+  <td>${esc(st.name)}</td>
+  <td>${pill(it.status, 12)}</td>
+  <td class="num" data-sort="${esc(p.updated)}">${esc(niceDate(p.updated))}</td>
+</tr>`;
+    })
+    .join('');
+
+  const page = `
+${crumbsHtml([{ name: 'Studio', href: '/' }, { name: 'All work' }])}
+<header class="masthead">
+  <p class="eyebrow">Everything, in one place</p>
+  <h1>All work</h1>
+  <p class="lede">Every deliverable across the group. Click a column heading to sort.</p>
+</header>
+
+<div class="table-scroll" style="margin-top:28px">
+  <table class="data" id="allwork">
+    <thead><tr>
+      <th aria-sort="none">Deliverable</th>
+      <th aria-sort="none">Company</th>
+      <th aria-sort="none">Project</th>
+      <th aria-sort="none">Stage</th>
+      <th aria-sort="none">Status</th>
+      <th aria-sort="descending">Updated</th>
+    </tr></thead>
+    <tbody>${body}</tbody>
+  </table>
+</div>
+<p class="note" style="margin-top:16px"><span class="num">${rows.length}</span> deliverables across ${
+    ctx.companies.filter((c) => c.projects.length).length
+  } companies.</p>
+`;
+
+  return shell({
+    title: 'All work' + SEP + 'HCIG Studio',
+    desc: 'Every deliverable across the group, in one sortable table.',
+    body: page,
+    companies: ctx.companies,
+    active: { all: true },
+    index: ctx.index,
+  });
+}
+
 function homePage(ctx) {
   const { companies } = ctx;
   const withWork = companies.filter((c) => c.projects.length);
@@ -219,6 +315,11 @@ function homePage(ctx) {
     <span class="stat"><b class="num">${moving.length}</b> in motion</span>
     <span class="stat"><b class="num">${live}</b> live</span>
   </div>
+  <p class="byline">
+    <span>Developer <b>${esc(OWNER)}</b></span>
+    <span class="dotsep"></span>
+    <span>Company <b>Healthcare International Group</b></span>
+  </p>
 </header>
 
 <section class="section" style="margin-top:var(--s6)" aria-labelledby="h-prog">
@@ -451,19 +552,29 @@ function projectPage(ctx, company, project) {
 
   const stages = (project.stages || []).length
     ? project.stages
-        .map(
-          (st) => `<section class="section" aria-label="${esc(st.name)}">
+        .map((st) => {
+          const items = st.items || [];
+          // hosted things can be previewed; a link to somewhere else cannot
+          const hosted = items.filter((it) => it.kind !== 'link');
+          const links = items.filter((it) => it.kind === 'link');
+
+          const inner = items.length
+            ? (hosted.length ? `<div class="pvs">${hosted.map((it) => previewCard(company, project, it)).join('')}</div>` : '') +
+              (links.length
+                ? `<div class="rows"${hosted.length ? ' style="margin-top:var(--s4)"' : ''}>${links
+                    .map((it) => itemRow(company, project, it))
+                    .join('')}</div>`
+                : '')
+            : emptyState('Nothing here yet', st.note || 'No deliverables in this stage.', 'folder');
+
+          return `<section class="section" aria-label="${esc(st.name)}">
   <div class="section-head">
     <h2>${esc(st.name)}</h2>
     ${st.note ? `<p class="note">${esc(st.note)}</p>` : ''}
   </div>
-  ${
-    (st.items || []).length
-      ? `<div class="rows">${st.items.map((it) => itemRow(company, project, it)).join('')}</div>`
-      : emptyState('Nothing here yet', st.note || 'No deliverables in this stage.', 'folder')
-  }
-</section>`
-        )
+  ${inner}
+</section>`;
+        })
         .join('')
     : `<section class="section">${emptyState(
         'No deliverables yet',
@@ -564,4 +675,4 @@ function reviewChip(company, project, item) {
   );
 }
 
-module.exports = { homePage, programmesPage, workflowPage, companyPage, projectPage, docPage, reviewChip, byAttention };
+module.exports = { homePage, programmesPage, allWorkPage, workflowPage, companyPage, projectPage, docPage, reviewChip, byAttention };

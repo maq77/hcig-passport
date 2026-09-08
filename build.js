@@ -257,6 +257,7 @@ function buildIndex() {
   const out = [];
   out.push({ n: 'Overview', p: 'Studio', u: '/', t: 'page' });
   out.push({ n: 'Programmes', p: 'Studio', u: '/programmes', t: 'page' });
+  out.push({ n: 'All work', p: 'Studio', u: '/all', t: 'page' });
   out.push({ n: 'How review works', p: 'Studio', u: '/workflow', t: 'page' });
   for (const c of COMPANIES) {
     out.push({ n: c.name, p: 'Company', u: `/${c.slug}`, t: 'company' });
@@ -362,6 +363,7 @@ function emit(rel, html, label) {
 
 emit('index.html', pages.homePage(ctx), '/');
 emit('programmes.html', pages.programmesPage(ctx), '/programmes');
+emit('all.html', pages.allWorkPage(ctx), '/all');
 emit('workflow.html', pages.workflowPage(ctx), '/workflow');
 
 for (const company of COMPANIES) {
