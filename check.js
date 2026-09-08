@@ -91,9 +91,10 @@ for (const file of htmlFiles) {
     if (!/class="skip"/.test(html)) bad(file, 'no skip link');
   }
 
-  if (!/<html lang=/.test(html)) bad(file, 'no lang on <html>');
-  if (!/name="viewport"/.test(html)) bad(file, 'no viewport meta');
-  if (!/name="robots"[^>]*noindex/.test(html)) bad(file, 'not served noindex');
+  // attribute values may legitimately be unquoted, so do not require quotes
+  if (!/<html[^>]*\slang=/i.test(html)) bad(file, 'no lang on <html>');
+  if (!/<meta[^>]+name=["']?viewport["']?/i.test(html)) bad(file, 'no viewport meta');
+  if (!/<meta[^>]+name=["']?robots["']?[^>]*noindex/i.test(html)) bad(file, 'not served noindex');
 
   // images must carry an alt attribute, even an empty decorative one
   for (const tag of html.match(/<img\b[^>]*>/gi) || []) {

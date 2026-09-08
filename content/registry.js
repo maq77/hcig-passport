@@ -18,6 +18,14 @@
  *   md     a markdown file in this repo, rendered to a readable page and hosted here
  *   link   something that already lives somewhere else (live site, artifact, doc)
  *
+ * Flagships
+ * ----------
+ * `flagship: { rank, line }` on a project lifts it out of its company folder and
+ * onto `/programmes`, the front door for work that changes how the whole group
+ * operates rather than one website. Three at most; the moment everything is a
+ * flagship, nothing is. `line` is the one sentence that says why it matters to
+ * the group, not to its own company.
+ *
  * Status vocabulary. This IS the review gate. Keep it honest.
  * ------------------------------------------------------------
  *   planned   scoped, not started
@@ -123,9 +131,9 @@ const COMPANIES = [
             items: [
               {
                 slug: 'plan',
-                name: 'The strategy document',
-                kind: 'link',
-                href: 'https://claude.ai/code/artifact/190b3075-4158-42cc-835e-44ab2785cce8',
+                name: 'Hospital, Not Hotel Clinic',
+                kind: 'html',
+                src: 'docs/medpark-redsea-strategy.html',
                 status: 'approved',
                 note: 'Four parts, twelve-item sequence',
               },
@@ -190,6 +198,7 @@ const COMPANIES = [
         name: 'AI assistant',
         status: 'planned',
         updated: '2026-09-07',
+        flagship: { rank: 3, line: 'Answering guests in their own language, day and night. Built once at MedPark, then reused across the group.' },
         summary: 'Raise the assistant to standard before it returns to v2.',
         detail: ['A working v1 exists, switched off on v2. Start with the real recorded conversations.'],
         stages: [],
@@ -271,6 +280,7 @@ const COMPANIES = [
         name: 'HCIG Passport',
         status: 'review',
         updated: '2026-09-01',
+        flagship: { rank: 1, line: 'One patient record across every property in the group. The largest single change to how HCIG operates.' },
         summary:
           'One patient record, from resort clinic to hospital bed.',
         detail: [
@@ -309,6 +319,7 @@ const COMPANIES = [
         name: 'Group tracking platform',
         status: 'live',
         updated: '2026-09-04',
+        flagship: { rank: 2, line: 'Every HCIG website reporting into one place. Adding the next property is one line.' },
         summary: 'One tracking system for every HCIG website.',
         detail: [
           'Phase 1 and 2 live. Registry, hub collector, tracker, group roll-up, partner attribution, alerts.',

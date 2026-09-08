@@ -119,6 +119,7 @@ function railHtml(companies, active) {
 <p class="rail-h">Studio</p>
 <div class="rail-group">
   <a class="rail-link" href="/"${active.home ? ' aria-current="page"' : ''}>${icon('layers', 16)}Overview</a>
+  <a class="rail-link" href="/programmes"${active.programmes ? ' aria-current="page"' : ''}>${icon('building', 16)}Programmes</a>
   <a class="rail-link" href="/workflow"${active.workflow ? ' aria-current="page"' : ''}>${icon('route', 16)}How review works</a>
 </div>
 <p class="rail-h">Companies</p>

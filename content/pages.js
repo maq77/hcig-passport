@@ -133,6 +133,64 @@ function folderTile(company) {
 </a>`;
 }
 
+/** Every flagship, in rank order, each carrying the company it is built under. */
+function flagships(companies) {
+  return companies
+    .flatMap((c) => c.projects.filter((p) => p.flagship).map((p) => ({ c, p })))
+    .sort((a, b) => a.p.flagship.rank - b.p.flagship.rank);
+}
+
+/** A programme card. Larger than a folder tile because these are the three
+ *  things a reviewer should look at before anything else. */
+function programmeCard({ c, p }, rank) {
+  const items = (p.stages || []).reduce((n, s) => n + (s.items || []).length, 0);
+  return `<article class="prog" style="--brand:${c.accent}">
+  <p class="prog-rank"><span>${String(rank).padStart(2, '0')}</span>${esc(c.name)}</p>
+  <h3><a class="stretch" href="/${c.slug}/${p.slug}">${esc(p.name)}</a></h3>
+  <p class="prog-line">${esc(p.flagship.line)}</p>
+  <div class="prog-foot">
+    ${pill(p.status, 12)}
+    <span>${items ? `${items} deliverable${items === 1 ? '' : 's'}` : 'No deliverables yet'}</span>
+    <span class="dotsep"></span>
+    <span class="num">${esc(niceDate(p.updated))}</span>
+  </div>
+  <span class="logo-chip prog-logo"><img src="/assets/${c.logoFile}" alt=""></span>
+</article>`;
+}
+
+function programmesPage(ctx) {
+  const list = flagships(ctx.companies);
+
+  const body = `
+${crumbsHtml([{ name: 'Studio', href: '/' }, { name: 'Programmes' }])}
+<header class="masthead">
+  <p class="eyebrow">Group programmes</p>
+  <h1>The three that change how the group works</h1>
+  <p class="lede">Not one company's website. Work that every property ends up using.</p>
+</header>
+
+<div class="progs">${list.map((f, i) => programmeCard(f, i + 1)).join('')}</div>
+
+<section class="section" aria-labelledby="h-why">
+  <div class="section-head"><h2 id="h-why">Why these three</h2></div>
+  <div class="grid three">
+    <article class="card"><h3>${icon('layers', 17)}Built once, used everywhere</h3><p class="desc">Each one is designed for the group, not for a single site.</p></article>
+    <article class="card"><h3>${icon('building', 17)}HCIG is the parent</h3><p class="desc">They live under Healthcare International Group and reach every brand under it.</p></article>
+    <article class="card"><h3>${icon('check', 17)}Same gate as everything else</h3><p class="desc">Scale changes nothing. They still go through review before they go live.</p></article>
+  </div>
+</section>
+`;
+
+  return shell({
+    title: 'Programmes' + SEP + 'HCIG Studio',
+    desc: 'Group-wide work: HCIG Passport, the tracking platform and the AI assistant.',
+    body,
+    companies: ctx.companies,
+    active: { programmes: true },
+    index: ctx.index,
+  });
+}
+
 function homePage(ctx) {
   const { companies } = ctx;
   const withWork = companies.filter((c) => c.projects.length);
@@ -144,6 +202,8 @@ function homePage(ctx) {
   );
   const moving = allProjects.filter(({ p }) => IS_MOVING(p.status)).sort((a, b) => byAttention(a.p, b.p));
   const live = allProjects.filter(({ p }) => p.status === 'live').length;
+
+  const progs = flagships(companies);
 
   const body = `
 <header class="landing">
@@ -159,7 +219,15 @@ function homePage(ctx) {
   </div>
 </header>
 
-<section class="section" style="margin-top:var(--s6)" aria-labelledby="h-open">
+<section class="section" style="margin-top:var(--s6)" aria-labelledby="h-prog">
+  <div class="section-head">
+    <h2 id="h-prog">Group programmes</h2>
+    <p class="note">Built once, used by every company. <a href="/programmes">All three</a></p>
+  </div>
+  <div class="progs">${progs.map((f, i) => programmeCard(f, i + 1)).join('')}</div>
+</section>
+
+<section class="section" aria-labelledby="h-open">
   <div class="section-head">
     <h2 id="h-open">Open a company</h2>
     <p class="note">${withWork.length} with work under way, ${noWork.length} waiting.</p>
@@ -494,4 +562,4 @@ function reviewChip(company, project, item) {
   );
 }
 
-module.exports = { homePage, workflowPage, companyPage, projectPage, docPage, reviewChip, byAttention };
+module.exports = { homePage, programmesPage, workflowPage, companyPage, projectPage, docPage, reviewChip, byAttention };

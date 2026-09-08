@@ -1,0 +1,1253 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Hospital, Not Hotel Clinic</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ink:#0A2A4A;          /* MedPark navy, brand guideline */
+    --sea:#12C0C6;          /* MedPark turquoise, brand guideline */
+    --sea-deep:#0B7F86;
+    --ground:#F4F7F8;       /* cyan-biased off-white, not cream */
+    --paper:#FFFFFF;
+    --sunk:#EAF0F2;
+    --line:#D3DFE4;
+    --line-soft:#E3EBEE;
+    --muted:#56707E;        /* grey biased toward the accent */
+    --faint:#7E96A2;
+    --alert:#B3261E;        /* critical only, matches the emergency-is-red rule */
+    --alert-bg:#FBEDEC;
+    --good:#0F7A52;
+    --good-bg:#E9F5F0;
+    --warn:#8A5A00;
+    --warn-bg:#FBF2E2;
+    --shadow:0 1px 2px rgba(10,42,74,.06),0 8px 24px rgba(10,42,74,.06);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ink:#DCE9EF; --sea:#33D6DC; --sea-deep:#8FE6EA;
+      --ground:#071A2C; --paper:#0D2537; --sunk:#102B3F;
+      --line:#204257; --line-soft:#1A374A;
+      --muted:#93AFBD; --faint:#6E8B9A;
+      --alert:#FF8A80; --alert-bg:#3A1512;
+      --good:#6FD3A6; --good-bg:#0C2E22;
+      --warn:#E8B75E; --warn-bg:#33260D;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.28);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#DCE9EF; --sea:#33D6DC; --sea-deep:#8FE6EA;
+    --ground:#071A2C; --paper:#0D2537; --sunk:#102B3F;
+    --line:#204257; --line-soft:#1A374A;
+    --muted:#93AFBD; --faint:#6E8B9A;
+    --alert:#FF8A80; --alert-bg:#3A1512;
+    --good:#6FD3A6; --good-bg:#0C2E22;
+    --warn:#E8B75E; --warn-bg:#33260D;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.28);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    background:var(--ground); color:var(--ink);
+    font-family:"Newsreader",Georgia,"Times New Roman",serif;
+    font-size:18px; line-height:1.62; margin:0;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  .measure{max-width:68ch}
+
+  h1,h2,h3,h4,.lbl,.eyebrow,th,.btn,.pill,.num{font-family:"Barlow",system-ui,-apple-system,sans-serif}
+  h1{font-family:"Barlow Condensed","Barlow",system-ui,sans-serif;
+     font-size:clamp(42px,7.4vw,86px); line-height:.98; font-weight:700;
+     letter-spacing:-.015em; margin:0 0 18px; text-wrap:balance}
+  h2{font-size:clamp(26px,3.2vw,36px);line-height:1.12;font-weight:700;letter-spacing:-.01em;
+     margin:0 0 14px;text-wrap:balance}
+  h3{font-size:21px;line-height:1.25;font-weight:600;margin:36px 0 10px;text-wrap:balance}
+  h4{font-size:16px;line-height:1.3;font-weight:600;margin:26px 0 8px;
+     letter-spacing:.01em}
+  p{margin:0 0 16px}
+  a{color:var(--sea-deep);text-decoration-thickness:1px;text-underline-offset:2px}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--sea);outline-offset:3px;border-radius:2px}
+  strong{font-weight:600}
+  code,kbd,.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  code{font-size:.86em;background:var(--sunk);padding:.12em .38em;border-radius:3px}
+
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--faint);margin:0 0 12px}
+  .lbl{font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--faint)}
+
+  /* ---------- masthead ---------- */
+  .mast{background:var(--ink);color:#EAF4F7;padding:64px 0 56px;
+    border-bottom:5px solid var(--sea)}
+  :root[data-theme="dark"] .mast,
+  :root:not([data-theme="light"]) .mast{background:#04121F}
+  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .mast{background:var(--ink)}}
+  .mast .eyebrow{color:var(--sea)}
+  .mast h1{color:#fff}
+  .mast .stand{font-size:20px;line-height:1.5;color:#B7D2DD;max-width:60ch;margin:0}
+  .mast .meta{display:flex;flex-wrap:wrap;gap:10px 30px;margin-top:34px;
+    padding-top:22px;border-top:1px solid rgba(255,255,255,.16)}
+  .mast .meta div{font-family:"Barlow",sans-serif;font-size:13.5px;color:#9FBECC}
+  .mast .meta b{display:block;color:#fff;font-weight:600;font-size:15px;letter-spacing:.01em}
+
+  /* ---------- sections ---------- */
+  section{padding:62px 0;border-bottom:1px solid var(--line-soft)}
+  section:last-of-type{border-bottom:0}
+  .snum{display:inline-flex;align-items:center;gap:12px;margin-bottom:8px}
+  .snum b{font-family:"Barlow Condensed",sans-serif;font-size:15px;font-weight:700;
+    letter-spacing:.1em;color:var(--paper);background:var(--ink);
+    padding:3px 11px 2px;border-radius:2px}
+  .snum span{font-family:"Barlow",sans-serif;font-size:12px;font-weight:600;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+
+  /* ---------- callouts ---------- */
+  .find{border-left:4px solid var(--alert);background:var(--alert-bg);
+    padding:22px 26px;margin:26px 0;border-radius:0 6px 6px 0}
+  .find .lbl{color:var(--alert)}
+  .find h3{margin:6px 0 8px;font-size:20px;color:var(--ink)}
+  .find p:last-child{margin-bottom:0}
+  .note{border-left:4px solid var(--warn);background:var(--warn-bg);
+    padding:18px 24px;margin:24px 0;border-radius:0 6px 6px 0;font-size:16.5px}
+  .note .lbl{color:var(--warn)}
+  .note p:last-child{margin-bottom:0}
+  .win{border-left:4px solid var(--good);background:var(--good-bg);
+    padding:18px 24px;margin:24px 0;border-radius:0 6px 6px 0;font-size:16.5px}
+  .win .lbl{color:var(--good)}
+  .win p:last-child{margin-bottom:0}
+
+  /* ---------- data blocks break the measure ---------- */
+  .instrument{background:var(--paper);border:1px solid var(--line);border-radius:8px;
+    box-shadow:var(--shadow);margin:32px 0;overflow:hidden}
+  .instrument > figcaption{padding:16px 22px;border-bottom:1px solid var(--line-soft);
+    background:var(--sunk)}
+  .instrument > figcaption .lbl{display:block;margin-bottom:3px}
+  .instrument > figcaption strong{font-family:"Barlow",sans-serif;font-size:16px;font-weight:600}
+  .scroll{overflow-x:auto}
+
+  table{border-collapse:collapse;width:100%;font-family:"Barlow",sans-serif;font-size:15px}
+  th{text-align:left;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--faint);padding:13px 18px;border-bottom:1px solid var(--line);white-space:nowrap}
+  td{padding:12px 18px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  tr:last-child td{border-bottom:0}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;font-family:"IBM Plex Mono",monospace;
+    font-size:13.5px;white-space:nowrap}
+  td.kw{font-family:"IBM Plex Mono",monospace;font-size:13.5px}
+  tbody tr:hover{background:var(--sunk)}
+
+  .pill{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;
+    text-transform:uppercase;padding:3px 9px;border-radius:100px;white-space:nowrap}
+  .p-crit{background:var(--alert-bg);color:var(--alert);box-shadow:inset 0 0 0 1px currentColor}
+  .p-now{background:var(--good-bg);color:var(--good);box-shadow:inset 0 0 0 1px currentColor}
+  .p-soon{background:var(--warn-bg);color:var(--warn);box-shadow:inset 0 0 0 1px currentColor}
+  .p-de{background:var(--sunk);color:var(--muted);box-shadow:inset 0 0 0 1px var(--line)}
+
+  pre{margin:0;padding:22px;overflow-x:auto;background:var(--ink);color:#CFE7EE;
+    font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:1.65;tab-size:2}
+  :root[data-theme="dark"] pre,:root:not([data-theme="light"]) pre{background:#04121F}
+  @media (prefers-color-scheme:light){:root:not([data-theme="dark"]) pre{background:var(--ink)}}
+  pre .k{color:#7FE3E8}
+  pre .s{color:#F2C97D}
+  pre .c{color:#6E90A2;font-style:italic}
+
+  ul,ol{margin:0 0 16px;padding-left:22px}
+  li{margin-bottom:7px}
+  li::marker{color:var(--faint)}
+  .tight li{margin-bottom:3px}
+
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin:28px 0}
+  .stack{display:flex;flex-direction:column;gap:0}
+
+  /* ---------- outline blocks for the pillar articles ---------- */
+  .outline{font-family:"Barlow",sans-serif;font-size:15px;line-height:1.5}
+  .outline .h1{font-weight:700;font-size:17px;padding:14px 20px;background:var(--sunk);
+    border-bottom:1px solid var(--line-soft)}
+  .outline .h2{font-weight:600;padding:10px 20px 10px 34px;border-bottom:1px solid var(--line-soft);
+    position:relative}
+  .outline .h2::before{content:"H2";position:absolute;left:12px;top:12px;font-size:9.5px;
+    font-weight:700;letter-spacing:.06em;color:var(--faint)}
+  .outline .h3{font-weight:400;color:var(--muted);padding:8px 20px 8px 54px;margin:0;
+    border-bottom:1px solid var(--line-soft);font-size:14.5px;position:relative}
+  .outline .h3::before{content:"H3";position:absolute;left:32px;top:10px;font-size:9.5px;
+    font-weight:700;letter-spacing:.06em;color:var(--line)}
+  .outline > div:last-child{border-bottom:0}
+
+  .terms{display:flex;flex-wrap:wrap;gap:6px;padding:18px 20px}
+  .terms span{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--sunk);
+    border:1px solid var(--line-soft);color:var(--muted);padding:3px 8px;border-radius:3px}
+
+  .script{background:var(--sunk);border:1px solid var(--line-soft);border-radius:6px;
+    padding:18px 22px;margin:14px 0;font-size:16.5px}
+  .script .lbl{display:block;margin-bottom:7px}
+  .script p{margin:0 0 10px}
+  .script p:last-child{margin:0}
+
+  footer{padding:44px 0 64px;color:var(--muted);font-size:15px}
+  footer .wrap{border-top:1px solid var(--line)}
+  footer p{padding-top:26px;max-width:70ch}
+
+  @media (max-width:640px){
+    body{font-size:17px}
+    .wrap{padding:0 20px}
+    section{padding:46px 0}
+    .mast{padding:44px 0 40px}
+    td,th{padding:10px 13px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <p class="eyebrow">Healthcare International Group &middot; MedPark Hospitals</p>
+    <h1>Hospital,<br>Not Hotel Clinic</h1>
+    <p class="stand">An execution plan to make MedPark the hospital network Google and the AI
+      answer engines name for the entire Red Sea coast, from Hurghada to Marsa Alam, rather than a
+      medical service attached to somebody else's resort.</p>
+    <div class="meta">
+      <div><b>medparkhospitals.com</b>50 pages, EN / DE / PL</div>
+      <div><b>2 branches</b>Sahl Hasheesh &amp; El Quseir</div>
+      <div><b>7 Sep 2026</b>Written against live Search Console data</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section id="finding">
+  <div class="wrap">
+    <div class="snum"><b>00</b><span>Read this before anything else</span></div>
+    <h2>You are not being seen as a hospital because you are not saying you are one</h2>
+
+    <div class="measure">
+      <p>Before writing a single strategy line I read what your live pages actually publish to a
+        crawler. The result changes the order of everything below.</p>
+    </div>
+
+    <div class="find">
+      <p class="lbl">Critical &middot; found 7 Sep 2026 &middot; <strong>fixed the same day</strong></p>
+      <h3>Your <code>Hospital</code> schema went dark on 5 September</h3>
+      <p>A detailed, correct <code>Hospital</code> declaration existed for both branches, with real
+        coordinates, 24/7 opening hours, medical specialties, ambulance-relevant services and an
+        <code>areaServed</code> list covering Sahl Hasheesh, Makadi Bay and Soma Bay. It lived in
+        <code>header.php</code>, the version&nbsp;1 header. The v2 redesign cutover left that file
+        dormant, and no v2 page reproduced it. <strong>For two days the site declared no hospital
+        entity at all.</strong></p>
+    </div>
+
+    <div class="find">
+      <p class="lbl">Critical &middot; found 7 Sep 2026 &middot; <strong>fixed the same day</strong></p>
+      <h3>The English home page published no organisation schema whatsoever</h3>
+      <p>The whole structured-data block in <code>v2/_head.php</code> was wrapped in
+        <code>if (isset($MP_CRUMBS))</code>. A home page has no breadcrumb, so it never set that
+        variable, so the entire graph was skipped. Your most linked, most crawled page emitted one
+        navigation element and nothing else. The German and Polish home pages did set it, which is
+        why this stayed hidden.</p>
+    </div>
+
+    <div class="measure">
+      <p>This mattered more than any keyword decision on this page. Google decides
+        <em>what kind of thing</em> you are before it decides where to rank you, and an AI engine
+        asked &ldquo;is there a hospital in Hurghada&rdquo; reads exactly these declarations. You
+        had been asking to be treated as a hospital while your markup stayed silent on the question.</p>
+    </div>
+
+    <div class="win">
+      <p class="lbl">Done &middot; 7 September, verified on all 50 pages</p>
+      <p>There were three separate definitions of your organisation and they disagreed with each
+        other: the v2 head said <code>MedicalOrganization</code> with nothing but a name and a logo,
+        the six version&nbsp;1 news pages said bare <code>Organization</code> with departments that
+        had no address and an invalid <code>"openingHours": "24/7"</code>, and the real declaration
+        sat dormant. All three are now replaced by one shared file,
+        <code>public_html/org-schema.php</code>. The group is typed
+        <code>&#91;"MedicalOrganization","Hospital"&#93;</code> with coast-wide
+        <code>areaServed</code>, and both branches are <code>Hospital</code> departments carrying
+        their addresses, coordinates, Maps listings and 24/7 hours. One fact, one place, fifty pages.
+        The code is in <a href="#schema">section&nbsp;1.3</a>.</p>
+    </div>
+
+    <h3>What your first real search data says</h3>
+    <div class="measure">
+      <p>Search Console has been collecting since 4 September. The first full day: 322 impressions,
+        7 clicks, average position 6.2. Small numbers, but the shape of them is the whole argument.</p>
+    </div>
+
+    <figure class="instrument">
+      <figcaption>
+        <span class="lbl">Search Console &middot; 4 September 2026</span>
+        <strong>Every query you rank for is either your own name or somebody else's hotel</strong>
+      </figcaption>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Query</th><th class="n">Impressions</th><th class="n">Position</th><th>What it tells us</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="kw">medpark</td><td class="n">32</td><td class="n">5.8</td><td>Brand. People who already know you.</td></tr>
+            <tr><td class="kw">medpark hospital</td><td class="n">16</td><td class="n">4.8</td><td>Brand.</td></tr>
+            <tr><td class="kw">hurghada medical center</td><td class="n">6</td><td class="n">&mdash;</td><td>Non-brand, but &ldquo;center&rdquo;, not &ldquo;hospital&rdquo;.</td></tr>
+            <tr><td class="kw">long beach resort</td><td class="n">&mdash;</td><td class="n">4.0</td><td><strong>You rank for a hotel name.</strong> This is the bias you asked to remove, visible in your own data.</td></tr>
+            <tr><td class="kw">krankenhaus hurghada</td><td class="n">3</td><td class="n">16.7</td><td>The single most valuable German term. Page two.</td></tr>
+            <tr><td class="kw">hurghada szpital</td><td class="n">&mdash;</td><td class="n">4.0</td><td>Polish already close. Cheapest win on the list.</td></tr>
+            <tr><td class="kw">hurghada krankenhaus deutsch</td><td class="n">&mdash;</td><td class="n">4.5</td><td>Language-qualified intent. Very high value.</td></tr>
+            <tr><td class="kw">royal hospital hurghada</td><td class="n">&mdash;</td><td class="n">4.0</td><td>A competitor's name. You are the alternative result.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </figure>
+
+    <div class="measure">
+      <p>Impressions by country were Egypt 115, Germany 38, Poland 22. Two things follow. Your
+        German audience is real and already searching the exact word <code>krankenhaus</code>, and
+        you are sitting on page two for it. And you genuinely do rank as a hotel amenity, because
+        <code>long beach resort</code> is in your query list at position 4.</p>
+    </div>
+  </div>
+</section>
+
+<section id="geography">
+  <div class="wrap">
+    <div class="snum"><b>01</b><span>Website architecture</span></div>
+    <h2>Own the coast road, not the lobby</h2>
+
+    <div class="measure">
+      <p>The Red Sea coast is not a metro area. It is a single road running roughly 270&nbsp;km
+        south from Hurghada, with resort clusters strung along it at known distances and almost
+        nothing in between. That linear geography is the most important fact about your SEO, because
+        it means every location query is really a distance question: <em>if this happens to me
+        here, how far am I from a hospital?</em></p>
+      <p>Your two branches sit at fixed points on that line. Everything else is coverage.</p>
+    </div>
+
+    <figure class="instrument">
+      <figcaption>
+        <span class="lbl">The digital geography &middot; road distance south from Hurghada</span>
+        <strong>Two fixed points, one long strip, and a gap at the southern end</strong>
+      </figcaption>
+      <div class="scroll">
+        <svg viewBox="0 0 920 250" width="920" height="250" role="img"
+             aria-label="The Red Sea coast road running 270 kilometres south from Hurghada, showing MedPark Health Hub at Sahl Hasheesh 18 kilometres south and MedPark Hospital at El Quseir 138 kilometres south, with resort clusters at Makadi Bay, Soma Bay, Safaga and Marsa Alam.">
+          <!-- coverage bands -->
+          <rect x="60" y="118" width="180" height="26" fill="#12C0C6" opacity=".16"></rect>
+          <rect x="380" y="118" width="180" height="26" fill="#12C0C6" opacity=".16"></rect>
+          <rect x="700" y="118" width="160" height="26" fill="#B3261E" opacity=".10"></rect>
+          <text x="150" y="163" text-anchor="middle" font-family="Barlow,sans-serif" font-size="11"
+                font-weight="600" letter-spacing="1.2" fill="#0B7F86">HEALTH HUB CATCHMENT</text>
+          <text x="470" y="163" text-anchor="middle" font-family="Barlow,sans-serif" font-size="11"
+                font-weight="600" letter-spacing="1.2" fill="#0B7F86">EL QUSEIR CATCHMENT</text>
+          <text x="780" y="163" text-anchor="middle" font-family="Barlow,sans-serif" font-size="11"
+                font-weight="600" letter-spacing="1.2" fill="#B3261E">UNCOVERED</text>
+
+          <!-- the road -->
+          <line x1="60" y1="131" x2="860" y2="131" stroke="#0A2A4A" stroke-width="2.5"></line>
+          <line x1="60" y1="131" x2="860" y2="131" stroke="#F4F7F8" stroke-width="1"
+                stroke-dasharray="7 9"></line>
+
+          <!-- ticks -->
+          <g stroke="#56707E" stroke-width="1.5">
+            <line x1="60" y1="124" x2="60" y2="138"></line>
+            <line x1="146" y1="124" x2="146" y2="138"></line>
+            <line x1="189" y1="124" x2="189" y2="138"></line>
+            <line x1="226" y1="124" x2="226" y2="138"></line>
+            <line x1="831" y1="124" x2="831" y2="138"></line>
+          </g>
+
+          <!-- plain places, staggered so labels never collide -->
+          <g font-family="Barlow,sans-serif" font-size="13" fill="#0A2A4A" text-anchor="middle">
+            <text x="60" y="112" font-weight="600">Hurghada</text>
+            <text x="146" y="188" font-weight="600">Makadi Bay</text>
+            <text x="189" y="210" font-weight="600">Soma Bay</text>
+            <text x="226" y="112" font-weight="600">Safaga</text>
+            <text x="831" y="112" font-weight="600">Marsa Alam</text>
+          </g>
+          <g font-family="IBM Plex Mono,monospace" font-size="10.5" fill="#7E96A2" text-anchor="middle">
+            <text x="60" y="97">0 km</text>
+            <text x="146" y="203">30 km</text>
+            <text x="189" y="225">45 km</text>
+            <text x="226" y="97">58 km</text>
+            <text x="831" y="97">270 km</text>
+          </g>
+
+          <!-- the two hospitals -->
+          <g>
+            <line x1="111" y1="131" x2="111" y2="60" stroke="#0A2A4A" stroke-width="1.5"></line>
+            <circle cx="111" cy="131" r="7" fill="#12C0C6" stroke="#0A2A4A" stroke-width="2.5"></circle>
+            <rect x="63" y="34" width="96" height="24" rx="3" fill="#0A2A4A"></rect>
+            <text x="111" y="50" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12"
+                  font-weight="700" fill="#FFFFFF">HEALTH HUB</text>
+            <text x="111" y="74" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12"
+                  font-weight="600" fill="#0A2A4A">Sahl Hasheesh &middot; 18 km</text>
+          </g>
+          <g>
+            <line x1="454" y1="131" x2="454" y2="60" stroke="#0A2A4A" stroke-width="1.5"></line>
+            <circle cx="454" cy="131" r="7" fill="#12C0C6" stroke="#0A2A4A" stroke-width="2.5"></circle>
+            <rect x="399" y="34" width="110" height="24" rx="3" fill="#0A2A4A"></rect>
+            <text x="454" y="50" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12"
+                  font-weight="700" fill="#FFFFFF">EL QUSEIR</text>
+            <text x="454" y="74" text-anchor="middle" font-family="Barlow,sans-serif" font-size="12"
+                  font-weight="600" fill="#0A2A4A">Al Owina &middot; 138 km</text>
+          </g>
+
+          <text x="460" y="243" text-anchor="middle" font-family="Barlow,sans-serif" font-size="11"
+                fill="#7E96A2">Distances are road distance along the coast highway. Drive times must be
+            measured, not estimated, before publication.</text>
+        </svg>
+      </div>
+    </figure>
+
+    <div class="note">
+      <p class="lbl">Spelling, settled</p>
+      <p>Use <strong>El Quseir</strong>. It appears 142 times across your site, in your schema and
+        on your Google listing. You write &ldquo;Al Qusier&rdquo; in messages; that transposition
+        appears nowhere in your estate and should not start now. One spelling, everywhere, or you
+        split your own signal.</p>
+    </div>
+
+    <h3>1.1 &nbsp;The location silhouette page, and why hotel pages cannot do this job</h3>
+    <div class="measure">
+      <p>A hotel-oriented page answers &ldquo;we serve guests of this resort&rdquo;. It ties your
+        authority to somebody else's brand, competes with the hotel's own pages, and produces
+        exactly the <code>long beach resort</code> ranking sitting in your data today.</p>
+      <p>A location silhouette page answers a different question: <strong>&ldquo;what happens to
+        anyone in this place who needs a hospital&rdquo;</strong>. It is written for the place, not
+        for a customer of the place, which is why it can rank for the place's name and be useful to
+        residents, expats, workers and tourists at the same time.</p>
+      <p>You currently have <strong>zero</strong> of these. Your 50 URLs cover services and two
+        branch pages. There is no page that is <em>about</em> Sahl Hasheesh, Makadi Bay, Safaga,
+        Soma Bay or Marsa Alam.</p>
+    </div>
+
+    <figure class="instrument">
+      <figcaption>
+        <span class="lbl">Proposed URLs &middot; build in this order</span>
+        <strong>Six location pages, priority set by search demand and coverage, not by size</strong>
+      </figcaption>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>URL</th><th>Primary target</th><th class="n">Distance</th><th>Why this order</th><th>Build</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="kw">/hospital-hurghada/</td>
+              <td>hospital in hurghada</td><td class="n">0 km</td>
+              <td>Highest volume term on the coast, and where your German page-two ranking already sits.</td>
+              <td><span class="pill p-crit">First</span></td>
+            </tr>
+            <tr>
+              <td class="kw">/hospital-sahl-hasheesh/</td>
+              <td>hospital sahl hasheesh</td><td class="n">18 km</td>
+              <td>Your actual address. Should be trivially winnable and is not currently claimed.</td>
+              <td><span class="pill p-crit">First</span></td>
+            </tr>
+            <tr>
+              <td class="kw">/hospital-el-quseir/</td>
+              <td>hospital el quseir</td><td class="n">138 km</td>
+              <td>Your second branch. Low volume, near-zero competition, high conversion.</td>
+              <td><span class="pill p-now">Second</span></td>
+            </tr>
+            <tr>
+              <td class="kw">/hospital-makadi-bay/</td>
+              <td>doctor makadi bay</td><td class="n">30 km</td>
+              <td>Dense resort cluster inside the Health Hub catchment. Already in your schema's areaServed.</td>
+              <td><span class="pill p-now">Second</span></td>
+            </tr>
+            <tr>
+              <td class="kw">/hospital-safaga/</td>
+              <td>hospital safaga</td><td class="n">58 km</td>
+              <td>Port and dive town, year-round residents, no strong incumbent.</td>
+              <td><span class="pill p-soon">Third</span></td>
+            </tr>
+            <tr>
+              <td class="kw">/hospital-marsa-alam/</td>
+              <td>hospital marsa alam</td><td class="n">270 km</td>
+              <td>Honest coverage page: you are the nearest hospital of this standard, and the page must say how far.</td>
+              <td><span class="pill p-soon">Third</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </figure>
+
+    <div class="note">
+      <p class="lbl">Do not skip this</p>
+      <p>Every one of these needs a German and Polish twin at <code>/de/</code> and <code>/pl/</code>,
+        registered in <code>hreflang.php</code> and picked up by the dynamic sitemap. A location page
+        in English only wastes the audience that is already searching:
+        <code>krankenhaus hurghada</code> and <code>hurghada szpital</code> are in your data today.</p>
+    </div>
+
+    <h3>1.2 &nbsp;Template for a regional landing page</h3>
+    <div class="measure">
+      <p>This is the anatomy for <code>/hospital-sahl-hasheesh/</code>. Every block earns its place
+        by answering a question the searcher actually has, in the order they have it. Nothing here
+        is filler, and nothing here is a hotel.</p>
+    </div>
+
+    <figure class="instrument">
+      <div class="outline stack">
+        <div class="h1">H1 &nbsp;Hospital in Sahl Hasheesh &mdash; 24/7 Emergency Care on Sahl Hasheesh Road</div>
+        <div class="h2">Open now, and how to reach us from anywhere in Sahl Hasheesh</div>
+        <div class="h3">Tap-to-call and WhatsApp above the fold, red for emergency, green for WhatsApp</div>
+        <div class="h3">Street address, coordinates, and a directions link that opens the pin, not a search</div>
+        <div class="h3">Ambulance dispatch number, stated separately from reception</div>
+        <div class="h2">What we treat, and what we send north or south</div>
+        <div class="h3">Emergency department, intensive care, CT, emergency surgery, walk-in urgent care</div>
+        <div class="h3">Honest limits: what genuinely requires transfer, and where to</div>
+        <div class="h2">Getting here from your part of Sahl Hasheesh</div>
+        <div class="h3">Distance and measured drive time from the Old Town, the marina and the southern hotels</div>
+        <div class="h3">What to do if you cannot travel: ambulance coverage across the bay</div>
+        <div class="h2">Insurance and payment for visitors and residents</div>
+        <div class="h3">Direct billing partners, named individually</div>
+        <div class="h3">What to bring, what it costs without insurance, currencies accepted</div>
+        <div class="h2">For people who live here</div>
+        <div class="h3">Registration, repeat prescriptions, follow-up, family medicine</div>
+        <div class="h3">Languages spoken on shift</div>
+        <div class="h2">Common questions from Sahl Hasheesh</div>
+        <div class="h3">FAQ block, each answer also emitted as FAQPage schema</div>
+      </div>
+      <div class="terms">
+        <span>sahl hasheesh road</span><span>red sea governorate</span><span>emergency department</span>
+        <span>walk-in</span><span>ambulance</span><span>CT scan</span><span>intensive care</span>
+        <span>direct billing</span><span>English-speaking doctor</span><span>24 hours</span>
+        <span>Makadi Bay</span><span>Old Town</span><span>expat</span><span>resident</span>
+      </div>
+    </figure>
+
+    <div class="note">
+      <p class="lbl">Two facts you must supply before these pages publish</p>
+      <p><strong>Measured drive times</strong> from each resort cluster to each branch. This is
+        already flagged as an open item on <code>/news/news8.php</code>. Estimated drive times on a
+        hospital page are a safety claim, and a wrong one is worse than none.
+        <strong>Your ambulance fleet size and dispatch radius</strong>, which is the single most
+        hospital-like fact you own and appears nowhere on the site.</p>
+    </div>
+
+    <h3 id="schema">1.3 &nbsp;The structured data, corrected and ready to paste</h3>
+    <div class="measure">
+      <p>This merges what was lost in the cutover with what an AI crawler needs in order to answer
+        &ldquo;is there a hospital near me on the Red Sea&rdquo;. Two changes matter most beyond
+        simply restoring it: <code>MedicalOrganization</code> becomes
+        <code>&#91;"MedicalOrganization","Hospital"&#93;</code> at the parent level, and every branch
+        carries an explicit <code>areaServed</code> naming the coast, so the entity is tied to the
+        region rather than to a street.</p>
+      <p><strong>This is deployed as of 7 September.</strong> It lives in
+        <code>public_html/org-schema.php</code> as <code>mp_org_schema($site, $lang)</code>, and
+        both the v2 head and the two remaining version&nbsp;1 headers call it, so all 50 pages
+        state the same thing. Change a fact there rather than in any template.</p>
+    </div>
+
+    <figure class="instrument">
+      <figcaption>
+        <span class="lbl">JSON-LD &middot; @graph nodes to add</span>
+        <strong>Both branches as Hospital, with regional coverage and 24/7 hours</strong>
+      </figcaption>
+<pre><code>{
+  <span class="k">"@type"</span>: [<span class="s">"MedicalOrganization"</span>, <span class="s">"Hospital"</span>],
+  <span class="k">"@id"</span>: <span class="s">"https://www.medparkhospitals.com/#organization"</span>,
+  <span class="k">"name"</span>: <span class="s">"MedPark Health Group"</span>,
+  <span class="k">"url"</span>: <span class="s">"https://www.medparkhospitals.com/"</span>,
+  <span class="k">"logo"</span>: <span class="s">"https://www.medparkhospitals.com/logo.JPG"</span>,
+  <span class="c">// The region, declared once, at the parent. This is what an AI engine reads
+  // when asked "which hospital covers the Red Sea coast".</span>
+  <span class="k">"areaServed"</span>: [
+    { <span class="k">"@type"</span>: <span class="s">"City"</span>,  <span class="k">"name"</span>: <span class="s">"Hurghada"</span> },
+    { <span class="k">"@type"</span>: <span class="s">"City"</span>,  <span class="k">"name"</span>: <span class="s">"El Quseir"</span> },
+    { <span class="k">"@type"</span>: <span class="s">"City"</span>,  <span class="k">"name"</span>: <span class="s">"Safaga"</span> },
+    { <span class="k">"@type"</span>: <span class="s">"City"</span>,  <span class="k">"name"</span>: <span class="s">"Marsa Alam"</span> },
+    { <span class="k">"@type"</span>: <span class="s">"Place"</span>, <span class="k">"name"</span>: <span class="s">"Sahl Hasheesh"</span> },
+    { <span class="k">"@type"</span>: <span class="s">"Place"</span>, <span class="k">"name"</span>: <span class="s">"Makadi Bay"</span> },
+    { <span class="k">"@type"</span>: <span class="s">"Place"</span>, <span class="k">"name"</span>: <span class="s">"Soma Bay"</span> },
+    { <span class="k">"@type"</span>: <span class="s">"AdministrativeArea"</span>, <span class="k">"name"</span>: <span class="s">"Red Sea Governorate"</span> }
+  ],
+  <span class="k">"availableLanguage"</span>: [<span class="s">"English"</span>, <span class="s">"German"</span>, <span class="s">"Polish"</span>, <span class="s">"Arabic"</span>],
+  <span class="k">"sameAs"</span>: [
+    <span class="s">"https://maps.google.com/?cid=8921907815233210791"</span>,
+    <span class="s">"https://maps.google.com/?cid=730530133612432340"</span>
+  ],
+  <span class="k">"department"</span>: [
+    {
+      <span class="k">"@type"</span>: <span class="s">"Hospital"</span>,
+      <span class="k">"@id"</span>: <span class="s">"https://www.medparkhospitals.com/healthhub.php#hospital"</span>,
+      <span class="k">"name"</span>: <span class="s">"MedPark Health Hub Hurghada"</span>,
+      <span class="k">"url"</span>: <span class="s">"https://www.medparkhospitals.com/healthhub.php"</span>,
+      <span class="k">"telephone"</span>: <span class="s">"+201222289383"</span>,
+      <span class="k">"address"</span>: {
+        <span class="k">"@type"</span>: <span class="s">"PostalAddress"</span>,
+        <span class="k">"streetAddress"</span>: <span class="s">"Sahl Hasheesh Road"</span>,
+        <span class="k">"addressLocality"</span>: <span class="s">"Hurghada"</span>,
+        <span class="k">"addressRegion"</span>: <span class="s">"Red Sea Governorate"</span>,
+        <span class="k">"postalCode"</span>: <span class="s">"1961305"</span>,
+        <span class="k">"addressCountry"</span>: <span class="s">"EG"</span>
+      },
+      <span class="k">"geo"</span>: { <span class="k">"@type"</span>: <span class="s">"GeoCoordinates"</span>,
+                <span class="k">"latitude"</span>: 27.0794164, <span class="k">"longitude"</span>: 33.8596514 },
+      <span class="k">"hasMap"</span>: <span class="s">"https://maps.google.com/?cid=8921907815233210791"</span>,
+      <span class="c">// 24/7 must be explicit. "Always open" is not inferred from anything.</span>
+      <span class="k">"openingHoursSpecification"</span>: [{
+        <span class="k">"@type"</span>: <span class="s">"OpeningHoursSpecification"</span>,
+        <span class="k">"dayOfWeek"</span>: [<span class="s">"Monday"</span>,<span class="s">"Tuesday"</span>,<span class="s">"Wednesday"</span>,<span class="s">"Thursday"</span>,
+                      <span class="s">"Friday"</span>,<span class="s">"Saturday"</span>,<span class="s">"Sunday"</span>],
+        <span class="k">"opens"</span>: <span class="s">"00:00"</span>, <span class="k">"closes"</span>: <span class="s">"23:59"</span>
+      }],
+      <span class="k">"medicalSpecialty"</span>: [<span class="s">"Emergency"</span>, <span class="s">"CriticalCare"</span>, <span class="s">"DiagnosticImaging"</span>,
+                            <span class="s">"Dentistry"</span>, <span class="s">"PrimaryCare"</span>],
+      <span class="k">"availableService"</span>: [
+        { <span class="k">"@type"</span>: <span class="s">"MedicalProcedure"</span>, <span class="k">"name"</span>: <span class="s">"24/7 emergency department"</span> },
+        { <span class="k">"@type"</span>: <span class="s">"MedicalProcedure"</span>, <span class="k">"name"</span>: <span class="s">"Intensive care unit"</span> },
+        { <span class="k">"@type"</span>: <span class="s">"MedicalTest"</span>,      <span class="k">"name"</span>: <span class="s">"CT scanner"</span> },
+        { <span class="k">"@type"</span>: <span class="s">"MedicalProcedure"</span>, <span class="k">"name"</span>: <span class="s">"Emergency surgery"</span> },
+        { <span class="k">"@type"</span>: <span class="s">"MedicalProcedure"</span>, <span class="k">"name"</span>: <span class="s">"Walk-in urgent care"</span> }
+      ],
+      <span class="k">"areaServed"</span>: [
+        { <span class="k">"@type"</span>: <span class="s">"City"</span>,  <span class="k">"name"</span>: <span class="s">"Hurghada"</span> },
+        { <span class="k">"@type"</span>: <span class="s">"Place"</span>, <span class="k">"name"</span>: <span class="s">"Sahl Hasheesh"</span> },
+        { <span class="k">"@type"</span>: <span class="s">"Place"</span>, <span class="k">"name"</span>: <span class="s">"Makadi Bay"</span> },
+        { <span class="k">"@type"</span>: <span class="s">"Place"</span>, <span class="k">"name"</span>: <span class="s">"Soma Bay"</span> },
+        { <span class="k">"@type"</span>: <span class="s">"City"</span>,  <span class="k">"name"</span>: <span class="s">"Safaga"</span> }
+      ],
+      <span class="k">"isAcceptingNewPatients"</span>: true
+    },
+    {
+      <span class="k">"@type"</span>: <span class="s">"Hospital"</span>,
+      <span class="k">"@id"</span>: <span class="s">"https://www.medparkhospitals.com/medparkhospital.php#hospital"</span>,
+      <span class="k">"name"</span>: <span class="s">"MedPark Hospital El Quseir"</span>,
+      <span class="k">"url"</span>: <span class="s">"https://www.medparkhospitals.com/medparkhospital.php"</span>,
+      <span class="k">"telephone"</span>: <span class="s">"+201210533335"</span>,
+      <span class="k">"address"</span>: {
+        <span class="k">"@type"</span>: <span class="s">"PostalAddress"</span>,
+        <span class="k">"streetAddress"</span>: <span class="s">"Al Owina"</span>,
+        <span class="k">"addressLocality"</span>: <span class="s">"El Quseir"</span>,
+        <span class="k">"addressRegion"</span>: <span class="s">"Red Sea Governorate"</span>,
+        <span class="k">"addressCountry"</span>: <span class="s">"EG"</span>
+      },
+      <span class="k">"geo"</span>: { <span class="k">"@type"</span>: <span class="s">"GeoCoordinates"</span>,
+                <span class="k">"latitude"</span>: 26.1498769, <span class="k">"longitude"</span>: 34.2487632 },
+      <span class="k">"hasMap"</span>: <span class="s">"https://maps.google.com/?cid=730530133612432340"</span>,
+      <span class="k">"openingHoursSpecification"</span>: [{
+        <span class="k">"@type"</span>: <span class="s">"OpeningHoursSpecification"</span>,
+        <span class="k">"dayOfWeek"</span>: [<span class="s">"Monday"</span>,<span class="s">"Tuesday"</span>,<span class="s">"Wednesday"</span>,<span class="s">"Thursday"</span>,
+                      <span class="s">"Friday"</span>,<span class="s">"Saturday"</span>,<span class="s">"Sunday"</span>],
+        <span class="k">"opens"</span>: <span class="s">"00:00"</span>, <span class="k">"closes"</span>: <span class="s">"23:59"</span>
+      }],
+      <span class="k">"medicalSpecialty"</span>: [<span class="s">"Emergency"</span>, <span class="s">"Radiology"</span>, <span class="s">"Surgery"</span>,
+                            <span class="s">"Dentistry"</span>, <span class="s">"Diagnostic"</span>],
+      <span class="k">"areaServed"</span>: [
+        { <span class="k">"@type"</span>: <span class="s">"City"</span>, <span class="k">"name"</span>: <span class="s">"El Quseir"</span> },
+        { <span class="k">"@type"</span>: <span class="s">"City"</span>, <span class="k">"name"</span>: <span class="s">"Safaga"</span> },
+        { <span class="k">"@type"</span>: <span class="s">"City"</span>, <span class="k">"name"</span>: <span class="s">"Marsa Alam"</span> }
+      ],
+      <span class="k">"isAcceptingNewPatients"</span>: true
+    }
+  ]
+}</code></pre>
+    </figure>
+
+    <div class="note">
+      <p class="lbl">One thing to add that you are not claiming yet</p>
+      <p>You told me you run your own ambulance fleet. Nothing on the site or in the schema says so.
+        Once you confirm the fleet, add an <code>EmergencyService</code> node and name the dispatch
+        coverage. &ldquo;Has its own ambulances&rdquo; is one of the strongest signals separating a
+        hospital from a clinic, for Google and for a human reading an AI answer.</p>
+    </div>
+
+    <div class="win">
+      <p class="lbl">Already fixed, 7 September</p>
+      <p>Mobile speed was the other technical blocker and is done. Home page largest contentful
+        paint went from <strong>13.6&nbsp;s to 5.8&nbsp;s</strong>, German and Polish from about
+        12.7&nbsp;s to under 6&nbsp;s, emergency page to 3.3&nbsp;s. Google ranks on mobile, so this
+        was worth more than any keyword edit and is now behind you.</p>
+    </div>
+  </div>
+</section>
+
+<section id="keywords">
+  <div class="wrap">
+    <div class="snum"><b>02</b><span>Keywords and content pillars</span></div>
+    <h2>Trade guest-of-the-hotel traffic for city-wide emergency traffic</h2>
+
+    <div class="measure">
+      <p>The shift is not a word swap. It is a change in who the page is addressed to. Hotel-framed
+        terms assume the reader is a guest and you are an amenity. City-framed and expat-framed
+        terms assume the reader is a person in a place and you are the hospital that serves it.</p>
+    </div>
+
+    <figure class="instrument">
+      <figcaption>
+        <span class="lbl">Target set &middot; grouped by intent</span>
+        <strong>What to build for, and what to stop building for</strong>
+      </figcaption>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Intent group</th><th>Terms</th><th>Lands on</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>City-wide emergency</strong><br><span class="lbl">Highest value</span></td>
+              <td class="kw">hospital in hurghada &middot; emergency room hurghada &middot; 24 hour hospital hurghada &middot; ambulance hurghada &middot; emergency hospital red sea</td>
+              <td>/hospital-hurghada/</td>
+              <td><span class="pill p-crit">No page</span></td>
+            </tr>
+            <tr>
+              <td><strong>German emergency</strong><br><span class="lbl">Ranking already, page 2</span></td>
+              <td class="kw">krankenhaus hurghada &middot; notaufnahme hurghada &middot; notarzt hurghada &middot; deutschsprachiger arzt hurghada &middot; krankenhaus el quseir</td>
+              <td>/de/krankenhaus-hurghada/</td>
+              <td><span class="pill p-crit">No page</span></td>
+            </tr>
+            <tr>
+              <td><strong>Polish emergency</strong><br><span class="lbl">Already position 4</span></td>
+              <td class="kw">szpital hurghada &middot; pogotowie hurghada &middot; lekarz hurghada &middot; prywatny szpital hurghada</td>
+              <td>/pl/szpital-hurghada/</td>
+              <td><span class="pill p-crit">No page</span></td>
+            </tr>
+            <tr>
+              <td><strong>Named location</strong></td>
+              <td class="kw">hospital sahl hasheesh &middot; doctor makadi bay &middot; hospital safaga &middot; hospital el quseir &middot; hospital marsa alam &middot; clinic soma bay</td>
+              <td>The six location pages</td>
+              <td><span class="pill p-crit">No page</span></td>
+            </tr>
+            <tr>
+              <td><strong>Expat and resident</strong><br><span class="lbl">Year-round, not seasonal</span></td>
+              <td class="kw">expat healthcare egypt &middot; english speaking doctor hurghada &middot; private health insurance hurghada &middot; family doctor red sea &middot; living in hurghada healthcare</td>
+              <td>Pillar 3</td>
+              <td><span class="pill p-crit">No page</span></td>
+            </tr>
+            <tr>
+              <td><strong>Capability proof</strong><br><span class="lbl">Separates hospital from clinic</span></td>
+              <td class="kw">ct scan hurghada &middot; icu hurghada &middot; emergency surgery hurghada &middot; blood bank red sea &middot; x-ray hurghada</td>
+              <td>/diagnostics-imaging/, /icu-critical-care/</td>
+              <td><span class="pill p-now">Pages exist</span></td>
+            </tr>
+            <tr>
+              <td><strong>Diving and marine</strong><br><span class="lbl">Unique to this coast</span></td>
+              <td class="kw">diving accident hurghada &middot; decompression sickness red sea &middot; hyperbaric chamber hurghada &middot; jellyfish sting treatment</td>
+              <td>Pillar 4</td>
+              <td><span class="pill p-soon">Article exists, unreviewed</span></td>
+            </tr>
+            <tr>
+              <td><strong>Stop targeting</strong></td>
+              <td class="kw">hotel doctor hurghada &middot; resort clinic &middot; hotel medical service &middot; &lt;hotel name&gt; doctor</td>
+              <td>&mdash;</td>
+              <td><span class="pill p-de">Retire</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </figure>
+
+    <div class="note">
+      <p class="lbl">Retire does not mean delete</p>
+      <p>Hotel partnerships are real revenue and the B2B referrer is one of your four personas. Keep
+        serving them, but move that content to a <strong>partners</strong> page addressed to hotel
+        duty managers, not to guests. That page can be <code>noindex</code> if it helps. The problem
+        was never having hotel relationships. It was letting them define what search engines think
+        you are.</p>
+    </div>
+
+    <h3>2.1 &nbsp;Four pillar articles</h3>
+    <div class="measure">
+      <p>Each is a genuine reference document, long enough to be the best answer on the coast, and
+        each one exists to make a specific set of location pages rank by linking down into them.</p>
+    </div>
+
+    <h4>Pillar 1 &middot; English, then translated</h4>
+    <figure class="instrument">
+      <div class="outline stack">
+        <div class="h1">H1 &nbsp;Emergency Care in Hurghada: Where to Go, What It Costs, and What Happens Next</div>
+        <div class="h2">If this is an emergency right now</div>
+        <div class="h3">Numbers first: ambulance, our emergency line, what to say on the call</div>
+        <div class="h2">What counts as an emergency on the Red Sea</div>
+        <div class="h3">Chest pain, heavy bleeding, head injury, breathing difficulty, severe abdominal pain</div>
+        <div class="h3">Heat stroke and severe dehydration, which visitors underestimate every summer</div>
+        <div class="h3">What to treat as urgent but not emergency, and where to walk in instead</div>
+        <div class="h2">Where the hospitals are, and how far you are from each</div>
+        <div class="h3">From Hurghada city, Sahl Hasheesh, Makadi Bay, Soma Bay, Safaga, El Quseir</div>
+        <div class="h2">What a real emergency department needs to have</div>
+        <div class="h3">CT on site, intensive care beds, an operating theatre staffed overnight, blood</div>
+        <div class="h3">Why a clinic without these has to transfer you, and what that costs in time</div>
+        <div class="h2">Insurance, direct billing and paying without insurance</div>
+        <div class="h3">Allianz, AXA, Cigna and Bupa, and how direct billing actually works at the desk</div>
+        <div class="h3">Currencies accepted, and what to keep with you</div>
+        <div class="h2">After the emergency: admission, transfer, repatriation, fit-to-fly</div>
+      </div>
+      <div class="terms">
+        <span>emergency department</span><span>triage</span><span>ambulance dispatch</span>
+        <span>CT scan</span><span>intensive care unit</span><span>emergency surgery</span>
+        <span>direct billing</span><span>fit to fly</span><span>medical repatriation</span>
+        <span>heat exhaustion</span><span>Red Sea Governorate</span><span>24 hours a day</span>
+        <span>walk-in</span><span>English-speaking</span>
+      </div>
+    </figure>
+
+    <h4>Pillar 2 &middot; German-first, not a translation</h4>
+    <div class="measure">
+      <p>Write this one in German first. Germany is your second-largest impression source and
+        <code>krankenhaus hurghada</code> is your best non-brand position at 16.7. A native German
+        article will outrank a translated one, and your DE strings already need a native speaker pass.</p>
+    </div>
+    <figure class="instrument">
+      <div class="outline stack">
+        <div class="h1">H1 &nbsp;Krankenhaus in Hurghada: Der vollst&auml;ndige Leitfaden f&uuml;r Urlauber und Residenten</div>
+        <div class="h2">Notfall in Hurghada &mdash; was Sie sofort tun</div>
+        <div class="h2">Krankenhaus oder Klinik? Der Unterschied, der z&auml;hlt</div>
+        <div class="h3">Intensivstation, CT, Notoperation, eigene Rettungswagen</div>
+        <div class="h2">Deutschsprachige &Auml;rzte und Betreuung</div>
+        <div class="h2">Versicherung: Direktabrechnung und Kostenerstattung</div>
+        <div class="h3">Auslandskrankenversicherung, R&uuml;cktransport, Belege f&uuml;r die Kasse</div>
+        <div class="h2">Anfahrt aus Hurghada, Sahl Hasheesh, Makadi Bay und Safaga</div>
+        <div class="h2">H&auml;ufige Notf&auml;lle bei Reisenden am Roten Meer</div>
+      </div>
+      <div class="terms">
+        <span>Krankenhaus</span><span>Notaufnahme</span><span>Intensivstation</span>
+        <span>Notarzt</span><span>Rettungswagen</span><span>Direktabrechnung</span>
+        <span>Auslandskrankenversicherung</span><span>R&uuml;cktransport</span>
+        <span>deutschsprachiger Arzt</span><span>Rotes Meer</span><span>rund um die Uhr</span>
+      </div>
+    </figure>
+
+    <h4>Pillar 3 &middot; The audience nobody is writing for</h4>
+    <figure class="instrument">
+      <div class="outline stack">
+        <div class="h1">H1 &nbsp;Healthcare for Expats and Residents on the Red Sea: A Practical Guide</div>
+        <div class="h2">What healthcare on the Red Sea coast actually looks like</div>
+        <div class="h3">Public, private, and what each realistically gives you</div>
+        <div class="h2">Registering with a doctor when you live here</div>
+        <div class="h2">Insurance if you are a resident, not a tourist</div>
+        <div class="h3">Local policies, international policies, and paying out of pocket</div>
+        <div class="h2">Pregnancy, children and chronic conditions</div>
+        <div class="h3">Repeat prescriptions and what pharmacies stock locally</div>
+        <div class="h2">When you need something the coast cannot provide</div>
+        <div class="h3">Referral to Cairo, and how transfers are arranged</div>
+        <div class="h2">Emergencies when you live 40 kilometres from the nearest hospital</div>
+      </div>
+      <div class="terms">
+        <span>expat</span><span>resident</span><span>registration</span><span>repeat prescription</span>
+        <span>chronic condition</span><span>family medicine</span><span>referral</span>
+        <span>Cairo transfer</span><span>private health insurance</span><span>Red Sea Governorate</span>
+      </div>
+    </figure>
+
+    <h4>Pillar 4 &middot; The one only you can write</h4>
+    <figure class="instrument">
+      <div class="outline stack">
+        <div class="h1">H1 &nbsp;Diving Emergencies on the Red Sea: The Chain from Boat to Intensive Care</div>
+        <div class="h2">Recognising decompression illness on the boat</div>
+        <div class="h2">What happens between the dive site and the hospital</div>
+        <div class="h3">Surface oxygen, the boat's call, where the ambulance meets you</div>
+        <div class="h2">Hyperbaric treatment on this coast, and where the chambers are</div>
+        <div class="h2">The injuries divers actually present with, beyond DCI</div>
+        <div class="h3">Barotrauma, marine envenomation, propeller and coral injury, near-drowning</div>
+        <div class="h2">For dive centres: what to have ready before the season</div>
+      </div>
+      <div class="terms">
+        <span>decompression illness</span><span>DCI</span><span>barotrauma</span>
+        <span>hyperbaric chamber</span><span>surface oxygen</span><span>marine envenomation</span>
+        <span>near-drowning</span><span>dive centre</span><span>evacuation</span><span>ICU</span>
+      </div>
+    </figure>
+
+    <div class="note">
+      <p class="lbl">Clinical review is not optional on this one</p>
+      <p>Your existing diving article at <code>/news/news6.php</code> is already flagged as needing a
+        physician to read it before anyone relies on it. That applies double here. Decompression
+        illness guidance that is wrong can kill someone, and it is also the fastest way to lose the
+        medical-authority signal you are trying to build. Nothing in Pillar&nbsp;4 publishes without
+        a named clinician's sign-off.</p>
+    </div>
+
+    <h3>2.2 &nbsp;How the internal linking has to work</h3>
+    <div class="measure">
+      <p>Pillars and location pages are not two separate content programmes. They are one structure,
+        and the direction of the links is what tells Google which page is the authority for which
+        query.</p>
+      <ul>
+        <li><strong>Pillars link down to location pages</strong> with the location's own name as the
+          anchor. &ldquo;If you are in Makadi Bay, this is your nearest emergency department&rdquo;
+          linking on <em>hospital in Makadi Bay</em>. Never &ldquo;click here&rdquo;, never
+          &ldquo;read more&rdquo;.</li>
+        <li><strong>Location pages link up to one pillar only</strong>, the one matching their
+          language and intent. One clean parent, not four.</li>
+        <li><strong>Every page links to the emergency contact</strong> in the body text, not just in
+          the header. A header link repeated site-wide carries far less weight than a contextual one.</li>
+        <li><strong>Location pages link sideways to their two nearest neighbours</strong> and nothing
+          else. That reproduces the coast road in your link graph, which is exactly the relationship
+          you want understood.</li>
+        <li><strong>Both branch pages link to each other</strong> with the other's city as anchor, so
+          the two-site network is legible rather than looking like two unrelated businesses.</li>
+      </ul>
+      <p>Register every new article in <code>news/related.php</code>. It is already the single
+        article register feeding the index, the related block and the sitemap, so one entry there
+        does all three jobs.</p>
+    </div>
+  </div>
+</section>
+
+<section id="maps">
+  <div class="wrap">
+    <div class="snum"><b>03</b><span>Google Maps and local</span></div>
+    <h2>The listing decides the local pack, not the website</h2>
+
+    <div class="measure">
+      <p>For &ldquo;hospital in hurghada&rdquo; the map results sit above the web results. Category,
+        proximity and reviews decide who appears there, and the website is a supporting signal. This
+        section is therefore the highest-value work in the whole document, and it is blocked on one
+        thing.</p>
+    </div>
+
+    <div class="find">
+      <p class="lbl">Blocked &middot; needs a person, not a change</p>
+      <h3>You are a Manager, and only an Owner can do most of this</h3>
+      <p>A Manager cannot grant API access and cannot transfer ownership. Either the current Owner
+        adds the service account and promotes you, which takes them one click, or you file an
+        <strong>ownership transfer request</strong> in the profile, which gives the current owner
+        <strong>seven days</strong> to respond before it can pass over. Start this today, because the
+        clock runs whether or not you are working on anything else.</p>
+    </div>
+
+    <h3>3.1 &nbsp;Cleaning the profile without losing reviews</h3>
+    <div class="measure">
+      <p>Your listings carry <strong>4.8 from 271 reviews</strong> at the Health Hub and
+        <strong>4.7 from 187</strong> at El Quseir. That is the most valuable asset in this entire
+        plan and it is not replaceable. Every instruction below is written to protect it.</p>
+    </div>
+
+    <div class="find">
+      <p class="lbl">Never do this</p>
+      <p>Do not create a new listing for a location that already has one, for any reason, including
+        &ldquo;the old one is wrong&rdquo; or &ldquo;we cannot get access&rdquo;. Duplicates are the
+        most common cause of suspension in healthcare, they split reviews permanently, and merging
+        them back is not guaranteed. Fix the listing you have.</p>
+    </div>
+
+    <ol>
+      <li><strong>Set the primary category to <code>Hospital</code>.</strong> This is the single
+        biggest lever you have for &ldquo;hospital in hurghada&rdquo;, larger than anything on the
+        website. You confirmed both are licensed full hospitals, so this is accurate. Your site
+        schema was corrected to <code>Hospital</code>; the listing has to agree.</li>
+      <li><strong>Set secondary categories that describe departments, not amenities.</strong>
+        Emergency room, medical diagnostic imaging centre, intensive care unit, dentist. Avoid
+        anything that reads as hospitality.</li>
+      <li><strong>Fix the name to match the signage exactly.</strong> &ldquo;MedPark Health Hub
+        Hurghada&rdquo; and &ldquo;MedPark Hospital El Quseir&rdquo;. Do not append keywords such as
+        &ldquo;Hospital in Hurghada&rdquo; to the name field. Keyword stuffing the name is the second
+        most common suspension trigger and it is easy for a competitor to report.</li>
+      <li><strong>Turn on every attribute that says hospital.</strong> Open 24 hours, emergency
+        services, wheelchair-accessible entrance, on-site parking, gender-neutral toilets, languages
+        spoken. Attributes are a direct category signal, not decoration.</li>
+      <li><strong>Set hours to 24 hours, seven days,</strong> and add the emergency department as a
+        separate service if the profile offers it. Never leave holiday hours blank.</li>
+      <li><strong>Point each listing at its matching page,</strong> Health Hub to
+        <code>/healthhub.php</code>, El Quseir to <code>/medparkhospital.php</code>. Both pointing at
+        the home page wastes the strongest link either listing has.</li>
+      <li><strong>Rewrite the description around the region and the capability.</strong> Draft below.</li>
+      <li><strong>Photographs: exterior first.</strong> A street-visible emergency entrance with
+        signage is the most category-defining image you can upload, because it is what a reviewer
+        checks when a listing is reported. Then ambulance, reception, CT room, ward. Geotag nothing;
+        Google ignores it and it looks manipulative.</li>
+      <li><strong>Change one thing, then wait.</strong> A burst of edits on a healthcare listing can
+        trigger a manual review. Category first, alone. Then wait a week. Then attributes and hours.
+        Then description and photos.</li>
+    </ol>
+
+    <div class="script">
+      <span class="lbl">Draft profile description &middot; Health Hub &middot; verify every claim before publishing</span>
+      <p>MedPark Health Hub is a 24-hour private hospital on Sahl Hasheesh Road, serving Hurghada,
+        Sahl Hasheesh, Makadi Bay, Soma Bay and Safaga. The emergency department is open every day
+        of the year with a street-accessible entrance, supported by intensive care, CT imaging,
+        laboratory services and an operating theatre on site.</p>
+      <p>We treat residents, expatriates and visitors. Our teams work in English, German, Polish and
+        Arabic, and we bill major international insurers directly. Walk-in urgent care is available
+        without an appointment.</p>
+    </div>
+
+    <div class="note">
+      <p class="lbl">Compliance, and it applies to every word above</p>
+      <p>Your group is an <strong>Official Partner of Global Healthcare Accreditation</strong>. That
+        phrasing is exact and must never be upgraded to &ldquo;accredited by&rdquo; or
+        &ldquo;certified by&rdquo; in a profile, a page or an article. Accreditation claims are
+        regulated marketing. The same applies to bed counts, ambulance numbers and specialty lists:
+        publish only what you can evidence.</p>
+    </div>
+
+    <h3>3.2 &nbsp;Getting reviews that mention the place</h3>
+
+    <div class="note">
+      <p class="lbl">Where I have to push back on the brief</p>
+      <p>You asked for a script that prompts patients to leave reviews <em>containing specific
+        keywords</em>. I will not write that one, because dictating review content breaches Google's
+        review policies and is a documented suspension and review-removal trigger. It also reads as
+        fake to anyone scanning your reviews, which costs you the trust the 4.8 rating buys.</p>
+      <p>The framework below gets the same outcome legitimately. You cannot script the words, but you
+        <strong>can</strong> control the question you ask, and the question determines what people
+        naturally write about. Ask about the place and the moment, and the place and the moment
+        appear in the review, in their own words, which ranks better anyway.</p>
+    </div>
+
+    <h4>The ask, and when to make it</h4>
+    <div class="measure">
+      <ul>
+        <li><strong>Timing beats wording.</strong> Ask at discharge, in person, while relief is the
+          strongest emotion, and follow with one message the same day. Not three days later.</li>
+        <li><strong>One channel, one link.</strong> A short link straight to the review form for the
+          correct branch. Two branches means two links; sending an El Quseir patient to the Hurghada
+          listing corrupts both.</li>
+        <li><strong>Ask everyone.</strong> Do not screen for happy patients first. Gating reviews by
+          predicted sentiment is against policy and is detectable.</li>
+        <li><strong>Never offer anything in return.</strong> No discount, no priority, no gift.</li>
+      </ul>
+    </div>
+
+    <div class="script">
+      <span class="lbl">At discharge &middot; English</span>
+      <p>&ldquo;If you have a minute, it really helps other visitors to hear what happened. If you
+        do leave us a review, the useful part is <strong>where you were staying when it happened,
+        what brought you in, and how quickly you were seen</strong>. That is what people are looking
+        for when they are searching in a panic at two in the morning.&rdquo;</p>
+    </div>
+
+    <div class="script">
+      <span class="lbl">At discharge &middot; German</span>
+      <p>&ldquo;Falls Sie kurz Zeit haben: Eine Bewertung hilft anderen Reisenden sehr. Am
+        hilfreichsten ist, <strong>wo Sie waren, weshalb Sie gekommen sind und wie schnell Sie
+        behandelt wurden</strong>. Genau danach suchen Menschen nachts um zwei.&rdquo;</p>
+    </div>
+
+    <div class="script">
+      <span class="lbl">At discharge &middot; Polish</span>
+      <p>&ldquo;Je&#347;li ma Pan/Pani chwil&#281;, opinia bardzo pomaga innym podr&oacute;&#380;uj&#261;cym.
+        Najbardziej przydatne jest to, <strong>gdzie Pa&#324;stwo przebywali, z jakiego powodu
+        Pa&#324;stwo przyjechali i jak szybko zostali Pa&#324;stwo przyj&#281;ci</strong>.&rdquo;</p>
+    </div>
+
+    <div class="measure">
+      <p>Those three questions are doing the work. &ldquo;Where were you staying&rdquo; produces
+        Makadi Bay, Sahl Hasheesh, Safaga. &ldquo;What brought you in&rdquo; produces emergency,
+        diving accident, food poisoning, broken arm. &ldquo;How quickly&rdquo; produces the phrases
+        that convert readers. None of it is dictated, and all of it is exactly the vocabulary you
+        want associated with the listing.</p>
+      <p><strong>Reply to every review, including the bad ones,</strong> and name the branch and city
+        in your reply. Your replies are your own text on the listing, they are indexed, and they are
+        the one part of the review corpus you legitimately control.</p>
+    </div>
+
+    <h3>3.3 &nbsp;Suspensions, before they happen</h3>
+    <div class="measure">
+      <p>Healthcare listings are suspended for a predictable set of reasons. Check all of these
+        before you appeal anything, because a failed appeal is harder to overturn the second time.</p>
+      <ul class="tight">
+        <li>Name on the listing does not match signage and website</li>
+        <li>Keywords appended to the business name</li>
+        <li>Address is not a staffed, signposted, street-accessible location</li>
+        <li>Category does not match what the business demonstrably is</li>
+        <li>A burst of edits in a short window</li>
+        <li>A duplicate listing for the same location</li>
+      </ul>
+      <p>Photograph the exterior signage and the emergency entrance now, before you need them. An
+        appeal is won with evidence that the place exists and is what it says it is.</p>
+    </div>
+  </div>
+</section>
+
+<section id="aeo">
+  <div class="wrap">
+    <div class="snum"><b>04</b><span>AI engine optimisation</span></div>
+    <h2>How to be the name an AI says out loud</h2>
+
+    <div class="measure">
+      <p>When somebody asks ChatGPT, Claude or Gemini &ldquo;is there a proper hospital in
+        Hurghada&rdquo;, the answer is assembled from two different things, and it is worth being
+        precise about which is which, because they need different work.</p>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <h4>What the model already believes</h4>
+        <p>Associations formed during training, from how often and in what company your name appeared
+          across the web. This is slow, it cannot be edited, and it is built almost entirely from
+          <strong>third-party sources</strong>. If forums, directories and travel writing describe
+          you as a hotel clinic, that is the association, no matter what your own site says.</p>
+      </div>
+      <div>
+        <h4>What it reads at question time</h4>
+        <p>Live retrieval from search and direct fetches. This is fast, it responds to your site
+          within days, and it is where structured data and clear page text matter enormously,
+          because a retrieval system extracts claims rather than reading prose.</p>
+      </div>
+    </div>
+
+    <div class="measure">
+      <p>So the strategy is two-track. Fix what is machine-readable on your own domain now, which is
+        section&nbsp;1 and pays off within weeks. Then change what the wider web says about you,
+        which is slow, compounding, and the only thing that shifts the trained association.</p>
+    </div>
+
+    <h3>4.1 &nbsp;Make your own pages extractable</h3>
+    <div class="measure">
+      <ul>
+        <li><strong>State facts in complete sentences that survive being quoted alone.</strong>
+          &ldquo;MedPark Health Hub is a 24-hour hospital on Sahl Hasheesh Road in Hurghada with an
+          emergency department, intensive care and CT imaging on site&rdquo; is retrievable.
+          &ldquo;We are here for you around the clock&rdquo; is not.</li>
+        <li><strong>Put the answer directly under the heading that asks the question.</strong>
+          Retrieval takes the passage under the matching heading. Do not bury it three paragraphs in.</li>
+        <li><strong>Give every distinguishing fact a number.</strong> Ambulances, beds, ICU capacity,
+          languages, years open, insurers billed directly. Numbers are what a model repeats.</li>
+        <li><strong>Use <code>FAQPage</code> schema on the location pages</strong>, with the questions
+          phrased the way people actually ask them.</li>
+        <li><strong>Fix the two FAQ answers that are now wrong.</strong> &ldquo;Is MedPark a hospital
+          or a clinic?&rdquo; and &ldquo;What's the difference between MedPark Hospital and MedPark
+          Health Hubs?&rdquo; both still answer from the old position that one site was a clinic.
+          Those two answers are precisely what a model quotes when asked the category question, and
+          they currently argue against you.</li>
+        <li><strong>Do not block AI crawlers in <code>robots.txt</code>.</strong> Confirm GPTBot,
+          ClaudeBot, PerplexityBot and Google-Extended are permitted. Being invisible to them is a
+          decision, and it should be a deliberate one.</li>
+      </ul>
+    </div>
+
+    <h3>4.2 &nbsp;Change what the rest of the web says</h3>
+    <div class="measure">
+      <p>Ranked by how much a crawler weighs the source against how hard it is to earn. Nothing here
+        involves buying links.</p>
+    </div>
+
+    <figure class="instrument">
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Target</th><th>Why it moves the needle</th><th>The ask</th><th>Effort</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Wikidata and OpenStreetMap</strong></td>
+              <td>Both are ingested wholesale into training data and both are directly editable.
+                OSM in particular is where <code>amenity=hospital</code> is a machine-readable fact
+                about your building.</td>
+              <td>Ensure both branches exist, tagged as hospital with emergency, and linked to your
+                domain.</td>
+              <td><span class="pill p-now">Low</span></td>
+            </tr>
+            <tr>
+              <td><strong>Embassy and consulate medical lists</strong></td>
+              <td>German, Polish, British and Dutch missions publish lists of recommended hospitals.
+                Heavily cited, heavily trusted, and they explicitly use the word hospital.</td>
+              <td>Written application with licence and capability evidence to each consulate.</td>
+              <td><span class="pill p-soon">Medium</span></td>
+            </tr>
+            <tr>
+              <td><strong>Insurer and assistance directories</strong></td>
+              <td>Allianz, AXA, Cigna, Bupa and the assistance companies behind them publish provider
+                networks. These are the most authoritative &ldquo;this is a hospital&rdquo; citations
+                that exist.</td>
+              <td>Direct-billing agreements you likely already have, listed publicly.</td>
+              <td><span class="pill p-soon">Medium</span></td>
+            </tr>
+            <tr>
+              <td><strong>German and Polish expat forums</strong></td>
+              <td>Where &ldquo;which hospital in Hurghada&rdquo; is asked and answered in the exact
+                words your target market uses. Very heavily represented in training data.</td>
+              <td>Staff account that identifies itself, answering questions helpfully. Never anonymous
+                recommendation of your own business.</td>
+              <td><span class="pill p-now">Low</span></td>
+            </tr>
+            <tr>
+              <td><strong>Dive centre and liveaboard operators</strong></td>
+              <td>Every operator publishes safety and evacuation information. A named nearest hospital
+                on those pages is a citation from exactly the right context.</td>
+              <td>Offer a co-branded emergency procedure card. Genuinely useful to them.</td>
+              <td><span class="pill p-now">Low</span></td>
+            </tr>
+            <tr>
+              <td><strong>Tour operator destination pages</strong></td>
+              <td>TUI, ITS, Rainbow and similar publish destination medical information for the
+                markets you serve.</td>
+              <td>Supply accurate hospital information to their destination teams.</td>
+              <td><span class="pill p-soon">Medium</span></td>
+            </tr>
+            <tr>
+              <td><strong>Local news and medical press</strong></td>
+              <td>Coverage of capability, a new CT scanner, an ICU expansion, ambulance coverage,
+                creates third-party sentences describing you as a hospital.</td>
+              <td>Real announcements only. There is no shortcut here.</td>
+              <td><span class="pill p-de">Ongoing</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </figure>
+
+    <div class="measure">
+      <p>The common thread is that every one of these produces a sentence <em>written by somebody
+        else</em> that contains your name next to the word hospital and a place name. That sentence
+        is the unit of currency in AI visibility. Fifty of them across trusted sources will move the
+        association further than any amount of work on your own copy.</p>
+    </div>
+
+    <div class="win">
+      <p class="lbl">You can already measure this</p>
+      <p>Your dashboard has an AI visibility checker in <code>lib/aicheck.php</code>, and it has
+        already recorded a position-1 result once. Set a fixed question set now, before the work
+        starts, so you have a baseline: &ldquo;hospital in Hurghada&rdquo;, &ldquo;Krankenhaus
+        Hurghada&rdquo;, &ldquo;szpital Hurghada&rdquo;, &ldquo;emergency room Sahl Hasheesh&rdquo;,
+        &ldquo;hospital near Marsa Alam&rdquo;. Re-run monthly and watch whether you are named, and
+        whether you are described as a hospital or as a clinic.</p>
+    </div>
+  </div>
+</section>
+
+<section id="order">
+  <div class="wrap">
+    <div class="snum"><b>05</b><span>Sequence</span></div>
+    <h2>What to do, in what order</h2>
+    <div class="measure">
+      <p>Ordered by value divided by effort, and by what unblocks what. The first three are days of
+        work and worth more than the rest combined.</p>
+    </div>
+
+    <figure class="instrument">
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th class="n">#</th><th>Action</th><th>Why now</th><th>Owner</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="n">1</td><td>Restore the <code>Hospital</code> schema and move the graph out from behind <code>$MP_CRUMBS</code></td><td>You declared no hospital entity for two days. Now one shared definition on all 50 pages.</td><td>Me</td><td><span class="pill p-now">Done 7 Sep</span></td></tr>
+            <tr><td class="n">2</td><td>Start the Google Business Profile ownership transfer</td><td>Seven-day clock. Everything in section 3 waits on it.</td><td>You</td><td><span class="pill p-crit">Today</span></td></tr>
+            <tr><td class="n">3</td><td>Primary category to <code>Hospital</code>, alone, then wait a week</td><td>Largest single ranking lever you have.</td><td>You, once Owner</td><td><span class="pill p-crit">Blocked on 2</span></td></tr>
+            <tr><td class="n">4</td><td>Fix the two wrong FAQ answers about hospital versus clinic</td><td>They are what an AI quotes on the category question.</td><td>Irina to approve copy</td><td><span class="pill p-now">This week</span></td></tr>
+            <tr><td class="n">5</td><td>Build <code>/hospital-hurghada/</code> and <code>/hospital-sahl-hasheesh/</code> in all three languages</td><td>Highest volume terms, no page exists.</td><td>Me</td><td><span class="pill p-now">This week</span></td></tr>
+            <tr><td class="n">6</td><td>Measure real drive times from each resort cluster</td><td>Blocks the location pages and news8. Cannot be estimated.</td><td>You</td><td><span class="pill p-now">This week</span></td></tr>
+            <tr><td class="n">7</td><td>Publish Pillar 2 in German, natively written</td><td><code>krankenhaus hurghada</code> sits at 16.7 with real volume.</td><td>Native writer, then Irina</td><td><span class="pill p-soon">Two weeks</span></td></tr>
+            <tr><td class="n">8</td><td>Submit the sitemap in Search Console</td><td>Accepted: 50 URLs, 0 errors, 0 warnings.</td><td>Me</td><td><span class="pill p-now">Done 7 Sep</span></td></tr>
+            <tr><td class="n">9</td><td>Wikidata and OpenStreetMap entries for both branches</td><td>Cheapest AEO citation available.</td><td>Me</td><td><span class="pill p-soon">Two weeks</span></td></tr>
+            <tr><td class="n">10</td><td>Put the 4.8 and 4.7 ratings on the site</td><td>458 reviews between them, currently invisible to visitors.</td><td>Me</td><td><span class="pill p-soon">Two weeks</span></td></tr>
+            <tr><td class="n">11</td><td>Remaining four location pages, then Pillars 1, 3 and 4</td><td>Coverage, once the pattern is proven on the first two.</td><td>Me</td><td><span class="pill p-de">Month 2</span></td></tr>
+            <tr><td class="n">12</td><td>Consulate, insurer and dive-operator citation campaign</td><td>Slow, compounding, the only thing that shifts trained association.</td><td>You and Irina</td><td><span class="pill p-de">Ongoing</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </figure>
+
+    <div class="note">
+      <p class="lbl">A realistic word about timing</p>
+      <p>Items 1, 5 and 8 are technical and show up in Search Console within two to four weeks.
+        Item 3 typically moves map ranking in two to four weeks. The content and citation work in
+        items 7, 11 and 12 operates on a three to six month horizon and does not produce a
+        straight line. Anyone promising &ldquo;rank number one for all keywords&rdquo; on a shorter
+        clock is selling you something. What is genuinely achievable this quarter is being the
+        clear, correct, machine-readable answer for hospital queries on this coast, which is the
+        precondition for everything else.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Written 7 September 2026 against live Search Console, PageSpeed and site data, not against
+      assumptions. Every claim about MedPark's current state was verified on the live site the same
+      day. Facts about your infrastructure, the ambulance fleet, bed numbers, ICU capacity, are taken
+      from your own description and must be evidenced before they appear on a public page or in a
+      Google Business Profile description.</p>
+  </div>
+</footer>
+
+</body></html>

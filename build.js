@@ -140,6 +140,26 @@ ${chip || ''}
 `;
 }
 
+/**
+ * A self-contained document written elsewhere (a Claude artifact, a hand-built
+ * design) arrives with its own <head> and may be missing things Studio
+ * guarantees on every page it serves. This adds only what is absent and never
+ * touches what the author wrote.
+ */
+function harden(html) {
+  if (!/<html[^>]*\slang=/i.test(html)) {
+    html = html.replace(/<html\b/i, '<html lang="en"');
+  }
+  const head = /<head[^>]*>/i;
+  if (!/<meta[^>]+name=["']?robots["']?[^>]*noindex/i.test(html)) {
+    html = html.replace(head, (m) => `${m}\n<meta name="robots" content="noindex, nofollow">`);
+  }
+  if (!/<meta[^>]+name=["']?viewport["']?/i.test(html)) {
+    html = html.replace(head, (m) => `${m}\n<meta name="viewport" content="width=device-width, initial-scale=1">`);
+  }
+  return html;
+}
+
 /** Screen captions are numbered 01..N in document order, so inserting a screen
  *  anywhere never means renumbering by hand. */
 function renumber(html) {
@@ -179,6 +199,7 @@ const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 function validate() {
   const seenCompany = new Set();
+  const flagshipRanks = new Map();
   for (const c of COMPANIES) {
     if (!SLUG.test(c.slug)) fail(`company slug "${c.slug}" is not lowercase-kebab`);
     if (seenCompany.has(c.slug)) fail(`duplicate company slug "${c.slug}"`);
@@ -193,6 +214,16 @@ function validate() {
       seenProject.add(p.slug);
       if (!(p.status in STATUS)) fail(`unknown status "${p.status}" on ${c.slug}/${p.slug}`);
       if (!/^\d{4}-\d{2}-\d{2}$/.test(p.updated)) fail(`${c.slug}/${p.slug} needs an absolute updated date, got "${p.updated}"`);
+
+      if (p.flagship) {
+        const { rank, line } = p.flagship;
+        if (!Number.isInteger(rank) || rank < 1) fail(`${c.slug}/${p.slug} flagship needs an integer rank from 1`);
+        if (flagshipRanks.has(rank)) fail(`flagship rank ${rank} used twice: ${flagshipRanks.get(rank)} and ${c.slug}/${p.slug}`);
+        flagshipRanks.set(rank, `${c.slug}/${p.slug}`);
+        if (!line || line.length > 160) fail(`${c.slug}/${p.slug} flagship needs a line of 160 characters or fewer`);
+        // three at most; the moment everything is a flagship, nothing is
+        if (flagshipRanks.size > 3) fail('more than three flagships. Demote one before adding another.');
+      }
 
       const seenItem = new Set();
       for (const st of p.stages || []) {
@@ -225,11 +256,17 @@ function validate() {
 function buildIndex() {
   const out = [];
   out.push({ n: 'Overview', p: 'Studio', u: '/', t: 'page' });
+  out.push({ n: 'Programmes', p: 'Studio', u: '/programmes', t: 'page' });
   out.push({ n: 'How review works', p: 'Studio', u: '/workflow', t: 'page' });
   for (const c of COMPANIES) {
     out.push({ n: c.name, p: 'Company', u: `/${c.slug}`, t: 'company' });
     for (const p of c.projects) {
-      out.push({ n: p.name, p: c.name, u: `/${c.slug}/${p.slug}`, t: 'project' });
+      out.push({
+        n: p.name,
+        p: p.flagship ? `Group programme  ${c.short}` : c.name,
+        u: `/${c.slug}/${p.slug}`,
+        t: 'project',
+      });
       for (const st of p.stages || []) {
         for (const it of st.items || []) {
           const entry = {
@@ -324,6 +361,7 @@ function emit(rel, html, label) {
 }
 
 emit('index.html', pages.homePage(ctx), '/');
+emit('programmes.html', pages.programmesPage(ctx), '/programmes');
 emit('workflow.html', pages.workflowPage(ctx), '/workflow');
 
 for (const company of COMPANIES) {
@@ -356,7 +394,7 @@ for (const company of COMPANIES) {
         const chip = pages.reviewChip(company, project, it);
         const isDoc = /^\s*<!doctype/i.test(html);
         html = isDoc
-          ? html.replace(/<\/body>/i, `${chip}\n</body>`)
+          ? harden(html).replace(/<\/body>/i, `${chip}\n</body>`)
           : wrapDocument(html, {
               title: `${it.name} · ${project.name} · HCIG Studio`,
               favicon: it.build && it.build.favicon,
