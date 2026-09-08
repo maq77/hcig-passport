@@ -18,11 +18,28 @@ hosting. Nothing skips that gate.
 
 ```
 /                            overview: the group, what is moving, where to go
+/programmes                  group-wide work every company ends up using
 /workflow                    the review process, written down
 /:company                    one brand and its projects
 /:company/:project           one project, its stages and deliverables
 /:company/:project/:item     the deliverable itself
 ```
+
+### Group programmes
+
+`flagship: { rank, line }` on a project lifts it onto `/programmes` and the top
+of the landing page, while it keeps its canonical URL under its own company so
+no link ever moves. **The build caps this at three.** The moment everything is
+a flagship, nothing is.
+
+### Claude artifacts become documents
+
+An artifact is not a deliverable while it lives at a claude.ai URL. Save it into
+`docs/`, register it as `kind: 'html'`, and it gets a permanent Studio URL with
+its own design intact and one chip back to its project.
+
+A document written elsewhere is hardened on the way through the build: `lang`,
+`viewport` and `noindex` are added if absent, and nothing else is touched.
 
 A deliverable keeps its URL for its whole life. Edits update the page behind the
 link. A link sent three weeks ago still opens the current work.
