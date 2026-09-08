@@ -127,8 +127,10 @@ function folderTile(company) {
   return `<a class="folder${n ? '' : ' quiet'}" href="/${company.slug}" style="--brand:${company.accent}">
   <span class="folder-face">
     <span class="folder-logo"><img src="/assets/${company.logoFile}" alt=""></span>
-    <span class="folder-name">${esc(company.short)}</span>
-    <span class="folder-meta">${meta}</span>
+    <span class="folder-body">
+      <span class="folder-name">${esc(company.short)}</span>
+      <span class="folder-meta">${meta}</span>
+    </span>
   </span>
 </a>`;
 }

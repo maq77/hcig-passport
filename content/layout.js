@@ -204,8 +204,7 @@ function shell({ title, desc, body, companies, active = {}, index, brand, wide, 
 <link rel="stylesheet" href="/studio.css">
 <script>/* set the theme before first paint so there is no flash */
 (function(){try{var t=localStorage.getItem('hcig-theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
-<style>.i-sun{display:none}.i-moon{display:block}:root[data-theme="dark"] .i-sun{display:block}:root[data-theme="dark"] .i-moon{display:none}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .i-sun{display:block}:root:not([data-theme="light"]) .i-moon{display:none}}</style>
+<style>.i-sun{display:none}.i-moon{display:block}:root[data-theme="dark"] .i-sun{display:block}:root[data-theme="dark"] .i-moon{display:none}</style>
 ${head}
 </head>
 <body${style}>

@@ -9,13 +9,11 @@
   var root = document.documentElement;
   var btn = document.getElementById('theme');
 
-  function systemDark() {
-    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  }
-
+  /* Light is the default. The operating system preference is deliberately not
+     consulted: the reader gets light unless they pick dark here. */
   if (btn) {
     btn.addEventListener('click', function () {
-      var current = root.getAttribute('data-theme') || (systemDark() ? 'dark' : 'light');
+      var current = root.getAttribute('data-theme') || 'light';
       var next = current === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
       try { localStorage.setItem('hcig-theme', next); } catch (e) {}

@@ -83,43 +83,10 @@
   --brand-ink: var(--accent-ink);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { color-scheme: dark; }
-}
 :root[data-theme="dark"] { color-scheme: dark; }
 
-/* dark palette, declared twice so the toggle wins in both directions */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ground:      #0b0e10;
-    --surface:     #14181b;
-    --surface-2:   #191d21;
-    --surface-3:   #20252a;
-    --line:        #262c31;
-    --line-strong: #333a41;
-
-    --ink:   #e9edef;
-    --ink-2: #a8b1b7;
-    --ink-3: #8d979e;
-    --ink-4: #6d777e;
-
-    --accent:      #12c0c6;
-    --accent-ink:  #45d8dd;
-    --accent-soft: #0d2c2e;
-    --accent-line: #17575b;
-
-    --t-neutral-fg:#a1a1aa; --t-neutral-bg:#1f2225; --t-neutral-ln:#333a41;
-    --t-info-fg:   #93c5fd; --t-info-bg:   #131f31; --t-info-ln:   #1e40af;
-    --t-warn-fg:   #fcd34d; --t-warn-bg:   #251d10; --t-warn-ln:   #78350f;
-    --t-ok-fg:     #86efac; --t-ok-bg:     #102217; --t-ok-ln:     #166534;
-    --t-live-fg:   #67e8f9; --t-live-bg:   #0c2529; --t-live-ln:   #155e75;
-    --t-stop-fg:   #fca5a5; --t-stop-bg:   #261315; --t-stop-ln:   #991b1b;
-
-    --shadow-1: 0 1px 2px rgba(0,0,0,.4);
-    --shadow-2: 0 1px 2px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.35);
-    --shadow-3: 0 2px 6px rgba(0,0,0,.5), 0 20px 48px rgba(0,0,0,.5);
-  }
-}
+/* Light is the default. Dark applies only when the reader chooses it with the
+   toggle, never from the operating system preference. */
 :root[data-theme="dark"] {
   --ground:      #0b0e10;
   --surface:     #14181b;
@@ -338,12 +305,17 @@ main { min-width: 0; }
 .hero {
   display: flex; gap: var(--s4); align-items: flex-start;
 }
+/* Brand marks are locked to a HEIGHT, not fitted into a square. These nine
+   logos run from square monograms to long wordmarks, and a square box makes the
+   wordmarks tiny. The plate is always white (several files are JPEGs with the
+   white baked in) with a border strong enough to read on a white card. */
 .logo-chip {
-  flex: none; width: 68px; height: 68px; border-radius: var(--r-lg);
-  background: #fff; border: 1px solid var(--line);
-  display: grid; place-items: center; padding: 10px; box-shadow: var(--shadow-1);
+  flex: none; height: 64px; min-width: 64px; max-width: 190px;
+  border-radius: var(--r-lg);
+  background: #fff; border: 1px solid var(--line-strong);
+  display: grid; place-items: center; padding: 10px 14px; box-shadow: var(--shadow-1);
 }
-.logo-chip img { max-height: 100%; max-width: 100%; object-fit: contain; }
+.logo-chip img { height: 32px; width: auto; max-width: 100%; object-fit: contain; }
 
 /* -------------------------------------------------------------------- cards */
 
@@ -375,7 +347,8 @@ main { min-width: 0; }
 .card .foot .dotsep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-4); }
 
 .card-head { display: flex; align-items: flex-start; gap: var(--s3); }
-.card-head .logo-chip { width: 44px; height: 44px; border-radius: var(--r-md); padding: 6px; }
+.card-head .logo-chip { height: 44px; min-width: 44px; max-width: 132px; border-radius: var(--r-md); padding: 6px 10px; }
+.card-head .logo-chip img { height: 22px; }
 .card-head .t { min-width: 0; flex: 1; }
 .card-head .where { font-size: 12.5px; color: var(--ink-3); margin-top: 1px; }
 
@@ -632,19 +605,18 @@ main { min-width: 0; }
 /* A folder: a tab in the company's own accent, then the face. Drawn rather
    than imaged, so it takes any brand colour without shipping more files. */
 .folder {
-  position: relative; display: block; padding-top: 12px;
+  position: relative; display: block; padding-top: 14px;
   text-decoration: none; color: inherit;
   transition: transform var(--mid) var(--ease);
 }
 .folder::before {
   content: ""; position: absolute; top: 0; left: 0;
-  width: 42%; height: 14px;
+  width: 42%; height: 15px;
   background: var(--brand); border-radius: 7px 9px 0 0;
   transition: width var(--mid) var(--ease);
 }
 .folder-face {
-  display: flex; flex-direction: column; gap: 10px;
-  padding: var(--s4); min-height: 124px;
+  display: flex; flex-direction: column; overflow: hidden;
   border-radius: 0 var(--r-lg) var(--r-lg) var(--r-lg);
   background: var(--surface); border: 1px solid var(--line);
   box-shadow: var(--shadow-1);
@@ -656,14 +628,23 @@ main { min-width: 0; }
 .folder:focus-visible { outline: none; }
 .folder:focus-visible .folder-face { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-/* Brand marks always sit on white, never on a tinted or dark ground. */
+/* The brand mark gets a white band across the full width of the card rather
+   than a small chip. A chip on a white card reads as a stray outlined box, and
+   these nine logos have nine different aspect ratios, so a fixed box makes a
+   wide wordmark tiny next to a square monogram. The band always sits on white
+   (several of the files are JPEGs with the white baked in) and every mark is
+   locked to the same HEIGHT, which is how a logo lockup is normally sized. */
 .folder-logo {
-  width: 44px; height: 32px; border-radius: 7px; flex: none;
-  background: #fff; border: 1px solid var(--line);
-  display: grid; place-items: center; padding: 4px;
+  display: flex; align-items: center; justify-content: center;
+  height: 58px; padding: 10px 16px; flex: none;
+  background: #fff; border-bottom: 1px solid var(--line);
 }
-.folder-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.folder-logo img { height: 28px; width: auto; max-width: 100%; object-fit: contain; }
 
+.folder-body {
+  display: flex; flex-direction: column; gap: 5px;
+  padding: var(--s3) var(--s4) var(--s4); flex: 1;
+}
 .folder-name { font-size: 15px; font-weight: 700; letter-spacing: -.01em; line-height: 1.25; }
 .folder-meta {
   margin-top: auto; font-size: 12.5px; color: var(--ink-3);
@@ -673,8 +654,10 @@ main { min-width: 0; }
   width: 6px; height: 6px; border-radius: 50%; background: var(--t-live-fg); flex: none;
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--t-live-fg) 20%, transparent);
 }
-.folder.quiet .folder-face { min-height: 104px; background: var(--surface-2); }
-.folder.quiet .folder::before { opacity: .5; }
+.folder.quiet .folder-logo { height: 50px; }
+.folder.quiet .folder-logo img { height: 22px; opacity: .82; }
+.folder.quiet:hover .folder-logo img { opacity: 1; }
+.folder.quiet::before { opacity: .55; }
 .folder.quiet .folder-meta { color: var(--ink-4); }
 
 /* ------------------------------------------------------- group programmes */
@@ -722,9 +705,10 @@ main { min-width: 0; }
 .prog-foot .dotsep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-4); }
 .prog-logo {
   position: absolute; top: var(--s4); right: var(--s4);
-  width: 40px; height: 30px; border-radius: 7px; padding: 4px;
-  box-shadow: none;
+  height: 34px; min-width: 34px; max-width: 112px;
+  border-radius: 7px; padding: 5px 9px; box-shadow: none;
 }
+.prog-logo img { height: 20px; }
 
 @media print {
   .topbar, .rail, .strip, .sdim, .foot-bar { display: none !important; }
