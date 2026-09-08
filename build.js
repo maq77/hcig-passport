@@ -86,6 +86,12 @@ const ASSETS = {
   C7STORYDENTALP: 'c7-story-dental-poster.jpg',
   C7STORYIV: 'c7-story-iv.mp4',
   C7STORYIVP: 'c7-story-iv-poster.jpg',
+  /* Rendered from OpenStreetMap tiles at the checked coordinates. It sits
+     behind the live Google map, so the box shows a real map of the real place
+     even if the embed is slow or blocked. */
+  C7MAPLEREVE: 'c7-map-le-reve.png',
+  C7MAPSTEIG: 'c7-map-steigenberger.png',
+  C7MAPAMWAJ: 'c7-map-amwaj.png',
 
   LOGOHCIG: 'logo-hcig.jpg',
   LOGO247: 'logo-247.png',

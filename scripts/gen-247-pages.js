@@ -129,6 +129,7 @@ const CLINICS = [
     ],
     walkVideo: true,
     geo: [27.024343, 33.887027],
+    mapImg: 'C7MAPLEREVE',
     dentalList: [
       'General dentistry',
       'Emergency dental care',
@@ -169,6 +170,7 @@ const CLINICS = [
     route: null,
     walkVideo: false,
     geo: [26.863468, 33.961233],
+    mapImg: 'C7MAPSTEIG',
     dentalList: null,
     reviews: ['offinger', 'possienke', 'cg', 'kraver'],
     posterOrder: [0, 4, 2, 5, 1, 3],
@@ -197,6 +199,7 @@ const CLINICS = [
     route: null,
     walkVideo: false,
     geo: [26.813385, 33.945688],
+    mapImg: 'C7MAPAMWAJ',
     dentalList: null,
     reviews: ['henzel', 'wekeck', 'fabien'],
     posterOrder: [0, 2, 4, 5, 1, 3],
@@ -366,7 +369,7 @@ ol.steps li:not(:last-child):after{content:"";position:absolute;left:15.5px;top:
 ol.steps b{display:block;font-weight:600}
 ol.steps em{display:block;font-style:normal;margin-top:2px;font-size:14.5px;color:var(--ink2)}
 @media (prefers-reduced-motion:no-preference){
-  ol.steps li{opacity:0;transform:translateY(8px)}
+  .js ol.steps li{opacity:0;transform:translateY(8px)}
   ol.steps.in li{opacity:1;transform:none;transition:opacity .32s ease-out,transform .32s ease-out}
   ol.steps.in li:nth-child(2){transition-delay:.09s}
   ol.steps.in li:nth-child(3){transition-delay:.18s}
@@ -392,8 +395,8 @@ ol.steps em{display:block;font-style:normal;margin-top:2px;font-size:14.5px;colo
 .route-svg .tc2{font-size:19px;fill:var(--ink2)}
 /* The walk draws itself once, when it scrolls into view. */
 @media (prefers-reduced-motion:no-preference){
-  .route-svg .rs-walk{stroke-dasharray:340;stroke-dashoffset:340}
-  .route-svg .rs-head,.route-svg .tr{opacity:0}
+  .js .route-svg .rs-walk{stroke-dasharray:340;stroke-dashoffset:340}
+  .js .route-svg .rs-head,.js .route-svg .tr{opacity:0}
   .route-svg.in .rs-walk{animation:draw 1.1s ease-out forwards}
   .route-svg.in .rs-head{animation:pop .3s ease-out .95s forwards}
   .route-svg.in .tr{animation:pop .3s ease-out .6s forwards}
@@ -402,6 +405,7 @@ ol.steps em{display:block;font-style:normal;margin-top:2px;font-size:14.5px;colo
 }
 
 .mapbox{margin-top:16px;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--pg2)}
+.mapbox .frame{position:relative;background-size:cover;background-position:center}
 .mapbox iframe{display:block;width:100%;height:280px;border:0}
 @media(min-width:900px){.mapbox iframe{height:320px}}
 .mapbox img{width:100%;aspect-ratio:3/2;height:auto;object-fit:cover}
@@ -772,6 +776,8 @@ function build(c, siblings) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
 <style>${CSS}</style>
 
+<script>document.documentElement.className += ' js';</script>
+
 <a class="skip" href="#find">Skip to the clinic details</a>
 
 <header class="top">
@@ -832,7 +838,9 @@ function build(c, siblings) {
         <div>
           ${findVisual}
           <figure class="mapbox">
-            <iframe src="${embed}" title="Google map of the 24/7 Clinic at ${esc(c.hotel)}, ${esc(c.area)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="frame" style="background-image:url(%%${c.mapImg}%%)">
+              <iframe src="${embed}" title="Google map of the 24/7 Clinic at ${esc(c.hotel)}, ${esc(c.area)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
             <figcaption>24/7 Clinic, ${esc(c.hotel)}, ${esc(c.area)}, ${esc(c.region)}.</figcaption>
           </figure>
         </div>
@@ -1038,8 +1046,15 @@ function build(c, siblings) {
       });
     }, { threshold: 0.2 });
     document.querySelectorAll('.route-svg, ol.steps').forEach(function (el) { io.observe(el); });
+    /* Failsafe: nothing stays invisible because an observer never fired. */
+    window.setTimeout(function () {
+      document.querySelectorAll('.route-svg:not(.in), ol.steps:not(.in)').forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight) el.classList.add('in');
+      });
+    }, 1500);
   } else {
-    document.querySelectorAll('ol.steps').forEach(function (el) { el.classList.add('in'); });
+    document.querySelectorAll('.route-svg, ol.steps').forEach(function (el) { el.classList.add('in'); });
   }
 })();
 </script>
