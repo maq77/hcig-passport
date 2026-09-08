@@ -81,9 +81,19 @@ exactly, with the names as published. The English line under each is a
 translation and says so.
 
 **Needed:** confirmation that reusing them on the landing pages is fine.
-Separately, no Google Business Profile could be found for any in-hotel clinic.
-For "doctor near me" searches a Maps listing is the single biggest lever there
-is, so this is worth a decision of its own.
+
+## 7b. A Google Maps listing already exists, and it confirms the position
+
+The live map on the Premier Le Rêve page shows **"24/7 Clinic" as a listed place
+on Google Maps**, carrying the clinic icon, immediately beside Premier Le Rêve
+Hotel & Spa. It sits within metres of the position this page uses, which is
+independent confirmation that 27.024343, 33.887027 is right and their stored
+27.082139, 33.858906 is wrong.
+
+**Needed:** who owns and manages that Google Business Profile, and whether the
+other clinics have one. For a guest typing "doctor near me" the Maps listing is
+the single biggest lever there is. Getting the profile claimed, categorised,
+photographed and linked to these landing pages is worth a project of its own.
 
 ## 8. Accreditation wording
 
@@ -125,4 +135,8 @@ Pre-existing, and they will sabotage the launch if they are still there:
   clinic, dentist, emergency, hospital, plus the area name.
 - `MedicalClinic`, `FAQPage` and `BreadcrumbList` schema on every page, with
   real coordinates.
+- A live Google map on every page, with a real static map behind it so the box
+  is never empty, and a Directions link straight to the checked coordinates.
+- The clinic film, two guest story films, a carousel of their own campaign
+  posters, and the network of 28 hotels grouped by area.
 - Canonical, meta description, Google map, walking directions, and GA4 events.
