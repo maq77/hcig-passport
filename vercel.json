@@ -6,23 +6,62 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/business-case", "destination": "/hcig/passport/business-case", "permanent": true },
-    { "source": "/business-model", "destination": "/hcig/passport/business-model", "permanent": true },
-    { "source": "/ui-kit", "destination": "/hcig/passport/ui-kit", "permanent": true }
+    {
+      "source": "/business-case",
+      "destination": "/hcig/passport/business-case",
+      "permanent": true
+    },
+    {
+      "source": "/business-model",
+      "destination": "/hcig/passport/business-model",
+      "permanent": true
+    },
+    {
+      "source": "/ui-kit",
+      "destination": "/hcig/passport/ui-kit",
+      "permanent": true
+    },
+    {
+      "source": "/programmes",
+      "destination": "/big-projects",
+      "permanent": true
+    },
+    {
+      "source": "/all",
+      "destination": "/everything",
+      "permanent": true
+    },
+    {
+      "source": "/workflow",
+      "destination": "/how-it-works",
+      "permanent": true
+    }
   ],
   "headers": [
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
       ]
     },
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     }
   ]

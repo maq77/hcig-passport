@@ -1,5 +1,5 @@
 /**
- * HCIG Studio: rendering.
+ * HCIG Work: rendering.
  *
  * Every page on the portal comes out of this file. Pages are never hand-written;
  * they are a function of `content/registry.js`. That is the whole point: one
@@ -35,6 +35,8 @@ const PATHS = {
   inbox: '<path d="M21 12.5H16l-1.5 3h-5l-1.5-3H3"/><path d="M5.4 5.3 3 12.5v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5l-2.4-7.2a2 2 0 0 0-1.9-1.3H7.3a2 2 0 0 0-1.9 1.3Z"/>',
   'corner-down-right': '<path d="M5 4v7a3 3 0 0 0 3 3h11"/><path d="m15 10 4 4-4 4"/>',
   building: '<path d="M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16"/><path d="M15 9h3a2 2 0 0 1 2 2v10"/><path d="M2.5 21h19"/><path d="M8 7h3M8 11h3M8 15h3"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5.5l3.5 2"/>',
+  printer: '<path d="M6.5 9V3.5h11V9"/><rect x="3" y="9" width="18" height="7.5" rx="2"/><path d="M6.5 14h11v6.5h-11z"/>',
   route: '<circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M15.5 5H9a3.5 3.5 0 0 0 0 7h6a3.5 3.5 0 0 1 0 7H8.5"/>',
 };
 
@@ -116,12 +118,14 @@ function railHtml(companies, active) {
   };
 
   return `<nav class="rail" aria-label="Estate">
-<p class="rail-h">Studio</p>
+<p class="rail-h">This site</p>
 <div class="rail-group">
   <a class="rail-link" href="/"${active.home ? ' aria-current="page"' : ''}>${icon('layers', 16)}Overview</a>
-  <a class="rail-link" href="/programmes"${active.programmes ? ' aria-current="page"' : ''}>${icon('building', 16)}Programmes</a>
-  <a class="rail-link" href="/all"${active.all ? ' aria-current="page"' : ''}>${icon('file-text', 16)}All work</a>
-  <a class="rail-link" href="/workflow"${active.workflow ? ' aria-current="page"' : ''}>${icon('route', 16)}How review works</a>
+  <a class="rail-link" href="/big-projects"${active.programmes ? ' aria-current="page"' : ''}>${icon('building', 16)}Big projects</a>
+  <a class="rail-link" href="/everything"${active.all ? ' aria-current="page"' : ''}>${icon('file-text', 16)}Everything</a>
+  <a class="rail-link" href="/report"${active.report ? ' aria-current="page"' : ''}>${icon('printer', 16)}Report</a>
+  <a class="rail-link" href="/activity"${active.activity ? ' aria-current="page"' : ''}>${icon('clock', 16)}Activity</a>
+  <a class="rail-link" href="/how-it-works"${active.workflow ? ' aria-current="page"' : ''}>${icon('route', 16)}How this works</a>
 </div>
 <p class="rail-h">Companies</p>
 <div class="rail-group">${withWork.map((c) => link(c) + expanded(c)).join('')}</div>
@@ -147,9 +151,10 @@ function stripHtml(companies, active) {
     `<nav class="strip" aria-label="Sections and companies">` +
     `<span class="strip-set">` +
     link('/', 'Overview', active.home) +
-    link('/programmes', 'Programmes', active.programmes) +
-    link('/all', 'All work', active.all) +
-    link('/workflow', 'Process', active.workflow) +
+    link('/big-projects', 'Big projects', active.programmes) +
+    link('/everything', 'Everything', active.all) +
+    link('/report', 'Report', active.report) +
+    link('/how-it-works', 'How this works', active.workflow) +
     `</span>` +
     `<span class="strip-rule" aria-hidden="true"></span>` +
     companies.map((c) => link(`/${c.slug}`, c.short, active.company === c.slug, c.accent)).join('') +
@@ -183,7 +188,7 @@ function crumbsHtml(trail) {
  */
 function shell({ title, desc, body, companies, active = {}, index, brand, wide, head = '' }) {
   const bar = `<header class="topbar">
-<a class="brandmark" href="/"><span class="mark"><img src="/assets/logo-hcig.jpg" alt=""></span>HCIG&nbsp;<span class="sub">Studio</span></a>
+<a class="brandmark" href="/"><span class="mark"><img src="/assets/logo-hcig.jpg" alt=""></span>HCIG&nbsp;<span class="sub">Work</span></a>
 <span class="spacer"></span>
 <button class="searchbtn" id="sopen" type="button" aria-label="Search the estate">
   ${icon('search', 16)}<span class="lbl">Search</span><span class="spacer"></span><span class="kbd">Ctrl K</span>
@@ -230,9 +235,9 @@ ${stripHtml(companies, active)}
 ${body}
 </div>
 <footer class="foot-bar">
-  <span>HCIG Studio &middot; internal staging and review</span>
+  <span>HCIG Work &middot; where HCIG designs and pages are reviewed before they go live</span>
   <span>Served <b>noindex</b>. Nothing here is public.</span>
-  <a href="/workflow">How review works</a>
+  <a href="/how-it-works">How this works</a>
 </footer>
 </main>
 </div>

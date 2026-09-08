@@ -850,6 +850,116 @@ mark, .hl {
 }
 .prog-logo img { height: 20px; }
 
+/* ------------------------------------------------------------ due dates */
+
+/* The date is printed at build time; whether it has PASSED is decided in the
+   browser by studio.js. A build-time comparison is wrong the moment the day
+   turns, and this site is not rebuilt daily. */
+.due {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; color: var(--ink-3);
+  background: var(--surface-3); border: 1px solid var(--line);
+  padding: 3px 9px; border-radius: var(--r-full); white-space: nowrap;
+}
+.due[data-late] { color: var(--t-stop-fg); background: var(--t-stop-bg); border-color: var(--t-stop-ln); }
+.due[data-soon] { color: var(--t-warn-fg); background: var(--t-warn-bg); border-color: var(--t-warn-ln); }
+.due[data-done] { opacity: .55; }
+
+/* ------------------------------------------------------------- checklist */
+
+.bar {
+  height: 7px; border-radius: var(--r-full); overflow: hidden;
+  background: var(--surface-3); border: 1px solid var(--line); margin-bottom: var(--s4);
+}
+.bar span { display: block; height: 100%; background: var(--accent); border-radius: inherit; }
+
+.checks { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); overflow: hidden; }
+.checks li {
+  display: flex; align-items: center; gap: var(--s3);
+  padding: 11px var(--s4); border-bottom: 1px solid var(--line); font-size: 14.5px;
+}
+.checks li:last-child { border-bottom: 0; }
+.checks .box {
+  width: 20px; height: 20px; flex: none; border-radius: 6px;
+  border: 1.5px solid var(--line-strong); background: var(--surface-2);
+  display: grid; place-items: center; color: var(--surface);
+}
+.checks li.done .box { background: var(--t-ok-fg); border-color: var(--t-ok-fg); color: var(--surface); }
+:root[data-theme="dark"] .checks li.done .box { color: #0b0e10; }
+.checks li.done .ck-t { color: var(--ink-3); text-decoration: line-through; text-decoration-thickness: 1px; }
+.checks .ck-t { flex: 1; min-width: 0; }
+.checks .who {
+  flex: none; font-size: 11.5px; font-weight: 600; color: var(--ink-3);
+  background: var(--surface-3); border: 1px solid var(--line); padding: 2px 8px; border-radius: var(--r-full);
+}
+
+/* ---------------------------------------------------------------- report */
+
+.report { max-width: 860px; }
+
+.rp-head {
+  display: flex; flex-wrap: wrap; gap: var(--s5); justify-content: space-between; align-items: flex-start;
+  padding-bottom: var(--s5); border-bottom: 3px solid var(--accent);
+}
+.rp-head h1 { font-size: clamp(28px, 4vw, 38px); }
+.rp-head .lede { margin-top: var(--s2); color: var(--ink-2); font-size: 16px; }
+.rp-meta { display: flex; flex-wrap: wrap; gap: var(--s5); }
+.rp-meta p { margin: 0; font-size: 13px; }
+.rp-meta b { display: block; color: var(--ink); font-size: 15px; font-weight: 700; }
+.rp-meta span { color: var(--ink-3); }
+
+.rp-controls { display: flex; align-items: center; gap: var(--s2); margin: var(--s5) 0 0; font-size: 14px; color: var(--ink-2); }
+.rp-controls select {
+  font: inherit; font-size: 14px; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--line-strong);
+  border-radius: var(--r-md); padding: 8px 10px; min-height: 40px;
+}
+.rp-totals { display: flex; flex-wrap: wrap; gap: var(--s2); margin: var(--s5) 0 var(--s6); }
+
+.rp-block { margin-bottom: var(--s6); }
+.rp-block h2 {
+  display: flex; align-items: baseline; gap: var(--s2); font-size: 19px;
+  padding-bottom: var(--s2); border-bottom: 1px solid var(--rule);
+}
+.rp-n {
+  font-size: 12px; font-weight: 700; color: var(--ink-3);
+  background: var(--surface-3); border: 1px solid var(--line);
+  padding: 1px 8px; border-radius: var(--r-full);
+}
+.rp-note { font-size: 13.5px; color: var(--ink-3); margin: var(--s2) 0 0; }
+.rp-none { font-size: 14px; color: var(--ink-4); margin: var(--s3) 0 0; font-style: italic; }
+
+.rp-list { list-style: none; margin: var(--s3) 0 0; padding: 0; }
+.rp-list li {
+  display: flex; align-items: baseline; gap: var(--s3);
+  padding: 9px 0; border-bottom: 1px solid var(--line);
+}
+.rp-list li:last-child { border-bottom: 0; }
+.rp-list .chip { align-self: center; }
+.rp-t { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.rp-t a { font-weight: 650; text-decoration: none; }
+.rp-t a:hover { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
+.rp-sub { font-size: 12.5px; color: var(--ink-3); }
+.rp-date { flex: none; font-size: 12.5px; color: var(--ink-3); }
+.rp-foot { margin-top: var(--s6); padding-top: var(--s4); border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-3); }
+
+/* -------------------------------------------------------------- activity */
+
+.feed { margin-top: var(--s6); }
+.feed-day { margin-bottom: var(--s6); }
+.feed-day h2 {
+  font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink-3); padding-bottom: var(--s2); border-bottom: 1px solid var(--line);
+}
+.feed-day ul { list-style: none; margin: var(--s3) 0 0; padding: 0; }
+.feed-day li { display: flex; gap: var(--s3); padding: 7px 0; }
+.feed-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex: none; margin-top: 8px;
+  background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.feed-s { margin: 0; font-size: 14.5px; }
+.feed-p { margin: 1px 0 0; font-size: 12px; color: var(--ink-3); }
+
 /* ==========================================================================
    Phone and tablet
    --------------------------------------------------------------------------
@@ -945,12 +1055,44 @@ mark, .hl {
   .steps li { padding-top: var(--s4); }
 }
 
+/* ==========================================================================
+   Print
+   --------------------------------------------------------------------------
+   The report is meant to be printed or saved as PDF and handed over, so print
+   is a real target here, not a courtesy. Everything that is navigation or
+   decoration goes; what is left is one column of black on white with the URLs
+   spelled out, because a printed link that says nothing is useless.
+   ========================================================================== */
+
 @media print {
-  .topbar, .rail, .strip, .sdim, .foot-bar { display: none !important; }
+  @page { margin: 16mm 14mm; }
+
+  .topbar, .rail, .strip, .sdim, .foot-bar,
+  .rp-controls, .no-print, .skip, .crumbs { display: none !important; }
+
   .shell { display: block; }
   main { overflow-x: visible; }
+  .wrap { max-width: none; padding: 0; }
   .landing::before, .prog::before { display: none; }
   .pv-frame { display: none; }
-  body { background: #fff; }
+
+  html, body { background: #fff !important; color: #000 !important; }
+  body { font-size: 11pt; }
+
+  .report { max-width: none; }
+  .rp-head { border-bottom: 2pt solid #000; }
+  .rp-head h1 { font-size: 22pt; }
+  .rp-block { break-inside: avoid; margin-bottom: 14pt; }
+  .rp-block h2 { font-size: 13pt; border-bottom: .5pt solid #666; }
+  .rp-list li { break-inside: avoid; border-bottom: .25pt solid #ccc; padding: 4pt 0; }
+  .rp-n { border: .5pt solid #666; background: none; }
+  .rp-totals .stat { border: .5pt solid #666; background: none; }
+
+  /* a printed link that hides its destination is a dead end */
+  .rp-t a::after { content: " (" attr(href) ")"; font-size: 8pt; color: #555; font-weight: 400; }
+
+  .pill, .due { border: .5pt solid #666 !important; background: none !important; color: #000 !important; }
+  .card, .panel, .rows, .checks, table.data { box-shadow: none !important; }
+  a { color: #000; }
 }
 

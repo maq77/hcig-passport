@@ -1,5 +1,5 @@
 /**
- * HCIG Studio: the estate registry.
+ * HCIG Work: the estate registry.
  *
  * THIS FILE IS THE SINGLE SOURCE OF TRUTH FOR THE WHOLE PORTAL.
  * Every page on the site is generated from it. To add a company, a project or a
@@ -20,32 +20,30 @@
  *
  * Hiding a project
  * ----------------
- * `hidden: true` keeps a project in this file, fully intact, and keeps it off
- * the site entirely. It is not merely hidden from view: no page is written for
- * it or for any of its deliverables, and it appears in no listing, count or
- * search index. Guessing its URL returns a 404.
- *
- * That is deliberate. This is a public URL to anyone holding the link, so
- * hiding something in CSS would not hide it at all. Delete the one word to
- * bring it back.
+ * `hidden: true` keeps a project in this file, fully intact, and takes it off
+ * every listing, count, navigation and search result. Its own pages and URLs
+ * stay live, so a held link still opens, but nothing on the site points at it
+ * and nobody finds it by looking. Delete the one word to list it again.
  *
  * Flagships
  * ----------
  * `flagship: { rank, line }` on a project lifts it out of its company folder and
- * onto `/programmes`, the front door for work that changes how the whole group
+ * onto `/big-projects`, the front door for work that changes how the whole group
  * operates rather than one website. Three at most; the moment everything is a
  * flagship, nothing is. `line` is the one sentence that says why it matters to
  * the group, not to its own company.
  *
  * Status vocabulary. This IS the review gate. Keep it honest.
  * ------------------------------------------------------------
- *   planned   scoped, not started
- *   draft     being built, not ready for anyone to look at
- *   review    with the reviewer, waiting on her
- *   changes   changes requested, back with us
- *   approved  signed off, cleared to deploy to the company's hosting
- *   live      deployed to the company's real hosting
- *   blocked   waiting on someone outside the team
+ *   planned   Not started        agreed, not begun
+ *   draft     Being built        in progress, not ready to show
+ *   review    Waiting for Irina  sent, waiting on her
+ *   changes   Needs changes      she asked for changes
+ *   approved  Approved           she said yes, ready to go live
+ *   live      Live on their site published and checked on the real site
+ *   blocked   Stuck on someone   waiting on a person outside the team
+ *
+ * Every label says WHOSE MOVE IT IS. That is the whole point of the word.
  *
  * Rule: a status is a statement of fact, not a hope. If you are unsure whether
  * something is approved, it is not approved.
@@ -57,13 +55,13 @@ const OWNER = 'Mohamed Amin';
 /* ------------------------------------------------------------------ status */
 
 const STATUS = {
-  planned: { label: 'Planned', tone: 'neutral', icon: 'circle-dashed', blurb: 'Scoped. Not started.' },
-  draft: { label: 'Draft', tone: 'neutral', icon: 'pencil', blurb: 'Being built. Not ready to review.' },
-  review: { label: 'In review', tone: 'info', icon: 'eye', blurb: 'With the reviewer. Waiting on her.' },
-  changes: { label: 'Changes requested', tone: 'warn', icon: 'rotate', blurb: 'Feedback received. Back with us.' },
-  approved: { label: 'Approved', tone: 'ok', icon: 'check', blurb: 'Signed off. Cleared to deploy.' },
-  live: { label: 'Live', tone: 'live', icon: 'globe', blurb: 'Deployed to the company hosting.' },
-  blocked: { label: 'Blocked', tone: 'stop', icon: 'lock', blurb: 'Waiting on someone outside the team.' },
+  planned:  { label: 'Not started',      tone: 'neutral', icon: 'circle-dashed', blurb: 'Agreed, not begun.',            whose: 'Nobody yet' },
+  draft:    { label: 'Being built',      tone: 'neutral', icon: 'pencil',        blurb: 'In progress. Not ready to see.', whose: 'Us' },
+  review:   { label: 'Waiting for Irina', tone: 'info',   icon: 'eye',           blurb: 'Sent. Waiting on her.',          whose: 'Irina' },
+  changes:  { label: 'Needs changes',    tone: 'warn',    icon: 'rotate',        blurb: 'She asked for changes.',         whose: 'Us' },
+  approved: { label: 'Approved',         tone: 'ok',      icon: 'check',         blurb: 'She said yes. Ready to go live.', whose: 'Us, to deploy' },
+  live:     { label: 'Live on their site', tone: 'live',  icon: 'globe',         blurb: 'Published and checked.',         whose: 'Done' },
+  blocked:  { label: 'Stuck on someone', tone: 'stop',    icon: 'lock',          blurb: 'Waiting on a person outside the team.', whose: 'Someone else' },
 };
 
 /** The order a project moves through. Drives the progress rail on a project page. */
@@ -85,23 +83,35 @@ const COMPANIES = [
     projects: [
       {
         slug: 'website-v2',
-        name: 'Website v2',
-        status: 'live',
-        updated: '2026-09-05',
-        summary:
-          '56 pages, English, German and Polish, one template system.',
+        name: 'Website redesign',
+        status: 'review',
+        updated: '2026-09-08',
+        summary: '44 pages, English, German and Polish. Built and working, not yet approved.',
         detail: [
-          'One v2 template layer replaced the 2019 theme. Every page keeps its own hero, images and video.',
-          'Rollback is two lines: the old markup is still in every file.',
+          'The live site is the old design again. The redesign serves only on ?preview=2 and sends noindex there, so it reaches no visitor and no crawler.',
+          'It can be edited freely in the meantime. Any change shows immediately on the preview links below.',
+          'Publishing is deleting one if() per page. Rolling back is putting it back.',
+        ],
+        checklist: [
+          { text: 'Approve the redesign so it can go live', done: false, who: 'Irina' },
+          { text: 'Native German and Polish reader for every string marked NEW', done: false, who: 'Irina' },
+          { text: 'Restore the six location pages and their hreflang rows on publish', done: false, who: 'Us' },
         ],
         stages: [
           {
-            name: 'Live site',
-            note: 'Built on the server before Studio existed. No staging copy here.',
+            name: 'Preview the redesign',
+            note: 'These serve the new design. Nobody else can reach it and Google cannot index it.',
             items: [
-              { slug: 'english', name: 'English', kind: 'link', href: 'https://www.medparkhospitals.com/', status: 'live', note: '56 pages' },
-              { slug: 'german', name: 'German', kind: 'link', href: 'https://www.medparkhospitals.com/de/', status: 'live', note: 'Strings marked NEW need a native reader' },
-              { slug: 'polish', name: 'Polish', kind: 'link', href: 'https://www.medparkhospitals.com/pl/', status: 'live', note: 'Strings marked NEW need a native reader' },
+              { slug: 'english', name: 'English', kind: 'link', href: 'https://www.medparkhospitals.com/?preview=2', status: 'review' },
+              { slug: 'german', name: 'German', kind: 'link', href: 'https://www.medparkhospitals.com/de/?preview=2', status: 'review', note: 'Strings marked NEW need a native reader' },
+              { slug: 'polish', name: 'Polish', kind: 'link', href: 'https://www.medparkhospitals.com/pl/?preview=2', status: 'review', note: 'Strings marked NEW need a native reader' },
+            ],
+          },
+          {
+            name: 'What visitors see today',
+            note: 'The old design, indexable, unchanged.',
+            items: [
+              { slug: 'live-now', name: 'The site as it stands', kind: 'link', href: 'https://www.medparkhospitals.com/', status: 'live', note: '50 URLs in the sitemap' },
             ],
           },
         ],
@@ -109,19 +119,20 @@ const COMPANIES = [
       {
         slug: 'location-pages',
         name: 'Location pages',
-        status: 'live',
-        updated: '2026-09-07',
-        summary:
-          'Six pages written for a place, not a service.',
+        status: 'review',
+        updated: '2026-09-08',
+        summary: 'Six pages written for a place, not a service. Waiting on the redesign.',
         detail: [
+          'They exist only in the new design, so while it is unapproved they redirect to the branch page covering the same place and render on ?preview=2.',
           'Aimed at how a guest searches. "krankenhaus hurghada" is the strongest non-brand term the site has.',
         ],
         stages: [
           {
-            name: 'Live pages',
+            name: 'Preview',
+            note: 'Live the moment the redesign is approved.',
             items: [
-              { slug: 'hurghada', name: 'Hospital Hurghada', kind: 'link', href: 'https://www.medparkhospitals.com/hospital-hurghada/', status: 'live' },
-              { slug: 'sahl-hasheesh', name: 'Hospital Sahl Hasheesh', kind: 'link', href: 'https://www.medparkhospitals.com/hospital-sahl-hasheesh/', status: 'live' },
+              { slug: 'hurghada', name: 'Hospital Hurghada', kind: 'link', href: 'https://www.medparkhospitals.com/hospital-hurghada/?preview=2', status: 'review' },
+              { slug: 'sahl-hasheesh', name: 'Hospital Sahl Hasheesh', kind: 'link', href: 'https://www.medparkhospitals.com/hospital-sahl-hasheesh/?preview=2', status: 'review' },
             ],
           },
         ],
@@ -197,6 +208,7 @@ const COMPANIES = [
         name: 'Speed and crawlability',
         status: 'draft',
         updated: '2026-09-07',
+        due: '2026-09-30',
         summary: 'Pass 1 shipped. Mobile home LCP 13.6 s to 5.8 s.',
         detail: [
           'The cause was one line calling load() on the 2.9 MB hero video, which overrides preload="none".',
@@ -246,16 +258,28 @@ const COMPANIES = [
       {
         slug: 'hotel-landing-pages',
         name: 'In-hotel landing pages',
-        status: 'draft',
+        status: 'review',
         updated: '2026-09-08',
-        summary: 'Three pages, one per resort cluster.',
-        detail: ['Proposal written. Designs and a live demo next, reviewed here first.'],
+        summary: 'One page per hotel clinic, built to be found on Google.',
+        detail: [
+          'Three clinics first: Steigenberger Ras Soma, Amwaj Beach Club Abu Soma, Premier Le Rêve Sahl Hasheesh.',
+          'All three already exist in the live database with coordinates, so the map, address and schema come from data we own.',
+          'The proposal answers all seven items Irina asked for. Nothing gets built until she approves the URLs and structure.',
+        ],
+        checklist: [
+          { text: 'Approve the URL structure and page plan', done: false, who: 'Irina' },
+          { text: 'Fix Premier Le Rêve coordinates, currently copied from Long Beach Resort', done: false, who: 'Us' },
+          { text: 'Replace the placeholder WhatsApp number shared by every clinic', done: false, who: 'Irina' },
+          { text: 'Confirm whether "Steigenberger soma bay" is the same property as Ras Soma', done: false, who: 'Irina' },
+          { text: 'Supply clinic photographs and opening hours', done: false, who: 'Irina' },
+          { text: 'Build the three pages', done: false, who: 'Us' },
+        ],
         stages: [
           {
             name: 'Documents',
             items: [
-              { slug: 'proposal', name: 'Proposal', kind: 'html', src: 'docs/247clinic-landing-pages-proposal.html', status: 'draft' },
-              { slug: 'plan', name: 'Working plan', kind: 'md', src: 'docs/247clinic-hotel-landing-pages-plan.md', status: 'draft' },
+              { slug: 'proposal', name: 'Proposal', kind: 'html', src: 'docs/247clinic-landing-pages-proposal.html', status: 'review', note: 'The short version, for reading' },
+              { slug: 'plan', name: 'Full plan, all seven answers', kind: 'md', src: 'docs/247clinic-hotel-landing-pages-plan.md', status: 'review', note: 'URLs, keywords, wireframe, SEO, tracking' },
             ],
           },
           { name: 'UI kit', note: 'Design system, components, page blocks.', items: [] },

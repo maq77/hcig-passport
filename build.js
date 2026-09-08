@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * HCIG Studio: build
+ * HCIG Work: build
  *
  *   node build.js            -> dist/       the portal, for Vercel
  *   node build.js --inline   -> artifacts/  self-contained single files
@@ -215,6 +215,18 @@ function validate() {
       if (!(p.status in STATUS)) fail(`unknown status "${p.status}" on ${c.slug}/${p.slug}`);
       if (!/^\d{4}-\d{2}-\d{2}$/.test(p.updated)) fail(`${c.slug}/${p.slug} needs an absolute updated date, got "${p.updated}"`);
 
+      if (p.due !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(p.due)) {
+        fail(`${c.slug}/${p.slug} due must be YYYY-MM-DD, got "${p.due}"`);
+      }
+      for (const [i, item] of (p.checklist || []).entries()) {
+        if (typeof item.text !== 'string' || !item.text.trim()) {
+          fail(`${c.slug}/${p.slug} checklist item ${i} has no text`);
+        }
+        if (typeof item.done !== 'boolean') {
+          fail(`${c.slug}/${p.slug} checklist item ${i} needs done: true or false`);
+        }
+      }
+
       if (p.flagship) {
         const { rank, line } = p.flagship;
         if (!Number.isInteger(rank) || rank < 1) fail(`${c.slug}/${p.slug} flagship needs an integer rank from 1`);
@@ -276,16 +288,18 @@ const HIDDEN = COMPANIES.flatMap((c) => c.projects.filter((p) => p.hidden).map((
  *  it ships on every request. */
 function buildIndex(COMPANIES) {
   const out = [];
-  out.push({ n: 'Overview', p: 'Studio', u: '/', t: 'page' });
-  out.push({ n: 'Programmes', p: 'Studio', u: '/programmes', t: 'page' });
-  out.push({ n: 'All work', p: 'Studio', u: '/all', t: 'page' });
-  out.push({ n: 'How review works', p: 'Studio', u: '/workflow', t: 'page' });
+  out.push({ n: 'Overview', p: 'This site', u: '/', t: 'page' });
+  out.push({ n: 'Big projects', p: 'This site', u: '/big-projects', t: 'page' });
+  out.push({ n: 'Everything', p: 'This site', u: '/everything', t: 'page' });
+  out.push({ n: 'Report', p: 'This site', u: '/report', t: 'page' });
+  out.push({ n: 'Activity', p: 'This site', u: '/activity', t: 'page' });
+  out.push({ n: 'How this works', p: 'This site', u: '/how-it-works', t: 'page' });
   for (const c of COMPANIES) {
     out.push({ n: c.name, p: 'Company', u: `/${c.slug}`, t: 'company' });
     for (const p of c.projects) {
       out.push({
         n: p.name,
-        p: p.flagship ? `Group programme  ${c.short}` : c.name,
+        p: p.flagship ? `Big project · ${c.short}` : c.name,
         u: `/${c.slug}/${p.slug}`,
         t: 'project',
       });
@@ -370,6 +384,18 @@ write(
 
 /* ---- portal pages ------------------------------------------------------ */
 
+/* Written by `npm run publish` from git log, never by this build: Vercel
+   shallow-clones, so git history inside a Vercel build is unreliable. */
+const ACTIVITY_FILE = path.join(CONTENT, 'activity.json');
+let ACTIVITY = [];
+if (fs.existsSync(ACTIVITY_FILE)) {
+  try {
+    ACTIVITY = JSON.parse(fs.readFileSync(ACTIVITY_FILE, 'utf8'));
+  } catch (e) {
+    fail(`content/activity.json is not valid JSON: ${e.message}`);
+  }
+}
+
 const SITE = publicView(COMPANIES);
 const index = buildIndex(SITE);
 const ctx = { companies: SITE, index };
@@ -384,9 +410,11 @@ function emit(rel, html, label) {
 }
 
 emit('index.html', pages.homePage(ctx), '/');
-emit('programmes.html', pages.programmesPage(ctx), '/programmes');
-emit('all.html', pages.allWorkPage(ctx), '/all');
-emit('workflow.html', pages.workflowPage(ctx), '/workflow');
+emit('big-projects.html', pages.programmesPage(ctx), '/big-projects');
+emit('everything.html', pages.allWorkPage(ctx), '/everything');
+emit('report.html', pages.reportPage(ctx, ACTIVITY), '/report');
+emit('activity.html', pages.activityPage(ctx, ACTIVITY), '/activity');
+emit('how-it-works.html', pages.workflowPage(ctx), '/how-it-works');
 
 // company pages list only what is visible
 for (const company of SITE) {
@@ -446,6 +474,8 @@ console.log(
   `\n  ${pageCount} pages` +
     `\n  assets/  ${(assetBytes / 1048576).toFixed(2)} MB (${Object.keys(ASSETS).length} files)` +
     `\n  ${index.length} entries in the search index` +
+    `
+  ${ACTIVITY.length} activity entries` +
     `\n  robots.txt  Disallow: /`
 );
 

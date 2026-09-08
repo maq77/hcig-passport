@@ -1,4 +1,4 @@
-# Audit — www.medparkhospitals.com
+# Audit . www.medparkhospitals.com
 
 Generated 2026-09-01 09:20 UTC · target `https://www.medparkhospitals.com/`
 
@@ -68,8 +68,8 @@ Schema `@type` values found: ContactPoint Hospital Organization PostalAddress
 | other | `logo.JPG` | 200 | 87464 | 1.083693 |
 | css | `responsive.css` | 200 | 1394 | 0.644309 |
 
-⚠ **Font Awesome loaded 2 times** at different versions — remove all but one.
-🔴 **Placeholder API key `YOUR_API_KEY` in the page source** — that integration is broken in production.
+⚠ **Font Awesome loaded 2 times** at different versions . remove all but one.
+🔴 **Placeholder API key `YOUR_API_KEY` in the page source**. That integration is broken in production.
 
 ## Tags
 

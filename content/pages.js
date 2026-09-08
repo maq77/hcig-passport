@@ -1,13 +1,17 @@
 /**
- * HCIG Studio: the page set.
+ * HCIG Work: the page set.
  *
  * Five page types, all generated from `content/registry.js`:
  *
- *   /                       overview     the group, what is moving, where to go
- *   /workflow               process      how a thing gets from draft to live
- *   /:company               company      one brand and its projects
- *   /:company/:project      project      one project, its stages and deliverables
- *   /:company/:project/:id  deliverable  the thing itself
+ *   /                       overview      companies, big projects, what is moving
+ *   /big-projects           big projects  work every company ends up using
+ *   /everything             table         every item, sortable
+ *   /report                 report        the one he hands his supervisor
+ *   /activity               activity      a dated feed of what actually changed
+ *   /how-it-works           process       how a thing gets from built to live
+ *   /:company               company       one brand and its projects
+ *   /:company/:project      project       one project, its sections and items
+ *   /:company/:project/:id  item          the thing itself
  */
 
 const {
@@ -39,7 +43,8 @@ function projectCard(company, project) {
   </div>
   <p class="desc">${esc(project.summary)}</p>
   <div class="foot">
-    <span>${items ? `${items} deliverable${items === 1 ? '' : 's'}` : 'No deliverables yet'}</span>
+    ${duePill(project)}
+    <span>${items ? `${items} item${items === 1 ? '' : 's'}` : 'Nothing to show yet'}</span>${checklistLine(project)}
     <span class="dotsep"></span>
     <span class="num">Updated ${esc(niceDate(project.updated))}</span>
   </div>
@@ -53,7 +58,7 @@ function companyCard(company) {
 
   const facts = n
     ? [`<span class="num">${n} project${n === 1 ? '' : 's'}</span>`]
-        .concat(moving ? [`<span class="dotsep"></span><span class="num">${moving} in motion</span>`] : [])
+        .concat(moving ? [`<span class="dotsep"></span><span class="num">${moving} being worked on</span>`] : [])
         .concat(live ? [`<span class="dotsep"></span><span class="num">${live} live</span>`] : [])
         .join('')
     : '<span>No work yet</span>';
@@ -86,7 +91,7 @@ function itemRow(company, project, item) {
 }
 
 /**
- * A live preview of a hosted deliverable.
+ * A live preview of a hosted item.
  *
  * The iframe is the real page, not a screenshot, so it can never go stale and
  * nothing has to be re-rendered when a document changes. Sizing it 400% wide
@@ -147,7 +152,7 @@ function folderTile(company) {
   // an empty folder says where the company is rather than repeating the heading
   const meta = n
     ? (live ? '<span class="live-dot"></span>' : '') +
-      `<span>${n} project${n === 1 ? '' : 's'}${moving ? `, ${moving} in motion` : ''}</span>`
+      `<span>${n} project${n === 1 ? '' : 's'}${moving ? `, ${moving} being worked on` : ''}</span>`
     : `<span>${esc(company.where)}</span>`;
 
   return `<a class="folder${n ? '' : ' quiet'}" href="/${company.slug}" style="--brand:${company.accent}">
@@ -178,7 +183,7 @@ function programmeCard({ c, p }, rank) {
   <p class="prog-line">${esc(p.flagship.line)}</p>
   <div class="prog-foot">
     ${pill(p.status, 12)}
-    <span>${items ? `${items} deliverable${items === 1 ? '' : 's'}` : 'No deliverables yet'}</span>
+    <span>${items ? `${items} item${items === 1 ? '' : 's'}` : 'Nothing to show yet'}</span>
     <span class="dotsep"></span>
     <span class="num">${esc(niceDate(p.updated))}</span>
   </div>
@@ -194,35 +199,35 @@ function programmesPage(ctx) {
   // programme is held back
   const heading =
     list.length === 1
-      ? 'The programme that changes how the group works'
-      : `The ${COUNT_WORD[list.length] || list.length} that change how the group works`;
+      ? 'The one project that changes how the group works'
+      : `The ${COUNT_WORD[list.length] || list.length} projects that change how the group works`;
 
   const body = `
-${crumbsHtml([{ name: 'Studio', href: '/' }, { name: 'Programmes' }])}
+${crumbsHtml([{ name: 'Studio', href: '/' }, { name: 'Big projects' }])}
 <header class="masthead">
-  <p class="eyebrow">Group programmes</p>
+  <p class="eyebrow">Big projects</p>
   <h1>${esc(heading)}</h1>
-  <p class="lede">Not one company's website. Work that every property ends up using.</p>
+  <p class="lede">Not one company's website. Work every company ends up using.</p>
 </header>
 
 ${
   list.length
     ? `<div class="progs">${list.map((f, i) => programmeCard(f, i + 1)).join('')}</div>`
-    : emptyState('Nothing listed', 'No group programme is on the site at the moment.', 'building')
+    : emptyState('Nothing listed', 'No big project is on the site right now.', 'building')
 }
 
 <section class="section" aria-labelledby="h-why">
-  <div class="section-head"><h2 id="h-why">Why these three</h2></div>
+  <div class="section-head"><h2 id="h-why">Why these ones</h2></div>
   <div class="grid three">
-    <article class="card"><h3>${icon('layers', 17)}Built once, used everywhere</h3><p class="desc">Each one is designed for the group, not for a single site.</p></article>
-    <article class="card"><h3>${icon('building', 17)}HCIG is the parent</h3><p class="desc">They live under Healthcare International Group and reach every brand under it.</p></article>
+    <article class="card"><h3>${icon('layers', 17)}Built once, used everywhere</h3><p class="desc">Designed for the whole group, not one site.</p></article>
+    <article class="card"><h3>${icon('building', 17)}HCIG is the parent</h3><p class="desc">They sit under Healthcare International Group and reach every brand.</p></article>
     <article class="card"><h3>${icon('check', 17)}Same gate as everything else</h3><p class="desc">Scale changes nothing. They still go through review before they go live.</p></article>
   </div>
 </section>
 `;
 
   return shell({
-    title: 'Programmes' + SEP + 'HCIG Studio',
+    title: 'Big projects' + SEP + 'HCIG Work',
     // generated from what is actually listed, never a hardcoded list, or a
     // held-back programme leaks into the page source
     desc: list.length
@@ -236,8 +241,8 @@ ${
 }
 
 /**
- * Every deliverable in the group, in one sortable table. The view for someone
- * who wants to see the whole estate at once rather than open nine folders.
+ * Every item in the group, in one sortable table. The view for someone
+ * who wants the whole estate at once rather than opening nine folders.
  */
 function allWorkPage(ctx) {
   const rows = [];
@@ -261,7 +266,7 @@ function allWorkPage(ctx) {
       // whole row: a second, redundant cue on top of the pill, never the only
       // one, so the meaning survives for anyone who cannot see the colour.
       return `<tr data-status="${it.status}">
-  <td data-label="Deliverable"><a href="${esc(href)}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${esc(it.name)}${
+  <td data-label="Item"><a href="${esc(href)}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${esc(it.name)}${
         ext ? ' ' + icon('arrow-up-right', 12) : ''
       }</a></td>
   <td data-label="Company"><span class="chip" style="--chip:${c.accent}"></span> <a href="/${c.slug}">${esc(c.short)}</a></td>
@@ -274,17 +279,17 @@ function allWorkPage(ctx) {
     .join('');
 
   const page = `
-${crumbsHtml([{ name: 'Studio', href: '/' }, { name: 'All work' }])}
+${crumbsHtml([{ name: 'Studio', href: '/' }, { name: 'Everything' }])}
 <header class="masthead">
-  <p class="eyebrow">Everything, in one place</p>
-  <h1>All work</h1>
-  <p class="lede">Every deliverable across the group. Click a column heading to sort.</p>
+  <p class="eyebrow">Every company, every project</p>
+  <h1>Everything</h1>
+  <p class="lede">Every item we have made, newest first. Click a heading to sort.</p>
 </header>
 
 <div class="table-scroll" style="margin-top:28px">
   <table class="data" id="allwork">
     <thead><tr>
-      <th aria-sort="none">Deliverable</th>
+      <th aria-sort="none">What it is</th>
       <th aria-sort="none">Company</th>
       <th aria-sort="none">Project</th>
       <th aria-sort="none">Stage</th>
@@ -294,19 +299,238 @@ ${crumbsHtml([{ name: 'Studio', href: '/' }, { name: 'All work' }])}
     <tbody>${body}</tbody>
   </table>
 </div>
-<p class="note" style="margin-top:16px"><span class="num">${rows.length}</span> deliverables across ${
+<p class="note" style="margin-top:16px"><span class="num">${rows.length}</span> items across ${
     ctx.companies.filter((c) => c.projects.length).length
   } companies.</p>
 `;
 
   return shell({
-    title: 'All work' + SEP + 'HCIG Studio',
-    desc: 'Every deliverable across the group, in one sortable table.',
+    title: 'Everything' + SEP + 'HCIG Work',
+    desc: 'Every item across the group, in one sortable table.',
     body: page,
     companies: ctx.companies,
     active: { all: true },
     index: ctx.index,
   });
+}
+
+/* ---------------------------------------------------------------- report */
+
+const byAttentionPair = (a, b) => byAttention(a.p, b.p);
+
+/**
+ * The page he hands his supervisor.
+ *
+ * Every figure is read off the registry, so it can never disagree with the rest
+ * of the site. The period selector filters rows already in the page, which is
+ * why this needs no server.
+ *
+ * Print is the deliverable, not an afterthought: `.report` carries its own
+ * print rules so "save as PDF" produces something you would put in front of a
+ * director.
+ */
+function reportPage(ctx, activity) {
+  const all = ctx.companies.flatMap((c) => c.projects.map((p) => ({ c, p })));
+
+  const shipped = all.filter(({ p }) => p.status === 'live').sort((a, b) => b.p.updated.localeCompare(a.p.updated));
+  const waiting = all.filter(({ p }) => p.status === 'review').sort(byAttentionPair);
+  const stuck = all.filter(({ p }) => p.status === 'blocked').sort(byAttentionPair);
+  const building = all.filter(({ p }) => p.status === 'draft' || p.status === 'changes').sort(byAttentionPair);
+  const approved = all.filter(({ p }) => p.status === 'approved');
+
+  const row = ({ c, p }, extra) => `<li data-updated="${esc(p.updated)}">
+  <span class="chip" style="--chip:${c.accent}"></span>
+  <span class="rp-t">
+    <a href="/${c.slug}/${p.slug}">${esc(p.name)}</a>
+    <span class="rp-sub">${esc(c.short)}${extra ? ' &middot; ' + extra : ''}</span>
+  </span>
+  <span class="rp-date num">${esc(niceDate(p.updated))}</span>
+</li>`;
+
+  const block = (id, title, note, list, extra) => `
+<section class="rp-block" aria-labelledby="${id}">
+  <h2 id="${id}">${esc(title)} <span class="rp-n num">${list.length}</span></h2>
+  ${note ? `<p class="rp-note">${esc(note)}</p>` : ''}
+  ${
+    list.length
+      ? `<ul class="rp-list">${list.map((x) => row(x, extra ? extra(x) : '')).join('')}</ul>`
+      : `<p class="rp-none">Nothing.</p>`
+  }
+</section>`;
+
+  const today = new Date().toISOString().slice(0, 10);
+  const firstDetail = ({ p }) => esc(((p.detail || [])[0] || 'Waiting on someone outside the team').slice(0, 110));
+  const dueNote = ({ p }) => (p.due ? 'due ' + esc(niceDate(p.due)) : '');
+
+  const body = `
+${crumbsHtml([{ name: 'HCIG Work', href: '/' }, { name: 'Report' }])}
+<div class="report">
+  <header class="rp-head">
+    <div>
+      <p class="eyebrow">Progress report</p>
+      <h1>Where the work stands</h1>
+      <p class="lede">Generated from the live site. Nothing here is typed by hand.</p>
+    </div>
+    <div class="rp-meta">
+      <p><b>${esc(OWNER)}</b><span>Developer</span></p>
+      <p><b>${esc(REVIEWER.split(',')[0])}</b><span>Reviewer</span></p>
+      <p><b class="num">${esc(niceDate(today))}</b><span>Report date</span></p>
+    </div>
+  </header>
+
+  <div class="rp-controls no-print">
+    <label for="rp-period">Show</label>
+    <select id="rp-period">
+      <option value="all">everything</option>
+      <option value="30">changed in the last 30 days</option>
+      <option value="7">changed in the last 7 days</option>
+    </select>
+    <button class="iconbtn" type="button" id="rp-print" aria-label="Print this report">${icon('printer', 17)}</button>
+  </div>
+
+  <div class="rp-totals">
+    <span class="stat"><b class="num">${waiting.length}</b> waiting on you</span>
+    <span class="stat"><b class="num">${stuck.length}</b> stuck</span>
+    <span class="stat"><b class="num">${building.length}</b> being built</span>
+    <span class="stat"><b class="num">${approved.length}</b> ready to deploy</span>
+    <span class="stat"><b class="num">${shipped.length}</b> live</span>
+  </div>
+
+  ${block('rp-wait', 'Waiting on you', 'Sent for review. Nothing moves until you look.', waiting)}
+  ${block('rp-stuck', 'Stuck on someone', 'Blocked outside the team. Each one names why.', stuck, firstDetail)}
+  ${block('rp-build', 'Being built now', '', building, dueNote)}
+  ${block('rp-approved', 'Approved, ready to go live', '', approved)}
+  ${block('rp-live', 'Live on their site', '', shipped)}
+  ${
+    activity.length
+      ? `<section class="rp-block" aria-labelledby="rp-act">
+  <h2 id="rp-act">What changed</h2>
+  <ul class="rp-list rp-act">${activity
+    .slice(0, 40)
+    .map(
+      (a) =>
+        `<li data-updated="${esc(a.date)}"><span class="rp-t"><span>${esc(a.subject)}</span></span>` +
+        `<span class="rp-date num">${esc(niceDate(a.date))}</span></li>`
+    )
+    .join('')}</ul>
+</section>`
+      : ''
+  }
+
+  <p class="rp-foot">HCIG Work &middot; every item above links to the thing itself.</p>
+</div>
+`;
+
+  return shell({
+    title: 'Report' + SEP + 'HCIG Work',
+    desc: 'Where the work stands, generated from the live site.',
+    body,
+    companies: ctx.companies,
+    active: { report: true },
+    index: ctx.index,
+  });
+}
+
+/* -------------------------------------------------------------- activity */
+
+/**
+ * A dated feed of what actually changed, read from `content/activity.json`.
+ *
+ * That file is written by `npm run publish` from git log, NOT by the build.
+ * Vercel shallow-clones the repo, so running `git log` inside a Vercel build
+ * would silently produce a short or empty history.
+ */
+function activityPage(ctx, activity) {
+  const byDay = new Map();
+  for (const a of activity) {
+    if (!byDay.has(a.date)) byDay.set(a.date, []);
+    byDay.get(a.date).push(a);
+  }
+
+  const body = `
+${crumbsHtml([{ name: 'HCIG Work', href: '/' }, { name: 'Activity' }])}
+<header class="masthead">
+  <p class="eyebrow">History</p>
+  <h1>What changed, and when</h1>
+  <p class="lede">Read straight from the commit history. Nothing here is written by hand.</p>
+</header>
+
+${
+  byDay.size
+    ? `<div class="feed">${[...byDay.entries()]
+        .map(
+          ([day, items]) => `<section class="feed-day">
+  <h2 class="num">${esc(niceDate(day))}</h2>
+  <ul>${items
+    .map(
+      (a) =>
+        `<li><span class="feed-dot" aria-hidden="true"></span><div><p class="feed-s">${esc(a.subject)}</p>${
+          (a.projects || []).length ? `<p class="feed-p">${a.projects.map((x) => esc(x)).join(' &middot; ')}</p>` : ''
+        }</div></li>`
+    )
+    .join('')}</ul>
+</section>`
+        )
+        .join('')}</div>`
+    : emptyState('No history yet', 'Run npm run publish once and the commit history appears here.', 'file-text')
+}
+`;
+
+  return shell({
+    title: 'Activity' + SEP + 'HCIG Work',
+    desc: 'A dated feed of what changed, from the commit history.',
+    body,
+    companies: ctx.companies,
+    active: { activity: true },
+    index: ctx.index,
+  });
+}
+
+/* ------------------------------------------------------------ due dates */
+
+/** Everything about a due date except whether it has passed. That is decided in
+ *  the browser: a build-time comparison is wrong the moment the day turns. */
+function duePill(project) {
+  if (!project.due) return '';
+  const done = project.status === 'live' || project.status === 'approved';
+  return (
+    `<span class="due" data-due="${esc(project.due)}"${done ? ' data-done' : ''}>` +
+    `${icon('clock', 12)}Due ${esc(niceDate(project.due))}</span>`
+  );
+}
+
+/* ------------------------------------------------------------- checklist */
+
+function checklistHtml(project) {
+  const list = project.checklist || [];
+  if (!list.length) return '';
+  const done = list.filter((i) => i.done).length;
+  const pct = Math.round((done / list.length) * 100);
+
+  return `<section class="section" aria-labelledby="h-check">
+  <div class="section-head">
+    <h2 id="h-check">What is left</h2>
+    <p class="note"><span class="num">${done} of ${list.length}</span> done</p>
+  </div>
+  <div class="bar" role="img" aria-label="${done} of ${list.length} done"><span style="width:${pct}%"></span></div>
+  <ul class="checks">${list
+    .map(
+      (i) =>
+        `<li class="${i.done ? 'done' : ''}">` +
+        `<span class="box" aria-hidden="true">${i.done ? icon('check', 13) : ''}</span>` +
+        `<span class="ck-t">${esc(i.text)}</span>` +
+        (i.who ? `<span class="who">${esc(i.who)}</span>` : '') +
+        `</li>`
+    )
+    .join('')}</ul>
+</section>`;
+}
+
+function checklistLine(project) {
+  const list = project.checklist || [];
+  if (!list.length) return '';
+  const done = list.filter((i) => i.done).length;
+  return `<span class="dotsep"></span><span class="num">${done}/${list.length} done</span>`;
 }
 
 function homePage(ctx) {
@@ -331,8 +555,8 @@ function homePage(ctx) {
   <div class="stats">
     <span class="stat"><b class="num">${companies.length}</b> companies</span>
     <span class="stat"><b class="num">${allProjects.length}</b> projects</span>
-    <span class="stat"><b class="num">${deliverables}</b> deliverables</span>
-    <span class="stat"><b class="num">${moving.length}</b> in motion</span>
+    <span class="stat"><b class="num">${deliverables}</b> items</span>
+    <span class="stat"><b class="num">${moving.length}</b> being worked on</span>
     <span class="stat"><b class="num">${live}</b> live</span>
   </div>
   <p class="byline">
@@ -346,8 +570,8 @@ ${
   progs.length
     ? `<section class="section" style="margin-top:var(--s6)" aria-labelledby="h-prog">
   <div class="section-head">
-    <h2 id="h-prog">Group programmes</h2>
-    <p class="note">Built once, used by every company. <a href="/programmes">See ${progs.length === 1 ? 'it' : 'all ' + progs.length}</a></p>
+    <h2 id="h-prog">Big projects</h2>
+    <p class="note">Built once, used by every company. <a href="/big-projects">See ${progs.length === 1 ? 'it' : 'all ' + progs.length}</a></p>
   </div>
   <div class="progs">${progs.map((f, i) => programmeCard(f, i + 1)).join('')}</div>
 </section>`
@@ -366,15 +590,15 @@ ${
 <section class="section" aria-labelledby="h-flow">
   <div class="section-head">
     <h2 id="h-flow">How work reaches a live site</h2>
-    <p class="note"><a href="/workflow">The full process</a></p>
+    <p class="note"><a href="/how-it-works">The full process</a></p>
   </div>
   ${stepsHtml()}
 </section>
 
 <section class="section" aria-labelledby="h-moving">
   <div class="section-head">
-    <h2 id="h-moving">In motion</h2>
-    <p class="note">Being built, waiting on review, or blocked.</p>
+    <h2 id="h-moving">Being worked on now</h2>
+    <p class="note">Anything not finished and not idle.</p>
   </div>
   ${
     moving.length
@@ -405,8 +629,8 @@ ${
 `;
 
   return shell({
-    title: 'HCIG Studio',
-    desc: 'Internal staging and review for every Healthcare International Group design, page and website.',
+    title: 'HCIG Work',
+    desc: 'Where every HCIG design and page is reviewed before it goes live.',
     body,
     companies,
     active: { home: true },
@@ -431,7 +655,7 @@ function workflowPage(ctx) {
   const body = `
 <header class="masthead">
   <p class="eyebrow">Process</p>
-  <h1>How review works</h1>
+  <h1>How this works</h1>
   <p class="lede">No page reaches a live hospital website without <mark>a named person seeing it and saying yes</mark>.</p>
 </header>
 
@@ -457,7 +681,7 @@ function workflowPage(ctx) {
   <div class="section-head"><h2 id="h-rules">The rules</h2></div>
   <div class="grid two">
     <article class="card"><h3>${icon('route', 17)}Staging first</h3><p class="desc">Nothing is built directly on a company server. That removes the review step for good.</p></article>
-    <article class="card"><h3>${icon('external-link', 17)}One link, forever</h3><p class="desc">A deliverable keeps its URL. A link sent weeks ago still opens the current work.</p></article>
+    <article class="card"><h3>${icon('external-link', 17)}One link, forever</h3><p class="desc">An item keeps its URL. A link sent weeks ago still opens the current work.</p></article>
     <article class="card"><h3>${icon('check', 17)}Approved is a word someone says</h3><p class="desc">${esc(REVIEWER)} approves design, content and strategy. Not "it looks done to us".</p></article>
     <article class="card"><h3>${icon('globe', 17)}Live means deployed</h3><p class="desc">Checked in the rendered page. Not the template, not an exit code.</p></article>
     <article class="card"><h3>${icon('lock', 17)}Blocked stays visible</h3><p class="desc">Waiting on someone outside the team, with the reason written down.</p></article>
@@ -489,7 +713,7 @@ function workflowPage(ctx) {
 `;
 
   return shell({
-    title: 'How review works' + SEP + 'HCIG Studio',
+    title: 'How this works' + SEP + 'HCIG Work',
     desc: 'The review gate between a draft and a live hospital website.',
     body,
     companies,
@@ -530,7 +754,7 @@ ${crumbsHtml([{ name: 'Studio', href: '/' }, { name: company.name }])}
 <section class="section" style="margin-top:36px" aria-labelledby="h-p">
   <div class="section-head">
     <h2 id="h-p">Projects</h2>
-    <p class="note">What needs attention first.</p>
+    <p class="note">Sorted by what needs attention first.</p>
   </div>
   ${
     projects.length
@@ -541,7 +765,7 @@ ${crumbsHtml([{ name: 'Studio', href: '/' }, { name: company.name }])}
 `;
 
   return shell({
-    title: `${company.name}${SEP}HCIG Studio`,
+    title: `${company.name}${SEP}HCIG Work`,
     desc: company.what,
     body,
     companies: ctx.companies,
@@ -589,7 +813,7 @@ function projectPage(ctx, company, project) {
                     .map((it) => itemRow(company, project, it))
                     .join('')}</div>`
                 : '')
-            : emptyState('Nothing here yet', st.note || 'No deliverables in this stage.', 'folder');
+            : emptyState('Nothing here yet', st.note || 'Nothing in this section yet.', 'folder');
 
           return `<section class="section" aria-label="${esc(st.name)}">
   <div class="section-head">
@@ -601,8 +825,8 @@ function projectPage(ctx, company, project) {
         })
         .join('')
     : `<section class="section">${emptyState(
-        'No deliverables yet',
-        'Tracked here. Nothing produced for review.',
+        'Nothing to show yet',
+        'Tracked here. Nothing made for review yet.',
         'folder'
       )}</section>`;
 
@@ -617,6 +841,7 @@ ${crumbsHtml([
   <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px">
     <h1>${esc(project.name)}</h1>
     ${pill(project.status, 14)}
+    ${duePill(project)}
   </div>
   <p class="lede">${esc(project.summary)}</p>
   <div class="meta">
@@ -628,11 +853,12 @@ ${crumbsHtml([
 </header>
 ${blocked}
 ${detail}
+${checklistHtml(project)}
 ${stages}
 `;
 
   return shell({
-    title: `${project.name}${SEP}${company.short}${SEP}HCIG Studio`,
+    title: `${project.name}${SEP}${company.short}${SEP}HCIG Work`,
     desc: project.summary,
     body,
     companies: ctx.companies,
@@ -642,7 +868,7 @@ ${stages}
   });
 }
 
-/* ------------------------------------------------------------ deliverable */
+/* ------------------------------------------------------------------ item */
 
 /** A Markdown brief, rendered into the portal chrome. */
 function docPage(ctx, company, project, item, rendered) {
@@ -664,7 +890,7 @@ ${crumbsHtml([
 `;
 
   return shell({
-    title: `${item.name}${SEP}${project.name}${SEP}HCIG Studio`,
+    title: `${item.name}${SEP}${project.name}${SEP}HCIG Work`,
     desc: item.note || project.summary,
     body,
     companies: ctx.companies,
@@ -691,12 +917,12 @@ function reviewChip(company, project, item) {
     sub: 'opacity:.6;font-weight:500;',
   };
   return (
-    `<a href="/${company.slug}/${project.slug}" style="${S.wrap}" aria-label="Back to ${esc(project.name)} in HCIG Studio">` +
+    `<a href="/${company.slug}/${project.slug}" style="${S.wrap}" aria-label="Back to ${esc(project.name)} in HCIG Work">` +
     `<span style="${S.dot}"></span>` +
     `<span>${esc(project.name)}</span>` +
-    `<span style="${S.sub}">HCIG Studio</span>` +
+    `<span style="${S.sub}">HCIG Work</span>` +
     `</a>`
   );
 }
 
-module.exports = { homePage, programmesPage, allWorkPage, workflowPage, companyPage, projectPage, docPage, reviewChip, byAttention };
+module.exports = { homePage, programmesPage, allWorkPage, reportPage, activityPage, workflowPage, companyPage, projectPage, docPage, reviewChip, byAttention };

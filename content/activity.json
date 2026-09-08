@@ -1,0 +1,127 @@
+[
+  {
+    "date": "2026-09-08",
+    "subject": "Hold back a held-back project"
+  },
+  {
+    "date": "2026-09-08",
+    "subject": "Tables: ruled grid, coloured headers, status-tinted rows"
+  },
+  {
+    "date": "2026-09-08",
+    "subject": "Ruled tables, a highlighter, and a real mobile pass"
+  },
+  {
+    "date": "2026-09-08",
+    "subject": "Real HCIG mark, a credit line, live previews and an all-work table"
+  },
+  {
+    "date": "2026-09-08",
+    "subject": "Fix the folder logos, and make light mode the default"
+  },
+  {
+    "date": "2026-09-08",
+    "subject": "README: group programmes and the artifact-to-document convention"
+  },
+  {
+    "date": "2026-09-08",
+    "subject": "Group programmes, and artifacts hosted as documents"
+  },
+  {
+    "date": "2026-09-08",
+    "subject": "Drop the WebGL hero for a quiet landing masthead"
+  },
+  {
+    "date": "2026-09-08",
+    "subject": "HCIG Studio: one staging site for every company's work"
+  },
+  {
+    "date": "2026-09-04",
+    "subject": "Two levels: one management dashboard over every website, one per site",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-04",
+    "subject": "Group Appointment requests and Satisfaction under Patients"
+  },
+  {
+    "date": "2026-09-04",
+    "subject": "Phase 2 complete: group roll-up and satisfaction"
+  },
+  {
+    "date": "2026-09-04",
+    "subject": "Alerts: the failures nobody reports"
+  },
+  {
+    "date": "2026-09-04",
+    "subject": "Partners: who actually sends patients, and a dashboard-wide invisible bar"
+  },
+  {
+    "date": "2026-09-04",
+    "subject": "Summary rebuilt around real data, requests, and the source switch"
+  },
+  {
+    "date": "2026-09-04",
+    "subject": "Tracking platform: one system, every HCIG website",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-03",
+    "subject": "Dashboard: WhatsApp page, per-visit drill-down, source toggle, AI checks"
+  },
+  {
+    "date": "2026-09-03",
+    "subject": "Report: both logos, findings sections gated, and an uptime heartbeat"
+  },
+  {
+    "date": "2026-09-03",
+    "subject": "Cut the prose, add the charts"
+  },
+  {
+    "date": "2026-09-03",
+    "subject": "Professional CEO report: findings, evidence, action, expected outcome"
+  },
+  {
+    "date": "2026-09-03",
+    "subject": "CEO screen: a sentence before a number, and an explanation on everything"
+  },
+  {
+    "date": "2026-09-03",
+    "subject": "Dashboard: import the behaviour spool instead of writing on every request"
+  },
+  {
+    "date": "2026-09-02",
+    "subject": "Dashboard rebuild: SEMrush-class features without SEMrush"
+  },
+  {
+    "date": "2026-09-02",
+    "subject": "Dashboard: assistant page, KPI targets page, chat schema"
+  },
+  {
+    "date": "2026-09-02",
+    "subject": "Add MedPark performance dashboard",
+    "projects": [
+      "MedPark: Performance dashboard"
+    ]
+  },
+  {
+    "date": "2026-08-29",
+    "subject": "Revert \"Add referral section to the business model, scoped for compliance\""
+  },
+  {
+    "date": "2026-08-29",
+    "subject": "Add referral section to the business model, scoped for compliance"
+  },
+  {
+    "date": "2026-08-28",
+    "subject": "Add business model canvas and go-to-market plan"
+  },
+  {
+    "date": "2026-08-28",
+    "subject": "Add a held-back project business case and 74-screen interface library"
+  }
+]

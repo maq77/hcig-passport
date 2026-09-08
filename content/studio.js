@@ -60,6 +60,79 @@
     });
   }
 
+  /* ------------------------------------------------------------ due dates */
+
+  /* Whether a date has passed is decided HERE, not at build time. The site is
+     not rebuilt daily, so a build-time comparison would say "due tomorrow"
+     forever. Anything already approved or live is left alone. */
+  (function () {
+    var due = document.querySelectorAll('.due[data-due]');
+    if (!due.length) return;
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    Array.prototype.forEach.call(due, function (el) {
+      if (el.hasAttribute('data-done')) return;
+      var parts = el.getAttribute('data-due').split('-');
+      var when = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+      var days = Math.round((when - today) / 86400000);
+
+      if (days < 0) {
+        el.setAttribute('data-late', '');
+        el.title = Math.abs(days) + (Math.abs(days) === 1 ? ' day' : ' days') + ' overdue';
+      } else if (days <= 3) {
+        el.setAttribute('data-soon', '');
+        el.title = days === 0 ? 'Due today' : 'Due in ' + days + (days === 1 ? ' day' : ' days');
+      }
+    });
+  })();
+
+  /* -------------------------------------------------------------- report */
+
+  (function () {
+    var period = document.getElementById('rp-period');
+    var printBtn = document.getElementById('rp-print');
+    if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
+    if (!period) return;
+
+    var rows = document.querySelectorAll('.report li[data-updated]');
+
+    function apply() {
+      var v = period.value;
+      var cutoff = null;
+      if (v !== 'all') {
+        cutoff = new Date();
+        cutoff.setHours(0, 0, 0, 0);
+        cutoff.setDate(cutoff.getDate() - Number(v));
+      }
+
+      Array.prototype.forEach.call(rows, function (li) {
+        if (!cutoff) { li.hidden = false; return; }
+        var p = li.getAttribute('data-updated').split('-');
+        li.hidden = new Date(+p[0], +p[1] - 1, +p[2]) < cutoff;
+      });
+
+      // a section whose rows are all filtered out says so rather than sitting empty
+      Array.prototype.forEach.call(document.querySelectorAll('.rp-block'), function (block) {
+        var list = block.querySelector('.rp-list');
+        if (!list) return;
+        var shown = list.querySelectorAll('li:not([hidden])').length;
+        var none = block.querySelector('.rp-filtered');
+        if (!shown && !none) {
+          none = document.createElement('p');
+          none.className = 'rp-none rp-filtered';
+          none.textContent = 'Nothing in this period.';
+          list.parentNode.insertBefore(none, list.nextSibling);
+        }
+        if (none) none.hidden = shown > 0;
+        list.hidden = shown === 0;
+      });
+    }
+
+    period.addEventListener('change', apply);
+    apply();
+  })();
+
   /* ------------------------------------------------------------ search */
 
   var dim = document.getElementById('sdim');
