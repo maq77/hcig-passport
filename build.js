@@ -160,9 +160,13 @@ function splitHead(src) {
   return { head: head.trim(), body: rest };
 }
 
-function wrapDocument(src, { title, favicon, chip }) {
+function wrapDocument(src, { title, favicon, chip, ownTitle }) {
   const { head, body } = splitHead(src);
   const headNoTitle = head.replace(/<title>[\s\S]*?<\/title>\s*/, '');
+  if (ownTitle) {
+    const m = head.match(/<title>([\s\S]*?)<\/title>/);
+    if (m) title = m[1];
+  }
   const icon = favicon
     ? `<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>${favicon}</text></svg>">`
     : '<link rel="icon" href="/favicon.svg">';
@@ -497,9 +501,10 @@ for (const company of COMPANIES) {
         html = isDoc
           ? harden(html).replace(/<\/body>/i, `${chip}\n</body>`)
           : wrapDocument(html, {
-              title: `${it.name} · ${project.name} · HCIG Studio`,
+              title: `${it.name} · ${project.name} · HCIG Work`,
               favicon: it.build && it.build.favicon,
               chip,
+              ownTitle: it.ownTitle,
             });
 
         emit(rel, html, label);

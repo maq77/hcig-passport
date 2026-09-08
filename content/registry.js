@@ -302,9 +302,9 @@ const COMPANIES = [
             name: 'Live demo',
             note: 'Three working pages from one template. Open them on a phone.',
             items: [
-              { slug: 'le-reve', name: 'Premier Le Rêve, Sahl Hasheesh', kind: 'page', src: '247-lp-le-reve.html', status: 'review', note: 'The full page. Own film, walking route, map, dental room' },
-              { slug: 'steigenberger', name: 'Steigenberger Ras Soma, Soma Bay', kind: 'page', src: '247-lp-steigenberger.html', status: 'review', note: 'Same template, Soma Bay content' },
-              { slug: 'amwaj', name: 'Amwaj Beach Club, Abu Soma', kind: 'page', src: '247-lp-amwaj.html', status: 'review', note: 'Same template, Abu Soma content' },
+              { slug: 'le-reve', name: 'Premier Le Rêve, Sahl Hasheesh', kind: 'page', src: '247-lp-le-reve.html', ownTitle: true, status: 'review', note: 'The full page. Own film, walking route, map, dental room' },
+              { slug: 'steigenberger', name: 'Steigenberger Ras Soma, Soma Bay', kind: 'page', src: '247-lp-steigenberger.html', ownTitle: true, status: 'review', note: 'Same template, Soma Bay content' },
+              { slug: 'amwaj', name: 'Amwaj Beach Club, Abu Soma', kind: 'page', src: '247-lp-amwaj.html', ownTitle: true, status: 'review', note: 'Same template, Abu Soma content' },
             ],
           },
         ],
