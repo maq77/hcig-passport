@@ -1,11 +1,13 @@
 {
-  "name": "hcig-passport",
-  "version": "1.0.0",
+  "name": "hcig-studio",
+  "version": "2.0.0",
   "private": true,
-  "description": "Business case and interface library for HCIG Passport — a group-wide patient identity and care app for Healthcare International Group.",
+  "description": "Internal staging and review site for every Healthcare International Group design, landing page and website. Work is built and reviewed here before it reaches a company's own hosting.",
   "scripts": {
     "build": "node build.js",
     "build:artifacts": "node build.js --inline",
+    "check": "node check.js",
+    "test": "node build.js && node check.js",
     "dev": "node build.js && node serve.js"
   },
   "engines": {

@@ -1,4 +1,4 @@
-# Build output — regenerate with `npm run build` / `npm run build:artifacts`
+# Build output. Regenerate with `npm run build` / `npm run build:artifacts`
 dist/
 artifacts/
 
@@ -10,9 +10,24 @@ node_modules/
 npm-debug.log*
 *.log
 
-# Private working material — screenshots, Search Console exports, other projects.
-# Deliberately excluded: this repo is pushed to GitHub.
+# Private working material: screenshots, Search Console exports, other projects.
+# Deliberately excluded, this repo is pushed to GitHub.
 Proof/
+
+# Local working folders. Large, and not part of the site.
+# Anything Studio publishes must be copied into docs/ or src/ instead,
+# so the Vercel build never depends on a folder that is not in the repo.
+medpark-live/
+medpark-site-audit/
+medpark-dashboard/
+247clinic-src/
+247clinic-plan/
+pack/
+video/
+brand guideline/
+*.jpg
+!src/assets/*.jpg
+!docs/**/*.jpg
 
 # OS
 .DS_Store

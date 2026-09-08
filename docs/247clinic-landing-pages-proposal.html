@@ -1,0 +1,379 @@
+<title>In-Hotel Clinic Landing Pages</title>
+<meta name="description" content="Proposal for three in-hotel 24/7 Clinic landing pages on 247clinic.net.">
+<style>
+:root{
+  --paper:#f7f5f1; --surface:#ffffff; --surface-2:#f1eee8;
+  --ink:#1c1a18; --ink-2:#55504a; --ink-3:#8a847c;
+  --line:#e2ddd4; --line-2:#d0c9bd;
+  --accent:#c00000; --accent-soft:#f6e2e2;
+  --warn:#9a5b00; --warn-soft:#f7e9d2;
+  --ok:#1f6d3a; --ok-soft:#dcecdf;
+  --info:#0f5b73; --info-soft:#d9ebf1;
+  --shadow:0 1px 2px rgba(28,26,24,.04),0 8px 28px rgba(28,26,24,.06);
+  --maxw:900px; --prose:66ch;
+}
+:root:not([data-theme="light"]){
+  @media (prefers-color-scheme:dark){
+    --paper:#15171a; --surface:#1c1f23; --surface-2:#22262b;
+    --ink:#eceae6; --ink-2:#b3aea6; --ink-3:#837d74;
+    --line:#2c3036; --line-2:#3a3f46;
+    --accent:#ff6b6b; --accent-soft:#3a1f22;
+    --warn:#e0a15a; --warn-soft:#3a2c17;
+    --ok:#6fce8f; --ok-soft:#17301f;
+    --info:#6fc4dc; --info-soft:#12303a;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#15171a; --surface:#1c1f23; --surface-2:#22262b;
+  --ink:#eceae6; --ink-2:#b3aea6; --ink-3:#837d74;
+  --line:#2c3036; --line-2:#3a3f46;
+  --accent:#ff6b6b; --accent-soft:#3a1f22;
+  --warn:#e0a15a; --warn-soft:#3a2c17;
+  --ok:#6fce8f; --ok-soft:#17301f;
+  --info:#6fc4dc; --info-soft:#12303a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{
+  font-family:"Poppins",system-ui,sans-serif;font-weight:600;
+  font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);
+}
+h1,h2,h3{font-family:"Poppins",system-ui,sans-serif;text-wrap:balance;line-height:1.15}
+h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.02em;margin:.3em 0 .2em}
+h2{font-size:clamp(21px,3vw,27px);font-weight:600;letter-spacing:-.01em;margin:0 0 .1em}
+h3{font-size:17px;font-weight:600;margin:0 0 .35em}
+p{margin:0 0 1em;max-width:var(--prose)}
+a{color:var(--accent);text-underline-offset:3px}
+strong{font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+
+/* masthead */
+header.top{border-bottom:2px solid var(--ink);margin-bottom:8px}
+header.top .wrap{padding-top:44px;padding-bottom:26px}
+.masthead-meta{
+  display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:14px;
+  font-family:"Poppins",system-ui,sans-serif;font-size:12.5px;color:var(--ink-2)
+}
+.masthead-meta b{color:var(--ink);font-weight:600}
+.status-pill{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:"Poppins",system-ui,sans-serif;font-weight:600;font-size:12px;
+  letter-spacing:.04em;padding:5px 11px;border-radius:999px;
+  background:var(--warn-soft);color:var(--warn);border:1px solid transparent
+}
+.status-pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+
+section{padding:34px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+.sec-head{display:flex;flex-direction:column;gap:2px;margin-bottom:18px}
+
+/* callout */
+.callout{
+  border:1px solid var(--line-2);border-left:4px solid var(--accent);
+  background:var(--surface);border-radius:8px;padding:20px 22px;margin:0 0 20px;
+  box-shadow:var(--shadow)
+}
+.callout.idea{border-left-color:var(--info)}
+.callout h3{font-size:15px}
+.callout p:last-child{margin-bottom:0}
+
+/* clinic table */
+.tbl-scroll{overflow-x:auto;margin:0 0 6px;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;
+  font-family:"Poppins",system-ui,sans-serif;background:var(--surface)}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600;
+  background:var(--surface-2)}
+tr:last-child td{border-bottom:none}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink-2)}
+.flag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.03em;
+  padding:3px 9px;border-radius:999px;white-space:nowrap}
+.flag.ok{background:var(--ok-soft);color:var(--ok)}
+.flag.warn{background:var(--warn-soft);color:var(--warn)}
+.flag.bad{background:var(--accent-soft);color:var(--accent)}
+
+/* url list */
+.urls{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.urls .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 18px;
+  background:var(--surface);padding:13px 16px}
+.urls .h{font-family:"Source Serif 4",serif;color:var(--ink-2);font-size:15px}
+.urls code{font-family:"Poppins",ui-monospace,monospace;font-weight:600;font-size:14px;color:var(--accent)}
+
+/* keyword blocks */
+.kw{display:grid;gap:16px}
+.kw-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px 20px;box-shadow:var(--shadow)}
+.kw-card h3{color:var(--ink);display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.kw-card h3 span{font-family:"Source Serif 4",serif;font-weight:400;font-size:13.5px;color:var(--ink-3)}
+.kw-grp{margin-top:12px}
+.kw-grp .lbl{font-family:"Poppins",sans-serif;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--info);font-weight:600;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:"Poppins",sans-serif;font-size:12.5px;color:var(--ink-2);
+  background:var(--surface-2);border:1px solid var(--line);border-radius:6px;padding:4px 9px}
+.chip.de{border-style:dashed;color:var(--ink-3)}
+
+/* ordered / steps */
+ol.steps{list-style:none;counter-reset:s;margin:0;padding:0;display:grid;gap:12px;max-width:var(--prose)}
+ol.steps li{counter-increment:s;position:relative;padding-left:44px}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:-2px;
+  font-family:"Poppins",sans-serif;font-weight:700;font-size:13px;color:var(--accent);
+  background:var(--accent-soft);width:29px;height:29px;border-radius:50%;
+  display:grid;place-items:center}
+ul.plain{margin:0 0 1em;padding-left:0;list-style:none;max-width:var(--prose);display:grid;gap:8px}
+ul.plain li{position:relative;padding-left:20px}
+ul.plain li::before{content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;
+  border-radius:50%;background:var(--accent)}
+
+/* title cards */
+.titles{display:grid;gap:14px}
+.title-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:var(--shadow)}
+.title-card .lbl{font-family:"Poppins",sans-serif;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:600;margin:9px 0 2px}
+.title-card .lbl:first-child{margin-top:0}
+.title-card .val{font-family:"Poppins",sans-serif;font-size:14px;color:var(--ink)}
+.title-card .val.h1{font-size:16px;font-weight:600}
+
+.mono{font-family:"Poppins",ui-monospace,monospace;font-weight:600;background:var(--surface-2);
+  padding:1px 6px;border-radius:4px;font-size:.86em;color:var(--info)}
+.footnote{font-size:14px;color:var(--ink-2)}
+.theme-toggle{position:fixed;top:14px;right:14px;z-index:9;
+  font-family:"Poppins",sans-serif;font-size:12px;font-weight:600;color:var(--ink-2);
+  background:var(--surface);border:1px solid var(--line-2);border-radius:999px;
+  padding:7px 13px;cursor:pointer;box-shadow:var(--shadow)}
+footer{padding:30px 0 60px;color:var(--ink-3);font-family:"Poppins",sans-serif;font-size:12.5px}
+@media (max-width:600px){body{font-size:16px}section{padding:28px 0}}
+@media print{.theme-toggle{display:none}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<button class="theme-toggle" id="tt" aria-label="Toggle light or dark theme">Theme</button>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">24/7 Clinic &middot; Red Sea, Egypt &middot; Proposal</div>
+    <h1>In-Hotel Clinic Landing Pages</h1>
+    <p class="footnote" style="max-width:60ch">Three search-optimised pages that put a doctor one tap away for guests at Steigenberger Ras Soma, Amwaj Beach Club and Premier Le R&ecirc;ve. For your review before any development begins.</p>
+    <div class="masthead-meta">
+      <span><b>Property</b> 247clinic.net</span>
+      <span><b>Stage one</b> 3 clinics</span>
+      <span><b>Date</b> 7 September 2026</span>
+      <span class="status-pill">Draft for review</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">What we found first</div><h2>These clinics already exist in your data</h2></div>
+  <p>Before planning anything, one discovery reshaped the job. All three hotels are already clinic records in your live database, each with GPS coordinates and a service list. We are not inventing these clinics. We are giving three existing clinics a front door built to be found on Google.</p>
+
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Hotel</th><th>In database as</th><th>Coordinates</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Steigenberger Resort, Ras Soma</td><td>Steigenberger soma bay</td><td class="num">26.8646, 33.9600</td><td><span class="flag warn">Confirm identity</span></td></tr>
+        <tr><td>Amwaj Beach Club, Abu Soma</td><td>Amwaj Beach Club</td><td class="num">26.8139, 33.9455</td><td><span class="flag ok">Clean</span></td></tr>
+        <tr><td>Premier Le R&ecirc;ve, Sahl Hasheesh</td><td>Premier Le Reve Sahl Hasheesh</td><td class="num">27.0821, 33.8589</td><td><span class="flag bad">Wrong coordinates</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="footnote">Three data problems to fix before launch. Premier Le R&ecirc;ve&rsquo;s coordinates are copied from another resort and would drop the map pin in the wrong place. Every clinic shares one placeholder WhatsApp number. And the Steigenberger record&rsquo;s name may not match the hotel in the brief.</p>
+
+  <div class="callout idea">
+    <h3>A better idea, since you asked for one</h3>
+    <p>Do not hand-build three pages and then copy them 27 more times by hand. Build <strong>one data-driven template</strong> fed by the clinic record plus a small content table. Launch the three now. After that, any of your 30 clinics becomes a new landing page by filling in content, not by writing code. That turns a one-off task into a local-search asset for the whole coast, and every future page inherits the same correct schema, canonical and tracking, so quality never drifts.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Deliverable 1</div><h2>Recommended URL structure</h2></div>
+  <p>Your instinct to lead with location is right for SEO. Refined:</p>
+  <div class="urls">
+    <div class="row"><span class="h">Steigenberger, Ras Soma</span><code>/soma-bay/steigenberger-clinic</code></div>
+    <div class="row"><span class="h">Amwaj Beach Club, Abu Soma</span><code>/abu-soma/amwaj-beach-club-clinic</code></div>
+    <div class="row"><span class="h">Premier Le R&ecirc;ve, Sahl Hasheesh</span><code>/sahl-hasheesh/premier-le-reve-clinic</code></div>
+  </div>
+  <p style="margin-top:16px">Location first builds an <strong>area folder</strong> for each destination, so a future <span class="mono">/sahl-hasheesh/</span> hub page can later win the pure area searches (&ldquo;clinic sahl hasheesh&rdquo;) without competing with the hotel pages. It also scales cleanly: 30 clinics fall into six or seven area folders that read as one topical cluster on one authoritative domain, which is exactly the &ldquo;keep the authority on the main site&rdquo; goal in the brief.</p>
+  <ul class="plain">
+    <li><strong>Ras Soma or Soma Bay.</strong> &ldquo;Soma Bay&rdquo; is the recognised search term, so the slug uses it, while the visible title keeps &ldquo;Steigenberger Ras Soma&rdquo; for exact-match relevance.</li>
+    <li><strong>Le R&ecirc;ve accents.</strong> Most guests type without the circumflex, so the slug is <span class="mono">le-reve</span> and the visible copy keeps the correct &ldquo;Le R&ecirc;ve&rdquo;.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Deliverable 2</div><h2>Keyword research, per hotel</h2></div>
+  <div class="callout">
+    <h3>An honest word on volume</h3>
+    <p>These are hyper-local, high-intent, near-zero-volume searches. Keyword tools will report almost no monthly volume for &ldquo;doctor Steigenberger Ras Soma&rdquo;, and that is expected. A guest typing it is in the hotel, unwell, ready to call. The strategy is not chasing volume. It is being the single most exactly relevant result for every phrasing, in every guest language, then mining Search Console for the real queries once the pages are live. For terms this specific, that is where the true keyword data comes from.</p>
+  </div>
+
+  <div class="kw">
+    <div class="kw-card">
+      <h3>Steigenberger, Ras Soma <span>Soma Bay &middot; strong German guest base</span></h3>
+      <div class="kw-grp"><div class="lbl">Branded, primary</div><div class="chips">
+        <span class="chip">doctor Steigenberger Ras Soma</span><span class="chip">clinic Steigenberger Soma Bay</span><span class="chip">doctor at Steigenberger Ras Soma</span><span class="chip">medical clinic Steigenberger</span></div></div>
+      <div class="kw-grp"><div class="lbl">Proximity</div><div class="chips">
+        <span class="chip">doctor near Steigenberger Soma Bay</span><span class="chip">nearest doctor Soma Bay</span></div></div>
+      <div class="kw-grp"><div class="lbl">Area</div><div class="chips">
+        <span class="chip">doctor Soma Bay</span><span class="chip">clinic Soma Bay</span><span class="chip">pharmacy Soma Bay</span><span class="chip">English speaking doctor Soma Bay</span><span class="chip">24 hour doctor Soma Bay</span></div></div>
+      <div class="kw-grp"><div class="lbl">German seed set</div><div class="chips">
+        <span class="chip de">arzt Steigenberger Soma Bay</span><span class="chip de">arzt Soma Bay</span><span class="chip de">deutscher arzt Soma Bay</span><span class="chip de">klinik Soma Bay</span></div></div>
+    </div>
+
+    <div class="kw-card">
+      <h3>Amwaj Beach Club, Abu Soma</h3>
+      <div class="kw-grp"><div class="lbl">Branded, primary</div><div class="chips">
+        <span class="chip">doctor Amwaj Beach Club</span><span class="chip">clinic Amwaj Abu Soma</span><span class="chip">doctor at Amwaj</span><span class="chip">medical clinic Amwaj Beach Club</span></div></div>
+      <div class="kw-grp"><div class="lbl">Proximity</div><div class="chips">
+        <span class="chip">doctor near Amwaj Beach Club</span><span class="chip">nearest doctor Abu Soma</span></div></div>
+      <div class="kw-grp"><div class="lbl">Area</div><div class="chips">
+        <span class="chip">doctor Abu Soma</span><span class="chip">clinic Abu Soma</span><span class="chip">medical assistance Abu Soma</span><span class="chip">pharmacy Abu Soma</span><span class="chip">English speaking doctor Abu Soma</span></div></div>
+      <div class="kw-grp"><div class="lbl">German seed set</div><div class="chips">
+        <span class="chip de">arzt Amwaj Abu Soma</span><span class="chip de">arzt Abu Soma</span><span class="chip de">klinik Abu Soma</span></div></div>
+    </div>
+
+    <div class="kw-card">
+      <h3>Premier Le R&ecirc;ve, Sahl Hasheesh</h3>
+      <div class="kw-grp"><div class="lbl">Branded, primary</div><div class="chips">
+        <span class="chip">doctor Premier Le R&ecirc;ve</span><span class="chip">clinic Premier Le Reve Sahl Hasheesh</span><span class="chip">doctor in Premier Le Reve</span><span class="chip">medical clinic Premier Le Reve</span></div></div>
+      <div class="kw-grp"><div class="lbl">Proximity</div><div class="chips">
+        <span class="chip">doctor near Premier Le Reve</span><span class="chip">nearest doctor Sahl Hasheesh</span></div></div>
+      <div class="kw-grp"><div class="lbl">Area</div><div class="chips">
+        <span class="chip">doctor Sahl Hasheesh</span><span class="chip">clinic Sahl Hasheesh</span><span class="chip">medical assistance Sahl Hasheesh</span><span class="chip">hospital Sahl Hasheesh</span><span class="chip">English speaking doctor Sahl Hasheesh</span></div></div>
+      <div class="kw-grp"><div class="lbl">German seed set</div><div class="chips">
+        <span class="chip de">arzt Premier Le Reve</span><span class="chip de">arzt Sahl Hasheesh</span><span class="chip de">klinik Sahl Hasheesh</span></div></div>
+    </div>
+  </div>
+  <p class="footnote" style="margin-top:16px">Recommended first step after approval: live Search Console and Google autocomplete validation, to tune the exact title and H1 wording to real phrasings before copy goes to review.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Deliverable 3</div><h2>Page structure, mobile first</h2></div>
+  <p>One template, conversion first, no corporate preamble. The guest sees how to reach a doctor before anything else. Order on a phone, top to bottom:</p>
+  <ol class="steps">
+    <li><strong>Sticky top bar.</strong> Logo, and a Call button always visible.</li>
+    <li><strong>Hero, above the fold.</strong> H1 &ldquo;Need a Doctor at [Hotel]?&rdquo;, one reassuring line, then three thumb-sized buttons: <strong>Call Now</strong>, <strong>WhatsApp</strong> (green), <strong>Find the Clinic</strong>. A trust strip below: inside the resort, response in minutes, insurance assistance.</li>
+    <li><strong>Where to find us.</strong> Plain-language location inside the hotel, the map, a Directions button.</li>
+    <li><strong>What we treat.</strong> Your 11 real services, phrased for a worried guest: consultation, examination, minor illness and injury, medication, laboratory coordination, ambulance, hospital referral, insurance help, medical reports, fit to fly and diving certificates.</li>
+    <li><strong>For international guests.</strong> Languages spoken, insurance help, medical reports for claims.</li>
+    <li><strong>Photographs.</strong> Real clinic photos with descriptive alt text.</li>
+    <li><strong>Hours and contact.</strong> 24/7 stated plainly, phone, WhatsApp, address.</li>
+    <li><strong>FAQ.</strong> Six to eight questions from real guest searches.</li>
+    <li><strong>Sticky bottom bar.</strong> Call and WhatsApp within reach the whole way down. This one element usually moves conversion the most.</li>
+  </ol>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Deliverable 4</div><h2>SEO title and H1, per page</h2></div>
+  <div class="titles">
+    <div class="title-card">
+      <div class="lbl">Title</div><div class="val">Doctor at Steigenberger Ras Soma | 24/7 Clinic Soma Bay</div>
+      <div class="lbl">H1</div><div class="val h1">Need a Doctor at Steigenberger Ras Soma?</div>
+      <div class="lbl">Meta description</div><div class="val">Need a doctor at Steigenberger Ras Soma? 24/7 Clinic serves the resort with English speaking doctors, open 24 hours. Call or WhatsApp now.</div>
+    </div>
+    <div class="title-card">
+      <div class="lbl">Title</div><div class="val">Doctor at Amwaj Beach Club | 24/7 Clinic Abu Soma</div>
+      <div class="lbl">H1</div><div class="val h1">Need a Doctor at Amwaj Beach Club?</div>
+      <div class="lbl">Meta description</div><div class="val">Need a doctor at Amwaj Beach Club, Abu Soma? 24/7 Clinic with English speaking doctors, open around the clock. Call or WhatsApp now.</div>
+    </div>
+    <div class="title-card">
+      <div class="lbl">Title</div><div class="val">Doctor at Premier Le R&ecirc;ve | 24/7 Clinic Sahl Hasheesh</div>
+      <div class="lbl">H1</div><div class="val h1">Need a Doctor at Premier Le R&ecirc;ve?</div>
+      <div class="lbl">Meta description</div><div class="val">Need a doctor at Premier Le R&ecirc;ve, Sahl Hasheesh? 24/7 Clinic with English speaking doctors, open 24 hours. Call or WhatsApp now.</div>
+    </div>
+  </div>
+  <p class="footnote" style="margin-top:14px">H2 structure is shared, the text under each is unique per hotel. Titles stay near 60 characters, descriptions near 155.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Deliverable 5</div><h2>Technical SEO</h2></div>
+  <ul class="plain">
+    <li><strong>Unique everything.</strong> Title, description, H1, body, FAQ and alt text written per hotel. No cloned pages with a swapped name.</li>
+    <li><strong>Canonical</strong> self-referencing, absolute, lower case, on every page.</li>
+    <li><strong>Schema.</strong> Yes to the brief&rsquo;s question: <span class="mono">MedicalClinic</span> and <span class="mono">LocalBusiness</span> both apply per page, with address, geo, phone, WhatsApp, 24/7 hours, area served and services, plus <span class="mono">FAQPage</span> and <span class="mono">BreadcrumbList</span>. The geo and address come from data you already own, once Premier Le R&ecirc;ve&rsquo;s coordinates are fixed.</li>
+    <li><strong>hreflang</strong> across any German or Polish versions, with x-default.</li>
+    <li><strong>Internal links</strong> from the main site to each page and across siblings, so none is an orphan.</li>
+    <li><strong>Sitemap and indexing.</strong> Added to the sitemap automatically, submitted in Search Console, indexing requested at launch, rendered head verified.</li>
+  </ul>
+  <div class="callout">
+    <h3>Four site-wide faults to fix first, because these pages depend on them</h3>
+    <p>The sitemap currently returns an error and lists nothing. The site has no working &ldquo;page not found&rdquo;, so every missing URL returns a valid page to Google. Four existing pages render a blank title from missing database rows, the same mechanism these new pages rely on. And index and canonical behaviour must be checked on the live rendered page, not the template. All four are documented and fixable.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Deliverable 6</div><h2>Tracking</h2></div>
+  <p>Assumes GA4, Search Console and the group tracking tag are in place. Note: the live site currently shows no GA4, so the property may still need creating. Confirm the measurement ID.</p>
+  <ul class="plain">
+    <li><strong>GA4 key events</strong>, each marked as a conversion: <span class="mono">call_click</span>, <span class="mono">whatsapp_click</span>, <span class="mono">directions_click</span>, <span class="mono">contact_action</span>. Page views are automatic.</li>
+    <li>Every event carries the <strong>hotel and area</strong> as parameters, so one report compares all clinics side by side.</li>
+    <li><strong>Per-page reporting.</strong> Each landing page is a distinct URL with distinct parameters, so GA4 and Search Console segment them cleanly. Search Console shows impressions, clicks and the real queries per page, which is also the keyword feedback loop.</li>
+    <li><strong>Group tracking tag</strong> added to the template, with an edge check, since Cloudflare in front can cache or block it.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Deliverable 7</div><h2>What we need from you</h2></div>
+  <p>The template is blocked on these. Per hotel:</p>
+  <ol class="steps">
+    <li><strong>Steigenberger identity.</strong> Is the database&rsquo;s &ldquo;Steigenberger soma bay&rdquo; the same property as &ldquo;Steigenberger Resort Ras Soma&rdquo;? If two different Steigenbergers, which one?</li>
+    <li><strong>Inside or serving?</strong> Is the clinic physically inside the hotel, or serving it from nearby? The H1 depends on this being exact. It is a medical claim.</li>
+    <li><strong>Location inside each hotel</strong>, in plain words (building, floor, near which landmark).</li>
+    <li><strong>Real WhatsApp number</strong> per clinic. The stored value is a placeholder.</li>
+    <li><strong>Real phone number</strong> per clinic, and whether one central number serves all.</li>
+    <li><strong>Opening hours.</strong> Confirm genuinely 24/7, or the real hours.</li>
+    <li><strong>Verified GPS coordinates</strong>, especially Premier Le R&ecirc;ve.</li>
+    <li><strong>Clinic photographs</strong> per hotel: signage or exterior, interior, staff or doctor, equipment. Real, not stock.</li>
+    <li><strong>Doctor names and credentials</strong>, if these are to be shown. Touches compliance.</li>
+    <li><strong>Languages</strong> per page. German is a strong candidate for all three.</li>
+    <li><strong>Insurance partners</strong> accepted at each, if named.</li>
+    <li><strong>Affiliation and trademark.</strong> Are these clinics officially inside or endorsed by each hotel, or independent clinics serving the hotel&rsquo;s guests? Using a hotel name in a URL and title is fine when it is factually accurate and implies no endorsement that does not exist. If there is an official arrangement we can say so, and it strengthens the page. If not, we phrase it as &ldquo;serving guests of&rdquo;. This must be right before launch, legally and for trust.</li>
+  </ol>
+  <p class="footnote">Platform, once: confirm or create the 247clinic GA4 property and share the measurement ID; confirm Search Console access for 247clinic.net.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">The order of work</div><h2>Sequence</h2></div>
+  <ol class="steps">
+    <li>You approve the URL structure, the approach and this plan.</li>
+    <li>Fix the four site-wide SEO faults, since the pages depend on them. Local first.</li>
+    <li>Live keyword and query validation. Tune titles and H1s.</li>
+    <li>Build the data-driven landing template locally, on the recovered source.</li>
+    <li>Write each page&rsquo;s unique content. Copy goes to review.</li>
+    <li>Fix the three data problems: coordinates, WhatsApp numbers, Steigenberger identity.</li>
+    <li>Wire schema and tracking, validate locally.</li>
+    <li>You review on a private preview and approve.</li>
+    <li>Publish, submit to Search Console, request indexing.</li>
+    <li>Watch Search Console for real queries, and iterate.</li>
+  </ol>
+  <p class="footnote" style="margin-top:16px">Development on the final pages does not start until steps 1 to 3 are approved.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">Same message, two related requests</div><h2>Admin access and modernisation</h2></div>
+  <p><strong>Your admin login.</strong> Handled directly, not in this document, because it involves credentials. The panel uses a standard forms login backed by the database, so a proper named account can be created for you, with a password you change on first use. The mechanism is understood and ready.</p>
+  <p><strong>Modernising the admin, with one correction.</strong> We recovered the source of your public website. The admin panel is a <strong>separate, older application</strong>, and its source is a different job. The recommendation is not to renovate the old panel, but to build a modern admin into the main application when it moves to a current .NET version: one codebase, one login, one modern interface. That admin would let you edit every page title and end the blank-title problem for good, manage clinics with correct coordinates and WhatsApp numbers, run these landing pages, export the captured newsletter emails that were never synced, edit German and Polish content, and see GA4, Search Console and group tracking in one place. Scoped and estimated as its own project once you say how far to take it.</p>
+</div></section>
+
+</main>
+
+<footer><div class="wrap">24/7 Clinic &middot; 247clinic.net &middot; Draft proposal, 7 September 2026. Prepared for internal review. Page copy is subject to review before publication.</div></footer>
+
+<script>
+(function(){
+  var b=document.documentElement,t=document.getElementById('tt');
+  function cur(){var e=b.getAttribute('data-theme');if(e)return e;
+    return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}
+  t.addEventListener('click',function(){
+    var n=cur()==='dark'?'light':'dark';b.setAttribute('data-theme',n);
+    t.textContent=n==='dark'?'Light':'Dark';});
+})();
+</script>

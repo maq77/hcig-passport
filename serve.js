@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Local preview of dist/ — mirrors Vercel's cleanUrls behaviour so
- * /business-case and /ui-kit resolve the same way they will in production.
+ * Local preview of dist/. It mirrors Vercel's cleanUrls and directory-index
+ * behaviour so /workflow and /medpark/website-v2 resolve here exactly as they
+ * will in production.
  *
  *   npm run dev        (builds, then serves on http://localhost:4173)
  */
@@ -26,7 +27,7 @@ const MIME = {
 };
 
 if (!fs.existsSync(DIST)) {
-  console.error('\n  dist/ not found — run `npm run build` first.\n');
+  console.error('\n  dist/ not found. Run `npm run build` first.\n');
   process.exit(1);
 }
 
@@ -41,8 +42,13 @@ http
       res.writeHead(403).end('forbidden');
       return;
     }
-    // cleanUrls: /ui-kit -> /ui-kit.html
+    // cleanUrls: /workflow -> /workflow.html
     if (!fs.existsSync(file) && fs.existsSync(file + '.html')) file += '.html';
+    // directory index: /medpark -> /medpark/index.html
+    if (fs.existsSync(file) && fs.statSync(file).isDirectory()) {
+      const idx = path.join(file, 'index.html');
+      if (fs.existsSync(idx)) file = idx;
+    }
 
     if (!fs.existsSync(file) || fs.statSync(file).isDirectory()) {
       res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
@@ -57,9 +63,10 @@ http
     fs.createReadStream(file).pipe(res);
   })
   .listen(PORT, () => {
-    console.log(`\n  HCIG Passport — local preview\n`);
+    console.log(`\n  HCIG Studio local preview\n`);
     console.log(`  http://localhost:${PORT}/`);
-    console.log(`  http://localhost:${PORT}/business-case`);
-    console.log(`  http://localhost:${PORT}/ui-kit\n`);
+    console.log(`  http://localhost:${PORT}/workflow`);
+    console.log(`  http://localhost:${PORT}/medpark`);
+    console.log(`  http://localhost:${PORT}/hcig/passport/ui-kit\n`);
     console.log('  Ctrl+C to stop\n');
   });

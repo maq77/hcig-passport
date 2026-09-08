@@ -5,6 +5,11 @@
   "framework": null,
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/business-case", "destination": "/hcig/passport/business-case", "permanent": true },
+    { "source": "/business-model", "destination": "/hcig/passport/business-model", "permanent": true },
+    { "source": "/ui-kit", "destination": "/hcig/passport/ui-kit", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
