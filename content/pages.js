@@ -186,18 +186,30 @@ function programmeCard({ c, p }, rank) {
 </article>`;
 }
 
+const COUNT_WORD = ['none', 'one', 'two', 'three', 'four', 'five'];
+
 function programmesPage(ctx) {
   const list = flagships(ctx.companies);
+  // the heading counts what is actually shown, so it stays true when a
+  // programme is held back
+  const heading =
+    list.length === 1
+      ? 'The programme that changes how the group works'
+      : `The ${COUNT_WORD[list.length] || list.length} that change how the group works`;
 
   const body = `
 ${crumbsHtml([{ name: 'Studio', href: '/' }, { name: 'Programmes' }])}
 <header class="masthead">
   <p class="eyebrow">Group programmes</p>
-  <h1>The three that change how the group works</h1>
+  <h1>${esc(heading)}</h1>
   <p class="lede">Not one company's website. Work that every property ends up using.</p>
 </header>
 
-<div class="progs">${list.map((f, i) => programmeCard(f, i + 1)).join('')}</div>
+${
+  list.length
+    ? `<div class="progs">${list.map((f, i) => programmeCard(f, i + 1)).join('')}</div>`
+    : emptyState('Nothing listed', 'No group programme is on the site at the moment.', 'building')
+}
 
 <section class="section" aria-labelledby="h-why">
   <div class="section-head"><h2 id="h-why">Why these three</h2></div>
@@ -211,7 +223,11 @@ ${crumbsHtml([{ name: 'Studio', href: '/' }, { name: 'Programmes' }])}
 
   return shell({
     title: 'Programmes' + SEP + 'HCIG Studio',
-    desc: 'Group-wide work: HCIG Passport, the tracking platform and the AI assistant.',
+    // generated from what is actually listed, never a hardcoded list, or a
+    // held-back programme leaks into the page source
+    desc: list.length
+      ? `Group-wide work: ${list.map(({ p }) => p.name).join(', ')}.`
+      : 'Group-wide work used by every company.',
     body,
     companies: ctx.companies,
     active: { programmes: true },
@@ -326,13 +342,17 @@ function homePage(ctx) {
   </p>
 </header>
 
-<section class="section" style="margin-top:var(--s6)" aria-labelledby="h-prog">
+${
+  progs.length
+    ? `<section class="section" style="margin-top:var(--s6)" aria-labelledby="h-prog">
   <div class="section-head">
     <h2 id="h-prog">Group programmes</h2>
-    <p class="note">Built once, used by every company. <a href="/programmes">All three</a></p>
+    <p class="note">Built once, used by every company. <a href="/programmes">See ${progs.length === 1 ? 'it' : 'all ' + progs.length}</a></p>
   </div>
   <div class="progs">${progs.map((f, i) => programmeCard(f, i + 1)).join('')}</div>
-</section>
+</section>`
+    : ''
+}
 
 <section class="section" aria-labelledby="h-open">
   <div class="section-head">

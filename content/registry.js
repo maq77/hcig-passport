@@ -18,6 +18,17 @@
  *   md     a markdown file in this repo, rendered to a readable page and hosted here
  *   link   something that already lives somewhere else (live site, artifact, doc)
  *
+ * Hiding a project
+ * ----------------
+ * `hidden: true` keeps a project in this file, fully intact, and keeps it off
+ * the site entirely. It is not merely hidden from view: no page is written for
+ * it or for any of its deliverables, and it appears in no listing, count or
+ * search index. Guessing its URL returns a 404.
+ *
+ * That is deliberate. This is a public URL to anyone holding the link, so
+ * hiding something in CSS would not hide it at all. Delete the one word to
+ * bring it back.
+ *
  * Flagships
  * ----------
  * `flagship: { rank, line }` on a project lifts it out of its company folder and
@@ -198,6 +209,8 @@ const COMPANIES = [
         name: 'AI assistant',
         status: 'planned',
         updated: '2026-09-07',
+        // held back 2026-09-08 at his request, to be shown when he is ready
+        hidden: true,
         flagship: { rank: 3, line: 'Answering guests in their own language, day and night. Built once at MedPark, then reused across the group.' },
         summary: 'Raise the assistant to standard before it returns to v2.',
         detail: ['A working v1 exists, switched off on v2. Start with the real recorded conversations.'],
@@ -280,6 +293,8 @@ const COMPANIES = [
         name: 'HCIG Passport',
         status: 'review',
         updated: '2026-09-01',
+        // held back 2026-09-08 at his request, to be shown when he is ready
+        hidden: true,
         flagship: { rank: 1, line: 'One patient record across every property in the group. The largest single change to how HCIG operates.' },
         summary:
           'One patient record, from resort clinic to hospital bed.',

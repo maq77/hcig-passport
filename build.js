@@ -249,11 +249,32 @@ function validate() {
   }
 }
 
+/* --------------------------------------------------------------- hiding */
+
+/**
+ * The registry keeps every project. Every listing gets only the ones not
+ * marked `hidden`.
+ *
+ * A hidden project keeps its pages and its URLs, so anyone holding a link can
+ * still open it, but it appears in no listing, no count, no navigation and no
+ * search index. Nothing on the site points at it, so nobody finds it by
+ * looking. That is what he asked for on 2026-09-08, having accepted that the
+ * URL stays reachable to anyone who has it.
+ *
+ * Validation still runs over the full registry, so a hidden project cannot
+ * quietly rot while it is out of sight.
+ */
+function publicView(companies) {
+  return companies.map((c) => ({ ...c, projects: c.projects.filter((p) => !p.hidden) }));
+}
+
+const HIDDEN = COMPANIES.flatMap((c) => c.projects.filter((p) => p.hidden).map((p) => `${c.slug}/${p.slug}`));
+
 /* ---------------------------------------------------------------- index */
 
 /** The search index, inlined into every page. Kept to four short keys because
  *  it ships on every request. */
-function buildIndex() {
+function buildIndex(COMPANIES) {
   const out = [];
   out.push({ n: 'Overview', p: 'Studio', u: '/', t: 'page' });
   out.push({ n: 'Programmes', p: 'Studio', u: '/programmes', t: 'page' });
@@ -349,8 +370,9 @@ write(
 
 /* ---- portal pages ------------------------------------------------------ */
 
-const index = buildIndex();
-const ctx = { companies: COMPANIES, index };
+const SITE = publicView(COMPANIES);
+const index = buildIndex(SITE);
+const ctx = { companies: SITE, index };
 
 let pageCount = 0;
 const log = [];
@@ -366,9 +388,14 @@ emit('programmes.html', pages.programmesPage(ctx), '/programmes');
 emit('all.html', pages.allWorkPage(ctx), '/all');
 emit('workflow.html', pages.workflowPage(ctx), '/workflow');
 
-for (const company of COMPANIES) {
+// company pages list only what is visible
+for (const company of SITE) {
   emit(`${company.slug}/index.html`, pages.companyPage(ctx, company), `/${company.slug}`);
+}
 
+// project and deliverable pages come from the full registry, so a held-back
+// project keeps its URL working even though nothing on the site links to it
+for (const company of COMPANIES) {
   for (const project of company.projects) {
     emit(
       `${company.slug}/${project.slug}/index.html`,
@@ -419,5 +446,13 @@ console.log(
   `\n  ${pageCount} pages` +
     `\n  assets/  ${(assetBytes / 1048576).toFixed(2)} MB (${Object.keys(ASSETS).length} files)` +
     `\n  ${index.length} entries in the search index` +
-    `\n  robots.txt  Disallow: /\n`
+    `\n  robots.txt  Disallow: /`
 );
+
+// say it every build, so nothing stays hidden by accident
+if (HIDDEN.length) {
+  console.log(`\n  HELD BACK, off every listing but the URL still works (${HIDDEN.length}):`);
+  for (const h of HIDDEN) console.log(`    /${h}`);
+  console.log(`  Remove "hidden: true" in content/registry.js to list them again.`);
+}
+console.log('');

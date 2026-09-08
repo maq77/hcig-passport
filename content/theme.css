@@ -801,8 +801,9 @@ mark, .hl {
 
 /* ------------------------------------------------------- group programmes */
 
-.progs { display: grid; gap: var(--s4); }
-@media (min-width: 900px) { .progs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* auto-fit, so a single programme fills the row instead of sitting in a third
+   of it when the others are held back */
+.progs { display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); }
 
 .prog {
   position: relative; overflow: hidden;
