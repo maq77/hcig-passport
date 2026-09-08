@@ -240,15 +240,17 @@ function allWorkPage(ctx) {
     .map(({ c, p, st, it }) => {
       const href = itemHref(c, p, it);
       const ext = it.kind === 'link';
+      // data-label carries the column name so the table can stack into cards
+      // on a phone without losing what each value means
       return `<tr>
-  <td><a href="${esc(href)}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${esc(it.name)}${
+  <td data-label="Deliverable"><a href="${esc(href)}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${esc(it.name)}${
         ext ? ' ' + icon('arrow-up-right', 12) : ''
       }</a></td>
-  <td><span class="chip" style="--chip:${c.accent}"></span> <a href="/${c.slug}">${esc(c.short)}</a></td>
-  <td><a href="/${c.slug}/${p.slug}">${esc(p.name)}</a></td>
-  <td>${esc(st.name)}</td>
-  <td>${pill(it.status, 12)}</td>
-  <td class="num" data-sort="${esc(p.updated)}">${esc(niceDate(p.updated))}</td>
+  <td data-label="Company"><span class="chip" style="--chip:${c.accent}"></span> <a href="/${c.slug}">${esc(c.short)}</a></td>
+  <td data-label="Project"><a href="/${c.slug}/${p.slug}">${esc(p.name)}</a></td>
+  <td data-label="Stage">${esc(st.name)}</td>
+  <td data-label="Status">${pill(it.status, 12)}</td>
+  <td data-label="Updated" class="num" data-sort="${esc(p.updated)}">${esc(niceDate(p.updated))}</td>
 </tr>`;
     })
     .join('');
@@ -307,7 +309,7 @@ function homePage(ctx) {
 <header class="landing">
   <p class="eyebrow">Healthcare International Group</p>
   <h1>Every design, page and site the group is building</h1>
-  <p class="lede">Built here. Reviewed here. Deployed to the company only once it is approved.</p>
+  <p class="lede">Built here. Reviewed here. Deployed to the company <mark>only once it is approved</mark>.</p>
   <div class="stats">
     <span class="stat"><b class="num">${companies.length}</b> companies</span>
     <span class="stat"><b class="num">${allProjects.length}</b> projects</span>
@@ -408,7 +410,7 @@ function workflowPage(ctx) {
 <header class="masthead">
   <p class="eyebrow">Process</p>
   <h1>How review works</h1>
-  <p class="lede">No page reaches a live hospital website without a named person seeing it and saying yes.</p>
+  <p class="lede">No page reaches a live hospital website without <mark>a named person seeing it and saying yes</mark>.</p>
 </header>
 
 <section class="section" style="margin-top:32px" aria-labelledby="h-steps">
@@ -419,7 +421,7 @@ function workflowPage(ctx) {
 <section class="section" aria-labelledby="h-status">
   <div class="section-head">
     <h2 id="h-status">What each status means</h2>
-    <p class="note">A statement of fact, not a hope.</p>
+    <p class="note">A statement of fact, <mark>not a hope</mark>.</p>
   </div>
   <div class="prose" style="max-width:none">
     <div class="table-scroll"><table>

@@ -32,6 +32,7 @@ function inline(s) {
       /(^|[\s(])(https?:\/\/[^\s<)]+)/g,
       (m, pre, url) => `${pre}<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
     )
+    .replace(/==([^=]+)==/g, '<mark>$1</mark>')
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>')
     .replace(/(^|\s)_([^_\n]+)_(?=\s|$|[.,;:!?])/g, '$1<em>$2</em>');

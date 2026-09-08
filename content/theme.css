@@ -282,7 +282,7 @@ img, svg, video { max-width: 100%; }
 
 /* ------------------------------------------------------------------ layout */
 
-main { min-width: 0; }
+main { min-width: 0; overflow-x: clip; }
 .wrap { max-width: var(--content); margin: 0 auto; padding: var(--s5) var(--s4) var(--s8); }
 @media (min-width: 768px) { .wrap { padding: var(--s6) var(--s5) var(--s8); } }
 
@@ -573,10 +573,14 @@ main { min-width: 0; }
   padding: var(--s7) 0 var(--s6);
   margin-bottom: var(--s2);
 }
+/* Bled to the viewport edges. 100vw is wider than the page whenever a desktop
+   scrollbar is visible, so `main` clips the overflow rather than letting the
+   whole document scroll sideways. `clip` is used, not `hidden`: it does not
+   create a scroll container, so sticky table headers still work. */
 .landing::before {
   content: ""; position: absolute; z-index: -1;
-  left: 50%; transform: translateX(-50%);
-  top: calc(var(--bar) * -1 - var(--s6)); width: 100vw; height: 100%;
+  left: calc(50% - 50vw); right: calc(50% - 50vw);
+  top: calc(var(--bar) * -1 - var(--s6)); height: 100%;
   background:
     radial-gradient(70% 120% at 12% 0%, color-mix(in srgb, var(--accent) 13%, transparent) 0%, transparent 62%),
     linear-gradient(180deg, var(--surface) 0%, var(--ground) 100%);
@@ -671,34 +675,60 @@ main { min-width: 0; }
 
 /* ------------------------------------------------------------ data table */
 
+/* A plain, fully ruled grid: a border on every cell, a light header row, and
+   header text in normal case. Not a product-console table with uppercase micro
+   labels. Every cell edge is drawn, which is what makes a table scannable when
+   somebody is reading across six columns. */
 table.data {
   width: 100%; border-collapse: collapse; font-size: 14.5px;
-  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
-  overflow: hidden;
+  background: var(--surface); border: 1px solid var(--line-strong);
 }
+table.data th,
+table.data td { border: 1px solid var(--line); padding: 12px 16px; text-align: left; }
 table.data th {
-  text-align: left; white-space: nowrap;
-  font-size: 11.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
-  color: var(--ink-3); background: var(--surface-2);
-  padding: 12px 16px; border-bottom: 1px solid var(--line-strong);
+  white-space: nowrap; font-size: 13.5px; font-weight: 650; letter-spacing: 0;
+  color: var(--ink); background: var(--surface-3);
+  border-color: var(--line-strong);
   cursor: pointer; user-select: none; position: sticky; top: var(--bar); z-index: 2;
 }
-table.data th:hover { color: var(--ink); background: var(--surface-3); }
+table.data th:hover { background: var(--surface-2); }
 table.data th::after {
   content: ""; display: inline-block; width: 0; height: 0; margin-left: 7px;
-  vertical-align: middle; opacity: .3;
+  vertical-align: middle; opacity: .25;
   border-left: 4px solid transparent; border-right: 4px solid transparent;
   border-top: 5px solid currentColor;
 }
 table.data th[aria-sort="ascending"]::after { opacity: 1; border-top: 0; border-bottom: 5px solid currentColor; }
 table.data th[aria-sort="descending"]::after { opacity: 1; }
-table.data td { padding: 11px 16px; border-bottom: 1px solid var(--line); vertical-align: middle; }
-table.data tbody tr:last-child td { border-bottom: 0; }
-table.data tbody tr:hover { background: var(--surface-2); }
+table.data td { vertical-align: middle; }
+table.data tbody tr:hover td { background: var(--surface-2); }
 table.data a { color: inherit; text-decoration: none; font-weight: 600; }
 table.data a:hover { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 2px; }
 table.data td:first-child { min-width: 210px; }
 table.data .chip { display: inline-block; vertical-align: middle; margin-right: 2px; }
+
+/* Markdown documents get the same ruled grid, so a brief and the estate table
+   read as one system. */
+.prose table { border: 1px solid var(--line-strong); }
+.prose th, .prose td { border: 1px solid var(--line); padding: 11px 15px; }
+.prose th {
+  font-size: 13.5px; font-weight: 650; letter-spacing: 0;
+  color: var(--ink); background: var(--surface-3); border-color: var(--line-strong);
+}
+.prose tbody tr:hover td { background: var(--surface-2); }
+
+/* ------------------------------------------------------------- highlight */
+
+/* A highlighter stroke, not a filled block: the colour starts a little over
+   halfway down, the way a marker pen sits on a printed line. Emphasis only.
+   Colour never carries meaning here, the words already say it. */
+mark, .hl {
+  background: linear-gradient(180deg, transparent 52%, var(--hl) 52%, var(--hl) 92%, transparent 92%);
+  color: inherit; padding: 0 3px; border-radius: 2px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+:root { --hl: #ffe27a; }
+:root[data-theme="dark"] { --hl: rgba(250, 204, 21, .32); }
 
 /* ---------------------------------------------------------- live previews */
 
@@ -790,10 +820,100 @@ table.data .chip { display: inline-block; vertical-align: middle; margin-right: 
 }
 .prog-logo img { height: 20px; }
 
+/* ==========================================================================
+   Phone and tablet
+   --------------------------------------------------------------------------
+   The layout above is written mobile-first: single column by default, widened
+   at each min-width. What follows is the work that only a real device shows.
+   ========================================================================== */
+
+/* Touch targets. A 36px button is fine for a mouse and too small for a thumb,
+   so anything driven by a coarse pointer grows to the 44px minimum. */
+@media (pointer: coarse) {
+  .iconbtn { width: 44px; height: 44px; }
+  .searchbtn { height: 44px; }
+  .strip a { min-height: 44px; padding-top: 0; padding-bottom: 0; }
+  .rail-link { min-height: 44px; }
+  table.data th { padding-top: 14px; padding-bottom: 14px; }
+  .crumbs a { padding: 8px 6px; margin: -8px -6px; }
+}
+
+/* The section strip is the only navigation below 1024px, so it gets room to
+   breathe and a rule separating Studio sections from companies. */
+.strip { align-items: center; padding-bottom: var(--s5); }
+.strip-set { display: contents; }
+.strip-rule {
+  flex: none; width: 1px; height: 22px; background: var(--line-strong); margin: 0 var(--s1);
+}
+
+/* On a phone the estate table stops being a table and becomes a stack of
+   cards. Six columns on a 375px screen is a horizontal scroll nobody reads;
+   each cell keeps its column name from data-label instead. */
+@media (max-width: 700px) {
+  .table-scroll { overflow-x: visible; }
+
+  table.data { border: 0; background: none; display: block; }
+  table.data thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  table.data tbody, table.data tr, table.data td { display: block; }
+
+  table.data tr {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r-lg); box-shadow: var(--shadow-1);
+    margin-bottom: var(--s3); padding: var(--s2) 0; overflow: hidden;
+  }
+  table.data td {
+    border: 0; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: var(--s3);
+    padding: 9px var(--s4); min-height: 44px;
+  }
+  table.data tr td:last-child { border-bottom: 0; }
+  table.data td::before {
+    content: attr(data-label);
+    flex: none; width: 92px;
+    font-size: 12px; font-weight: 650; color: var(--ink-3);
+  }
+  table.data td:first-child {
+    min-width: 0; font-size: 15.5px;
+    background: var(--surface-2); border-bottom-color: var(--line-strong);
+  }
+  table.data td:first-child::before { display: none; }
+  table.data td:first-child a { font-weight: 700; }
+  table.data tbody tr:hover td { background: none; }
+  table.data tbody tr:hover td:first-child { background: var(--surface-2); }
+}
+
+/* The pipeline is a single run of connected segments. It cannot wrap without
+   breaking its own shape, so on a narrow screen it scrolls instead. */
+@media (max-width: 620px) {
+  .pipe {
+    flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none;
+    margin-left: calc(var(--s4) * -1); margin-right: calc(var(--s4) * -1);
+    padding: 0 var(--s4);
+  }
+  .pipe::-webkit-scrollbar { display: none; }
+  .pipe li { white-space: nowrap; flex: none; }
+}
+
+/* Give a phone its width back. */
+@media (max-width: 560px) {
+  .wrap { padding-left: var(--s3); padding-right: var(--s3); }
+  .landing { padding-top: var(--s6); }
+  .hero { flex-direction: column; }
+  .masthead .meta { gap: var(--s2) var(--s4); }
+  .panel { padding: var(--s4); }
+  .prog { padding: var(--s4); }
+  .prog-logo { top: var(--s3); right: var(--s3); }
+  .pv-body { padding: var(--s3); }
+  .row { padding-left: var(--s3); padding-right: var(--s3); }
+  .steps li { padding-top: var(--s4); }
+}
+
 @media print {
   .topbar, .rail, .strip, .sdim, .foot-bar { display: none !important; }
   .shell { display: block; }
+  main { overflow-x: visible; }
   .landing::before, .prog::before { display: none; }
+  .pv-frame { display: none; }
   body { background: #fff; }
 }
 

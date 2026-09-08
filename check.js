@@ -93,7 +93,12 @@ for (const file of htmlFiles) {
 
   // attribute values may legitimately be unquoted, so do not require quotes
   if (!/<html[^>]*\slang=/i.test(html)) bad(file, 'no lang on <html>');
-  if (!/<meta[^>]+name=["']?viewport["']?/i.test(html)) bad(file, 'no viewport meta');
+  const vp = html.match(/<meta[^>]+name=["']?viewport["']?[^>]*>/i);
+  if (!vp) bad(file, 'no viewport meta');
+  // pinch-zoom is an accessibility feature, never disable it
+  else if (/user-scalable\s*=\s*no|maximum-scale\s*=\s*1(?![0-9.])/i.test(vp[0])) {
+    bad(file, 'viewport disables pinch zoom');
+  }
   if (!/<meta[^>]+name=["']?robots["']?[^>]*noindex/i.test(html)) bad(file, 'not served noindex');
 
   // images must carry an alt attribute, even an empty decorative one

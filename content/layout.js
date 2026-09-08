@@ -130,18 +130,29 @@ function railHtml(companies, active) {
 ${subs}</nav>`;
 }
 
+/**
+ * The navigation below 1024px, where the side rail is not shown.
+ *
+ * It carries the Studio links as well as the companies. Without them the only
+ * way to reach Programmes, All work or the process page on a phone was the
+ * footer, which is the kind of gap that only shows up on a real device.
+ */
 function stripHtml(companies, active) {
+  const link = (href, label, on, chip) =>
+    `<a href="${href}"${chip ? ` style="--brand:${chip}"` : ''}${on ? ' aria-current="page"' : ''}>${
+      chip ? `<span class="chip" style="--chip:${chip}"></span>` : ''
+    }${esc(label)}</a>`;
+
   return (
-    `<nav class="strip" aria-label="Companies">` +
-    `<a href="/"${active.home ? ' aria-current="page"' : ''}>Overview</a>` +
-    companies
-      .map(
-        (c) =>
-          `<a href="/${c.slug}" style="--brand:${c.accent}"${
-            active.company === c.slug ? ' aria-current="page"' : ''
-          }><span class="chip" style="--chip:${c.accent}"></span>${esc(c.short)}</a>`
-      )
-      .join('') +
+    `<nav class="strip" aria-label="Sections and companies">` +
+    `<span class="strip-set">` +
+    link('/', 'Overview', active.home) +
+    link('/programmes', 'Programmes', active.programmes) +
+    link('/all', 'All work', active.all) +
+    link('/workflow', 'Process', active.workflow) +
+    `</span>` +
+    `<span class="strip-rule" aria-hidden="true"></span>` +
+    companies.map((c) => link(`/${c.slug}`, c.short, active.company === c.slug, c.accent)).join('') +
     `</nav>`
   );
 }
