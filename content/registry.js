@@ -260,11 +260,12 @@ const COMPANIES = [
         name: 'In-hotel landing pages',
         status: 'review',
         updated: '2026-09-08',
-        summary: 'One page per hotel clinic, built to be found on Google. Approved, built, in review.',
+        summary: 'One page per hotel clinic, built to be found on Google. Three designs to choose from.',
         detail: [
           'Approved by Irina on 2026-09-08. The URL structure, the page plan and the one template approach all stand.',
           'Rebuilt 2026-09-09: simpler, white, fewer sections, less text.',
-          'One page is up for approval. The other two are built from the same template and follow the moment it is signed off.',
+          'Three designs of the Premier Le Rêve page, all from one content table. Irina picks a direction, or asks to merge parts.',
+          'The other two clinics are built in all three designs already, so approval is a registry edit, not new work.',
           'The page carries no review notes. It reads exactly as it will read on 247clinic.net.',
           'Structural patterns match the MedPark redesign: floating WhatsApp pill, help card grid, video lightbox.',
           'Every open question lives in one document instead, linked above.',
@@ -272,7 +273,7 @@ const COMPANIES = [
         checklist: [
           { text: 'Approve the URL structure and page plan', done: true, who: 'Irina' },
           { text: 'Build the design system and the three demo pages', done: true, who: 'Us' },
-          { text: 'Approve the Premier Le Rêve page, then the other two follow', done: false, who: 'Him and Irina' },
+          { text: 'Choose a design, or which parts to merge', done: false, who: 'Irina' },
           { text: 'Confirm the published guest reviews may be reused on the landing pages', done: false, who: 'Irina' },
           { text: 'Settle the phone number: the site says 122 112 2246, the films say 122 222 8247', done: false, who: 'Irina' },
           { text: 'Replace the placeholder WhatsApp number shared by every clinic', done: false, who: 'Irina' },
@@ -300,9 +301,11 @@ const COMPANIES = [
           },
           {
             name: 'Live demo',
-            note: 'One page first. The other two follow the moment this one is approved.',
+            note: 'Three designs of the same page. Pick one, or ask for parts of one inside another.',
             items: [
-              { slug: 'le-reve', name: 'Premier Le Rêve, Sahl Hasheesh', kind: 'page', src: '247-lp-le-reve.html', ownTitle: true, status: 'review', note: 'Rebuilt 2026-09-09. White, short, floating WhatsApp, silent video previews' },
+              { slug: 'design-1', name: 'Design 1. Clean and clinical', kind: 'page', src: '247-lp-le-reve-d1.html', ownTitle: true, status: 'review', note: 'White, split hero, card grid. The MedPark language in 24/7 colours' },
+              { slug: 'design-2', name: 'Design 2. Bold and cinematic', kind: 'page', src: '247-lp-le-reve-d2.html', ownTitle: true, status: 'review', note: 'Full-bleed film, big type, icons that draw themselves' },
+              { slug: 'design-3', name: 'Design 3. Concierge', kind: 'page', src: '247-lp-le-reve-d3.html', ownTitle: true, status: 'review', note: 'Calm and premium. Calisto MT headlines, a timeline, one rotating quote' },
             ],
           },
         ],

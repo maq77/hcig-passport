@@ -33,3 +33,8 @@ brand guideline/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# API keys. This repo is public, so nothing with a key in it is ever committed.
+.env
+.env.local
+secrets/

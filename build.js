@@ -117,6 +117,11 @@ const ASSETS = {
      lightbox, so nothing large downloads unless someone asks for it. */
   C7LOOPCLINIC: 'c7-loop-clinic.mp4',
   C7LOOPWALK: 'c7-loop-walk.mp4',
+  /* Pexels stock, pulled with `node scripts/pexels.js`. Photographer and
+     source for each are recorded in src/assets/CREDITS.md. */
+  PXFAMILY: 'px-family2.webp',
+  PXROOM: 'px-roomvisit.webp',
+  PXLAB: 'px-lab.webp',
 
   LOGOHCIG: 'logo-hcig.jpg',
   LOGO247: 'logo-247.png',

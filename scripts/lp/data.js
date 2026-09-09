@@ -1,0 +1,262 @@
+/**
+ * 24/7 Clinic landing pages: the shared content.
+ *
+ * Three designs read from this one file, so the words, the numbers, the
+ * coordinates and the images can only ever be right or wrong once. A design is
+ * a way of showing this content, never a second copy of it.
+ *
+ * IMAGE RULE, set by him 2026-09-09: never take a still out of the films.
+ * Images come from their own library on 247clinic.net, their own posters, or
+ * Pexels (see `scripts/pexels.js` and `src/assets/CREDITS.md`). Video is used
+ * as video.
+ */
+
+const PHONE = '+20 122 222 8247';
+const PHONE_HREF = '+201222228247';
+const WA_HREF = '201222228247';
+
+/* Their own figures, quoted from their own home page. */
+const SINCE = '2001';
+const NETWORK = '28';
+
+/* Six ways in, one line each. Phrased as the guest's problem, not as a service
+   catalogue. The MedPark "how can we help" pattern. */
+const HELP = [
+  ['ambulance', 'Emergency', 'A bad fall, chest pain, a diving accident. Call and come straight in.'],
+  ['stethoscope', 'I feel unwell', 'Fever, stomach upset, sunburn, an ear infection. Walk in, any hour.'],
+  ['tooth', 'Dental', 'Toothache and emergencies, treated here with a dental x-ray.'],
+  ['drip', 'IV infusion', 'Given at the clinic, under a doctor.'],
+  ['pill', 'Medication and lab', 'Prescribed and dispensed here. Samples taken here.'],
+  ['shield', 'Insurance and reports', 'We deal with your insurer and write the report for your claim.'],
+];
+
+const FLAG = {
+  Germany: 'C7FLAGDE',
+  Italy: 'C7FLAGIT',
+  Switzerland: 'C7FLAGCH',
+  'Czech Republic': 'C7FLAGCZ',
+  France: 'C7FLAGFR',
+};
+
+/* Guest reviews published by 24/7 Clinic on their own site, quoted exactly.
+   The English line under each is a translation and is labelled as one. */
+const REVIEWS = {
+  finger: ['Joerg Finger', 'Germany', 'de', 'Sehr freundlicher und kompetenter Arzt. Sehr schnelle Hilfe ich fühlte mich in guten Händen.', 'Very friendly and competent doctor. Very fast help. I felt I was in good hands.'],
+  discanno: ['Carla di Scanno', 'Italy', 'it', 'Molto professionale Disponibile e paziente Problema risolto in poche ore', 'Very professional. Helpful and patient. Problem solved in a few hours.'],
+  waltert: ['B Waltert', 'Switzerland', 'de', 'Der Arzt war sehr nett und kompetent. Gute Unterstützung durch den Arzt.', 'The doctor was very kind and very competent. Good support from the doctor.'],
+  poindexter: ['Katarina Poindexter', 'Germany', 'de', 'Ich bin sehr zufrieden sie haben mir wirklich geholfen. Sehr gutes Team.', 'I am very satisfied. They really helped me. A very good team.'],
+  offinger: ['Christa Offinger', 'Germany', 'de', 'Danke für die sachliche und freundliche Behandlung. Es war alles bestens.', 'Thank you for the straightforward and friendly treatment. Everything was excellent.'],
+  cg: ['C.G.', 'Czech Republic', 'de', 'Guter medizinischer Service', 'Good medical service.'],
+  kraver: ['Nicotr Kraver', 'Switzerland', 'de', 'Dr Mahmoud war ein sehr guter Arzt und konnte mir sehr gut helfen.', 'Dr Mahmoud was a very good doctor and was able to help me a great deal.'],
+  henzel: ['Andria Henzel', 'Germany', 'de', 'Freundliche und schnelle Hilfe.', 'Friendly and fast help.'],
+  fabien: ['Lavorsire Fabien', 'France', 'fr', 'Très bien, merci', 'Very good, thank you.'],
+};
+
+/* What is on at the clinics. The first is their own poster and is shown whole,
+   never cropped. The rest are photographs. */
+const OFFERS = [
+  ['C7POSHEALTH', 'Free health check', 'Blood pressure and blood sugar, free for hotel guests. No appointment.', 'Free', true],
+  ['PXFAMILY', 'A doctor for the family', 'Children seen the same day, by doctors used to seeing families.', '', false],
+  ['PXROOM', 'We can come to your room', 'Too unwell to walk down? A doctor comes to you.', '', false],
+  ['PXLAB', 'Laboratory and imaging', 'Samples taken here, results coordinated for you.', '', false],
+  ['C7SAMBULANCE', 'Ambulance and hospital', 'If you need a hospital, we arrange the transfer.', '', false],
+];
+
+const INSURERS = [
+  ['C7INSADAC', 'ADAC'],
+  ['C7INSSOS', 'International SOS'],
+  ['C7INSMONDIAL', 'Mondial'],
+  ['C7INSCONNECX', 'Connecx 24/7'],
+];
+
+const CLINICS = [
+  {
+    slug: 'le-reve',
+    url: '/sahl-hasheesh/premier-le-reve-clinic',
+    hotel: 'Premier Le Rêve Hotel & Spa',
+    hotelShort: 'Premier Le Rêve',
+    area: 'Sahl Hasheesh',
+    region: 'Red Sea, Egypt',
+    h1: 'Need a Doctor at Premier Le Rêve?',
+    title: 'Doctor in Sahl Hasheesh | 24/7 Clinic at Premier Le Rêve',
+    desc:
+      'Need a doctor, a dentist or emergency care in Sahl Hasheesh? 24/7 Urgent Care Clinic ' +
+      'in the grounds of Premier Le Rêve. Open 24 hours. Call or WhatsApp now.',
+    lead: '24/7 Urgent Care Clinic, in the grounds of the hotel.',
+    /* Checked against OpenStreetMap 2026-09-08. Their own database serves
+       Long Beach Resort's coordinates for this clinic, 7.0 km north. */
+    geo: [27.024343, 33.887027],
+    mapImg: 'C7MAPLEREVE',
+    /* Word for word from the clinic's own directions film. */
+    steps: [
+      'Arrive at Premier Le Rêve Hotel.',
+      'Face the main entrance, then walk left along the outside of the building.',
+      'Glass doors marked 24/7 Clinic. The pharmacy is next door.',
+    ],
+    walkLoop: true,
+    reviews: ['finger', 'discanno', 'waltert'],
+  },
+
+  {
+    slug: 'steigenberger',
+    url: '/soma-bay/steigenberger-clinic',
+    hotel: 'Steigenberger Resort Ras Soma',
+    hotelShort: 'Steigenberger Ras Soma',
+    area: 'Soma Bay',
+    region: 'Red Sea, Egypt',
+    h1: 'Need a Doctor at Steigenberger Ras Soma?',
+    title: 'Doctor in Soma Bay | 24/7 Clinic at Steigenberger Ras Soma',
+    desc:
+      'Need a doctor or emergency care in Soma Bay? 24/7 Urgent Care Clinic serves guests of ' +
+      'Steigenberger Resort Ras Soma. Open 24 hours. Call or WhatsApp now.',
+    lead: '24/7 Urgent Care Clinic, serving the resort in Soma Bay.',
+    geo: [26.863468, 33.961233],
+    mapImg: 'C7MAPSTEIG',
+    steps: [
+      'Call or send a WhatsApp message with your room number.',
+      'Or ask reception for the 24/7 Clinic.',
+      'No appointment. A doctor sees you when you arrive.',
+    ],
+    walkLoop: false,
+    reviews: ['offinger', 'cg', 'kraver'],
+  },
+
+  {
+    slug: 'amwaj',
+    url: '/abu-soma/amwaj-beach-club-clinic',
+    hotel: 'Amwaj Beach Club Abu Soma',
+    hotelShort: 'Amwaj Beach Club',
+    area: 'Abu Soma',
+    region: 'Red Sea, Egypt',
+    h1: 'Need a Doctor at Amwaj Beach Club?',
+    title: 'Doctor in Abu Soma | 24/7 Clinic at Amwaj Beach Club',
+    desc:
+      'Need a doctor or emergency care in Abu Soma? 24/7 Urgent Care Clinic serves guests of ' +
+      'Amwaj Beach Club. Open 24 hours. Call or WhatsApp now.',
+    lead: '24/7 Urgent Care Clinic, serving the resort in Abu Soma.',
+    geo: [26.813385, 33.945688],
+    mapImg: 'C7MAPAMWAJ',
+    steps: [
+      'Call or send a WhatsApp message with your room number.',
+      'Or ask reception for the 24/7 Clinic.',
+      'No appointment. A doctor sees you when you arrive.',
+    ],
+    walkLoop: false,
+    reviews: ['henzel', 'fabien', 'poindexter'],
+  },
+];
+
+/* ------------------------------------------------------------------ utils */
+
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/* Outline only, `currentColor`, one stroke weight, so the same file is legible
+   on a red button, a pink tile and a dark background. */
+const ICON = {
+  phone: '<path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5c0 8.8 7.2 16 16 16a1.5 1.5 0 0 0 1.5-1.5v-2a1.5 1.5 0 0 0-1.2-1.5l-3.1-.6a1.5 1.5 0 0 0-1.5.6l-.9 1.2a12.6 12.6 0 0 1-5.9-5.9l1.2-.9a1.5 1.5 0 0 0 .6-1.5l-.6-3.1a1.5 1.5 0 0 0-1.6-1.3Z"/>',
+  wa: '<path d="M3.6 20.4 4.9 16.1A8.6 8.6 0 1 1 8 19.2Z"/><path d="M9 8.6c.3 0 .5.3.65.65l.45 1.05-.8.8a5.7 5.7 0 0 0 3.3 3.3l.8-.8 1.05.45c.35.15.65.35.65.65v.9c-.3.45-.9.6-1.5.45A8.6 8.6 0 0 1 8.1 10.6c-.15-.6 0-1.2.45-1.5Z"/>',
+  pin: '<path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/>',
+  stethoscope: '<path d="M6 3v5a4 4 0 0 0 8 0V3"/><path d="M4.6 3h2.8M12.6 3h2.8"/><path d="M10 15.6v1.2a3.6 3.6 0 0 0 7.2 0V14"/><circle cx="17.2" cy="12" r="2.2"/>',
+  tooth: '<path d="M7.2 3.6c1.9 0 2.5 1 4.8 1s2.9-1 4.8-1 2.3 2.2 1.7 5.3c-.6 3.1-1.4 12-3.3 12-1.5 0-1.2-4.6-3.2-4.6s-1.7 4.6-3.2 4.6c-1.9 0-2.7-8.9-3.3-12C4.9 5.8 5.3 3.6 7.2 3.6Z"/>',
+  drip: '<path d="M12 3v5.5"/><path d="M9.2 8.5h5.6l-.8 10.2a2 2 0 0 1-2 1.8 2 2 0 0 1-2-1.8Z"/><path d="M9.6 13.6h4.8"/>',
+  pill: '<rect x="3" y="9" width="18" height="6" rx="3"/><path d="M12 9v6"/>',
+  shield: '<path d="M12 3 19 6v6c0 4.3-3 7.5-7 8.8C8 19.5 5 16.3 5 12V6Z"/><path d="m9.2 12.2 2.1 2.1L15 10.6"/>',
+  ambulance: '<path d="M2.6 6.6h11v10h-11z"/><path d="M13.6 10h3.6l3.8 3.4v3.2h-7.4"/><circle cx="7" cy="18.4" r="1.9"/><circle cx="17.2" cy="18.4" r="1.9"/><path d="M6.4 11.2h3M7.9 9.7v3"/>',
+  clock: '<circle cx="12" cy="12" r="8.6"/><path d="M12 7.2v5.1l3.3 1.9"/>',
+  globe: '<circle cx="12" cy="12" r="8.6"/><path d="M3.6 9.6h16.8M3.6 14.4h16.8M12 3.4c2.4 2.6 3.6 5.5 3.6 8.6s-1.2 6-3.6 8.6c-2.4-2.6-3.6-5.5-3.6-8.6s1.2-6 3.6-8.6Z"/>',
+  play: '<circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/>',
+  left: '<path d="M15 5.5 8.5 12l6.5 6.5"/>',
+  right: '<path d="M9 5.5 15.5 12 9 18.5"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>',
+  mute: '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/>',
+  check: '<path d="m4.6 12.4 5 5 9.8-10.8"/>',
+  arrow: '<path d="M5 12h13M12.6 6.2 18.4 12l-5.8 5.8"/>',
+};
+
+function svg(name, cls) {
+  return `<svg class="${cls || 'ico'}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICON[name]}</svg>`;
+}
+
+/* Shared, because a wrong FAQ answer in one design and a right one in another
+   is exactly the drift this file exists to prevent. */
+function faqFor(c) {
+  return [
+    [`Is there a doctor at ${c.hotelShort}?`, 'Yes, and you do not need an appointment. Call, send a WhatsApp message, or walk in.'],
+    ['Are you open at night?', 'Yes. The clinic is open 24 hours, every day of the year.'],
+    ['Do you speak English?', 'Yes. Guests have also been treated and answered in German, Italian and French.'],
+    ['Do you take my travel insurance?', 'We deal with your insurer and write the medical report your claim needs. Bring your policy details or your insurance card.'],
+    [`Is there a hospital near ${c.area}?`, 'If you need a hospital we arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast.'],
+  ];
+}
+
+function schemaFor(c) {
+  const [lat, lon] = c.geo;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'MedicalClinic',
+        '@id': `https://www.247clinic.net${c.url}#clinic`,
+        name: `24/7 Clinic, ${c.hotel}`,
+        url: `https://www.247clinic.net${c.url}`,
+        telephone: PHONE,
+        image: 'https://www.247clinic.net/assets/images/logos/clinic-logo.svg',
+        parentOrganization: { '@type': 'Organization', name: '24/7 Clinic', url: 'https://www.247clinic.net' },
+        address: { '@type': 'PostalAddress', addressLocality: c.area, addressRegion: 'Red Sea Governorate', addressCountry: 'EG' },
+        geo: { '@type': 'GeoCoordinates', latitude: lat, longitude: lon },
+        areaServed: [{ '@type': 'Place', name: c.hotel }, { '@type': 'Place', name: c.area }],
+        availableLanguage: ['English', 'German', 'Italian', 'French'],
+        openingHoursSpecification: [{
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          opens: '00:00', closes: '23:59',
+        }],
+        availableService: HELP.map(([, name]) => ({ '@type': 'MedicalTherapy', name })),
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: faqFor(c).map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Our clinics', item: 'https://www.247clinic.net/our-clinics' },
+          { '@type': 'ListItem', position: 2, name: c.area, item: `https://www.247clinic.net/${c.url.split('/')[1]}` },
+          { '@type': 'ListItem', position: 3, name: c.hotelShort },
+        ],
+      },
+    ],
+  };
+}
+
+function links(c) {
+  const [lat, lon] = c.geo;
+  return {
+    maps: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`,
+    embed: `https://maps.google.com/maps?q=${lat},${lon}&z=16&hl=en&output=embed`,
+    wa: `https://wa.me/${WA_HREF}?text=${encodeURIComponent('Hello, I need a doctor at ' + c.hotel + '.')}`,
+    tel: `tel:${PHONE_HREF}`,
+  };
+}
+
+/* Every design ships the same three events with the same parameters, so one
+   GA4 report can compare designs as well as clinics. */
+function tracking(c) {
+  return `<script>
+(function () {
+  var HOTEL = ${JSON.stringify(c.hotelShort)}, AREA = ${JSON.stringify(c.area)};
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-ev]');
+    if (a && window.gtag) window.gtag('event', a.dataset.ev, { hotel: HOTEL, area: AREA, link: a.getAttribute('href') });
+  });
+})();
+</script>`;
+}
+
+module.exports = {
+  PHONE, PHONE_HREF, WA_HREF, SINCE, NETWORK,
+  HELP, FLAG, REVIEWS, OFFERS, INSURERS, CLINICS, ICON,
+  esc, svg, faqFor, schemaFor, links, tracking,
+};
