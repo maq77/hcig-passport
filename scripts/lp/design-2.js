@@ -59,7 +59,7 @@ a,button,summary{touch-action:manipulation}
 .btn--glass:hover{background:var(--wa-deep)}
 .btn--watch{background:#fff;color:var(--red);border:1.5px solid var(--red-l)}
 .btn--watch:hover{background:var(--red);color:#fff;border-color:var(--red)}
-.team-one{margin-top:38px;max-width:340px}
+.team-one{margin:30px auto 0;max-width:330px}
 .btn--sm{min-height:44px;font-size:15px;padding:0 18px}
 .btn .num{font-weight:500;opacity:.9;font-size:15px}
 
@@ -67,7 +67,7 @@ a,button,summary{touch-action:manipulation}
 .top{position:absolute;top:0;left:0;right:0;z-index:60}
 .top-in{max-width:var(--wrap);margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
 @media(min-width:820px){.top-in{padding:18px 36px}}
-.top .brand img{height:52px;width:auto;background:rgba(255,255,255,.92);border-radius:12px;padding:6px 10px}
+.top .brand img{height:56px;width:auto}
 @media(min-width:820px){.top .brand img{height:62px}}
 .top .sp{flex:1}
 .top .chip{display:none;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--ink);
@@ -76,15 +76,20 @@ a,button,summary{touch-action:manipulation}
 @media(min-width:760px){.top .chip{display:inline-flex}}
 
 /* ---------- hero, full bleed film ---------- */
-.hero{position:relative;min-height:min(94vh,820px);display:flex;align-items:flex-end;overflow:hidden;background:#0E0C0B}
+.hero{position:relative;min-height:min(92vh,780px);display:flex;align-items:flex-end;overflow:hidden;background:#EFEBE7}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero .scrim{position:absolute;inset:0;background:
-  linear-gradient(180deg,rgba(14,12,11,.34) 0%,rgba(14,12,11,0) 30%,rgba(14,12,11,.14) 100%)}
+.hero .scrim{display:none}
 .hero-in{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin:0 auto;padding:0 20px 32px}
 @media(min-width:820px){.hero-in{padding:0 36px 52px}}
-.hero-card{background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-radius:var(--r);
-  padding:28px 24px;max-width:640px;box-shadow:0 30px 70px -30px rgba(20,18,16,.45)}
-@media(min-width:820px){.hero-card{padding:38px 36px}}
+/* No card. A light wash that is opaque where the words are and clear where
+   the film is, so the film stays visible and the text stays legible. */
+.hero-card{max-width:620px;padding:26px 0 4px}
+.hero:before{content:"";position:absolute;inset:0;z-index:1;background:
+  linear-gradient(180deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.55) 26%,rgba(255,255,255,0) 52%)}
+@media(min-width:900px){
+  .hero:before{background:linear-gradient(100deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.93) 36%,rgba(255,255,255,.55) 56%,rgba(255,255,255,0) 74%)}
+  .hero-card{padding:36px 0 8px}
+}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red)}
 .eyebrow .dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 0 5px rgba(192,0,0,.28)}
 @media (prefers-reduced-motion:no-preference){.eyebrow .dot{animation:beat 2.2s ease-in-out infinite}}
@@ -94,7 +99,7 @@ a,button,summary{touch-action:manipulation}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .hero-cta .btn{flex:1 1 auto;min-width:210px}
 @media(min-width:820px){.hero-cta .btn{flex:0 0 auto}}
-.hero .ctrl{position:absolute;right:20px;top:calc(50% - 21px);display:flex;flex-direction:column;gap:10px;z-index:3}
+.hero .ctrl{position:absolute;right:20px;bottom:24px;display:flex;gap:10px;z-index:4}
 @media(min-width:820px){.hero .ctrl{right:36px}}
 .hero .ctrl button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);cursor:pointer;
   background:rgba(255,255,255,.92);color:var(--ink);display:grid;place-items:center;backdrop-filter:blur(8px);transition:.2s var(--ez)}
@@ -126,8 +131,10 @@ h2{font-size:clamp(30px,5.4vw,52px);font-weight:700;margin-top:14px}
   .block--flip > *:first-child{order:2}}
 .block figure{border-radius:var(--r);overflow:hidden;background:var(--bg2)}
 .block img,.block video{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
-.block--tall img,.block--tall video{aspect-ratio:3/4}
+.block--tall img,.block--tall video{aspect-ratio:3/4;height:auto}
 @media(min-width:900px){.block--tall img,.block--tall video{aspect-ratio:4/5}}
+/* A 9:16 film in a half-page column runs to 940px. Cap it. */
+.block--tall .v{max-width:400px;margin-inline:auto}
 
 /* ---------- steps ---------- */
 ol.steps{list-style:none;margin:26px 0 0;padding:0;counter-reset:s;display:grid;gap:22px}
@@ -146,14 +153,7 @@ ol.steps li:before{content:counter(s);position:absolute;left:0;top:-6px;width:44
 .way .i .ico{width:27px;height:27px;stroke-width:1.7}
 .way h3{font-size:19px;font-weight:600;letter-spacing:-.02em}
 .way p{margin-top:6px;font-size:15.5px;color:var(--ink2);line-height:1.55}
-/* Icons draw themselves once, when the row scrolls in. */
-@media (prefers-reduced-motion:no-preference){
-  .js .way .i .ico path,.js .way .i .ico circle,.js .way .i .ico rect{
-    stroke-dasharray:120;stroke-dashoffset:120}
-  .way.in .i .ico path,.way.in .i .ico circle,.way.in .i .ico rect{
-    animation:draw .9s var(--ez) forwards}
-  @keyframes draw{to{stroke-dashoffset:0}}
-}
+
 
 ${D.VIDEO_CSS}
 .v{border-radius:var(--r)}
@@ -190,6 +190,20 @@ ${D.VIDEO_CSS}
 .film b{display:block;font-size:18px;font-weight:600;letter-spacing:-.02em}
 .film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.5}
 ${D.CAROUSEL_CSS}
+
+/* ---------- offer cards. Light, per the no-dark rule. ---------- */
+.offer{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .25s var(--ez),box-shadow .25s var(--ez)}
+.offer:hover{transform:translateY(-4px);box-shadow:0 20px 44px -22px rgba(20,18,16,.34)}
+.offer .ph{position:relative;background:var(--bg2)}
+.offer img{width:100%;aspect-ratio:4/3;height:auto;object-fit:cover}
+.offer--poster .ph{background:#fff}
+.offer--poster img{object-fit:contain}
+.offer .flag{position:absolute;top:14px;left:14px;font-size:11.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;background:var(--red);color:#fff;padding:6px 12px;border-radius:6px}
+.offer .m{padding:22px 20px 24px}
+.offer h3{font-size:20px;font-weight:700;letter-spacing:-.025em}
+.offer p{margin-top:8px;font-size:15px;color:var(--ink2);line-height:1.5}
 
 /* ---------- offers rail ---------- */
 
@@ -253,10 +267,7 @@ footer a.tel{text-decoration:none;color:var(--red)}
 
 
 /* scroll reveal */
-@media (prefers-reduced-motion:no-preference){
-  .js [data-rise]{opacity:0;transform:translateY(22px)}
-  [data-rise].in{opacity:1;transform:none;transition:opacity .6s var(--ez),transform .6s var(--ez)}
-}
+${D.REVEAL_CSS}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 `;
 
@@ -269,8 +280,7 @@ function render(c) {
 
   const offers = D.OFFERS.map(
     ([tok, title, note, flag, poster]) => `<article class="car-item offer${poster ? ' offer--poster' : ''}">
-            <img src="%%${tok}%%" alt="${esc(title)} at 24/7 Clinic" loading="lazy" width="1200" height="1600">
-            ${flag ? `<span class="flag">${esc(flag)}</span>` : ''}
+            <div class="ph"><img src="%%${tok}%%" alt="${esc(title)} at 24/7 Clinic" loading="lazy" width="1200" height="900">${flag ? `<span class="flag">${esc(flag)}</span>` : ''}</div>
             <div class="m"><h3>${esc(title)}</h3><p>${esc(note)}</p></div>
           </article>`
   ).join('');
@@ -413,7 +423,7 @@ function render(c) {
   <section class="sec">
     <div class="wrap">
       <div data-rise><div class="kick">The team</div><h2>The people who will see you</h2></div>
-      <div class="team-one">${team}</div>
+      <div class="team-one" data-rise>${team}</div>
     </div>
   </section>
 
@@ -475,7 +485,7 @@ ${D.viewer()}
 
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 ${D.tracking(c)}
-<script>${D.VIDEO_JS}${D.CAROUSEL_JS}</script>
+<script>${D.VIDEO_JS}${D.CAROUSEL_JS}${D.REVEAL_JS}</script>
 <script>
 (function () {
   var b = document.querySelector('[data-herowatch]');

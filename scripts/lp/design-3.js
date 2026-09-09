@@ -60,7 +60,7 @@ a,button,summary{touch-action:manipulation}
 .btn--sm{min-height:44px;font-size:14.5px;padding:0 18px}
 .btn--watch{border-color:var(--red-l);color:var(--red)}
 .btn--watch:hover{background:var(--red);border-color:var(--red);color:#fff}
-.team-one{margin-top:40px;max-width:320px}
+.team-one{margin:30px auto 0;max-width:330px}
 
 /* ---------- header ---------- */
 .top{border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:80}
@@ -352,7 +352,7 @@ function render(c) {
     <div class="wrap">
       <span class="tag">The team</span>
       <h2>The people who will see you</h2>
-      <div class="team-one">${team}</div>
+      <div class="team-one" data-rise>${team}</div>
     </div>
   </section>
 

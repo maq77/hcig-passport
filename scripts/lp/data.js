@@ -340,6 +340,56 @@ function carousel({ items, label, size = 'md', auto = true, cls = '' }) {
       </div>`;
 }
 
+/**
+ * Reveal on scroll, built so it CANNOT hide content.
+ *
+ * The earlier version put `opacity:0` behind a `js` class and relied on a
+ * separate observer to put it back. When that observer was refactored away,
+ * every heading, every icon and three whole sections of design 2 stayed
+ * invisible and the page looked broken.
+ *
+ * Now the hiding is behind `reveal-on`, which this script adds to <html>
+ * itself. No script, no hiding. There is also a two second failsafe that
+ * reveals everything regardless.
+ */
+const REVEAL_CSS = `
+@media (prefers-reduced-motion:no-preference){
+  .reveal-on [data-rise]{opacity:0;transform:translateY(20px)}
+  [data-rise].in{opacity:1;transform:none;transition:opacity .55s var(--ez,ease),transform .55s var(--ez,ease)}
+  .reveal-on [data-way] .ico path,.reveal-on [data-way] .ico circle,.reveal-on [data-way] .ico rect{
+    stroke-dasharray:120;stroke-dashoffset:120}
+  [data-way].in .ico path,[data-way].in .ico circle,[data-way].in .ico rect{animation:drawIcon .9s var(--ez,ease) forwards}
+  @keyframes drawIcon{to{stroke-dashoffset:0}}
+}
+`;
+
+const REVEAL_JS = `
+(function () {
+  var targets = document.querySelectorAll('[data-rise], [data-way]');
+  if (!targets.length) return;
+  function showAll() { targets.forEach(function (el) { el.classList.add('in'); }); }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    showAll();
+    return;
+  }
+  document.documentElement.classList.add('reveal-on');
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e, i) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      window.setTimeout(function () { el.classList.add('in'); }, (i % 4) * 70);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  targets.forEach(function (el) { io.observe(el); });
+
+  /* Failsafe. Nothing stays invisible because an observer misfired. */
+  window.setTimeout(showAll, 2000);
+})();
+`;
+
 const CAROUSEL_CSS = `
 .car{position:relative}
 .story figcaption,.film figcaption{margin-top:14px}
@@ -597,5 +647,5 @@ module.exports = {
   STORIES, SERVICE_FILMS,
   esc, svg, faqFor, schemaFor, links, tracking,
   video, stories, serviceFilms, viewer, carousel,
-  VIDEO_CSS, VIDEO_JS, CAROUSEL_CSS, CAROUSEL_JS,
+  VIDEO_CSS, VIDEO_JS, CAROUSEL_CSS, CAROUSEL_JS, REVEAL_CSS, REVEAL_JS,
 };

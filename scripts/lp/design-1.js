@@ -53,7 +53,7 @@ a,button,summary{touch-action:manipulation}
 .btn--line{background:#fff;color:var(--ink);border:1.5px solid var(--line2)}
 .btn--watch{background:#fff;color:var(--red);border:1.5px solid var(--red-l)}
 .btn--watch:hover{background:var(--red);color:#fff;border-color:var(--red)}
-.team-one{margin-top:30px;max-width:320px}
+.team-one{margin:30px auto 0;max-width:330px}
 .btn--line:hover{border-color:var(--red);color:var(--red)}
 .btn--sm{min-height:44px;font-size:15px;padding:0 18px}
 .btn .num{font-weight:500;opacity:.9;font-size:15px}
@@ -119,6 +119,20 @@ ${D.VIDEO_CSS}
   .hc .noappt .ico{stroke-dasharray:26;stroke-dashoffset:26;animation:hcTick .7s var(--ez) .3s forwards}
   @keyframes hcTick{to{stroke-dashoffset:0}}
 }
+
+/* ---------- offer cards ---------- */
+.offer{background:#fff;border:1px solid var(--line);border-radius:var(--r2);overflow:hidden;
+  display:flex;flex-direction:column;transition:border-color .2s var(--ez),box-shadow .2s var(--ez)}
+.offer:hover{border-color:var(--red-l);box-shadow:var(--sh2)}
+.offer .ph{position:relative;background:var(--bg2)}
+.offer img{width:100%;aspect-ratio:4/3;height:auto;object-fit:cover}
+.offer--poster .ph{background:#fff}
+.offer--poster img{object-fit:contain}
+.offer .flag{position:absolute;top:12px;left:12px;font-size:11.5px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;background:var(--red);color:#fff;padding:5px 11px;border-radius:6px}
+.offer .m{padding:18px 18px 20px}
+.offer h3{font-size:17.5px;font-weight:600}
+.offer p{margin-top:7px;font-size:15px;color:var(--ink2);line-height:1.55}
 
 /* ---------- film rails ---------- */
 .films{display:grid;gap:16px;margin-top:30px}
@@ -344,7 +358,7 @@ function render(c) {
     <div class="wrap">
       <div class="kick">The team</div>
       <h2>The people who will see you</h2>
-      <div class="team-one">${team}</div>
+      <div class="team-one" data-rise>${team}</div>
     </div>
   </section>
 
