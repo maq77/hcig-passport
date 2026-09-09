@@ -53,8 +53,12 @@ const ASSETS = {
      cut out of one: he picks any still himself. */
   VCOMMERCIAL: 'v-commercial.mp4',
   VHOWTOFIND: 'v-howtofind.mp4',
-  VPATIENT1: 'v-patient-1.mp4',
-  VPATIENT2: 'v-patient-2.mp4',
+  VSCOOTER: 'v-story-scooter.mp4',
+  VPOLAND: 'v-story-poland.mp4',
+  VROMFAMILY: 'v-story-romania-family.mp4',
+  VROMIV: 'v-story-romania-iv.mp4',
+  VITALY: 'v-story-italy.mp4',
+  VSCOTLAND: 'v-story-scotland.mp4',
   VSTAFF1: 'v-staff-1.mp4',
   VSTAFF2: 'v-staff-2.mp4',
   VSTAFF3: 'v-staff-3.mp4',
@@ -81,6 +85,9 @@ const ASSETS = {
   C7FLAGCH: 'c7flag-ch.svg',
   C7FLAGCZ: 'c7flag-cz.svg',
   C7FLAGFR: 'c7flag-fr.svg',
+  C7FLAGPL: 'c7flag-pl.svg',
+  C7FLAGRO: 'c7flag-ro.svg',
+  C7FLAGGB: 'c7flag-gb.svg',
 
   /* Rendered from OpenStreetMap tiles at the checked coordinates, behind the
      live Google map so the box is never empty. */

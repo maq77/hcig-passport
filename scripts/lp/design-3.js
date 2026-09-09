@@ -109,8 +109,7 @@ ${D.VIDEO_CSS}
 .film figcaption{margin-top:14px}
 .film b{display:block;font-family:var(--fh);font-size:19px;font-weight:400}
 .film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.6}
-.stories{display:grid;gap:28px;margin-top:40px}
-@media(min-width:860px){.stories{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}}
+${D.STORY_CSS}
 
 /* ---------- health check tiles ---------- */
 .hc-tiles{display:grid;gap:16px;margin-top:30px}
@@ -242,12 +241,7 @@ function render(c) {
 
   const bandVideo = c.walkLoop ? 'VHOWTOFIND' : 'VINTRO';
 
-  const stories = D.STORIES.map(
-    ([token, shape, who, what]) => `<figure class="film">
-            ${D.video({ token, portrait: shape === 'portrait' })}
-            <figcaption><b>${esc(who)}</b><span>${esc(what)}</span></figcaption>
-          </figure>`
-  ).join('');
+  const stories = D.stories();
 
   const team = D.TEAM.map(
     ([token, label]) => `<figure class="film">${D.video({ token, portrait: true })}<figcaption><b>${esc(label)}</b></figcaption></figure>`
@@ -354,7 +348,7 @@ function render(c) {
     <div class="wrap">
       <span class="tag">Guests</span>
       <h2>In their own words</h2>
-      <div class="stories">${stories}</div>
+      <div class="srail" data-srail style="--railfade:#FFFFFF"><div class="srail-track" tabindex="0" role="region" aria-label="Guest stories">${stories}</div>${D.storyNav()}</div>
     </div>
   </section>
 
@@ -419,7 +413,7 @@ function render(c) {
 
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 ${D.tracking(c)}
-<script>${D.VIDEO_JS}</script>
+<script>${D.VIDEO_JS}${D.STORY_JS}</script>
 `;
 }
 

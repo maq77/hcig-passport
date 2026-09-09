@@ -36,6 +36,9 @@ const FLAG = {
   Switzerland: 'C7FLAGCH',
   'Czech Republic': 'C7FLAGCZ',
   France: 'C7FLAGFR',
+  Poland: 'C7FLAGPL',
+  Romania: 'C7FLAGRO',
+  Scotland: 'C7FLAGGB',
 };
 
 /* Guest reviews published by 24/7 Clinic on their own site, quoted exactly.
@@ -65,8 +68,12 @@ const OFFERS = [
 /* The clinic's own films, as they were shot. Nothing re-encoded, no frame ever
    cut out of one. `portrait` is 720x1280, `landscape` is 1276x720. */
 const STORIES = [
-  ['VPATIENT1', 'portrait', 'A guest from Romania', 'Arrived feeling very unwell. Treated with an IV infusion.'],
-  ['VPATIENT2', 'landscape', 'A family from Romania', 'Their son needed a tooth taken out.'],
+  ['VROMFAMILY', 'landscape', 'Romania', 'A family staying at Premier Le Rêve. Their son needed a tooth taken out.'],
+  ['VSCOTLAND', 'portrait', 'Scotland', 'Debbie on how she was looked after at the clinic.'],
+  ['VROMIV', 'portrait', 'Romania', 'Arrived feeling very unwell. Treated with an IV infusion.'],
+  ['VSCOOTER', 'portrait', '', 'A scooter accident in Egypt, and the recovery that followed.'],
+  ['VITALY', 'portrait', 'Italy', 'Staying at Almaza Bay, and grateful for the care.'],
+  ['VPOLAND', 'landscape', 'Poland', 'Smiles know no borders.'],
   /* More guest films are coming. Add a line here, register the token in
      build.js, and every design picks it up. */
 ];
@@ -279,6 +286,61 @@ function links(c) {
  * These are the clinic's own files at their own resolution, so a page with a
  * dozen of them would be 60 MB if they all loaded. This is why they do not.
  */
+/* Arrows and a counter for the story rail. One script, all three designs. */
+function storyNav() {
+  return `<div class="srail-nav">
+        <button type="button" data-sprev aria-label="Previous story">${svg('left')}</button>
+        <button type="button" data-snext aria-label="Next story">${svg('right')}</button>
+        <span class="srail-count" data-scount>1 of ${STORIES.length}</span>
+      </div>`;
+}
+
+const STORY_JS = `
+(function () {
+  document.querySelectorAll('[data-srail]').forEach(function (rail) {
+    var track = rail.querySelector('.srail-track');
+    var prev = rail.querySelector('[data-sprev]');
+    var next = rail.querySelector('[data-snext]');
+    var count = rail.querySelector('[data-scount]');
+    var items = track.children;
+    function nearest() {
+      var best = 0, bd = Infinity;
+      for (var i = 0; i < items.length; i++) {
+        var d = Math.abs(items[i].offsetLeft - track.scrollLeft);
+        if (d < bd) { bd = d; best = i; }
+      }
+      return best;
+    }
+    function go(dir) {
+      var i = Math.min(items.length - 1, Math.max(0, nearest() + dir));
+      track.scrollTo({ left: items[i].offsetLeft, behavior: 'smooth' });
+    }
+    function sync() {
+      var max = track.scrollWidth - track.clientWidth;
+      prev.disabled = track.scrollLeft < 8;
+      next.disabled = track.scrollLeft > max - 8;
+      rail.classList.toggle('end', track.scrollLeft > max - 8);
+      if (count) count.textContent = (nearest() + 1) + ' of ' + items.length;
+    }
+    prev.addEventListener('click', function () { go(-1); });
+    next.addEventListener('click', function () { go(1); });
+    track.addEventListener('scroll', function () { requestAnimationFrame(sync); }, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  });
+})();
+`;
+
+function stories() {
+  return STORIES.map(([token, shape, country, cap]) => `<figure class="story">
+        ${video({ token, portrait: shape === 'portrait' })}
+        <figcaption>
+          ${country ? `<span class="cc"><img src="%%${FLAG[country]}%%" alt="" width="20" height="14">${esc(country)}</span>` : ''}
+          <span class="cap">${esc(cap)}</span>
+        </figcaption>
+      </figure>`).join('');
+}
+
 function video({ token, portrait, tag, autoplay = true, cls = '' }) {
   return `<div class="v ${portrait ? 'v--p' : 'v--l'} ${cls}" data-v>
         <video muted loop playsinline preload="none"${autoplay ? ' data-auto' : ''} data-src="%%${token}%%"${tag ? ` aria-label="${esc(tag)}"` : ''}></video>
@@ -289,6 +351,39 @@ function video({ token, portrait, tag, autoplay = true, cls = '' }) {
         </div>
       </div>`;
 }
+
+/* The story rail.
+ *
+ * The films come in two shapes: 9:16 reels and 16:9 pieces. Cropping one to
+ * match the other would mean editing his footage, so instead the rail fixes the
+ * card HEIGHT and lets the width follow whatever the film actually is. Mixed
+ * shapes then read as deliberate rather than as a mistake, and nothing is lost
+ * off the edges.
+ */
+const STORY_CSS = `
+.srail{margin-top:30px;position:relative}
+.srail-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 0 8px}
+.srail-track::-webkit-scrollbar{display:none}
+.story{scroll-snap-align:start;flex:none;display:flex;flex-direction:column}
+.story .v{height:400px;width:auto}
+.story .v video{height:100%;width:auto;max-width:none}
+@media(min-width:820px){.story .v{height:520px}}
+.story figcaption{margin-top:14px;max-width:340px}
+.story .cc{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink3)}
+.story .cc img{width:20px;height:auto;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.story .cap{display:block;margin-top:6px;font-size:15.5px;line-height:1.5;color:var(--ink2)}
+/* An edge fade, so it reads as something that scrolls. */
+.srail:after{content:"";position:absolute;top:0;right:0;bottom:52px;width:64px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--railfade,#fff))}
+.srail.end:after{opacity:0;transition:opacity .3s}
+.srail-nav{display:flex;align-items:center;gap:12px;margin-top:20px}
+.srail-nav button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line2);background:transparent;
+  display:grid;place-items:center;cursor:pointer;color:inherit;transition:.2s}
+.srail-nav button:hover:not([disabled]){border-color:var(--red);color:var(--red)}
+.srail-nav button[disabled]{opacity:.3;cursor:default}
+.srail-count{font-size:14px;color:var(--ink3);font-variant-numeric:tabular-nums}
+`;
 
 /* Shared CSS for that component. Each design sets its own radius and shadow. */
 const VIDEO_CSS = `
@@ -377,5 +472,5 @@ module.exports = {
   HELP, FLAG, REVIEWS, OFFERS, INSURERS, CLINICS, ICON,
   STORIES, TEAM, SERVICE_FILMS,
   esc, svg, faqFor, schemaFor, links, tracking,
-  video, VIDEO_CSS, VIDEO_JS,
+  video, stories, storyNav, VIDEO_CSS, VIDEO_JS, STORY_CSS, STORY_JS,
 };

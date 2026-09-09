@@ -183,8 +183,7 @@ ${D.VIDEO_CSS}
 .film figcaption{margin-top:14px}
 .film b{display:block;font-size:18px;font-weight:600;letter-spacing:-.02em}
 .film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.5}
-.stories{display:grid;gap:26px;margin-top:38px}
-@media(min-width:900px){.stories{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}}
+${D.STORY_CSS}
 
 /* ---------- offers rail ---------- */
 .rail{margin-top:38px}
@@ -318,12 +317,7 @@ function render(c) {
     ? D.video({ token: 'VHOWTOFIND', portrait: true, tag: 'The walk from the entrance' })
     : D.video({ token: 'VINTRO', portrait: true, tag: 'Where you are in your hotel' });
 
-  const stories = D.STORIES.map(
-    ([token, shape, who, what]) => `<figure class="film">
-            ${D.video({ token, portrait: shape === 'portrait' })}
-            <figcaption><b>${esc(who)}</b><span>${esc(what)}</span></figcaption>
-          </figure>`
-  ).join('');
+  const stories = D.stories();
 
   const team = D.TEAM.map(
     ([token, label]) => `<figure class="film">${D.video({ token, portrait: true })}<figcaption><b>${esc(label)}</b></figcaption></figure>`
@@ -444,7 +438,7 @@ function render(c) {
   <section class="sec sec--tint">
     <div class="wrap">
       <div data-rise><div class="kick">Guest stories</div><h2>In their own words</h2></div>
-      <div class="stories">${stories}</div>
+      <div class="srail" data-srail style="--railfade:#F6F3F0"><div class="srail-track" tabindex="0" role="region" aria-label="Guest stories">${stories}</div>${D.storyNav()}</div>
     </div>
   </section>
 
@@ -511,7 +505,7 @@ function render(c) {
 
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 ${D.tracking(c)}
-<script>${D.VIDEO_JS}</script>
+<script>${D.VIDEO_JS}${D.STORY_JS}</script>
 <script>
 (function () {
   document.querySelectorAll('[data-rail]').forEach(function (rail) {

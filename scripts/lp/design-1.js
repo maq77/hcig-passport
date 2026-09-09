@@ -123,8 +123,7 @@ ${D.VIDEO_CSS}
 .film figcaption{margin-top:12px}
 .film b{display:block;font-size:16.5px;font-weight:600}
 .film span{display:block;margin-top:4px;font-size:14.5px;color:var(--ink2);line-height:1.5}
-.stories{display:grid;gap:20px;margin-top:30px}
-@media(min-width:820px){.stories{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}}
+${D.STORY_CSS}
 
 .band{background:var(--red);color:#fff}
 .band-in{max-width:var(--wrap);margin:0 auto;padding:18px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:9px 16px}
@@ -252,12 +251,7 @@ function render(c) {
           </figure>`
   ).join('');
 
-  const stories = D.STORIES.map(
-    ([token, shape, who, what]) => `<figure class="film">
-            ${D.video({ token, portrait: shape === 'portrait' })}
-            <figcaption><b>${esc(who)}</b><span>${esc(what)}</span></figcaption>
-          </figure>`
-  ).join('');
+  const stories = D.stories();
 
   const team = D.TEAM.map(
     ([token, label]) => `<figure class="film">
@@ -386,7 +380,7 @@ function render(c) {
     <div class="wrap">
       <div class="kick">Guest stories</div>
       <h2>In their own words</h2>
-      <div class="stories">${stories}</div>
+      <div class="srail" data-srail style="--railfade:#F8F6F4"><div class="srail-track" tabindex="0" role="region" aria-label="Guest stories">${stories}</div>${D.storyNav()}</div>
     </div>
   </section>
 
@@ -442,7 +436,7 @@ function render(c) {
 
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 ${D.tracking(c)}
-<script>${D.VIDEO_JS}</script>
+<script>${D.VIDEO_JS}${D.STORY_JS}</script>
 <script>
 (function () {
   document.querySelectorAll('[data-rail]').forEach(function (rail) {
