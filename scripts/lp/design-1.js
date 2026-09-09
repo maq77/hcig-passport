@@ -157,7 +157,12 @@ ${D.CAROUSEL_CSS}
 h2{font-size:clamp(25px,3.9vw,36px);font-weight:700;margin-top:10px}
 
 .find{display:grid;gap:26px;margin-top:30px;align-items:start}
-@media(min-width:900px){.find{grid-template-columns:1.1fr .9fr;gap:38px}}
+@media(min-width:900px){
+  .find{grid-template-columns:1.1fr .9fr;gap:38px;align-items:stretch}
+  /* The film fills the column instead of setting its own height. */
+  .find > .v{aspect-ratio:auto;height:100%}
+  .find > .v video{height:100%;object-fit:cover}
+}
 ol.steps{list-style:none;margin:0;padding:0;counter-reset:s;display:grid;gap:18px}
 ol.steps li{counter-increment:s;position:relative;padding-left:50px;font-size:16.5px}
 ol.steps li:before{content:counter(s);position:absolute;left:0;top:-2px;width:34px;height:34px;border-radius:50%;

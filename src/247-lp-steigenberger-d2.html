@@ -44,6 +44,11 @@ a,button,summary{touch-action:manipulation}
 .btn--glass:hover{background:var(--wa-deep)}
 .btn--watch{background:#fff;color:var(--red);border:1.5px solid var(--red-l)}
 .btn--watch:hover{background:var(--red);color:#fff;border-color:var(--red)}
+/* Its own line, full width of the block, matching design 1. The doubled class
+   is deliberate: the hero rule further down this sheet sets flex 0 0 auto at
+   the same specificity and would otherwise win on source order. */
+.hero-cta .btn.btn--watch{flex:1 1 100%}
+@media(min-width:820px){.hero-cta .btn.btn--watch{flex:0 0 100%}}
 .team-one{margin:30px auto 0;max-width:330px}
 .btn--sm{min-height:44px;font-size:15px;padding:0 18px}
 .btn .num{font-weight:500;opacity:.9;font-size:15px}
@@ -66,13 +71,24 @@ a,button,summary{touch-action:manipulation}
 .hero .scrim{display:none}
 .hero-in{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin:0 auto;padding:0 20px 32px}
 @media(min-width:820px){.hero-in{padding:0 36px 52px}}
-/* No card. A light wash that is opaque where the words are and clear where
-   the film is, so the film stays visible and the text stays legible. */
+/* ---------- the hero gradient scrim ----------
+   A scrim is the translucent layer over a photograph or film that keeps text
+   legible. This one is white rather than black, and it is a gradient: opaque
+   where the words sit, clear where the film should show.
+
+   Lightened 2026-09-09 at his request, a little only. The previous values are
+   kept here so going back is one edit:
+
+     mobile   .90 0%, .55 26%, 0 52%
+     desktop  .97 0%, .93 36%, .55 56%, 0 74%
+
+   Ink on white at .84 over a bright film still measures well past 4.5:1, so
+   the headline stays readable at the lighter setting. */
 .hero-card{max-width:620px;padding:26px 0 4px}
 .hero:before{content:"";position:absolute;inset:0;z-index:1;background:
-  linear-gradient(180deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.55) 26%,rgba(255,255,255,0) 52%)}
+  linear-gradient(180deg,rgba(255,255,255,.84) 0%,rgba(255,255,255,.46) 26%,rgba(255,255,255,0) 50%)}
 @media(min-width:900px){
-  .hero:before{background:linear-gradient(100deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.93) 36%,rgba(255,255,255,.55) 56%,rgba(255,255,255,0) 74%)}
+  .hero:before{background:linear-gradient(100deg,rgba(255,255,255,.93) 0%,rgba(255,255,255,.86) 34%,rgba(255,255,255,.42) 54%,rgba(255,255,255,0) 72%)}
   .hero-card{padding:36px 0 8px}
 }
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red)}

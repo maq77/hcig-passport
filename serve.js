@@ -62,14 +62,43 @@ http
       return;
     }
 
-    res.writeHead(200, {
-      'Content-Type': MIME[path.extname(file).toLowerCase()] || 'application/octet-stream',
-      'X-Robots-Tag': 'noindex, nofollow',
-    });
+    const type = MIME[path.extname(file).toLowerCase()] || 'application/octet-stream';
+    const size = fs.statSync(file).size;
+    const head = { 'Content-Type': type, 'X-Robots-Tag': 'noindex, nofollow' };
+
+    /* Byte ranges. Without them Chrome will not start an mp4 at all: it asks
+       for the first slice, gets the whole file with no length, and the hero
+       film sits at readyState 0 forever. Vercel serves ranges in production,
+       so only the local preview was ever affected. */
+    const range = req.headers.range;
+    if (range && /^bytes=\d*-\d*$/.test(range)) {
+      const [rawStart, rawEnd] = range.replace('bytes=', '').split('-');
+      const start = rawStart ? Number(rawStart) : 0;
+      const end = rawEnd ? Math.min(Number(rawEnd), size - 1) : size - 1;
+
+      if (start >= size || start > end) {
+        res.writeHead(416, { 'Content-Range': `bytes */${size}` }).end();
+        return;
+      }
+      head['Content-Range'] = `bytes ${start}-${end}/${size}`;
+      head['Accept-Ranges'] = 'bytes';
+      head['Content-Length'] = end - start + 1;
+      res.writeHead(206, head);
+      fs.createReadStream(file, { start, end }).pipe(res);
+      return;
+    }
+
+    head['Accept-Ranges'] = 'bytes';
+    head['Content-Length'] = size;
+    if (req.method === 'HEAD') {
+      res.writeHead(200, head).end();
+      return;
+    }
+    res.writeHead(200, head);
     fs.createReadStream(file).pipe(res);
   })
   .listen(PORT, () => {
-    console.log(`\n  HCIG Studio local preview\n`);
+    console.log(`\n  HCIG Work local preview\n`);
     console.log(`  http://localhost:${PORT}/`);
     console.log(`  http://localhost:${PORT}/workflow`);
     console.log(`  http://localhost:${PORT}/medpark`);
