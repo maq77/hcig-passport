@@ -94,11 +94,14 @@ const COMPANIES = [
           '9 September: the hero film no longer shows a play button on a phone. iPhones draw one over any video that is showing a poster and has not started, and in Low Power Mode it never went away.',
           '9 September: the packages section is rebuilt. Four services, each a card with a picture and a headline. Clicking one opens the package cards in a viewer.',
           '9 September: a third version adds motion to the home page. Headlines climb into place, cards arrive in turn, photographs open with a wipe. It is a layer over the same page, so the plain version is untouched.',
+          'The packages section is now on the German and Polish home pages too, in their own languages. All three read from one file, so a change happens once.',
+          'His own service pictures are in. The four covers went from 891 KB to 254 KB and the card takes their shape, so nothing is cropped.',
           'The new package artwork replaced the old, and the set went from 32 MB to 1.7 MB with no loss on screen.',
         ],
         checklist: [
           { text: 'Approve the redesign so it can go live', done: false, who: 'Irina' },
-          { text: 'Send the four service pictures for the packages section', done: false, who: 'Us' },
+          { text: 'Send the four service pictures for the packages section', done: true, who: 'Us' },
+          { text: 'Native German and Polish reader for the packages section wording', done: false, who: 'Irina' },
           { text: 'Native German and Polish reader for every string marked NEW', done: false, who: 'Irina' },
           { text: 'Restore the six location pages and their hreflang rows on publish', done: false, who: 'Us' },
         ],
@@ -109,8 +112,8 @@ const COMPANIES = [
             items: [
               { slug: 'english', name: 'English', kind: 'link', href: 'https://www.medparkhospitals.com/?preview=2', status: 'review' },
               { slug: 'motion', name: 'English, with motion', kind: 'link', href: 'https://www.medparkhospitals.com/?preview=3', status: 'review', note: 'The same page with animation. Compare it against the plain one above' },
-              { slug: 'german', name: 'German', kind: 'link', href: 'https://www.medparkhospitals.com/de/?preview=2', status: 'review', note: 'Strings marked NEW need a native reader' },
-              { slug: 'polish', name: 'Polish', kind: 'link', href: 'https://www.medparkhospitals.com/pl/?preview=2', status: 'review', note: 'Strings marked NEW need a native reader' },
+              { slug: 'german', name: 'German', kind: 'link', href: 'https://www.medparkhospitals.com/de/?preview=2', status: 'review', note: 'Now carries the packages section. Strings marked NEW need a native reader' },
+              { slug: 'polish', name: 'Polish', kind: 'link', href: 'https://www.medparkhospitals.com/pl/?preview=2', status: 'review', note: 'Now carries the packages section. Strings marked NEW need a native reader' },
             ],
           },
           {
