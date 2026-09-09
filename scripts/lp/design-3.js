@@ -99,6 +99,35 @@ a,button,summary{touch-action:manipulation}
   background:rgba(26,22,20,.42);color:#fff;display:grid;place-items:center;backdrop-filter:blur(8px)}
 .band .ctrl button:hover{background:rgba(26,22,20,.78)}
 
+${D.VIDEO_CSS}
+.v{border:1px solid var(--line)}
+
+/* ---------- film grids ---------- */
+.films{display:grid;gap:22px;margin-top:40px}
+@media(min-width:760px){.films--3{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:960px){.films--4{grid-template-columns:repeat(4,1fr)}}
+.film figcaption{margin-top:14px}
+.film b{display:block;font-family:var(--fh);font-size:19px;font-weight:400}
+.film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.6}
+.stories{display:grid;gap:28px;margin-top:40px}
+@media(min-width:860px){.stories{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}}
+
+/* ---------- health check tiles ---------- */
+.hc-tiles{display:grid;gap:16px;margin-top:30px}
+@media(min-width:560px){.hc-tiles{grid-template-columns:1fr 1fr}}
+.hc-tile{border:1px solid var(--line);padding:22px;display:flex;gap:16px;align-items:center;background:#fff}
+.hc-tile .i{width:50px;height:50px;flex:none;border:1px solid var(--red-l);border-radius:50%;background:var(--red-t);color:var(--red);display:grid;place-items:center}
+.hc-tile .i .ico{width:26px;height:26px;stroke-width:1.5}
+.hc-tile b{display:block;font-family:var(--fh);font-size:18px;font-weight:400}
+.hc-tile span{display:block;font-size:14.5px;color:var(--ink3);margin-top:3px}
+.noappt{display:inline-flex;align-items:center;gap:10px;font-size:15.5px;color:var(--ink2);margin-top:26px}
+.noappt .ico{width:19px;height:19px;stroke-width:2.4;color:var(--red)}
+@media (prefers-reduced-motion:no-preference){
+  .hc-tile .i .ico{animation:hcPulse 3.4s var(--ez) infinite}
+  .hc-tile:nth-child(2) .i .ico{animation-delay:1.2s}
+  @keyframes hcPulse{0%,72%,100%{transform:scale(1)}12%{transform:scale(1.12)}24%{transform:scale(1)}36%{transform:scale(1.08)}}
+}
+
 /* ---------- sections ---------- */
 .sec{padding:62px 0}
 @media(min-width:820px){.sec{padding:92px 0}}
@@ -189,12 +218,6 @@ footer a.tel{text-decoration:none;color:var(--red)}
 .wa-float:hover,.wa-float:focus-visible{background:var(--wa-deep);color:#fff;transform:translateY(-2px)}
 @media(min-width:768px){.wa-float{right:26px;bottom:26px}}
 
-.lb{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px}
-.lb[hidden]{display:none}
-.lb__scrim{position:absolute;inset:0;background:rgba(20,16,14,.9)}
-.lb__box{position:relative;z-index:1;width:100%;max-width:1000px;aspect-ratio:16/9;background:#000;overflow:hidden}
-.lb__box video{width:100%;height:100%;object-fit:contain;background:#000}
-.lb__close{position:absolute;top:10px;right:10px;z-index:2;width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;background:rgba(0,0,0,.6);color:#fff;display:grid;place-items:center}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 `;
@@ -217,7 +240,22 @@ function render(c) {
   const faqs = D.faqFor(c).map(([q, a]) => `<details><summary>${esc(q)}</summary><div class="a">${esc(a)}</div></details>`).join('');
   const insurers = D.INSURERS.map(([tok, name]) => `<img src="%%${tok}%%" alt="${esc(name)}" loading="lazy" width="120" height="44">`).join('');
 
-  const bandVideo = c.walkLoop ? 'C7LOOPWALK' : 'C7LOOPCLINIC';
+  const bandVideo = c.walkLoop ? 'VHOWTOFIND' : 'VINTRO';
+
+  const stories = D.STORIES.map(
+    ([token, shape, who, what]) => `<figure class="film">
+            ${D.video({ token, portrait: shape === 'portrait' })}
+            <figcaption><b>${esc(who)}</b><span>${esc(what)}</span></figcaption>
+          </figure>`
+  ).join('');
+
+  const team = D.TEAM.map(
+    ([token, label]) => `<figure class="film">${D.video({ token, portrait: true })}<figcaption><b>${esc(label)}</b></figcaption></figure>`
+  ).join('');
+
+  const serviceFilms = D.SERVICE_FILMS.map(
+    ([token, title, note]) => `<figure class="film">${D.video({ token, portrait: true })}<figcaption><b>${esc(title)}</b><span>${esc(note)}</span></figcaption></figure>`
+  ).join('');
 
   return `<title>${esc(c.title)}</title>
 <meta name="description" content="${esc(c.desc)}">
@@ -263,23 +301,23 @@ function render(c) {
   </section>
 
   <div class="band">
-    <video autoplay muted loop playsinline preload="metadata" aria-label="The 24/7 Clinic at ${esc(c.hotel)}">
-      <source src="%%${bandVideo}%%" type="video/mp4"></video>
-    <div class="ctrl">
-      <button type="button" data-sound aria-label="Turn sound on">${svg('mute')}</button>
-      <button type="button" data-lightbox aria-label="Watch the full film">${svg('play')}</button>
-    </div>
+    ${D.video({ token: 'VCOMMERCIAL', portrait: false, tag: 'The clinic film' })}
   </div>
 
   <section class="sec sec--sand">
     <div class="wrap">
       <div class="offerband">
-        <img src="%%C7POSHEALTH%%" alt="Free health check poster: free blood pressure and blood sugar check for hotel guests" loading="lazy" width="1080" height="1440">
+        <img src="%%POSTERHEALTH%%" alt="Free health check poster: free blood pressure and blood sugar check for hotel guests" loading="lazy" width="1080" height="1440">
         <div>
           <span class="free">Free for hotel guests</span>
           <h2>A health check, on the house</h2>
-          <p class="intro">Blood pressure and blood sugar, checked by a nurse while you wait. No appointment, no charge. Ask at the clinic or at hotel reception.</p>
-          <div style="margin-top:28px"><a class="btn" href="${L.tel}" data-ev="call_click">${svg('phone')}Call to arrange it</a></div>
+          <p class="intro">Checked by a nurse while you wait. Nothing to pay, nothing to book.</p>
+          <div class="hc-tiles">
+            <div class="hc-tile"><span class="i">${svg('heart')}</span><span><b>Blood pressure</b><span>Checked in a minute</span></span></div>
+            <div class="hc-tile"><span class="i">${svg('gauge')}</span><span><b>Blood sugar</b><span>One drop, one reading</span></span></div>
+          </div>
+          <span class="noappt">${svg('check')}No appointment needed</span>
+          <div style="margin-top:26px"><a class="btn btn--red" href="${L.tel}" data-ev="call_click">${svg('phone')}Call the clinic</a></div>
         </div>
       </div>
     </div>
@@ -316,11 +354,23 @@ function render(c) {
     <div class="wrap">
       <span class="tag">Guests</span>
       <h2>In their own words</h2>
-      <div class="qbox" data-quotes>${quotes}</div>
-      <div class="qnav">
-        <button type="button" data-qprev aria-label="Previous quote">${svg('left')}</button>
-        <button type="button" data-qnext aria-label="Next quote">${svg('right')}</button>
-      </div>
+      <div class="stories">${stories}</div>
+    </div>
+  </section>
+
+  <section class="sec sec--sand">
+    <div class="wrap">
+      <span class="tag">The team</span>
+      <h2>The people who will see you</h2>
+      <div class="films films--3">${team}</div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <span class="tag">Filmed here</span>
+      <h2>What we do at this clinic</h2>
+      <div class="films films--4">${serviceFilms}</div>
     </div>
   </section>
 
@@ -367,55 +417,9 @@ function render(c) {
 
 <a class="wa-float" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click" aria-label="Message 24/7 Clinic on WhatsApp">${svg('wa')}WhatsApp</a>
 
-<div class="lb" hidden data-lb>
-  <div class="lb__scrim" data-lb-close></div>
-  <div class="lb__box">
-    <button class="lb__close" type="button" data-lb-close aria-label="Close">${svg('close')}</button>
-    <video controls playsinline preload="none" aria-label="Film of the 24/7 Clinic"><source src="%%C7FILM%%" type="video/mp4"></video>
-  </div>
-</div>
-
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 ${D.tracking(c)}
-<script>
-(function () {
-  var MUTED = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/>';
-  var LOUD = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="M15.6 9.6a3.4 3.4 0 0 1 0 4.8M18 7.2a6.8 6.8 0 0 1 0 9.6"/>';
-  var bandV = document.querySelector('.band video');
-  document.querySelectorAll('[data-sound]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      bandV.muted = !bandV.muted;
-      b.setAttribute('aria-label', bandV.muted ? 'Turn sound on' : 'Turn sound off');
-      b.querySelector('svg').innerHTML = bandV.muted ? MUTED : LOUD;
-    });
-  });
-
-  var lb = document.querySelector('[data-lb]'), lbv = lb && lb.querySelector('video'), opener = null;
-  function openLb(){ lb.hidden=false; lbv.play(); lb.querySelector('.lb__close').focus(); document.body.style.overflow='hidden'; }
-  function closeLb(){ lbv.pause(); lb.hidden=true; document.body.style.overflow=''; if(opener) opener.focus(); }
-  document.querySelectorAll('[data-lightbox]').forEach(function(b){ b.addEventListener('click', function(){ opener=b; openLb(); }); });
-  if (lb) {
-    lb.querySelectorAll('[data-lb-close]').forEach(function(b){ b.addEventListener('click', closeLb); });
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !lb.hidden) closeLb(); });
-  }
-
-  /* One quote at a time. Auto advances, and stops the moment anyone touches
-     the controls, so it never fights the reader. */
-  var box = document.querySelector('[data-quotes]');
-  if (box) {
-    var qs = box.querySelectorAll('[data-q]'), i = 0, timer = null;
-    function show(n){
-      i = (n + qs.length) % qs.length;
-      qs.forEach(function(q,k){ q.classList.toggle('on', k === i); });
-    }
-    function auto(){ timer = window.setInterval(function(){ show(i+1); }, 7000); }
-    function stop(){ window.clearInterval(timer); timer = null; }
-    document.querySelector('[data-qprev]').addEventListener('click', function(){ stop(); show(i-1); });
-    document.querySelector('[data-qnext]').addEventListener('click', function(){ stop(); show(i+1); });
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && qs.length > 1) auto();
-  }
-})();
-</script>
+<script>${D.VIDEO_JS}</script>
 `;
 }
 

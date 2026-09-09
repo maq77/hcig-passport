@@ -134,6 +134,60 @@ ol.steps li:before{content:counter(s);position:absolute;left:0;top:-6px;width:44
   @keyframes draw{to{stroke-dashoffset:0}}
 }
 
+
+.v{position:relative;overflow:hidden;background:#0d0b0a}
+.v video{display:block;width:100%;height:auto;object-fit:cover;background:#0d0b0a}
+.v--l video{aspect-ratio:16/9}
+.v--p video{aspect-ratio:9/16}
+.v-tag{position:absolute;left:12px;bottom:14px;font-size:12.5px;font-weight:600;color:#fff;
+  background:rgba(15,13,12,.58);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px);pointer-events:none}
+.v-ctrl{position:absolute;right:10px;bottom:10px;display:flex;gap:8px}
+.v-ctrl button{width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;background:rgba(15,13,12,.58);
+  color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px);transition:background-color .2s}
+.v-ctrl button:hover{background:rgba(15,13,12,.86)}
+.v-ctrl .ico{width:18px;height:18px}
+.v-load{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.v-load:after{content:"";width:26px;height:26px;border-radius:50%;border:2.5px solid rgba(255,255,255,.28);
+  border-top-color:#fff;animation:vspin .8s linear infinite}
+.v.ready .v-load{display:none}
+@keyframes vspin{to{transform:rotate(360deg)}}
+
+.v{border-radius:var(--r)}
+
+/* ---------- free health check ---------- */
+.hc{background:var(--ink);color:#fff;overflow:hidden}
+.hc-in{max-width:var(--wrap);margin:0 auto;padding:56px 20px;display:grid;gap:34px;align-items:center}
+@media(min-width:900px){.hc-in{grid-template-columns:.72fr 1.28fr;gap:60px;padding:88px 36px}}
+.hc img{width:100%;height:auto;border-radius:var(--r);box-shadow:0 30px 70px -26px rgba(0,0,0,.8)}
+.hc .free{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--red);color:#fff;padding:7px 15px;border-radius:6px}
+.hc h2{color:#fff;margin-top:20px}
+.hc .sub{margin-top:16px;color:rgba(255,255,255,.72)}
+.hc-tiles{display:grid;gap:14px;margin-top:30px}
+@media(min-width:560px){.hc-tiles{grid-template-columns:1fr 1fr}}
+.hc-tile{border:1px solid rgba(255,255,255,.18);border-radius:var(--r);padding:22px;display:flex;gap:16px;align-items:center}
+.hc-tile .i{width:52px;height:52px;flex:none;border-radius:14px;background:var(--red);color:#fff;display:grid;place-items:center}
+.hc-tile .i .ico{width:28px;height:28px;stroke-width:1.7}
+.hc-tile b{display:block;font-size:18px;font-weight:600}
+.hc-tile span{display:block;font-size:14.5px;color:rgba(255,255,255,.66);margin-top:3px}
+.hc .row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:30px}
+.hc .noappt{display:inline-flex;align-items:center;gap:10px;font-size:16px;color:rgba(255,255,255,.86)}
+.hc .noappt .ico{width:20px;height:20px;stroke-width:2.6;color:var(--red)}
+@media (prefers-reduced-motion:no-preference){
+  .hc-tile .i .ico{animation:hcPulse 3.2s var(--ez) infinite}
+  .hc-tile:nth-child(2) .i .ico{animation-delay:1.1s}
+  @keyframes hcPulse{0%,70%,100%{transform:scale(1)}12%{transform:scale(1.14)}24%{transform:scale(1)}36%{transform:scale(1.1)}}
+}
+
+/* ---------- film grids ---------- */
+.films{display:grid;gap:20px;margin-top:38px}
+@media(min-width:760px){.films--3{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:960px){.films--4{grid-template-columns:repeat(4,1fr)}}
+.film figcaption{margin-top:14px}
+.film b{display:block;font-size:18px;font-weight:600;letter-spacing:-.02em}
+.film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.5}
+.stories{display:grid;gap:26px;margin-top:38px}
+@media(min-width:900px){.stories{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}}
+
 /* ---------- offers rail ---------- */
 .rail{margin-top:38px}
 .rail-track{display:grid;grid-auto-flow:column;grid-auto-columns:84%;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:6px 0 8px}
@@ -217,12 +271,6 @@ footer a.tel{text-decoration:none;color:var(--red)}
 .wa-float:hover,.wa-float:focus-visible{background:var(--wa-deep);color:#fff;transform:translateY(-2px)}
 @media(min-width:768px){.wa-float{right:26px;bottom:26px}}
 
-.lb{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px}
-.lb[hidden]{display:none}
-.lb__scrim{position:absolute;inset:0;background:rgba(12,10,9,.9)}
-.lb__box{position:relative;z-index:1;width:100%;max-width:1000px;aspect-ratio:16/9;background:#000;border-radius:var(--r);overflow:hidden}
-.lb__box video{width:100%;height:100%;object-fit:contain;background:#000}
-.lb__close{position:absolute;top:10px;right:10px;z-index:2;width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;background:rgba(0,0,0,.6);color:#fff;display:grid;place-items:center}
 
 /* scroll reveal */
 @media (prefers-reduced-motion:no-preference){
@@ -237,8 +285,8 @@ footer a.tel{text-decoration:none;color:var(--red)}
 
 <main id="main">
   <section class="hero">
-    <video autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
-      <source src="%%C7LOOPCLINIC%%" type="video/mp4"></video>
+    <video autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"
+           src="%%VCOMMERCIAL%%"></video>
     <div class="scrim"></div>
 
     <header class="top">
@@ -267,6 +315,25 @@ footer a.tel{text-decoration:none;color:var(--red)}
 
   <div class="ticker"><div class="ticker-in"><span>Open 24 hours, every day</span><span>English speaking doctors</span><span>Free health check for hotel guests</span><span>In Sahl Hasheesh</span><span>Insurance paperwork handled</span><span>Dental emergencies treated</span><span>Open 24 hours, every day</span><span>English speaking doctors</span><span>Free health check for hotel guests</span><span>In Sahl Hasheesh</span><span>Insurance paperwork handled</span><span>Dental emergencies treated</span></div></div>
 
+  <section class="hc">
+    <div class="hc-in">
+      <img src="%%POSTERHEALTH%%" alt="Free health check: free blood pressure and blood sugar check for hotel guests at 24/7 Clinic" loading="lazy" width="1080" height="1440">
+      <div>
+        <span class="free">Free for hotel guests</span>
+        <h2>A health check, on the house</h2>
+        <p class="sub">Checked by a nurse while you wait. Nothing to pay, nothing to book.</p>
+        <div class="hc-tiles">
+          <div class="hc-tile"><span class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20.4S3.8 15.2 3.8 9.6A4.2 4.2 0 0 1 12 7.4a4.2 4.2 0 0 1 8.2 2.2c0 5.6-8.2 10.8-8.2 10.8Z"/></svg></span><span><b>Blood pressure</b><span>Checked in a minute</span></span></div>
+          <div class="hc-tile"><span class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.4 17.4a8.6 8.6 0 1 1 15.2 0"/><path d="m12 13.6 3.4-3.6"/><circle cx="12" cy="17.4" r="1.6"/></svg></span><span><b>Blood sugar</b><span>One drop, one reading</span></span></div>
+        </div>
+        <div class="row">
+          <a class="btn btn--red" href="tel:+201222228247" data-ev="call_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5c0 8.8 7.2 16 16 16a1.5 1.5 0 0 0 1.5-1.5v-2a1.5 1.5 0 0 0-1.2-1.5l-3.1-.6a1.5 1.5 0 0 0-1.5.6l-.9 1.2a12.6 12.6 0 0 1-5.9-5.9l1.2-.9a1.5 1.5 0 0 0 .6-1.5l-.6-3.1a1.5 1.5 0 0 0-1.6-1.3Z"/></svg>Call the clinic</a>
+          <span class="noappt"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>No appointment needed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="sec" id="find">
     <div class="wrap">
       <div class="block block--tall">
@@ -281,7 +348,14 @@ footer a.tel{text-decoration:none;color:var(--red)}
           </figure>
           <div style="margin-top:22px"><a class="btn btn--red" href="https://www.google.com/maps/dir/?api=1&destination=27.024343,33.887027" target="_blank" rel="noopener" data-ev="directions_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></svg>Directions in Google Maps</a></div>
         </div>
-        <figure data-rise><video autoplay muted loop playsinline preload="metadata" aria-label="The walk from the main entrance of Premier Le Rêve Hotel &amp; Spa to the 24/7 Clinic"><source src="%%C7LOOPWALK%%" type="video/mp4"></video></figure>
+        <div data-rise><div class="v v--p " data-v>
+        <video muted loop playsinline preload="none" data-auto data-src="%%VHOWTOFIND%%" aria-label="The walk from the entrance"></video>
+        <span class="v-tag">The walk from the entrance</span>
+        <div class="v-ctrl">
+          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
+        </div>
+      </div></div>
       </div>
     </div>
   </section>
@@ -304,7 +378,7 @@ footer a.tel{text-decoration:none;color:var(--red)}
       </div>
       <div class="rail" data-rail>
         <div class="rail-track" tabindex="0" role="region" aria-label="Offers at 24/7 Clinic"><article class="offer offer--poster">
-            <img src="%%C7POSHEALTH%%" alt="Free health check at 24/7 Clinic" loading="lazy" width="1200" height="1600">
+            <img src="%%POSTERHEALTH%%" alt="Free health check at 24/7 Clinic" loading="lazy" width="1200" height="1600">
             <span class="flag">Free</span>
             <div class="m"><h3>Free health check</h3><p>Blood pressure and blood sugar, free for hotel guests. No appointment.</p></div>
           </article><article class="offer">
@@ -320,7 +394,7 @@ footer a.tel{text-decoration:none;color:var(--red)}
             
             <div class="m"><h3>Laboratory and imaging</h3><p>Samples taken here, results coordinated for you.</p></div>
           </article><article class="offer">
-            <img src="%%C7SAMBULANCE%%" alt="Ambulance and hospital at 24/7 Clinic" loading="lazy" width="1200" height="1600">
+            <img src="%%PXAMBULANCE%%" alt="Ambulance and hospital at 24/7 Clinic" loading="lazy" width="1200" height="1600">
             
             <div class="m"><h3>Ambulance and hospital</h3><p>If you need a hospital, we arrange the transfer.</p></div>
           </article></div>
@@ -335,23 +409,91 @@ footer a.tel{text-decoration:none;color:var(--red)}
 
   <section class="sec sec--tint">
     <div class="wrap">
-      <div data-rise>
-        <div class="kick">What guests say</div>
-        <h2>In their own words</h2>
+      <div data-rise><div class="kick">Guest stories</div><h2>In their own words</h2></div>
+      <div class="stories"><figure class="film">
+            <div class="v v--p " data-v>
+        <video muted loop playsinline preload="none" data-auto data-src="%%VPATIENT1%%"></video>
+        
+        <div class="v-ctrl">
+          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
+        </div>
       </div>
-      <div class="quotes"><figure class="quote" data-rise>
-            <blockquote class="q" lang="de">Sehr freundlicher und kompetenter Arzt. Sehr schnelle Hilfe ich fühlte mich in guten Händen.</blockquote>
-            <p class="en">Very friendly and competent doctor. Very fast help. I felt I was in good hands.</p>
-            <figcaption class="who"><img src="%%C7FLAGDE%%" alt="" width="28" height="19"><span><span class="nm">Joerg Finger</span><span class="cn">Germany</span></span></figcaption>
-          </figure><figure class="quote" data-rise>
-            <blockquote class="q" lang="it">Molto professionale Disponibile e paziente Problema risolto in poche ore</blockquote>
-            <p class="en">Very professional. Helpful and patient. Problem solved in a few hours.</p>
-            <figcaption class="who"><img src="%%C7FLAGIT%%" alt="" width="28" height="19"><span><span class="nm">Carla di Scanno</span><span class="cn">Italy</span></span></figcaption>
-          </figure><figure class="quote" data-rise>
-            <blockquote class="q" lang="de">Der Arzt war sehr nett und kompetent. Gute Unterstützung durch den Arzt.</blockquote>
-            <p class="en">The doctor was very kind and very competent. Good support from the doctor.</p>
-            <figcaption class="who"><img src="%%C7FLAGCH%%" alt="" width="28" height="19"><span><span class="nm">B Waltert</span><span class="cn">Switzerland</span></span></figcaption>
+            <figcaption><b>A guest from Romania</b><span>Arrived feeling very unwell. Treated with an IV infusion.</span></figcaption>
+          </figure><figure class="film">
+            <div class="v v--l " data-v>
+        <video muted loop playsinline preload="none" data-auto data-src="%%VPATIENT2%%"></video>
+        
+        <div class="v-ctrl">
+          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
+        </div>
+      </div>
+            <figcaption><b>A family from Romania</b><span>Their son needed a tooth taken out.</span></figcaption>
           </figure></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div data-rise><div class="kick">The team</div><h2>The people who will see you</h2></div>
+      <div class="films films--3"><figure class="film"><div class="v v--p " data-v>
+        <video muted loop playsinline preload="none" data-auto data-src="%%VSTAFF1%%"></video>
+        
+        <div class="v-ctrl">
+          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
+        </div>
+      </div><figcaption><b>The people behind 24/7 care</b></figcaption></figure><figure class="film"><div class="v v--p " data-v>
+        <video muted loop playsinline preload="none" data-auto data-src="%%VSTAFF2%%"></video>
+        
+        <div class="v-ctrl">
+          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
+        </div>
+      </div><figcaption><b>On call, day and night</b></figcaption></figure><figure class="film"><div class="v v--p " data-v>
+        <video muted loop playsinline preload="none" data-auto data-src="%%VSTAFF3%%"></video>
+        
+        <div class="v-ctrl">
+          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
+        </div>
+      </div><figcaption><b>Meet the team</b></figcaption></figure></div>
+    </div>
+  </section>
+
+  <section class="sec sec--tint">
+    <div class="wrap">
+      <div data-rise><div class="kick">At this clinic</div><h2>What we do, filmed here</h2></div>
+      <div class="films films--4"><figure class="film"><div class="v v--p " data-v>
+        <video muted loop playsinline preload="none" data-auto data-src="%%VDENTAL%%"></video>
+        
+        <div class="v-ctrl">
+          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
+        </div>
+      </div><figcaption><b>Dental</b><span>Toothache and emergencies, treated at the clinic.</span></figcaption></figure><figure class="film"><div class="v v--p " data-v>
+        <video muted loop playsinline preload="none" data-auto data-src="%%VEMERGENCY%%"></video>
+        
+        <div class="v-ctrl">
+          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
+        </div>
+      </div><figcaption><b>Emergency</b><span>Urgent care, day or night.</span></figcaption></figure><figure class="film"><div class="v v--p " data-v>
+        <video muted loop playsinline preload="none" data-auto data-src="%%VTOOTH%%"></video>
+        
+        <div class="v-ctrl">
+          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
+        </div>
+      </div><figcaption><b>Tooth jewellery</b><span>Fitted at the clinic.</span></figcaption></figure><figure class="film"><div class="v v--p " data-v>
+        <video muted loop playsinline preload="none" data-auto data-src="%%VAESTHETIC%%"></video>
+        
+        <div class="v-ctrl">
+          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
+        </div>
+      </div><figcaption><b>Aesthetic procedures</b><span>Offered across the 24/7 Clinic network.</span></figcaption></figure></div>
     </div>
   </section>
 
@@ -402,14 +544,6 @@ footer a.tel{text-decoration:none;color:var(--red)}
 
 <a class="wa-float" href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20a%20doctor%20at%20Premier%20Le%20R%C3%AAve%20Hotel%20%26%20Spa." target="_blank" rel="noopener" data-ev="whatsapp_click" aria-label="Message 24/7 Clinic on WhatsApp"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 20.4 4.9 16.1A8.6 8.6 0 1 1 8 19.2Z"/><path d="M9 8.6c.3 0 .5.3.65.65l.45 1.05-.8.8a5.7 5.7 0 0 0 3.3 3.3l.8-.8 1.05.45c.35.15.65.35.65.65v.9c-.3.45-.9.6-1.5.45A8.6 8.6 0 0 1 8.1 10.6c-.15-.6 0-1.2.45-1.5Z"/></svg>WhatsApp</a>
 
-<div class="lb" hidden data-lb>
-  <div class="lb__scrim" data-lb-close></div>
-  <div class="lb__box">
-    <button class="lb__close" type="button" data-lb-close aria-label="Close"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-    <video controls playsinline preload="none" aria-label="Film of the 24/7 Clinic"><source src="%%C7FILM%%" type="video/mp4"></video>
-  </div>
-</div>
-
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"MedicalClinic","@id":"https://www.247clinic.net/sahl-hasheesh/premier-le-reve-clinic#clinic","name":"24/7 Clinic, Premier Le Rêve Hotel & Spa","url":"https://www.247clinic.net/sahl-hasheesh/premier-le-reve-clinic","telephone":"+20 122 222 8247","image":"https://www.247clinic.net/assets/images/logos/clinic-logo.svg","parentOrganization":{"@type":"Organization","name":"24/7 Clinic","url":"https://www.247clinic.net"},"address":{"@type":"PostalAddress","addressLocality":"Sahl Hasheesh","addressRegion":"Red Sea Governorate","addressCountry":"EG"},"geo":{"@type":"GeoCoordinates","latitude":27.024343,"longitude":33.887027},"areaServed":[{"@type":"Place","name":"Premier Le Rêve Hotel & Spa"},{"@type":"Place","name":"Sahl Hasheesh"}],"availableLanguage":["English","German","Italian","French"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}],"availableService":[{"@type":"MedicalTherapy","name":"Emergency"},{"@type":"MedicalTherapy","name":"I feel unwell"},{"@type":"MedicalTherapy","name":"Dental"},{"@type":"MedicalTherapy","name":"IV infusion"},{"@type":"MedicalTherapy","name":"Medication and lab"},{"@type":"MedicalTherapy","name":"Insurance and reports"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is there a doctor at Premier Le Rêve?","acceptedAnswer":{"@type":"Answer","text":"Yes, and you do not need an appointment. Call, send a WhatsApp message, or walk in."}},{"@type":"Question","name":"Are you open at night?","acceptedAnswer":{"@type":"Answer","text":"Yes. The clinic is open 24 hours, every day of the year."}},{"@type":"Question","name":"Do you speak English?","acceptedAnswer":{"@type":"Answer","text":"Yes. Guests have also been treated and answered in German, Italian and French."}},{"@type":"Question","name":"Do you take my travel insurance?","acceptedAnswer":{"@type":"Answer","text":"We deal with your insurer and write the medical report your claim needs. Bring your policy details or your insurance card."}},{"@type":"Question","name":"Is there a hospital near Sahl Hasheesh?","acceptedAnswer":{"@type":"Answer","text":"If you need a hospital we arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Our clinics","item":"https://www.247clinic.net/our-clinics"},{"@type":"ListItem","position":2,"name":"Sahl Hasheesh","item":"https://www.247clinic.net/sahl-hasheesh"},{"@type":"ListItem","position":3,"name":"Premier Le Rêve"}]}]}</script>
 <script>
 (function () {
@@ -424,24 +558,50 @@ footer a.tel{text-decoration:none;color:var(--red)}
 (function () {
   var MUTED = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/>';
   var LOUD = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="M15.6 9.6a3.4 3.4 0 0 1 0 4.8M18 7.2a6.8 6.8 0 0 1 0 9.6"/>';
-  var hero = document.querySelector('.hero video');
-  document.querySelectorAll('[data-sound]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      hero.muted = !hero.muted;
-      b.setAttribute('aria-label', hero.muted ? 'Turn sound on' : 'Turn sound off');
-      b.querySelector('svg').innerHTML = hero.muted ? MUTED : LOUD;
+
+  document.querySelectorAll('[data-v]').forEach(function (box) {
+    var v = box.querySelector('video');
+    var load = document.createElement('span');
+    load.className = 'v-load';
+    box.appendChild(load);
+
+    function attach() {
+      if (v.src) return;
+      v.src = v.dataset.src;
+      v.addEventListener('loadeddata', function () { box.classList.add('ready'); }, { once: true });
+    }
+
+    box.querySelector('[data-vsound]').addEventListener('click', function () {
+      attach();
+      v.muted = !v.muted;
+      if (!v.muted) v.play();
+      this.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off');
+      this.querySelector('svg').innerHTML = v.muted ? MUTED : LOUD;
     });
+    box.querySelector('[data-vfull]').addEventListener('click', function () {
+      attach();
+      if (box.requestFullscreen) box.requestFullscreen();
+      else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen();
+      v.muted = false; v.play();
+    });
+
+    if (!('IntersectionObserver' in window)) { attach(); v.play(); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) {
+          attach();
+          if (v.hasAttribute('data-auto')) { var p = v.play(); if (p) p.catch(function(){}); }
+        } else if (!v.paused && v.muted) {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    io.observe(box);
   });
-
-  var lb = document.querySelector('[data-lb]'), lbv = lb && lb.querySelector('video'), opener = null;
-  function openLb(){ lb.hidden=false; lbv.play(); lb.querySelector('.lb__close').focus(); document.body.style.overflow='hidden'; }
-  function closeLb(){ lbv.pause(); lb.hidden=true; document.body.style.overflow=''; if(opener) opener.focus(); }
-  document.querySelectorAll('[data-lightbox]').forEach(function(b){ b.addEventListener('click', function(){ opener=b; openLb(); }); });
-  if (lb) {
-    lb.querySelectorAll('[data-lb-close]').forEach(function(b){ b.addEventListener('click', closeLb); });
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !lb.hidden) closeLb(); });
-  }
-
+})();
+</script>
+<script>
+(function () {
   document.querySelectorAll('[data-rail]').forEach(function (rail) {
     var track = rail.querySelector('.rail-track'), prev = rail.querySelector('[data-prev]'),
         next = rail.querySelector('[data-next]'), bar = rail.querySelector('[data-bar]');

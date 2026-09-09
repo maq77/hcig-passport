@@ -293,12 +293,15 @@ const COMPANIES = [
               { slug: 'video-plan', name: 'Where every film goes', kind: 'md', src: 'docs/247clinic-video-plan.md', status: 'review', note: 'The 16 films mapped to sections. Ready to apply to whichever design wins' },
             ],
           },
+          /* The kit is parked while a design is being chosen. It documents the
+             first design language, which three rebuilds have since moved past,
+             and it referenced photography that no longer exists now that no
+             frame is ever cut from a film. It is rewritten once a direction is
+             picked, against the design that actually wins. */
           {
             name: 'UI kit',
-            note: 'Design system, components, page blocks.',
-            items: [
-              { slug: 'ui-kit', name: 'Landing page kit', kind: 'page', src: '247-ui-kit.html', status: 'review', note: 'Colour, type, 15 icons, 15 components, page anatomy, tracking' },
-            ],
+            note: 'Rewritten once a design is chosen.',
+            items: [],
           },
           {
             name: 'Live demo',

@@ -83,18 +83,48 @@ h1{font-size:clamp(32px,6.2vw,54px);font-weight:700;letter-spacing:-.04em;margin
 .hero-note span{display:inline-flex;align-items:center;gap:7px}
 .hero-note .ico{width:16px;height:16px;color:var(--red);stroke-width:2.2}
 
-.vid{position:relative;border-radius:var(--r2);overflow:hidden;background:#0d0b0a;box-shadow:var(--sh2)}
-.vid video{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
-@media(min-width:900px){.vid video{aspect-ratio:5/4}}
-.vid--walk video{aspect-ratio:3/4}
-@media(min-width:900px){.vid--walk video{aspect-ratio:4/5}}
-.vid .ctrl{position:absolute;right:12px;bottom:12px;display:flex;gap:8px}
-.vid .ctrl button{width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:rgba(15,13,12,.62);
-  color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px)}
-.vid .ctrl button:hover{background:rgba(15,13,12,.85)}
-.vid .ctrl .ico{width:19px;height:19px}
-.vid .tag{position:absolute;left:12px;bottom:16px;font-size:12.5px;font-weight:600;color:#fff;
-  background:rgba(15,13,12,.55);padding:6px 12px;border-radius:var(--pill);backdrop-filter:blur(6px)}
+${D.VIDEO_CSS}
+.v{border-radius:var(--r2);box-shadow:var(--sh2)}
+
+/* ---------- free health check, made a block ---------- */
+.hc{background:linear-gradient(180deg,var(--red) 0%,#A30000 100%);color:#fff;overflow:hidden}
+.hc-in{max-width:var(--wrap);margin:0 auto;padding:38px 20px;display:grid;gap:28px;align-items:center}
+@media(min-width:820px){.hc-in{grid-template-columns:.8fr 1.2fr;gap:48px;padding:52px 32px}}
+.hc img{width:100%;height:auto;border-radius:14px;box-shadow:0 24px 50px -20px rgba(0,0,0,.6)}
+.hc .free{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  background:#fff;color:var(--red);padding:6px 13px;border-radius:6px}
+.hc h2{color:#fff;margin-top:16px;font-size:clamp(26px,4.2vw,38px)}
+.hc .note{margin-top:12px;color:rgba(255,255,255,.88);font-size:16.5px;max-width:44ch}
+.hc-tiles{display:grid;gap:12px;margin-top:26px}
+@media(min-width:560px){.hc-tiles{grid-template-columns:1fr 1fr}}
+.hc-tile{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);border-radius:14px;
+  padding:18px 18px;display:flex;gap:14px;align-items:center;backdrop-filter:blur(6px)}
+.hc-tile .i{width:46px;height:46px;flex:none;border-radius:12px;background:#fff;color:var(--red);display:grid;place-items:center}
+.hc-tile .i .ico{width:26px;height:26px;stroke-width:1.8}
+.hc-tile b{display:block;font-size:16.5px;font-weight:600}
+.hc-tile span{display:block;font-size:14px;color:rgba(255,255,255,.82);margin-top:2px}
+.hc .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:24px}
+.hc .btn--white{background:#fff;color:var(--red)}
+.hc .btn--white:hover{background:#F3E6E6}
+.hc .noappt{display:inline-flex;align-items:center;gap:9px;font-size:15px;color:rgba(255,255,255,.9)}
+.hc .noappt .ico{width:19px;height:19px;stroke-width:2.6}
+@media (prefers-reduced-motion:no-preference){
+  .hc-tile .i .ico{animation:hcPulse 3.2s var(--ez) infinite}
+  .hc-tile:nth-child(2) .i .ico{animation-delay:1.1s}
+  @keyframes hcPulse{0%,70%,100%{transform:scale(1)}12%{transform:scale(1.14)}24%{transform:scale(1)}36%{transform:scale(1.1)}}
+  .hc .noappt .ico{stroke-dasharray:26;stroke-dashoffset:26;animation:hcTick .7s var(--ez) .3s forwards}
+  @keyframes hcTick{to{stroke-dashoffset:0}}
+}
+
+/* ---------- film rails ---------- */
+.films{display:grid;gap:16px;margin-top:30px}
+@media(min-width:760px){.films--3{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:900px){.films--4{grid-template-columns:repeat(4,1fr)}}
+.film figcaption{margin-top:12px}
+.film b{display:block;font-size:16.5px;font-weight:600}
+.film span{display:block;margin-top:4px;font-size:14.5px;color:var(--ink2);line-height:1.5}
+.stories{display:grid;gap:20px;margin-top:30px}
+@media(min-width:820px){.stories{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}}
 
 .band{background:var(--red);color:#fff}
 .band-in{max-width:var(--wrap);margin:0 auto;padding:18px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:9px 16px}
@@ -197,12 +227,6 @@ footer a.tel{text-decoration:none;color:var(--red)}
 .wa-float:hover,.wa-float:focus-visible{background:var(--wa-deep);color:#fff;transform:translateY(-2px);box-shadow:0 12px 30px -4px rgba(0,0,0,.38)}
 @media(min-width:768px){.wa-float{right:26px;bottom:26px}}
 
-.lb{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px}
-.lb[hidden]{display:none}
-.lb__scrim{position:absolute;inset:0;background:rgba(12,10,9,.86)}
-.lb__box{position:relative;z-index:1;width:100%;max-width:1000px;aspect-ratio:16/9;background:#000;border-radius:var(--r2);overflow:hidden}
-.lb__box video{width:100%;height:100%;object-fit:contain;background:#000}
-.lb__close{position:absolute;top:10px;right:10px;z-index:2;width:42px;height:42px;border-radius:50%;border:0;cursor:pointer;background:rgba(0,0,0,.55);color:#fff;display:grid;place-items:center}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 `;
@@ -228,20 +252,33 @@ function render(c) {
           </figure>`
   ).join('');
 
+  const stories = D.STORIES.map(
+    ([token, shape, who, what]) => `<figure class="film">
+            ${D.video({ token, portrait: shape === 'portrait' })}
+            <figcaption><b>${esc(who)}</b><span>${esc(what)}</span></figcaption>
+          </figure>`
+  ).join('');
+
+  const team = D.TEAM.map(
+    ([token, label]) => `<figure class="film">
+            ${D.video({ token, portrait: true })}
+            <figcaption><b>${esc(label)}</b></figcaption>
+          </figure>`
+  ).join('');
+
+  const serviceFilms = D.SERVICE_FILMS.map(
+    ([token, title, note]) => `<figure class="film">
+            ${D.video({ token, portrait: true })}
+            <figcaption><b>${esc(title)}</b><span>${esc(note)}</span></figcaption>
+          </figure>`
+  ).join('');
+
   const faqs = D.faqFor(c).map(([q, a]) => `<details><summary>${esc(q)}</summary><div class="a">${esc(a)}</div></details>`).join('');
   const insurers = D.INSURERS.map(([tok, name]) => `<img src="%%${tok}%%" alt="${esc(name)}" loading="lazy" width="120" height="40">`).join('');
 
   const walk = c.walkLoop
-    ? `<div class="vid vid--walk" data-loop>
-          <video autoplay muted loop playsinline preload="metadata" aria-label="The walk from the main entrance of ${esc(c.hotel)} to the 24/7 Clinic">
-            <source src="%%C7LOOPWALK%%" type="video/mp4"></video>
-          <span class="tag">The walk from the entrance</span>
-        </div>`
-    : `<div class="vid" data-loop>
-          <video autoplay muted loop playsinline preload="metadata" aria-label="Inside a 24/7 Clinic">
-            <source src="%%C7LOOPCLINIC%%" type="video/mp4"></video>
-          <span class="tag">Inside the clinic</span>
-        </div>`;
+    ? D.video({ token: 'VHOWTOFIND', portrait: true, tag: 'The walk from the entrance' })
+    : D.video({ token: 'VINTRO', portrait: true, tag: 'Where you are in your hotel' });
 
   return `<title>${esc(c.title)}</title>
 <meta name="description" content="${esc(c.desc)}">
@@ -279,24 +316,28 @@ function render(c) {
           <span>${svg('shield')}Insurance handled</span>
         </div>
       </div>
-      <div class="vid" data-loop>
-        <video autoplay muted loop playsinline preload="metadata" aria-label="Inside the 24/7 Clinic">
-          <source src="%%C7LOOPCLINIC%%" type="video/mp4"></video>
-        <span class="tag">Inside the clinic</span>
-        <div class="ctrl">
-          <button type="button" data-sound aria-label="Turn sound on">${svg('mute')}</button>
-          <button type="button" data-lightbox aria-label="Watch the full film">${svg('play')}</button>
+      ${D.video({ token: 'VCOMMERCIAL', portrait: false, tag: 'The clinic film' })}
+    </div>
+  </section>
+
+  <section class="hc">
+    <div class="hc-in">
+      <img src="%%POSTERHEALTH%%" alt="Free health check: free blood pressure and blood sugar check for hotel guests at 24/7 Clinic" loading="lazy" width="1080" height="1440">
+      <div>
+        <span class="free">Free for hotel guests</span>
+        <h2>A health check, on the house</h2>
+        <p class="note">Checked by a nurse while you wait. Nothing to pay, nothing to book.</p>
+        <div class="hc-tiles">
+          <div class="hc-tile"><span class="i">${svg('heart')}</span><span><b>Blood pressure</b><span>Checked in a minute</span></span></div>
+          <div class="hc-tile"><span class="i">${svg('gauge')}</span><span><b>Blood sugar</b><span>One drop, one reading</span></span></div>
+        </div>
+        <div class="row">
+          <a class="btn btn--white" href="${L.tel}" data-ev="call_click">${svg('phone')}Call the clinic</a>
+          <span class="noappt">${svg('check')}No appointment needed</span>
         </div>
       </div>
     </div>
   </section>
-
-  <div class="band">
-    <div class="band-in">
-      <span class="free">Free</span><b>Health check for hotel guests</b>
-      <span class="t">Blood pressure and blood sugar. No appointment.</span>
-    </div>
-  </div>
 
   <section class="sec" id="find">
     <div class="wrap">
@@ -343,9 +384,25 @@ function render(c) {
 
   <section class="sec sec--tint">
     <div class="wrap">
-      <div class="kick">What guests say</div>
+      <div class="kick">Guest stories</div>
       <h2>In their own words</h2>
-      <div class="revs">${reviews}</div>
+      <div class="stories">${stories}</div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="kick">The team</div>
+      <h2>The people who will see you</h2>
+      <div class="films films--3">${team}</div>
+    </div>
+  </section>
+
+  <section class="sec sec--tint">
+    <div class="wrap">
+      <div class="kick">At this clinic</div>
+      <h2>What we do, filmed here</h2>
+      <div class="films films--4">${serviceFilms}</div>
     </div>
   </section>
 
@@ -383,36 +440,11 @@ function render(c) {
 
 <a class="wa-float" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click" aria-label="Message 24/7 Clinic on WhatsApp">${svg('wa')}WhatsApp</a>
 
-<div class="lb" hidden data-lb>
-  <div class="lb__scrim" data-lb-close></div>
-  <div class="lb__box">
-    <button class="lb__close" type="button" data-lb-close aria-label="Close">${svg('close')}</button>
-    <video controls playsinline preload="none" aria-label="Film of the 24/7 Clinic"><source src="%%C7FILM%%" type="video/mp4"></video>
-  </div>
-</div>
-
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 ${D.tracking(c)}
+<script>${D.VIDEO_JS}</script>
 <script>
 (function () {
-  var MUTED = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/>';
-  var LOUD = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="M15.6 9.6a3.4 3.4 0 0 1 0 4.8M18 7.2a6.8 6.8 0 0 1 0 9.6"/>';
-  document.querySelectorAll('[data-sound]').forEach(function (b) {
-    var v = b.closest('[data-loop]').querySelector('video');
-    b.addEventListener('click', function () {
-      v.muted = !v.muted;
-      b.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off');
-      b.querySelector('svg').innerHTML = v.muted ? MUTED : LOUD;
-    });
-  });
-  var lb = document.querySelector('[data-lb]'), lbv = lb && lb.querySelector('video'), opener = null;
-  function openLb(){ lb.hidden=false; lbv.play(); lb.querySelector('.lb__close').focus(); document.body.style.overflow='hidden'; }
-  function closeLb(){ lbv.pause(); lb.hidden=true; document.body.style.overflow=''; if(opener) opener.focus(); }
-  document.querySelectorAll('[data-lightbox]').forEach(function(b){ b.addEventListener('click', function(){ opener=b; openLb(); }); });
-  if (lb) {
-    lb.querySelectorAll('[data-lb-close]').forEach(function(b){ b.addEventListener('click', closeLb); });
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !lb.hidden) closeLb(); });
-  }
   document.querySelectorAll('[data-rail]').forEach(function (rail) {
     var track = rail.querySelector('.rail-track'), prev = rail.querySelector('[data-prev]'),
         next = rail.querySelector('[data-next]'), bar = rail.querySelector('[data-bar]');

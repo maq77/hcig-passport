@@ -55,11 +55,35 @@ const REVIEWS = {
 /* What is on at the clinics. The first is their own poster and is shown whole,
    never cropped. The rest are photographs. */
 const OFFERS = [
-  ['C7POSHEALTH', 'Free health check', 'Blood pressure and blood sugar, free for hotel guests. No appointment.', 'Free', true],
+  ['POSTERHEALTH', 'Free health check', 'Blood pressure and blood sugar, free for hotel guests. No appointment.', 'Free', true],
   ['PXFAMILY', 'A doctor for the family', 'Children seen the same day, by doctors used to seeing families.', '', false],
   ['PXROOM', 'We can come to your room', 'Too unwell to walk down? A doctor comes to you.', '', false],
   ['PXLAB', 'Laboratory and imaging', 'Samples taken here, results coordinated for you.', '', false],
-  ['C7SAMBULANCE', 'Ambulance and hospital', 'If you need a hospital, we arrange the transfer.', '', false],
+  ['PXAMBULANCE', 'Ambulance and hospital', 'If you need a hospital, we arrange the transfer.', '', false],
+];
+
+/* The clinic's own films, as they were shot. Nothing re-encoded, no frame ever
+   cut out of one. `portrait` is 720x1280, `landscape` is 1276x720. */
+const STORIES = [
+  ['VPATIENT1', 'portrait', 'A guest from Romania', 'Arrived feeling very unwell. Treated with an IV infusion.'],
+  ['VPATIENT2', 'landscape', 'A family from Romania', 'Their son needed a tooth taken out.'],
+  /* More guest films are coming. Add a line here, register the token in
+     build.js, and every design picks it up. */
+];
+
+const TEAM = [
+  ['VSTAFF1', 'The people behind 24/7 care'],
+  ['VSTAFF2', 'On call, day and night'],
+  ['VSTAFF3', 'Meet the team'],
+];
+
+/* Filmed at this clinic, except the aesthetic one, which was filmed at Long
+   Beach Resort. It is worded as a network service for that reason. */
+const SERVICE_FILMS = [
+  ['VDENTAL', 'Dental', 'Toothache and emergencies, treated at the clinic.'],
+  ['VEMERGENCY', 'Emergency', 'Urgent care, day or night.'],
+  ['VTOOTH', 'Tooth jewellery', 'Fitted at the clinic.'],
+  ['VAESTHETIC', 'Aesthetic procedures', 'Offered across the 24/7 Clinic network.'],
 ];
 
 const INSURERS = [
@@ -173,6 +197,9 @@ const ICON = {
   mute: '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/>',
   check: '<path d="m4.6 12.4 5 5 9.8-10.8"/>',
   arrow: '<path d="M5 12h13M12.6 6.2 18.4 12l-5.8 5.8"/>',
+  expand: '<path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/>',
+  heart: '<path d="M12 20.4S3.8 15.2 3.8 9.6A4.2 4.2 0 0 1 12 7.4a4.2 4.2 0 0 1 8.2 2.2c0 5.6-8.2 10.8-8.2 10.8Z"/>',
+  gauge: '<path d="M4.4 17.4a8.6 8.6 0 1 1 15.2 0"/><path d="m12 13.6 3.4-3.6"/><circle cx="12" cy="17.4" r="1.6"/>',
 };
 
 function svg(name, cls) {
@@ -241,6 +268,96 @@ function links(c) {
   };
 }
 
+/**
+ * One video component for all three designs.
+ *
+ * Nothing downloads until the film scrolls into view: the `src` lives in
+ * `data-src` and the player only gets it when the observer fires. Then it plays
+ * muted and loops, which browsers allow, and pauses again when it scrolls away.
+ * Sound and full screen are opt in.
+ *
+ * These are the clinic's own files at their own resolution, so a page with a
+ * dozen of them would be 60 MB if they all loaded. This is why they do not.
+ */
+function video({ token, portrait, tag, autoplay = true, cls = '' }) {
+  return `<div class="v ${portrait ? 'v--p' : 'v--l'} ${cls}" data-v>
+        <video muted loop playsinline preload="none"${autoplay ? ' data-auto' : ''} data-src="%%${token}%%"${tag ? ` aria-label="${esc(tag)}"` : ''}></video>
+        ${tag ? `<span class="v-tag">${esc(tag)}</span>` : ''}
+        <div class="v-ctrl">
+          <button type="button" data-vsound aria-label="Turn sound on">${svg('mute')}</button>
+          <button type="button" data-vfull aria-label="Watch full screen">${svg('expand')}</button>
+        </div>
+      </div>`;
+}
+
+/* Shared CSS for that component. Each design sets its own radius and shadow. */
+const VIDEO_CSS = `
+.v{position:relative;overflow:hidden;background:#0d0b0a}
+.v video{display:block;width:100%;height:auto;object-fit:cover;background:#0d0b0a}
+.v--l video{aspect-ratio:16/9}
+.v--p video{aspect-ratio:9/16}
+.v-tag{position:absolute;left:12px;bottom:14px;font-size:12.5px;font-weight:600;color:#fff;
+  background:rgba(15,13,12,.58);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px);pointer-events:none}
+.v-ctrl{position:absolute;right:10px;bottom:10px;display:flex;gap:8px}
+.v-ctrl button{width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;background:rgba(15,13,12,.58);
+  color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px);transition:background-color .2s}
+.v-ctrl button:hover{background:rgba(15,13,12,.86)}
+.v-ctrl .ico{width:18px;height:18px}
+.v-load{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.v-load:after{content:"";width:26px;height:26px;border-radius:50%;border:2.5px solid rgba(255,255,255,.28);
+  border-top-color:#fff;animation:vspin .8s linear infinite}
+.v.ready .v-load{display:none}
+@keyframes vspin{to{transform:rotate(360deg)}}
+`;
+
+/* One script for all three designs. */
+const VIDEO_JS = `
+(function () {
+  var MUTED = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/>';
+  var LOUD = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="M15.6 9.6a3.4 3.4 0 0 1 0 4.8M18 7.2a6.8 6.8 0 0 1 0 9.6"/>';
+
+  document.querySelectorAll('[data-v]').forEach(function (box) {
+    var v = box.querySelector('video');
+    var load = document.createElement('span');
+    load.className = 'v-load';
+    box.appendChild(load);
+
+    function attach() {
+      if (v.src) return;
+      v.src = v.dataset.src;
+      v.addEventListener('loadeddata', function () { box.classList.add('ready'); }, { once: true });
+    }
+
+    box.querySelector('[data-vsound]').addEventListener('click', function () {
+      attach();
+      v.muted = !v.muted;
+      if (!v.muted) v.play();
+      this.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off');
+      this.querySelector('svg').innerHTML = v.muted ? MUTED : LOUD;
+    });
+    box.querySelector('[data-vfull]').addEventListener('click', function () {
+      attach();
+      if (box.requestFullscreen) box.requestFullscreen();
+      else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen();
+      v.muted = false; v.play();
+    });
+
+    if (!('IntersectionObserver' in window)) { attach(); v.play(); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) {
+          attach();
+          if (v.hasAttribute('data-auto')) { var p = v.play(); if (p) p.catch(function(){}); }
+        } else if (!v.paused && v.muted) {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.25 });
+    io.observe(box);
+  });
+})();
+`;
+
 /* Every design ships the same three events with the same parameters, so one
    GA4 report can compare designs as well as clinics. */
 function tracking(c) {
@@ -258,5 +375,7 @@ function tracking(c) {
 module.exports = {
   PHONE, PHONE_HREF, WA_HREF, SINCE, NETWORK,
   HELP, FLAG, REVIEWS, OFFERS, INSURERS, CLINICS, ICON,
+  STORIES, TEAM, SERVICE_FILMS,
   esc, svg, faqFor, schemaFor, links, tracking,
+  video, VIDEO_CSS, VIDEO_JS,
 };

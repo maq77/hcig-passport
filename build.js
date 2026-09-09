@@ -49,61 +49,29 @@ const ASSETS = {
   SMILE: 'smile.webp',
   FAMILY: 'family.webp',
 
-  /* 24/7 Clinic. Stills pulled from the clinic's own films in
-     `247 material/`, chiefly `Le reve 247.mp4`, which was shot at the
-     Premier Le Reve clinic in Sahl Hasheesh. Real places, real staff. */
-  C7RESORT: 'c7-lereve-resort.webp',
-  C7SIGN: 'c7-lereve-sign.webp',
-  C7CLINIC: 'c7-lereve-clinic.webp',
-  C7RECEPTION: 'c7-reception.webp',
-  C7DOCTOR: 'c7-doctor.webp',
-  C7CONSULT: 'c7-consult.webp',
-  C7WARD: 'c7-ward.webp',
-  C7OBS: 'c7-observation.webp',
-  C7DENTAL: 'c7-dental.webp',
-  C7XRAY: 'c7-xray.webp',
-  C7REPORT: 'c7-report.webp',
-  C7MEDS: 'c7-medication.webp',
-  C7WELCOME: 'c7-welcome.webp',
-  C7TEAM: 'c7-team.webp',
-  C7RESPONSE: 'c7-response.webp',
+  /* 24/7 Clinic's own films, copied in untouched. No re-encode, no frame ever
+     cut out of one: he picks any still himself. */
+  VCOMMERCIAL: 'v-commercial.mp4',
+  VHOWTOFIND: 'v-howtofind.mp4',
+  VPATIENT1: 'v-patient-1.mp4',
+  VPATIENT2: 'v-patient-2.mp4',
+  VSTAFF1: 'v-staff-1.mp4',
+  VSTAFF2: 'v-staff-2.mp4',
+  VSTAFF3: 'v-staff-3.mp4',
+  VDENTAL: 'v-dental.mp4',
+  VDENTAL2: 'v-dental-2.mp4',
+  VEMERGENCY: 'v-emergency.mp4',
+  VTOOTH: 'v-tooth-jewellery.mp4',
+  VAESTHETIC: 'v-aesthetic.mp4',
+  VINTRO: 'v-intro.mp4',
 
-  /* Their own vector logo and their own campaign creatives, taken from
-     247clinic.net and from the films they publish. */
+  /* Their own poster and their own vector logo. */
+  POSTERHEALTH: 'poster-healthcheck.jpg',
   C7LOGO: 'c7-logo.svg',
   C7LOGOW: 'c7-logo-white.svg',
-  C7FILM: 'c7-film.mp4',
-  C7FILMPOSTER: 'c7-film-poster.jpg',
-  C7WALK: 'c7-walk.mp4',
-  C7WALKPOSTER: 'c7-walk-poster.jpg',
-  C7POSHEALTH: 'c7-pos-health.webp',
-  C7POSSMILE: 'c7-pos-smile.webp',
-  C7POSDENTALSAHL: 'c7-pos-dental-sahl.webp',
-  C7POSTEAM: 'c7-pos-team.webp',
-  C7POSFIND: 'c7-pos-find.webp',
-  C7POSDENTALHUR: 'c7-pos-dental-hur.webp',
-  C7STORYDENTAL: 'c7-story-dental.mp4',
-  C7STORYDENTALP: 'c7-story-dental-poster.jpg',
-  C7STORYIV: 'c7-story-iv.mp4',
-  C7STORYIVP: 'c7-story-iv-poster.jpg',
-  /* Rendered from OpenStreetMap tiles at the checked coordinates. It sits
-     behind the live Google map, so the box shows a real map of the real place
-     even if the embed is slow or blocked. */
-  C7MAPLEREVE: 'c7-map-le-reve.png',
-  C7MAPSTEIG: 'c7-map-steigenberger.png',
-  C7MAPAMWAJ: 'c7-map-amwaj.png',
 
-  /* 24/7 Clinic's own image library, taken from 247clinic.net. Photography they
-     already license and already use, plus their insurance partner marks and the
-     country flags they show on their own reviews. */
-  C7SCOAT: 'c7s-coat.webp',
-  C7SAMBULANCE: 'c7s-ambulance.webp',
-  C7SROOM: 'c7s-roomvisit.webp',
-  C7STELE: 'c7s-tele.webp',
-  C7SLAB: 'c7s-lab.webp',
-  C7SCONSULT: 'c7s-consult.webp',
-  C7SMINOR: 'c7s-minor.webp',
-  C7SESSENTIAL: 'c7s-essential.webp',
+  /* Their insurance partner marks and the country flags they use on their own
+     review cards, from 247clinic.net. */
   C7INSADAC: 'c7ins-adac.webp',
   C7INSSOS: 'c7ins-international-sos.webp',
   C7INSMONDIAL: 'c7ins-mondial.webp',
@@ -113,15 +81,19 @@ const ASSETS = {
   C7FLAGCH: 'c7flag-ch.svg',
   C7FLAGCZ: 'c7flag-cz.svg',
   C7FLAGFR: 'c7flag-fr.svg',
-  /* Short, silent, looping previews. The full film with sound opens in the
-     lightbox, so nothing large downloads unless someone asks for it. */
-  C7LOOPCLINIC: 'c7-loop-clinic.mp4',
-  C7LOOPWALK: 'c7-loop-walk.mp4',
-  /* Pexels stock, pulled with `node scripts/pexels.js`. Photographer and
-     source for each are recorded in src/assets/CREDITS.md. */
-  PXFAMILY: 'px-family2.webp',
-  PXROOM: 'px-roomvisit.webp',
-  PXLAB: 'px-lab.webp',
+
+  /* Rendered from OpenStreetMap tiles at the checked coordinates, behind the
+     live Google map so the box is never empty. */
+  C7MAPLEREVE: 'c7-map-le-reve.png',
+  C7MAPSTEIG: 'c7-map-steigenberger.png',
+  C7MAPAMWAJ: 'c7-map-amwaj.png',
+
+  /* Pexels, at original resolution. Photographer and source per image are in
+     src/assets/CREDITS.md. */
+  PXFAMILY: 'px-family.jpg',
+  PXROOM: 'px-roomvisit.jpg',
+  PXLAB: 'px-lab.jpg',
+  PXAMBULANCE: 'px-ambulance.jpg',
 
   LOGOHCIG: 'logo-hcig.jpg',
   LOGO247: 'logo-247.png',

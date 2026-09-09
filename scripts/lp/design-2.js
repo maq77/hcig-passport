@@ -149,6 +149,43 @@ ol.steps li:before{content:counter(s);position:absolute;left:0;top:-6px;width:44
   @keyframes draw{to{stroke-dashoffset:0}}
 }
 
+${D.VIDEO_CSS}
+.v{border-radius:var(--r)}
+
+/* ---------- free health check ---------- */
+.hc{background:var(--ink);color:#fff;overflow:hidden}
+.hc-in{max-width:var(--wrap);margin:0 auto;padding:56px 20px;display:grid;gap:34px;align-items:center}
+@media(min-width:900px){.hc-in{grid-template-columns:.72fr 1.28fr;gap:60px;padding:88px 36px}}
+.hc img{width:100%;height:auto;border-radius:var(--r);box-shadow:0 30px 70px -26px rgba(0,0,0,.8)}
+.hc .free{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--red);color:#fff;padding:7px 15px;border-radius:6px}
+.hc h2{color:#fff;margin-top:20px}
+.hc .sub{margin-top:16px;color:rgba(255,255,255,.72)}
+.hc-tiles{display:grid;gap:14px;margin-top:30px}
+@media(min-width:560px){.hc-tiles{grid-template-columns:1fr 1fr}}
+.hc-tile{border:1px solid rgba(255,255,255,.18);border-radius:var(--r);padding:22px;display:flex;gap:16px;align-items:center}
+.hc-tile .i{width:52px;height:52px;flex:none;border-radius:14px;background:var(--red);color:#fff;display:grid;place-items:center}
+.hc-tile .i .ico{width:28px;height:28px;stroke-width:1.7}
+.hc-tile b{display:block;font-size:18px;font-weight:600}
+.hc-tile span{display:block;font-size:14.5px;color:rgba(255,255,255,.66);margin-top:3px}
+.hc .row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:30px}
+.hc .noappt{display:inline-flex;align-items:center;gap:10px;font-size:16px;color:rgba(255,255,255,.86)}
+.hc .noappt .ico{width:20px;height:20px;stroke-width:2.6;color:var(--red)}
+@media (prefers-reduced-motion:no-preference){
+  .hc-tile .i .ico{animation:hcPulse 3.2s var(--ez) infinite}
+  .hc-tile:nth-child(2) .i .ico{animation-delay:1.1s}
+  @keyframes hcPulse{0%,70%,100%{transform:scale(1)}12%{transform:scale(1.14)}24%{transform:scale(1)}36%{transform:scale(1.1)}}
+}
+
+/* ---------- film grids ---------- */
+.films{display:grid;gap:20px;margin-top:38px}
+@media(min-width:760px){.films--3{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:960px){.films--4{grid-template-columns:repeat(4,1fr)}}
+.film figcaption{margin-top:14px}
+.film b{display:block;font-size:18px;font-weight:600;letter-spacing:-.02em}
+.film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.5}
+.stories{display:grid;gap:26px;margin-top:38px}
+@media(min-width:900px){.stories{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}}
+
 /* ---------- offers rail ---------- */
 .rail{margin-top:38px}
 .rail-track{display:grid;grid-auto-flow:column;grid-auto-columns:84%;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:6px 0 8px}
@@ -232,12 +269,6 @@ footer a.tel{text-decoration:none;color:var(--red)}
 .wa-float:hover,.wa-float:focus-visible{background:var(--wa-deep);color:#fff;transform:translateY(-2px)}
 @media(min-width:768px){.wa-float{right:26px;bottom:26px}}
 
-.lb{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px}
-.lb[hidden]{display:none}
-.lb__scrim{position:absolute;inset:0;background:rgba(12,10,9,.9)}
-.lb__box{position:relative;z-index:1;width:100%;max-width:1000px;aspect-ratio:16/9;background:#000;border-radius:var(--r);overflow:hidden}
-.lb__box video{width:100%;height:100%;object-fit:contain;background:#000}
-.lb__close{position:absolute;top:10px;right:10px;z-index:2;width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;background:rgba(0,0,0,.6);color:#fff;display:grid;place-items:center}
 
 /* scroll reveal */
 @media (prefers-reduced-motion:no-preference){
@@ -284,8 +315,23 @@ function render(c) {
   const ticker = tickerItems.concat(tickerItems).map((t) => `<span>${esc(t)}</span>`).join('');
 
   const walkMedia = c.walkLoop
-    ? `<video autoplay muted loop playsinline preload="metadata" aria-label="The walk from the main entrance of ${esc(c.hotel)} to the 24/7 Clinic"><source src="%%C7LOOPWALK%%" type="video/mp4"></video>`
-    : `<video autoplay muted loop playsinline preload="metadata" aria-label="Inside a 24/7 Clinic"><source src="%%C7LOOPCLINIC%%" type="video/mp4"></video>`;
+    ? D.video({ token: 'VHOWTOFIND', portrait: true, tag: 'The walk from the entrance' })
+    : D.video({ token: 'VINTRO', portrait: true, tag: 'Where you are in your hotel' });
+
+  const stories = D.STORIES.map(
+    ([token, shape, who, what]) => `<figure class="film">
+            ${D.video({ token, portrait: shape === 'portrait' })}
+            <figcaption><b>${esc(who)}</b><span>${esc(what)}</span></figcaption>
+          </figure>`
+  ).join('');
+
+  const team = D.TEAM.map(
+    ([token, label]) => `<figure class="film">${D.video({ token, portrait: true })}<figcaption><b>${esc(label)}</b></figcaption></figure>`
+  ).join('');
+
+  const serviceFilms = D.SERVICE_FILMS.map(
+    ([token, title, note]) => `<figure class="film">${D.video({ token, portrait: true })}<figcaption><b>${esc(title)}</b><span>${esc(note)}</span></figcaption></figure>`
+  ).join('');
 
   return `<title>${esc(c.title)}</title>
 <meta name="description" content="${esc(c.desc)}">
@@ -300,8 +346,8 @@ function render(c) {
 
 <main id="main">
   <section class="hero">
-    <video autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
-      <source src="%%C7LOOPCLINIC%%" type="video/mp4"></video>
+    <video autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"
+           src="%%VCOMMERCIAL%%"></video>
     <div class="scrim"></div>
 
     <header class="top">
@@ -330,6 +376,25 @@ function render(c) {
 
   <div class="ticker"><div class="ticker-in">${ticker}</div></div>
 
+  <section class="hc">
+    <div class="hc-in">
+      <img src="%%POSTERHEALTH%%" alt="Free health check: free blood pressure and blood sugar check for hotel guests at 24/7 Clinic" loading="lazy" width="1080" height="1440">
+      <div>
+        <span class="free">Free for hotel guests</span>
+        <h2>A health check, on the house</h2>
+        <p class="sub">Checked by a nurse while you wait. Nothing to pay, nothing to book.</p>
+        <div class="hc-tiles">
+          <div class="hc-tile"><span class="i">${svg('heart')}</span><span><b>Blood pressure</b><span>Checked in a minute</span></span></div>
+          <div class="hc-tile"><span class="i">${svg('gauge')}</span><span><b>Blood sugar</b><span>One drop, one reading</span></span></div>
+        </div>
+        <div class="row">
+          <a class="btn btn--red" href="${L.tel}" data-ev="call_click">${svg('phone')}Call the clinic</a>
+          <span class="noappt">${svg('check')}No appointment needed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="sec" id="find">
     <div class="wrap">
       <div class="block block--tall">
@@ -344,7 +409,7 @@ function render(c) {
           </figure>
           <div style="margin-top:22px"><a class="btn btn--red" href="${L.maps}" target="_blank" rel="noopener" data-ev="directions_click">${svg('pin')}Directions in Google Maps</a></div>
         </div>
-        <figure data-rise>${walkMedia}</figure>
+        <div data-rise>${walkMedia}</div>
       </div>
     </div>
   </section>
@@ -378,11 +443,22 @@ function render(c) {
 
   <section class="sec sec--tint">
     <div class="wrap">
-      <div data-rise>
-        <div class="kick">What guests say</div>
-        <h2>In their own words</h2>
-      </div>
-      <div class="quotes">${quotes}</div>
+      <div data-rise><div class="kick">Guest stories</div><h2>In their own words</h2></div>
+      <div class="stories">${stories}</div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div data-rise><div class="kick">The team</div><h2>The people who will see you</h2></div>
+      <div class="films films--3">${team}</div>
+    </div>
+  </section>
+
+  <section class="sec sec--tint">
+    <div class="wrap">
+      <div data-rise><div class="kick">At this clinic</div><h2>What we do, filmed here</h2></div>
+      <div class="films films--4">${serviceFilms}</div>
     </div>
   </section>
 
@@ -433,38 +509,11 @@ function render(c) {
 
 <a class="wa-float" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click" aria-label="Message 24/7 Clinic on WhatsApp">${svg('wa')}WhatsApp</a>
 
-<div class="lb" hidden data-lb>
-  <div class="lb__scrim" data-lb-close></div>
-  <div class="lb__box">
-    <button class="lb__close" type="button" data-lb-close aria-label="Close">${svg('close')}</button>
-    <video controls playsinline preload="none" aria-label="Film of the 24/7 Clinic"><source src="%%C7FILM%%" type="video/mp4"></video>
-  </div>
-</div>
-
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 ${D.tracking(c)}
+<script>${D.VIDEO_JS}</script>
 <script>
 (function () {
-  var MUTED = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/>';
-  var LOUD = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="M15.6 9.6a3.4 3.4 0 0 1 0 4.8M18 7.2a6.8 6.8 0 0 1 0 9.6"/>';
-  var hero = document.querySelector('.hero video');
-  document.querySelectorAll('[data-sound]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      hero.muted = !hero.muted;
-      b.setAttribute('aria-label', hero.muted ? 'Turn sound on' : 'Turn sound off');
-      b.querySelector('svg').innerHTML = hero.muted ? MUTED : LOUD;
-    });
-  });
-
-  var lb = document.querySelector('[data-lb]'), lbv = lb && lb.querySelector('video'), opener = null;
-  function openLb(){ lb.hidden=false; lbv.play(); lb.querySelector('.lb__close').focus(); document.body.style.overflow='hidden'; }
-  function closeLb(){ lbv.pause(); lb.hidden=true; document.body.style.overflow=''; if(opener) opener.focus(); }
-  document.querySelectorAll('[data-lightbox]').forEach(function(b){ b.addEventListener('click', function(){ opener=b; openLb(); }); });
-  if (lb) {
-    lb.querySelectorAll('[data-lb-close]').forEach(function(b){ b.addEventListener('click', closeLb); });
-    document.addEventListener('keydown', function(e){ if(e.key==='Escape' && !lb.hidden) closeLb(); });
-  }
-
   document.querySelectorAll('[data-rail]').forEach(function (rail) {
     var track = rail.querySelector('.rail-track'), prev = rail.querySelector('[data-prev]'),
         next = rail.querySelector('[data-next]'), bar = rail.querySelector('[data-bar]');
