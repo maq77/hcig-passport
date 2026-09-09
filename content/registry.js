@@ -93,6 +93,7 @@ const COMPANIES = [
           'Publishing is deleting one if() per page. Rolling back is putting it back.',
           '9 September: the hero film no longer shows a play button on a phone. iPhones draw one over any video that is showing a poster and has not started, and in Low Power Mode it never went away.',
           '9 September: the packages section is rebuilt. Four services, each a card with a picture and a headline. Clicking one opens the package cards in a viewer.',
+          '9 September: a third version adds motion to the home page. Headlines climb into place, cards arrive in turn, photographs open with a wipe. It is a layer over the same page, so the plain version is untouched.',
           'The new package artwork replaced the old, and the set went from 32 MB to 1.7 MB with no loss on screen.',
         ],
         checklist: [
@@ -107,6 +108,7 @@ const COMPANIES = [
             note: 'These serve the new design. Nobody else can reach it and Google cannot index it.',
             items: [
               { slug: 'english', name: 'English', kind: 'link', href: 'https://www.medparkhospitals.com/?preview=2', status: 'review' },
+              { slug: 'motion', name: 'English, with motion', kind: 'link', href: 'https://www.medparkhospitals.com/?preview=3', status: 'review', note: 'The same page with animation. Compare it against the plain one above' },
               { slug: 'german', name: 'German', kind: 'link', href: 'https://www.medparkhospitals.com/de/?preview=2', status: 'review', note: 'Strings marked NEW need a native reader' },
               { slug: 'polish', name: 'Polish', kind: 'link', href: 'https://www.medparkhospitals.com/pl/?preview=2', status: 'review', note: 'Strings marked NEW need a native reader' },
             ],
