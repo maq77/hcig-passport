@@ -78,11 +78,7 @@ const STORIES = [
      build.js, and every design picks it up. */
 ];
 
-const TEAM = [
-  ['VSTAFF1', 'The people behind 24/7 care'],
-  ['VSTAFF2', 'On call, day and night'],
-  ['VSTAFF3', 'Meet the team'],
-];
+/* One team film per clinic. Each landing page shows its own, never a set. */
 
 /* Filmed at this clinic, except the aesthetic one, which was filmed at Long
    Beach Resort. It is worded as a network service for that reason. */
@@ -92,6 +88,13 @@ const SERVICE_FILMS = [
   ['VTOOTH', 'Tooth jewellery', 'Fitted at the clinic.'],
   ['VAESTHETIC', 'Aesthetic procedures', 'Offered across the 24/7 Clinic network.'],
 ];
+
+function serviceFilms() {
+  return SERVICE_FILMS.map(([token, title, note]) => `<figure class="car-item film">
+        ${video({ token, shape: 'portrait', label: 'Watch' })}
+        <figcaption><b>${esc(title)}</b><span>${esc(note)}</span></figcaption>
+      </figure>`).join('');
+}
 
 const INSURERS = [
   ['C7INSADAC', 'ADAC'],
@@ -124,6 +127,7 @@ const CLINICS = [
       'Face the main entrance, then walk left along the outside of the building.',
       'Glass doors marked 24/7 Clinic. The pharmacy is next door.',
     ],
+    teamFilm: 'VSTAFF1',
     walkLoop: true,
     reviews: ['finger', 'discanno', 'waltert'],
   },
@@ -148,6 +152,7 @@ const CLINICS = [
       'Or ask reception for the 24/7 Clinic.',
       'No appointment. A doctor sees you when you arrive.',
     ],
+    teamFilm: 'VSTAFF2',
     walkLoop: false,
     reviews: ['offinger', 'cg', 'kraver'],
   },
@@ -172,6 +177,7 @@ const CLINICS = [
       'Or ask reception for the 24/7 Clinic.',
       'No appointment. A doctor sees you when you arrive.',
     ],
+    teamFilm: 'VSTAFF3',
     walkLoop: false,
     reviews: ['henzel', 'fabien', 'poindexter'],
   },
@@ -286,23 +292,105 @@ function links(c) {
  * These are the clinic's own files at their own resolution, so a page with a
  * dozen of them would be 60 MB if they all loaded. This is why they do not.
  */
-/* Arrows and a counter for the story rail. One script, all three designs. */
-function storyNav() {
-  return `<div class="srail-nav">
-        <button type="button" data-sprev aria-label="Previous story">${svg('left')}</button>
-        <button type="button" data-snext aria-label="Next story">${svg('right')}</button>
-        <span class="srail-count" data-scount>1 of ${STORIES.length}</span>
+function stories() {
+  return STORIES.map(([token, shape, country, cap]) => `<figure class="car-item story">
+        ${video({ token, shape, card: 'portrait', label: 'Watch story' })}
+        <figcaption>
+          ${country ? `<span class="cc"><img src="%%${FLAG[country]}%%" alt="" width="20" height="14">${esc(country)}</span>` : ''}
+          <span class="cap">${esc(cap)}</span>
+        </figcaption>
+      </figure>`).join('');
+}
+
+/**
+ * One video component for all three designs.
+ *
+ * `shape` is the film's real aspect and it stays on the element, so the viewer
+ * can open the film in its own shape. `card` is the shape the card is drawn in,
+ * which may differ: the story rail draws every card portrait for a tidy row and
+ * fills a landscape film to it. Nothing is lost, because Watch opens it whole.
+ */
+function video({ token, shape = 'portrait', card, tag, label = 'Watch video', autoplay = true, cls = '' }) {
+  const c = card || shape;
+  return `<div class="v v--${c === 'portrait' ? 'p' : 'l'} ${cls}" data-v data-shape="${shape}" data-src="%%${token}%%">
+        <video muted loop playsinline preload="none"${autoplay ? ' data-auto' : ''} data-src="%%${token}%%"${tag ? ` aria-label="${esc(tag)}"` : ''}></video>
+        ${tag ? `<span class="v-tag">${esc(tag)}</span>` : ''}
+        <button type="button" class="v-watch" data-vwatch>${svg('play')}${esc(label)}</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on">${svg('mute')}</button>
       </div>`;
 }
 
-const STORY_JS = `
+/**
+ * One carousel, used by the guest stories, the service films and the offers.
+ *
+ * Mobile first: one card and a peek of the next on a phone, so a thumb knows
+ * there is more. Arrows sit on the rail edges at every width because a guest on
+ * a laptop does not think to drag. It advances on its own and stops the moment
+ * anyone touches it, hovers it, focuses inside it, or unmutes a film in it.
+ */
+function carousel({ items, label, size = 'md', auto = true, cls = '' }) {
+  return `<div class="car car--${size} ${cls}" data-car${auto ? ' data-car-auto' : ''}>
+        <div class="car-track" tabindex="0" role="region" aria-label="${esc(label)}">${items}</div>
+        <button class="car-arrow car-arrow--prev" type="button" data-car-prev aria-label="Previous">${svg('left')}</button>
+        <button class="car-arrow car-arrow--next" type="button" data-car-next aria-label="Next">${svg('right')}</button>
+        <div class="car-foot">
+          <span class="car-dots" data-car-dots aria-hidden="true"></span>
+          <span class="car-count" data-car-count></span>
+        </div>
+      </div>`;
+}
+
+const CAROUSEL_CSS = `
+.car{position:relative}
+.story figcaption,.film figcaption{margin-top:14px}
+.story .cc{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink3)}
+.story .cc img{width:20px;height:auto;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
+.story .cap{display:block;margin-top:6px;font-size:15.5px;line-height:1.5;color:var(--ink2)}
+.film b{display:block;font-size:17px;font-weight:600}
+.film span{display:block;margin-top:4px;font-size:14.5px;color:var(--ink2);line-height:1.5}
+.car-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  padding:4px 0 10px;scroll-padding-left:0}
+.car-track::-webkit-scrollbar{display:none}
+.car-item{flex:0 0 78%;scroll-snap-align:start;min-width:0}
+@media(min-width:640px){.car-item{flex-basis:46%}}
+@media(min-width:1040px){.car--md .car-item{flex-basis:30.5%}
+  .car--sm .car-item{flex-basis:23%}}
+.car-arrow{position:absolute;top:calc(50% - 46px);z-index:3;width:48px;height:48px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(255,255,255,.94);color:var(--ink);cursor:pointer;
+  display:grid;place-items:center;backdrop-filter:blur(8px);
+  box-shadow:0 8px 24px -10px rgba(20,18,16,.4);transition:.2s var(--ez,ease)}
+.car-arrow:hover:not([disabled]){background:var(--red);color:#fff;border-color:var(--red)}
+.car-arrow[disabled]{opacity:0;pointer-events:none}
+.car-arrow--prev{left:-6px}
+.car-arrow--next{right:-6px}
+@media(min-width:1040px){.car-arrow{width:54px;height:54px}.car-arrow--prev{left:-26px}.car-arrow--next{right:-26px}}
+.car-foot{display:flex;align-items:center;gap:14px;margin-top:16px}
+.car-dots{display:flex;gap:7px}
+.car-dots i{width:8px;height:8px;border-radius:50%;background:var(--line2);cursor:pointer;transition:.25s var(--ez,ease)}
+.car-dots i.on{background:var(--red);width:26px;border-radius:4px}
+.car-count{font-size:14px;color:var(--ink3);font-variant-numeric:tabular-nums;margin-left:auto}
+`;
+
+const CAROUSEL_JS = `
 (function () {
-  document.querySelectorAll('[data-srail]').forEach(function (rail) {
-    var track = rail.querySelector('.srail-track');
-    var prev = rail.querySelector('[data-sprev]');
-    var next = rail.querySelector('[data-snext]');
-    var count = rail.querySelector('[data-scount]');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('[data-car]').forEach(function (car) {
+    var track = car.querySelector('.car-track');
+    var prev = car.querySelector('[data-car-prev]');
+    var next = car.querySelector('[data-car-next]');
+    var dots = car.querySelector('[data-car-dots]');
+    var count = car.querySelector('[data-car-count]');
     var items = track.children;
+    var timer = null, stopped = false;
+
+    for (var i = 0; i < items.length; i++) {
+      var d = document.createElement('i');
+      d.dataset.i = i;
+      dots.appendChild(d);
+    }
+
     function nearest() {
       var best = 0, bd = Infinity;
       for (var i = 0; i < items.length; i++) {
@@ -311,98 +399,91 @@ const STORY_JS = `
       }
       return best;
     }
-    function go(dir) {
-      var i = Math.min(items.length - 1, Math.max(0, nearest() + dir));
+    function to(i) {
+      i = Math.min(items.length - 1, Math.max(0, i));
       track.scrollTo({ left: items[i].offsetLeft, behavior: 'smooth' });
     }
     function sync() {
-      var max = track.scrollWidth - track.clientWidth;
+      var i = nearest(), max = track.scrollWidth - track.clientWidth;
+      for (var k = 0; k < dots.children.length; k++) dots.children[k].classList.toggle('on', k === i);
       prev.disabled = track.scrollLeft < 8;
       next.disabled = track.scrollLeft > max - 8;
-      rail.classList.toggle('end', track.scrollLeft > max - 8);
-      if (count) count.textContent = (nearest() + 1) + ' of ' + items.length;
+      if (count) count.textContent = (i + 1) + ' / ' + items.length;
     }
-    prev.addEventListener('click', function () { go(-1); });
-    next.addEventListener('click', function () { go(1); });
-    track.addEventListener('scroll', function () { requestAnimationFrame(sync); }, { passive: true });
+    function stop() {
+      stopped = true;
+      window.clearInterval(timer);
+      timer = null;
+    }
+    function start() {
+      if (reduce || stopped || timer || !car.hasAttribute('data-car-auto') || items.length < 2) return;
+      timer = window.setInterval(function () {
+        var max = track.scrollWidth - track.clientWidth;
+        if (track.scrollLeft > max - 8) track.scrollTo({ left: 0, behavior: 'smooth' });
+        else to(nearest() + 1);
+      }, 5200);
+    }
+
+    prev.addEventListener('click', function () { stop(); to(nearest() - 1); });
+    next.addEventListener('click', function () { stop(); to(nearest() + 1); });
+    dots.addEventListener('click', function (e) {
+      if (e.target.dataset.i === undefined) return;
+      stop();
+      to(Number(e.target.dataset.i));
+    });
+    track.addEventListener('scroll', function () { window.requestAnimationFrame(sync); }, { passive: true });
     window.addEventListener('resize', sync);
+
+    /* Anything the visitor does stops it for good. Nothing is more annoying
+       than a rail that slides away while you are reading it. */
+    ['pointerdown', 'touchstart', 'wheel', 'focusin'].forEach(function (ev) {
+      car.addEventListener(ev, stop, { passive: true });
+    });
+    car.addEventListener('mouseenter', function () { window.clearInterval(timer); timer = null; });
+    car.addEventListener('mouseleave', start);
+
     sync();
+    start();
   });
 })();
 `;
 
-function stories() {
-  return STORIES.map(([token, shape, country, cap]) => `<figure class="story">
-        ${video({ token, portrait: shape === 'portrait' })}
-        <figcaption>
-          ${country ? `<span class="cc"><img src="%%${FLAG[country]}%%" alt="" width="20" height="14">${esc(country)}</span>` : ''}
-          <span class="cap">${esc(cap)}</span>
-        </figcaption>
-      </figure>`).join('');
-}
-
-function video({ token, portrait, tag, autoplay = true, cls = '' }) {
-  return `<div class="v ${portrait ? 'v--p' : 'v--l'} ${cls}" data-v>
-        <video muted loop playsinline preload="none"${autoplay ? ' data-auto' : ''} data-src="%%${token}%%"${tag ? ` aria-label="${esc(tag)}"` : ''}></video>
-        ${tag ? `<span class="v-tag">${esc(tag)}</span>` : ''}
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on">${svg('mute')}</button>
-          <button type="button" data-vfull aria-label="Watch full screen">${svg('expand')}</button>
-        </div>
-      </div>`;
-}
-
-/* The story rail.
- *
- * The films come in two shapes: 9:16 reels and 16:9 pieces. Cropping one to
- * match the other would mean editing his footage, so instead the rail fixes the
- * card HEIGHT and lets the width follow whatever the film actually is. Mixed
- * shapes then read as deliberate rather than as a mistake, and nothing is lost
- * off the edges.
- */
-const STORY_CSS = `
-.srail{margin-top:30px;position:relative}
-.srail-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 0 8px}
-.srail-track::-webkit-scrollbar{display:none}
-.story{scroll-snap-align:start;flex:none;display:flex;flex-direction:column}
-.story .v{height:400px;width:auto}
-.story .v video{height:100%;width:auto;max-width:none}
-@media(min-width:820px){.story .v{height:520px}}
-.story figcaption{margin-top:14px;max-width:340px}
-.story .cc{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink3)}
-.story .cc img{width:20px;height:auto;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
-.story .cap{display:block;margin-top:6px;font-size:15.5px;line-height:1.5;color:var(--ink2)}
-/* An edge fade, so it reads as something that scrolls. */
-.srail:after{content:"";position:absolute;top:0;right:0;bottom:52px;width:64px;pointer-events:none;
-  background:linear-gradient(90deg,transparent,var(--railfade,#fff))}
-.srail.end:after{opacity:0;transition:opacity .3s}
-.srail-nav{display:flex;align-items:center;gap:12px;margin-top:20px}
-.srail-nav button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line2);background:transparent;
-  display:grid;place-items:center;cursor:pointer;color:inherit;transition:.2s}
-.srail-nav button:hover:not([disabled]){border-color:var(--red);color:var(--red)}
-.srail-nav button[disabled]{opacity:.3;cursor:default}
-.srail-count{font-size:14px;color:var(--ink3);font-variant-numeric:tabular-nums}
-`;
-
 /* Shared CSS for that component. Each design sets its own radius and shadow. */
 const VIDEO_CSS = `
-.v{position:relative;overflow:hidden;background:#0d0b0a}
-.v video{display:block;width:100%;height:auto;object-fit:cover;background:#0d0b0a}
-.v--l video{aspect-ratio:16/9}
-.v--p video{aspect-ratio:9/16}
-.v-tag{position:absolute;left:12px;bottom:14px;font-size:12.5px;font-weight:600;color:#fff;
-  background:rgba(15,13,12,.58);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px);pointer-events:none}
-.v-ctrl{position:absolute;right:10px;bottom:10px;display:flex;gap:8px}
-.v-ctrl button{width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;background:rgba(15,13,12,.58);
-  color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px);transition:background-color .2s}
-.v-ctrl button:hover{background:rgba(15,13,12,.86)}
-.v-ctrl .ico{width:18px;height:18px}
+.v{position:relative;overflow:hidden;background:#EFEBE7}
+.v video{display:block;width:100%;height:100%;object-fit:cover;background:#EFEBE7}
+.v--l{aspect-ratio:16/9}
+.v--p{aspect-ratio:9/16}
+.v-tag{position:absolute;left:12px;top:12px;font-size:12.5px;font-weight:600;color:#141210;
+  background:rgba(255,255,255,.92);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px);pointer-events:none}
+.v-watch{position:absolute;left:12px;bottom:12px;display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;
+  background:#fff;color:#C00000;font-weight:600;font-size:14px;padding:10px 16px;border-radius:999px;
+  box-shadow:0 6px 20px -6px rgba(0,0,0,.32);transition:transform .18s,background-color .18s,color .18s}
+.v-watch .ico{width:17px;height:17px}
+.v-watch:hover{transform:translateY(-2px);background:#C00000;color:#fff}
+.v-mute{position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;
+  background:rgba(255,255,255,.92);color:#141210;display:grid;place-items:center;backdrop-filter:blur(6px)}
+.v-mute:hover{background:#fff}
+.v-mute .ico{width:18px;height:18px}
 .v-load{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
-.v-load:after{content:"";width:26px;height:26px;border-radius:50%;border:2.5px solid rgba(255,255,255,.28);
-  border-top-color:#fff;animation:vspin .8s linear infinite}
+.v-load:after{content:"";width:26px;height:26px;border-radius:50%;border:2.5px solid rgba(20,18,16,.16);
+  border-top-color:#C00000;animation:vspin .8s linear infinite}
 .v.ready .v-load{display:none}
 @keyframes vspin{to{transform:rotate(360deg)}}
+
+/* The viewer. A frosted white scrim, never a black one, and a box that takes
+   the film's own shape, so a portrait film is never pillarboxed. */
+.vlb{position:fixed;inset:0;z-index:1200;display:grid;place-items:center;padding:20px}
+.vlb[hidden]{display:none}
+.vlb__scrim{position:absolute;inset:0;background:rgba(250,248,246,.94);backdrop-filter:blur(14px)}
+.vlb__box{position:relative;z-index:1;background:#EFEBE7;border-radius:18px;overflow:hidden;
+  box-shadow:0 40px 90px -30px rgba(20,18,16,.45)}
+.vlb__box video{display:block;width:100%;height:100%;object-fit:contain;background:#EFEBE7}
+.vlb[data-shape="portrait"] .vlb__box{height:min(86vh,860px);aspect-ratio:9/16;width:auto}
+.vlb[data-shape="landscape"] .vlb__box{width:min(1100px,94vw);aspect-ratio:16/9;height:auto}
+.vlb__close{position:absolute;top:14px;right:14px;z-index:2;width:46px;height:46px;border-radius:50%;border:0;
+  cursor:pointer;background:#fff;color:#C00000;display:grid;place-items:center;box-shadow:0 8px 24px -8px rgba(20,18,16,.4)}
+.vlb__close:hover{background:#C00000;color:#fff}
 `;
 
 /* One script for all three designs. */
@@ -410,6 +491,33 @@ const VIDEO_JS = `
 (function () {
   var MUTED = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/>';
   var LOUD = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="M15.6 9.6a3.4 3.4 0 0 1 0 4.8M18 7.2a6.8 6.8 0 0 1 0 9.6"/>';
+
+  var lb = document.querySelector('[data-vlb]');
+  var lbv = lb && lb.querySelector('video');
+  var opener = null;
+
+  function openLb(src, shape, from) {
+    opener = from;
+    lb.setAttribute('data-shape', shape);
+    lbv.src = src;
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    lbv.muted = false;
+    lbv.play();
+    lb.querySelector('.vlb__close').focus();
+  }
+  function closeLb() {
+    lbv.pause();
+    lbv.removeAttribute('src');
+    lbv.load();
+    lb.hidden = true;
+    document.body.style.overflow = '';
+    if (opener) opener.focus();
+  }
+  if (lb) {
+    lb.querySelectorAll('[data-vlb-close]').forEach(function (b) { b.addEventListener('click', closeLb); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+  }
 
   document.querySelectorAll('[data-v]').forEach(function (box) {
     var v = box.querySelector('video');
@@ -423,26 +531,30 @@ const VIDEO_JS = `
       v.addEventListener('loadeddata', function () { box.classList.add('ready'); }, { once: true });
     }
 
-    box.querySelector('[data-vsound]').addEventListener('click', function () {
-      attach();
-      v.muted = !v.muted;
-      if (!v.muted) v.play();
-      this.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off');
-      this.querySelector('svg').innerHTML = v.muted ? MUTED : LOUD;
-    });
-    box.querySelector('[data-vfull]').addEventListener('click', function () {
-      attach();
-      if (box.requestFullscreen) box.requestFullscreen();
-      else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen();
-      v.muted = false; v.play();
-    });
+    var watch = box.querySelector('[data-vwatch]');
+    if (watch && lb) {
+      watch.addEventListener('click', function () {
+        openLb(box.dataset.src, box.dataset.shape || 'portrait', watch);
+      });
+    }
+
+    var sound = box.querySelector('[data-vsound]');
+    if (sound) {
+      sound.addEventListener('click', function () {
+        attach();
+        v.muted = !v.muted;
+        if (!v.muted) v.play();
+        this.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off');
+        this.querySelector('svg').innerHTML = v.muted ? MUTED : LOUD;
+      });
+    }
 
     if (!('IntersectionObserver' in window)) { attach(); v.play(); return; }
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         if (e.isIntersecting) {
           attach();
-          if (v.hasAttribute('data-auto')) { var p = v.play(); if (p) p.catch(function(){}); }
+          if (v.hasAttribute('data-auto')) { var pr = v.play(); if (pr) pr.catch(function () {}); }
         } else if (!v.paused && v.muted) {
           v.pause();
         }
@@ -452,6 +564,18 @@ const VIDEO_JS = `
   });
 })();
 `;
+
+/* The viewer markup. One per page, shared by every player on it. */
+function viewer() {
+  return `<div class="vlb" hidden data-vlb data-shape="portrait">
+  <div class="vlb__scrim" data-vlb-close></div>
+  <div class="vlb__box">
+    <button class="vlb__close" type="button" data-vlb-close aria-label="Close">${svg('close')}</button>
+    <video controls playsinline preload="none" aria-label="24/7 Clinic film"></video>
+  </div>
+</div>`;
+}
+
 
 /* Every design ships the same three events with the same parameters, so one
    GA4 report can compare designs as well as clinics. */
@@ -470,7 +594,8 @@ function tracking(c) {
 module.exports = {
   PHONE, PHONE_HREF, WA_HREF, SINCE, NETWORK,
   HELP, FLAG, REVIEWS, OFFERS, INSURERS, CLINICS, ICON,
-  STORIES, TEAM, SERVICE_FILMS,
+  STORIES, SERVICE_FILMS,
   esc, svg, faqFor, schemaFor, links, tracking,
-  video, stories, storyNav, VIDEO_CSS, VIDEO_JS, STORY_CSS, STORY_JS,
+  video, stories, serviceFilms, viewer, carousel,
+  VIDEO_CSS, VIDEO_JS, CAROUSEL_CSS, CAROUSEL_JS,
 };

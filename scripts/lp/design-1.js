@@ -51,6 +51,9 @@ a,button,summary{touch-action:manipulation}
 .btn--wa{background:var(--wa);color:#fff}
 .btn--wa:hover{background:var(--wa-deep)}
 .btn--line{background:#fff;color:var(--ink);border:1.5px solid var(--line2)}
+.btn--watch{background:#fff;color:var(--red);border:1.5px solid var(--red-l)}
+.btn--watch:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.team-one{margin-top:30px;max-width:320px}
 .btn--line:hover{border-color:var(--red);color:var(--red)}
 .btn--sm{min-height:44px;font-size:15px;padding:0 18px}
 .btn .num{font-weight:500;opacity:.9;font-size:15px}
@@ -87,26 +90,27 @@ ${D.VIDEO_CSS}
 .v{border-radius:var(--r2);box-shadow:var(--sh2)}
 
 /* ---------- free health check, made a block ---------- */
-.hc{background:linear-gradient(180deg,var(--red) 0%,#A30000 100%);color:#fff;overflow:hidden}
+.hc{background:var(--red-t);border-block:1px solid var(--red-l);overflow:hidden}
 .hc-in{max-width:var(--wrap);margin:0 auto;padding:38px 20px;display:grid;gap:28px;align-items:center}
 @media(min-width:820px){.hc-in{grid-template-columns:.8fr 1.2fr;gap:48px;padding:52px 32px}}
-.hc img{width:100%;height:auto;border-radius:14px;box-shadow:0 24px 50px -20px rgba(0,0,0,.6)}
+.hc img{width:100%;height:auto;border-radius:14px;box-shadow:0 20px 44px -22px rgba(20,18,16,.4)}
 .hc .free{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
-  background:#fff;color:var(--red);padding:6px 13px;border-radius:6px}
-.hc h2{color:#fff;margin-top:16px;font-size:clamp(26px,4.2vw,38px)}
-.hc .note{margin-top:12px;color:rgba(255,255,255,.88);font-size:16.5px;max-width:44ch}
+  background:var(--red);color:#fff;padding:6px 13px;border-radius:6px}
+.hc h2{margin-top:16px;font-size:clamp(26px,4.2vw,38px)}
+.hc .note{margin-top:12px;color:var(--ink2);font-size:16.5px;max-width:44ch}
 .hc-tiles{display:grid;gap:12px;margin-top:26px}
 @media(min-width:560px){.hc-tiles{grid-template-columns:1fr 1fr}}
-.hc-tile{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26);border-radius:14px;
+.hc-tile{background:#fff;border:1px solid var(--red-l);border-radius:14px;
   padding:18px 18px;display:flex;gap:14px;align-items:center;backdrop-filter:blur(6px)}
-.hc-tile .i{width:46px;height:46px;flex:none;border-radius:12px;background:#fff;color:var(--red);display:grid;place-items:center}
+.hc-tile .i{width:46px;height:46px;flex:none;border-radius:12px;background:var(--red-t);color:var(--red);display:grid;place-items:center}
 .hc-tile .i .ico{width:26px;height:26px;stroke-width:1.8}
 .hc-tile b{display:block;font-size:16.5px;font-weight:600}
-.hc-tile span{display:block;font-size:14px;color:rgba(255,255,255,.82);margin-top:2px}
+.hc-tile span{display:block;font-size:14px;color:var(--ink3);margin-top:2px}
 .hc .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:24px}
-.hc .btn--white{background:#fff;color:var(--red)}
-.hc .btn--white:hover{background:#F3E6E6}
-.hc .noappt{display:inline-flex;align-items:center;gap:9px;font-size:15px;color:rgba(255,255,255,.9)}
+.hc .btn--white{background:var(--red);color:#fff}
+.hc .btn--white:hover{background:var(--red-d)}
+.hc .noappt{display:inline-flex;align-items:center;gap:9px;font-size:15px;color:var(--ink2)}
+.hc .noappt .ico{color:var(--red)}
 .hc .noappt .ico{width:19px;height:19px;stroke-width:2.6}
 @media (prefers-reduced-motion:no-preference){
   .hc-tile .i .ico{animation:hcPulse 3.2s var(--ez) infinite}
@@ -123,7 +127,7 @@ ${D.VIDEO_CSS}
 .film figcaption{margin-top:12px}
 .film b{display:block;font-size:16.5px;font-weight:600}
 .film span{display:block;margin-top:4px;font-size:14.5px;color:var(--ink2);line-height:1.5}
-${D.STORY_CSS}
+${D.CAROUSEL_CSS}
 
 .band{background:var(--red);color:#fff}
 .band-in{max-width:var(--wrap);margin:0 auto;padding:18px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:9px 16px}
@@ -161,29 +165,6 @@ ol.steps li:before{content:counter(s);position:absolute;left:0;top:-2px;width:34
 .help-card h3{font-size:17.5px;font-weight:600;margin-top:15px}
 .help-card p{margin-top:7px;font-size:15px;color:var(--ink2);line-height:1.55}
 
-.rail{margin-top:30px}
-.rail-track{display:grid;grid-auto-flow:column;grid-auto-columns:82%;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 0 6px}
-.rail-track::-webkit-scrollbar{display:none}
-@media(min-width:680px){.rail-track{grid-auto-columns:47%}}
-@media(min-width:1020px){.rail-track{grid-auto-columns:32%}}
-.offer{scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:var(--r2);overflow:hidden;
-  display:flex;flex-direction:column;transition:border-color .2s var(--ez),box-shadow .2s var(--ez)}
-.offer:hover{border-color:var(--red-l);box-shadow:var(--sh2)}
-.offer .ph{position:relative;background:var(--bg2)}
-.offer img{width:100%;aspect-ratio:4/3;height:auto;object-fit:cover}
-.offer--poster .ph{background:#fff}
-.offer--poster img{object-fit:contain}
-.offer .flag{position:absolute;top:12px;left:12px;font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
-  background:var(--red);color:#fff;padding:5px 11px;border-radius:6px}
-.offer .m{padding:18px 18px 20px}
-.offer h3{font-size:17.5px;font-weight:600}
-.offer p{margin-top:7px;font-size:15px;color:var(--ink2);line-height:1.55}
-.rail-nav{display:flex;align-items:center;gap:12px;margin-top:18px}
-.rail-nav button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line2);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--ink);transition:.2s var(--ez)}
-.rail-nav button:hover:not([disabled]){border-color:var(--red);color:var(--red)}
-.rail-nav button[disabled]{opacity:.3;cursor:default}
-.rail-bar{height:4px;border-radius:2px;background:var(--line);overflow:hidden;width:100%;max-width:220px}
-.rail-bar i{display:block;height:100%;background:var(--red);border-radius:2px;transition:transform .25s var(--ez);transform-origin:left;transform:scaleX(.2)}
 
 .revs{display:grid;gap:16px;margin-top:30px}
 @media(min-width:760px){.revs{grid-template-columns:repeat(3,1fr)}}
@@ -237,42 +218,23 @@ function render(c) {
   ).join('');
 
   const offers = D.OFFERS.map(
-    ([tok, title, note, flag, poster]) => `<article class="offer${poster ? ' offer--poster' : ''}">
+    ([tok, title, note, flag, poster]) => `<article class="car-item offer${poster ? ' offer--poster' : ''}">
             <div class="ph"><img src="%%${tok}%%" alt="${esc(title)} at 24/7 Clinic" loading="lazy" width="1200" height="900">${flag ? `<span class="flag">${esc(flag)}</span>` : ''}</div>
             <div class="m"><h3>${esc(title)}</h3><p>${esc(note)}</p></div>
           </article>`
   ).join('');
 
-  const reviews = c.reviews.map((k) => D.REVIEWS[k]).map(
-    ([name, country, lang, quote, english]) => `<figure class="rev">
-            <blockquote class="q" lang="${lang}">&ldquo;${esc(quote)}&rdquo;</blockquote>
-            <p class="en">${esc(english)}</p>
-            <figcaption class="who"><img src="%%${D.FLAG[country]}%%" alt="" width="26" height="18"><span><span class="nm">${esc(name)}</span><span class="cn">${esc(country)}</span></span></figcaption>
-          </figure>`
-  ).join('');
 
   const stories = D.stories();
 
-  const team = D.TEAM.map(
-    ([token, label]) => `<figure class="film">
-            ${D.video({ token, portrait: true })}
-            <figcaption><b>${esc(label)}</b></figcaption>
-          </figure>`
-  ).join('');
-
-  const serviceFilms = D.SERVICE_FILMS.map(
-    ([token, title, note]) => `<figure class="film">
-            ${D.video({ token, portrait: true })}
-            <figcaption><b>${esc(title)}</b><span>${esc(note)}</span></figcaption>
-          </figure>`
-  ).join('');
+  const team = D.video({ token: c.teamFilm, shape: 'portrait', label: 'Meet the team' });
 
   const faqs = D.faqFor(c).map(([q, a]) => `<details><summary>${esc(q)}</summary><div class="a">${esc(a)}</div></details>`).join('');
   const insurers = D.INSURERS.map(([tok, name]) => `<img src="%%${tok}%%" alt="${esc(name)}" loading="lazy" width="120" height="40">`).join('');
 
   const walk = c.walkLoop
-    ? D.video({ token: 'VHOWTOFIND', portrait: true, tag: 'The walk from the entrance' })
-    : D.video({ token: 'VINTRO', portrait: true, tag: 'Where you are in your hotel' });
+    ? D.video({ token: 'VHOWTOFIND', shape: 'portrait', tag: 'The walk from the entrance' })
+    : D.video({ token: 'VINTRO', shape: 'portrait', tag: 'Where you are in your hotel' });
 
   return `<title>${esc(c.title)}</title>
 <meta name="description" content="${esc(c.desc)}">
@@ -303,6 +265,7 @@ function render(c) {
         <div class="hero-cta">
           <a class="btn btn--red" href="${L.tel}" data-ev="call_click">${svg('phone')}Call now <span class="num">${D.PHONE}</span></a>
           <a class="btn btn--wa" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">${svg('wa')}WhatsApp</a>
+          <button class="btn btn--watch" type="button" data-herowatch>${svg('play')}Watch video</button>
         </div>
         <div class="hero-note">
           <span>${svg('pin')}${esc(c.area)}</span>
@@ -310,7 +273,7 @@ function render(c) {
           <span>${svg('shield')}Insurance handled</span>
         </div>
       </div>
-      ${D.video({ token: 'VCOMMERCIAL', portrait: false, tag: 'The clinic film' })}
+      ${D.video({ token: 'VCOMMERCIAL', shape: 'landscape', tag: 'The clinic film', cls: 'hero-film' })}
     </div>
   </section>
 
@@ -365,14 +328,7 @@ function render(c) {
     <div class="wrap">
       <div class="kick">On now</div>
       <h2>What the clinic is offering</h2>
-      <div class="rail" data-rail>
-        <div class="rail-track" tabindex="0" role="region" aria-label="Offers at 24/7 Clinic">${offers}</div>
-        <div class="rail-nav">
-          <button type="button" data-prev aria-label="Previous">${svg('left')}</button>
-          <button type="button" data-next aria-label="Next">${svg('right')}</button>
-          <span class="rail-bar"><i data-bar></i></span>
-        </div>
-      </div>
+      ${D.carousel({ items: offers, label: "Offers at 24/7 Clinic" })}
     </div>
   </section>
 
@@ -380,7 +336,7 @@ function render(c) {
     <div class="wrap">
       <div class="kick">Guest stories</div>
       <h2>In their own words</h2>
-      <div class="srail" data-srail style="--railfade:#F8F6F4"><div class="srail-track" tabindex="0" role="region" aria-label="Guest stories">${stories}</div>${D.storyNav()}</div>
+      ${D.carousel({ items: stories, label: "Guest stories" })}
     </div>
   </section>
 
@@ -388,7 +344,7 @@ function render(c) {
     <div class="wrap">
       <div class="kick">The team</div>
       <h2>The people who will see you</h2>
-      <div class="films films--3">${team}</div>
+      <div class="team-one">${team}</div>
     </div>
   </section>
 
@@ -396,7 +352,7 @@ function render(c) {
     <div class="wrap">
       <div class="kick">At this clinic</div>
       <h2>What we do, filmed here</h2>
-      <div class="films films--4">${serviceFilms}</div>
+      ${D.carousel({ items: D.serviceFilms(), label: "What we do at this clinic", size: "sm" })}
     </div>
   </section>
 
@@ -434,24 +390,18 @@ function render(c) {
 
 <a class="wa-float" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click" aria-label="Message 24/7 Clinic on WhatsApp">${svg('wa')}WhatsApp</a>
 
+${D.viewer()}
+
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 ${D.tracking(c)}
-<script>${D.VIDEO_JS}${D.STORY_JS}</script>
+<script>${D.VIDEO_JS}${D.CAROUSEL_JS}</script>
 <script>
 (function () {
-  document.querySelectorAll('[data-rail]').forEach(function (rail) {
-    var track = rail.querySelector('.rail-track'), prev = rail.querySelector('[data-prev]'),
-        next = rail.querySelector('[data-next]'), bar = rail.querySelector('[data-bar]');
-    function step(){ var f = track.children[0]; return f ? f.getBoundingClientRect().width + 16 : 320; }
-    function sync(){
-      var max = track.scrollWidth - track.clientWidth, p = max > 0 ? track.scrollLeft / max : 1;
-      bar.style.transform = 'scaleX(' + (0.2 + p * 0.8) + ')';
-      prev.disabled = track.scrollLeft < 4; next.disabled = track.scrollLeft > max - 4;
-    }
-    prev.addEventListener('click', function(){ track.scrollBy({left:-step(),behavior:'smooth'}); });
-    next.addEventListener('click', function(){ track.scrollBy({left:step(),behavior:'smooth'}); });
-    track.addEventListener('scroll', function(){ requestAnimationFrame(sync); }, {passive:true});
-    window.addEventListener('resize', sync); sync();
+  var b = document.querySelector('[data-herowatch]');
+  if (!b) return;
+  b.addEventListener('click', function () {
+    var hero = document.querySelector('[data-herofilm]');
+    if (hero) hero.querySelector('[data-vwatch]').click();
   });
 })();
 </script>

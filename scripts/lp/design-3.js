@@ -58,6 +58,9 @@ a,button,summary{touch-action:manipulation}
 .btn--wa{background:var(--wa);border-color:var(--wa);color:#fff}
 .btn--wa:hover{background:var(--wa-deep);border-color:var(--wa-deep);color:#fff}
 .btn--sm{min-height:44px;font-size:14.5px;padding:0 18px}
+.btn--watch{border-color:var(--red-l);color:var(--red)}
+.btn--watch:hover{background:var(--red);border-color:var(--red);color:#fff}
+.team-one{margin-top:40px;max-width:320px}
 
 /* ---------- header ---------- */
 .top{border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:80}
@@ -79,7 +82,8 @@ a,button,summary{touch-action:manipulation}
 
 /* three ways to reach us */
 .ways3{display:grid;gap:0;border-bottom:1px solid var(--line)}
-@media(min-width:760px){.ways3{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:760px){.ways3{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.ways3{grid-template-columns:repeat(4,1fr)}}
 .way3{padding:28px 0;border-top:1px solid var(--line);display:flex;gap:16px;align-items:flex-start;text-decoration:none;transition:.22s var(--ez)}
 @media(min-width:760px){.way3{padding:32px 26px;border-top:0;border-left:1px solid var(--line)}
   .way3:first-child{border-left:0;padding-left:0}}
@@ -109,7 +113,7 @@ ${D.VIDEO_CSS}
 .film figcaption{margin-top:14px}
 .film b{display:block;font-family:var(--fh);font-size:19px;font-weight:400}
 .film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.6}
-${D.STORY_CSS}
+${D.CAROUSEL_CSS}
 
 /* ---------- health check tiles ---------- */
 .hc-tiles{display:grid;gap:16px;margin-top:30px}
@@ -228,13 +232,6 @@ function render(c) {
     ([icon, title, note]) => `<div class="list-row"><span class="i">${svg(icon)}</span><h3>${esc(title)}</h3><p>${esc(note)}</p></div>`
   ).join('');
 
-  const quotes = c.reviews.map((k) => D.REVIEWS[k]).map(
-    ([name, country, lang, quote, english], i) => `<figure class="q${i === 0 ? ' on' : ''}" data-q>
-            <blockquote lang="${lang}">&ldquo;${esc(quote)}&rdquo;</blockquote>
-            <p class="en">${esc(english)}</p>
-            <figcaption class="who"><img src="%%${D.FLAG[country]}%%" alt="" width="30" height="20"><span><span class="nm">${esc(name)}</span><span class="cn">${esc(country)}</span></span></figcaption>
-          </figure>`
-  ).join('');
 
   const faqs = D.faqFor(c).map(([q, a]) => `<details><summary>${esc(q)}</summary><div class="a">${esc(a)}</div></details>`).join('');
   const insurers = D.INSURERS.map(([tok, name]) => `<img src="%%${tok}%%" alt="${esc(name)}" loading="lazy" width="120" height="44">`).join('');
@@ -243,13 +240,8 @@ function render(c) {
 
   const stories = D.stories();
 
-  const team = D.TEAM.map(
-    ([token, label]) => `<figure class="film">${D.video({ token, portrait: true })}<figcaption><b>${esc(label)}</b></figcaption></figure>`
-  ).join('');
+  const team = D.video({ token: c.teamFilm, shape: 'portrait', label: 'Meet the team' });
 
-  const serviceFilms = D.SERVICE_FILMS.map(
-    ([token, title, note]) => `<figure class="film">${D.video({ token, portrait: true })}<figcaption><b>${esc(title)}</b><span>${esc(note)}</span></figcaption></figure>`
-  ).join('');
 
   return `<title>${esc(c.title)}</title>
 <meta name="description" content="${esc(c.desc)}">
@@ -286,6 +278,10 @@ function render(c) {
           <span class="i">${svg('wa')}</span>
           <span><h2>Send a WhatsApp</h2><span class="v">Message us</span><span class="n">Tell us your room number.</span></span>
         </a>
+        <button class="way3" type="button" data-herowatch style="border:0;font:inherit;text-align:left;background:transparent;cursor:pointer">
+          <span class="i">${svg('play')}</span>
+          <span><h2>Watch video</h2><span class="v">The clinic film</span><span class="n">See it before you come.</span></span>
+        </button>
         <a class="way3" href="#find" data-ev="directions_click">
           <span class="i">${svg('pin')}</span>
           <span><h2>Walk in</h2><span class="v">No appointment</span><span class="n">${esc(c.hotelShort)}, ${esc(c.area)}.</span></span>
@@ -295,7 +291,7 @@ function render(c) {
   </section>
 
   <div class="band">
-    ${D.video({ token: 'VCOMMERCIAL', portrait: false, tag: 'The clinic film' })}
+    ${D.video({ token: 'VCOMMERCIAL', shape: 'landscape', tag: 'The clinic film', cls: 'hero-film' })}
   </div>
 
   <section class="sec sec--sand">
@@ -348,7 +344,7 @@ function render(c) {
     <div class="wrap">
       <span class="tag">Guests</span>
       <h2>In their own words</h2>
-      <div class="srail" data-srail style="--railfade:#FFFFFF"><div class="srail-track" tabindex="0" role="region" aria-label="Guest stories">${stories}</div>${D.storyNav()}</div>
+      ${D.carousel({ items: stories, label: "Guest stories" })}
     </div>
   </section>
 
@@ -356,7 +352,7 @@ function render(c) {
     <div class="wrap">
       <span class="tag">The team</span>
       <h2>The people who will see you</h2>
-      <div class="films films--3">${team}</div>
+      <div class="team-one">${team}</div>
     </div>
   </section>
 
@@ -364,7 +360,7 @@ function render(c) {
     <div class="wrap">
       <span class="tag">Filmed here</span>
       <h2>What we do at this clinic</h2>
-      <div class="films films--4">${serviceFilms}</div>
+      ${D.carousel({ items: D.serviceFilms(), label: "What we do at this clinic", size: "sm" })}
     </div>
   </section>
 
@@ -411,9 +407,21 @@ function render(c) {
 
 <a class="wa-float" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click" aria-label="Message 24/7 Clinic on WhatsApp">${svg('wa')}WhatsApp</a>
 
+${D.viewer()}
+
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 ${D.tracking(c)}
-<script>${D.VIDEO_JS}${D.STORY_JS}</script>
+<script>${D.VIDEO_JS}${D.CAROUSEL_JS}</script>
+<script>
+(function () {
+  var b = document.querySelector('[data-herowatch]');
+  if (!b) return;
+  b.addEventListener('click', function () {
+    var hero = document.querySelector('[data-herofilm]');
+    if (hero) hero.querySelector('[data-vwatch]').click();
+  });
+})();
+</script>
 `;
 }
 

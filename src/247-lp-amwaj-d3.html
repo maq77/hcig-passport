@@ -44,6 +44,9 @@ a,button,summary{touch-action:manipulation}
 .btn--wa{background:var(--wa);border-color:var(--wa);color:#fff}
 .btn--wa:hover{background:var(--wa-deep);border-color:var(--wa-deep);color:#fff}
 .btn--sm{min-height:44px;font-size:14.5px;padding:0 18px}
+.btn--watch{border-color:var(--red-l);color:var(--red)}
+.btn--watch:hover{background:var(--red);border-color:var(--red);color:#fff}
+.team-one{margin-top:40px;max-width:320px}
 
 /* ---------- header ---------- */
 .top{border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:80}
@@ -65,7 +68,8 @@ a,button,summary{touch-action:manipulation}
 
 /* three ways to reach us */
 .ways3{display:grid;gap:0;border-bottom:1px solid var(--line)}
-@media(min-width:760px){.ways3{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:760px){.ways3{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.ways3{grid-template-columns:repeat(4,1fr)}}
 .way3{padding:28px 0;border-top:1px solid var(--line);display:flex;gap:16px;align-items:flex-start;text-decoration:none;transition:.22s var(--ez)}
 @media(min-width:760px){.way3{padding:32px 26px;border-top:0;border-left:1px solid var(--line)}
   .way3:first-child{border-left:0;padding-left:0}}
@@ -86,22 +90,40 @@ a,button,summary{touch-action:manipulation}
 .band .ctrl button:hover{background:rgba(26,22,20,.78)}
 
 
-.v{position:relative;overflow:hidden;background:#0d0b0a}
-.v video{display:block;width:100%;height:auto;object-fit:cover;background:#0d0b0a}
-.v--l video{aspect-ratio:16/9}
-.v--p video{aspect-ratio:9/16}
-.v-tag{position:absolute;left:12px;bottom:14px;font-size:12.5px;font-weight:600;color:#fff;
-  background:rgba(15,13,12,.58);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px);pointer-events:none}
-.v-ctrl{position:absolute;right:10px;bottom:10px;display:flex;gap:8px}
-.v-ctrl button{width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;background:rgba(15,13,12,.58);
-  color:#fff;display:grid;place-items:center;backdrop-filter:blur(6px);transition:background-color .2s}
-.v-ctrl button:hover{background:rgba(15,13,12,.86)}
-.v-ctrl .ico{width:18px;height:18px}
+.v{position:relative;overflow:hidden;background:#EFEBE7}
+.v video{display:block;width:100%;height:100%;object-fit:cover;background:#EFEBE7}
+.v--l{aspect-ratio:16/9}
+.v--p{aspect-ratio:9/16}
+.v-tag{position:absolute;left:12px;top:12px;font-size:12.5px;font-weight:600;color:#141210;
+  background:rgba(255,255,255,.92);padding:6px 12px;border-radius:999px;backdrop-filter:blur(6px);pointer-events:none}
+.v-watch{position:absolute;left:12px;bottom:12px;display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;
+  background:#fff;color:#C00000;font-weight:600;font-size:14px;padding:10px 16px;border-radius:999px;
+  box-shadow:0 6px 20px -6px rgba(0,0,0,.32);transition:transform .18s,background-color .18s,color .18s}
+.v-watch .ico{width:17px;height:17px}
+.v-watch:hover{transform:translateY(-2px);background:#C00000;color:#fff}
+.v-mute{position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;
+  background:rgba(255,255,255,.92);color:#141210;display:grid;place-items:center;backdrop-filter:blur(6px)}
+.v-mute:hover{background:#fff}
+.v-mute .ico{width:18px;height:18px}
 .v-load{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
-.v-load:after{content:"";width:26px;height:26px;border-radius:50%;border:2.5px solid rgba(255,255,255,.28);
-  border-top-color:#fff;animation:vspin .8s linear infinite}
+.v-load:after{content:"";width:26px;height:26px;border-radius:50%;border:2.5px solid rgba(20,18,16,.16);
+  border-top-color:#C00000;animation:vspin .8s linear infinite}
 .v.ready .v-load{display:none}
 @keyframes vspin{to{transform:rotate(360deg)}}
+
+/* The viewer. A frosted white scrim, never a black one, and a box that takes
+   the film's own shape, so a portrait film is never pillarboxed. */
+.vlb{position:fixed;inset:0;z-index:1200;display:grid;place-items:center;padding:20px}
+.vlb[hidden]{display:none}
+.vlb__scrim{position:absolute;inset:0;background:rgba(250,248,246,.94);backdrop-filter:blur(14px)}
+.vlb__box{position:relative;z-index:1;background:#EFEBE7;border-radius:18px;overflow:hidden;
+  box-shadow:0 40px 90px -30px rgba(20,18,16,.45)}
+.vlb__box video{display:block;width:100%;height:100%;object-fit:contain;background:#EFEBE7}
+.vlb[data-shape="portrait"] .vlb__box{height:min(86vh,860px);aspect-ratio:9/16;width:auto}
+.vlb[data-shape="landscape"] .vlb__box{width:min(1100px,94vw);aspect-ratio:16/9;height:auto}
+.vlb__close{position:absolute;top:14px;right:14px;z-index:2;width:46px;height:46px;border-radius:50%;border:0;
+  cursor:pointer;background:#fff;color:#C00000;display:grid;place-items:center;box-shadow:0 8px 24px -8px rgba(20,18,16,.4)}
+.vlb__close:hover{background:#C00000;color:#fff}
 
 .v{border:1px solid var(--line)}
 
@@ -113,28 +135,35 @@ a,button,summary{touch-action:manipulation}
 .film b{display:block;font-family:var(--fh);font-size:19px;font-weight:400}
 .film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.6}
 
-.srail{margin-top:30px;position:relative}
-.srail-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:4px 0 8px}
-.srail-track::-webkit-scrollbar{display:none}
-.story{scroll-snap-align:start;flex:none;display:flex;flex-direction:column}
-.story .v{height:400px;width:auto}
-.story .v video{height:100%;width:auto;max-width:none}
-@media(min-width:820px){.story .v{height:520px}}
-.story figcaption{margin-top:14px;max-width:340px}
+.car{position:relative}
+.story figcaption,.film figcaption{margin-top:14px}
 .story .cc{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.06em;
   text-transform:uppercase;color:var(--ink3)}
 .story .cc img{width:20px;height:auto;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.12)}
 .story .cap{display:block;margin-top:6px;font-size:15.5px;line-height:1.5;color:var(--ink2)}
-/* An edge fade, so it reads as something that scrolls. */
-.srail:after{content:"";position:absolute;top:0;right:0;bottom:52px;width:64px;pointer-events:none;
-  background:linear-gradient(90deg,transparent,var(--railfade,#fff))}
-.srail.end:after{opacity:0;transition:opacity .3s}
-.srail-nav{display:flex;align-items:center;gap:12px;margin-top:20px}
-.srail-nav button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line2);background:transparent;
-  display:grid;place-items:center;cursor:pointer;color:inherit;transition:.2s}
-.srail-nav button:hover:not([disabled]){border-color:var(--red);color:var(--red)}
-.srail-nav button[disabled]{opacity:.3;cursor:default}
-.srail-count{font-size:14px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.film b{display:block;font-size:17px;font-weight:600}
+.film span{display:block;margin-top:4px;font-size:14.5px;color:var(--ink2);line-height:1.5}
+.car-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  padding:4px 0 10px;scroll-padding-left:0}
+.car-track::-webkit-scrollbar{display:none}
+.car-item{flex:0 0 78%;scroll-snap-align:start;min-width:0}
+@media(min-width:640px){.car-item{flex-basis:46%}}
+@media(min-width:1040px){.car--md .car-item{flex-basis:30.5%}
+  .car--sm .car-item{flex-basis:23%}}
+.car-arrow{position:absolute;top:calc(50% - 46px);z-index:3;width:48px;height:48px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(255,255,255,.94);color:var(--ink);cursor:pointer;
+  display:grid;place-items:center;backdrop-filter:blur(8px);
+  box-shadow:0 8px 24px -10px rgba(20,18,16,.4);transition:.2s var(--ez,ease)}
+.car-arrow:hover:not([disabled]){background:var(--red);color:#fff;border-color:var(--red)}
+.car-arrow[disabled]{opacity:0;pointer-events:none}
+.car-arrow--prev{left:-6px}
+.car-arrow--next{right:-6px}
+@media(min-width:1040px){.car-arrow{width:54px;height:54px}.car-arrow--prev{left:-26px}.car-arrow--next{right:-26px}}
+.car-foot{display:flex;align-items:center;gap:14px;margin-top:16px}
+.car-dots{display:flex;gap:7px}
+.car-dots i{width:8px;height:8px;border-radius:50%;background:var(--line2);cursor:pointer;transition:.25s var(--ez,ease)}
+.car-dots i.on{background:var(--red);width:26px;border-radius:4px}
+.car-count{font-size:14px;color:var(--ink3);font-variant-numeric:tabular-nums;margin-left:auto}
 
 
 /* ---------- health check tiles ---------- */
@@ -274,6 +303,10 @@ footer a.tel{text-decoration:none;color:var(--red)}
           <span class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 20.4 4.9 16.1A8.6 8.6 0 1 1 8 19.2Z"/><path d="M9 8.6c.3 0 .5.3.65.65l.45 1.05-.8.8a5.7 5.7 0 0 0 3.3 3.3l.8-.8 1.05.45c.35.15.65.35.65.65v.9c-.3.45-.9.6-1.5.45A8.6 8.6 0 0 1 8.1 10.6c-.15-.6 0-1.2.45-1.5Z"/></svg></span>
           <span><h2>Send a WhatsApp</h2><span class="v">Message us</span><span class="n">Tell us your room number.</span></span>
         </a>
+        <button class="way3" type="button" data-herowatch style="border:0;font:inherit;text-align:left;background:transparent;cursor:pointer">
+          <span class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg></span>
+          <span><h2>Watch video</h2><span class="v">The clinic film</span><span class="n">See it before you come.</span></span>
+        </button>
         <a class="way3" href="#find" data-ev="directions_click">
           <span class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></svg></span>
           <span><h2>Walk in</h2><span class="v">No appointment</span><span class="n">Amwaj Beach Club, Abu Soma.</span></span>
@@ -283,13 +316,11 @@ footer a.tel{text-decoration:none;color:var(--red)}
   </section>
 
   <div class="band">
-    <div class="v v--l " data-v>
+    <div class="v v--l hero-film" data-v data-shape="landscape" data-src="%%VCOMMERCIAL%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VCOMMERCIAL%%" aria-label="The clinic film"></video>
         <span class="v-tag">The clinic film</span>
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch video</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
       </div>
   </div>
 
@@ -343,89 +374,81 @@ footer a.tel{text-decoration:none;color:var(--red)}
     <div class="wrap">
       <span class="tag">Guests</span>
       <h2>In their own words</h2>
-      <div class="srail" data-srail style="--railfade:#FFFFFF"><div class="srail-track" tabindex="0" role="region" aria-label="Guest stories"><figure class="story">
-        <div class="v v--l " data-v>
+      <div class="car car--md " data-car data-car-auto>
+        <div class="car-track" tabindex="0" role="region" aria-label="Guest stories"><figure class="car-item story">
+        <div class="v v--p " data-v data-shape="landscape" data-src="%%VROMFAMILY%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VROMFAMILY%%"></video>
         
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch story</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
       </div>
         <figcaption>
           <span class="cc"><img src="%%C7FLAGRO%%" alt="" width="20" height="14">Romania</span>
           <span class="cap">A family staying at Premier Le Rêve. Their son needed a tooth taken out.</span>
         </figcaption>
-      </figure><figure class="story">
-        <div class="v v--p " data-v>
+      </figure><figure class="car-item story">
+        <div class="v v--p " data-v data-shape="portrait" data-src="%%VSCOTLAND%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VSCOTLAND%%"></video>
         
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch story</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
       </div>
         <figcaption>
           <span class="cc"><img src="%%C7FLAGGB%%" alt="" width="20" height="14">Scotland</span>
           <span class="cap">Debbie on how she was looked after at the clinic.</span>
         </figcaption>
-      </figure><figure class="story">
-        <div class="v v--p " data-v>
+      </figure><figure class="car-item story">
+        <div class="v v--p " data-v data-shape="portrait" data-src="%%VROMIV%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VROMIV%%"></video>
         
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch story</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
       </div>
         <figcaption>
           <span class="cc"><img src="%%C7FLAGRO%%" alt="" width="20" height="14">Romania</span>
           <span class="cap">Arrived feeling very unwell. Treated with an IV infusion.</span>
         </figcaption>
-      </figure><figure class="story">
-        <div class="v v--p " data-v>
+      </figure><figure class="car-item story">
+        <div class="v v--p " data-v data-shape="portrait" data-src="%%VSCOOTER%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VSCOOTER%%"></video>
         
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch story</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
       </div>
         <figcaption>
           
           <span class="cap">A scooter accident in Egypt, and the recovery that followed.</span>
         </figcaption>
-      </figure><figure class="story">
-        <div class="v v--p " data-v>
+      </figure><figure class="car-item story">
+        <div class="v v--p " data-v data-shape="portrait" data-src="%%VITALY%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VITALY%%"></video>
         
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch story</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
       </div>
         <figcaption>
           <span class="cc"><img src="%%C7FLAGIT%%" alt="" width="20" height="14">Italy</span>
           <span class="cap">Staying at Almaza Bay, and grateful for the care.</span>
         </figcaption>
-      </figure><figure class="story">
-        <div class="v v--l " data-v>
+      </figure><figure class="car-item story">
+        <div class="v v--p " data-v data-shape="landscape" data-src="%%VPOLAND%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VPOLAND%%"></video>
         
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch story</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
       </div>
         <figcaption>
           <span class="cc"><img src="%%C7FLAGPL%%" alt="" width="20" height="14">Poland</span>
           <span class="cap">Smiles know no borders.</span>
         </figcaption>
-      </figure></div><div class="srail-nav">
-        <button type="button" data-sprev aria-label="Previous story"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5.5 8.5 12l6.5 6.5"/></svg></button>
-        <button type="button" data-snext aria-label="Next story"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5"/></svg></button>
-        <span class="srail-count" data-scount>1 of 6</span>
-      </div></div>
+      </figure></div>
+        <button class="car-arrow car-arrow--prev" type="button" data-car-prev aria-label="Previous"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5.5 8.5 12l6.5 6.5"/></svg></button>
+        <button class="car-arrow car-arrow--next" type="button" data-car-next aria-label="Next"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5"/></svg></button>
+        <div class="car-foot">
+          <span class="car-dots" data-car-dots aria-hidden="true"></span>
+          <span class="car-count" data-car-count></span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -433,28 +456,12 @@ footer a.tel{text-decoration:none;color:var(--red)}
     <div class="wrap">
       <span class="tag">The team</span>
       <h2>The people who will see you</h2>
-      <div class="films films--3"><figure class="film"><div class="v v--p " data-v>
-        <video muted loop playsinline preload="none" data-auto data-src="%%VSTAFF1%%"></video>
-        
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
-      </div><figcaption><b>The people behind 24/7 care</b></figcaption></figure><figure class="film"><div class="v v--p " data-v>
-        <video muted loop playsinline preload="none" data-auto data-src="%%VSTAFF2%%"></video>
-        
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
-      </div><figcaption><b>On call, day and night</b></figcaption></figure><figure class="film"><div class="v v--p " data-v>
+      <div class="team-one"><div class="v v--p " data-v data-shape="portrait" data-src="%%VSTAFF3%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VSTAFF3%%"></video>
         
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
-      </div><figcaption><b>Meet the team</b></figcaption></figure></div>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Meet the team</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+      </div></div>
     </div>
   </section>
 
@@ -462,35 +469,47 @@ footer a.tel{text-decoration:none;color:var(--red)}
     <div class="wrap">
       <span class="tag">Filmed here</span>
       <h2>What we do at this clinic</h2>
-      <div class="films films--4"><figure class="film"><div class="v v--p " data-v>
+      <div class="car car--sm " data-car data-car-auto>
+        <div class="car-track" tabindex="0" role="region" aria-label="What we do at this clinic"><figure class="car-item film">
+        <div class="v v--p " data-v data-shape="portrait" data-src="%%VDENTAL%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VDENTAL%%"></video>
         
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
-      </div><figcaption><b>Dental</b><span>Toothache and emergencies, treated at the clinic.</span></figcaption></figure><figure class="film"><div class="v v--p " data-v>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+      </div>
+        <figcaption><b>Dental</b><span>Toothache and emergencies, treated at the clinic.</span></figcaption>
+      </figure><figure class="car-item film">
+        <div class="v v--p " data-v data-shape="portrait" data-src="%%VEMERGENCY%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VEMERGENCY%%"></video>
         
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
-      </div><figcaption><b>Emergency</b><span>Urgent care, day or night.</span></figcaption></figure><figure class="film"><div class="v v--p " data-v>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+      </div>
+        <figcaption><b>Emergency</b><span>Urgent care, day or night.</span></figcaption>
+      </figure><figure class="car-item film">
+        <div class="v v--p " data-v data-shape="portrait" data-src="%%VTOOTH%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VTOOTH%%"></video>
         
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
-        </div>
-      </div><figcaption><b>Tooth jewellery</b><span>Fitted at the clinic.</span></figcaption></figure><figure class="film"><div class="v v--p " data-v>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+      </div>
+        <figcaption><b>Tooth jewellery</b><span>Fitted at the clinic.</span></figcaption>
+      </figure><figure class="car-item film">
+        <div class="v v--p " data-v data-shape="portrait" data-src="%%VAESTHETIC%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VAESTHETIC%%"></video>
         
-        <div class="v-ctrl">
-          <button type="button" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
-          <button type="button" data-vfull aria-label="Watch full screen"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/></svg></button>
+        <button type="button" class="v-watch" data-vwatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch</button>
+        <button type="button" class="v-mute" data-vsound aria-label="Turn sound on"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/></svg></button>
+      </div>
+        <figcaption><b>Aesthetic procedures</b><span>Offered across the 24/7 Clinic network.</span></figcaption>
+      </figure></div>
+        <button class="car-arrow car-arrow--prev" type="button" data-car-prev aria-label="Previous"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5.5 8.5 12l6.5 6.5"/></svg></button>
+        <button class="car-arrow car-arrow--next" type="button" data-car-next aria-label="Next"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5.5 15.5 12 9 18.5"/></svg></button>
+        <div class="car-foot">
+          <span class="car-dots" data-car-dots aria-hidden="true"></span>
+          <span class="car-count" data-car-count></span>
         </div>
-      </div><figcaption><b>Aesthetic procedures</b><span>Offered across the 24/7 Clinic network.</span></figcaption></figure></div>
+      </div>
     </div>
   </section>
 
@@ -537,6 +556,14 @@ footer a.tel{text-decoration:none;color:var(--red)}
 
 <a class="wa-float" href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20a%20doctor%20at%20Amwaj%20Beach%20Club%20Abu%20Soma." target="_blank" rel="noopener" data-ev="whatsapp_click" aria-label="Message 24/7 Clinic on WhatsApp"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 20.4 4.9 16.1A8.6 8.6 0 1 1 8 19.2Z"/><path d="M9 8.6c.3 0 .5.3.65.65l.45 1.05-.8.8a5.7 5.7 0 0 0 3.3 3.3l.8-.8 1.05.45c.35.15.65.35.65.65v.9c-.3.45-.9.6-1.5.45A8.6 8.6 0 0 1 8.1 10.6c-.15-.6 0-1.2.45-1.5Z"/></svg>WhatsApp</a>
 
+<div class="vlb" hidden data-vlb data-shape="portrait">
+  <div class="vlb__scrim" data-vlb-close></div>
+  <div class="vlb__box">
+    <button class="vlb__close" type="button" data-vlb-close aria-label="Close"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <video controls playsinline preload="none" aria-label="24/7 Clinic film"></video>
+  </div>
+</div>
+
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"MedicalClinic","@id":"https://www.247clinic.net/abu-soma/amwaj-beach-club-clinic#clinic","name":"24/7 Clinic, Amwaj Beach Club Abu Soma","url":"https://www.247clinic.net/abu-soma/amwaj-beach-club-clinic","telephone":"+20 122 222 8247","image":"https://www.247clinic.net/assets/images/logos/clinic-logo.svg","parentOrganization":{"@type":"Organization","name":"24/7 Clinic","url":"https://www.247clinic.net"},"address":{"@type":"PostalAddress","addressLocality":"Abu Soma","addressRegion":"Red Sea Governorate","addressCountry":"EG"},"geo":{"@type":"GeoCoordinates","latitude":26.813385,"longitude":33.945688},"areaServed":[{"@type":"Place","name":"Amwaj Beach Club Abu Soma"},{"@type":"Place","name":"Abu Soma"}],"availableLanguage":["English","German","Italian","French"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}],"availableService":[{"@type":"MedicalTherapy","name":"Emergency"},{"@type":"MedicalTherapy","name":"I feel unwell"},{"@type":"MedicalTherapy","name":"Dental"},{"@type":"MedicalTherapy","name":"IV infusion"},{"@type":"MedicalTherapy","name":"Medication and lab"},{"@type":"MedicalTherapy","name":"Insurance and reports"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is there a doctor at Amwaj Beach Club?","acceptedAnswer":{"@type":"Answer","text":"Yes, and you do not need an appointment. Call, send a WhatsApp message, or walk in."}},{"@type":"Question","name":"Are you open at night?","acceptedAnswer":{"@type":"Answer","text":"Yes. The clinic is open 24 hours, every day of the year."}},{"@type":"Question","name":"Do you speak English?","acceptedAnswer":{"@type":"Answer","text":"Yes. Guests have also been treated and answered in German, Italian and French."}},{"@type":"Question","name":"Do you take my travel insurance?","acceptedAnswer":{"@type":"Answer","text":"We deal with your insurer and write the medical report your claim needs. Bring your policy details or your insurance card."}},{"@type":"Question","name":"Is there a hospital near Abu Soma?","acceptedAnswer":{"@type":"Answer","text":"If you need a hospital we arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Our clinics","item":"https://www.247clinic.net/our-clinics"},{"@type":"ListItem","position":2,"name":"Abu Soma","item":"https://www.247clinic.net/abu-soma"},{"@type":"ListItem","position":3,"name":"Amwaj Beach Club"}]}]}</script>
 <script>
 (function () {
@@ -552,6 +579,33 @@ footer a.tel{text-decoration:none;color:var(--red)}
   var MUTED = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="m16.4 9.6 4.2 4.8M20.6 9.6l-4.2 4.8"/>';
   var LOUD = '<path d="M4 9.4h3.4L12 5.4v13.2l-4.6-4H4z"/><path d="M15.6 9.6a3.4 3.4 0 0 1 0 4.8M18 7.2a6.8 6.8 0 0 1 0 9.6"/>';
 
+  var lb = document.querySelector('[data-vlb]');
+  var lbv = lb && lb.querySelector('video');
+  var opener = null;
+
+  function openLb(src, shape, from) {
+    opener = from;
+    lb.setAttribute('data-shape', shape);
+    lbv.src = src;
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    lbv.muted = false;
+    lbv.play();
+    lb.querySelector('.vlb__close').focus();
+  }
+  function closeLb() {
+    lbv.pause();
+    lbv.removeAttribute('src');
+    lbv.load();
+    lb.hidden = true;
+    document.body.style.overflow = '';
+    if (opener) opener.focus();
+  }
+  if (lb) {
+    lb.querySelectorAll('[data-vlb-close]').forEach(function (b) { b.addEventListener('click', closeLb); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lb.hidden) closeLb(); });
+  }
+
   document.querySelectorAll('[data-v]').forEach(function (box) {
     var v = box.querySelector('video');
     var load = document.createElement('span');
@@ -564,26 +618,30 @@ footer a.tel{text-decoration:none;color:var(--red)}
       v.addEventListener('loadeddata', function () { box.classList.add('ready'); }, { once: true });
     }
 
-    box.querySelector('[data-vsound]').addEventListener('click', function () {
-      attach();
-      v.muted = !v.muted;
-      if (!v.muted) v.play();
-      this.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off');
-      this.querySelector('svg').innerHTML = v.muted ? MUTED : LOUD;
-    });
-    box.querySelector('[data-vfull]').addEventListener('click', function () {
-      attach();
-      if (box.requestFullscreen) box.requestFullscreen();
-      else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen();
-      v.muted = false; v.play();
-    });
+    var watch = box.querySelector('[data-vwatch]');
+    if (watch && lb) {
+      watch.addEventListener('click', function () {
+        openLb(box.dataset.src, box.dataset.shape || 'portrait', watch);
+      });
+    }
+
+    var sound = box.querySelector('[data-vsound]');
+    if (sound) {
+      sound.addEventListener('click', function () {
+        attach();
+        v.muted = !v.muted;
+        if (!v.muted) v.play();
+        this.setAttribute('aria-label', v.muted ? 'Turn sound on' : 'Turn sound off');
+        this.querySelector('svg').innerHTML = v.muted ? MUTED : LOUD;
+      });
+    }
 
     if (!('IntersectionObserver' in window)) { attach(); v.play(); return; }
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         if (e.isIntersecting) {
           attach();
-          if (v.hasAttribute('data-auto')) { var p = v.play(); if (p) p.catch(function(){}); }
+          if (v.hasAttribute('data-auto')) { var pr = v.play(); if (pr) pr.catch(function () {}); }
         } else if (!v.paused && v.muted) {
           v.pause();
         }
@@ -594,12 +652,23 @@ footer a.tel{text-decoration:none;color:var(--red)}
 })();
 
 (function () {
-  document.querySelectorAll('[data-srail]').forEach(function (rail) {
-    var track = rail.querySelector('.srail-track');
-    var prev = rail.querySelector('[data-sprev]');
-    var next = rail.querySelector('[data-snext]');
-    var count = rail.querySelector('[data-scount]');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('[data-car]').forEach(function (car) {
+    var track = car.querySelector('.car-track');
+    var prev = car.querySelector('[data-car-prev]');
+    var next = car.querySelector('[data-car-next]');
+    var dots = car.querySelector('[data-car-dots]');
+    var count = car.querySelector('[data-car-count]');
     var items = track.children;
+    var timer = null, stopped = false;
+
+    for (var i = 0; i < items.length; i++) {
+      var d = document.createElement('i');
+      d.dataset.i = i;
+      dots.appendChild(d);
+    }
+
     function nearest() {
       var best = 0, bd = Infinity;
       for (var i = 0; i < items.length; i++) {
@@ -608,22 +677,61 @@ footer a.tel{text-decoration:none;color:var(--red)}
       }
       return best;
     }
-    function go(dir) {
-      var i = Math.min(items.length - 1, Math.max(0, nearest() + dir));
+    function to(i) {
+      i = Math.min(items.length - 1, Math.max(0, i));
       track.scrollTo({ left: items[i].offsetLeft, behavior: 'smooth' });
     }
     function sync() {
-      var max = track.scrollWidth - track.clientWidth;
+      var i = nearest(), max = track.scrollWidth - track.clientWidth;
+      for (var k = 0; k < dots.children.length; k++) dots.children[k].classList.toggle('on', k === i);
       prev.disabled = track.scrollLeft < 8;
       next.disabled = track.scrollLeft > max - 8;
-      rail.classList.toggle('end', track.scrollLeft > max - 8);
-      if (count) count.textContent = (nearest() + 1) + ' of ' + items.length;
+      if (count) count.textContent = (i + 1) + ' / ' + items.length;
     }
-    prev.addEventListener('click', function () { go(-1); });
-    next.addEventListener('click', function () { go(1); });
-    track.addEventListener('scroll', function () { requestAnimationFrame(sync); }, { passive: true });
+    function stop() {
+      stopped = true;
+      window.clearInterval(timer);
+      timer = null;
+    }
+    function start() {
+      if (reduce || stopped || timer || !car.hasAttribute('data-car-auto') || items.length < 2) return;
+      timer = window.setInterval(function () {
+        var max = track.scrollWidth - track.clientWidth;
+        if (track.scrollLeft > max - 8) track.scrollTo({ left: 0, behavior: 'smooth' });
+        else to(nearest() + 1);
+      }, 5200);
+    }
+
+    prev.addEventListener('click', function () { stop(); to(nearest() - 1); });
+    next.addEventListener('click', function () { stop(); to(nearest() + 1); });
+    dots.addEventListener('click', function (e) {
+      if (e.target.dataset.i === undefined) return;
+      stop();
+      to(Number(e.target.dataset.i));
+    });
+    track.addEventListener('scroll', function () { window.requestAnimationFrame(sync); }, { passive: true });
     window.addEventListener('resize', sync);
+
+    /* Anything the visitor does stops it for good. Nothing is more annoying
+       than a rail that slides away while you are reading it. */
+    ['pointerdown', 'touchstart', 'wheel', 'focusin'].forEach(function (ev) {
+      car.addEventListener(ev, stop, { passive: true });
+    });
+    car.addEventListener('mouseenter', function () { window.clearInterval(timer); timer = null; });
+    car.addEventListener('mouseleave', start);
+
     sync();
+    start();
+  });
+})();
+</script>
+<script>
+(function () {
+  var b = document.querySelector('[data-herowatch]');
+  if (!b) return;
+  b.addEventListener('click', function () {
+    var hero = document.querySelector('[data-herofilm]');
+    if (hero) hero.querySelector('[data-vwatch]').click();
   });
 })();
 </script>

@@ -55,8 +55,11 @@ a,button,summary{touch-action:manipulation}
 .btn--red:hover{background:var(--red-d)}
 .btn--wa{background:var(--wa);color:#fff}
 .btn--wa:hover{background:var(--wa-deep)}
-.btn--glass{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.5);backdrop-filter:blur(8px)}
-.btn--glass:hover{background:rgba(255,255,255,.26)}
+.btn--glass{background:var(--wa);color:#fff}
+.btn--glass:hover{background:var(--wa-deep)}
+.btn--watch{background:#fff;color:var(--red);border:1.5px solid var(--red-l)}
+.btn--watch:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.team-one{margin-top:38px;max-width:340px}
 .btn--sm{min-height:44px;font-size:15px;padding:0 18px}
 .btn .num{font-weight:500;opacity:.9;font-size:15px}
 
@@ -64,11 +67,11 @@ a,button,summary{touch-action:manipulation}
 .top{position:absolute;top:0;left:0;right:0;z-index:60}
 .top-in{max-width:var(--wrap);margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px}
 @media(min-width:820px){.top-in{padding:18px 36px}}
-.top .brand img{height:52px;width:auto;filter:drop-shadow(0 2px 10px rgba(0,0,0,.5))}
+.top .brand img{height:52px;width:auto;background:rgba(255,255,255,.92);border-radius:12px;padding:6px 10px}
 @media(min-width:820px){.top .brand img{height:62px}}
 .top .sp{flex:1}
-.top .chip{display:none;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#fff;
-  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.34);padding:8px 14px;border-radius:var(--pill);backdrop-filter:blur(8px)}
+.top .chip{display:none;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--ink);
+  background:rgba(255,255,255,.92);border:1px solid var(--line);padding:8px 14px;border-radius:var(--pill);backdrop-filter:blur(8px)}
 .top .chip .ico{width:16px;height:16px}
 @media(min-width:760px){.top .chip{display:inline-flex}}
 
@@ -76,23 +79,26 @@ a,button,summary{touch-action:manipulation}
 .hero{position:relative;min-height:min(94vh,820px);display:flex;align-items:flex-end;overflow:hidden;background:#0E0C0B}
 .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero .scrim{position:absolute;inset:0;background:
-  linear-gradient(180deg,rgba(14,12,11,.62) 0%,rgba(14,12,11,.22) 34%,rgba(14,12,11,.78) 76%,rgba(14,12,11,.94) 100%)}
-.hero-in{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin:0 auto;padding:0 20px 44px;color:#fff}
-@media(min-width:820px){.hero-in{padding:0 36px 64px}}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff}
+  linear-gradient(180deg,rgba(14,12,11,.34) 0%,rgba(14,12,11,0) 30%,rgba(14,12,11,.14) 100%)}
+.hero-in{position:relative;z-index:2;width:100%;max-width:var(--wrap);margin:0 auto;padding:0 20px 32px}
+@media(min-width:820px){.hero-in{padding:0 36px 52px}}
+.hero-card{background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-radius:var(--r);
+  padding:28px 24px;max-width:640px;box-shadow:0 30px 70px -30px rgba(20,18,16,.45)}
+@media(min-width:820px){.hero-card{padding:38px 36px}}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red)}
 .eyebrow .dot{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 0 5px rgba(192,0,0,.28)}
 @media (prefers-reduced-motion:no-preference){.eyebrow .dot{animation:beat 2.2s ease-in-out infinite}}
 @keyframes beat{0%,100%{box-shadow:0 0 0 5px rgba(192,0,0,.28)}50%{box-shadow:0 0 0 12px rgba(192,0,0,0)}}
-.hero h1{font-size:clamp(38px,8.4vw,86px);font-weight:700;margin-top:16px;max-width:15ch;color:#fff}
-.hero .lead{margin-top:18px;font-size:clamp(17px,2.2vw,21px);color:rgba(255,255,255,.86);max-width:38ch}
+.hero h1{font-size:clamp(34px,6.4vw,64px);font-weight:700;margin-top:14px;max-width:15ch}
+.hero .lead{margin-top:14px;font-size:clamp(16.5px,2vw,19px);color:var(--ink2);max-width:38ch}
 .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 .hero-cta .btn{flex:1 1 auto;min-width:210px}
 @media(min-width:820px){.hero-cta .btn{flex:0 0 auto}}
 .hero .ctrl{position:absolute;right:20px;top:calc(50% - 21px);display:flex;flex-direction:column;gap:10px;z-index:3}
 @media(min-width:820px){.hero .ctrl{right:36px}}
-.hero .ctrl button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.34);cursor:pointer;
-  background:rgba(14,12,11,.42);color:#fff;display:grid;place-items:center;backdrop-filter:blur(8px);transition:.2s var(--ez)}
-.hero .ctrl button:hover{background:rgba(14,12,11,.75)}
+.hero .ctrl button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);cursor:pointer;
+  background:rgba(255,255,255,.92);color:var(--ink);display:grid;place-items:center;backdrop-filter:blur(8px);transition:.2s var(--ez)}
+.hero .ctrl button:hover{background:#fff;color:var(--red)}
 
 /* ---------- ticker ---------- */
 .ticker{background:var(--red);color:#fff;overflow:hidden;border-block:0}
@@ -153,22 +159,22 @@ ${D.VIDEO_CSS}
 .v{border-radius:var(--r)}
 
 /* ---------- free health check ---------- */
-.hc{background:var(--ink);color:#fff;overflow:hidden}
+.hc{background:var(--bg2);border-block:1px solid var(--line);overflow:hidden}
 .hc-in{max-width:var(--wrap);margin:0 auto;padding:56px 20px;display:grid;gap:34px;align-items:center}
 @media(min-width:900px){.hc-in{grid-template-columns:.72fr 1.28fr;gap:60px;padding:88px 36px}}
-.hc img{width:100%;height:auto;border-radius:var(--r);box-shadow:0 30px 70px -26px rgba(0,0,0,.8)}
+.hc img{width:100%;height:auto;border-radius:var(--r);box-shadow:0 24px 56px -26px rgba(20,18,16,.42)}
 .hc .free{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--red);color:#fff;padding:7px 15px;border-radius:6px}
-.hc h2{color:#fff;margin-top:20px}
-.hc .sub{margin-top:16px;color:rgba(255,255,255,.72)}
+.hc h2{margin-top:20px}
+.hc .sub{margin-top:16px;color:var(--ink2)}
 .hc-tiles{display:grid;gap:14px;margin-top:30px}
 @media(min-width:560px){.hc-tiles{grid-template-columns:1fr 1fr}}
-.hc-tile{border:1px solid rgba(255,255,255,.18);border-radius:var(--r);padding:22px;display:flex;gap:16px;align-items:center}
+.hc-tile{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;gap:16px;align-items:center}
 .hc-tile .i{width:52px;height:52px;flex:none;border-radius:14px;background:var(--red);color:#fff;display:grid;place-items:center}
 .hc-tile .i .ico{width:28px;height:28px;stroke-width:1.7}
 .hc-tile b{display:block;font-size:18px;font-weight:600}
-.hc-tile span{display:block;font-size:14.5px;color:rgba(255,255,255,.66);margin-top:3px}
+.hc-tile span{display:block;font-size:14.5px;color:var(--ink3);margin-top:3px}
 .hc .row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:30px}
-.hc .noappt{display:inline-flex;align-items:center;gap:10px;font-size:16px;color:rgba(255,255,255,.86)}
+.hc .noappt{display:inline-flex;align-items:center;gap:10px;font-size:16px;color:var(--ink2)}
 .hc .noappt .ico{width:20px;height:20px;stroke-width:2.6;color:var(--red)}
 @media (prefers-reduced-motion:no-preference){
   .hc-tile .i .ico{animation:hcPulse 3.2s var(--ez) infinite}
@@ -183,32 +189,9 @@ ${D.VIDEO_CSS}
 .film figcaption{margin-top:14px}
 .film b{display:block;font-size:18px;font-weight:600;letter-spacing:-.02em}
 .film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.5}
-${D.STORY_CSS}
+${D.CAROUSEL_CSS}
 
 /* ---------- offers rail ---------- */
-.rail{margin-top:38px}
-.rail-track{display:grid;grid-auto-flow:column;grid-auto-columns:84%;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:6px 0 8px}
-.rail-track::-webkit-scrollbar{display:none}
-@media(min-width:680px){.rail-track{grid-auto-columns:46%}}
-@media(min-width:1020px){.rail-track{grid-auto-columns:33%}}
-.offer{scroll-snap-align:start;position:relative;border-radius:var(--r);overflow:hidden;background:#0E0C0B;
-  transition:transform .25s var(--ez)}
-.offer:hover{transform:translateY(-4px)}
-.offer img{width:100%;aspect-ratio:3/4;height:auto;object-fit:cover;opacity:.9}
-.offer--poster img{object-fit:contain;background:#fff;opacity:1}
-.offer .m{position:absolute;left:0;right:0;bottom:0;padding:24px 22px;color:#fff;
-  background:linear-gradient(180deg,rgba(14,12,11,0),rgba(14,12,11,.88) 46%)}
-.offer--poster .m{background:linear-gradient(180deg,rgba(14,12,11,0),rgba(14,12,11,.92) 40%)}
-.offer h3{font-size:20px;font-weight:700;letter-spacing:-.025em}
-.offer p{margin-top:8px;font-size:15px;color:rgba(255,255,255,.84);line-height:1.5}
-.offer .flag{position:absolute;top:16px;left:16px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-  background:var(--red);color:#fff;padding:6px 12px;border-radius:6px}
-.rail-nav{display:flex;align-items:center;gap:12px;margin-top:22px}
-.rail-nav button{width:50px;height:50px;border-radius:50%;border:1.5px solid var(--line2);background:#fff;display:grid;place-items:center;cursor:pointer;transition:.2s var(--ez)}
-.rail-nav button:hover:not([disabled]){border-color:var(--red);color:var(--red);transform:scale(1.06)}
-.rail-nav button[disabled]{opacity:.3;cursor:default}
-.rail-bar{height:4px;border-radius:2px;background:var(--line);overflow:hidden;width:100%;max-width:240px}
-.rail-bar i{display:block;height:100%;background:var(--red);border-radius:2px;transition:transform .25s var(--ez);transform-origin:left;transform:scaleX(.2)}
 
 /* ---------- big quote ---------- */
 .quotes{display:grid;gap:22px;margin-top:38px}
@@ -228,10 +211,10 @@ ${D.STORY_CSS}
 .mapwrap iframe{width:100%;height:320px;border:0;display:block}
 
 /* ---------- closing CTA ---------- */
-.close{background:var(--ink);color:#fff;padding:64px 0}
+.close{background:var(--red-t);border-block:1px solid var(--red-l);padding:64px 0}
 @media(min-width:820px){.close{padding:92px 0}}
-.close h2{color:#fff;max-width:16ch}
-.close p{margin-top:16px;color:rgba(255,255,255,.72);font-size:18px;max-width:44ch}
+.close h2{max-width:16ch}
+.close p{margin-top:16px;color:var(--ink2);font-size:18px;max-width:44ch}
 .close .row{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
 .close .row .btn{min-width:220px}
 
@@ -285,20 +268,13 @@ function render(c) {
   ).join('');
 
   const offers = D.OFFERS.map(
-    ([tok, title, note, flag, poster]) => `<article class="offer${poster ? ' offer--poster' : ''}">
+    ([tok, title, note, flag, poster]) => `<article class="car-item offer${poster ? ' offer--poster' : ''}">
             <img src="%%${tok}%%" alt="${esc(title)} at 24/7 Clinic" loading="lazy" width="1200" height="1600">
             ${flag ? `<span class="flag">${esc(flag)}</span>` : ''}
             <div class="m"><h3>${esc(title)}</h3><p>${esc(note)}</p></div>
           </article>`
   ).join('');
 
-  const quotes = c.reviews.map((k) => D.REVIEWS[k]).map(
-    ([name, country, lang, quote, english]) => `<figure class="quote" data-rise>
-            <blockquote class="q" lang="${lang}">${esc(quote)}</blockquote>
-            <p class="en">${esc(english)}</p>
-            <figcaption class="who"><img src="%%${D.FLAG[country]}%%" alt="" width="28" height="19"><span><span class="nm">${esc(name)}</span><span class="cn">${esc(country)}</span></span></figcaption>
-          </figure>`
-  ).join('');
 
   const faqs = D.faqFor(c).map(([q, a]) => `<details><summary>${esc(q)}</summary><div class="a">${esc(a)}</div></details>`).join('');
   const insurers = D.INSURERS.map(([tok, name]) => `<img src="%%${tok}%%" alt="${esc(name)}" loading="lazy" width="120" height="42">`).join('');
@@ -314,18 +290,13 @@ function render(c) {
   const ticker = tickerItems.concat(tickerItems).map((t) => `<span>${esc(t)}</span>`).join('');
 
   const walkMedia = c.walkLoop
-    ? D.video({ token: 'VHOWTOFIND', portrait: true, tag: 'The walk from the entrance' })
-    : D.video({ token: 'VINTRO', portrait: true, tag: 'Where you are in your hotel' });
+    ? D.video({ token: 'VHOWTOFIND', shape: 'portrait', tag: 'The walk from the entrance' })
+    : D.video({ token: 'VINTRO', shape: 'portrait', tag: 'Where you are in your hotel' });
 
   const stories = D.stories();
 
-  const team = D.TEAM.map(
-    ([token, label]) => `<figure class="film">${D.video({ token, portrait: true })}<figcaption><b>${esc(label)}</b></figcaption></figure>`
-  ).join('');
+  const team = D.video({ token: c.teamFilm, shape: 'portrait', label: 'Meet the team' });
 
-  const serviceFilms = D.SERVICE_FILMS.map(
-    ([token, title, note]) => `<figure class="film">${D.video({ token, portrait: true })}<figcaption><b>${esc(title)}</b><span>${esc(note)}</span></figcaption></figure>`
-  ).join('');
 
   return `<title>${esc(c.title)}</title>
 <meta name="description" content="${esc(c.desc)}">
@@ -342,11 +313,12 @@ function render(c) {
   <section class="hero">
     <video autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"
            src="%%VCOMMERCIAL%%"></video>
+    <div hidden data-herofilm data-shape="landscape" data-src="%%VCOMMERCIAL%%"><button type="button" data-vwatch></button></div>
     <div class="scrim"></div>
 
     <header class="top">
       <div class="top-in">
-        <a class="brand" href="https://www.247clinic.net" rel="noopener"><img src="%%C7LOGOW%%" alt="24/7 Clinic" width="200" height="193"></a>
+        <a class="brand" href="https://www.247clinic.net" rel="noopener"><img src="%%C7LOGO%%" alt="24/7 Clinic" width="200" height="193"></a>
         <span class="sp"></span>
         <span class="chip">${svg('clock')}Open 24 hours</span>
       </div>
@@ -358,12 +330,15 @@ function render(c) {
     </div>
 
     <div class="hero-in">
+      <div class="hero-card">
       <span class="eyebrow"><span class="dot"></span>${esc(c.area)} &middot; Open now</span>
       <h1>${esc(c.h1)}</h1>
       <p class="lead">${esc(c.lead)}</p>
       <div class="hero-cta">
         <a class="btn btn--red" href="${L.tel}" data-ev="call_click">${svg('phone')}Call now <span class="num">${D.PHONE}</span></a>
         <a class="btn btn--glass" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">${svg('wa')}WhatsApp</a>
+        <button class="btn btn--watch" type="button" data-herowatch>${svg('play')}Watch video</button>
+      </div>
       </div>
     </div>
   </section>
@@ -424,35 +399,28 @@ function render(c) {
         <div class="kick">On now</div>
         <h2>What the clinic is offering</h2>
       </div>
-      <div class="rail" data-rail>
-        <div class="rail-track" tabindex="0" role="region" aria-label="Offers at 24/7 Clinic">${offers}</div>
-        <div class="rail-nav">
-          <button type="button" data-prev aria-label="Previous">${svg('left')}</button>
-          <button type="button" data-next aria-label="Next">${svg('right')}</button>
-          <span class="rail-bar"><i data-bar></i></span>
-        </div>
-      </div>
+      ${D.carousel({ items: offers, label: "Offers at 24/7 Clinic" })}
     </div>
   </section>
 
   <section class="sec sec--tint">
     <div class="wrap">
       <div data-rise><div class="kick">Guest stories</div><h2>In their own words</h2></div>
-      <div class="srail" data-srail style="--railfade:#F6F3F0"><div class="srail-track" tabindex="0" role="region" aria-label="Guest stories">${stories}</div>${D.storyNav()}</div>
+      ${D.carousel({ items: stories, label: "Guest stories" })}
     </div>
   </section>
 
   <section class="sec">
     <div class="wrap">
       <div data-rise><div class="kick">The team</div><h2>The people who will see you</h2></div>
-      <div class="films films--3">${team}</div>
+      <div class="team-one">${team}</div>
     </div>
   </section>
 
   <section class="sec sec--tint">
     <div class="wrap">
       <div data-rise><div class="kick">At this clinic</div><h2>What we do, filmed here</h2></div>
-      <div class="films films--4">${serviceFilms}</div>
+      ${D.carousel({ items: D.serviceFilms(), label: "What we do at this clinic", size: "sm" })}
     </div>
   </section>
 
@@ -503,43 +471,19 @@ function render(c) {
 
 <a class="wa-float" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click" aria-label="Message 24/7 Clinic on WhatsApp">${svg('wa')}WhatsApp</a>
 
+${D.viewer()}
+
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 ${D.tracking(c)}
-<script>${D.VIDEO_JS}${D.STORY_JS}</script>
+<script>${D.VIDEO_JS}${D.CAROUSEL_JS}</script>
 <script>
 (function () {
-  document.querySelectorAll('[data-rail]').forEach(function (rail) {
-    var track = rail.querySelector('.rail-track'), prev = rail.querySelector('[data-prev]'),
-        next = rail.querySelector('[data-next]'), bar = rail.querySelector('[data-bar]');
-    function step(){ var f = track.children[0]; return f ? f.getBoundingClientRect().width + 20 : 340; }
-    function sync(){
-      var max = track.scrollWidth - track.clientWidth, p = max > 0 ? track.scrollLeft / max : 1;
-      bar.style.transform = 'scaleX(' + (0.2 + p * 0.8) + ')';
-      prev.disabled = track.scrollLeft < 4; next.disabled = track.scrollLeft > max - 4;
-    }
-    prev.addEventListener('click', function(){ track.scrollBy({left:-step(),behavior:'smooth'}); });
-    next.addEventListener('click', function(){ track.scrollBy({left:step(),behavior:'smooth'}); });
-    track.addEventListener('scroll', function(){ requestAnimationFrame(sync); }, {passive:true});
-    window.addEventListener('resize', sync); sync();
+  var b = document.querySelector('[data-herowatch]');
+  if (!b) return;
+  b.addEventListener('click', function () {
+    var hero = document.querySelector('[data-herofilm]');
+    if (hero) hero.querySelector('[data-vwatch]').click();
   });
-
-  /* Reveal on scroll, with a failsafe so nothing can stay hidden. */
-  var targets = document.querySelectorAll('[data-rise], [data-way]');
-  function showAll(){ targets.forEach(function(el){ el.classList.add('in'); }); }
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-    showAll();
-  } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en, i) {
-        if (!en.isIntersecting) return;
-        var el = en.target;
-        window.setTimeout(function(){ el.classList.add('in'); }, (i % 4) * 70);
-        io.unobserve(el);
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-    targets.forEach(function (el) { io.observe(el); });
-    window.setTimeout(showAll, 2500);
-  }
 })();
 </script>
 `;
