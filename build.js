@@ -107,6 +107,14 @@ const ASSETS = {
   C7RESORTSTEIG: 'px-resort-steig.webp',
   C7RESORTAMWAJ: 'px-resort-amwaj.webp',
 
+  /* Accreditation marks, supplied 2026-09-10 with permission to use. Trimmed
+     and their ground flood filled to pure white, nothing else touched: a
+     certification mark is not ours to redraw. All three are JPEGs with no
+     transparency, which is why the band they sit in is white. */
+  C7ACCUCA: 'c7acc-uca.png',
+  C7ACCGHA: 'c7acc-gha.png',
+  C7ACCGMWA: 'c7acc-gmwa.png',
+
   C7OGLEREVE: 'c7-og-le-reve.jpg',
   C7OGSTEIG: 'c7-og-steigenberger.jpg',
   C7OGAMWAJ: 'c7-og-amwaj.jpg',

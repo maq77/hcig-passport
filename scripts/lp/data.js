@@ -736,38 +736,62 @@ const ACCRED = {
     '24/7 Clinic is the first international urgent care network outside the United States ' +
     'to achieve accreditation through the Urgent Care Association and CAUCQ.',
   points: ['International standards', 'Patient safety', 'Clinical quality', 'Operational excellence'],
-  /* Set to an asset token once the mark is supplied and cleared for use. */
-  logo: '',
+  /* Each mark is captioned with what it actually is. An unexplained GHA roundel
+     tells a guest nothing, and the captions state the body's name only. No
+     claim is made about what any of them means, per section 23 of their brief. */
+  marks: [
+    ['C7ACCUCA', 'Urgent Care Association', 'Urgent Care Association, Egypt and MENA', 'circle'],
+    ['C7ACCGHA', 'Global Healthcare Accreditation', 'Global Healthcare Accreditation, for medical travel', 'wide'],
+    ['C7ACCGMWA', 'Deutscher Medical Wellness Verband', 'Deutscher Medical Wellness Verband e.V., certified', 'circle'],
+  ],
 };
 
 function accreditation() {
   const points = ACCRED.points.map((t) => `<li>${svg('check')}${esc(t)}</li>`).join('');
-  const mark = ACCRED.logo
-    ? `<img class="acc-mark" src="%%${ACCRED.logo}%%" alt="Urgent Care Association accreditation" loading="lazy" width="220" height="120">`
-    : '';
+  const marks = ACCRED.marks
+    .map(
+      ([token, caption, alt, shape]) => `<figure class="acc-mark acc-mark--${shape}">
+            <img src="%%${token}%%" alt="${esc(alt)}" loading="lazy">
+            <figcaption>${esc(caption)}</figcaption>
+          </figure>`
+    )
+    .join('');
+
   return `<section class="acc">
       <div class="wrap acc-in">
-        ${mark}
         <div class="acc-body">
           <h2>Internationally accredited urgent care</h2>
           <p>${esc(ACCRED.claim)}</p>
           <ul class="acc-points">${points}</ul>
         </div>
+        <div class="acc-marks">${marks}</div>
       </div>
     </section>`;
 }
 
 const ACCRED_CSS = `
-.acc{background:var(--red-t,#FBF0EF);border-top:1px solid var(--red-l,#EBD3D1);border-bottom:1px solid var(--red-l,#EBD3D1);
-  padding:30px 0}
-.acc-in{display:grid;gap:20px;align-items:center}
-@media(min-width:900px){.acc-in{grid-template-columns:auto 1fr;gap:40px}}
-.acc-mark{height:96px;width:auto;flex:none}
-.acc-body h2{font-size:clamp(19px,2.4vw,24px);line-height:1.25;margin:0}
-.acc-body p{margin-top:9px;color:var(--ink2,#57504C);font-size:15.5px;line-height:1.6;max-width:72ch}
-.acc-points{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px}
+/* White, not the brand pink. All three marks are supplied as flat JPEGs with a
+   white ground and no transparency, so any coloured band would put a white box
+   behind each one. White is also the safest ground under most certification
+   mark usage rules. */
+.acc{background:#fff;border-top:1px solid var(--line,#E6DFD6);border-bottom:1px solid var(--line,#E6DFD6);padding:30px 0}
+.acc-in{display:grid;gap:26px;align-items:center}
+@media(min-width:1000px){.acc-in{grid-template-columns:1.15fr .85fr;gap:48px}}
+.acc-body h2{font-size:clamp(19px,2.3vw,25px);line-height:1.25;margin:0}
+.acc-body p{margin-top:9px;color:var(--ink2,#57504C);font-size:15.5px;line-height:1.6;max-width:64ch}
+.acc-points{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
 .acc-points li{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:500;color:var(--ink,#1A1614)}
 .acc-points .ico{width:17px;height:17px;color:var(--red,#C00000);stroke-width:2.4}
+
+.acc-marks{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px 26px}
+@media(min-width:1000px){.acc-marks{justify-content:flex-end;gap:16px 30px}}
+.acc-mark{margin:0;width:104px;text-align:center}
+.acc-mark img{display:block;margin:0 auto;width:auto}
+/* Round marks read smaller than square ones at the same height, so they get a
+   few pixels more. Optical size, not measured size. */
+.acc-mark--circle img{height:72px}
+.acc-mark--wide img{height:52px;margin-top:10px;margin-bottom:10px}
+.acc-mark figcaption{margin-top:8px;font-size:11px;line-height:1.35;color:var(--ink3,#8A817B);letter-spacing:.01em}
 `;
 
 const SCRUB = require('./scrub').build({ esc, svg });

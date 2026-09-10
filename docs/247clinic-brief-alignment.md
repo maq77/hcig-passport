@@ -79,10 +79,35 @@ for word and not reworded, because an accreditation claim is a legal statement
 rather than marketing copy. Nothing on the page claims more than that sentence,
 per section 23.
 
-The logo slot is built and empty. An empty slot renders nothing rather than a
-placeholder box, so the demo still reads as live. Setting `ACCRED.logo` in
-`scripts/lp/data.js` to an asset token puts the mark on all three designs at
-once. What is needed to fill it is listed at the end of this document.
+**Three marks are on the band**, supplied 2026-09-10 with permission:
+
+| Mark | What it is |
+|---|---|
+| UCA | Urgent Care Association, Egypt and MENA |
+| GHA | Global Healthcare Accreditation, for medical travel |
+| GMWA | Deutscher Medical Wellness Verband e.V., certified |
+
+Each carries a small caption naming the body and nothing else. An unexplained
+roundel tells a guest nothing, and a caption that only names the issuer makes no
+claim about what the mark means, which is what section 23 requires.
+
+The band is white rather than the brand pink. All three files are flat JPEGs
+with a white ground and no transparency, so a coloured band would put a white
+box behind every one. White is also the safest ground under most certification
+mark usage rules. The marks were trimmed and their ground flood filled to pure
+white; nothing else was touched, because a certification mark is not ours to
+redraw.
+
+Two things worth checking with the issuer:
+
+The UCA file is the association's Egypt and MENA chapter mark. If UCA issues a
+distinct accreditation seal, that is the more accurate one to show beside a
+sentence about accreditation.
+
+No CAUCQ mark was supplied, although the claim names CAUCQ alongside UCA.
+
+The GHA file is small, 179 by 99 after trimming. It renders acceptably at 52px
+high but a larger original would be sharper on a phone.
 
 One thing deliberately left out: the brief's "Learn About Our Accreditation"
 button. It points at `/international-accreditation`, which does not exist yet,
@@ -131,13 +156,11 @@ Unchanged from the open items list, plus two from the new brief.
 
 1. Photographs of each clinic. The brief asks for clinic photographs on every
    page and there are none that can be used.
-2. The accreditation mark, to fill the slot already built for it:
-   - which mark, the Urgent Care Association one, the CAUCQ one, or both;
-   - SVG if possible, otherwise PNG on transparency at 400px wide or more,
-     because it renders at 96px high and needs to stay sharp on a phone;
-   - the usage rules, if there is a sheet. The band sits on a pale pink ground
-     rather than white, and some marks may not be placed on a colour;
-   - whether a date or certificate number should appear beside it;
+2. On the accreditation, now that the three marks are in place:
+   - the CAUCQ mark, which the claim names but which was not supplied;
+   - confirmation that the UCA chapter mark is the right one to show, or the
+     accreditation seal if a separate one exists;
+   - a larger GHA file if one exists, the supplied one is 200px square;
    - confirmation that the sentence now on the page is the approved wording.
 3. Confirmation of the years, the clinic count and the patient numbers.
 4. The real WhatsApp number for each clinic, not one shared placeholder.

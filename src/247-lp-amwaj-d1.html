@@ -225,16 +225,28 @@ h1{font-size:clamp(32px,6.2vw,54px);font-weight:700;letter-spacing:-.04em;margin
 .car-count{font-size:14px;color:var(--ink3);font-variant-numeric:tabular-nums;margin-left:auto}
 
 
-.acc{background:var(--red-t,#FBF0EF);border-top:1px solid var(--red-l,#EBD3D1);border-bottom:1px solid var(--red-l,#EBD3D1);
-  padding:30px 0}
-.acc-in{display:grid;gap:20px;align-items:center}
-@media(min-width:900px){.acc-in{grid-template-columns:auto 1fr;gap:40px}}
-.acc-mark{height:96px;width:auto;flex:none}
-.acc-body h2{font-size:clamp(19px,2.4vw,24px);line-height:1.25;margin:0}
-.acc-body p{margin-top:9px;color:var(--ink2,#57504C);font-size:15.5px;line-height:1.6;max-width:72ch}
-.acc-points{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px}
+/* White, not the brand pink. All three marks are supplied as flat JPEGs with a
+   white ground and no transparency, so any coloured band would put a white box
+   behind each one. White is also the safest ground under most certification
+   mark usage rules. */
+.acc{background:#fff;border-top:1px solid var(--line,#E6DFD6);border-bottom:1px solid var(--line,#E6DFD6);padding:30px 0}
+.acc-in{display:grid;gap:26px;align-items:center}
+@media(min-width:1000px){.acc-in{grid-template-columns:1.15fr .85fr;gap:48px}}
+.acc-body h2{font-size:clamp(19px,2.3vw,25px);line-height:1.25;margin:0}
+.acc-body p{margin-top:9px;color:var(--ink2,#57504C);font-size:15.5px;line-height:1.6;max-width:64ch}
+.acc-points{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 20px}
 .acc-points li{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:500;color:var(--ink,#1A1614)}
 .acc-points .ico{width:17px;height:17px;color:var(--red,#C00000);stroke-width:2.4}
+
+.acc-marks{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px 26px}
+@media(min-width:1000px){.acc-marks{justify-content:flex-end;gap:16px 30px}}
+.acc-mark{margin:0;width:104px;text-align:center}
+.acc-mark img{display:block;margin:0 auto;width:auto}
+/* Round marks read smaller than square ones at the same height, so they get a
+   few pixels more. Optical size, not measured size. */
+.acc-mark--circle img{height:72px}
+.acc-mark--wide img{height:52px;margin-top:10px;margin-bottom:10px}
+.acc-mark figcaption{margin-top:8px;font-size:11px;line-height:1.35;color:var(--ink3,#8A817B);letter-spacing:.01em}
 
 
 .oc{display:grid;gap:16px;margin-top:30px}
@@ -464,12 +476,21 @@ a.credit:hover b{color:var(--red)}
 
   <section class="acc">
       <div class="wrap acc-in">
-        
         <div class="acc-body">
           <h2>Internationally accredited urgent care</h2>
           <p>24/7 Clinic is the first international urgent care network outside the United States to achieve accreditation through the Urgent Care Association and CAUCQ.</p>
           <ul class="acc-points"><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>International standards</li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Patient safety</li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Clinical quality</li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Operational excellence</li></ul>
         </div>
+        <div class="acc-marks"><figure class="acc-mark acc-mark--circle">
+            <img src="%%C7ACCUCA%%" alt="Urgent Care Association, Egypt and MENA" loading="lazy">
+            <figcaption>Urgent Care Association</figcaption>
+          </figure><figure class="acc-mark acc-mark--wide">
+            <img src="%%C7ACCGHA%%" alt="Global Healthcare Accreditation, for medical travel" loading="lazy">
+            <figcaption>Global Healthcare Accreditation</figcaption>
+          </figure><figure class="acc-mark acc-mark--circle">
+            <img src="%%C7ACCGMWA%%" alt="Deutscher Medical Wellness Verband e.V., certified" loading="lazy">
+            <figcaption>Deutscher Medical Wellness Verband</figcaption>
+          </figure></div>
       </div>
     </section>
 
