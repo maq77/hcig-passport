@@ -142,6 +142,9 @@ ${D.VIDEO_CSS}
 .film b{display:block;font-size:16.5px;font-weight:600}
 .film span{display:block;margin-top:4px;font-size:14.5px;color:var(--ink2);line-height:1.5}
 ${D.CAROUSEL_CSS}
+${D.OTHERS_CSS}
+.sec--tint .sec-head{margin-bottom:30px}
+${D.MOTION_CSS}
 
 .band{background:var(--red);color:#fff}
 .band-in{max-width:var(--wrap);margin:0 auto;padding:18px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:9px 16px}
@@ -168,7 +171,7 @@ ol.steps li{counter-increment:s;position:relative;padding-left:50px;font-size:16
 ol.steps li:before{content:counter(s);position:absolute;left:0;top:-2px;width:34px;height:34px;border-radius:50%;
   background:var(--red);color:#fff;font-size:15px;font-weight:700;display:grid;place-items:center}
 .findmap{border:1px solid var(--line);border-radius:var(--r2);overflow:hidden;background:var(--bg2);margin-top:26px}
-.findmap .frame{background-size:cover;background-position:center}
+.findmap .frame{background:var(--sand2,#F2EDE6)}
 .findmap iframe{width:100%;height:280px;border:0;display:block}
 .findmap figcaption{padding:13px 16px;font-size:14.5px;color:var(--ink3);border-top:1px solid var(--line);
   display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between}
@@ -217,6 +220,7 @@ footer .big{font-size:21px;font-weight:600;letter-spacing:-.02em;font-variant-nu
 footer a.tel{text-decoration:none;color:var(--red)}
 .fbase{margin-top:32px;padding-top:18px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:8px 20px}
 .fbase a{color:var(--ink2)}
+${D.CREDIT_CSS}
 
 .wa-float{position:fixed;right:20px;bottom:20px;z-index:890;display:flex;align-items:center;gap:10px;
   background:var(--wa);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 20px;border-radius:var(--pill);
@@ -230,10 +234,10 @@ footer a.tel{text-decoration:none;color:var(--red)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 `;
 
-function render(c) {
+function render(c, designNo) {
   const L = D.links(c);
   const help = D.HELP.map(
-    ([icon, title, note]) => `<div class="help-card"><div class="i">${svg(icon)}</div><h3>${esc(title)}</h3><p>${esc(note)}</p></div>`
+    ([icon, title, note]) => `<div class="help-card m-lift"><div class="i">${svg(icon)}</div><h3>${esc(title)}</h3><p>${esc(note)}</p></div>`
   ).join('');
 
   const offers = D.OFFERS.map(
@@ -255,15 +259,12 @@ function render(c) {
     ? D.video({ token: 'VHOWTOFIND', shape: 'portrait', tag: 'The walk from the entrance' })
     : D.video({ token: 'VINTRO', shape: 'portrait', tag: 'Where you are in your hotel' });
 
-  return `<title>${esc(c.title)}</title>
-<meta name="description" content="${esc(c.desc)}">
-<link rel="canonical" href="https://www.247clinic.net${c.url}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  return `${D.head(c)}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
 <style>${CSS}</style>
 
 <a class="skip" href="#main">Skip to content</a>
+<div class="m-bar" aria-hidden="true"></div>
 
 <header class="top">
   <div class="top-in">
@@ -282,9 +283,9 @@ function render(c) {
         <h1>${esc(c.h1)}</h1>
         <p class="lead">${esc(c.lead)}</p>
         <div class="hero-cta">
-          <a class="btn btn--red" href="${L.tel}" data-ev="call_click">${svg('phone')}Call now <span class="num">${D.PHONE}</span></a>
-          <a class="btn btn--wa" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">${svg('wa')}WhatsApp</a>
-          <button class="btn btn--watch" type="button" data-herowatch>${svg('play')}Watch video</button>
+          <a class="btn btn--red m-press" href="${L.tel}" data-ev="call_click">${svg('phone')}Call now <span class="num">${D.PHONE}</span></a>
+          <a class="btn btn--wa m-press" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">${svg('wa')}WhatsApp</a>
+          <button class="btn btn--watch m-press" type="button" data-herowatch>${svg('play')}Watch video</button>
         </div>
         <div class="hero-note">
           <span>${svg('pin')}${esc(c.area)}</span>
@@ -308,7 +309,7 @@ function render(c) {
           <div class="hc-tile"><span class="i">${svg('gauge')}</span><span><b>Blood sugar</b><span>One drop, one reading</span></span></div>
         </div>
         <div class="row">
-          <a class="btn btn--white" href="${L.tel}" data-ev="call_click">${svg('phone')}Call the clinic</a>
+          <a class="btn btn--white m-press" href="${L.tel}" data-ev="call_click">${svg('phone')}Call the clinic</a>
           <span class="noappt">${svg('check')}No appointment needed</span>
         </div>
       </div>
@@ -323,7 +324,7 @@ function render(c) {
         <div>
           <ol class="steps">${c.steps.map((t) => `<li>${esc(t)}</li>`).join('')}</ol>
           <figure class="findmap">
-            <div class="frame" style="background-image:url(%%${c.mapImg}%%)">
+            <div class="frame">
               <iframe src="${L.embed}" title="Map of the 24/7 Clinic at ${esc(c.hotel)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <figcaption><span>${esc(c.hotel)}, ${esc(c.area)}</span>
@@ -339,7 +340,7 @@ function render(c) {
     <div class="wrap">
       <div class="kick">How we can help</div>
       <h2>Urgent care, without leaving ${esc(c.area)}</h2>
-      <div class="help">${help}</div>
+      <div class="help m-stagger">${help}</div>
     </div>
   </section>
 
@@ -382,6 +383,17 @@ function render(c) {
       <div class="faq">${faqs}</div>
     </div>
   </section>
+
+  <section class="sec sec--tint">
+    <div class="wrap">
+      <div class="sec-head m-rise">
+        <span class="tag">The network</span>
+        <h2>Other 24/7 clinics on this coast</h2>
+        <p class="intro">Staying somewhere else on the Red Sea? We run urgent care clinics inside these resorts too, open the same 24 hours.</p>
+      </div>
+      ${D.otherClinics(c, designNo)}
+    </div>
+  </section>
 </main>
 
 <footer>
@@ -403,6 +415,7 @@ function render(c) {
       <a href="https://www.247clinic.net/our-clinics" target="_blank" rel="noopener">All clinics</a>
       <a href="https://www.247clinic.net/insurance" target="_blank" rel="noopener">Insurance</a>
       <a href="https://www.247clinic.net/contact-us" target="_blank" rel="noopener">Contact</a>
+      ${D.credit()}
     </div>
   </div>
 </footer>
@@ -412,6 +425,7 @@ function render(c) {
 ${D.viewer()}
 
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
+<script type="application/ld+json">${JSON.stringify(D.otherClinicsSchema(c))}</script>
 ${D.tracking(c)}
 <script>${D.VIDEO_JS}${D.CAROUSEL_JS}</script>
 <script>

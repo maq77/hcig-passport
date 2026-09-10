@@ -10,11 +10,10 @@
  *
  *   design-1  Clean and clinical   white, split hero, card grid
  *   design-2  Bold and cinematic   full-bleed film, big type, motion
- *   design-3  Concierge            calm, Calisto MT headlines, timeline
+ *   design-3  Editorial motion     scroll-driven film, sticky map, marquee
  *
- * While the direction is being chosen, only Premier Le Reve is registered in
- * HCIG Work. The other two clinics are generated so the moment a design is
- * approved they are one registry edit away.
+ * All nine pages are registered in HCIG Work, because each page links out to
+ * the same design of the other clinics and those links have to work.
  */
 
 const fs = require('fs');
@@ -33,11 +32,13 @@ let n = 0;
 for (const c of CLINICS) {
   DESIGNS.forEach((d, i) => {
     const file = `247-lp-${c.slug}-d${i + 1}.html`;
-    fs.writeFileSync(path.join(SRC, file), d.render(c));
+    /* The design number goes in so each page can link to the same design of
+       the other clinics, and the network section is clickable in the demo. */
+    fs.writeFileSync(path.join(SRC, file), d.render(c, i + 1));
     n += 1;
     if (c.slug === 'le-reve') console.log(`  src/${file}   ${d.NAME}`);
   });
 }
 
 console.log(`\n  ${n} pages: ${CLINICS.length} clinics x ${DESIGNS.length} designs.`);
-console.log('  Only the three Premier Le Reve designs are registered while one is chosen.\n');
+console.log('  All nine are registered so the network links work in the demo.\n');

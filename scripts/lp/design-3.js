@@ -1,22 +1,33 @@
 /**
- * Design 3: Concierge.
+ * Design 3: Editorial motion.
  *
- * The calm one. It reads like a hotel service card rather than a clinic
- * website: warm white, generous space, thin rules instead of shadows, and the
- * headlines set in Calisto MT, which the 24/7 brand guideline reserves for
- * headlines and the tagline. Georgia stands in where Calisto is not installed,
- * so nothing structural depends on it loading.
+ * Rebuilt from scratch. The old design 3 opened with a serif headline and four
+ * rows of text, and pushed the film below the fold, so next to designs 1 and 2
+ * it read like a brochure rather than a clinic you can walk into now.
  *
- * The guest is greeted rather than triaged: three ways to reach us sit right
- * under the headline, the walk becomes a horizontal timeline, and one large
- * guest quote rotates instead of three small cards.
+ * This one is the motion-led option. The page moves as you read it:
+ *
+ *   the film lies back and stands up as you scroll to it
+ *   the map holds still while the walk runs past it
+ *   the care cards arrive one after another, not all at once
+ *   the insurers drift by and stop when you look at them
+ *
+ * All of it is the browser's own scroll-driven animation, from MOTION_CSS in
+ * data.js. Framer Motion is React and these pages are static HTML, so there is
+ * no library here and nothing to download. Every rule sits behind a support
+ * query and a reduced-motion query, so a browser that does not do timelines
+ * simply shows a still page, correctly.
+ *
+ * Still the calm one of the three: white ground, one sand alternate, thin rules
+ * instead of heavy shadows, Calisto MT headlines per the brand guideline with
+ * Georgia standing in where it is not installed.
  */
 
 const D = require('./data');
 const { esc, svg } = D;
 
-const NAME = 'Concierge';
-const NOTE = 'Calm and premium. Calisto MT headlines, thin rules, a timeline and one rotating quote.';
+const NAME = 'Editorial motion';
+const NOTE = 'The film stands up as you scroll, the map holds while the walk runs past it, and the insurers drift.';
 
 const CSS = `
 :root{
@@ -27,14 +38,15 @@ const CSS = `
   --wa:#25D366; --wa-deep:#128C7E;
   --f:"Poppins","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
   --fh:"Calisto MT",Georgia,"Times New Roman",serif;
-  --pill:999px; --r:4px;
+  --pill:999px; --r:6px;
   --ez:cubic-bezier(.22,.61,.36,1);
-  --wrap:1080px;
+  --wrap:1140px;
 }
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3{margin:0;font-family:var(--fh);font-weight:400;line-height:1.18;letter-spacing:-.005em;text-wrap:balance}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16.5px;line-height:1.68;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{margin:0;font-family:var(--fh);font-weight:400;line-height:1.14;letter-spacing:-.008em;text-wrap:balance}
 p,blockquote,figure{margin:0}
 img,video,iframe,svg{max-width:100%;display:block}
 a{color:inherit}
@@ -47,337 +59,360 @@ a,button,summary{touch-action:manipulation}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
 @media(min-width:820px){.wrap{padding:0 40px}}
 
-.tag{font-family:var(--fh);font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink3)}
+.tag{display:block;font-family:var(--fh);font-size:11.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink3)}
 
+/* ---------------------------------------------------------------- buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;
-  border:1px solid var(--ink);border-radius:var(--r);cursor:pointer;font-weight:500;font-size:16px;text-decoration:none;
+  border:1px solid var(--ink);border-radius:var(--pill);cursor:pointer;font-weight:500;font-size:16px;text-decoration:none;
   background:transparent;color:var(--ink);transition:.22s var(--ez)}
 .btn:hover{background:var(--ink);color:#fff}
 .btn--red{background:var(--red);border-color:var(--red);color:#fff}
 .btn--red:hover{background:var(--red-d);border-color:var(--red-d);color:#fff}
 .btn--wa{background:var(--wa);border-color:var(--wa);color:#fff}
 .btn--wa:hover{background:var(--wa-deep);border-color:var(--wa-deep);color:#fff}
-.btn--sm{min-height:44px;font-size:14.5px;padding:0 18px}
-.btn--watch{border-color:var(--red-l);color:var(--red)}
+.btn--watch{background:#fff;border-color:var(--red-l);color:var(--red)}
 .btn--watch:hover{background:var(--red);border-color:var(--red);color:#fff}
+.btn--sm{min-height:44px;font-size:14.5px;padding:0 18px}
+
+/* ---------------------------------------------------------------- top bar */
+.top{position:sticky;top:0;z-index:900;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line)}
+.top-in{max-width:var(--wrap);margin:0 auto;padding:10px 22px;display:flex;align-items:center;gap:14px}
+@media(min-width:820px){.top-in{padding:14px 40px}}
+.top .brand img{height:50px;width:auto}
+.top .sp{flex:1}
+.top .open{display:none;align-items:center;gap:8px;font-size:14px;color:var(--ink2)}
+.top .open:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--red)}
+@media(min-width:720px){.top .open{display:inline-flex}}
+
+/* ---------------------------------------------------------------- the hero */
+.hero{padding:44px 0 8px}
+@media(min-width:960px){.hero{padding:62px 0 18px}}
+.hero-grid{display:grid;gap:32px;align-items:center}
+@media(min-width:960px){.hero-grid{grid-template-columns:.92fr 1.08fr;gap:60px}}
+.hero h1{font-size:clamp(38px,7.4vw,68px);margin-top:14px}
+.hero .lead{margin-top:20px;font-size:clamp(17px,2.1vw,19.5px);color:var(--ink2);max-width:46ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-cta .btn{flex:1 1 auto}
+/* Its own full width line, the pattern he asked for across all three designs. */
+.hero-cta .btn.btn--watch{flex:1 1 100%}
+
+/* The film sits in a deck that stands up as the page scrolls to it. The
+   wrapper carries the perspective so this is real depth, not a squash. */
+.deck{border-radius:12px;overflow:hidden;background:var(--sand2)}
+.deck .v{border-radius:0}
+
+.status{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:38px;
+  background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+@media(min-width:760px){.status{grid-template-columns:repeat(4,1fr)}}
+.status div{background:#fff;padding:18px 18px 16px}
+.status b{display:block;font-family:var(--fh);font-size:26px;line-height:1.1;color:var(--ink)}
+.status span{display:block;margin-top:4px;font-size:13.5px;color:var(--ink3)}
+.status .live b{color:var(--red)}
+
+/* ---------------------------------------------------------------- sections */
+.sec{padding:64px 0}
+@media(min-width:820px){.sec{padding:88px 0}}
+.sec--sand{background:var(--sand);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.sec h2{font-size:clamp(28px,4.4vw,44px);margin-top:10px}
+.sec .intro{margin-top:16px;color:var(--ink2);max-width:62ch}
+.sec-head{margin-bottom:34px}
+
+/* ------------------------------------------------- the free health check */
+.offerband{display:grid;gap:30px;align-items:center}
+@media(min-width:900px){.offerband{grid-template-columns:.8fr 1.2fr;gap:52px}}
+.offerband img{width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;border-radius:10px}
+.free{display:inline-flex;align-items:center;gap:8px;background:var(--red);color:#fff;font-size:12.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;border-radius:var(--pill)}
+.hc-tiles{display:grid;gap:12px;margin-top:24px}
+@media(min-width:560px){.hc-tiles{grid-template-columns:1fr 1fr}}
+.hc-tile{display:flex;gap:13px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.hc-tile .i{color:var(--red);display:flex}
+.hc-tile b{display:block;font-weight:600;font-size:15.5px}
+.hc-tile span span{display:block;font-size:13.5px;color:var(--ink3)}
+.noappt{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-size:14.5px;color:var(--ink2)}
+.noappt .ico{width:18px;height:18px;color:var(--red)}
+
+/* -------------------------------------------------------- what we look after */
+.care{display:grid;gap:14px}
+@media(min-width:640px){.care{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.care{grid-template-columns:repeat(3,1fr)}}
+.care-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px 22px}
+.care-card .i{display:inline-flex;width:46px;height:46px;border-radius:50%;background:var(--red-t);color:var(--red);
+  align-items:center;justify-content:center;margin-bottom:16px}
+.care-card h3{font-family:var(--f);font-weight:600;font-size:17.5px;line-height:1.35}
+.care-card p{margin-top:8px;color:var(--ink2);font-size:15px;line-height:1.6}
+
+/* ------------------------------------------------------------ the walk */
+.walk{display:grid;gap:30px}
+@media(min-width:980px){
+  .walk{grid-template-columns:1fr 1.06fr;gap:58px;align-items:start}
+  /* The map holds still while the steps run past it. */
+  .walk-media{position:sticky;top:104px}
+}
+.steps{position:relative;padding-left:40px}
+.steps:before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.steps-fill{position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:var(--red);transform-origin:50% 0;transform:scaleY(0)}
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference){
+    .steps-fill{animation:stepFill linear both;animation-timeline:view();animation-range:entry 40% cover 78%}
+    @keyframes stepFill{to{transform:scaleY(1)}}
+  }
+}
+@media (prefers-reduced-motion:reduce){.steps-fill{transform:scaleY(1)}}
+.step{position:relative;padding:0 0 30px}
+.step:last-child{padding-bottom:0}
+.step .n{position:absolute;left:-40px;top:-2px;width:32px;height:32px;border-radius:50%;background:#fff;
+  border:2px solid var(--line2);color:var(--ink2);display:grid;place-items:center;font-size:13.5px;font-weight:600;
+  font-variant-numeric:tabular-nums}
+.step p{color:var(--ink2)}
+.mapwrap{margin-top:22px}
+.frame{position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;border:1px solid var(--line);
+  background:var(--sand2)}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.mapfoot{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px;font-size:14.5px;color:var(--ink2)}
+.mapfoot span{flex:1}
+
+/* ------------------------------------------------------------- the team */
 .team-one{margin:30px auto 0;max-width:330px}
 
-/* ---------- header ---------- */
-.top{border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:80}
-.top-in{max-width:var(--wrap);margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:16px}
-@media(min-width:820px){.top-in{padding:14px 40px}}
-.top .brand img{height:48px;width:auto}
-@media(min-width:820px){.top .brand img{height:58px}}
-.top .sp{flex:1}
-.top .open{display:none;font-family:var(--fh);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2)}
-@media(min-width:700px){.top .open{display:block}}
+/* -------------------------------------------------------- the insurers */
+.mqwrap{margin-top:30px;position:relative}
+.mqwrap:before,.mqwrap:after{content:"";position:absolute;top:0;bottom:0;width:70px;z-index:2;pointer-events:none}
+.mqwrap:before{left:0;background:linear-gradient(90deg,var(--sand),rgba(250,247,243,0))}
+.mqwrap:after{right:0;background:linear-gradient(270deg,var(--sand),rgba(250,247,243,0))}
+.mqwrap img{height:44px;width:auto;opacity:.72;filter:grayscale(1);transition:.3s var(--ez)}
+.mqwrap:hover img{opacity:1;filter:none}
 
-/* ---------- hero ---------- */
-.hero{padding:52px 0 0}
-@media(min-width:900px){.hero{padding:76px 0 0}}
-.hero .tag{display:block}
-.hero h1{font-size:clamp(36px,6.6vw,62px);margin-top:20px;max-width:17ch}
-.hero .lead{margin-top:20px;font-size:clamp(17px,2vw,19.5px);color:var(--ink2);max-width:44ch}
-.hero-rule{height:1px;background:var(--line);margin:40px 0 0}
-
-/* three ways to reach us */
-.ways3{display:grid;gap:0;border-bottom:1px solid var(--line)}
-@media(min-width:760px){.ways3{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1000px){.ways3{grid-template-columns:repeat(4,1fr)}}
-.way3{padding:28px 0;border-top:1px solid var(--line);display:flex;gap:16px;align-items:flex-start;text-decoration:none;transition:.22s var(--ez)}
-@media(min-width:760px){.way3{padding:32px 26px;border-top:0;border-left:1px solid var(--line)}
-  .way3:first-child{border-left:0;padding-left:0}}
-.way3:hover{background:var(--sand)}
-.way3 .i{width:44px;height:44px;flex:none;border:1px solid var(--line2);border-radius:50%;display:grid;place-items:center;color:var(--red);transition:.22s var(--ez)}
-.way3:hover .i{border-color:var(--red);background:var(--red-t)}
-.way3 h2{display:block;font-family:var(--f);font-size:16.5px;font-weight:600;letter-spacing:-.01em}
-.way3 .v{display:block;margin-top:3px;font-size:16px;color:var(--red);font-variant-numeric:tabular-nums;font-weight:500}
-.way3 .n{display:block;margin-top:4px;font-size:14px;color:var(--ink3);line-height:1.5}
-
-/* ---------- media band ---------- */
-.band{position:relative;background:var(--sand2)}
-.band video{width:100%;height:auto;aspect-ratio:21/9;object-fit:cover;display:block}
-@media(max-width:760px){.band video{aspect-ratio:4/3}}
-.band .ctrl{position:absolute;right:16px;bottom:16px;display:flex;gap:10px}
-.band .ctrl button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.5);cursor:pointer;
-  background:rgba(26,22,20,.42);color:#fff;display:grid;place-items:center;backdrop-filter:blur(8px)}
-.band .ctrl button:hover{background:rgba(26,22,20,.78)}
-
-${D.VIDEO_CSS}
-.v{border:1px solid var(--line)}
-
-/* ---------- film grids ---------- */
-.films{display:grid;gap:22px;margin-top:40px}
-@media(min-width:760px){.films--3{grid-template-columns:repeat(3,1fr)}}
-@media(min-width:960px){.films--4{grid-template-columns:repeat(4,1fr)}}
-.film figcaption{margin-top:14px}
-.film b{display:block;font-family:var(--fh);font-size:19px;font-weight:400}
-.film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.6}
-${D.CAROUSEL_CSS}
-
-/* ---------- health check tiles ---------- */
-.hc-tiles{display:grid;gap:16px;margin-top:30px}
-@media(min-width:560px){.hc-tiles{grid-template-columns:1fr 1fr}}
-.hc-tile{border:1px solid var(--line);padding:22px;display:flex;gap:16px;align-items:center;background:#fff}
-.hc-tile .i{width:50px;height:50px;flex:none;border:1px solid var(--red-l);border-radius:50%;background:var(--red-t);color:var(--red);display:grid;place-items:center}
-.hc-tile .i .ico{width:26px;height:26px;stroke-width:1.5}
-.hc-tile b{display:block;font-family:var(--fh);font-size:18px;font-weight:400}
-.hc-tile span{display:block;font-size:14.5px;color:var(--ink3);margin-top:3px}
-.noappt{display:inline-flex;align-items:center;gap:10px;font-size:15.5px;color:var(--ink2);margin-top:26px}
-.noappt .ico{width:19px;height:19px;stroke-width:2.4;color:var(--red)}
-@media (prefers-reduced-motion:no-preference){
-  .hc-tile .i .ico{animation:hcPulse 3.4s var(--ez) infinite}
-  .hc-tile:nth-child(2) .i .ico{animation-delay:1.2s}
-  @keyframes hcPulse{0%,72%,100%{transform:scale(1)}12%{transform:scale(1.12)}24%{transform:scale(1)}36%{transform:scale(1.08)}}
-}
-
-/* ---------- sections ---------- */
-.sec{padding:62px 0}
-@media(min-width:820px){.sec{padding:92px 0}}
-.sec--sand{background:var(--sand)}
-.sec h2{font-size:clamp(27px,4.2vw,42px)}
-.sec .intro{margin-top:16px;color:var(--ink2);max-width:50ch}
-
-/* offer strip, their own poster given room */
-.offerband{display:grid;gap:30px;align-items:center;margin-top:34px}
-@media(min-width:820px){.offerband{grid-template-columns:.85fr 1.15fr;gap:52px}}
-.offerband img{width:100%;height:auto;border:1px solid var(--line)}
-.offerband .free{display:inline-block;font-family:var(--fh);font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;
-  color:#fff;background:var(--red);padding:6px 14px}
-.offerband h2{margin-top:18px}
-
-/* ---------- timeline ---------- */
-.tl{margin-top:44px;display:grid;gap:0}
-@media(min-width:820px){.tl{grid-template-columns:repeat(3,1fr);gap:0}}
-.tl-step{position:relative;padding:0 0 34px 44px}
-@media(min-width:820px){.tl-step{padding:52px 28px 0 0}}
-.tl-step:before{content:"";position:absolute;left:12px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--red)}
-@media(min-width:820px){.tl-step:before{left:0;top:-6px}}
-.tl-step:after{content:"";position:absolute;left:17px;top:24px;bottom:0;width:1px;background:var(--line2)}
-@media(min-width:820px){.tl-step:after{left:11px;top:0;bottom:auto;right:0;width:auto;height:1px}}
-.tl-step:last-child:after{display:none}
-@media(min-width:820px){.tl-step:last-child:after{display:block}}
-.tl-step .n{font-family:var(--fh);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
-.tl-step p{margin-top:8px;font-size:17px;line-height:1.55}
-
-.mapwrap{margin-top:40px;border:1px solid var(--line)}
-.mapwrap .frame{background-size:cover;background-position:center}
-.mapwrap iframe{width:100%;height:340px;border:0;display:block}
-.mapfoot{padding:16px 20px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;justify-content:space-between;font-size:14.5px;color:var(--ink3);background:#fff}
-
-/* ---------- services list ---------- */
-.list{margin-top:40px;border-top:1px solid var(--line)}
-.list-row{display:grid;gap:6px;padding:26px 0;border-bottom:1px solid var(--line);align-items:baseline}
-@media(min-width:760px){.list-row{grid-template-columns:44px 1fr 1.25fr;gap:26px}}
-.list-row .i{color:var(--red)}
-.list-row .i .ico{width:26px;height:26px}
-.list-row h3{font-family:var(--f);font-size:18px;font-weight:600;letter-spacing:-.015em}
-.list-row p{color:var(--ink2);font-size:16px}
-
-/* ---------- rotating quote ---------- */
-.qbox{margin-top:40px;position:relative;min-height:250px}
-.q{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .5s var(--ez)}
-.q.on{opacity:1;pointer-events:auto;position:relative}
-.q blockquote{font-family:var(--fh);font-size:clamp(22px,3.3vw,32px);line-height:1.4;max-width:22ch}
-.q .en{margin-top:18px;color:var(--ink2);font-size:16px;max-width:52ch}
-.q .who{margin-top:24px;display:flex;align-items:center;gap:12px}
-.q .who img{width:30px;height:auto;border:1px solid var(--line)}
-.q .nm{display:block;font-size:15.5px;font-weight:600}
-.q .cn{display:block;font-size:13.5px;color:var(--ink3)}
-.qnav{display:flex;gap:10px;margin-top:30px}
-.qnav button{width:44px;height:44px;border:1px solid var(--line2);border-radius:50%;background:transparent;cursor:pointer;display:grid;place-items:center;transition:.22s var(--ez)}
-.qnav button:hover{border-color:var(--red);color:var(--red)}
-
-/* ---------- insurers ---------- */
-.ins{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:28px}
-.ins img{height:44px;width:auto;background:#fff;padding:6px 12px;border:1px solid var(--line)}
-
-/* ---------- faq ---------- */
-.faq{margin-top:40px;border-top:1px solid var(--line);max-width:840px}
+/* ------------------------------------------------------------------ faq */
+.faq{margin-top:26px;border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;list-style:none;padding:22px 44px 22px 0;font-size:18px;position:relative;font-family:var(--fh)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 40px 20px 0;position:relative;font-weight:500;font-size:17px}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary:after{content:"+";position:absolute;right:6px;top:20px;font-size:24px;color:var(--red);font-family:var(--f);font-weight:300;transition:transform .22s var(--ez)}
-.faq details[open] summary:after{transform:rotate(45deg)}
-.faq .a{padding:0 0 24px;color:var(--ink2);font-size:16px;max-width:64ch}
+.faq summary:after{content:"";position:absolute;right:6px;top:27px;width:10px;height:10px;
+  border-right:2px solid var(--ink3);border-bottom:2px solid var(--ink3);transform:rotate(45deg);transition:.25s var(--ez)}
+.faq details[open] summary:after{transform:rotate(-135deg);border-color:var(--red)}
+.faq .a{padding:0 0 22px;color:var(--ink2);max-width:70ch}
 
-/* ---------- footer ---------- */
-footer{border-top:1px solid var(--line);padding:52px 0 118px;background:var(--sand)}
-@media(min-width:820px){footer{padding-bottom:56px}}
-.fgrid{display:grid;gap:32px}
-@media(min-width:760px){.fgrid{grid-template-columns:1.2fr 1fr 1fr}}
-footer img.flogo{height:60px;width:auto}
-footer h3{font-family:var(--fh);font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3);margin-bottom:14px}
-footer p{font-size:15.5px;color:var(--ink2);line-height:1.7}
-footer .big{font-family:var(--fh);font-size:24px;color:var(--red)}
-footer a.tel{text-decoration:none;color:var(--red)}
+/* --------------------------------------------------------------- footer */
+footer{background:#fff;border-top:1px solid var(--line);padding:56px 0 30px;font-size:15px;color:var(--ink2)}
+.fgrid{display:grid;gap:34px}
+@media(min-width:820px){.fgrid{grid-template-columns:1.3fr 1fr 1fr}}
+footer h3{font-family:var(--f);font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+footer h3 + p{margin-top:12px}
+footer .flogo{height:62px;width:auto}
+footer .big{font-size:21px;font-weight:600;color:var(--ink)}
+footer .tel{text-decoration:none}
+footer .ins{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px}
+footer .ins img{height:34px;width:auto;opacity:.7}
 .fbase{margin-top:38px;padding-top:20px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:8px 22px}
 .fbase a{color:var(--ink2)}
+${D.CREDIT_CSS}
 
+/* ------------------------------------------------------- floating WhatsApp */
 .wa-float{position:fixed;right:20px;bottom:20px;z-index:890;display:flex;align-items:center;gap:10px;
   background:var(--wa);color:#fff;text-decoration:none;font-weight:600;font-size:16px;padding:14px 20px;border-radius:var(--pill);
-  box-shadow:0 8px 25px -4px rgba(0,0,0,.28);transition:.2s var(--ez);padding-bottom:calc(14px + env(safe-area-inset-bottom,0))}
-.wa-float .ico{width:22px;height:22px;stroke-width:1.9}
-.wa-float:hover,.wa-float:focus-visible{background:var(--wa-deep);color:#fff;transform:translateY(-2px)}
-@media(min-width:768px){.wa-float{right:26px;bottom:26px}}
+  box-shadow:0 14px 34px -12px rgba(18,140,126,.6);transition:.25s var(--ez)}
+.wa-float:hover{background:var(--wa-deep)}
+.wa-float .ico{width:24px;height:24px}
 
+${D.VIDEO_CSS}
+${D.CAROUSEL_CSS}
+${D.OTHERS_CSS}
+${D.MOTION_CSS}
 
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 `;
 
-function render(c) {
+function render(c, designNo) {
   const L = D.links(c);
 
-  const list = D.HELP.map(
-    ([icon, title, note]) => `<div class="list-row"><span class="i">${svg(icon)}</span><h3>${esc(title)}</h3><p>${esc(note)}</p></div>`
+  const care = D.HELP.map(
+    ([icon, title, note]) =>
+      `<div class="care-card m-lift"><span class="i">${svg(icon)}</span><h3>${esc(title)}</h3><p>${esc(note)}</p></div>`
   ).join('');
 
+  const steps = c.steps
+    .map((t, i) => `<div class="step"><span class="n">${i + 1}</span><p>${esc(t)}</p></div>`)
+    .join('');
 
-  const faqs = D.faqFor(c).map(([q, a]) => `<details><summary>${esc(q)}</summary><div class="a">${esc(a)}</div></details>`).join('');
-  const insurers = D.INSURERS.map(([tok, name]) => `<img src="%%${tok}%%" alt="${esc(name)}" loading="lazy" width="120" height="44">`).join('');
+  const faqs = D.faqFor(c)
+    .map(([q, a]) => `<details><summary>${esc(q)}</summary><div class="a">${esc(a)}</div></details>`)
+    .join('');
 
-  const bandVideo = c.walkLoop ? 'VHOWTOFIND' : 'VINTRO';
+  /* Doubled, because a marquee has to hand off to its own copy to loop. */
+  const insurerRow = D.INSURERS.map(
+    ([tok, name]) => `<img src="%%${tok}%%" alt="${esc(name)}" loading="lazy" width="120" height="44">`
+  ).join('');
+  const insurers = insurerRow + insurerRow;
 
+  const walkFilm = c.walkLoop ? 'VHOWTOFIND' : 'VINTRO';
   const stories = D.stories();
-
   const team = D.video({ token: c.teamFilm, shape: 'portrait', label: 'Meet the team' });
 
-
-  return `<title>${esc(c.title)}</title>
-<meta name="description" content="${esc(c.desc)}">
-<link rel="canonical" href="https://www.247clinic.net${c.url}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  return `${D.head(c)}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap">
 <style>${CSS}</style>
 
 <a class="skip" href="#main">Skip to content</a>
+<div class="m-bar" aria-hidden="true"></div>
 
 <header class="top">
   <div class="top-in">
     <a class="brand" href="https://www.247clinic.net" rel="noopener"><img src="%%C7LOGO%%" alt="24/7 Clinic" width="200" height="193"></a>
     <span class="sp"></span>
     <span class="open">Open 24 hours</span>
-    <a class="btn btn--red btn--sm" href="${L.tel}" data-ev="call_click">${svg('phone')}Call</a>
+    <a class="btn btn--red btn--sm m-press" href="${L.tel}" data-ev="call_click">${svg('phone')}Call</a>
   </div>
 </header>
 
 <main id="main">
   <section class="hero">
     <div class="wrap">
-      <span class="tag">${esc(c.area)} &middot; ${esc(c.region)}</span>
-      <h1>${esc(c.h1)}</h1>
-      <p class="lead">${esc(c.lead)} English speaking doctors, and someone at the desk at any hour.</p>
-      <div class="hero-rule"></div>
-      <div class="ways3">
-        <a class="way3" href="${L.tel}" data-ev="call_click">
-          <span class="i">${svg('phone')}</span>
-          <span><h2>Call the clinic</h2><span class="v">${D.PHONE}</span><span class="n">Answered around the clock.</span></span>
-        </a>
-        <a class="way3" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">
-          <span class="i">${svg('wa')}</span>
-          <span><h2>Send a WhatsApp</h2><span class="v">Message us</span><span class="n">Tell us your room number.</span></span>
-        </a>
-        <button class="way3" type="button" data-herowatch style="border:0;font:inherit;text-align:left;background:transparent;cursor:pointer">
-          <span class="i">${svg('play')}</span>
-          <span><h2>Watch video</h2><span class="v">The clinic film</span><span class="n">See it before you come.</span></span>
-        </button>
-        <a class="way3" href="#find" data-ev="directions_click">
-          <span class="i">${svg('pin')}</span>
-          <span><h2>Walk in</h2><span class="v">No appointment</span><span class="n">${esc(c.hotelShort)}, ${esc(c.area)}.</span></span>
-        </a>
+      <div class="hero-grid">
+        <div class="m-rise">
+          <span class="tag">${esc(c.area)} &middot; ${esc(c.region)}</span>
+          <h1>${esc(c.h1)}</h1>
+          <p class="lead">${esc(c.lead)} English speaking doctors, and someone at the desk at any hour.</p>
+          <div class="hero-cta">
+            <a class="btn btn--red m-press" href="${L.tel}" data-ev="call_click">${svg('phone')}Call now</a>
+            <a class="btn btn--wa m-press" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">${svg('wa')}WhatsApp</a>
+            <button class="btn btn--watch m-press" type="button" data-herowatch>${svg('play')}Watch video</button>
+          </div>
+        </div>
+        <div class="m-deck">
+          <div class="deck">
+            ${D.video({ token: 'VCOMMERCIAL', shape: 'landscape', tag: 'The clinic film', cls: 'hero-film' })}
+          </div>
+        </div>
+      </div>
+
+      <div class="status m-stagger">
+        <div class="live"><b>Open now</b><span>Every hour, every day</span></div>
+        <div><b>In the grounds</b><span>${esc(c.hotelShort)}</span></div>
+        <div><b>Since ${D.SINCE}</b><span>Caring for visitors</span></div>
+        <div><b>${D.NETWORK} clinics</b><span>Across Egypt</span></div>
       </div>
     </div>
   </section>
 
-  <div class="band">
-    ${D.video({ token: 'VCOMMERCIAL', shape: 'landscape', tag: 'The clinic film', cls: 'hero-film' })}
-  </div>
-
   <section class="sec sec--sand">
     <div class="wrap">
       <div class="offerband">
-        <img src="%%POSTERHEALTH%%" alt="Free health check poster: free blood pressure and blood sugar check for hotel guests" loading="lazy" width="1080" height="1440">
-        <div>
+        <img class="m-drift" src="%%POSTERHEALTH%%" alt="Free health check poster: free blood pressure and blood sugar check for hotel guests" loading="lazy" width="1080" height="1440">
+        <div class="m-rise">
           <span class="free">Free for hotel guests</span>
-          <h2>A health check, on the house</h2>
+          <h2 style="margin-top:16px">A health check, on the house</h2>
           <p class="intro">Checked by a nurse while you wait. Nothing to pay, nothing to book.</p>
           <div class="hc-tiles">
             <div class="hc-tile"><span class="i">${svg('heart')}</span><span><b>Blood pressure</b><span>Checked in a minute</span></span></div>
             <div class="hc-tile"><span class="i">${svg('gauge')}</span><span><b>Blood sugar</b><span>One drop, one reading</span></span></div>
           </div>
           <span class="noappt">${svg('check')}No appointment needed</span>
-          <div style="margin-top:26px"><a class="btn btn--red" href="${L.tel}" data-ev="call_click">${svg('phone')}Call the clinic</a></div>
+          <div style="margin-top:26px"><a class="btn btn--red m-press" href="${L.tel}" data-ev="call_click">${svg('phone')}Call the clinic</a></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="sec" id="find">
+  <section class="sec">
     <div class="wrap">
-      <span class="tag">Finding us</span>
-      <h2>The walk from your hotel</h2>
-      <div class="tl">
-        ${c.steps.map((t, i) => `<div class="tl-step"><span class="n">Step ${i + 1}</span><p>${esc(t)}</p></div>`).join('')}
+      <div class="sec-head m-rise">
+        <span class="tag">Care</span>
+        <h2>What we look after</h2>
       </div>
-      <figure class="mapwrap">
-        <div class="frame" style="background-image:url(%%${c.mapImg}%%)">
-          <iframe src="${L.embed}" title="Map of the 24/7 Clinic at ${esc(c.hotel)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="care m-stagger">${care}</div>
+    </div>
+  </section>
+
+  <section class="sec sec--sand" id="find">
+    <div class="wrap">
+      <div class="sec-head m-rise">
+        <span class="tag">Finding us</span>
+        <h2>The walk from your hotel</h2>
+      </div>
+      <div class="walk">
+        <div class="steps">
+          <span class="steps-fill" aria-hidden="true"></span>
+          ${steps}
         </div>
-        <figcaption class="mapfoot">
-          <span>${esc(c.hotel)}, ${esc(c.area)}</span>
-          <a class="btn btn--sm" href="${L.maps}" target="_blank" rel="noopener" data-ev="directions_click">${svg('pin')}Directions</a>
-        </figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="sec sec--sand">
-    <div class="wrap">
-      <span class="tag">Care</span>
-      <h2>What we look after</h2>
-      <div class="list">${list}</div>
-    </div>
-  </section>
-
-  <section class="sec">
-    <div class="wrap">
-      <span class="tag">Guests</span>
-      <h2>In their own words</h2>
-      ${D.carousel({ items: stories, label: "Guest stories" })}
-    </div>
-  </section>
-
-  <section class="sec sec--sand">
-    <div class="wrap">
-      <span class="tag">The team</span>
-      <h2>The people who will see you</h2>
-      <div class="team-one" data-rise>${team}</div>
+        <div class="walk-media">
+          ${D.video({ token: walkFilm, shape: 'landscape', tag: 'The walk, filmed' })}
+          <figure class="mapwrap">
+            <div class="frame">
+              <iframe src="${L.embed}" title="Map of the 24/7 Clinic at ${esc(c.hotel)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <figcaption class="mapfoot">
+              <span>${esc(c.hotel)}, ${esc(c.area)}</span>
+              <a class="btn btn--sm m-press" href="${L.maps}" target="_blank" rel="noopener" data-ev="directions_click">${svg('pin')}Directions</a>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="sec">
     <div class="wrap">
-      <span class="tag">Filmed here</span>
-      <h2>What we do at this clinic</h2>
-      ${D.carousel({ items: D.serviceFilms(), label: "What we do at this clinic", size: "sm" })}
+      <div class="sec-head m-rise">
+        <span class="tag">Guests</span>
+        <h2>In their own words</h2>
+      </div>
+      ${D.carousel({ items: stories, label: 'Guest stories' })}
     </div>
   </section>
 
   <section class="sec sec--sand">
     <div class="wrap">
-      <span class="tag">Insurance</span>
-      <h2>We deal with your insurer</h2>
-      <p class="intro">Bring your policy details or your insurance card. We handle the paperwork and write the medical report your claim needs, in English, before you fly home.</p>
-      <div class="ins">${insurers}</div>
+      <div class="sec-head m-rise">
+        <span class="tag">The team</span>
+        <h2>The people who will see you</h2>
+      </div>
+      <div class="team-one m-rise">${team}</div>
     </div>
   </section>
 
   <section class="sec">
     <div class="wrap">
-      <span class="tag">Questions</span>
-      <h2>What guests ask us</h2>
+      <div class="sec-head m-rise">
+        <span class="tag">Filmed here</span>
+        <h2>What we do at this clinic</h2>
+      </div>
+      ${D.carousel({ items: D.serviceFilms(), label: 'What we do at this clinic', size: 'sm' })}
+    </div>
+  </section>
+
+  <section class="sec sec--sand">
+    <div class="wrap">
+      <div class="sec-head m-rise">
+        <span class="tag">Insurance</span>
+        <h2>We deal with your insurer</h2>
+        <p class="intro">Bring your policy details or your insurance card. We handle the paperwork and write the medical report your claim needs, in English, before you fly home.</p>
+      </div>
+      <div class="mqwrap m-mq">
+        <div class="m-mq-track">${insurers}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head m-rise">
+        <span class="tag">Questions</span>
+        <h2>What guests ask us</h2>
+      </div>
       <div class="faq">${faqs}</div>
+    </div>
+  </section>
+
+  <section class="sec sec--sand">
+    <div class="wrap">
+      <div class="sec-head m-rise">
+        <span class="tag">The network</span>
+        <h2>Other 24/7 clinics on this coast</h2>
+        <p class="intro">Staying somewhere else on the Red Sea? We run urgent care clinics inside these resorts too, open the same 24 hours.</p>
+      </div>
+      ${D.otherClinics(c, designNo)}
     </div>
   </section>
 </main>
@@ -401,7 +436,7 @@ function render(c) {
         <a href="https://www.247clinic.net/contact-us" target="_blank" rel="noopener">Contact</a></p>
       </div>
     </div>
-    <div class="fbase"><span>24/7 Clinic &middot; ${esc(c.area)} &middot; Since ${D.SINCE}</span><span>${D.NETWORK} clinics across Egypt</span></div>
+    <div class="fbase"><span>24/7 Clinic &middot; ${esc(c.area)} &middot; Since ${D.SINCE}</span><span>${D.NETWORK} clinics across Egypt</span>${D.credit()}</div>
   </div>
 </footer>
 
@@ -410,16 +445,18 @@ function render(c) {
 ${D.viewer()}
 
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
+<script type="application/ld+json">${JSON.stringify(D.otherClinicsSchema(c))}</script>
 ${D.tracking(c)}
 <script>${D.VIDEO_JS}${D.CAROUSEL_JS}</script>
 <script>
 (function () {
+  /* The hero Watch button opens the hero film in the lightbox. The old design 3
+     looked for an attribute the film never carried, so this button did nothing
+     at all. It targets the film's own class now. */
   var b = document.querySelector('[data-herowatch]');
-  if (!b) return;
-  b.addEventListener('click', function () {
-    var hero = document.querySelector('[data-herofilm]');
-    if (hero) hero.querySelector('[data-vwatch]').click();
-  });
+  var film = document.querySelector('.hero-film [data-vwatch]');
+  if (!b || !film) return;
+  b.addEventListener('click', function () { film.click(); });
 })();
 </script>
 `;

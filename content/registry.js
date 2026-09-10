@@ -85,7 +85,7 @@ const COMPANIES = [
         slug: 'website-v2',
         name: 'Website redesign',
         status: 'review',
-        updated: '2026-09-09',
+        updated: '2026-09-10',
         summary: '44 pages, English, German and Polish. Built and working, not yet approved.',
         detail: [
           'The live site is the old design again. The redesign serves only on ?preview=2 and sends noindex there, so it reaches no visitor and no crawler.',
@@ -302,6 +302,7 @@ const COMPANIES = [
               { slug: 'plan', name: 'Full plan, all seven answers', kind: 'md', src: 'docs/247clinic-hotel-landing-pages-plan.md', status: 'approved', note: 'URLs, keywords, wireframe, SEO, tracking' },
               { slug: 'open-items', name: 'What is still open', kind: 'md', src: 'docs/247clinic-open-items.md', status: 'review', note: 'Every note kept off the pages, with the evidence' },
               { slug: 'video-plan', name: 'Where every film goes', kind: 'md', src: 'docs/247clinic-video-plan.md', status: 'review', note: 'The 16 films mapped to sections. Ready to apply to whichever design wins' },
+              { slug: 'seo', name: 'SEO, and what to do at deploy', kind: 'md', src: 'docs/247clinic-seo-handover.md', status: 'review', note: 'Schema, share cards, sitemap, llms.txt, and an honest read on what will rank' },
             ],
           },
           /* The kit is parked while a design is being chosen. It documents the
@@ -316,11 +317,21 @@ const COMPANIES = [
           },
           {
             name: 'Live demo',
-            note: 'Three designs of the same page. Pick one, or ask for parts of one inside another.',
+            note: 'Three designs, each built for all three clinics. Pick one, or ask for parts of one inside another. Every page links to the others.',
             items: [
-              { slug: 'design-1', name: 'Design 1. Clean and clinical', kind: 'page', src: '247-lp-le-reve-d1.html', ownTitle: true, status: 'review', note: 'White, split hero, card grid. The MedPark language in 24/7 colours' },
-              { slug: 'design-2', name: 'Design 2. Bold and cinematic', kind: 'page', src: '247-lp-le-reve-d2.html', ownTitle: true, status: 'review', note: 'Full-bleed film, big type, icons that draw themselves' },
-              { slug: 'design-3', name: 'Design 3. Concierge', kind: 'page', src: '247-lp-le-reve-d3.html', ownTitle: true, status: 'review', note: 'Calm and premium. Calisto MT headlines, a timeline, one rotating quote' },
+              { slug: 'design-1', name: 'Design 1. Clean and clinical', kind: 'page', src: '247-lp-le-reve-d1.html', ownTitle: true, status: 'review', note: 'Premier Le Reve. White, split hero, card grid. The MedPark language in 24/7 colours' },
+              { slug: 'design-2', name: 'Design 2. Bold and cinematic', kind: 'page', src: '247-lp-le-reve-d2.html', ownTitle: true, status: 'review', note: 'Premier Le Reve. Full-bleed film, big type, icons that draw themselves' },
+              { slug: 'design-3', name: 'Design 3. Editorial motion', kind: 'page', src: '247-lp-le-reve-d3.html', ownTitle: true, status: 'review', note: 'Premier Le Reve. The film stands up as you scroll, the map holds while the walk runs past it' },
+
+              /* The other two clinics in each design. They are registered
+                 because every page now links out to its siblings, and a link
+                 that 404s would break the rule that a demo reads as live. */
+              { slug: 'design-1-steigenberger', name: 'Design 1. Steigenberger Ras Soma', kind: 'page', src: '247-lp-steigenberger-d1.html', ownTitle: true, status: 'review', note: 'Soma Bay, in design 1' },
+              { slug: 'design-1-amwaj', name: 'Design 1. Amwaj Beach Club', kind: 'page', src: '247-lp-amwaj-d1.html', ownTitle: true, status: 'review', note: 'Abu Soma, in design 1' },
+              { slug: 'design-2-steigenberger', name: 'Design 2. Steigenberger Ras Soma', kind: 'page', src: '247-lp-steigenberger-d2.html', ownTitle: true, status: 'review', note: 'Soma Bay, in design 2' },
+              { slug: 'design-2-amwaj', name: 'Design 2. Amwaj Beach Club', kind: 'page', src: '247-lp-amwaj-d2.html', ownTitle: true, status: 'review', note: 'Abu Soma, in design 2' },
+              { slug: 'design-3-steigenberger', name: 'Design 3. Steigenberger Ras Soma', kind: 'page', src: '247-lp-steigenberger-d3.html', ownTitle: true, status: 'review', note: 'Soma Bay, in design 3' },
+              { slug: 'design-3-amwaj', name: 'Design 3. Amwaj Beach Club', kind: 'page', src: '247-lp-amwaj-d3.html', ownTitle: true, status: 'review', note: 'Abu Soma, in design 3' },
             ],
           },
         ],

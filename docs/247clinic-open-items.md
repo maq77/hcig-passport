@@ -125,6 +125,48 @@ Pre-existing, and they will sabotage the launch if they are still there:
 
 ---
 
+## Added 2026-09-10, and what it needs
+
+### Photographs of each clinic from the street
+
+Every page now ends with the other clinics, each on a card with a photograph, a
+Directions link and a link through to that clinic's page. The photographs are
+Pexels stock of the Red Sea coast, standing in until real ones exist. One
+photograph of each clinic entrance would replace all three and would be the
+single biggest improvement to that section.
+
+### The clinic photographs already in the repository
+
+There are fifteen images in `src/assets` named for clinic scenes: reception,
+ward, consultation, x-ray, and three of Premier Le Rêve. They were added in the
+first build with no record of where they came from. They are 1200 by 774, which
+is a website crop rather than a video frame, so they were almost certainly taken
+from 247clinic.net. Almost certainly is not certain, and the rule against using
+a frame from a film is absolute, so nothing uses them until someone confirms the
+source. If they are from the website, they can go back in immediately and are
+better than any stock.
+
+### A Google Maps Static API key
+
+The maps on the pages are the live Google embed, as asked. The network cards use
+a photograph instead. If we want a real Google map image on those cards, or a
+map that appears before the embed loads, that needs a Static Maps API key on the
+24/7 Clinic Google account.
+
+### Google Business Profiles
+
+Three verified profiles, with photographs, hours and the phone number, would do
+more for reach than everything on the pages combined. A "24/7 Clinic" listing
+already exists beside Premier Le Rêve. Soma Bay and Abu Soma have none.
+
+### The three share cards have to be uploaded
+
+Each page has a 1200 by 630 Open Graph card in `src/assets`. They need to go up
+with the pages, and the `og:image` path needs the live origin in front of it.
+Written up in `247clinic-seo-handover.md`.
+
+---
+
 ## What is finished
 
 - URL structure, page plan and the one template approach, approved 2026-09-08.
@@ -133,10 +175,13 @@ Pre-existing, and they will sabotage the launch if they are still there:
   reviews, their own title language.
 - Titles and descriptions written for what guests actually search: doctor,
   clinic, dentist, emergency, hospital, plus the area name.
-- `MedicalClinic`, `FAQPage` and `BreadcrumbList` schema on every page, with
-  real coordinates.
-- A live Google map on every page, with a real static map behind it so the box
-  is never empty, and a Directions link straight to the checked coordinates.
+- `MedicalClinic`, `FAQPage`, `BreadcrumbList`, `ItemList`, `WebSite`,
+  `Organization` and a speakable `WebPage` on every page, with real coordinates.
+- Open Graph and Twitter cards, a sitemap with the films declared, and llms.txt.
+- Every page links to the other two clinics, with the hotel and the town in the
+  anchor text.
+- A live Google map on every page, and a Directions link straight to the checked
+  coordinates.
 - The clinic film, two guest story films, a carousel of their own campaign
   posters, and the network of 28 hotels grouped by area.
 - Canonical, meta description, Google map, walking directions, and GA4 events.

@@ -1,6 +1,23 @@
 <title>Doctor in Soma Bay | 24/7 Clinic at Steigenberger Ras Soma</title>
 <meta name="description" content="Need a doctor or emergency care in Soma Bay? 24/7 Urgent Care Clinic serves guests of Steigenberger Resort Ras Soma. Open 24 hours. Call or WhatsApp now.">
 <link rel="canonical" href="https://www.247clinic.net/soma-bay/steigenberger-clinic">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="24/7 Clinic">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="Doctor in Soma Bay | 24/7 Clinic at Steigenberger Ras Soma">
+<meta property="og:description" content="Need a doctor or emergency care in Soma Bay? 24/7 Urgent Care Clinic serves guests of Steigenberger Resort Ras Soma. Open 24 hours. Call or WhatsApp now.">
+<meta property="og:url" content="https://www.247clinic.net/soma-bay/steigenberger-clinic">
+<meta property="og:image" content="%%C7OGSTEIG%%">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="24/7 Clinic at Steigenberger Resort Ras Soma, Soma Bay. Open 24 hours.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Doctor in Soma Bay | 24/7 Clinic at Steigenberger Ras Soma">
+<meta name="twitter:description" content="Need a doctor or emergency care in Soma Bay? 24/7 Urgent Care Clinic serves guests of Steigenberger Resort Ras Soma. Open 24 hours. Call or WhatsApp now.">
+<meta name="twitter:image" content="%%C7OGSTEIG%%">
+<meta name="geo.position" content="26.863468;33.961233">
+<meta name="geo.placename" content="Soma Bay, Red Sea, Egypt">
+<meta name="geo.region" content="EG-BA">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
@@ -257,6 +274,97 @@ ol.steps li:before{content:counter(s);position:absolute;left:0;top:-6px;width:44
 .car-count{font-size:14px;color:var(--ink3);font-variant-numeric:tabular-nums;margin-left:auto}
 
 
+.oc{display:grid;gap:16px;margin-top:30px}
+@media(min-width:720px){.oc{grid-template-columns:1fr 1fr}}
+.oc-card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.oc-map{position:relative;display:block;background:var(--sand2)}
+.oc-map img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+.oc-pin{position:absolute;left:50%;top:50%;transform:translate(-50%,-58%);width:42px;height:42px;border-radius:50%;
+  background:var(--red);color:#fff;display:grid;place-items:center;box-shadow:0 10px 22px -8px rgba(192,0,0,.7)}
+.oc-pin .ico{width:22px;height:22px}
+.oc-body{padding:20px 20px 22px;display:flex;flex-direction:column;flex:1}
+.oc-area{font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.oc-card h3{margin-top:8px;font-size:20px;line-height:1.3}
+.oc-card h3 a{text-decoration:none}
+.oc-card h3 a:hover{color:var(--red)}
+.oc-card p{margin-top:8px;color:var(--ink2);font-size:15px;line-height:1.6;flex:1}
+.oc-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.oc-cta .ico{width:17px;height:17px}
+
+.sec--tint .sec-head{margin-bottom:30px}
+
+:root{
+  /* An overshoot curve. This is what gives a spring its snap. */
+  --spring:linear(0,.006,.025,.101 6.3%,.298 12%,.618 20%,.812 25%,.949 30%,1.035 36%,1.06 42%,1.05 50%,1.006 62%,.995 70%,1);
+  --ez-out:cubic-bezier(.16,1,.3,1);
+}
+
+/* ---------- reading progress, a hairline of brand red across the top ---------- */
+.m-bar{position:fixed;top:0;left:0;right:0;height:3px;z-index:950;transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--red),#E24A4A);transform:scaleX(0);pointer-events:none}
+@supports (animation-timeline: scroll()){
+  @media (prefers-reduced-motion:no-preference){
+    .m-bar{animation:mBar linear both;animation-timeline:scroll(root block)}
+    @keyframes mBar{to{transform:scaleX(1)}}
+  }
+}
+
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference){
+
+    /* ---------- the workhorse: lift and fade as the block enters ---------- */
+    .m-rise{animation:mRise linear both;animation-timeline:view();animation-range:entry 8% cover 34%}
+    @keyframes mRise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+
+    /* ---------- children arrive one after another ---------- */
+    .m-stagger > *{animation:mRise linear both;animation-timeline:view();animation-range:entry 4% cover 30%}
+    .m-stagger > *:nth-child(2){animation-range:entry 4% cover 34%}
+    .m-stagger > *:nth-child(3){animation-range:entry 4% cover 38%}
+    .m-stagger > *:nth-child(4){animation-range:entry 4% cover 42%}
+    .m-stagger > *:nth-child(5){animation-range:entry 4% cover 46%}
+    .m-stagger > *:nth-child(6){animation-range:entry 4% cover 50%}
+
+    /* ---------- the film lies back, then stands up as you scroll to it ----------
+       Borrowed from the container-scroll pattern. The perspective lives on the
+       wrapper so the card rotates in real depth rather than being squashed. */
+    .m-deck{perspective:1400px;perspective-origin:50% 30%}
+    .m-deck > *{animation:mDeck linear both;animation-timeline:view();animation-range:entry 0% cover 52%;
+      transform-origin:50% 100%;will-change:transform}
+    @keyframes mDeck{
+      from{transform:rotateX(22deg) scale(.9);box-shadow:0 40px 80px -40px rgba(20,18,16,.45)}
+      to{transform:rotateX(0deg) scale(1);box-shadow:0 24px 60px -34px rgba(20,18,16,.3)}
+    }
+
+    /* ---------- a quiet parallax drift, a few pixels only ---------- */
+    .m-drift{animation:mDrift linear both;animation-timeline:view();animation-range:cover}
+    @keyframes mDrift{from{transform:translateY(22px)}to{transform:translateY(-22px)}}
+
+    /* ---------- a headline that wipes in from the left ---------- */
+    .m-wipe{animation:mWipe linear both;animation-timeline:view();animation-range:entry 10% cover 30%}
+    @keyframes mWipe{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+  }
+}
+
+/* ---------- hover and press. These need no timeline, so they work everywhere. ---------- */
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .m-lift{transition:transform .4s var(--spring),box-shadow .4s var(--ez-out)}
+  .m-lift:hover{transform:translateY(-6px);box-shadow:0 26px 50px -26px rgba(20,18,16,.34)}
+}
+@media (prefers-reduced-motion:no-preference){
+  .m-press{transition:transform .18s var(--ez-out)}
+  .m-press:active{transform:scale(.97)}
+}
+
+/* ---------- a marquee that pauses when you look at it ---------- */
+.m-mq{overflow:hidden;--mq-gap:44px}
+.m-mq-track{display:flex;gap:var(--mq-gap);width:max-content}
+@media (prefers-reduced-motion:no-preference){
+  .m-mq-track{animation:mMq 34s linear infinite}
+  .m-mq:hover .m-mq-track,.m-mq:focus-within .m-mq-track{animation-play-state:paused}
+  @keyframes mMq{to{transform:translateX(calc(-50% - var(--mq-gap) / 2))}}
+}
+
+
 /* ---------- offer cards. Light, per the no-dark rule. ---------- */
 .offer{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
   display:flex;flex-direction:column;transition:transform .25s var(--ez),box-shadow .25s var(--ez)}
@@ -287,7 +395,7 @@ ol.steps li:before{content:counter(s);position:absolute;left:0;top:-6px;width:44
 
 /* ---------- map ---------- */
 .mapwrap{margin-top:26px;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
-.mapwrap .frame{background-size:cover;background-position:center}
+.mapwrap .frame{background:var(--sand2,#F2EDE6)}
 .mapwrap iframe{width:100%;height:320px;border:0;display:block}
 
 /* ---------- closing CTA ---------- */
@@ -323,6 +431,12 @@ footer a.tel{text-decoration:none;color:var(--red)}
 .fbase{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:8px 22px}
 .fbase a{color:var(--ink2)}
 
+/* Pushed to the far end on a wide bar, and it simply wraps under on a phone. */
+.credit{margin-left:auto;font-size:13px;color:var(--ink3);letter-spacing:.01em}
+.credit b{font-weight:600;color:var(--ink2)}
+a.credit:hover b{color:var(--red)}
+
+
 .wa-float{position:fixed;right:20px;bottom:20px;z-index:890;display:flex;align-items:center;gap:10px;
   background:var(--wa);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 20px;border-radius:var(--pill);
   box-shadow:0 8px 25px -4px rgba(0,0,0,.32);transition:transform .2s var(--ez),box-shadow .2s var(--ez),background-color .2s var(--ez);
@@ -348,6 +462,7 @@ footer a.tel{text-decoration:none;color:var(--red)}
 <script>document.documentElement.className += ' js';</script>
 
 <a class="skip" href="#main">Skip to content</a>
+<div class="m-bar" aria-hidden="true"></div>
 
 <main id="main">
   <section class="hero">
@@ -375,9 +490,9 @@ footer a.tel{text-decoration:none;color:var(--red)}
       <h1>Need a Doctor at Steigenberger Ras Soma?</h1>
       <p class="lead">24/7 Urgent Care Clinic, serving the resort in Soma Bay.</p>
       <div class="hero-cta">
-        <a class="btn btn--red" href="tel:+201222228247" data-ev="call_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5c0 8.8 7.2 16 16 16a1.5 1.5 0 0 0 1.5-1.5v-2a1.5 1.5 0 0 0-1.2-1.5l-3.1-.6a1.5 1.5 0 0 0-1.5.6l-.9 1.2a12.6 12.6 0 0 1-5.9-5.9l1.2-.9a1.5 1.5 0 0 0 .6-1.5l-.6-3.1a1.5 1.5 0 0 0-1.6-1.3Z"/></svg>Call now <span class="num">+20 122 222 8247</span></a>
-        <a class="btn btn--glass" href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20a%20doctor%20at%20Steigenberger%20Resort%20Ras%20Soma." target="_blank" rel="noopener" data-ev="whatsapp_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 20.4 4.9 16.1A8.6 8.6 0 1 1 8 19.2Z"/><path d="M9 8.6c.3 0 .5.3.65.65l.45 1.05-.8.8a5.7 5.7 0 0 0 3.3 3.3l.8-.8 1.05.45c.35.15.65.35.65.65v.9c-.3.45-.9.6-1.5.45A8.6 8.6 0 0 1 8.1 10.6c-.15-.6 0-1.2.45-1.5Z"/></svg>WhatsApp</a>
-        <button class="btn btn--watch" type="button" data-herowatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch video</button>
+        <a class="btn btn--red m-press" href="tel:+201222228247" data-ev="call_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5c0 8.8 7.2 16 16 16a1.5 1.5 0 0 0 1.5-1.5v-2a1.5 1.5 0 0 0-1.2-1.5l-3.1-.6a1.5 1.5 0 0 0-1.5.6l-.9 1.2a12.6 12.6 0 0 1-5.9-5.9l1.2-.9a1.5 1.5 0 0 0 .6-1.5l-.6-3.1a1.5 1.5 0 0 0-1.6-1.3Z"/></svg>Call now <span class="num">+20 122 222 8247</span></a>
+        <a class="btn btn--glass m-press" href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20a%20doctor%20at%20Steigenberger%20Resort%20Ras%20Soma." target="_blank" rel="noopener" data-ev="whatsapp_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 20.4 4.9 16.1A8.6 8.6 0 1 1 8 19.2Z"/><path d="M9 8.6c.3 0 .5.3.65.65l.45 1.05-.8.8a5.7 5.7 0 0 0 3.3 3.3l.8-.8 1.05.45c.35.15.65.35.65.65v.9c-.3.45-.9.6-1.5.45A8.6 8.6 0 0 1 8.1 10.6c-.15-.6 0-1.2.45-1.5Z"/></svg>WhatsApp</a>
+        <button class="btn btn--watch m-press" type="button" data-herowatch><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.2"/><path d="M10 8.4 16 12l-6 3.6z"/></svg>Watch video</button>
       </div>
       </div>
     </div>
@@ -397,7 +512,7 @@ footer a.tel{text-decoration:none;color:var(--red)}
           <div class="hc-tile"><span class="i"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.4 17.4a8.6 8.6 0 1 1 15.2 0"/><path d="m12 13.6 3.4-3.6"/><circle cx="12" cy="17.4" r="1.6"/></svg></span><span><b>Blood sugar</b><span>One drop, one reading</span></span></div>
         </div>
         <div class="row">
-          <a class="btn btn--red" href="tel:+201222228247" data-ev="call_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5c0 8.8 7.2 16 16 16a1.5 1.5 0 0 0 1.5-1.5v-2a1.5 1.5 0 0 0-1.2-1.5l-3.1-.6a1.5 1.5 0 0 0-1.5.6l-.9 1.2a12.6 12.6 0 0 1-5.9-5.9l1.2-.9a1.5 1.5 0 0 0 .6-1.5l-.6-3.1a1.5 1.5 0 0 0-1.6-1.3Z"/></svg>Call the clinic</a>
+          <a class="btn btn--red m-press" href="tel:+201222228247" data-ev="call_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5c0 8.8 7.2 16 16 16a1.5 1.5 0 0 0 1.5-1.5v-2a1.5 1.5 0 0 0-1.2-1.5l-3.1-.6a1.5 1.5 0 0 0-1.5.6l-.9 1.2a12.6 12.6 0 0 1-5.9-5.9l1.2-.9a1.5 1.5 0 0 0 .6-1.5l-.6-3.1a1.5 1.5 0 0 0-1.6-1.3Z"/></svg>Call the clinic</a>
           <span class="noappt"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>No appointment needed</span>
         </div>
       </div>
@@ -412,11 +527,11 @@ footer a.tel{text-decoration:none;color:var(--red)}
           <h2>Three turns from your room</h2>
           <ol class="steps"><li>Call or send a WhatsApp message with your room number.</li><li>Or ask reception for the 24/7 Clinic.</li><li>No appointment. A doctor sees you when you arrive.</li></ol>
           <figure class="mapwrap">
-            <div class="frame" style="background-image:url(%%C7MAPSTEIG%%)">
+            <div class="frame">
               <iframe src="https://maps.google.com/maps?q=26.863468,33.961233&z=16&hl=en&output=embed" title="Map of the 24/7 Clinic at Steigenberger Resort Ras Soma" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </figure>
-          <div style="margin-top:22px"><a class="btn btn--red" href="https://www.google.com/maps/dir/?api=1&destination=26.863468,33.961233" target="_blank" rel="noopener" data-ev="directions_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></svg>Directions in Google Maps</a></div>
+          <div style="margin-top:22px"><a class="btn btn--red m-press" href="https://www.google.com/maps/dir/?api=1&destination=26.863468,33.961233" target="_blank" rel="noopener" data-ev="directions_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></svg>Directions in Google Maps</a></div>
         </div>
         <div data-rise><div class="v v--p " data-v data-shape="portrait" data-src="%%VINTRO%%">
         <video muted loop playsinline preload="none" data-auto data-src="%%VINTRO%%" aria-label="Where you are in your hotel"></video>
@@ -616,8 +731,8 @@ footer a.tel{text-decoration:none;color:var(--red)}
       <h2 data-rise>A doctor is a phone call away.</h2>
       <p data-rise>Open 24 hours, every day of the year, in Soma Bay.</p>
       <div class="row" data-rise>
-        <a class="btn btn--red" href="tel:+201222228247" data-ev="call_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5c0 8.8 7.2 16 16 16a1.5 1.5 0 0 0 1.5-1.5v-2a1.5 1.5 0 0 0-1.2-1.5l-3.1-.6a1.5 1.5 0 0 0-1.5.6l-.9 1.2a12.6 12.6 0 0 1-5.9-5.9l1.2-.9a1.5 1.5 0 0 0 .6-1.5l-.6-3.1a1.5 1.5 0 0 0-1.6-1.3Z"/></svg>Call now <span class="num">+20 122 222 8247</span></a>
-        <a class="btn btn--wa" href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20a%20doctor%20at%20Steigenberger%20Resort%20Ras%20Soma." target="_blank" rel="noopener" data-ev="whatsapp_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 20.4 4.9 16.1A8.6 8.6 0 1 1 8 19.2Z"/><path d="M9 8.6c.3 0 .5.3.65.65l.45 1.05-.8.8a5.7 5.7 0 0 0 3.3 3.3l.8-.8 1.05.45c.35.15.65.35.65.65v.9c-.3.45-.9.6-1.5.45A8.6 8.6 0 0 1 8.1 10.6c-.15-.6 0-1.2.45-1.5Z"/></svg>WhatsApp</a>
+        <a class="btn btn--red m-press" href="tel:+201222228247" data-ev="call_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5c0 8.8 7.2 16 16 16a1.5 1.5 0 0 0 1.5-1.5v-2a1.5 1.5 0 0 0-1.2-1.5l-3.1-.6a1.5 1.5 0 0 0-1.5.6l-.9 1.2a12.6 12.6 0 0 1-5.9-5.9l1.2-.9a1.5 1.5 0 0 0 .6-1.5l-.6-3.1a1.5 1.5 0 0 0-1.6-1.3Z"/></svg>Call now <span class="num">+20 122 222 8247</span></a>
+        <a class="btn btn--wa m-press" href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20a%20doctor%20at%20Steigenberger%20Resort%20Ras%20Soma." target="_blank" rel="noopener" data-ev="whatsapp_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.6 20.4 4.9 16.1A8.6 8.6 0 1 1 8 19.2Z"/><path d="M9 8.6c.3 0 .5.3.65.65l.45 1.05-.8.8a5.7 5.7 0 0 0 3.3 3.3l.8-.8 1.05.45c.35.15.65.35.65.65v.9c-.3.45-.9.6-1.5.45A8.6 8.6 0 0 1 8.1 10.6c-.15-.6 0-1.2.45-1.5Z"/></svg>WhatsApp</a>
       </div>
     </div>
   </section>
@@ -629,6 +744,45 @@ footer a.tel{text-decoration:none;color:var(--red)}
         <h2>What guests ask us</h2>
       </div>
       <div class="faq"><details><summary>Is there a doctor at Steigenberger Ras Soma?</summary><div class="a">Yes, and you do not need an appointment. Call, send a WhatsApp message, or walk in.</div></details><details><summary>Are you open at night?</summary><div class="a">Yes. The clinic is open 24 hours, every day of the year.</div></details><details><summary>Do you speak English?</summary><div class="a">Yes. Guests have also been treated and answered in German, Italian and French.</div></details><details><summary>Do you take my travel insurance?</summary><div class="a">We deal with your insurer and write the medical report your claim needs. Bring your policy details or your insurance card.</div></details><details><summary>Is there a hospital near Soma Bay?</summary><div class="a">If you need a hospital we arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast.</div></details></div>
+    </div>
+  </section>
+
+  <section class="sec sec--tint">
+    <div class="wrap">
+      <div class="sec-head m-rise">
+        <span class="tag">The network</span>
+        <h2>Other 24/7 clinics on this coast</h2>
+        <p class="intro">Staying somewhere else on the Red Sea? We run urgent care clinics inside these resorts too, open the same 24 hours.</p>
+      </div>
+      <div class="oc m-stagger"><article class="oc-card m-lift">
+          <a class="oc-map" href="/247clinic/hotel-landing-pages/design-2" aria-hidden="true" tabindex="-1">
+            <img src="%%C7RESORTLEREVE%%" alt="" loading="lazy" width="640" height="400">
+            <span class="oc-pin"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></svg></span>
+          </a>
+          <div class="oc-body">
+            <span class="oc-area">Sahl Hasheesh &middot; Red Sea, Egypt</span>
+            <h3><a href="/247clinic/hotel-landing-pages/design-2">24/7 Clinic at Premier Le Rêve</a></h3>
+            <p>24/7 Urgent Care Clinic, in the grounds of the hotel.</p>
+            <div class="oc-cta">
+              <a class="btn btn--sm m-press" href="/247clinic/hotel-landing-pages/design-2">Learn more<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13M12.6 6.2 18.4 12l-5.8 5.8"/></svg></a>
+              <a class="btn btn--sm m-press" href="https://www.google.com/maps/search/?api=1&query=27.024343,33.887027" target="_blank" rel="noopener" data-ev="directions_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></svg>Directions</a>
+            </div>
+          </div>
+        </article><article class="oc-card m-lift">
+          <a class="oc-map" href="/247clinic/hotel-landing-pages/design-2-amwaj" aria-hidden="true" tabindex="-1">
+            <img src="%%C7RESORTAMWAJ%%" alt="" loading="lazy" width="640" height="400">
+            <span class="oc-pin"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></svg></span>
+          </a>
+          <div class="oc-body">
+            <span class="oc-area">Abu Soma &middot; Red Sea, Egypt</span>
+            <h3><a href="/247clinic/hotel-landing-pages/design-2-amwaj">24/7 Clinic at Amwaj Beach Club</a></h3>
+            <p>24/7 Urgent Care Clinic, serving the resort in Abu Soma.</p>
+            <div class="oc-cta">
+              <a class="btn btn--sm m-press" href="/247clinic/hotel-landing-pages/design-2-amwaj">Learn more<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13M12.6 6.2 18.4 12l-5.8 5.8"/></svg></a>
+              <a class="btn btn--sm m-press" href="https://www.google.com/maps/search/?api=1&query=26.813385,33.945688" target="_blank" rel="noopener" data-ev="directions_click"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21.5c4.2-4.4 6.4-7.7 6.4-10.4a6.4 6.4 0 1 0-12.8 0c0 2.7 2.2 6 6.4 10.4Z"/><circle cx="12" cy="11" r="2.4"/></svg>Directions</a>
+            </div>
+          </div>
+        </article></div>
     </div>
   </section>
 </main>
@@ -652,6 +806,7 @@ footer a.tel{text-decoration:none;color:var(--red)}
       <a href="https://www.247clinic.net/our-clinics" target="_blank" rel="noopener">All clinics</a>
       <a href="https://www.247clinic.net/insurance" target="_blank" rel="noopener">Insurance</a>
       <a href="https://www.247clinic.net/contact-us" target="_blank" rel="noopener">Contact</a>
+      <span class="credit">Powered by <b>Pulse Marketing</b></span>
     </div>
   </div>
 </footer>
@@ -666,7 +821,8 @@ footer a.tel{text-decoration:none;color:var(--red)}
   </div>
 </div>
 
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"MedicalClinic","@id":"https://www.247clinic.net/soma-bay/steigenberger-clinic#clinic","name":"24/7 Clinic, Steigenberger Resort Ras Soma","url":"https://www.247clinic.net/soma-bay/steigenberger-clinic","telephone":"+20 122 222 8247","image":"https://www.247clinic.net/assets/images/logos/clinic-logo.svg","parentOrganization":{"@type":"Organization","name":"24/7 Clinic","url":"https://www.247clinic.net"},"address":{"@type":"PostalAddress","addressLocality":"Soma Bay","addressRegion":"Red Sea Governorate","addressCountry":"EG"},"geo":{"@type":"GeoCoordinates","latitude":26.863468,"longitude":33.961233},"areaServed":[{"@type":"Place","name":"Steigenberger Resort Ras Soma"},{"@type":"Place","name":"Soma Bay"}],"availableLanguage":["English","German","Italian","French"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}],"availableService":[{"@type":"MedicalTherapy","name":"Emergency"},{"@type":"MedicalTherapy","name":"I feel unwell"},{"@type":"MedicalTherapy","name":"Dental"},{"@type":"MedicalTherapy","name":"IV infusion"},{"@type":"MedicalTherapy","name":"Medication and lab"},{"@type":"MedicalTherapy","name":"Insurance and reports"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is there a doctor at Steigenberger Ras Soma?","acceptedAnswer":{"@type":"Answer","text":"Yes, and you do not need an appointment. Call, send a WhatsApp message, or walk in."}},{"@type":"Question","name":"Are you open at night?","acceptedAnswer":{"@type":"Answer","text":"Yes. The clinic is open 24 hours, every day of the year."}},{"@type":"Question","name":"Do you speak English?","acceptedAnswer":{"@type":"Answer","text":"Yes. Guests have also been treated and answered in German, Italian and French."}},{"@type":"Question","name":"Do you take my travel insurance?","acceptedAnswer":{"@type":"Answer","text":"We deal with your insurer and write the medical report your claim needs. Bring your policy details or your insurance card."}},{"@type":"Question","name":"Is there a hospital near Soma Bay?","acceptedAnswer":{"@type":"Answer","text":"If you need a hospital we arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Our clinics","item":"https://www.247clinic.net/our-clinics"},{"@type":"ListItem","position":2,"name":"Soma Bay","item":"https://www.247clinic.net/soma-bay"},{"@type":"ListItem","position":3,"name":"Steigenberger Ras Soma"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"MedicalClinic","@id":"https://www.247clinic.net/soma-bay/steigenberger-clinic#clinic","name":"24/7 Clinic, Steigenberger Resort Ras Soma","url":"https://www.247clinic.net/soma-bay/steigenberger-clinic","telephone":"+20 122 222 8247","image":"https://www.247clinic.net/assets/images/logos/clinic-logo.svg","parentOrganization":{"@type":"Organization","name":"24/7 Clinic","url":"https://www.247clinic.net"},"address":{"@type":"PostalAddress","addressLocality":"Soma Bay","addressRegion":"Red Sea Governorate","addressCountry":"EG"},"geo":{"@type":"GeoCoordinates","latitude":26.863468,"longitude":33.961233},"areaServed":[{"@type":"Place","name":"Steigenberger Resort Ras Soma"},{"@type":"Place","name":"Soma Bay"}],"availableLanguage":["English","German","Italian","French"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}],"availableService":[{"@type":"MedicalTherapy","name":"Emergency"},{"@type":"MedicalTherapy","name":"I feel unwell"},{"@type":"MedicalTherapy","name":"Dental"},{"@type":"MedicalTherapy","name":"IV infusion"},{"@type":"MedicalTherapy","name":"Medication and lab"},{"@type":"MedicalTherapy","name":"Insurance and reports"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is there a doctor at Steigenberger Ras Soma?","acceptedAnswer":{"@type":"Answer","text":"Yes, and you do not need an appointment. Call, send a WhatsApp message, or walk in."}},{"@type":"Question","name":"Are you open at night?","acceptedAnswer":{"@type":"Answer","text":"Yes. The clinic is open 24 hours, every day of the year."}},{"@type":"Question","name":"Do you speak English?","acceptedAnswer":{"@type":"Answer","text":"Yes. Guests have also been treated and answered in German, Italian and French."}},{"@type":"Question","name":"Do you take my travel insurance?","acceptedAnswer":{"@type":"Answer","text":"We deal with your insurer and write the medical report your claim needs. Bring your policy details or your insurance card."}},{"@type":"Question","name":"Is there a hospital near Soma Bay?","acceptedAnswer":{"@type":"Answer","text":"If you need a hospital we arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Our clinics","item":"https://www.247clinic.net/our-clinics"},{"@type":"ListItem","position":2,"name":"Soma Bay","item":"https://www.247clinic.net/soma-bay"},{"@type":"ListItem","position":3,"name":"Steigenberger Ras Soma"}]},{"@type":"WebSite","@id":"https://www.247clinic.net#website","url":"https://www.247clinic.net","name":"24/7 Clinic","inLanguage":"en","publisher":{"@id":"https://www.247clinic.net#org"}},{"@type":"Organization","@id":"https://www.247clinic.net#org","name":"24/7 Clinic","url":"https://www.247clinic.net","telephone":"+20 122 222 8247","foundingDate":"2001","description":"Urgent care clinics inside hotels and resorts in Egypt, open 24 hours. 28 clinics nationwide.","areaServed":{"@type":"Country","name":"Egypt"},"sameAs":["https://www.instagram.com/247clinics/"]},{"@type":"WebPage","@id":"https://www.247clinic.net/soma-bay/steigenberger-clinic#page","url":"https://www.247clinic.net/soma-bay/steigenberger-clinic","name":"Doctor in Soma Bay | 24/7 Clinic at Steigenberger Ras Soma","description":"Need a doctor or emergency care in Soma Bay? 24/7 Urgent Care Clinic serves guests of Steigenberger Resort Ras Soma. Open 24 hours. Call or WhatsApp now.","inLanguage":"en","isPartOf":{"@id":"https://www.247clinic.net#website"},"about":{"@id":"https://www.247clinic.net/soma-bay/steigenberger-clinic#clinic"},"primaryImageOfPage":{"@type":"ImageObject","url":"%%C7OGSTEIG%%","width":1200,"height":630},"speakable":{"@type":"SpeakableSpecification","cssSelector":["h1",".lead"]}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","name":"Other 24/7 Clinic locations on the Red Sea","itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.247clinic.net/sahl-hasheesh/premier-le-reve-clinic","name":"24/7 Clinic at Premier Le Rêve Hotel & Spa, Sahl Hasheesh"},{"@type":"ListItem","position":2,"url":"https://www.247clinic.net/abu-soma/amwaj-beach-club-clinic","name":"24/7 Clinic at Amwaj Beach Club Abu Soma, Abu Soma"}]}</script>
 <script>
 (function () {
   var HOTEL = "Steigenberger Ras Soma", AREA = "Soma Bay";

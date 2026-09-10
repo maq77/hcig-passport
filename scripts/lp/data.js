@@ -19,6 +19,25 @@ const WA_HREF = '201222228247';
 const SINCE = '2001';
 const NETWORK = '28';
 
+/* The agency credit, in one place so all three designs carry the same line.
+   It sits at the quiet end of the footer base bar. Plain text for now: give it
+   a URL here and it becomes a link everywhere at once. */
+const CREDIT = { name: 'Pulse Marketing', url: '' };
+
+function credit() {
+  const inner = `Powered by <b>${esc(CREDIT.name)}</b>`;
+  return CREDIT.url
+    ? `<a class="credit" href="${esc(CREDIT.url)}" target="_blank" rel="noopener">${inner}</a>`
+    : `<span class="credit">${inner}</span>`;
+}
+
+const CREDIT_CSS = `
+/* Pushed to the far end on a wide bar, and it simply wraps under on a phone. */
+.credit{margin-left:auto;font-size:13px;color:var(--ink3);letter-spacing:.01em}
+.credit b{font-weight:600;color:var(--ink2)}
+a.credit:hover b{color:var(--red)}
+`;
+
 /* Six ways in, one line each. Phrased as the guest's problem, not as a service
    catalogue. The MedPark "how can we help" pattern. */
 const HELP = [
@@ -121,6 +140,9 @@ const CLINICS = [
        Long Beach Resort's coordinates for this clinic, 7.0 km north. */
     geo: [27.024343, 33.887027],
     mapImg: 'C7MAPLEREVE',
+    /* Pexels stand-in until a photograph of this clinic is supplied. */
+    photo: 'C7RESORTLEREVE',
+    ogImg: 'C7OGLEREVE',
     /* Word for word from the clinic's own directions film. */
     steps: [
       'Arrive at Premier Le Rêve Hotel.',
@@ -147,6 +169,9 @@ const CLINICS = [
     lead: '24/7 Urgent Care Clinic, serving the resort in Soma Bay.',
     geo: [26.863468, 33.961233],
     mapImg: 'C7MAPSTEIG',
+    /* Pexels stand-in until a photograph of this clinic is supplied. */
+    photo: 'C7RESORTSTEIG',
+    ogImg: 'C7OGSTEIG',
     steps: [
       'Call or send a WhatsApp message with your room number.',
       'Or ask reception for the 24/7 Clinic.',
@@ -172,6 +197,9 @@ const CLINICS = [
     lead: '24/7 Urgent Care Clinic, serving the resort in Abu Soma.',
     geo: [26.813385, 33.945688],
     mapImg: 'C7MAPAMWAJ',
+    /* Pexels stand-in until a photograph of this clinic is supplied. */
+    photo: 'C7RESORTAMWAJ',
+    ogImg: 'C7OGAMWAJ',
     steps: [
       'Call or send a WhatsApp message with your room number.',
       'Or ask reception for the 24/7 Clinic.',
@@ -231,6 +259,50 @@ function faqFor(c) {
   ];
 }
 
+/**
+ * Everything that goes in the head above the stylesheet.
+ *
+ * One place for it, so the three designs cannot drift apart on the parts a
+ * search engine and a share preview actually read.
+ *
+ * On og:image: the path is the built asset path, so the card resolves on this
+ * host and the file actually ships. Open Graph wants an absolute URL, so the
+ * one edit at deploy is to prefix these with the live origin. It is written
+ * down in docs/247clinic-seo-handover.md.
+ *
+ * On robots: nothing is set here on purpose. HCIG Work stamps noindex on every
+ * page it serves and its robots.txt disallows the whole host, which is right
+ * for a demo. The production values for 247clinic.net are written down in
+ * docs/247clinic-seo-handover.md rather than guessed at here, because a second
+ * robots tag on this host would only fight the first one.
+ */
+function head(c) {
+  const url = 'https://www.247clinic.net' + c.url;
+  const og = '%%' + c.ogImg + '%%';
+  return `<title>${esc(c.title)}</title>
+<meta name="description" content="${esc(c.desc)}">
+<link rel="canonical" href="${url}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="24/7 Clinic">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="${esc(c.title)}">
+<meta property="og:description" content="${esc(c.desc)}">
+<meta property="og:url" content="${url}">
+<meta property="og:image" content="${og}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="24/7 Clinic at ${esc(c.hotel)}, ${esc(c.area)}. Open 24 hours.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(c.title)}">
+<meta name="twitter:description" content="${esc(c.desc)}">
+<meta name="twitter:image" content="${og}">
+<meta name="geo.position" content="${c.geo[0]};${c.geo[1]}">
+<meta name="geo.placename" content="${esc(c.area)}, Red Sea, Egypt">
+<meta name="geo.region" content="EG-BA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>`;
+}
+
 function schemaFor(c) {
   const [lat, lon] = c.geo;
   return {
@@ -266,6 +338,43 @@ function schemaFor(c) {
           { '@type': 'ListItem', position: 2, name: c.area, item: `https://www.247clinic.net/${c.url.split('/')[1]}` },
           { '@type': 'ListItem', position: 3, name: c.hotelShort },
         ],
+      },
+
+      /* The site and the company behind it, so the three clinic pages resolve
+         to one organisation rather than three unrelated businesses. */
+      {
+        '@type': 'WebSite',
+        '@id': 'https://www.247clinic.net#website',
+        url: 'https://www.247clinic.net',
+        name: '24/7 Clinic',
+        inLanguage: 'en',
+        publisher: { '@id': 'https://www.247clinic.net#org' },
+      },
+      {
+        '@type': 'Organization',
+        '@id': 'https://www.247clinic.net#org',
+        name: '24/7 Clinic',
+        url: 'https://www.247clinic.net',
+        telephone: PHONE,
+        foundingDate: SINCE,
+        description: `Urgent care clinics inside hotels and resorts in Egypt, open 24 hours. ${NETWORK} clinics nationwide.`,
+        areaServed: { '@type': 'Country', name: 'Egypt' },
+        sameAs: ['https://www.instagram.com/247clinics/'],
+      },
+
+      /* The page itself. speakable marks the two lines an assistant should read
+         out when someone asks their phone for a doctor in this resort. */
+      {
+        '@type': 'WebPage',
+        '@id': `https://www.247clinic.net${c.url}#page`,
+        url: `https://www.247clinic.net${c.url}`,
+        name: c.title,
+        description: c.desc,
+        inLanguage: 'en',
+        isPartOf: { '@id': 'https://www.247clinic.net#website' },
+        about: { '@id': `https://www.247clinic.net${c.url}#clinic` },
+        primaryImageOfPage: { '@type': 'ImageObject', url: `%%${c.ogImg}%%`, width: 1200, height: 630 },
+        speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.lead'] },
       },
     ],
   };
@@ -388,6 +497,179 @@ const REVEAL_JS = `
   /* Failsafe. Nothing stays invisible because an observer misfired. */
   window.setTimeout(showAll, 2000);
 })();
+`;
+
+/**
+ * Motion.
+ *
+ * Framer Motion is a React library and these pages are static HTML, so the
+ * same feel comes from the browser's own scroll-driven animations instead.
+ * No library, nothing to download, and it runs on the compositor rather than
+ * the main thread, so it stays smooth while a film is decoding.
+ *
+ * Everything here is wrapped twice over:
+ *
+ *   @supports (animation-timeline: view())   nothing hides where it is not supported
+ *   @media (prefers-reduced-motion: no-preference)   nothing moves if the guest said no
+ *
+ * That pairing is deliberate. The old reveal hid whole sections when its script
+ * went missing. These rules cannot: if the browser does not understand the
+ * timeline, the declaration block never applies and the content is simply
+ * there. There is no script to lose.
+ */
+/**
+ * The rest of the network, at the foot of every page.
+ *
+ * Two jobs at once. A guest who moved hotels, or who is reading this from the
+ * resort next door, gets a way through to the right clinic. And every page
+ * gains real internal links out to its siblings, with the hotel and the town in
+ * the anchor text rather than "read more", so each page helps the others rank
+ * for its own town.
+ *
+ * The card visual is the same checked static map the page already carries. A
+ * photograph of each clinic from the street would be stronger and is on the
+ * open items list. No frame is ever cut from a film to fill it.
+ */
+function demoUrl(clinic, designNo) {
+  const base = '/247clinic/hotel-landing-pages/design-' + designNo;
+  return clinic.slug === 'le-reve' ? base : base + '-' + clinic.slug;
+}
+
+function otherClinics(c, designNo) {
+  const rest = CLINICS.filter((x) => x.slug !== c.slug);
+  if (!rest.length) return '';
+
+  const cards = rest
+    .map((x) => {
+      const maps = 'https://www.google.com/maps/search/?api=1&query=' + x.geo[0] + ',' + x.geo[1];
+      return `<article class="oc-card m-lift">
+          <a class="oc-map" href="${demoUrl(x, designNo)}" aria-hidden="true" tabindex="-1">
+            <img src="%%${x.photo}%%" alt="" loading="lazy" width="640" height="400">
+            <span class="oc-pin">${svg('pin')}</span>
+          </a>
+          <div class="oc-body">
+            <span class="oc-area">${esc(x.area)} &middot; ${esc(x.region)}</span>
+            <h3><a href="${demoUrl(x, designNo)}">24/7 Clinic at ${esc(x.hotelShort)}</a></h3>
+            <p>${esc(x.lead)}</p>
+            <div class="oc-cta">
+              <a class="btn btn--sm m-press" href="${demoUrl(x, designNo)}">Learn more${svg('arrow')}</a>
+              <a class="btn btn--sm m-press" href="${maps}" target="_blank" rel="noopener" data-ev="directions_click">${svg('pin')}Directions</a>
+            </div>
+          </div>
+        </article>`;
+    })
+    .join('');
+
+  return `<div class="oc m-stagger">${cards}</div>`;
+}
+
+/* Schema for those links, so the network reads as one thing to a search engine
+   rather than three unrelated pages. Points at the live URLs, not the demo. */
+function otherClinicsSchema(c) {
+  const rest = CLINICS.filter((x) => x.slug !== c.slug);
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Other 24/7 Clinic locations on the Red Sea',
+    itemListElement: rest.map((x, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: 'https://www.247clinic.net' + x.url,
+      name: '24/7 Clinic at ' + x.hotel + ', ' + x.area,
+    })),
+  };
+}
+
+const OTHERS_CSS = `
+.oc{display:grid;gap:16px;margin-top:30px}
+@media(min-width:720px){.oc{grid-template-columns:1fr 1fr}}
+.oc-card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.oc-map{position:relative;display:block;background:var(--sand2)}
+.oc-map img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+.oc-pin{position:absolute;left:50%;top:50%;transform:translate(-50%,-58%);width:42px;height:42px;border-radius:50%;
+  background:var(--red);color:#fff;display:grid;place-items:center;box-shadow:0 10px 22px -8px rgba(192,0,0,.7)}
+.oc-pin .ico{width:22px;height:22px}
+.oc-body{padding:20px 20px 22px;display:flex;flex-direction:column;flex:1}
+.oc-area{font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.oc-card h3{margin-top:8px;font-size:20px;line-height:1.3}
+.oc-card h3 a{text-decoration:none}
+.oc-card h3 a:hover{color:var(--red)}
+.oc-card p{margin-top:8px;color:var(--ink2);font-size:15px;line-height:1.6;flex:1}
+.oc-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.oc-cta .ico{width:17px;height:17px}
+`;
+
+const MOTION_CSS = `
+:root{
+  /* An overshoot curve. This is what gives a spring its snap. */
+  --spring:linear(0,.006,.025,.101 6.3%,.298 12%,.618 20%,.812 25%,.949 30%,1.035 36%,1.06 42%,1.05 50%,1.006 62%,.995 70%,1);
+  --ez-out:cubic-bezier(.16,1,.3,1);
+}
+
+/* ---------- reading progress, a hairline of brand red across the top ---------- */
+.m-bar{position:fixed;top:0;left:0;right:0;height:3px;z-index:950;transform-origin:0 50%;
+  background:linear-gradient(90deg,var(--red),#E24A4A);transform:scaleX(0);pointer-events:none}
+@supports (animation-timeline: scroll()){
+  @media (prefers-reduced-motion:no-preference){
+    .m-bar{animation:mBar linear both;animation-timeline:scroll(root block)}
+    @keyframes mBar{to{transform:scaleX(1)}}
+  }
+}
+
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference){
+
+    /* ---------- the workhorse: lift and fade as the block enters ---------- */
+    .m-rise{animation:mRise linear both;animation-timeline:view();animation-range:entry 8% cover 34%}
+    @keyframes mRise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+
+    /* ---------- children arrive one after another ---------- */
+    .m-stagger > *{animation:mRise linear both;animation-timeline:view();animation-range:entry 4% cover 30%}
+    .m-stagger > *:nth-child(2){animation-range:entry 4% cover 34%}
+    .m-stagger > *:nth-child(3){animation-range:entry 4% cover 38%}
+    .m-stagger > *:nth-child(4){animation-range:entry 4% cover 42%}
+    .m-stagger > *:nth-child(5){animation-range:entry 4% cover 46%}
+    .m-stagger > *:nth-child(6){animation-range:entry 4% cover 50%}
+
+    /* ---------- the film lies back, then stands up as you scroll to it ----------
+       Borrowed from the container-scroll pattern. The perspective lives on the
+       wrapper so the card rotates in real depth rather than being squashed. */
+    .m-deck{perspective:1400px;perspective-origin:50% 30%}
+    .m-deck > *{animation:mDeck linear both;animation-timeline:view();animation-range:entry 0% cover 52%;
+      transform-origin:50% 100%;will-change:transform}
+    @keyframes mDeck{
+      from{transform:rotateX(22deg) scale(.9);box-shadow:0 40px 80px -40px rgba(20,18,16,.45)}
+      to{transform:rotateX(0deg) scale(1);box-shadow:0 24px 60px -34px rgba(20,18,16,.3)}
+    }
+
+    /* ---------- a quiet parallax drift, a few pixels only ---------- */
+    .m-drift{animation:mDrift linear both;animation-timeline:view();animation-range:cover}
+    @keyframes mDrift{from{transform:translateY(22px)}to{transform:translateY(-22px)}}
+
+    /* ---------- a headline that wipes in from the left ---------- */
+    .m-wipe{animation:mWipe linear both;animation-timeline:view();animation-range:entry 10% cover 30%}
+    @keyframes mWipe{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+  }
+}
+
+/* ---------- hover and press. These need no timeline, so they work everywhere. ---------- */
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .m-lift{transition:transform .4s var(--spring),box-shadow .4s var(--ez-out)}
+  .m-lift:hover{transform:translateY(-6px);box-shadow:0 26px 50px -26px rgba(20,18,16,.34)}
+}
+@media (prefers-reduced-motion:no-preference){
+  .m-press{transition:transform .18s var(--ez-out)}
+  .m-press:active{transform:scale(.97)}
+}
+
+/* ---------- a marquee that pauses when you look at it ---------- */
+.m-mq{overflow:hidden;--mq-gap:44px}
+.m-mq-track{display:flex;gap:var(--mq-gap);width:max-content}
+@media (prefers-reduced-motion:no-preference){
+  .m-mq-track{animation:mMq 34s linear infinite}
+  .m-mq:hover .m-mq-track,.m-mq:focus-within .m-mq-track{animation-play-state:paused}
+  @keyframes mMq{to{transform:translateX(calc(-50% - var(--mq-gap) / 2))}}
+}
 `;
 
 const CAROUSEL_CSS = `
@@ -642,10 +924,11 @@ function tracking(c) {
 }
 
 module.exports = {
-  PHONE, PHONE_HREF, WA_HREF, SINCE, NETWORK,
+  PHONE, PHONE_HREF, WA_HREF, SINCE, NETWORK, CREDIT, credit, CREDIT_CSS,
   HELP, FLAG, REVIEWS, OFFERS, INSURERS, CLINICS, ICON,
   STORIES, SERVICE_FILMS,
-  esc, svg, faqFor, schemaFor, links, tracking,
+  esc, svg, head, faqFor, schemaFor, links, tracking,
+  demoUrl, otherClinics, otherClinicsSchema, OTHERS_CSS,
   video, stories, serviceFilms, viewer, carousel,
-  VIDEO_CSS, VIDEO_JS, CAROUSEL_CSS, CAROUSEL_JS, REVEAL_CSS, REVEAL_JS,
+  VIDEO_CSS, VIDEO_JS, CAROUSEL_CSS, CAROUSEL_JS, REVEAL_CSS, REVEAL_JS, MOTION_CSS,
 };

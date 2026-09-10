@@ -89,11 +89,22 @@ const ASSETS = {
   C7FLAGRO: 'c7flag-ro.svg',
   C7FLAGGB: 'c7flag-gb.svg',
 
-  /* Rendered from OpenStreetMap tiles at the checked coordinates, behind the
-     live Google map so the box is never empty. */
+  /* Kept only as the source art for the share cards. The maps on the pages
+     themselves are the live Google embed now, at his instruction. */
   C7MAPLEREVE: 'c7-map-le-reve.png',
   C7MAPSTEIG: 'c7-map-steigenberger.png',
   C7MAPAMWAJ: 'c7-map-amwaj.png',
+
+  /* Share cards, 1200x630, drawn from the brand and those same maps. Not
+     photographs: the clinic stills in this repo have no recorded origin, and
+     no frame is ever cut from a film. */
+  C7RESORTLEREVE: 'px-resort-lereve.webp',
+  C7RESORTSTEIG: 'px-resort-steig.webp',
+  C7RESORTAMWAJ: 'px-resort-amwaj.webp',
+
+  C7OGLEREVE: 'c7-og-le-reve.jpg',
+  C7OGSTEIG: 'c7-og-steigenberger.jpg',
+  C7OGAMWAJ: 'c7-og-amwaj.jpg',
 
   /* Pexels, at original resolution. Photographer and source per image are in
      src/assets/CREDITS.md. */

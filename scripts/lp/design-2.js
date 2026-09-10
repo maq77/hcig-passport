@@ -206,6 +206,9 @@ ${D.VIDEO_CSS}
 .film b{display:block;font-size:18px;font-weight:600;letter-spacing:-.02em}
 .film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.5}
 ${D.CAROUSEL_CSS}
+${D.OTHERS_CSS}
+.sec--tint .sec-head{margin-bottom:30px}
+${D.MOTION_CSS}
 
 /* ---------- offer cards. Light, per the no-dark rule. ---------- */
 .offer{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
@@ -237,7 +240,7 @@ ${D.CAROUSEL_CSS}
 
 /* ---------- map ---------- */
 .mapwrap{margin-top:26px;border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
-.mapwrap .frame{background-size:cover;background-position:center}
+.mapwrap .frame{background:var(--sand2,#F2EDE6)}
 .mapwrap iframe{width:100%;height:320px;border:0;display:block}
 
 /* ---------- closing CTA ---------- */
@@ -272,6 +275,7 @@ footer a.tel{text-decoration:none;color:var(--red)}
 .ins img{height:42px;width:auto;border-radius:8px;background:#fff;padding:6px 10px;border:1px solid var(--line)}
 .fbase{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:8px 22px}
 .fbase a{color:var(--ink2)}
+${D.CREDIT_CSS}
 
 .wa-float{position:fixed;right:20px;bottom:20px;z-index:890;display:flex;align-items:center;gap:10px;
   background:var(--wa);color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px 20px;border-radius:var(--pill);
@@ -287,7 +291,7 @@ ${D.REVEAL_CSS}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 `;
 
-function render(c) {
+function render(c, designNo) {
   const L = D.links(c);
 
   const ways = D.HELP.map(
@@ -324,16 +328,13 @@ function render(c) {
   const team = D.video({ token: c.teamFilm, shape: 'portrait', label: 'Meet the team' });
 
 
-  return `<title>${esc(c.title)}</title>
-<meta name="description" content="${esc(c.desc)}">
-<link rel="canonical" href="https://www.247clinic.net${c.url}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  return `${D.head(c)}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
 <style>${CSS}</style>
 <script>document.documentElement.className += ' js';</script>
 
 <a class="skip" href="#main">Skip to content</a>
+<div class="m-bar" aria-hidden="true"></div>
 
 <main id="main">
   <section class="hero">
@@ -361,9 +362,9 @@ function render(c) {
       <h1>${esc(c.h1)}</h1>
       <p class="lead">${esc(c.lead)}</p>
       <div class="hero-cta">
-        <a class="btn btn--red" href="${L.tel}" data-ev="call_click">${svg('phone')}Call now <span class="num">${D.PHONE}</span></a>
-        <a class="btn btn--glass" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">${svg('wa')}WhatsApp</a>
-        <button class="btn btn--watch" type="button" data-herowatch>${svg('play')}Watch video</button>
+        <a class="btn btn--red m-press" href="${L.tel}" data-ev="call_click">${svg('phone')}Call now <span class="num">${D.PHONE}</span></a>
+        <a class="btn btn--glass m-press" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">${svg('wa')}WhatsApp</a>
+        <button class="btn btn--watch m-press" type="button" data-herowatch>${svg('play')}Watch video</button>
       </div>
       </div>
     </div>
@@ -383,7 +384,7 @@ function render(c) {
           <div class="hc-tile"><span class="i">${svg('gauge')}</span><span><b>Blood sugar</b><span>One drop, one reading</span></span></div>
         </div>
         <div class="row">
-          <a class="btn btn--red" href="${L.tel}" data-ev="call_click">${svg('phone')}Call the clinic</a>
+          <a class="btn btn--red m-press" href="${L.tel}" data-ev="call_click">${svg('phone')}Call the clinic</a>
           <span class="noappt">${svg('check')}No appointment needed</span>
         </div>
       </div>
@@ -398,11 +399,11 @@ function render(c) {
           <h2>Three turns from your room</h2>
           <ol class="steps">${c.steps.map((t) => `<li>${esc(t)}</li>`).join('')}</ol>
           <figure class="mapwrap">
-            <div class="frame" style="background-image:url(%%${c.mapImg}%%)">
+            <div class="frame">
               <iframe src="${L.embed}" title="Map of the 24/7 Clinic at ${esc(c.hotel)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </figure>
-          <div style="margin-top:22px"><a class="btn btn--red" href="${L.maps}" target="_blank" rel="noopener" data-ev="directions_click">${svg('pin')}Directions in Google Maps</a></div>
+          <div style="margin-top:22px"><a class="btn btn--red m-press" href="${L.maps}" target="_blank" rel="noopener" data-ev="directions_click">${svg('pin')}Directions in Google Maps</a></div>
         </div>
         <div data-rise>${walkMedia}</div>
       </div>
@@ -455,8 +456,8 @@ function render(c) {
       <h2 data-rise>A doctor is a phone call away.</h2>
       <p data-rise>Open 24 hours, every day of the year, in ${esc(c.area)}.</p>
       <div class="row" data-rise>
-        <a class="btn btn--red" href="${L.tel}" data-ev="call_click">${svg('phone')}Call now <span class="num">${D.PHONE}</span></a>
-        <a class="btn btn--wa" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">${svg('wa')}WhatsApp</a>
+        <a class="btn btn--red m-press" href="${L.tel}" data-ev="call_click">${svg('phone')}Call now <span class="num">${D.PHONE}</span></a>
+        <a class="btn btn--wa m-press" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">${svg('wa')}WhatsApp</a>
       </div>
     </div>
   </section>
@@ -468,6 +469,17 @@ function render(c) {
         <h2>What guests ask us</h2>
       </div>
       <div class="faq">${faqs}</div>
+    </div>
+  </section>
+
+  <section class="sec sec--tint">
+    <div class="wrap">
+      <div class="sec-head m-rise">
+        <span class="tag">The network</span>
+        <h2>Other 24/7 clinics on this coast</h2>
+        <p class="intro">Staying somewhere else on the Red Sea? We run urgent care clinics inside these resorts too, open the same 24 hours.</p>
+      </div>
+      ${D.otherClinics(c, designNo)}
     </div>
   </section>
 </main>
@@ -491,6 +503,7 @@ function render(c) {
       <a href="https://www.247clinic.net/our-clinics" target="_blank" rel="noopener">All clinics</a>
       <a href="https://www.247clinic.net/insurance" target="_blank" rel="noopener">Insurance</a>
       <a href="https://www.247clinic.net/contact-us" target="_blank" rel="noopener">Contact</a>
+      ${D.credit()}
     </div>
   </div>
 </footer>
@@ -500,6 +513,7 @@ function render(c) {
 ${D.viewer()}
 
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
+<script type="application/ld+json">${JSON.stringify(D.otherClinicsSchema(c))}</script>
 ${D.tracking(c)}
 <script>${D.VIDEO_JS}${D.CAROUSEL_JS}${D.REVEAL_JS}</script>
 <script>
