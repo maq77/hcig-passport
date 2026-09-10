@@ -146,6 +146,17 @@ a frame from a film is absolute, so nothing uses them until someone confirms the
 source. If they are from the website, they can go back in immediately and are
 better than any stock.
 
+### Films of the walk at Steigenberger and Amwaj
+
+Design 3's "The walk from your hotel" is now his own film of the Premier Le Rêve
+walk, with the scroll wheel driving the playhead: the guest walks to the door as
+they scroll. It only exists for Le Rêve, because that is the only walk that has
+been filmed. The other two clinics fall back to the written steps.
+
+Two phone videos, taken slowly from the hotel reception to the clinic door,
+would give them the same thing. Held steady, walking pace, twenty to thirty
+seconds, portrait.
+
 ### A Google Maps Static API key
 
 The maps on the pages are the live Google embed, as asked. The network cards use

@@ -53,6 +53,11 @@ const ASSETS = {
      cut out of one: he picks any still himself. */
   VCOMMERCIAL: 'v-commercial.mp4',
   VHOWTOFIND: 'v-howtofind.mp4',
+
+  /* The same walk, re-encoded for seeking: keyframe every ten frames instead
+     of every five seconds. Same 720x1280, same 30fps, higher bitrate. The
+     original above is untouched and is what the page plays normally. */
+  VWALKSCRUB: 'v-howtofind-scrub.mp4',
   VSCOOTER: 'v-story-scooter.mp4',
   VPOLAND: 'v-story-poland.mp4',
   VROMFAMILY: 'v-story-romania-family.mp4',

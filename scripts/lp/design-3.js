@@ -45,7 +45,7 @@ const CSS = `
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);font-size:16.5px;line-height:1.68;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  -webkit-font-smoothing:antialiased;overflow-x:clip}
 h1,h2,h3{margin:0;font-family:var(--fh);font-weight:400;line-height:1.14;letter-spacing:-.008em;text-wrap:balance}
 p,blockquote,figure{margin:0}
 img,video,iframe,svg{max-width:100%;display:block}
@@ -218,6 +218,7 @@ ${D.CREDIT_CSS}
 
 ${D.VIDEO_CSS}
 ${D.CAROUSEL_CSS}
+${D.SCRUB_CSS}
 ${D.OTHERS_CSS}
 ${D.MOTION_CSS}
 
@@ -246,7 +247,17 @@ function render(c, designNo) {
   ).join('');
   const insurers = insurerRow + insurerRow;
 
-  const walkFilm = c.walkLoop ? 'VHOWTOFIND' : 'VINTRO';
+  /* Only Premier Le Reve has a film of the actual walk. The other two get the
+     written steps until someone films theirs. */
+  const walkBlock = c.walkLoop
+    ? D.scrubWalk(c, 'VWALKSCRUB')
+    : `<div class="walk">
+        <div class="steps">
+          <span class="steps-fill" aria-hidden="true"></span>
+          ${steps}
+        </div>
+        <div class="walk-media">${D.video({ token: 'VINTRO', shape: 'landscape', tag: 'Inside the clinic' })}</div>
+      </div>`;
   const stories = D.stories();
   const team = D.video({ token: c.teamFilm, shape: 'portrait', label: 'Meet the team' });
 
@@ -327,28 +338,20 @@ function render(c, designNo) {
 
   <section class="sec sec--sand" id="find">
     <div class="wrap">
-      <div class="sec-head m-rise">
+      ${c.walkLoop ? '' : `<div class="sec-head m-rise">
         <span class="tag">Finding us</span>
         <h2>The walk from your hotel</h2>
-      </div>
-      <div class="walk">
-        <div class="steps">
-          <span class="steps-fill" aria-hidden="true"></span>
-          ${steps}
+      </div>`}
+      ${walkBlock}
+      <figure class="mapwrap">
+        <div class="frame">
+          <iframe src="${L.embed}" title="Map of the 24/7 Clinic at ${esc(c.hotel)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <div class="walk-media">
-          ${D.video({ token: walkFilm, shape: 'landscape', tag: 'The walk, filmed' })}
-          <figure class="mapwrap">
-            <div class="frame">
-              <iframe src="${L.embed}" title="Map of the 24/7 Clinic at ${esc(c.hotel)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <figcaption class="mapfoot">
-              <span>${esc(c.hotel)}, ${esc(c.area)}</span>
-              <a class="btn btn--sm m-press" href="${L.maps}" target="_blank" rel="noopener" data-ev="directions_click">${svg('pin')}Directions</a>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
+        <figcaption class="mapfoot">
+          <span>${esc(c.hotel)}, ${esc(c.area)}</span>
+          <a class="btn btn--sm m-press" href="${L.maps}" target="_blank" rel="noopener" data-ev="directions_click">${svg('pin')}Directions</a>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
@@ -447,7 +450,7 @@ ${D.viewer()}
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 <script type="application/ld+json">${JSON.stringify(D.otherClinicsSchema(c))}</script>
 ${D.tracking(c)}
-<script>${D.VIDEO_JS}${D.CAROUSEL_JS}</script>
+<script>${D.VIDEO_JS}${D.CAROUSEL_JS}${D.SCRUB_JS}</script>
 <script>
 (function () {
   /* The hero Watch button opens the hero film in the lightbox. The old design 3

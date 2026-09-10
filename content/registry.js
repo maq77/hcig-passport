@@ -322,7 +322,7 @@ const COMPANIES = [
             items: [
               { slug: 'design-1', name: 'Design 1. Clean and clinical', kind: 'page', src: '247-lp-le-reve-d1.html', ownTitle: true, status: 'review', note: 'Premier Le Reve. White, split hero, card grid. The MedPark language in 24/7 colours' },
               { slug: 'design-2', name: 'Design 2. Bold and cinematic', kind: 'page', src: '247-lp-le-reve-d2.html', ownTitle: true, status: 'review', note: 'Premier Le Reve. Full-bleed film, big type, icons that draw themselves' },
-              { slug: 'design-3', name: 'Design 3. Editorial motion', kind: 'page', src: '247-lp-le-reve-d3.html', ownTitle: true, status: 'review', note: 'Premier Le Reve. The film stands up as you scroll, the map holds while the walk runs past it' },
+              { slug: 'design-3', name: 'Design 3. Editorial motion', kind: 'page', src: '247-lp-le-reve-d3.html', ownTitle: true, status: 'review', note: 'Premier Le Reve. The film stands up as you scroll, and his walk film is scrubbed by the scroll wheel' },
 
               /* The other two clinics in each design. They are registered
                  because every page now links out to its siblings, and a link

@@ -672,6 +672,10 @@ const MOTION_CSS = `
 }
 `;
 
+/* The scroll-scrubbed walk lives in its own file. It is the only component
+   with a scroll loop of its own, so it stays separable. */
+const SCRUB = require('./scrub').build({ esc, svg });
+
 const CAROUSEL_CSS = `
 .car{position:relative}
 .story figcaption,.film figcaption{margin-top:14px}
@@ -929,6 +933,7 @@ module.exports = {
   STORIES, SERVICE_FILMS,
   esc, svg, head, faqFor, schemaFor, links, tracking,
   demoUrl, otherClinics, otherClinicsSchema, OTHERS_CSS,
+  scrubWalk: SCRUB.scrubWalk, SCRUB_CSS: SCRUB.SCRUB_CSS, SCRUB_JS: SCRUB.SCRUB_JS,
   video, stories, serviceFilms, viewer, carousel,
   VIDEO_CSS, VIDEO_JS, CAROUSEL_CSS, CAROUSEL_JS, REVEAL_CSS, REVEAL_JS, MOTION_CSS,
 };
