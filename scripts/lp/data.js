@@ -177,6 +177,8 @@ const CLINICS = [
        Long Beach Resort's coordinates for this clinic, 7.0 km north. */
     geo: [27.024343, 33.887027],
     mapImg: 'C7MAPLEREVE',
+    /* Their own clinic film. */
+    heroFilm: 'VCOMMERCIAL',
     /* Pexels stand-in until a photograph of this clinic is supplied. */
     photo: 'C7RESORTLEREVE',
     ogImg: 'C7OGLEREVE',
@@ -208,6 +210,8 @@ const CLINICS = [
     lead: '24/7 Clinic serving Steigenberger Resort Ras Soma.',
     geo: [26.863468, 33.961233],
     mapImg: 'C7MAPSTEIG',
+    /* No film of this clinic yet. The stand-in below holds the slot. */
+    heroFilm: '',
     /* Pexels stand-in until a photograph of this clinic is supplied. */
     photo: 'C7RESORTSTEIG',
     ogImg: 'C7OGSTEIG',
@@ -236,6 +240,8 @@ const CLINICS = [
     lead: '24/7 Clinic serving Amwaj Beach Club Abu Soma.',
     geo: [26.813385, 33.945688],
     mapImg: 'C7MAPAMWAJ',
+    /* No film of this clinic yet. The stand-in below holds the slot. */
+    heroFilm: '',
     /* Pexels stand-in until a photograph of this clinic is supplied. */
     photo: 'C7RESORTAMWAJ',
     ogImg: 'C7OGAMWAJ',

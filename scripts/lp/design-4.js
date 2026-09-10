@@ -20,20 +20,26 @@
  * emergency/medical conversion page", "do not overdesign", and "not a corporate
  * presentation".
  *
- * There is no video on this page at all. She never mentions video and she does
- * say the pages "need to load very quickly". The other three carry up to 57 MB
- * of film. This one carries the map and the logo.
+ * One film, at his request: the clinic's own commercial at the top of the hero,
+ * muted, looping, playing itself. It is the closest thing there is to the
+ * "clinic photographs" her list asks for and which do not exist.
  *
- * The clinic photographs she asks for are the one thing missing. The slot is
- * built and renders nothing while it is empty, so the page never shows a
- * placeholder. One photograph per clinic fills it.
+ * It is not free. That film is 8.9 MB against a page that was 31 KB, on a page
+ * whose whole argument was that it loads instantly. It does not block the call
+ * buttons, which come first in the source and sit above it on a phone, and it
+ * only fetches when it scrolls into view. Even so, it is the one thing on this
+ * page that costs anything.
+ *
+ * Steigenberger and Amwaj have no film of their own yet, so the same frame
+ * holds the Red Sea stand-in from Pexels rather than a gap. Filling those is
+ * one token in each clinic's row of data.js.
  */
 
 const D = require('./data');
 const { esc, svg } = D;
 
 const NAME = 'To the brief';
-const NOTE = 'Only what Irina asked for, in her words. No film, no extra sections. Loads in a moment.';
+const NOTE = 'Only what Irina asked for, in her words. One hero film, no extra sections.';
 
 const CSS = `
 :root{
@@ -86,8 +92,18 @@ a,button,summary{touch-action:manipulation}
 @media(min-width:620px){.top .hours{display:inline-flex}}
 
 /* ----------------------------------------------------------------- hero */
-.hero{padding:34px 0 30px}
-@media(min-width:760px){.hero{padding:52px 0 44px}}
+.hero{padding:30px 0 26px}
+@media(min-width:760px){.hero{padding:44px 0 40px}}
+.hero-in{display:grid;gap:26px;align-items:center}
+@media(min-width:900px){.hero-in{grid-template-columns:1fr 1fr;gap:44px}}
+
+/* The clinic's own film where one exists. Where it does not, the same frame
+   holds a Red Sea photograph from Pexels so the page is never a gap. Swapping
+   in a real film is one token in the clinic's row of data.js. */
+.hero-media{position:relative;border-radius:var(--r);overflow:hidden;background:var(--tint);border:1px solid var(--line);
+  aspect-ratio:16/10}
+.hero-media img,.hero-media video{width:100%;height:100%;object-fit:cover;display:block}
+.hero-media .v{position:absolute;inset:0;border-radius:0;border:0}
 .area{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;letter-spacing:.08em;
   text-transform:uppercase;color:var(--red)}
 .area .ico{width:16px;height:16px}
@@ -173,6 +189,8 @@ footer .flogo{height:48px;width:auto}
 .fbase{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px 20px;
   font-size:13px;color:var(--ink3)}
 ${D.CREDIT_CSS}
+${D.VIDEO_CSS}
+.hero-media .v{aspect-ratio:auto}
 
 /* Her line: the Call and WhatsApp buttons must be visible immediately on a
    phone. This keeps them on screen for the whole page. */
@@ -189,6 +207,12 @@ function render(c, designNo) {
   const L = D.links(c);
 
   const steps = c.steps.map((t, i) => `<li><b>${i + 1}</b><p>${esc(t)}</p></li>`).join('');
+
+  /* Premier Le Reve has its own clinic film. The other two hold the slot with
+     the Red Sea stand-in until their films are shot. */
+  const heroMedia = c.heroFilm
+    ? D.video({ token: c.heroFilm, shape: 'landscape', tag: 'The clinic', cls: 'hero-film' })
+    : `<img src="%%${c.photo}%%" alt="The Red Sea coast at ${esc(c.area)}, where the 24/7 Clinic at ${esc(c.hotelShort)} serves hotel guests" width="1200" height="750">`;
 
   const services = D.BRIEF_SERVICES.map(
     ([icon, label]) => `<li><span class="i">${svg(icon)}</span>${esc(label)}</li>`
@@ -232,6 +256,8 @@ function render(c, designNo) {
 <main id="main">
   <section class="hero">
     <div class="wrap">
+      <div class="hero-in">
+        <div>
       <span class="area">${svg('pin')}${esc(c.area)}, ${esc(c.region)}</span>
       <h1>Need a Doctor at ${esc(c.hotelShort)}?</h1>
       <p class="lead">${esc(c.lead)}</p>
@@ -246,6 +272,9 @@ function render(c, designNo) {
         <span>${svg('phone')}<a href="${L.tel}" data-ev="phone_click">${D.PHONE}</a></span>
         <span>${svg('clock')}Open 24 hours, every day</span>
         <span>${svg('globe')}English, German, Italian, French</span>
+      </div>
+        </div>
+        <div class="hero-media">${heroMedia}</div>
       </div>
     </div>
   </section>
@@ -318,9 +347,12 @@ function render(c, designNo) {
   <a class="btn btn--wa" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">${svg('wa')}WhatsApp</a>
 </div>
 
+${c.heroFilm ? D.viewer() : ''}
+
 <script type="application/ld+json">${JSON.stringify(D.schemaFor(c))}</script>
 <script type="application/ld+json">${JSON.stringify(D.otherClinicsSchema(c))}</script>
 ${D.tracking(c)}
+${c.heroFilm ? `<script>${D.VIDEO_JS}</script>` : ''}
 `;
 }
 
