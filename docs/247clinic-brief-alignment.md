@@ -47,6 +47,30 @@ above the fold: call, WhatsApp, find the clinic. There were only two and a Watch
 video button that was wider than either. All four are now the same size, two by
 two, with the phone number underneath.
 
+## Corrected 2026-09-10, after checking her list line by line
+
+**The hero line was ours, not hers.** She sets it: "24/7 Clinic located inside /
+serving [Hotel Name]." The pages said "24/7 Urgent Care Clinic, in the grounds
+of the hotel", which never names the hotel, and design 3 added a second sentence
+on top of it. Now:
+
+| Clinic | Line |
+|---|---|
+| Premier Le Reve | 24/7 Clinic located inside Premier Le Reve Hotel & Spa. |
+| Steigenberger | 24/7 Clinic serving Steigenberger Resort Ras Soma. |
+| Amwaj | 24/7 Clinic serving Amwaj Beach Club Abu Soma. |
+
+Inside for Le Reve, because the clinic is on the property and there is film of
+its own door. Serving for the other two, because nobody has confirmed the clinic
+is within the building and the safer of her two words is the true one.
+
+**Four services she names were missing.** Her list asks for doctor consultation,
+medical examination, treatment of minor injuries, laboratory and diagnostic
+coordination, and hospital referral. The grid had six cards and covered about
+half of it. It has eight now, and every item on her list appears somewhere on
+the page. The insurance card also carried the same flat promise the FAQ did, and
+is reworded.
+
 ## What the repositioning brief adds that is not built yet
 
 **The accreditation.** 24/7 Clinic is the first international urgent care

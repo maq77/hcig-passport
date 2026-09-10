@@ -40,13 +40,26 @@ a.credit:hover b{color:var(--red)}
 
 /* Six ways in, one line each. Phrased as the guest's problem, not as a service
    catalogue. The MedPark "how can we help" pattern. */
+/**
+ * What the clinic can do, in the words a guest would use.
+ *
+ * Rebuilt 2026-09-10 against her list. Four things she asks for were missing:
+ * the consultation and examination themselves, minor injuries, the hospital
+ * referral, and diagnostics as its own item rather than a half sentence.
+ *
+ * The insurance line also said we deal with your insurer, flat, which is the
+ * same promise their repositioning brief forbids. Reworded here as it was in
+ * the FAQ.
+ */
 const HELP = [
   ['ambulance', 'Emergency', 'A bad fall, chest pain, a diving accident. Call and come straight in.'],
-  ['stethoscope', 'I feel unwell', 'Fever, stomach upset, sunburn, an ear infection. Walk in, any hour.'],
+  ['stethoscope', 'See a doctor', 'Fever, stomach upset, sunburn, an ear infection. Examined by a doctor, any hour, no appointment.'],
+  ['bandage', 'Cuts, burns and sprains', 'Wounds cleaned and dressed, stitches, burns and minor injuries treated here.'],
   ['tooth', 'Dental', 'Toothache and emergencies, treated here with a dental x-ray.'],
-  ['drip', 'IV infusion', 'Given at the clinic, under a doctor.'],
-  ['pill', 'Medication and lab', 'Prescribed and dispensed here. Samples taken here.'],
-  ['shield', 'Insurance and reports', 'We deal with your insurer and write the report for your claim.'],
+  ['drip', 'IV infusion and medication', 'Prescribed, dispensed and given at the clinic, under a doctor.'],
+  ['gauge', 'Laboratory and tests', 'Samples taken here, and results coordinated for you.'],
+  ['hospital', 'Hospital and ambulance', 'If you need a hospital, we arrange the ambulance and the referral.'],
+  ['shield', 'Insurance and reports', 'Send us your policy on WhatsApp. We write the medical report your claim needs.'],
 ];
 
 const FLAG = {
@@ -135,7 +148,10 @@ const CLINICS = [
     desc:
       'Need a doctor, a dentist or emergency care in Sahl Hasheesh? 24/7 Urgent Care Clinic ' +
       'in the grounds of Premier Le Rêve. Open 24 hours. Call or WhatsApp now.',
-    lead: '24/7 Urgent Care Clinic, in the grounds of the hotel.',
+    /* Her brief sets this line: "24/7 Clinic located inside / serving
+       [Hotel Name]". Inside here, because the clinic is on the property and
+       we have the film of its own door. */
+    lead: '24/7 Clinic located inside Premier Le Rêve Hotel & Spa.',
     /* Checked against OpenStreetMap 2026-09-08. Their own database serves
        Long Beach Resort's coordinates for this clinic, 7.0 km north. */
     geo: [27.024343, 33.887027],
@@ -166,7 +182,9 @@ const CLINICS = [
     desc:
       'Need a doctor or emergency care in Soma Bay? 24/7 Urgent Care Clinic serves guests of ' +
       'Steigenberger Resort Ras Soma. Open 24 hours. Call or WhatsApp now.',
-    lead: '24/7 Urgent Care Clinic, serving the resort in Soma Bay.',
+    /* Serving, not inside. Nobody has confirmed the clinic is within the
+       building here, and the safer of her two words is the true one. */
+    lead: '24/7 Clinic serving Steigenberger Resort Ras Soma.',
     geo: [26.863468, 33.961233],
     mapImg: 'C7MAPSTEIG',
     /* Pexels stand-in until a photograph of this clinic is supplied. */
@@ -194,7 +212,7 @@ const CLINICS = [
     desc:
       'Need a doctor or emergency care in Abu Soma? 24/7 Urgent Care Clinic serves guests of ' +
       'Amwaj Beach Club. Open 24 hours. Call or WhatsApp now.',
-    lead: '24/7 Urgent Care Clinic, serving the resort in Abu Soma.',
+    lead: '24/7 Clinic serving Amwaj Beach Club Abu Soma.',
     geo: [26.813385, 33.945688],
     mapImg: 'C7MAPAMWAJ',
     /* Pexels stand-in until a photograph of this clinic is supplied. */
@@ -239,6 +257,8 @@ const ICON = {
   check: '<path d="m4.6 12.4 5 5 9.8-10.8"/>',
   arrow: '<path d="M5 12h13M12.6 6.2 18.4 12l-5.8 5.8"/>',
   expand: '<path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/>',
+  bandage: '<rect x="2.4" y="8.4" width="19.2" height="7.2" rx="3.6" transform="rotate(-45 12 12)"/><rect x="8.4" y="8.4" width="7.2" height="7.2" transform="rotate(-45 12 12)"/><circle cx="12" cy="12" r=".7" fill="currentColor" stroke="none"/>',
+  hospital: '<path d="M4.6 20.4V8.2L12 3.6l7.4 4.6v12.2z"/><path d="M12 9.4v5.6M9.2 12.2h5.6"/>',
   heart: '<path d="M12 20.4S3.8 15.2 3.8 9.6A4.2 4.2 0 0 1 12 7.4a4.2 4.2 0 0 1 8.2 2.2c0 5.6-8.2 10.8-8.2 10.8Z"/>',
   gauge: '<path d="M4.4 17.4a8.6 8.6 0 1 1 15.2 0"/><path d="m12 13.6 3.4-3.6"/><circle cx="12" cy="17.4" r="1.6"/>',
 };

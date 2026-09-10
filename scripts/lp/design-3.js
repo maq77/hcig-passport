@@ -289,7 +289,7 @@ function render(c, designNo) {
         <div class="m-rise">
           <span class="tag">${esc(c.area)} &middot; ${esc(c.region)}</span>
           <h1>${esc(c.h1)}</h1>
-          <p class="lead">${esc(c.lead)} English speaking doctors, and someone at the desk at any hour.</p>
+          <p class="lead">${esc(c.lead)}</p>
           <div class="hero-cta">
             <a class="btn btn--red m-press" href="${L.tel}" data-ev="phone_click">${svg('phone')}Call now</a>
             <a class="btn btn--wa m-press" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">${svg('wa')}WhatsApp</a>
