@@ -123,6 +123,12 @@ Pre-existing, and they will sabotage the launch if they are still there:
 4. `noindex` and canonical have to be verified on the rendered page, not the
    template.
 
+**Re-checked on the live site 2026-09-10.** Two of these are already fixed: the
+sitemap returns 200 with 11 URLs, and every main page now has a title and a
+description. Still broken: there is no 404 page, so every wrong URL returns 200
+with the homepage, and no page carries a canonical tag. The homepage also has no
+H1 at all. Measured in `247clinic-site-audit.md`.
+
 ---
 
 ## Added 2026-09-10, and what it needs

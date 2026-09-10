@@ -453,6 +453,34 @@ for (const file of Object.values(ASSETS)) {
   assetBytes += fs.statSync(path.join(SRC_ASSETS, file)).size;
 }
 
+/* ---- the 24/7 Clinic site, mirrored ------------------------------------ *
+
+   Their live site, pulled down with its own stylesheet, script bundle and
+   images, so the repositioning can be applied to the real pages rather than to
+   a rebuild of them. Their brief is explicit: keep as much of the current
+   layout and existing blocks as possible.
+
+   Copied verbatim into dist. The portal does not touch these files, does not
+   inject its chrome, and does not add its noindex, because they are not portal
+   pages. The host's robots.txt already disallows everything here. */
+
+const SITE_SRC = path.join(__dirname, 'src', '247site');
+const SITE_OUT = path.join(OUT, '247clinic', 'website-preview');
+let siteFiles = 0;
+if (fs.existsSync(SITE_SRC)) {
+  fs.cpSync(SITE_SRC, SITE_OUT, { recursive: true });
+  const walk = (d) =>
+    fs.readdirSync(d, { withFileTypes: true }).forEach((e) => {
+      const f = path.join(d, e.name);
+      if (e.isDirectory()) walk(f);
+      else {
+        siteFiles += 1;
+        assetBytes += fs.statSync(f).size;
+      }
+    });
+  walk(SITE_OUT);
+}
+
 /* ---- shared shell files ------------------------------------------------ */
 
 write('studio.css', fs.readFileSync(path.join(CONTENT, 'theme.css'), 'utf8'));

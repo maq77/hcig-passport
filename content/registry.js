@@ -350,14 +350,40 @@ const COMPANIES = [
       {
         slug: 'website',
         name: 'Website',
-        status: 'planned',
-        updated: '2026-09-08',
-        summary: 'New site. Brief not yet given.',
+        status: 'draft',
+        updated: '2026-09-10',
+        summary: 'Repositioning the main site around urgent care inside hotels, on their own pages rather than a rebuild.',
         detail: [
+          'Their brief arrived on 2026-09-10 and is registered below, word for word.',
+          'Section 2 is explicit: no complete redesign. Keep as much of the current layout and existing blocks as possible.',
+          'So their live pages are mirrored with their own stylesheet, script bundle and images, and the changes are applied to those. The preview is their real site with the repositioning on it, not a rebuild of it.',
+          'Every edit is made by a script and tagged with the section of the brief it comes from, so any change can be checked against the document.',
+          'Phase 1 first, per section 40: hero, accreditation, the hotel clinic explanation, services, insurance and cashless, the WhatsApp system, and the language and counter errors.',
           'Cloudflare sits in front of this domain, which changes the deploy playbook.',
-          'Reuse the MedPark v2 architecture.',
         ],
-        stages: [],
+        checklist: [
+          { text: 'Mirror the live site so edits land on their real pages', done: true, who: 'Us' },
+          { text: 'Apply Phase 1 of the brief to the homepage', done: false, who: 'Us' },
+          { text: 'Review the preview and send feedback', done: false, who: 'Irina' },
+          { text: 'Confirm the numbers for the statistics block', done: false, who: 'Irina' },
+          { text: 'Supply the CAUCQ mark', done: false, who: 'Irina' },
+        ],
+        stages: [
+          {
+            name: 'Documents',
+            items: [
+              { slug: 'brief', name: 'Their repositioning brief', kind: 'md', src: 'docs/247clinic-website-brief.md', status: 'approved', note: 'WEBSITE.docx as received, kept word for word' },
+              { slug: 'site-audit', name: 'What is wrong with the site today', kind: 'md', src: 'docs/247clinic-site-audit.md', status: 'review', note: 'Measured on their live pages, not guessed' },
+            ],
+          },
+          {
+            name: 'Preview',
+            note: 'Their own pages, with the repositioning applied. Their stylesheet, their images.',
+            items: [
+              { slug: 'home', name: 'Homepage', kind: 'link', href: 'https://hcig-passport.vercel.app/247clinic/website-preview/index.html', status: 'review', note: 'Phase 1 of the brief, applied to their real markup' },
+            ],
+          },
+        ],
       },
     ],
   },
