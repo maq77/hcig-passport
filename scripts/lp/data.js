@@ -22,7 +22,7 @@ const NETWORK = '28';
 /* The agency credit, in one place so all three designs carry the same line.
    It sits at the quiet end of the footer base bar. Plain text for now: give it
    a URL here and it becomes a link everywhere at once. */
-const CREDIT = { name: 'Pulse Marketing', url: '' };
+const CREDIT = { name: 'Pulse Marketing', url: 'https://pulsemarketing.global' };
 
 function credit() {
   const inner = `Powered by <b>${esc(CREDIT.name)}</b>`;
