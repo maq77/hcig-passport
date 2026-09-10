@@ -59,11 +59,6 @@ a,button,summary{touch-action:manipulation}
 .btn--glass:hover{background:var(--wa-deep)}
 .btn--watch{background:#fff;color:var(--red);border:1.5px solid var(--red-l)}
 .btn--watch:hover{background:var(--red);color:#fff;border-color:var(--red)}
-/* Its own line, full width of the block, matching design 1. The doubled class
-   is deliberate: the hero rule further down this sheet sets flex 0 0 auto at
-   the same specificity and would otherwise win on source order. */
-.hero-cta .btn.btn--watch{flex:1 1 100%}
-@media(min-width:820px){.hero-cta .btn.btn--watch{flex:0 0 100%}}
 .team-one{margin:30px auto 0;max-width:330px}
 .btn--sm{min-height:44px;font-size:15px;padding:0 18px}
 .btn .num{font-weight:500;opacity:.9;font-size:15px}
@@ -112,9 +107,15 @@ a,button,summary{touch-action:manipulation}
 @keyframes beat{0%,100%{box-shadow:0 0 0 5px rgba(192,0,0,.28)}50%{box-shadow:0 0 0 12px rgba(192,0,0,0)}}
 .hero h1{font-size:clamp(34px,6.4vw,64px);font-weight:700;margin-top:14px;max-width:15ch}
 .hero .lead{margin-top:14px;font-size:clamp(16.5px,2vw,19px);color:var(--ink2);max-width:38ch}
-.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-.hero-cta .btn{flex:1 1 auto;min-width:210px}
-@media(min-width:820px){.hero-cta .btn{flex:0 0 auto}}
+/* Her brief asks for three buttons above the fold: call, WhatsApp, find the
+   clinic. Watch video is a fourth and a lesser one, so it shares a row rather
+   than running the full width and out-weighing the three that matter.
+   Two by two at every width. The hero is a split layout, so the column these
+   sit in is never wide enough for four across, whatever the window says. */
+.hero-cta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px;max-width:520px}
+.hero-cta .btn{width:100%;min-width:0;white-space:nowrap;padding:0 16px}
+.btn--find{background:#fff;color:var(--ink);border-color:var(--ink)}
+.btn--find:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
 .hero .ctrl{position:absolute;right:20px;bottom:24px;display:flex;gap:10px;z-index:4}
 @media(min-width:820px){.hero .ctrl{right:36px}}
 .hero .ctrl button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);cursor:pointer;
@@ -362,8 +363,9 @@ function render(c, designNo) {
       <h1>${esc(c.h1)}</h1>
       <p class="lead">${esc(c.lead)}</p>
       <div class="hero-cta">
-        <a class="btn btn--red m-press" href="${L.tel}" data-ev="call_click">${svg('phone')}Call now <span class="num">${D.PHONE}</span></a>
-        <a class="btn btn--glass m-press" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">${svg('wa')}WhatsApp</a>
+        <a class="btn btn--red m-press" href="${L.tel}" data-ev="phone_click">${svg('phone')}Call now</a>
+        <a class="btn btn--glass m-press" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">${svg('wa')}WhatsApp</a>
+        <a class="btn btn--find m-press" href="#find" data-ev="clinic_directions_click">${svg('pin')}Find the clinic</a>
         <button class="btn btn--watch m-press" type="button" data-herowatch>${svg('play')}Watch video</button>
       </div>
       </div>
@@ -384,7 +386,7 @@ function render(c, designNo) {
           <div class="hc-tile"><span class="i">${svg('gauge')}</span><span><b>Blood sugar</b><span>One drop, one reading</span></span></div>
         </div>
         <div class="row">
-          <a class="btn btn--red m-press" href="${L.tel}" data-ev="call_click">${svg('phone')}Call the clinic</a>
+          <a class="btn btn--red m-press" href="${L.tel}" data-ev="phone_click">${svg('phone')}Call the clinic</a>
           <span class="noappt">${svg('check')}No appointment needed</span>
         </div>
       </div>
@@ -403,7 +405,7 @@ function render(c, designNo) {
               <iframe src="${L.embed}" title="Map of the 24/7 Clinic at ${esc(c.hotel)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </figure>
-          <div style="margin-top:22px"><a class="btn btn--red m-press" href="${L.maps}" target="_blank" rel="noopener" data-ev="directions_click">${svg('pin')}Directions in Google Maps</a></div>
+          <div style="margin-top:22px"><a class="btn btn--red m-press" href="${L.maps}" target="_blank" rel="noopener" data-ev="clinic_directions_click">${svg('pin')}Directions in Google Maps</a></div>
         </div>
         <div data-rise>${walkMedia}</div>
       </div>
@@ -456,8 +458,8 @@ function render(c, designNo) {
       <h2 data-rise>A doctor is a phone call away.</h2>
       <p data-rise>Open 24 hours, every day of the year, in ${esc(c.area)}.</p>
       <div class="row" data-rise>
-        <a class="btn btn--red m-press" href="${L.tel}" data-ev="call_click">${svg('phone')}Call now <span class="num">${D.PHONE}</span></a>
-        <a class="btn btn--wa m-press" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click">${svg('wa')}WhatsApp</a>
+        <a class="btn btn--red m-press" href="${L.tel}" data-ev="phone_click">${svg('phone')}Call now</a>
+        <a class="btn btn--wa m-press" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">${svg('wa')}WhatsApp</a>
       </div>
     </div>
   </section>
@@ -493,7 +495,7 @@ function render(c, designNo) {
       </div>
       <div>
         <h3>The clinic</h3>
-        <p class="big"><a class="tel" href="${L.tel}" data-ev="call_click">${D.PHONE}</a></p>
+        <p class="big"><a class="tel" href="${L.tel}" data-ev="phone_click">${D.PHONE}</a></p>
         <p style="margin-top:10px">${esc(c.hotel)}<br>${esc(c.area)}, ${esc(c.region)}<br>Open 24 hours, every day</p>
       </div>
       <div><h3>Insurance accepted</h3><div class="ins">${insurers}</div></div>
@@ -508,7 +510,7 @@ function render(c, designNo) {
   </div>
 </footer>
 
-<a class="wa-float" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_click" aria-label="Message 24/7 Clinic on WhatsApp">${svg('wa')}WhatsApp</a>
+<a class="wa-float" href="${L.wa}" target="_blank" rel="noopener" data-ev="whatsapp_medical_click" aria-label="Message 24/7 Clinic on WhatsApp">${svg('wa')}WhatsApp</a>
 
 ${D.viewer()}
 

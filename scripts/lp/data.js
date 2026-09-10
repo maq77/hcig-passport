@@ -249,12 +249,33 @@ function svg(name, cls) {
 
 /* Shared, because a wrong FAQ answer in one design and a right one in another
    is exactly the drift this file exists to prevent. */
+/**
+ * The questions guests ask, and the answers.
+ *
+ * Reworked 2026-09-10 against their own brief. Two things changed and both
+ * matter legally as much as commercially.
+ *
+ * The insurance answer used to say we deal with your insurer, flat. Their brief
+ * is explicit that cashless treatment must never be promised universally, only
+ * "subject to insurance approval and policy conditions". A tourist who reads a
+ * promise here and is then billed has a complaint, and it would be ours.
+ *
+ * The room visit and the accreditation are both in the brief and were missing
+ * from these pages entirely.
+ */
 function faqFor(c) {
   return [
-    [`Is there a doctor at ${c.hotelShort}?`, 'Yes, and you do not need an appointment. Call, send a WhatsApp message, or walk in.'],
+    [`Is there a doctor at ${c.hotelShort}?`, 'Yes, and you do not need an appointment. Send a WhatsApp message, call, or walk in.'],
     ['Are you open at night?', 'Yes. The clinic is open 24 hours, every day of the year.'],
     ['Do you speak English?', 'Yes. Guests have also been treated and answered in German, Italian and French.'],
-    ['Do you take my travel insurance?', 'We deal with your insurer and write the medical report your claim needs. Bring your policy details or your insurance card.'],
+    [
+      'Do you take my travel insurance?',
+      'We work with international travel insurers and assistance companies. Send us your policy details on WhatsApp and our team will check what your cover allows. Cashless treatment may be available where the insurer approves it and the policy conditions allow.',
+    ],
+    [
+      'Can a doctor come to my hotel room?',
+      'Often, yes. It depends on the room, the hour and how unwell you are. Message us and we will tell you straight away.',
+    ],
     [`Is there a hospital near ${c.area}?`, 'If you need a hospital we arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast.'],
   ];
 }
@@ -553,7 +574,7 @@ function otherClinics(c, designNo) {
             <p>${esc(x.lead)}</p>
             <div class="oc-cta">
               <a class="btn btn--sm m-press" href="${demoUrl(x, designNo)}">Learn more${svg('arrow')}</a>
-              <a class="btn btn--sm m-press" href="${maps}" target="_blank" rel="noopener" data-ev="directions_click">${svg('pin')}Directions</a>
+              <a class="btn btn--sm m-press" href="${maps}" target="_blank" rel="noopener" data-ev="clinic_directions_click">${svg('pin')}Directions</a>
             </div>
           </div>
         </article>`;
@@ -915,13 +936,33 @@ function viewer() {
 
 /* Every design ships the same three events with the same parameters, so one
    GA4 report can compare designs as well as clinics. */
+/**
+ * GA4 events.
+ *
+ * The names come from their brief, section 37, not from us: phone_click,
+ * whatsapp_medical_click, clinic_directions_click, clinic_view. Every clinic
+ * page reports its own hotel and town, so the three can be compared without
+ * needing separate properties.
+ */
 function tracking(c) {
   return `<script>
 (function () {
   var HOTEL = ${JSON.stringify(c.hotelShort)}, AREA = ${JSON.stringify(c.area)};
+
+  function send(name, extra) {
+    if (!window.gtag) return;
+    var d = { hotel: HOTEL, area: AREA };
+    for (var k in extra) d[k] = extra[k];
+    window.gtag('event', name, d);
+  }
+
+  /* One per page load, so impressions on a clinic page are countable next to
+     the calls and messages that came out of it. */
+  send('clinic_view');
+
   document.addEventListener('click', function (e) {
     var a = e.target.closest('[data-ev]');
-    if (a && window.gtag) window.gtag('event', a.dataset.ev, { hotel: HOTEL, area: AREA, link: a.getAttribute('href') });
+    if (a) send(a.getAttribute('data-ev'), { link: a.getAttribute('href') });
   });
 })();
 </script>`;
