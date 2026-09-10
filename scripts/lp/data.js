@@ -41,25 +41,25 @@ a.credit:hover b{color:var(--red)}
 /* Six ways in, one line each. Phrased as the guest's problem, not as a service
    catalogue. The MedPark "how can we help" pattern. */
 /**
- * What the clinic can do, in the words a guest would use.
+ * What the clinic can treat, in their words.
  *
- * Rebuilt 2026-09-10 against her list. Four things she asks for were missing:
- * the consultation and examination themselves, minor injuries, the hospital
- * referral, and diagnostics as its own item rather than a half sentence.
+ * These six cards are section 10 of their brief, copied exactly: the titles and
+ * the sentences under them are theirs, not ours. An earlier version of this
+ * list was written here in plainer language, which read better but was not what
+ * they asked for. On a medical page the wording is their call, not a style
+ * preference, so it stands as given.
  *
- * The insurance line also said we deal with your insurer, flat, which is the
- * same promise their repositioning brief forbids. Reworded here as it was in
- * the FAQ.
+ * The four things Irina's list asks for that are not among these six, the
+ * ambulance, the hospital referral, the medical reports and the insurance
+ * documentation, are answered in the FAQ, again in their exact wording.
  */
 const HELP = [
-  ['ambulance', 'Emergency', 'A bad fall, chest pain, a diving accident. Call and come straight in.'],
-  ['stethoscope', 'See a doctor', 'Fever, stomach upset, sunburn, an ear infection. Examined by a doctor, any hour, no appointment.'],
-  ['bandage', 'Cuts, burns and sprains', 'Wounds cleaned and dressed, stitches, burns and minor injuries treated here.'],
-  ['tooth', 'Dental', 'Toothache and emergencies, treated here with a dental x-ray.'],
-  ['drip', 'IV infusion and medication', 'Prescribed, dispensed and given at the clinic, under a doctor.'],
-  ['gauge', 'Laboratory and tests', 'Samples taken here, and results coordinated for you.'],
-  ['hospital', 'Hospital and ambulance', 'If you need a hospital, we arrange the ambulance and the referral.'],
-  ['shield', 'Insurance and reports', 'Send us your policy on WhatsApp. We write the medical report your claim needs.'],
+  ['stethoscope', 'Urgent Medical Care', 'Assessment and treatment of sudden illness, fever, infections, gastrointestinal conditions, dehydration, respiratory problems and other urgent conditions.'],
+  ['bandage', 'Injuries & Minor Procedures', 'Treatment of wounds, burns, sprains, minor trauma, dressings, suturing and other minor procedures where clinically appropriate.'],
+  ['flask', 'Diagnostics & Laboratory Tests', 'Medical assessment with access to laboratory tests and diagnostic services when required.'],
+  ['drip', 'IV Therapy & Medication', 'Doctor-prescribed medication, injections and IV therapy when medically indicated.'],
+  ['specialist', 'Specialist Consultation', 'Access to specialist physicians and coordinated consultations where further medical assessment is required.'],
+  ['bed', 'Hotel Room Doctor Visit', 'When appropriate, a doctor visit can be arranged directly in the guest’s hotel room.'],
 ];
 
 const FLAG = {
@@ -257,6 +257,9 @@ const ICON = {
   check: '<path d="m4.6 12.4 5 5 9.8-10.8"/>',
   arrow: '<path d="M5 12h13M12.6 6.2 18.4 12l-5.8 5.8"/>',
   expand: '<path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/>',
+  flask: '<path d="M9.4 3.4h5.2M10.3 3.4v6.1L5.6 17.9a2 2 0 0 0 1.7 3h9.4a2 2 0 0 0 1.7-3l-4.7-8.4V3.4"/><path d="M7.6 15.2h8.8"/>',
+  specialist: '<circle cx="12" cy="7.8" r="3.6"/><path d="M5.2 20.4a6.8 6.8 0 0 1 13.6 0"/>',
+  bed: '<path d="M3 19.4v-11M3 12.6h18v6.8M21 15.4H3"/><circle cx="7.4" cy="9.6" r="1.9"/><path d="M10.6 12.6v-1.4a1.6 1.6 0 0 1 1.6-1.6h5.2a1.6 1.6 0 0 1 1.6 1.6v1.4"/>',
   bandage: '<rect x="2.4" y="8.4" width="19.2" height="7.2" rx="3.6" transform="rotate(-45 12 12)"/><rect x="8.4" y="8.4" width="7.2" height="7.2" transform="rotate(-45 12 12)"/><circle cx="12" cy="12" r=".7" fill="currentColor" stroke="none"/>',
   hospital: '<path d="M4.6 20.4V8.2L12 3.6l7.4 4.6v12.2z"/><path d="M12 9.4v5.6M9.2 12.2h5.6"/>',
   heart: '<path d="M12 20.4S3.8 15.2 3.8 9.6A4.2 4.2 0 0 1 12 7.4a4.2 4.2 0 0 1 8.2 2.2c0 5.6-8.2 10.8-8.2 10.8Z"/>',
@@ -270,33 +273,51 @@ function svg(name, cls) {
 /* Shared, because a wrong FAQ answer in one design and a right one in another
    is exactly the drift this file exists to prevent. */
 /**
- * The questions guests ask, and the answers.
+ * The questions guests ask.
  *
- * Reworked 2026-09-10 against their own brief. Two things changed and both
- * matter legally as much as commercially.
- *
- * The insurance answer used to say we deal with your insurer, flat. Their brief
- * is explicit that cashless treatment must never be promised universally, only
- * "subject to insurance approval and policy conditions". A tourist who reads a
- * promise here and is then billed has a complaint, and it would be ours.
- *
- * The room visit and the accreditation are both in the brief and were missing
- * from these pages entirely.
+ * Six of these answers are lifted word for word from section 28 of their brief.
+ * Their wording is deliberately careful about what is promised, and rewriting
+ * it in warmer language would quietly change what the clinic is committing to.
+ * The two hotel-specific questions are ours, because their brief covers the
+ * main site and Irina asked for an FAQ built on searches about this hotel.
  */
 function faqFor(c) {
   return [
-    [`Is there a doctor at ${c.hotelShort}?`, 'Yes, and you do not need an appointment. Send a WhatsApp message, call, or walk in.'],
-    ['Are you open at night?', 'Yes. The clinic is open 24 hours, every day of the year.'],
-    ['Do you speak English?', 'Yes. Guests have also been treated and answered in German, Italian and French.'],
     [
-      'Do you take my travel insurance?',
-      'We work with international travel insurers and assistance companies. Send us your policy details on WhatsApp and our team will check what your cover allows. Cashless treatment may be available where the insurer approves it and the policy conditions allow.',
+      `Is there a 24/7 Clinic inside ${c.hotelShort}?`,
+      `Yes. ${c.lead} Send us your hotel name on WhatsApp if you are staying elsewhere and we will point you to the nearest one.`,
+    ],
+    ['Are you open at night?', 'Yes. The clinic is open 24 hours, every day of the year.'],
+    [
+      'Do you accept travel insurance?',
+      'We work with international travel insurers and assistance companies. Coverage depends on the patient’s policy.',
+    ],
+    [
+      'Can my treatment be cashless?',
+      'Cashless treatment may be available where approved by the insurer and subject to policy conditions.',
+    ],
+    [
+      'What should I send you on WhatsApp?',
+      'Please send your name, hotel, location, brief description of the medical problem and insurance information if available.',
     ],
     [
       'Can a doctor come to my hotel room?',
-      'Often, yes. It depends on the room, the hour and how unwell you are. Message us and we will tell you straight away.',
+      'Hotel room medical visits may be arranged depending on location, availability and medical condition.',
     ],
-    [`Is there a hospital near ${c.area}?`, 'If you need a hospital we arrange the ambulance and the referral. 24/7 Clinic is part of Healthcare International Group, which runs its own hospitals on the Red Sea coast.'],
+    [
+      'What conditions can you treat at the hotel clinic?',
+      'Our clinics can assess and treat many urgent and primary medical conditions, minor injuries and other conditions that do not require hospital-level care.',
+    ],
+    ['Can you arrange an ambulance?', 'Yes. If ambulance transport is medically necessary, our team can coordinate it.'],
+    [
+      `What happens if I need a hospital near ${c.area}?`,
+      'If hospital-level diagnostics, treatment or admission are required, our team can coordinate the appropriate hospital referral.',
+    ],
+    [
+      'Can you provide documentation for my insurance?',
+      'Yes. Medical reports, invoices and other required documentation can be provided according to the case and insurer requirements.',
+    ],
+    ['Do you speak English?', 'Yes. Guests have also been treated and answered in German, Italian and French.'],
   ];
 }
 

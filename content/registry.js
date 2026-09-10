@@ -304,6 +304,7 @@ const COMPANIES = [
               { slug: 'video-plan', name: 'Where every film goes', kind: 'md', src: 'docs/247clinic-video-plan.md', status: 'review', note: 'The 16 films mapped to sections. Ready to apply to whichever design wins' },
               { slug: 'brief', name: 'Their repositioning brief', kind: 'md', src: 'docs/247clinic-website-brief.md', status: 'approved', note: 'WEBSITE.docx as received, kept word for word' },
               { slug: 'brief-alignment', name: 'The two briefs, and what they change', kind: 'md', src: 'docs/247clinic-brief-alignment.md', status: 'review', note: 'One real conflict on URLs, what is now fixed, and what is still needed from them' },
+              { slug: 'brief-compliance', name: 'Both briefs, checked line by line', kind: 'md', src: 'docs/247clinic-brief-compliance.md', status: 'review', note: '44 machine checks per page. 43 pass. The one that fails is the one that decides ranking' },
               { slug: 'seo', name: 'SEO, and what to do at deploy', kind: 'md', src: 'docs/247clinic-seo-handover.md', status: 'review', note: 'Schema, share cards, sitemap, llms.txt, and an honest read on what will rank' },
               { slug: 'ai-images', name: 'Generating images with Gemini', kind: 'md', src: 'docs/ai-images-guide.md', status: 'review', note: 'What it costs, where we use it, and the one thing it must never be used for' },
             ],
