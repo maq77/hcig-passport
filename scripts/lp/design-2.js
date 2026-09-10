@@ -207,6 +207,7 @@ ${D.VIDEO_CSS}
 .film b{display:block;font-size:18px;font-weight:600;letter-spacing:-.02em}
 .film span{display:block;margin-top:5px;font-size:15px;color:var(--ink2);line-height:1.5}
 ${D.CAROUSEL_CSS}
+${D.ACCRED_CSS}
 ${D.OTHERS_CSS}
 .sec--tint .sec-head{margin-bottom:30px}
 ${D.MOTION_CSS}
@@ -371,6 +372,8 @@ function render(c, designNo) {
       </div>
     </div>
   </section>
+
+  ${D.accreditation()}
 
   <div class="ticker"><div class="ticker-in">${ticker}</div></div>
 

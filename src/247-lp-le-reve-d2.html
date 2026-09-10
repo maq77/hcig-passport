@@ -275,6 +275,18 @@ ol.steps li:before{content:counter(s);position:absolute;left:0;top:-6px;width:44
 .car-count{font-size:14px;color:var(--ink3);font-variant-numeric:tabular-nums;margin-left:auto}
 
 
+.acc{background:var(--red-t,#FBF0EF);border-top:1px solid var(--red-l,#EBD3D1);border-bottom:1px solid var(--red-l,#EBD3D1);
+  padding:30px 0}
+.acc-in{display:grid;gap:20px;align-items:center}
+@media(min-width:900px){.acc-in{grid-template-columns:auto 1fr;gap:40px}}
+.acc-mark{height:96px;width:auto;flex:none}
+.acc-body h2{font-size:clamp(19px,2.4vw,24px);line-height:1.25;margin:0}
+.acc-body p{margin-top:9px;color:var(--ink2,#57504C);font-size:15.5px;line-height:1.6;max-width:72ch}
+.acc-points{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px}
+.acc-points li{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:500;color:var(--ink,#1A1614)}
+.acc-points .ico{width:17px;height:17px;color:var(--red,#C00000);stroke-width:2.4}
+
+
 .oc{display:grid;gap:16px;margin-top:30px}
 @media(min-width:720px){.oc{grid-template-columns:1fr 1fr}}
 .oc-card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
@@ -499,6 +511,17 @@ a.credit:hover b{color:var(--red)}
       </div>
     </div>
   </section>
+
+  <section class="acc">
+      <div class="wrap acc-in">
+        
+        <div class="acc-body">
+          <h2>Internationally accredited urgent care</h2>
+          <p>24/7 Clinic is the first international urgent care network outside the United States to achieve accreditation through the Urgent Care Association and CAUCQ.</p>
+          <ul class="acc-points"><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>International standards</li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Patient safety</li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Clinical quality</li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Operational excellence</li></ul>
+        </div>
+      </div>
+    </section>
 
   <div class="ticker"><div class="ticker-in"><span>Open 24 hours, every day</span><span>English speaking doctors</span><span>Free health check for hotel guests</span><span>In Sahl Hasheesh</span><span>Insurance paperwork handled</span><span>Dental emergencies treated</span><span>Open 24 hours, every day</span><span>English speaking doctors</span><span>Free health check for hotel guests</span><span>In Sahl Hasheesh</span><span>Insurance paperwork handled</span><span>Dental emergencies treated</span></div></div>
 

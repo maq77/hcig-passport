@@ -715,6 +715,61 @@ const MOTION_CSS = `
 
 /* The scroll-scrubbed walk lives in its own file. It is the only component
    with a scroll loop of its own, so it stays separable. */
+/**
+ * The accreditation band.
+ *
+ * Sits immediately under the hero, which is where their brief puts it. It is
+ * the strongest trust signal they have and it was on none of these pages.
+ *
+ * The sentence is theirs, copied from section 7 of their brief and not
+ * reworded, because an accreditation claim is a legal statement and not
+ * marketing copy. Their brief also says plainly: do not make additional
+ * accreditation claims unless officially approved. So nothing here says more
+ * than that one sentence.
+ *
+ * The logo slot stays empty until the file and the usage rules arrive. An
+ * empty slot renders nothing at all rather than a placeholder, because a demo
+ * has to read as live.
+ */
+const ACCRED = {
+  claim:
+    '24/7 Clinic is the first international urgent care network outside the United States ' +
+    'to achieve accreditation through the Urgent Care Association and CAUCQ.',
+  points: ['International standards', 'Patient safety', 'Clinical quality', 'Operational excellence'],
+  /* Set to an asset token once the mark is supplied and cleared for use. */
+  logo: '',
+};
+
+function accreditation() {
+  const points = ACCRED.points.map((t) => `<li>${svg('check')}${esc(t)}</li>`).join('');
+  const mark = ACCRED.logo
+    ? `<img class="acc-mark" src="%%${ACCRED.logo}%%" alt="Urgent Care Association accreditation" loading="lazy" width="220" height="120">`
+    : '';
+  return `<section class="acc">
+      <div class="wrap acc-in">
+        ${mark}
+        <div class="acc-body">
+          <h2>Internationally accredited urgent care</h2>
+          <p>${esc(ACCRED.claim)}</p>
+          <ul class="acc-points">${points}</ul>
+        </div>
+      </div>
+    </section>`;
+}
+
+const ACCRED_CSS = `
+.acc{background:var(--red-t,#FBF0EF);border-top:1px solid var(--red-l,#EBD3D1);border-bottom:1px solid var(--red-l,#EBD3D1);
+  padding:30px 0}
+.acc-in{display:grid;gap:20px;align-items:center}
+@media(min-width:900px){.acc-in{grid-template-columns:auto 1fr;gap:40px}}
+.acc-mark{height:96px;width:auto;flex:none}
+.acc-body h2{font-size:clamp(19px,2.4vw,24px);line-height:1.25;margin:0}
+.acc-body p{margin-top:9px;color:var(--ink2,#57504C);font-size:15.5px;line-height:1.6;max-width:72ch}
+.acc-points{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px}
+.acc-points li{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:500;color:var(--ink,#1A1614)}
+.acc-points .ico{width:17px;height:17px;color:var(--red,#C00000);stroke-width:2.4}
+`;
+
 const SCRUB = require('./scrub').build({ esc, svg });
 
 const CAROUSEL_CSS = `
@@ -994,6 +1049,7 @@ module.exports = {
   STORIES, SERVICE_FILMS,
   esc, svg, head, faqFor, schemaFor, links, tracking,
   demoUrl, otherClinics, otherClinicsSchema, OTHERS_CSS,
+  ACCRED, accreditation, ACCRED_CSS,
   scrubWalk: SCRUB.scrubWalk, SCRUB_CSS: SCRUB.SCRUB_CSS, SCRUB_JS: SCRUB.SCRUB_JS,
   video, stories, serviceFilms, viewer, carousel,
   VIDEO_CSS, VIDEO_JS, CAROUSEL_CSS, CAROUSEL_JS, REVEAL_CSS, REVEAL_JS, MOTION_CSS,

@@ -151,6 +151,7 @@ ${D.VIDEO_CSS}
 .film b{display:block;font-size:16.5px;font-weight:600}
 .film span{display:block;margin-top:4px;font-size:14.5px;color:var(--ink2);line-height:1.5}
 ${D.CAROUSEL_CSS}
+${D.ACCRED_CSS}
 ${D.OTHERS_CSS}
 .sec--tint .sec-head{margin-bottom:30px}
 ${D.MOTION_CSS}
@@ -307,6 +308,8 @@ function render(c, designNo) {
       ${D.video({ token: 'VCOMMERCIAL', shape: 'landscape', tag: 'The clinic film', cls: 'hero-film' })}
     </div>
   </section>
+
+  ${D.accreditation()}
 
   <section class="hc">
     <div class="hc-in">

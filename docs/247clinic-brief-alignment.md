@@ -73,12 +73,20 @@ is reworded.
 
 ## What the repositioning brief adds that is not built yet
 
-**The accreditation.** 24/7 Clinic is the first international urgent care
-network outside the United States accredited through the Urgent Care Association
-and CAUCQ. This is the strongest trust signal they have and it is not on the
-landing pages at all. It should sit close to the top of every one. I have not
-added it yet because I do not have the accreditation logo or confirmation of how
-it may be displayed.
+**The accreditation is now on the page**, as a band directly under the hero,
+which is where section 7 puts it. The sentence is copied from their brief word
+for word and not reworded, because an accreditation claim is a legal statement
+rather than marketing copy. Nothing on the page claims more than that sentence,
+per section 23.
+
+The logo slot is built and empty. An empty slot renders nothing rather than a
+placeholder box, so the demo still reads as live. Setting `ACCRED.logo` in
+`scripts/lp/data.js` to an asset token puts the mark on all three designs at
+once. What is needed to fill it is listed at the end of this document.
+
+One thing deliberately left out: the brief's "Learn About Our Accreditation"
+button. It points at `/international-accreditation`, which does not exist yet,
+and a button to a 404 is worse than no button.
 
 **Cashless care as a conversion block.** The brief wants "Check Your Insurance on
 WhatsApp" with a list of what to send: name, hotel, insurer, policy number,
@@ -123,7 +131,14 @@ Unchanged from the open items list, plus two from the new brief.
 
 1. Photographs of each clinic. The brief asks for clinic photographs on every
    page and there are none that can be used.
-2. The accreditation logo, and confirmation of how it may be shown.
+2. The accreditation mark, to fill the slot already built for it:
+   - which mark, the Urgent Care Association one, the CAUCQ one, or both;
+   - SVG if possible, otherwise PNG on transparency at 400px wide or more,
+     because it renders at 96px high and needs to stay sharp on a phone;
+   - the usage rules, if there is a sheet. The band sits on a pale pink ground
+     rather than white, and some marks may not be placed on a colour;
+   - whether a date or certificate number should appear beside it;
+   - confirmation that the sentence now on the page is the approved wording.
 3. Confirmation of the years, the clinic count and the patient numbers.
 4. The real WhatsApp number for each clinic, not one shared placeholder.
 5. Which phone number is correct. The site says 122 112 2246, the films say

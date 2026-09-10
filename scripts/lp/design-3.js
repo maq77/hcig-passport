@@ -224,6 +224,7 @@ ${D.CREDIT_CSS}
 ${D.VIDEO_CSS}
 ${D.CAROUSEL_CSS}
 ${D.SCRUB_CSS}
+${D.ACCRED_CSS}
 ${D.OTHERS_CSS}
 ${D.MOTION_CSS}
 
@@ -312,6 +313,8 @@ function render(c, designNo) {
       </div>
     </div>
   </section>
+
+  ${D.accreditation()}
 
   <section class="sec sec--sand">
     <div class="wrap">
