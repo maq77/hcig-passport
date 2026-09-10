@@ -321,7 +321,7 @@ const COMPANIES = [
           },
           {
             name: 'Live demo',
-            note: 'Three designs, each built for all three clinics. Pick one, or ask for parts of one inside another. Every page links to the others.',
+            note: 'Four designs, each built for all three clinics. Design 4 is the strict reading of the brief. Every page links to the others.',
             items: [
               { slug: 'design-1', name: 'Design 1. Clean and clinical', kind: 'page', src: '247-lp-le-reve-d1.html', ownTitle: true, status: 'review', note: 'Premier Le Reve. White, split hero, card grid. The MedPark language in 24/7 colours' },
               { slug: 'design-2', name: 'Design 2. Bold and cinematic', kind: 'page', src: '247-lp-le-reve-d2.html', ownTitle: true, status: 'review', note: 'Premier Le Reve. Full-bleed film, big type, icons that draw themselves' },
@@ -336,6 +336,13 @@ const COMPANIES = [
               { slug: 'design-2-amwaj', name: 'Design 2. Amwaj Beach Club', kind: 'page', src: '247-lp-amwaj-d2.html', ownTitle: true, status: 'review', note: 'Abu Soma, in design 2' },
               { slug: 'design-3-steigenberger', name: 'Design 3. Steigenberger Ras Soma', kind: 'page', src: '247-lp-steigenberger-d3.html', ownTitle: true, status: 'review', note: 'Soma Bay, in design 3' },
               { slug: 'design-3-amwaj', name: 'Design 3. Amwaj Beach Club', kind: 'page', src: '247-lp-amwaj-d3.html', ownTitle: true, status: 'review', note: 'Abu Soma, in design 3' },
+
+              /* Design 4 is the control: a strict reading of Irina's brief with
+                 nothing added. It is the one to compare the other three against
+                 when deciding what to cut. */
+              { slug: 'design-4', name: 'Design 4. To the brief', kind: 'page', src: '247-lp-le-reve-d4.html', ownTitle: true, status: 'review', note: 'Premier Le Reve. Only what she asked for, in her words. No film at all' },
+              { slug: 'design-4-steigenberger', name: 'Design 4. Steigenberger Ras Soma', kind: 'page', src: '247-lp-steigenberger-d4.html', ownTitle: true, status: 'review', note: 'Soma Bay, in design 4' },
+              { slug: 'design-4-amwaj', name: 'Design 4. Amwaj Beach Club', kind: 'page', src: '247-lp-amwaj-d4.html', ownTitle: true, status: 'review', note: 'Abu Soma, in design 4' },
             ],
           },
         ],

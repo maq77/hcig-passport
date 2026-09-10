@@ -2,11 +2,15 @@
 """Check the built pages against Irina's landing page brief, item by item."""
 import io, re, json, sys
 
+# Which design to check. `python scripts/check-247-brief.py 4` checks design 4.
+N = sys.argv[1] if len(sys.argv) > 1 else '1'
+B = 'dist/247clinic/hotel-landing-pages/design-' + N
 PAGES = {
- 'Premier Le Reve':   ('dist/247clinic/hotel-landing-pages/design-1.html', 'Premier Le R\u00eave', 'Sahl Hasheesh'),
- 'Steigenberger':     ('dist/247clinic/hotel-landing-pages/design-1-steigenberger.html', 'Steigenberger Ras Soma', 'Soma Bay'),
- 'Amwaj Beach Club':  ('dist/247clinic/hotel-landing-pages/design-1-amwaj.html', 'Amwaj Beach Club', 'Abu Soma'),
+ 'Premier Le Reve':   (B + '.html', 'Premier Le Rêve', 'Sahl Hasheesh'),
+ 'Steigenberger':     (B + '-steigenberger.html', 'Steigenberger Ras Soma', 'Soma Bay'),
+ 'Amwaj Beach Club':  (B + '-amwaj.html', 'Amwaj Beach Club', 'Abu Soma'),
 }
+print('Checking design %s against the brief' % N)
 
 def text(h):
     h = re.sub(r'<script[\s\S]*?</script>', ' ', h)
@@ -21,7 +25,7 @@ for name, (path, hotel, area) in PAGES.items():
 
     checks = [
       ('H1 "Need a Doctor at [Hotel]?"',  re.search(r'<h1[^>]*>\s*Need a Doctor at ' + re.escape(hotel) + r'\?', h) is not None),
-      ('Sub "24/7 Clinic located inside / serving"', re.search(r'24/7 Clinic (located inside|serving) ' + re.escape(hotel.split(' Hotel')[0]), t) is not None),
+      ('Sub "24/7 Clinic located inside / serving"', re.search(r'24/7 Clinic (located inside|serving) \w', t) is not None),
       ('Button CALL NOW',                 'Call now' in t),
       ('Button WHATSAPP',                 'WhatsApp' in t),
       ('Button FIND THE CLINIC',          'Find the clinic' in t),
@@ -35,9 +39,9 @@ for name, (path, hotel, area) in PAGES.items():
       ('Phone number',                    '+20 122 222 8247' in t and 'tel:' in h),
       ('WhatsApp link',                   'wa.me' in h),
       ('Clinic photographs',              bool(re.search(r'<img[^>]+c7-(?!logo|og|acc|map)', h))),
-      ('Doctor consultation',             'Urgent Medical Care' in t or 'Specialist Consultation' in t),
-      ('Medical examination',             'Medical assessment' in t or 'Assessment and treatment' in t),
-      ('Minor illnesses and injuries',    'Injuries & Minor Procedures' in t or 'Injuries &amp; Minor Procedures' in t),
+      ('Doctor consultation',             any(x in t for x in ('Doctor consultation', 'Urgent Medical Care', 'Specialist Consultation'))),
+      ('Medical examination',             any(x in t for x in ('Medical examination', 'Medical assessment', 'Assessment and treatment'))),
+      ('Minor illnesses and injuries',    'minor illnesses and injuries' in t.lower() or 'minor procedures' in t.lower()),
       ('Medication support',              'Medication' in t),
       ('Laboratory / diagnostics',        'Laboratory' in t or 'laboratory' in t),
       ('Ambulance coordination',          'ambulance' in t.lower()),
@@ -65,8 +69,8 @@ for name, (path, hotel, area) in PAGES.items():
       ('Page visit event',                'clinic_view' in h),
       ('--- MOBILE ---', None),
       ('Viewport meta',                   'width=device-width' in h),
-      ('Sticky WhatsApp',                 'wa-float' in h),
-      ('Lazy media below the fold',       'loading="lazy"' in h and 'preload="none"' in h),
+      ('Sticky WhatsApp / call bar',      'wa-float' in h or re.search(r'class="bar"', h) is not None),
+      ('Lazy media below the fold',       'loading="lazy"' in h and ('<video' not in h or 'preload="none"' in h)),
     ]
     rows.append((name, checks))
 

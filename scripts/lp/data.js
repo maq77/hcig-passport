@@ -62,6 +62,27 @@ const HELP = [
   ['bed', 'Hotel Room Doctor Visit', 'When appropriate, a doctor visit can be arranged directly in the guest’s hotel room.'],
 ];
 
+/**
+ * Irina's list, word for word.
+ *
+ * These are the ten items from "Each page should include" in her landing page
+ * task, used as written. No descriptions are added under them, because she did
+ * not write any and design 4 exists to be a strict reading of her brief.
+ * Designs 1 to 3 use the fuller six-card version from the other brief instead.
+ */
+const BRIEF_SERVICES = [
+  ['stethoscope', 'Doctor consultation'],
+  ['specialist', 'Medical examination'],
+  ['bandage', 'Treatment of minor illnesses and injuries'],
+  ['pill', 'Medication support'],
+  ['flask', 'Laboratory / diagnostic coordination'],
+  ['ambulance', 'Ambulance coordination'],
+  ['hospital', 'Hospital referral and coordination'],
+  ['shield', 'Insurance assistance'],
+  ['doc', 'Medical reports'],
+  ['globe', 'Support for international tourists'],
+];
+
 const FLAG = {
   Germany: 'C7FLAGDE',
   Italy: 'C7FLAGIT',
@@ -257,6 +278,7 @@ const ICON = {
   check: '<path d="m4.6 12.4 5 5 9.8-10.8"/>',
   arrow: '<path d="M5 12h13M12.6 6.2 18.4 12l-5.8 5.8"/>',
   expand: '<path d="M9 3.6H3.6V9M15 3.6h5.4V9M9 20.4H3.6V15M15 20.4h5.4V15"/>',
+  doc: '<path d="M6 3.4h7.4L18 8v12.6H6z"/><path d="M13.2 3.6V8.2H17.8"/><path d="M8.8 12.6h6.4M8.8 16.2h4.6"/>',
   flask: '<path d="M9.4 3.4h5.2M10.3 3.4v6.1L5.6 17.9a2 2 0 0 0 1.7 3h9.4a2 2 0 0 0 1.7-3l-4.7-8.4V3.4"/><path d="M7.6 15.2h8.8"/>',
   specialist: '<circle cx="12" cy="7.8" r="3.6"/><path d="M5.2 20.4a6.8 6.8 0 0 1 13.6 0"/>',
   bed: '<path d="M3 19.4v-11M3 12.6h18v6.8M21 15.4H3"/><circle cx="7.4" cy="9.6" r="1.9"/><path d="M10.6 12.6v-1.4a1.6 1.6 0 0 1 1.6-1.6h5.2a1.6 1.6 0 0 1 1.6 1.6v1.4"/>',
@@ -1090,7 +1112,7 @@ function tracking(c) {
 
 module.exports = {
   PHONE, PHONE_HREF, WA_HREF, SINCE, NETWORK, CREDIT, credit, CREDIT_CSS,
-  HELP, FLAG, REVIEWS, OFFERS, INSURERS, CLINICS, ICON,
+  HELP, BRIEF_SERVICES, FLAG, REVIEWS, OFFERS, INSURERS, CLINICS, ICON,
   STORIES, SERVICE_FILMS,
   esc, svg, head, faqFor, schemaFor, links, tracking,
   demoUrl, otherClinics, otherClinicsSchema, OTHERS_CSS,

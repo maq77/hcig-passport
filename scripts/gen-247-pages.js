@@ -11,6 +11,7 @@
  *   design-1  Clean and clinical   white, split hero, card grid
  *   design-2  Bold and cinematic   full-bleed film, big type, motion
  *   design-3  Editorial motion     scroll-driven film, sticky map, marquee
+ *   design-4  To the brief         only what Irina asked for, no film at all
  *
  * All nine pages are registered in HCIG Work, because each page links out to
  * the same design of the other clinics and those links have to work.
@@ -26,6 +27,7 @@ const DESIGNS = [
   require('./lp/design-1'),
   require('./lp/design-2'),
   require('./lp/design-3'),
+  require('./lp/design-4'),
 ];
 
 let n = 0;
