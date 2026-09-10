@@ -91,9 +91,10 @@ Each carries a small caption naming the body and nothing else. An unexplained
 roundel tells a guest nothing, and a caption that only names the issuer makes no
 claim about what the mark means, which is what section 23 requires.
 
-The band is white rather than the brand pink. All three files are flat JPEGs
-with a white ground and no transparency, so a coloured band would put a white
-box behind every one. White is also the safest ground under most certification
+The band is white rather than the brand pink. UCA came through as a transparent
+PNG and is used exactly as supplied. GHA and GMWA are flat JPEGs on white, so a
+coloured band would put a white box behind those two. Send those two with
+transparency and the band can take any colour we like. White is also the safest ground under most certification
 mark usage rules. The marks were trimmed and their ground flood filled to pure
 white; nothing else was touched, because a certification mark is not ours to
 redraw.
@@ -161,6 +162,8 @@ Unchanged from the open items list, plus two from the new brief.
    - confirmation that the UCA chapter mark is the right one to show, or the
      accreditation seal if a separate one exists;
    - a larger GHA file if one exists, the supplied one is 200px square;
+   - GHA and GMWA as transparent PNGs, like the UCA one, which would free the
+     band from having to be white;
    - confirmation that the sentence now on the page is the approved wording.
 3. Confirmation of the years, the clinic count and the patient numbers.
 4. The real WhatsApp number for each clinic, not one shared placeholder.

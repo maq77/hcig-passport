@@ -107,10 +107,13 @@ const ASSETS = {
   C7RESORTSTEIG: 'px-resort-steig.webp',
   C7RESORTAMWAJ: 'px-resort-amwaj.webp',
 
-  /* Accreditation marks, supplied 2026-09-10 with permission to use. Trimmed
-     and their ground flood filled to pure white, nothing else touched: a
-     certification mark is not ours to redraw. All three are JPEGs with no
-     transparency, which is why the band they sit in is white. */
+  /* Accreditation marks, supplied 2026-09-10 with permission to use. Trimmed,
+     nothing else touched: a certification mark is not ours to redraw.
+
+     UCA came as a transparent PNG and is used as supplied. GHA and GMWA came as
+     flat JPEGs on white, so their ground was flood filled to pure white to kill
+     the near-white fringe. That is why the band they all sit in is white. Send
+     those two through with transparency and the band can take any colour. */
   C7ACCUCA: 'c7acc-uca.png',
   C7ACCGHA: 'c7acc-gha.png',
   C7ACCGMWA: 'c7acc-gmwa.png',
