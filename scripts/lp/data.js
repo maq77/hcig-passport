@@ -15,9 +15,23 @@ const PHONE = '+20 122 222 8247';
 const PHONE_HREF = '+201222228247';
 const WA_HREF = '201222228247';
 
-/* Their own figures, quoted from their own home page. */
-const SINCE = '2001';
+/* Their own figures, read off their own homepage counters on 2026-09-10.
+   The counters render as "00" on the live site because the odometer script
+   never fires, but the real values sit in their data-count attributes:
+
+     20   years of experience
+     28   fully equipped clinics
+     300  professional staff
+     300  international patients
+
+   "Since 2001" used to be here and was wrong. It appears nowhere on their site
+   and nobody could source it. Twenty years of experience is their own claim, so
+   that is what these pages say now. The 300 for international patients is
+   identical to the staff figure and looks like a copy and paste in their own
+   markup, so it is not used anywhere. */
+const YEARS = '20';
 const NETWORK = '28';
+const STAFF = '300';
 
 /* The agency credit, in one place so all three designs carry the same line.
    It sits at the quiet end of the footer base bar. Plain text for now: give it
@@ -446,8 +460,7 @@ function schemaFor(c) {
         name: '24/7 Clinic',
         url: 'https://www.247clinic.net',
         telephone: PHONE,
-        foundingDate: SINCE,
-        description: `Urgent care clinics inside hotels and resorts in Egypt, open 24 hours. ${NETWORK} clinics nationwide.`,
+        description: `Urgent care clinics inside hotels and resorts in Egypt, open 24 hours. ${NETWORK} clinics nationwide, ${YEARS} years of experience.`,
         areaServed: { '@type': 'Country', name: 'Egypt' },
         sameAs: ['https://www.instagram.com/247clinics/'],
       },
@@ -1117,7 +1130,7 @@ function tracking(c) {
 }
 
 module.exports = {
-  PHONE, PHONE_HREF, WA_HREF, SINCE, NETWORK, CREDIT, credit, CREDIT_CSS,
+  PHONE, PHONE_HREF, WA_HREF, YEARS, NETWORK, STAFF, CREDIT, credit, CREDIT_CSS,
   HELP, BRIEF_SERVICES, FLAG, REVIEWS, OFFERS, INSURERS, CLINICS, ICON,
   STORIES, SERVICE_FILMS,
   esc, svg, head, faqFor, schemaFor, links, tracking,

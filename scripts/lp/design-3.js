@@ -308,7 +308,7 @@ function render(c, designNo) {
       <div class="status m-stagger">
         <div class="live"><b>Open now</b><span>Every hour, every day</span></div>
         <div><b>In the grounds</b><span>${esc(c.hotelShort)}</span></div>
-        <div><b>Since ${D.SINCE}</b><span>Caring for visitors</span></div>
+        <div><b>${D.YEARS} years</b><span>Of caring for visitors</span></div>
         <div><b>${D.NETWORK} clinics</b><span>Across Egypt</span></div>
       </div>
     </div>
@@ -448,7 +448,7 @@ function render(c, designNo) {
         <a href="https://www.247clinic.net/contact-us" target="_blank" rel="noopener">Contact</a></p>
       </div>
     </div>
-    <div class="fbase"><span>24/7 Clinic &middot; ${esc(c.area)} &middot; Since ${D.SINCE}</span><span>${D.NETWORK} clinics across Egypt</span>${D.credit()}</div>
+    <div class="fbase"><span>24/7 Clinic &middot; ${esc(c.area)} &middot; ${D.YEARS} years of experience</span><span>${D.NETWORK} clinics across Egypt</span>${D.credit()}</div>
   </div>
 </footer>
 

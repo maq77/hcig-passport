@@ -96,6 +96,10 @@ const COMPANIES = [
           '9 September: a third version adds motion to the home page. Headlines climb into place, cards arrive in turn, photographs open with a wipe. It is a layer over the same page, so the plain version is untouched.',
           'The packages section is now on the German and Polish home pages too, in their own languages. All three read from one file, so a change happens once.',
           'His own service pictures are in. The four covers went from 891 KB to 254 KB and the card takes their shape, so nothing is cropped.',
+          '11 September: every preview page is joined up. Opening one with ?preview=2 carries it through every link, so the whole draft walks as one site instead of falling back to the old design on the first click.',
+          'Medical Services hides its sentence until the card is pointed at, and the sentence is white on its own panel rather than pale grey over a photograph.',
+          'Advanced Hospital Capabilities is a tile grid now, three across and two on a phone, every tile the same size. The four triage cards are a plain two by two.',
+          'News reads newest first everywhere. The home page was showing the three oldest posts from May 2025 under the heading Latest News.',
           'The new package artwork replaced the old, and the set went from 32 MB to 1.7 MB with no loss on screen.',
         ],
         checklist: [
@@ -380,7 +384,7 @@ const COMPANIES = [
             name: 'Preview',
             note: 'Their own pages, with the repositioning applied. Their stylesheet, their images.',
             items: [
-              { slug: 'home', name: 'Homepage', kind: 'link', href: 'https://hcig-passport.vercel.app/247clinic/website-preview/index.html', status: 'review', note: 'Phase 1 of the brief, applied to their real markup' },
+              { slug: 'home', name: 'Homepage', kind: 'link', href: 'https://hcig-passport.vercel.app/247clinic/website-preview', status: 'review', note: 'Phase 1 of the brief, applied to their real markup' },
             ],
           },
         ],

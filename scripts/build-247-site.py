@@ -109,14 +109,71 @@ def main():
     index = os.path.join(OUT, 'index.html')
     h = io.open(index, encoding='utf-8', errors='replace').read()
 
-    # Section 31: language and copy quality.
+    # ------------------------------------------- our own sheet, not theirs
+    # Every visual change we need rides in one small stylesheet loaded after
+    # their bundle. Their 576 KB bundle.min.css is never edited, so a future
+    # re-mirror cannot lose our work and they can drop our file to revert.
+    h = one(h, '</head>',
+            '<link rel="stylesheet" href="%s/assets/repositioning.css">
+</head>' % PREFIX,
+            '2', 'Added repositioning.css, their bundle untouched')
+
+    # ------------------------------------------------------ 4. navigation
+    h = one(h, NAV_OLD, NAV_NEW, '4',
+            'Simplified nav, Beauty and Blog and FAQs moved out, WhatsApp button added')
+
+    # ------------------------------------------------------------ 6. hero
+    # Slides one and two become a single slide. Slide two was "Be Beautiful",
+    # which sections 6 and 29 both say must leave the hero. The headline is an
+    # h1: their page had no h1 anywhere, which is why the SEO list asks for one.
+    h = sub(h, HERO_RE, HERO_NEW, '6',
+            'Hero rewritten, Beauty slide removed, headline is now the page h1')
+
+    # --------------------------------------------------- 7. accreditation
+    h = one(h, '<!--Start Feature One-->', ACCRED + '
+<!--Start Feature One-->',
+            '7', 'Accreditation block added under the hero')
+
+    # ----------------------------------------------------- 14. the numbers
+    # The counters are not broken values. They are an odometer that never runs,
+    # so the placeholder 00 is what a visitor sees. Their real figures sit in
+    # data-count. Printing them plainly means the block works with or without
+    # the script.
+    for count, label in [('20', 'Years of experience'), ('28', 'Fully Equipped Clinics'),
+                         ('300', 'Professional Staff')]:
+        h = one(h, '<span class="odometer" data-count="%s">00</span>' % count,
+                '<span class="odometer" data-count="%s">%s</span>' % (count, count),
+                '14', 'Counter shows %s instead of 00' % count)
+
+    # Their fourth counter repeats the staff figure for patients, which is
+    # plainly a copy and paste. Removed rather than published as fact.
+    h = sub(h, PATIENTS_RE, '', '14',
+            'Removed the International Patients counter, it repeated the staff number')
+
+    # ---------------------------------------------- 31. language and copy
     h = one(h, 'What our Patients Says', 'What Our Patients Say',
             '31', 'Fixed "What our Patients Says"')
     h = h.replace('North Cost', 'North Coast')
     h = one(h, 'Make an Apointment', 'Make an Appointment',
             '31', 'Fixed "Make an Apointment"')
 
+    # ---------------------------------------- 5. WhatsApp, and dead links
+    # Six links on their homepage have href="". The hero buttons are two of
+    # them, so the main call to action goes nowhere at all.
+    n = h.count('href=""')
+    if n:
+        h = h.replace('href=""', 'href="%s/our-clinics"' % LIVE)
+        note('39', 'Pointed %d empty links at Our Clinics' % n)
+
+    h = one(h, '</body>', FLOAT + '
+</body>', '5',
+            'Floating WhatsApp button and mobile sticky bar added')
+
     io.open(index, 'w', encoding='utf-8').write(h)
+
+    css = os.path.join(OUT, 'assets', 'repositioning.css')
+    io.open(css, 'w', encoding='utf-8').write(REPOSITIONING_CSS)
+    print('   wrote assets/repositioning.css')
 
     for s, w in edits:
         print('   section %-3s %s' % (s, w))
