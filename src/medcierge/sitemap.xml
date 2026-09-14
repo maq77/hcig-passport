@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://medcierge.com/</loc>
+  </url>
+  <url>
+    <loc>https://medcierge.com/about</loc>
+  </url>
+  <url>
+    <loc>https://medcierge.com/services</loc>
+  </url>
+  <url>
+    <loc>https://medcierge.com/service-areas</loc>
+  </url>
+  <url>
+    <loc>https://medcierge.com/facilities</loc>
+  </url>
+  <url>
+    <loc>https://medcierge.com/partners</loc>
+  </url>
+  <url>
+    <loc>https://medcierge.com/video-consultation</loc>
+  </url>
+  <url>
+    <loc>https://medcierge.com/hurghada</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medcierge.com/hurghada"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://medcierge.com/de/arzt-hurghada"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://medcierge.com/hurghada"/>
+  </url>
+  <url>
+    <loc>https://medcierge.com/de/arzt-hurghada</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://medcierge.com/hurghada"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://medcierge.com/de/arzt-hurghada"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://medcierge.com/hurghada"/>
+  </url>
+</urlset>

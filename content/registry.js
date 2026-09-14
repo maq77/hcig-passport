@@ -457,6 +457,33 @@ const COMPANIES = [
         ],
         stages: [],
       },
+      {
+        slug: 'medcierge-website',
+        name: 'Elite Medical Concierge website',
+        status: 'review',
+        updated: '2026-09-14',
+        summary: 'medcierge.com rebuilt. Light design, 3D hero, scroll motion, readable by search and AI.',
+        detail: [
+          'Built from the live site on 2026-09-14. 9 pages, 34 images, every section kept.',
+          'Homepage: 3D photo hero, moving partner logos, a sideways facilities tour, and a map that lights up the coast.',
+          'Served noindex here. One command builds the indexable version for their hosting.',
+        ],
+        stages: [
+          {
+            name: 'Preview',
+            note: 'The whole site, as it would go live.',
+            items: [
+              { slug: 'site', name: 'Website preview', kind: 'link', href: 'https://hcig-passport.vercel.app/medcierge', status: 'draft', note: '9 pages, English and German' },
+            ],
+          },
+          {
+            name: 'Documents',
+            items: [
+              { slug: 'change-list', name: 'What changed, and what needs a yes', kind: 'md', src: 'docs/medcierge-change-list.md', status: 'draft', note: '17 open questions' },
+            ],
+          },
+        ],
+      },
     ],
   },
 
