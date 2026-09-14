@@ -473,7 +473,8 @@ const COMPANIES = [
             name: 'Preview',
             note: 'The whole site, as it would go live.',
             items: [
-              { slug: 'site', name: 'Website preview', kind: 'link', href: 'https://hcig-passport.vercel.app/medcierge', status: 'draft', note: '9 pages, English and German' },
+              { slug: 'site', name: 'Design 1 preview', kind: 'link', href: 'https://hcig-passport.vercel.app/medcierge', status: 'review', note: 'Light cream and gold, 9 pages, English and German' },
+              { slug: 'site-v2', name: 'Design 2 preview · lapis and gold', kind: 'link', href: 'https://hcig-passport.vercel.app/medcierge-v2', status: 'draft', note: '24 pages in English, German and Polish, light and dark mode' },
             ],
           },
           {

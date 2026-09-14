@@ -491,6 +491,13 @@ if (fs.existsSync(MC_SRC)) {
   fs.cpSync(MC_SRC, path.join(OUT, 'medcierge'), { recursive: true });
 }
 
+/* Design 2 of the same site (lapis and gold, EN/DE/PL, light and dark), generated
+   by scripts/build-medcierge-v2.js into src/medcierge-v2, served at /medcierge-v2. */
+const MC2_SRC = path.join(__dirname, 'src', 'medcierge-v2');
+if (fs.existsSync(MC2_SRC)) {
+  fs.cpSync(MC2_SRC, path.join(OUT, 'medcierge-v2'), { recursive: true });
+}
+
 /* ---- shared shell files ------------------------------------------------ */
 
 write('studio.css', fs.readFileSync(path.join(CONTENT, 'theme.css'), 'utf8'));

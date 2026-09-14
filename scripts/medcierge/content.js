@@ -652,6 +652,13 @@ module.exports = {
     },
   },
 
+  /* interface labels added for design 2 (theme, language, controls) */
+  ui: {
+    skip: 'Skip to content', menu: 'Menu', home: 'Home', language: 'Language',
+    theme: 'Switch colour theme', light: 'Light', dark: 'Dark',
+    pause: 'Pause', play: 'Play', prev: 'Previous', next: 'Next',
+  },
+
   footer: {
     quickLinks: 'Quick Links',
     links: [
