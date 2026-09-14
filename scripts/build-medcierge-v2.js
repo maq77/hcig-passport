@@ -193,7 +193,8 @@ function footer(L) {
   </div>
   <div class="ftr__bar"><div class="wrap"><span>${esc(C.footer.rights)}</span><a href="${S.portal}">${esc(C.footer.dashboard)}</a></div></div>
 </footer>
-<a class="wa-float" href="${S.wa}" target="_blank" rel="noopener">${icon('whatsapp')}${esc(C.footer.whatsapp)}</a>`;
+<a class="wa-float" href="${S.wa}" target="_blank" rel="noopener">${icon('whatsapp')}${esc(C.footer.whatsapp)}</a>
+<nav class="actionbar" aria-label="${esc(C.footer.emergencyLine)}"><a class="actionbar__urgent" href="${S.tel}">${icon('phone', 'i--sm')}${esc(C.footer.emergencyLine)}</a><a class="actionbar__wa" href="${S.wa}" target="_blank" rel="noopener">${icon('whatsapp', 'i--sm')}${esc(C.footer.whatsapp)}</a></nav>`;
 }
 
 const results = [];
@@ -219,8 +220,8 @@ function page({ L, key, meta, body, trail, schema = [] }) {
   <meta name="robots" content="${PROD ? 'index, follow, max-image-preview:large' : 'noindex, nofollow'}">
   <link rel="canonical" href="${canonical}">
   ${alts}
-  <meta name="theme-color" content="#F5F4F0" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0B1434" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#F8FAFC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0B1220" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="${esc(S.name)}">
   <meta property="og:title" content="${esc(meta.title)}">
@@ -235,7 +236,7 @@ function page({ L, key, meta, body, trail, schema = [] }) {
   <link rel="icon" href="${asset('/favicon.svg')}" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;600;700;800&family=Noto+Sans:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="${asset('/assets/v2.css')}?v=${cssV}">
   ${ld({ '@context': 'https://schema.org', '@graph': graph })}
 </head>
@@ -364,8 +365,8 @@ function facilityCard(C, f, i, detailed, L, extraCls = '') {
       </article>`;
 }
 
-function waForm({ id, title, fieldsHtml, submit, note }) {
-  return `<form class="form placard" id="${id}" data-wa="${S.wa}" data-title="${esc(title)}" novalidate>
+function waForm({ id, title, fieldsHtml, submit, note, ui }) {
+  return `<form class="form placard" id="${id}" data-wa="${S.wa}" data-title="${esc(title)}" data-required="${esc(ui.required)}" data-sending="${esc(ui.sending)}" data-sent="${esc(ui.sent)}" novalidate>
       <h3>${esc(title)}</h3>
       ${fieldsHtml}
       <div class="form__actions">
@@ -377,61 +378,67 @@ function waForm({ id, title, fieldsHtml, submit, note }) {
 }
 
 function field({ id, label, type = 'text', autocomplete, required, placeholder, options, span }) {
-  const req = required ? ' required aria-required="true"' : '';
+  const req = required ? ` required aria-required="true" aria-describedby="${id}-err"` : '';
   const ph = placeholder ? ` placeholder="${esc(placeholder)}"` : '';
   const ac = autocomplete ? ` autocomplete="${autocomplete}"` : '';
   let control;
   if (type === 'textarea') control = `<textarea id="${id}" name="${id}"${ph}${req}></textarea>`;
   else if (type === 'select') control = `<select id="${id}" name="${id}"${req}><option value="">${esc(options.placeholder)}</option>${options.list.map((o) => `<option>${esc(o)}</option>`).join('')}</select>`;
   else control = `<input id="${id}" name="${id}" type="${type}"${ac}${ph}${req}>`;
-  return `<div class="field${span ? ' span-2' : ''}"><label for="${id}">${esc(label)}${required ? ' <em aria-hidden="true">*</em>' : ''}</label>${control}</div>`;
+  return `<div class="field${span ? ' span-2' : ''}"><label for="${id}">${esc(label)}${required ? ' <em aria-hidden="true">*</em>' : ''}</label>${control}${required ? `<p class="field__error" id="${id}-err" aria-live="polite"></p>` : ''}</div>`;
 }
 
 const rowCard = (it, i, extra = '') => `<article class="card card--row" ${rv(i)}><span class="chip-i">${icon(it.icon)}</span><h3>${it.href || ''}${esc(it.title)}</h3><p>${esc(it.text)}</p>${extra}</article>`;
 
 /* ---------------------------------------------------------------- pages */
 
+/* silent background film with a still poster; v2.js plays it only while on screen */
+const film = (id, name, poster) => `<video id="${id}" data-bg-video muted loop playsinline preload="none" poster="${asset(`/img/${poster}.webp`)}" aria-hidden="true" tabindex="-1"><source src="${asset(`/video/${name}-m.mp4`)}" type="video/mp4" media="(max-width: 767px)"><source src="${asset(`/video/${name}.mp4`)}" type="video/mp4"></video>`;
+const filmToggle = (id, C) => `<button class="icon-btn h-film-toggle" type="button" data-video-toggle="${id}" aria-pressed="false" aria-label="${esc(C.ui.pauseVideo)}" data-label-pause="${esc(C.ui.pauseVideo)}" data-label-play="${esc(C.ui.playVideo)}">${icon('pause', 'i--sm')}${icon('play', 'i--sm')}</button>`;
+
 function buildHome(L) {
+  /* Home page, redesigned 2026-09-14 from ui-ux-pro-max: Trust & Authority + Conversion.
+     Hero with credibility and one primary action, proof early, solution, process,
+     social proof, certification, imagery, coverage, one clear contact path. */
   const C = CONTENT[L];
   const H = C.home;
   const G = H.trust.groups;
-  const badge = H.hero.badge.split(' · ');
+  const acc = H.accreditations.cards;
+  const proof = acc.filter((c) => c.badge).map((c) => `<li>${logoImg(C, c.logo)}<span><b>${esc(c.badge)}</b>${esc(c.title)}</span></li>`).join('');
+  const rating = H.hero.stats.find((s) => /\//.test(s.value) && /\./.test(s.value));
   page({
     L, key: 'home', meta: H.meta,
     body: `
-<section class="hero" aria-labelledby="hero-h">
-  <div class="wrap hero__grid">
-    <div class="hero__copy">
-      <p class="oncall" data-rise style="--i:0"><span class="oncall__a"><span class="live" aria-hidden="true"></span>${esc(H.hero.leadAccent)}</span><span class="oncall__sep" aria-hidden="true"></span><span>${esc(H.hero.features[0].text)}</span></p>
-      <h1 id="hero-h"><span class="line"><span data-rise style="--i:1">${esc(H.hero.h1a)}</span></span><span class="line line--gold"><span data-rise style="--i:2">${esc(H.hero.h1b)}</span></span></h1>
-      <p class="hero__lead" data-rise style="--i:3">${esc(H.hero.lead)}</p>
-      <div class="hero__cta" data-rise style="--i:4">
-        <a class="btn btn--gold" href="#contact">${icon('stethoscope', 'i--sm')}${esc(H.hero.primary)}</a>
-        <a class="btn btn--line" href="#services">${esc(H.hero.secondary)}${icon('arrow-right', 'i--sm')}</a>
+<section class="h-hero" aria-labelledby="hero-h">
+  <div class="h-hero__film">
+    ${film('hero-film', 'hero', 'v2-suite')}
+    ${rating ? `<div class="h-rating">${stars}<div><b class="num">${esc(rating.value)}</b><span>${esc(rating.label)}</span></div></div>` : ''}
+    ${filmToggle('hero-film', C)}
+  </div>
+  <div class="wrap h-hero__grid">
+    <div class="h-panel">
+      <p class="h-status"><span class="live" aria-hidden="true"></span><span>${esc(H.hero.leadAccent)}</span><span class="h-status__sep" aria-hidden="true"></span><span>${esc(H.hero.features[0].text)}</span></p>
+      <h1 id="hero-h">${esc(H.hero.h1a)} <span class="h-accent">${esc(H.hero.h1b)}</span></h1>
+      <p class="h-hero__lead">${esc(H.hero.lead)}</p>
+      <div class="h-hero__cta">
+        <a class="btn btn--gold btn--lg" href="#contact">${icon('stethoscope', 'i--sm')}${esc(H.hero.primary)}</a>
+        <a class="btn btn--line btn--lg" href="${S.tel}">${icon('phone', 'i--sm')}<span class="num">${esc(S.phone)}</span></a>
       </div>
-      <p class="hero__phone" data-rise style="--i:5">${icon('phone', 'i--sm')}<a href="${S.tel}">${esc(S.phone)}</a></p>
-    </div>
-    <div class="pylon" data-h3d>
-      <div class="pylon__stage" data-h3d-stage>
-        <div class="pylon__sky" data-depth="0.9" aria-hidden="true"></div>
-        <figure class="pylon__door" data-depth="0.3"><span class="pylon__cornice" aria-hidden="true"></span>${photo('v2-suite', '', '(min-width: 1024px) 46vw, 100vw', '', true)}</figure>
-        <div class="placard pylon__card" data-depth="-0.7">${logoMark('mark--sm')}<div><b>${esc(badge[1] || badge[0])}</b><span>${esc(badge[1] ? badge[0] : S.name)}</span></div></div>
-      </div>
+      <ul class="h-proof">${proof}</ul>
     </div>
   </div>
 </section>
 
-<section class="facts" aria-label="${esc(H.hero.stats.map((s) => s.label).join(', '))}">
+<section class="h-stats" aria-label="${esc(H.hero.stats.map((s) => s.label).join(', '))}">
   <div class="wrap">
     ${countStats(H.hero.stats)}
-    <ul class="facts__row">${H.hero.features.map((f, i) => `<li class="fact" ${rv(i)}>${icon(f.icon)}<span><b>${esc(f.title)}</b> ${esc(f.text)}</span></li>`).join('')}</ul>
+    <ul class="facts__row">${H.hero.features.map((f) => `<li class="fact">${icon(f.icon)}<span><b>${esc(f.title)}</b> ${esc(f.text)}</span></li>`).join('')}</ul>
   </div>
 </section>
 
 <section class="sec sec--surface trust" aria-labelledby="trust-h" data-trust>
-  <div class="wrap trust__head">
-    <div data-reveal><h2 id="trust-h">${esc(H.trust.h2)}</h2><p class="lead">${esc(H.trust.note)}</p></div>
-    <figure class="quote placard" data-reveal>${stars}<blockquote>&ldquo;${esc(H.hero.quote.text)}&rdquo;</blockquote><figcaption>${who(H.hero.quote.name, H.hero.quote.where)}</figcaption></figure>
+  <div class="wrap">
+    <div class="sec-head sec-head--center" data-reveal><h2 id="trust-h">${esc(H.trust.h2)}</h2><p class="lead">${esc(H.trust.note)}</p></div>
   </div>
   <div class="marquees">
     <p class="wrap marquee__label">${esc(G[0].label)} · ${esc(G[1].label)}</p>
@@ -440,105 +447,86 @@ function buildHome(L) {
     <p class="wrap marquee__label">${esc(G[2].label)}</p>
   </div>
   <div class="wrap trust__foot">
-    <p class="trust__note">${esc(H.trust.eyebrow)}</p>
+    <a class="link-arrow" href="${href(L, 'partners')}">${esc(H.partners.pill)}${icon('arrow-right', 'i--sm')}</a>
     <button class="icon-btn marquee-toggle" type="button" data-marquee-toggle aria-pressed="false" aria-label="${esc(C.ui.pause)}" data-label-pause="${esc(C.ui.pause)}" data-label-play="${esc(C.ui.play)}">${icon('pause', 'i--sm')}${icon('play', 'i--sm')}</button>
   </div>
 </section>
 
 <section class="sec sec--ground" id="services">
-  <div class="wrap svc-split">
-    <div class="svc-split__head" data-reveal>
-      <h2>${esc(H.services.h2)}</h2>
-      <p class="lead">${esc(H.services.lead)}</p>
-      <figure class="door">${photo('v2-care', '', '(min-width: 1024px) 34vw, 100vw')}</figure>
+  <div class="wrap">
+    <div class="h-head" data-reveal>
+      <div><h2>${esc(H.services.h2)}</h2><p class="lead">${esc(H.services.lead)}</p></div>
       <a class="link-arrow" href="${href(L, 'services')}">${esc(C.services.hero.h1)}${icon('arrow-right', 'i--sm')}</a>
     </div>
-    <ul class="svc-list">
-      ${H.services.items.map((s, i) => `<li class="svc-item" ${rv(i)}><span class="chip-i">${icon(s.icon)}</span><div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></div></li>`).join('')}
+    <ul class="h-services">
+      ${H.services.items.map((s) => `<li class="h-svc"><span class="h-svc__icon">${icon(s.icon)}</span><div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></div></li>`).join('')}
     </ul>
-  </div>
-</section>
-
-<section class="pan" id="facilities" aria-labelledby="fac-h" data-pan>
-  <div class="pan__sticky">
-    <div class="pan__rail" data-pan-rail>
-      <div class="pan__intro">
-        <h2 id="fac-h">${esc(H.facilities.h2)}</h2>
-        <p class="lead">${esc(H.facilities.lead)}</p>
-        <a class="link-arrow" href="${href(L, 'facilities')}">${esc(C.facilitiesPage.listTitle)}${icon('arrow-right', 'i--sm')}</a>
-      </div>
-      ${C.facilities.map((f, i) => facilityCard(C, f, i, false, L, 'pan__card')).join('')}
-      <ul class="pan__outro">
-        ${H.facilities.features.map((f) => `<li class="feature">${icon(f.icon)}<div><b>${esc(f.title)}</b><span>${esc(f.text)}</span></div></li>`).join('')}
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec--ground" id="why-us">
-  <div class="wrap">
-    <div class="why__head" data-reveal>${head2(H.whyUs)}<p class="lead">${esc(H.whyUs.lead)}</p></div>
-    <ul class="why__list">
-      ${H.whyUs.items.map((it, i) => `<li class="why__item" ${rv(i)}><span class="chip-i">${icon(it.icon)}</span><div><h3>${esc(it.title)}</h3><p>${esc(it.text)}</p></div></li>`).join('')}
-    </ul>
-    <div class="why__stats" data-reveal>${countStats(H.whyUs.stats)}</div>
   </div>
 </section>
 
 <section class="sec sec--surface" id="how-it-works" data-steps>
   <div class="wrap">
-    <div class="sec-head" data-reveal>${head2(H.steps)}</div>
+    <div class="sec-head sec-head--center" data-reveal>${head2(H.steps)}</div>
     <div class="steps-track">
-      <div class="steps-line" aria-hidden="true"><span></span><i class="steps-now"></i></div>
-      <ol class="stations">
-        ${H.steps.items.map((s) => `<li class="station" data-step><span class="station__dot" aria-hidden="true">${icon(s.icon, 'i--sm')}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></li>`).join('')}
+      <ol class="h-steps">
+        ${H.steps.items.map((s, i) => `<li class="h-step" data-step><span class="h-step__n num" aria-hidden="true">${i + 1}</span><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></li>`).join('')}
       </ol>
     </div>
   </div>
 </section>
 
-<section class="sec sec--stone" id="accreditations">
-  <div class="wrap split">
-    <div data-reveal>
-      ${head2(H.accreditations)}
-      <p class="lead">${esc(H.accreditations.lead)}</p>
-      ${checks(H.accreditations.checks)}
-    </div>
-    <div class="plates">
-      ${H.accreditations.cards.map((c, i) => `<article class="plate placard" ${rv(i)}>${logoImg(C, c.logo, 'plate__logo')}<div><h3>${esc(c.title)}</h3>${c.badge ? `<p class="seal-badge">${icon('badge-check', 'i--sm')}${esc(c.badge)}</p>` : ''}<p>${esc(c.text)}</p></div></article>`).join('')}
+<section class="sec sec--ground" id="why-us">
+  <div class="wrap h-why">
+    <figure class="h-why__media">${photo('v2-care', '', '(min-width: 1024px) 42vw, 100vw')}</figure>
+    <div>
+      <div data-reveal>${head2(H.whyUs)}<p class="lead">${esc(H.whyUs.lead)}</p></div>
+      <ul class="h-why__list">
+        ${H.whyUs.items.map((it) => `<li>${icon(it.icon)}<div><b>${esc(it.title)}</b><span>${esc(it.text)}</span></div></li>`).join('')}
+      </ul>
     </div>
   </div>
-  <div class="wrap"><p class="inscription" data-reveal>${esc(H.accreditations.quote)}</p></div>
+  <div class="wrap h-quote-row">
+    <figure class="h-quote">${stars}<blockquote>&ldquo;${esc(H.hero.quote.text)}&rdquo;</blockquote><figcaption>${who(H.hero.quote.name, H.hero.quote.where)}</figcaption></figure>
+    ${countStats(H.whyUs.stats)}
+  </div>
 </section>
 
-<section class="sec sec--surface" id="partners">
+<section class="sec sec--surface" id="accreditations">
   <div class="wrap">
-    <div class="sec-head sec-head--center" data-reveal>${head2(H.partners)}<p class="lead">${esc(H.partners.lead)}</p></div>
-    <div class="block">
-      <div class="block__head"><span class="chip-i">${icon('hotel')}</span><h3>${esc(H.partners.hotelsTitle)}</h3></div>
-      <ul class="ptiles">${H.partners.hotels.map((h) => `<li class="ptile">${h.logo ? logoImg(C, h.logo) : `<span class="mono" aria-hidden="true">${esc(initials(h.name))}</span>`}<div><b>${esc(h.name)}</b><span>${esc(H.partners.hotelsSuffix)}</span></div></li>`).join('')}</ul>
+    <div class="sec-head" data-reveal>${head2(H.accreditations)}<p class="lead">${esc(H.accreditations.lead)}</p></div>
+    <div class="h-accred">
+      ${acc.map((c) => `<article class="h-badge">${logoImg(C, c.logo)}<h3>${esc(c.title)}</h3>${c.badge ? `<p class="seal-badge">${icon('badge-check', 'i--sm')}${esc(c.badge)}</p>` : ''}<p>${esc(c.text)}</p></article>`).join('')}
     </div>
-    <div class="block">
-      <div class="block__head"><span class="chip-i">${icon('shield-check')}</span><h3>${esc(H.partners.insuranceTitle)}</h3></div>
-      <ul class="ptiles">${H.partners.insurers.map((h) => `<li class="ptile">${logoImg(C, h.logo)}<div><b>${esc(h.name)}</b><span>${esc(H.partners.insuranceSuffix)}</span></div></li>`).join('')}</ul>
-    </div>
-    <div class="center-note"><p>${esc(H.partners.note)}</p><span class="tag tag--gold">${esc(H.partners.pill)}</span></div>
+    <ul class="checks h-checks">${H.accreditations.checks.map((t) => `<li>${icon('check', 'i--sm')}<span>${esc(t)}</span></li>`).join('')}</ul>
   </div>
 </section>
 
-<section class="areas-sec" id="service-areas" aria-labelledby="areas-h">
-  <div class="coast">
-    ${photo('v2-coast', '', '100vw', 'coast__img')}
-    <div class="wrap"><div class="coast__plate placard" data-reveal><h2 id="areas-h">${esc(H.areas.h2)}</h2><p class="lead">${esc(H.areas.lead)}</p></div></div>
+<section class="sec sec--ground" id="facilities">
+  <div class="wrap">
+    <div class="h-head" data-reveal>
+      <div><h2>${esc(H.facilities.h2)}</h2><p class="lead">${esc(H.facilities.lead)}</p></div>
+      <a class="link-arrow" href="${href(L, 'facilities')}">${esc(C.facilitiesPage.listTitle)}${icon('arrow-right', 'i--sm')}</a>
+    </div>
+    <ul class="h-gallery">
+      ${C.facilities.map((f) => `<li class="h-tile">${photo(f.img, '', '(min-width: 1024px) 33vw, 50vw')}<div class="h-tile__cap"><b>${esc(f.title)}</b><span>${esc(f.tags.join(' · '))}</span></div></li>`).join('')}
+    </ul>
   </div>
-  <div class="ceiling">
-    <div class="route-pin" data-route-pin><div class="route-sticky"><div class="wrap">${mapBlock(L, 'Hurghada')}</div></div></div>
+</section>
+
+<section class="sec sec--surface" id="service-areas">
+  <div class="wrap">
+    <div class="h-coast">
+      ${film('coast-film', 'coast', 'v2-coast')}
+      <div class="h-coast__card" data-reveal>${head2(H.areas)}<p class="lead">${esc(H.areas.lead)}</p></div>
+      ${filmToggle('coast-film', C)}
+    </div>
+    <div class="ceiling h-map">${mapBlock(L, 'Hurghada')}</div>
   </div>
 </section>
 
 <section class="sec sec--ground" id="contact">
   <div class="wrap contact">
-    <div data-reveal>
+    <div>
       ${head2(H.contact)}
       <p class="lead">${esc(H.contact.lead)}</p>
       <ul class="cinfo">
@@ -547,8 +535,8 @@ function buildHome(L) {
         }</b><span>${esc(c.sub)}</span></div></li>`).join('')}
       </ul>
     </div>
-    <div data-reveal>
-      ${waForm({ id: 'callback', title: H.contact.form.title, fieldsHtml: `<div class="fields">${H.contact.form.fields.map((f) => field(f)).join('')}</div>`, submit: H.contact.form.submit, note: H.contact.form.note })}
+    <div>
+      ${waForm({ id: 'callback', title: H.contact.form.title, fieldsHtml: `<div class="fields">${H.contact.form.fields.map((f) => field(f)).join('')}</div>`, submit: H.contact.form.submit, note: H.contact.form.note, ui: C.ui })}
     </div>
   </div>
 </section>`,
@@ -660,7 +648,7 @@ function buildServices(L) {
       </ul>
     </div>
     <div data-reveal>
-      ${waForm({
+      ${waForm({ ui: C.ui, 
         id: 'booking', title: SV.booking.h2, submit: SV.booking.submit, note: SV.booking.note,
         fieldsHtml: `<div class="fields fields--2">
           ${field({ id: 'bk-date', label: SV.booking.labels.date, type: 'date', required: true })}

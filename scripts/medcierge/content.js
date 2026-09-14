@@ -657,6 +657,8 @@ module.exports = {
     skip: 'Skip to content', menu: 'Menu', home: 'Home', language: 'Language',
     theme: 'Switch colour theme', light: 'Light', dark: 'Dark',
     pause: 'Pause', play: 'Play', prev: 'Previous', next: 'Next',
+    required: 'Please fill in this field.', sending: 'Opening WhatsApp...', pauseVideo: 'Pause video', playVideo: 'Play video',
+    sent: 'WhatsApp is open with your request. Press send there to reach our team.',
   },
 
   footer: {

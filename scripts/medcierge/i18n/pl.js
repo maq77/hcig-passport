@@ -562,6 +562,8 @@ module.exports = {
     skip: 'Przejdź do treści', menu: 'Menu', home: 'Strona główna', language: 'Język',
     theme: 'Zmień motyw kolorystyczny', light: 'Jasny', dark: 'Ciemny',
     pause: 'Wstrzymaj', play: 'Odtwórz', prev: 'Poprzednie', next: 'Następne',
+    required: 'Uzupełnij to pole.', sending: 'Otwieranie WhatsApp...', pauseVideo: 'Wstrzymaj wideo', playVideo: 'Odtwórz wideo',
+    sent: 'WhatsApp jest otwarty. Wyślij tam wiadomość, aby trafiła do naszego zespołu.',
   },
 
   footer: {

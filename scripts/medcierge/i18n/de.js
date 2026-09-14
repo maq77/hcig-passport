@@ -524,6 +524,8 @@ module.exports = {
     skip: 'Zum Inhalt springen', menu: 'Menü', home: 'Startseite', language: 'Sprache',
     theme: 'Farbmodus wechseln', light: 'Hell', dark: 'Dunkel',
     pause: 'Pause', play: 'Abspielen', prev: 'Zurück', next: 'Weiter',
+    required: 'Bitte füllen Sie dieses Feld aus.', sending: 'WhatsApp wird geöffnet...', pauseVideo: 'Video anhalten', playVideo: 'Video abspielen',
+    sent: 'WhatsApp ist geöffnet. Senden Sie die Nachricht dort ab, damit unser Team sie erhält.',
   },
 
   footer: {

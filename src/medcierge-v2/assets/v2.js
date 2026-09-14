@@ -146,14 +146,29 @@
     date.min = new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
   }
 
-  /* forms hand the request to the team on WhatsApp, with every field filled in */
+  /* forms: check each required field when the visitor leaves it, show the error under
+     the field, then hand the request to WhatsApp with clear sending and sent feedback */
   document.querySelectorAll('form[data-wa]').forEach(function (form) {
+    var msg = form.getAttribute('data-required') || '';
+    var setError = function (f, on) {
+      f.setAttribute('aria-invalid', String(on));
+      var err = document.getElementById(f.id + '-err');
+      if (err) err.textContent = on ? msg : '';
+    };
+    form.querySelectorAll('[required]').forEach(function (f) {
+      f.addEventListener('blur', function () { if (f.value.trim() === '' && f.getAttribute('data-touched') === '1') setError(f, true); });
+      f.addEventListener('input', function () {
+        f.setAttribute('data-touched', '1');
+        if (f.getAttribute('aria-invalid') === 'true' && f.value.trim()) setError(f, false);
+      });
+      f.addEventListener('focus', function () { f.setAttribute('data-touched', '1'); });
+    });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var firstBad = null;
       form.querySelectorAll('[required]').forEach(function (f) {
         var bad = !f.value.trim();
-        f.setAttribute('aria-invalid', String(bad));
+        setError(f, bad);
         if (bad && !firstBad) firstBad = f;
       });
       if (firstBad) { firstBad.focus(); return; }
@@ -161,17 +176,51 @@
       form.querySelectorAll('input, select, textarea').forEach(function (f) {
         if (!f.value.trim()) return;
         var lab = form.querySelector('label[for="' + f.id + '"]');
-        var name = lab ? lab.childNodes[0].textContent.trim() : f.name;
-        lines.push(name + ': ' + f.value.trim());
+        lines.push((lab ? lab.childNodes[0].textContent.trim() : f.name) + ': ' + f.value.trim());
       });
-      var url = form.getAttribute('data-wa') + '?text=' + encodeURIComponent(lines.join('\n'));
+      var btn = form.querySelector('button[type="submit"]');
       var status = form.querySelector('[data-status]');
-      if (status) status.textContent = 'WhatsApp';
-      window.open(url, '_blank', 'noopener');
+      var label = btn.textContent;
+      btn.setAttribute('aria-busy', 'true');
+      btn.disabled = true;
+      btn.textContent = form.getAttribute('data-sending') || label;
+      window.open(form.getAttribute('data-wa') + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+      setTimeout(function () {
+        btn.removeAttribute('aria-busy');
+        btn.disabled = false;
+        btn.textContent = label;
+        if (status) status.textContent = form.getAttribute('data-sent') || '';
+      }, 900);
     });
-    form.addEventListener('input', function (e) {
-      if (e.target.getAttribute('aria-invalid') === 'true' && e.target.value.trim()) e.target.setAttribute('aria-invalid', 'false');
+  });
+
+  /* background films: muted and inline, playing only while on screen, never under
+     reduced motion or Save-Data; a visible control pauses them */
+  var filmStill = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) || !!(navigator.connection && navigator.connection.saveData);
+  document.querySelectorAll('video[data-bg-video]').forEach(function (v) {
+    var btn = document.querySelector('[data-video-toggle="' + v.id + '"]');
+    var held = filmStill;
+    var sync = function () {
+      if (!btn) return;
+      var on = !v.paused;
+      btn.setAttribute('aria-pressed', String(!on));
+      btn.setAttribute('aria-label', btn.getAttribute(on ? 'data-label-pause' : 'data-label-play') || '');
+    };
+    var start = function () { v.muted = true; var p = v.play(); if (p && p.catch) p.catch(sync); };
+    v.addEventListener('play', sync);
+    v.addEventListener('pause', sync);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && !held) start();
+          else if (!e.isIntersecting) v.pause();
+        });
+      }, { threshold: 0.2 }).observe(v);
+    } else if (!held) start();
+    if (btn) btn.addEventListener('click', function () {
+      if (v.paused) { held = false; start(); } else { held = true; v.pause(); }
     });
+    sync();
   });
 
   /* ================= homepage motion upgrade, 2026-09-14 ================= */
