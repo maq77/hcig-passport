@@ -473,6 +473,7 @@ const COMPANIES = [
             name: 'Preview',
             note: 'The whole site, as it would go live.',
             items: [
+              { slug: 'home-new', name: 'New home page · navy and gold', kind: 'link', href: 'https://hcig-passport.vercel.app/medcierge-home/', status: 'review', note: 'Built from scratch: loader, moving partner logos, counting stats, cinematic quote. Desktop and phone' },
               { slug: 'site', name: 'Design 1 preview', kind: 'link', href: 'https://hcig-passport.vercel.app/medcierge', status: 'review', note: 'Light cream and gold, 9 pages, English and German' },
               { slug: 'site-v2', name: 'Design 2 preview · navy and gold', kind: 'link', href: 'https://hcig-passport.vercel.app/medcierge-v2', status: 'draft', note: '24 pages in English, German and Polish, light and dark mode. Home page rebuilt with hero and coast films' },
             ],

@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <base href="/medcierge-home/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Elite Medical Concierge · World-class healthcare in world-class hotels</title>
+  <meta name="description" content="Preview of the new Medcierge home page. Multilingual doctors and a personal medical concierge in Egypt's finest hotels, day and night.">
+  <meta name="theme-color" content="#07142E">
+  <link rel="icon" href="logo-mark.png" type="image/png">
+  <script>(function(){if(window.innerWidth > 900){location.replace('index.html'+location.hash);}})();</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@400;500;600;700&display=swap">
+  <style>
+    html, body { margin: 0; background: #07142E; overflow-x: hidden; }
+    #page { width: 390px; }
+
+  
+  
+    body { margin: 0; background: #07142E; font-family: 'Montserrat', 'Segoe UI', system-ui, sans-serif; color: #F5EFE3; }
+    h1, h2, h3 { font-family: 'Cormorant', Georgia, serif; margin: 0; font-weight: 600; text-wrap: balance; }
+    p { margin: 0; text-wrap: pretty; }
+    a { color: #D4AF63; } a:hover { color: #E8CD8E; }
+    svg.i { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+    .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #D4AF63; }
+    @keyframes kenburns { from { transform: scale(1.04); } to { transform: scale(1.16); } }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes marqueeRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    @keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    @keyframes sweep { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(260%); } }
+    @keyframes ring { 0% { transform: scale(1); opacity: .55; } 100% { transform: scale(1.7); opacity: 0; } }
+    @keyframes shine { 0%, 70% { transform: translateX(-120%) rotate(20deg); } 100% { transform: translateX(240%) rotate(20deg); } }
+    @keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-14px); } }
+    @keyframes grow { from { height: 0; } to { height: 100%; } }
+    .hero-img { animation: kenburns 20s ease-out infinite alternate; }
+    .rise { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+    .track { display: flex; gap: 10px; width: max-content; animation: marquee 34s linear infinite; }
+    .track.rev { animation: marqueeRev 40s linear infinite; }
+    .track.slow { animation-duration: 46s; }
+    .chip { width: 112px; height: 58px; border-radius: 12px; background: #FFFFFF; border: 1px solid #ECE4D3; display: grid; place-items: center; flex: none; }
+    .chip img { max-width: 84px; max-height: 38px; object-fit: contain; }
+    .medal { position: relative; width: 62px; height: 62px; border-radius: 50%; background: #FFFFFF; display: grid; place-items: center; overflow: hidden; outline: 1.5px solid #D4AF63; outline-offset: 3px; }
+    .medal img { max-width: 44px; max-height: 40px; object-fit: contain; }
+    .medal::after { content: ""; position: absolute; top: -20%; bottom: -20%; width: 30%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent); animation: shine 5s ease-in-out infinite; }
+    .carousel { display: flex; gap: 14px; width: max-content; animation: nudge 3.5s ease-in-out 1.2s 2; }
+    .svc { position: relative; overflow: hidden; width: 276px; min-height: 320px; box-sizing: border-box; padding: 26px; border-radius: 24px; background: linear-gradient(160deg, #1B3B72 0%, #0B1F44 70%); border: 1px solid rgba(212,175,99,.25); display: flex; flex-direction: column; gap: 14px; flex: none; }
+    .svc .line { position: absolute; left: 0; top: 0; height: 2px; width: 45%; background: linear-gradient(90deg, transparent, #D4AF63, transparent); animation: sweep 4.5s ease-in-out infinite; }
+    .svc .ico { width: 58px; height: 58px; border-radius: 50%; border: 1px solid rgba(212,175,99,.55); background: rgba(212,175,99,.1); color: #D4AF63; display: grid; place-items: center; }
+    .svc .num { position: absolute; right: 22px; top: 18px; font-family: Cormorant, serif; font-weight: 700; font-size: 54px; line-height: 1; color: rgba(212,175,99,.18); }
+    .feat { padding: 18px; border-radius: 18px; background: rgba(245,239,227,.05); border: 1px solid rgba(212,175,99,.22); display: flex; flex-direction: column; gap: 8px; animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+    .step { position: relative; display: flex; gap: 16px; align-items: flex-start; }
+    .step .dot { width: 46px; height: 46px; border-radius: 50%; background: #07142E; border: 1.5px solid #D4AF63; color: #D4AF63; display: grid; place-items: center; font-family: Cormorant, serif; font-weight: 700; font-size: 20px; flex: none; position: relative; z-index: 1; }
+    .step .body { flex-grow: 1; padding: 16px 18px; border-radius: 18px; background: #0B1F44; border: 1px solid rgba(212,175,99,.22); animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+    .wa2 { position: fixed; right: 16px; bottom: 20px; z-index: 6; display: flex; align-items: center; gap: 10px; }
+    .wa-label { padding: 10px 14px; border-radius: 999px; background: #FFFFFF; color: #0B1F44; font-size: 13.5px; font-weight: 700; animation: waLabel 8s ease-in-out infinite; }
+    .wa-btn { position: relative; width: 62px; height: 62px; border-radius: 50%; background: linear-gradient(135deg, #34E27F 0%, #1DA851 100%); color: #FFFFFF; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.35); }
+    .wa2::before { content: ""; position: absolute; right: 0; top: 0; width: 62px; height: 62px; border-radius: 50%; border: 2px solid #25D366; animation: ring 2.2s ease-out infinite; }
+    @keyframes autoscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .auto { display: flex; gap: 14px; width: max-content; animation: autoscroll 42s linear infinite; }
+    .auto:active { animation-play-state: paused; }
+
+    @property --n1 { syntax: '<integer>'; initial-value: 0; inherits: false; }
+    @property --n2 { syntax: '<integer>'; initial-value: 0; inherits: false; }
+    @property --n3 { syntax: '<integer>'; initial-value: 0; inherits: false; }
+    @property --n4 { syntax: '<integer>'; initial-value: 0; inherits: false; }
+    @property --n5 { syntax: '<integer>'; initial-value: 0; inherits: false; }
+    @keyframes k1 { 0% { --n1: 0; } 40%, 100% { --n1: 15; } }
+    @keyframes k2 { 0% { --n2: 0; } 40%, 100% { --n2: 50; } }
+    @keyframes k3 { 0% { --n3: 0; --n4: 0; } 40%, 100% { --n3: 4; --n4: 9; } }
+    @keyframes k5 { 0% { --n5: 0; } 40%, 100% { --n5: 12; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes bar { 0% { transform: scaleX(0); } 40%, 100% { transform: scaleX(1); } }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes waRing { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(1.12, 1.5); opacity: 0; } }
+    @keyframes waLabel { 0%, 8% { opacity: 0; transform: translateX(14px); } 14%, 60% { opacity: 1; transform: none; } 66%, 100% { opacity: 0; transform: translateX(14px); } }
+    .c1 { counter-reset: n1 var(--n1); animation: k1 2.6s cubic-bezier(.2,.7,.2,1) .6s 1 both; } .c1::before { content: counter(n1); }
+    .c2 { counter-reset: n2 var(--n2); animation: k2 2.6s cubic-bezier(.2,.7,.2,1) .6s 1 both; } .c2::before { content: counter(n2); }
+    .c3 { counter-reset: n3 var(--n3) n4 var(--n4); animation: k3 2.6s cubic-bezier(.2,.7,.2,1) .6s 1 both; } .c3::before { content: counter(n3) "." counter(n4); }
+    .c5 { counter-reset: n5 var(--n5); animation: k5 2.6s cubic-bezier(.2,.7,.2,1) .6s 1 both; } .c5::before { content: counter(n5); }
+    .orbit-ico { position: relative; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; color: #D4AF63; flex: none; }
+    .orbit-ico::before { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1.5px dashed rgba(212,175,99,.6); animation: spin 14s linear infinite; }
+    .bar { height: 3px; border-radius: 3px; background: rgba(212,175,99,.18); overflow: hidden; }
+    .bar i { display: block; height: 100%; background: linear-gradient(90deg, #B8923F, #E8CD8E); transform-origin: left; animation: bar 2.6s cubic-bezier(.2,.7,.2,1) .6s 1 both; }
+    .tick { display: flex; gap: 42px; width: max-content; animation: ticker 38s linear infinite; }
+    @keyframes orbitM {
+      0%, 12% { transform: translate(-50%, -50%) translateX(0) scale(1); opacity: 1; z-index: 6; border-color: rgba(212,175,99,.85); }
+      16.667%, 28.667% { transform: translate(-50%, -50%) translateX(-172px) scale(.78); opacity: .6; z-index: 5; border-color: rgba(212,175,99,.25); }
+      33.333%, 45.333% { transform: translate(-50%, -50%) translateX(-300px) scale(.62); opacity: 0; z-index: 4; }
+      50%, 62% { transform: translate(-50%, -50%) translateX(0) scale(.5); opacity: 0; z-index: 1; }
+      66.667%, 78.667% { transform: translate(-50%, -50%) translateX(300px) scale(.62); opacity: 0; z-index: 4; }
+      83.333%, 95.333% { transform: translate(-50%, -50%) translateX(172px) scale(.78); opacity: .6; z-index: 5; border-color: rgba(212,175,99,.25); }
+      100% { transform: translate(-50%, -50%) translateX(0) scale(1); opacity: 1; z-index: 6; border-color: rgba(212,175,99,.85); }
+    }
+    @keyframes odot { 0%, 14% { width: 26px; background: #D4AF63; } 16.667%, 100% { width: 7px; background: rgba(212,175,99,.35); } }
+    @keyframes ringspin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+    .ostage { position: relative; height: 430px; }
+    .oring { position: absolute; left: 50%; top: 50%; width: 360px; height: 360px; border-radius: 50%; border: 1px dashed rgba(212,175,99,.28); animation: ringspin 50s linear infinite; }
+    .ocard { position: absolute; left: 50%; top: 50%; width: 262px; height: 370px; box-sizing: border-box; padding: 26px; border-radius: 26px; background: linear-gradient(160deg, #1D3F7A 0%, #0B1F44 72%); border: 1px solid rgba(212,175,99,.25); display: flex; flex-direction: column; gap: 14px; overflow: hidden; animation: orbitM 21s cubic-bezier(.65,0,.35,1) infinite; }
+    .ocard .ico { width: 60px; height: 60px; border-radius: 50%; border: 1px solid rgba(212,175,99,.6); background: rgba(212,175,99,.1); color: #D4AF63; display: grid; place-items: center; }
+    .ocard .num { position: absolute; right: 22px; top: 18px; font-family: Cormorant, serif; font-weight: 700; font-size: 56px; line-height: 1; color: rgba(212,175,99,.18); }
+    .odots { display: flex; gap: 6px; justify-content: center; }
+    .odots span { height: 7px; width: 7px; border-radius: 999px; background: rgba(212,175,99,.35); animation: odot 21s linear infinite; }
+    @keyframes qkb { from { transform: scale(1.08); } to { transform: scale(1.22) translateX(-4%); } }
+    @keyframes qword { 0%, 4% { opacity: 0; transform: translateY(14px); filter: blur(5px); } 12%, 88% { opacity: 1; transform: none; filter: blur(0); } 96%, 100% { opacity: 0; } }
+    @keyframes qmark { 0% { opacity: 0; transform: scale(.4); } 10%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    @keyframes qdraw { 0%, 30% { transform: scaleX(0); } 45%, 90% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+    @keyframes qfade { 0%, 32% { opacity: 0; transform: translateY(8px); } 42%, 90% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+    .qbg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; animation: qkb 16s ease-in-out infinite alternate; }
+    .qw { display: inline-block; opacity: 0; animation: qword 11s cubic-bezier(.2,.7,.2,1) infinite; }
+    .qmark { animation: qmark 11s ease-out infinite; }
+    .qdraw { transform-origin: left; animation: qdraw 11s cubic-bezier(.65,0,.35,1) infinite; }
+    .qfade { animation: qfade 11s ease-out infinite; }
+    @keyframes worbitM {
+      0%, 18.75% { transform: translate(-50%, -50%) translateX(0) scale(1); opacity: 1; z-index: 6; border-color: rgba(212,175,99,.85); }
+      25%, 43.75% { transform: translate(-50%, -50%) translateX(-176px) scale(.78); opacity: .55; z-index: 5; border-color: rgba(212,175,99,.25); }
+      50%, 68.75% { transform: translate(-50%, -50%) translateX(0) scale(.5); opacity: 0; z-index: 1; }
+      75%, 93.75% { transform: translate(-50%, -50%) translateX(176px) scale(.78); opacity: .55; z-index: 5; border-color: rgba(212,175,99,.25); }
+      100% { transform: translate(-50%, -50%) translateX(0) scale(1); opacity: 1; z-index: 6; border-color: rgba(212,175,99,.85); }
+    }
+    @keyframes wdot { 0%, 22% { width: 26px; background: #D4AF63; } 25%, 100% { width: 7px; background: rgba(212,175,99,.35); } }
+    .wstage { position: relative; height: 380px; }
+    .wcard { position: absolute; left: 50%; top: 50%; width: 270px; height: 330px; box-sizing: border-box; padding: 26px; border-radius: 26px; background: linear-gradient(160deg, #1D3F7A 0%, #0B1F44 72%); border: 1px solid rgba(212,175,99,.25); display: flex; flex-direction: column; gap: 14px; overflow: hidden; animation: worbitM 16s cubic-bezier(.65,0,.35,1) infinite; }
+    .wcard .num { position: absolute; right: 22px; top: 18px; font-family: Cormorant, serif; font-weight: 700; font-size: 56px; line-height: 1; color: rgba(212,175,99,.18); }
+    .wdots { display: flex; gap: 6px; justify-content: center; }
+    .wdots span { height: 7px; width: 7px; border-radius: 999px; background: rgba(212,175,99,.35); animation: wdot 16s linear infinite; }
+    @keyframes ptabOn { 0%, 23% { background: rgba(212,175,99,.10); border-color: rgba(212,175,99,.6); } 25%, 100% { background: rgba(245,239,227,.02); border-color: rgba(212,175,99,.14); } }
+    @keyframes ptext { 0%, 23% { max-height: 90px; opacity: 1; margin-top: 10px; } 25%, 100% { max-height: 0; opacity: 0; margin-top: 0; } }
+    @keyframes pnum { 0%, 23% { color: #0B1F44; background: #D4AF63; } 25%, 100% { color: #D4AF63; background: transparent; } }
+    @keyframes pbar { 0% { transform: scaleX(0); opacity: 1; } 24% { transform: scaleX(1); opacity: 1; } 25%, 100% { transform: scaleX(1); opacity: 0; } }
+    @keyframes player { 0% { opacity: 0; transform: translateY(16px) scale(.97); } 4%, 21% { opacity: 1; transform: none; } 25%, 100% { opacity: 0; transform: translateY(-12px) scale(1.02); } }
+    @keyframes pspin { to { transform: rotate(360deg); } }
+    .ptab { position: relative; overflow: hidden; padding: 22px 24px; border-radius: 20px; border: 1px solid rgba(212,175,99,.14); animation: ptabOn 16s ease infinite; }
+    .ptab .hd { display: flex; align-items: center; gap: 16px; }
+    .pnum { width: 42px; height: 42px; border-radius: 50%; border: 1px solid #D4AF63; display: grid; place-items: center; font-family: Cormorant, serif; font-weight: 700; font-size: 19px; color: #D4AF63; flex: none; animation: pnum 16s ease infinite; }
+    .ptext { overflow: hidden; max-height: 0; opacity: 0; padding-left: 58px; animation: ptext 16s ease infinite; }
+    .pbar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgba(212,175,99,.12); }
+    .pbar i { display: block; height: 100%; background: linear-gradient(90deg, #B8923F, #E8CD8E); transform-origin: left; animation: pbar 16s linear infinite; }
+    .player { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; opacity: 0; animation: player 16s cubic-bezier(.2,.7,.2,1) infinite; }
+    .pmedal { position: relative; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #1D3F7A, #0B1F44); border: 1.5px solid #D4AF63; display: grid; place-items: center; color: #D4AF63; }
+    .pmedal::before { content: ""; position: absolute; inset: -14px; border-radius: 50%; border: 1px dashed rgba(212,175,99,.5); animation: pspin 18s linear infinite; }
+    .pchip { padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(212,175,99,.45); background: rgba(212,175,99,.08); color: #E8CD8E; font-weight: 600; letter-spacing: .04em; }
+    .qportrait { position: relative; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #F1D99B 0%, #B8923F 55%, #E8CD8E 100%); flex: none; }
+    .qportrait img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: 50% 30%; border: 3px solid #07142E; box-sizing: border-box; }
+    .qportrait::after { content: ""; position: absolute; inset: -9px; border-radius: 50%; border: 1px dashed rgba(212,175,99,.55); animation: pspin 20s linear infinite; }
+    @keyframes ashine { 0%, 55% { transform: translateX(-160%) rotate(22deg); } 75%, 100% { transform: translateX(360%) rotate(22deg); } }
+    .acard { position: absolute; left: 50%; top: 50%; box-sizing: border-box; background: linear-gradient(180deg, #FFFDF8 0%, #F2E9D6 100%); color: #0B1F44; border: 1px solid rgba(212,175,99,.85); display: flex; flex-direction: column; align-items: center; text-align: center; overflow: hidden; }
+    .acard::before { content: ""; position: absolute; inset: 10px; border: 1px solid rgba(126,95,34,.35); pointer-events: none; }
+    .acard .ashine { position: absolute; top: -30%; bottom: -30%; left: 0; width: 26%; background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent); animation: ashine 4s ease-in-out infinite; pointer-events: none; }
+    .acard .aico { border-radius: 50%; background: #0B1F44; color: #E8CD8E; display: grid; place-items: center; outline: 1.5px solid #D4AF63; outline-offset: 5px; flex: none; }
+    .acard .alabel { font-size: 12px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; color: #7E5F22; }
+    .acard h3 { font-style: italic; font-weight: 600; color: #0B1F44; }
+    .acard .aorn { display: flex; align-items: center; gap: 10px; color: #B8923F; margin-top: auto; }
+    .acard .aorn i { display: block; width: 36px; height: 1px; background: #C9A45A; }
+    .acard.sm { width: 266px; height: 360px; padding: 40px 24px 22px; gap: 10px; border-radius: 133px 133px 24px 24px; animation: worbitM 16s cubic-bezier(.65,0,.35,1) infinite; }
+    .acard.sm::before { border-radius: 125px 125px 18px 18px; }
+    @media (prefers-reduced-motion: reduce) { .ptext { max-height: none; opacity: 1; margin-top: 10px; } .player:first-of-type { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { .hero-img, .rise, .track, .medal::after, .carousel, .svc .line, .feat, .step .body, .grow, .c1, .c2, .c3, .c5, .orbit-ico::before, .bar i, .tick, .wa2::before, .wa-label, .auto, .ocard, .oring, .odots span, .qbg, .qw, .qmark, .qdraw, .qfade, .wcard, .wdots span, .ptab, .pnum, .ptext, .pbar i, .player, .pmedal::before, .qportrait::after, .acard, .acard .ashine { animation: none; } }
+  
+
+
+  
+    
+    
+    @keyframes lineGrow { 0%, 6% { transform: scaleX(0); opacity: 0; } 30%, 78% { transform: scaleX(1); opacity: 1; } 88%, 100% { opacity: 0; } }
+    @keyframes reveal { 0%, 12% { clip-path: inset(100% 0 0 0); opacity: 0; transform: translateY(12px); } 14% { opacity: 1; } 46%, 78% { clip-path: inset(0 0 0 0); opacity: 1; transform: none; } 88%, 100% { opacity: 0; } }
+    @keyframes shine { 0%, 46% { transform: translateX(-180%) skewX(-18deg); } 64%, 100% { transform: translateX(320%) skewX(-18deg); } }
+    @keyframes halo { 0%, 20% { opacity: 0; transform: scale(.7); } 50%, 78% { opacity: 1; transform: scale(1); } 88%, 100% { opacity: 0; } }
+    @keyframes prog { 0%, 12% { transform: scaleX(0); } 76% { transform: scaleX(1); } 86%, 100% { opacity: 0; } }
+    @keyframes up { 0%, 80% { transform: translateY(0); } 96%, 100% { transform: translateY(-101%); } }
+    .line { transform-origin: center; animation: lineGrow 3.4s cubic-bezier(.65,0,.35,1) 1 both; }
+    .logo { position: relative; overflow: hidden; animation: reveal 3.4s cubic-bezier(.65,0,.35,1) 1 both; }
+    .logo::after { content: ""; position: absolute; top: -10%; bottom: -10%; width: 22%; background: linear-gradient(90deg, transparent, rgba(255,246,220,.85), transparent); animation: shine 3.4s ease-in-out 1 both; }
+    .halo { animation: halo 3.4s ease-out 1 both; }
+    .prog { transform-origin: left; animation: prog 3.4s cubic-bezier(.65,0,.35,1) 1 both; }
+    .panel { animation: up 3.4s cubic-bezier(.76,0,.24,1) 1 both; }
+    @media (prefers-reduced-motion: reduce) { .line, .logo, .logo::after, .halo, .prog, .panel { animation: none; } }
+  
+
+  </style>
+</head>
+<body>
+<div id="loader" style="position: fixed; inset: 0; z-index: 100; overflow: hidden; pointer-events: none;">
+  <div class="panel" style="position: absolute; inset: 0; background: radial-gradient(90% 60% at 50% 45%, #102A58 0%, #07142E 72%); border-bottom: 1px solid rgba(212,175,99,.35); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; overflow: hidden;">
+    <div class="halo" style="position: absolute; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,99,.16) 0%, rgba(212,175,99,0) 60%);"></div>
+    <span class="line" style="display: block; width: 300px; height: 1px; background: linear-gradient(90deg, transparent, #D4AF63, transparent);"></span>
+    <div class="logo"><img src="logo-full.png" alt="Medcierge, Elite Medical Concierge" style="width: 300px; display: block;"></div>
+    <span class="line" style="display: block; width: 300px; height: 1px; background: linear-gradient(90deg, transparent, #D4AF63, transparent);"></span>
+    <div style="width: 160px; height: 1.5px; background: rgba(212,175,99,.18); overflow: hidden;"><div class="prog" style="height: 100%; background: linear-gradient(90deg, #B8923F, #E8CD8E);"></div></div>
+  </div>
+</div>
+<div id="page">
+<div style="width: 390px; background: #07142E; position: relative;">
+
+  <div class="wa2"><span class="wa-label">Chat with us</span><span class="wa-btn"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"></path></svg></span></div>
+
+  <!-- HERO -->
+  <div style="position: relative; height: 900px; overflow: hidden;">
+    <img class="hero-img" src="hero.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%;">
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,20,46,.80) 0%, rgba(7,20,46,.30) 26%, rgba(7,20,46,.78) 50%, rgba(7,20,46,.97) 72%, #07142E 100%);"></div>
+    <div style="position: relative; height: 68px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid rgba(212,175,99,.2);">
+      <div style="display: flex; align-items: center; gap: 10px;"><img src="logo-mark.png" alt="" style="height: 40px;"><div style="display: flex; flex-direction: column; line-height: 1;"><span style="font-family: Cormorant, serif; font-weight: 700; font-size: 22px; letter-spacing: .12em;">MEDCIERGE</span><span style="font-size: 12px; font-weight: 600; letter-spacing: .08em; color: #D4AF63; margin-top: 3px;">ELITE MEDICAL CONCIERGE</span></div></div>
+      <div style="display: flex; gap: 8px;">
+        <span style="width: 44px; height: 44px; border-radius: 50%; background: #DC2626; color: #FFFFFF; display: grid; place-items: center;"><svg class="i" viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke-width: 2;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span>
+        <span style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(245,239,227,.4); display: grid; place-items: center;"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h16"></path></svg></span>
+      </div>
+    </div>
+    <div class="rise" style="position: absolute; left: 16px; right: 16px; top: 280px; display: flex; flex-direction: column; gap: 16px;">
+      <span class="eyebrow">Elite VIP Medical Concierge</span>
+      <h1 style="font-size: 48px; line-height: .98;">World-class healthcare, <em style="color: #D4AF63;">in world-class hotels.</em></h1>
+      <p style="font-size: 15.5px; line-height: 1.6; color: #D9D2C3;">Multilingual doctors and a personal medical concierge, day and night, inside your resort. Insurance billed directly.</p>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; height: 58px; border-radius: 999px; background: #DC2626; color: #FFFFFF; font-weight: 700; font-size: 16px;"><svg class="i" viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke-width: 2;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>Call us · +20 120 678 8566</div>
+      <div style="display: flex; align-items: center; justify-content: center; height: 54px; border-radius: 999px; background: #D4AF63; color: #0B1F44; font-weight: 700; font-size: 15.5px;">Request consultation</div>
+      <div style="margin-top: 6px; padding: 16px 12px 14px; border-radius: 20px; background: rgba(11,31,68,.72); border: 1px solid rgba(212,175,99,.32); display: flex; flex-direction: column; gap: 12px;">
+        <span class="eyebrow" style="font-size: 12px; text-align: center;">Internationally recognised</span>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; text-align: center;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;"><span class="medal"><img src="gha.png" alt="GHA"></span><span style="font-size: 12px; line-height: 1.3; color: #D9D2C3;"><b style="color: #F5EFE3;">Official Partner</b><br>GHA</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;"><span class="medal"><img src="dmwv.png" alt="DMWV"></span><span style="font-size: 12px; line-height: 1.3; color: #D9D2C3;"><b style="color: #F5EFE3;">Official Partner</b><br>DMWV</span></div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;"><span class="medal"><img src="uca.png" alt="UCA"></span><span style="font-size: 12px; line-height: 1.3; color: #D9D2C3;"><b style="color: #F5EFE3;">Member</b><br>UCA Egypt &amp; MENA</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS: counting cards + ticker -->
+  <div style="padding: 0 16px 40px; display: flex; flex-direction: column; gap: 10px;">
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+      <div style="padding: 16px; border-radius: 20px; background: linear-gradient(160deg, #1B3B72, #0B1F44); border: 1px solid rgba(212,175,99,.45); display: flex; flex-direction: column; gap: 10px;"><span class="orbit-ico" style="width: 44px; height: 44px;"><svg class="i" viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span><span style="font-family: Cormorant, serif; font-weight: 700; font-size: 36px; line-height: 1;"><span class="c1"></span>,000+</span><span style="font-size: 12px; color: #B9C2D3;">Patients served</span><div class="bar"><i style="animation-delay: 0s;"></i></div></div>
+      <div style="padding: 16px; border-radius: 20px; background: #0B1F44; border: 1px solid rgba(212,175,99,.25); display: flex; flex-direction: column; gap: 10px;"><span class="orbit-ico" style="width: 44px; height: 44px;"><svg class="i" viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M10 21v-4h4v4"></path></svg></span><span style="font-family: Cormorant, serif; font-weight: 700; font-size: 36px; line-height: 1;"><span class="c2"></span>+</span><span style="font-size: 12px; color: #B9C2D3;">Luxury hotels</span><div class="bar"><i style="animation-delay: 0.15s;"></i></div></div>
+      <div style="padding: 16px; border-radius: 20px; background: #0B1F44; border: 1px solid rgba(212,175,99,.25); display: flex; flex-direction: column; gap: 10px;"><span class="orbit-ico" style="width: 44px; height: 44px;"><svg class="i" viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"></path></svg></span><span style="font-family: Cormorant, serif; font-weight: 700; font-size: 36px; line-height: 1;"><span class="c3"></span><span style="font-size: 20px; color: #B9C2D3;">/5</span></span><span style="font-size: 12px; color: #B9C2D3;">Patient rating</span><div class="bar"><i style="animation-delay: 0.3s;"></i></div></div>
+      <div style="padding: 16px; border-radius: 20px; background: #0B1F44; border: 1px solid rgba(212,175,99,.25); display: flex; flex-direction: column; gap: 10px;"><span class="orbit-ico" style="width: 44px; height: 44px;"><svg class="i" viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg></span><span style="font-family: Cormorant, serif; font-weight: 700; font-size: 36px; line-height: 1;"><span class="c5"></span></span><span style="font-size: 12px; color: #B9C2D3;">Destinations</span><div class="bar"><i style="animation-delay: 0.45s;"></i></div></div>
+    </div>
+    <div style="overflow: hidden; padding: 12px 0; border-radius: 14px; background: rgba(212,175,99,.10); border: 1px solid rgba(212,175,99,.25);">
+      <div class="tick" style="gap: 26px; font-size: 13px; font-weight: 600; color: #E7E0D2;"><span>24/7 on call</span><span style="color: #D4AF63;">✦</span><span>Cashless insurance</span><span style="color: #D4AF63;">✦</span><span>DE · PL · EN doctors</span><span style="color: #D4AF63;">✦</span><span>Official Partner GHA and DMWV</span><span style="color: #D4AF63;">✦</span><span>24/7 on call</span><span style="color: #D4AF63;">✦</span><span>Cashless insurance</span><span style="color: #D4AF63;">✦</span><span>DE · PL · EN doctors</span><span style="color: #D4AF63;">✦</span><span>Official Partner GHA and DMWV</span><span style="color: #D4AF63;">✦</span></div>
+    </div>
+  </div>
+
+  <!-- TRUSTED -->
+  <div style="padding: 44px 0 40px; background: #FBF8F2; color: #0B1F44; display: flex; flex-direction: column; gap: 14px; overflow: hidden; border-radius: 28px 28px 0 0;">
+    <div style="padding: 0 16px 6px; display: flex; flex-direction: column; gap: 8px;"><span class="eyebrow" style="color: #7E5F22;">Trusted across Egypt</span><h2 style="font-size: 34px; line-height: 1;">The healthcare partner of <em style="color: #7E5F22;">Egypt's finest hotels</em></h2></div>
+    <span style="padding-left: 16px; font-size: 12px; font-weight: 700; letter-spacing: .14em; color: #7E5F22;">HOTELS AND RESORTS</span>
+    <div style="overflow: hidden;"><div class="track">
+      <div class="chip"><img src="marriott.png" alt="Marriott"></div><div class="chip"><img src="fourseasons.png" alt="Four Seasons"></div><div class="chip"><img src="kempinski.png" alt="Kempinski"></div><div class="chip"><img src="steigenberger.png" alt="Steigenberger"></div><div class="chip"><img src="hilton.png" alt="Hilton"></div><div class="chip"><img src="oberoi.png" alt="Oberoi"></div><div class="chip"><img src="intercontinental.png" alt="InterContinental"></div><div class="chip"><img src="jaz.png" alt="JAZ"></div>
+      <div class="chip"><img src="marriott.png" alt=""></div><div class="chip"><img src="fourseasons.png" alt=""></div><div class="chip"><img src="kempinski.png" alt=""></div><div class="chip"><img src="steigenberger.png" alt=""></div><div class="chip"><img src="hilton.png" alt=""></div><div class="chip"><img src="oberoi.png" alt=""></div><div class="chip"><img src="intercontinental.png" alt=""></div><div class="chip"><img src="jaz.png" alt=""></div>
+    </div></div>
+    <span style="padding-left: 16px; font-size: 12px; font-weight: 700; letter-spacing: .14em; color: #7E5F22;">INSURANCE AND ASSISTANCE</span>
+    <div style="overflow: hidden;"><div class="track rev">
+      <div class="chip"><img src="allianz.png" alt="Allianz"></div><div class="chip"><img src="axa.png" alt="AXA"></div><div class="chip"><img src="bupa.png" alt="Bupa"></div><div class="chip"><img src="europassistance.png" alt="Europ Assistance"></div><div class="chip"><img src="erv.png" alt="ERV"></div><div class="chip"><img src="mapfre.png" alt="MAPFRE"></div><div class="chip"><img src="generali.png" alt="Generali"></div><div class="chip"><img src="cigna.png" alt="Cigna"></div>
+      <div class="chip"><img src="allianz.png" alt=""></div><div class="chip"><img src="axa.png" alt=""></div><div class="chip"><img src="bupa.png" alt=""></div><div class="chip"><img src="europassistance.png" alt=""></div><div class="chip"><img src="erv.png" alt=""></div><div class="chip"><img src="mapfre.png" alt=""></div><div class="chip"><img src="generali.png" alt=""></div><div class="chip"><img src="cigna.png" alt=""></div>
+    </div></div>
+    <span style="padding-left: 16px; font-size: 12px; font-weight: 700; letter-spacing: .14em; color: #7E5F22;">TRAVEL AND RECOGNITION</span>
+    <div style="overflow: hidden;"><div class="track slow">
+      <div class="chip"><img src="tui.png" alt="TUI"></div><div class="chip"><img src="der.png" alt="DERTOUR"></div><div class="chip"><img src="fti.png" alt="FTI"></div><div class="chip"><img src="thomascook.png" alt="Thomas Cook"></div><div class="chip"><img src="egyptair.png" alt="EgyptAir"></div><div class="chip"><img src="gha.png" alt="GHA"></div><div class="chip"><img src="dmwv.png" alt="DMWV"></div><div class="chip"><img src="uca.png" alt="UCA"></div>
+      <div class="chip"><img src="tui.png" alt=""></div><div class="chip"><img src="der.png" alt=""></div><div class="chip"><img src="fti.png" alt=""></div><div class="chip"><img src="thomascook.png" alt=""></div><div class="chip"><img src="egyptair.png" alt=""></div><div class="chip"><img src="gha.png" alt=""></div><div class="chip"><img src="dmwv.png" alt=""></div><div class="chip"><img src="uca.png" alt=""></div>
+    </div></div>
+    <div style="margin: 10px 16px 0; display: flex; align-items: center; justify-content: center; gap: 8px; height: 52px; border-radius: 999px; border: 1.5px solid #0B1F44; font-weight: 700; font-size: 15px;">View all partners<svg class="i" viewBox="0 0 24 24" style="width: 18px; height: 18px; stroke-width: 2;"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></div>
+  </div>
+
+  <!-- SERVICES: auto-scrolling cards -->
+  <div style="padding: 52px 0 48px; background: #07142E; display: flex; flex-direction: column; gap: 22px; overflow: hidden;">
+    <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 10px;"><span class="eyebrow">Our services</span><h2 style="font-size: 38px; line-height: 1;">Hospital-quality care, <em style="color: #D4AF63;">brought to your resort.</em></h2></div>
+    <div style="padding-left: 16px;">
+      <div class="auto">
+        <div class="svc" style="border-color: rgba(212,175,99,.6);"><span class="line"></span><span class="num">01</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"></path><path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4"></path><circle cx="20" cy="10" r="2"></circle></svg></span><h3 style="font-size: 30px;">On-call doctors</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Multilingual doctors visit you in your hotel, day and night.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+        <div class="svc"><span class="line"></span><span class="num">02</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="M10 17h4V5H2v12h3"></path><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1"></path><circle cx="7.5" cy="17.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle><path d="M6 8v4M4 10h4"></path></svg></span><h3 style="font-size: 30px;">Emergency and ambulance</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Rapid response and safe transport when it matters most.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+        <div class="svc"><span class="line"></span><span class="num">03</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="M10 2v7.31M14 9.3V1.99M8.5 2h7"></path><path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path><path d="M5.52 16h12.96"></path></svg></span><h3 style="font-size: 30px;">Mobile diagnostics</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Lab tests, X-ray and ultrasound without leaving the resort.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+        <div class="svc"><span class="line"></span><span class="num">04</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"></path></svg></span><h3 style="font-size: 30px;">Intermediate care</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Observation beds and monitoring for guests who need more time.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+        <div class="svc"><span class="line"></span><span class="num">05</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg></span><h3 style="font-size: 30px;">Medication delivery</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Prescriptions and medical supplies delivered to your room.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+        <div class="svc"><span class="line"></span><span class="num">06</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"></path></svg></span><h3 style="font-size: 30px;">Transfer and coordination</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Hospital transfer, your insurer and your family, all handled.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+        <div class="svc" style="border-color: rgba(212,175,99,.6);"><span class="line"></span><span class="num">01</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"></path><path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4"></path><circle cx="20" cy="10" r="2"></circle></svg></span><h3 style="font-size: 30px;">On-call doctors</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Multilingual doctors visit you in your hotel, day and night.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+        <div class="svc"><span class="line"></span><span class="num">02</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="M10 17h4V5H2v12h3"></path><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1"></path><circle cx="7.5" cy="17.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle><path d="M6 8v4M4 10h4"></path></svg></span><h3 style="font-size: 30px;">Emergency and ambulance</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Rapid response and safe transport when it matters most.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+        <div class="svc"><span class="line"></span><span class="num">03</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="M10 2v7.31M14 9.3V1.99M8.5 2h7"></path><path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path><path d="M5.52 16h12.96"></path></svg></span><h3 style="font-size: 30px;">Mobile diagnostics</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Lab tests, X-ray and ultrasound without leaving the resort.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+        <div class="svc"><span class="line"></span><span class="num">04</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"></path></svg></span><h3 style="font-size: 30px;">Intermediate care</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Observation beds and monitoring for guests who need more time.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+        <div class="svc"><span class="line"></span><span class="num">05</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path><path d="m8.5 8.5 7 7"></path></svg></span><h3 style="font-size: 30px;">Medication delivery</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Prescriptions and medical supplies delivered to your room.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+        <div class="svc"><span class="line"></span><span class="num">06</span><span class="ico"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px;"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"></path></svg></span><h3 style="font-size: 30px;">Transfer and coordination</h3><p style="font-size: 14.5px; line-height: 1.55; color: #C9D1DF;">Hospital transfer, your insurer and your family, all handled.</p><span style="margin-top: auto; font-weight: 600; font-size: 14px; color: #D4AF63;">Learn more →</span></div>
+      </div>
+    </div>
+    <div style="padding: 0 16px; display: flex; align-items: center; justify-content: space-between;">
+      <span style="font-size: 13px; color: #B9C2D3;">Moving on its own · touch to pause</span>
+      <span style="font-weight: 700; font-size: 14px; color: #D4AF63;">All services →</span>
+    </div>
+  </div>
+
+  <!-- WHY US: arched promise cards orbiting a centre card -->
+  <div style="padding: 48px 0 44px; background: radial-gradient(90% 55% at 50% 62%, #13305F 0%, #0B1F44 72%); overflow: hidden; display: flex; flex-direction: column; gap: 18px;">
+    <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 10px;"><span class="eyebrow">The Elite difference</span><h2 style="font-size: 38px; line-height: 1;">Why guests <em style="color: #D4AF63;">trust us</em></h2></div>
+    <div class="wstage" style="height: 410px;">
+      <span class="oring" style="width: 340px; height: 340px;"></span>
+      <div class="acard sm" style="animation-delay: 0s;"><span class="ashine" style="animation-delay: 0s;"></span><span class="aico" style="width: 60px; height: 60px;"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px; stroke-width: 1.6;"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg></span><span class="alabel" style="margin-top: 8px;">Promise 01</span><h3 style="font-size: 30px; line-height: 1;">Immediate, day and night</h3><p style="font-size: 13.5px; line-height: 1.5; color: #4A5670;">Care exactly when you need it, at any hour. One call and our team is on its way.</p><span class="aorn"><i></i>✦<i></i></span></div>
+      <div class="acard sm" style="animation-delay: -12s;"><span class="ashine" style="animation-delay: 1s;"></span><span class="aico" style="width: 60px; height: 60px;"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px; stroke-width: 1.6;"><rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M2 10h20"></path></svg></span><span class="alabel" style="margin-top: 8px;">Promise 02</span><h3 style="font-size: 30px; line-height: 1;">No payment, no paperwork</h3><p style="font-size: 13.5px; line-height: 1.5; color: #4A5670;">We bill your travel insurer directly and handle every document for you.</p><span class="aorn"><i></i>✦<i></i></span></div>
+      <div class="acard sm" style="animation-delay: -8s;"><span class="ashine" style="animation-delay: 2s;"></span><span class="aico" style="width: 60px; height: 60px;"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px; stroke-width: 1.6;"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"></path></svg></span><span class="alabel" style="margin-top: 8px;">Promise 03</span><h3 style="font-size: 30px; line-height: 1;">Your language</h3><p style="font-size: 13.5px; line-height: 1.5; color: #4A5670;">German, Polish and English speaking doctors, and coordinators who understand you.</p><span class="aorn"><i></i>✦<i></i></span></div>
+      <div class="acard sm" style="animation-delay: -4s;"><span class="ashine" style="animation-delay: 3s;"></span><span class="aico" style="width: 60px; height: 60px;"><svg class="i" viewBox="0 0 24 24" style="width: 26px; height: 26px; stroke-width: 1.6;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span><span class="alabel" style="margin-top: 8px;">Promise 04</span><h3 style="font-size: 30px; line-height: 1;">One coordinator</h3><p style="font-size: 13.5px; line-height: 1.5; color: #4A5670;">Your hotel, your insurer, your family and the hospital, handled by one person.</p><span class="aorn"><i></i>✦<i></i></span></div>
+    </div>
+    <div class="wdots"><span style="animation-delay: 0s;"></span><span style="animation-delay: -12s;"></span><span style="animation-delay: -8s;"></span><span style="animation-delay: -4s;"></span></div>
+  </div>
+
+  <!-- QUOTE: cinematic word reveal -->
+  <div style="position: relative; height: 700px; overflow: hidden;">
+    <img class="qbg" src="care.jpg" alt="">
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,20,46,.55) 0%, rgba(7,20,46,.88) 45%, rgba(7,20,46,.97) 100%);"></div>
+    <div style="position: relative; height: 100%; box-sizing: border-box; padding: 0 24px 56px; display: flex; flex-direction: column; justify-content: flex-end; gap: 24px;">
+      <svg class="qmark" width="60" height="46" viewBox="0 0 92 70"><path d="M0 70V40C0 18 12 4 34 0l4 9C24 13 18 22 18 34h18v36Zm54 0V40C54 18 66 4 88 0l4 9C78 13 72 22 72 34h18v36Z" fill="#D4AF63"></path></svg>
+      <p style="font-family: Cormorant, Georgia, serif; font-style: italic; font-weight: 500; font-size: 38px; line-height: 1.16;"><span class="qw" style="animation-delay: 0.00s;">Success</span> <span class="qw" style="animation-delay: 0.10s;">is</span> <span class="qw" style="animation-delay: 0.20s;">measured</span> <span class="qw" style="animation-delay: 0.30s;">by</span> <span class="qw" style="animation-delay: 0.40s;">how</span> <span class="qw" style="animation-delay: 0.50s;">well</span> <span class="qw" style="animation-delay: 0.60s;">visitors</span> <span class="qw" style="animation-delay: 0.70s;">are</span> <span class="qw" style="animation-delay: 0.80s;">cared</span> <span class="qw" style="animation-delay: 0.90s;">for</span> <span class="qw" style="animation-delay: 1.00s;">when</span> <span class="qw" style="animation-delay: 1.10s;">they</span> <span class="qw" style="animation-delay: 1.20s; color: #D4AF63;">need</span> <span class="qw" style="animation-delay: 1.30s; color: #D4AF63;">help</span> <span class="qw" style="animation-delay: 1.40s; color: #D4AF63;">the</span> <span class="qw" style="animation-delay: 1.50s; color: #D4AF63;">most.</span></p>
+      <span class="qdraw" style="display: block; width: 140px; height: 1.5px; background: linear-gradient(90deg, #D4AF63, transparent);"></span>
+      <div class="qfade" style="display: flex; align-items: center; gap: 20px;">
+        <span class="qportrait" style="width: 76px; height: 76px;"><img src="dr-amr.jpg" alt="Dr. Amr Abbass"></span>
+        <div style="display: flex; flex-direction: column; gap: 2px;"><span style="font-family: Cormorant, serif; font-weight: 700; font-size: 24px;">Dr. Amr Abbass</span><span style="font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #D4AF63;">CEO · HCIG</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <div style="position: relative; padding: 48px 16px; background: #07142E; display: flex; flex-direction: column; gap: 18px; overflow: hidden;">
+    <img src="resort.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .3;">
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,20,46,.95), rgba(7,20,46,.8) 50%, rgba(7,20,46,.96));"></div>
+    <span class="eyebrow" style="position: relative;">How it works</span>
+    <h2 style="position: relative; font-size: 38px; line-height: 1;">Seamless care in <em style="color: #D4AF63;">four steps</em></h2>
+    <div style="position: relative; display: flex; flex-direction: column; gap: 12px;">
+      <div style="position: absolute; left: 22px; top: 24px; bottom: 24px; width: 1.5px; background: rgba(212,175,99,.25);"><div class="grow" style="width: 1.5px; background: #D4AF63; animation: grow 3s ease-out infinite;"></div></div>
+      <div class="step"><span class="dot">01</span><div class="body"><h3 style="font-size: 22px;">Contact us</h3><p style="font-size: 13.5px; color: #B9C2D3; margin-top: 4px;">Call, message, or ask reception.</p></div></div>
+      <div class="step"><span class="dot">02</span><div class="body" style="animation-delay: .15s;"><h3 style="font-size: 22px;">Coordinator assigned</h3><p style="font-size: 13.5px; color: #B9C2D3; margin-top: 4px;">One person handles your case.</p></div></div>
+      <div class="step"><span class="dot">03</span><div class="body" style="animation-delay: .3s;"><h3 style="font-size: 22px;">Doctor arrives</h3><p style="font-size: 13.5px; color: #B9C2D3; margin-top: 4px;">At your hotel, fully equipped.</p></div></div>
+      <div class="step"><span class="dot">04</span><div class="body" style="animation-delay: .45s;"><h3 style="font-size: 22px;">Complete care</h3><p style="font-size: 13.5px; color: #B9C2D3; margin-top: 4px;">Treatment, follow-up and insurance.</p></div></div>
+    </div>
+  </div>
+
+  <!-- COVERAGE -->
+  <div style="padding: 48px 16px; background: #0B1F44; display: flex; flex-direction: column; gap: 16px;">
+    <span class="eyebrow">Coverage</span>
+    <h2 style="font-size: 38px; line-height: 1;">12 destinations, <em style="color: #D4AF63;">one number</em></h2>
+    <div style="border-radius: 22px; background: radial-gradient(120% 90% at 70% 40%, #1B3B72 0%, #0E2553 60%, #07142E 100%); border: 1px solid rgba(212,175,99,.25); overflow: hidden;">
+      <svg viewBox="40 60 520 400" width="100%" height="270" style="display: block;">
+        <path d="M70 110 L250 90 L330 108 L372 116 L400 170 L430 250 L470 320 L505 400 L520 450 L70 450 Z" fill="rgba(245,239,227,.05)" stroke="rgba(212,175,99,.55)" stroke-width="1.5"></path>
+        <path d="M372 116 L440 112 L470 190 L420 220 Z" fill="rgba(245,239,227,.05)" stroke="rgba(212,175,99,.55)" stroke-width="1.5"></path>
+        <g fill="#D4AF63"><circle cx="118" cy="118" r="6"></circle><circle cx="178" cy="110" r="6"></circle><circle cx="232" cy="100" r="6"></circle><circle cx="300" cy="160" r="6"></circle><circle cx="460" cy="160" r="6"></circle><circle cx="452" cy="196" r="6"></circle><circle cx="425" cy="252" r="6"></circle><circle cx="436" cy="272" r="9"></circle><circle cx="480" cy="350" r="6"></circle><circle cx="492" cy="380" r="6"></circle><circle cx="352" cy="320" r="6"></circle><circle cx="372" cy="416" r="6"></circle></g>
+        <text x="330" y="284" font-family="Montserrat, sans-serif" font-size="18" font-weight="700" fill="#F5EFE3">Hurghada</text>
+      </svg>
+    </div>
+    <div style="display: flex; gap: 8px; overflow: hidden;">
+      <span style="padding: 10px 15px; border-radius: 999px; background: #D4AF63; color: #0B1F44; font-weight: 700; font-size: 13.5px; white-space: nowrap;">Hurghada</span><span style="padding: 10px 15px; border-radius: 999px; border: 1px solid rgba(212,175,99,.4); font-weight: 600; font-size: 13.5px; white-space: nowrap;">Sharm El Sheikh</span><span style="padding: 10px 15px; border-radius: 999px; border: 1px solid rgba(212,175,99,.4); font-weight: 600; font-size: 13.5px; white-space: nowrap;">Marsa Alam</span><span style="padding: 10px 15px; border-radius: 999px; border: 1px solid rgba(212,175,99,.4); font-weight: 600; font-size: 13.5px; white-space: nowrap;">El Gouna</span>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div style="padding: 48px 16px; background: #FBF8F2; color: #0B1F44; display: flex; flex-direction: column; gap: 14px;">
+    <span class="eyebrow" style="color: #7E5F22;">Get in touch</span>
+    <h2 style="font-size: 38px; line-height: 1;">Need medical assistance? <em style="color: #7E5F22;">We are here.</em></h2>
+    <div style="padding: 20px; border-radius: 22px; background: #0B1F44; color: #F5EFE3; display: flex; flex-direction: column; gap: 14px;">
+      <div><span class="eyebrow" style="font-size: 12px;">Emergency hotline · 24/7</span><span style="display: block; font-family: Cormorant, serif; font-weight: 700; font-size: 34px;">+20 120 678 8566</span></div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; height: 54px; border-radius: 999px; background: #DC2626; color: #FFFFFF; font-weight: 700;"><svg class="i" viewBox="0 0 24 24" style="width: 20px; height: 20px; stroke-width: 2;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>Call now</div>
+    </div>
+    <div style="padding: 20px; border-radius: 22px; background: #FFFFFF; border: 1px solid #ECE4D3; display: flex; flex-direction: column; gap: 12px;">
+      <h3 style="font-size: 26px;">Request a callback</h3>
+      <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13.5px; font-weight: 600;">Full name</span><div style="height: 50px; border-radius: 12px; border: 1.5px solid #DCD3C1; background: #FBF8F2;"></div></div>
+      <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13.5px; font-weight: 600;">Phone or WhatsApp</span><div style="height: 50px; border-radius: 12px; border: 1.5px solid #DCD3C1; background: #FBF8F2;"></div></div>
+      <div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13.5px; font-weight: 600;">Hotel and room</span><div style="height: 50px; border-radius: 12px; border: 1.5px solid #DCD3C1; background: #FBF8F2;"></div></div>
+      <div style="display: flex; align-items: center; justify-content: center; height: 54px; border-radius: 999px; background: #0B1F44; color: #F5EFE3; font-weight: 700;">Request callback</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="padding: 36px 16px 44px; background: #07142E; display: flex; flex-direction: column; gap: 16px; border-top: 1px solid rgba(212,175,99,.2);">
+    <img src="logo-ivory.png" alt="Medcierge" style="width: 170px;">
+    <p style="font-size: 13.5px; line-height: 1.6; color: #B9C2D3;">Part of Healthcare International Group.</p>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; font-size: 14px; color: #D9D2C3;"><span>Services</span><span>Partners</span><span>Destinations</span><span>Insurance</span><span>About</span><span>Contact</span></div>
+    <span style="font-size: 12.5px; color: #8E99AE;">© 2026 Elite Medical Concierge · Privacy · Impressum</span>
+  </div>
+</div>
+</div>
+<script>
+  (function () {
+    var page = document.getElementById('page');
+    function fit() { page.style.zoom = String(Math.max(0.8, document.documentElement.clientWidth / 390)); }
+    fit();
+    window.addEventListener('resize', function () { if (window.innerWidth > 900) { location.replace('index.html'); return; } fit(); });
+    var loader = document.getElementById('loader');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var seen = false; try { seen = sessionStorage.getItem('mc-loader') === '1'; sessionStorage.setItem('mc-loader', '1'); } catch (e) {}
+    if (loader) { if (reduce || seen) loader.remove(); else setTimeout(function () { loader.remove(); }, 3500); }
+  })();
+</script>
+</body>
+</html>

@@ -498,6 +498,13 @@ if (fs.existsSync(MC2_SRC)) {
   fs.cpSync(MC2_SRC, path.join(OUT, 'medcierge-v2'), { recursive: true });
 }
 
+/* The new Medcierge home (navy and gold, built from scratch), exported from the
+   design canvas into src/medcierge-home, served at /medcierge-home for CEO review. */
+const MCH_SRC = path.join(__dirname, 'src', 'medcierge-home');
+if (fs.existsSync(MCH_SRC)) {
+  fs.cpSync(MCH_SRC, path.join(OUT, 'medcierge-home'), { recursive: true });
+}
+
 /* ---- shared shell files ------------------------------------------------ */
 
 write('studio.css', fs.readFileSync(path.join(CONTENT, 'theme.css'), 'utf8'));
