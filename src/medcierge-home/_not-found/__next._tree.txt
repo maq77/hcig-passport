@@ -1,5 +1,4 @@
 :HL["/medcierge-home/_next/static/chunks/0jwu4t6kcjsd1.css","style"]
-:HL["/medcierge-home/_next/static/chunks/3fkyec4lcu2_o.css","style"]
+:HL["/medcierge-home/_next/static/chunks/1cgkd10x634v7.css","style"]
 :HL["/medcierge-home/img/hero.jpg","image"]
-:HL["/medcierge-home/img/logo-ivory.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"lTp3i4rIyMp2Herf0JHO0"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"40EDRyyLOhVg0I6pqxJ0f"}
