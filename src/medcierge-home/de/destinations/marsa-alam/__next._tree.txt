@@ -1,9 +1,0 @@
-:HL["/medcierge-home/_next/static/chunks/0jwu4t6kcjsd1.css","style"]
-:HL["/medcierge-home/_next/static/chunks/1w-y5sscbuvzi.css","style"]
-:HL["/medcierge-home/_next/static/media/61f83d1116c3c119-s.p.1i770ixt5m62g.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/medcierge-home/_next/static/media/daa29454a3e61cb2-s.p.25_z0nxfvnd9o.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/medcierge-home/_next/static/media/e8f2fbee2754df70-s.p.1dqa_6e_ad4sj.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/medcierge-home/img/hero.jpg","image"]
-:HL["/medcierge-home/img/coast.jpg","image"]
-:HL["/medcierge-home/logos/group-medpark.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"lang","param":{"type":"d","key":"de","siblings":["about","contact","destinations","facilities","hotels","insurance","partners","services"]},"prefetchHints":4192,"slots":{"children":{"name":"destinations","param":null,"prefetchHints":4192,"slots":{"children":{"name":"slug","param":{"type":"d","key":"marsa-alam","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}}}},"staleTime":300,"buildId":"kL8LJ0Ik9bNLJSy3rFXGP"}
