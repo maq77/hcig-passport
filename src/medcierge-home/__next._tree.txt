@@ -5,4 +5,4 @@
 :HL["/medcierge-home/_next/static/media/e8f2fbee2754df70-s.p.1dqa_6e_ad4sj.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/medcierge-home/_next/static/chunks/0n8kzvw2z_6as.css","style"]
 :HL["/medcierge-home/img/hero.jpg","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"eJAC4NqVMDYYKnq-RYV5Z"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"FkpS-XzF2__yvTlvpFXVn"}
