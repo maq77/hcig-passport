@@ -14,7 +14,7 @@ if /i "%1"=="stop" (
 
 rem 1. Hub, in the background. Exits quietly if one is already running.
 start "HCIG Hive hub" /min node hive\hub.js
-timeout /t 2 /nobreak >nul
+ping -n 3 127.0.0.1 >nul
 
 rem 2. Dashboard.
 start "" http://localhost:4400
