@@ -179,9 +179,13 @@ const COMPANIES = [
       {
         slug: 'site-audit',
         name: 'Site audit',
-        status: 'approved',
-        updated: '2026-09-01',
-        summary: '15 scored findings, six of them P0.',
+        status: 'live',
+        updated: '2026-09-18',
+        summary: 'Fixes going live. Colour contrast fixed site-wide on 18 September.',
+        detail: [
+          'Contrast raised to the accessible minimum on grey text, the red emergency buttons and every WhatsApp button. Home page accessibility 95 to 98.',
+          'Measured on five pages. Mobile speed 76 to 88. The El Quseir hero photo is next.',
+        ],
         stages: [
           {
             name: 'Documents',
