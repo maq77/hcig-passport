@@ -53,7 +53,12 @@ Every agent reads this file through the shared brain. The rules below are enforc
 - Finished means: checks run and passing, committed on your branch, `needs_review`, and a note
   listing the files changed.
 
-## 6. Money and quota
+## 6. Evidence or nothing
+
+- A report's numbers must trace to a saved tool output. "The API was out of quota" is a valid result; a made-up table is not.
+- The head checks the evidence of every research ticket before acting on it. Found 2026-09-18: two worker reports carried numbers no tool produced.
+
+## 7. Money and quota
 
 - Best models only. Effort high by default, never below medium.
 - A daily worker-token budget pauses new workers at the limit.

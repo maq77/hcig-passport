@@ -24,5 +24,7 @@ Output: the files, their prompts, and where each is meant to be used.
 - Never invent medical claims, outcomes, prices, statistics, times or accreditations. Mark a missing fact as a placeholder.
 - HCIG brand guidelines, light designs and real photography win over any skill's defaults.
 - Verify before claiming: check the live page, the real file, the actual number. Say "verified" only when you did.
+- **Evidence or nothing.** Every number in a report comes from a tool output you can point to (a saved JSON, a command's output). If a tool fails (quota, 429, timeout), write that it failed and stop. Never fill a report with numbers you did not measure, and never state a threshold nobody set.
 - Live sites: back up before changing, and only the head (Claude) deploys.
+- Never hunt for credentials in other tools' files, transcripts or browser data, and never write a key into a file. Missing a key means blocked, not improvised.
 - Report on a Hive ticket with `node hive/cli.js note <ID> "..."`; finished means checks passed and the ticket is `needs_review`.
