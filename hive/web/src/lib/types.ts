@@ -94,3 +94,29 @@ export interface Analytics {
 }
 
 export interface Step { i: number; type: string; tool: string | null; what?: string; output?: string; text: string; secs?: number; tokens?: number; state: string }
+
+export interface Standup {
+  since: string;
+  line: string;
+  done: { id: string; title: string }[];
+  review: { id: string; title: string }[];
+  blocked: { id: string; title: string; why: string }[];
+  running: { id: string; title: string; who: string }[];
+  runs: { total: number; ok: number };
+  deploys: { ts: string; msg: string }[];
+  quota: string[];
+  orders: number;
+}
+
+export interface Schedule {
+  id: string;
+  label: string;
+  kind: 'standup' | 'ticket';
+  at: string;
+  days: 'daily' | 'weekdays' | number[];
+  enabled: boolean;
+  dispatch?: boolean;
+  note?: string;
+  lastRun: string | null;
+  ticket?: { title: string; description: string };
+}

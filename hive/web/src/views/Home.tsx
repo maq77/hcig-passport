@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/form';
 import { StatusPill } from '@/components/ui/badge';
 import { AgentCard } from '@/components/AgentCard';
 import { EventFeed } from '@/components/EventFeed';
+import { StandupCard } from '@/components/StandupCard';
 import { api } from '@/lib/api';
 import { relTime, tokens, assigneeName, pct } from '@/lib/utils';
 
@@ -81,6 +82,7 @@ export function HomeView() {
         </div>
 
         <div className="flex min-w-0 flex-col gap-5">
+          <StandupCard />
           <Card>
             <CardHeader title="Tell Claude" sub="Claude reads these with hive_inbox and plans the work" />
             <form onSubmit={send} className="flex flex-col gap-2 p-4">

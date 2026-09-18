@@ -141,7 +141,7 @@
     "medpark-live",
     "video",
     ".tmp",
-    "hive/ui/",
+    "hive/ui",
     "~"
   ],
   "budget": {
@@ -158,8 +158,47 @@
       "deploy.alert",
       "budget",
       "quota",
-      "order"
+      "order",
+      "standup"
     ],
     "note": "Set ntfyTopic to a private random name and install the ntfy app to get these on your phone."
+  },
+  "schedules": [
+    {
+      "id": "standup",
+      "label": "Morning standup",
+      "kind": "standup",
+      "at": "08:00",
+      "days": "daily",
+      "enabled": true,
+      "sinceHours": 24,
+      "note": "Built from the event log. No model runs, no tokens."
+    },
+    {
+      "id": "medpark-speed",
+      "label": "Weekly MedPark speed check",
+      "kind": "ticket",
+      "at": "07:30",
+      "days": [
+        1
+      ],
+      "enabled": false,
+      "dispatch": false,
+      "ticket": {
+        "title": "MedPark weekly speed check",
+        "kind": "research",
+        "folder": "",
+        "priority": "normal",
+        "description": "Run PageSpeed Insights (mobile) on https://www.medparkhospitals.com/, /medparkhospital.php, /healthhub.php, /contact-us/ and /pl/. Record performance score and LCP per page as a note, compared with the last check in this ticket history. Read only: do not change any file or server.",
+        "acceptance": [
+          "One line per page: score and LCP",
+          "Any page that got worse is named first"
+        ]
+      }
+    }
+  ],
+  "review": {
+    "autoCritic": true,
+    "note": "When a worker marks a ticket ready for review, a different best model reviews it first and writes notes. Uses tokens; the daily budget still applies."
   }
 }

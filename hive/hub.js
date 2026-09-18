@@ -10,6 +10,7 @@ const M = require('./lib/models');
 const brain = require('./lib/brain');
 const watch = require('./lib/watch');
 const notify = require('./lib/notify');
+const schedule = require('./lib/schedule');
 
 const cfg = S.config();
 const PORT = +process.env.HIVE_PORT || cfg.port;
@@ -49,6 +50,20 @@ const clients = new Set();
 S.onEvent(ev => { try { notify.onEvent(ev); } catch {} });
 S.onEvent(ev => { if (ev.type === 'task.update' && ev.data && ev.data.status === 'done') setTimeout(() => D.releaseReady(), 200); });
 
+// Automatic second opinion: a worker's own "ready for review" triggers a review by a
+// different model. The review ticket is advisory, so it closes itself when it finishes.
+S.onEvent(ev => {
+  if (ev.type !== 'task.update' || !ev.data || ev.data.status !== 'needs_review') return;
+  const id = ev.data.id;
+  if (/-CR$/.test(id)) { setTimeout(() => { try { S.updateTask(id, { status: 'done', note: 'Review written on the parent ticket. Closed.' }, 'hive'); } catch {} }, 200); return; }
+  if (!(S.config().review || {}).autoCritic || !String(ev.actor).startsWith('agy')) return;
+  if (S.getTask(id + '-CR')) return;
+  setTimeout(() => {
+    try { D.critic(id); S.emit('review.auto', `${id}: second opinion started before Claude reviews`, { id }, 'hive'); }
+    catch (e) { S.emit('hive.error', `Auto review of ${id} did not start: ${e.message}`); }
+  }, 500);
+});
+
 // Settings the dashboard may change. Everything else in config.json is edited by hand.
 function patchConfig(b) {
   const file = path.join(__dirname, 'config.json');
@@ -57,6 +72,8 @@ function patchConfig(b) {
   if (b.notify) Object.assign(c.notify, pick(b.notify, ['desktop', 'ntfyTopic', 'on']));
   if (typeof b.allowBelowBest === 'boolean') c.models.allowBelowBest = b.allowBelowBest;
   if (b.routes) for (const r of b.routes) { const x = c.models.routes.find(y => y.kind === r.kind); if (x) { if (r.model) x.model = r.model; if (r.effort) x.effort = M.clampEffort(r.effort); } }
+  if (b.review && typeof b.review.autoCritic === 'boolean') c.review = { ...(c.review || {}), autoCritic: b.review.autoCritic };
+  if (b.schedules) for (const j of b.schedules) { const x = (c.schedules || []).find(y => y.id === j.id); if (x) Object.assign(x, pick(j, ['enabled', 'at', 'days', 'dispatch'])); }
   if (b.accounts) for (const a of b.accounts) { const x = c.accounts.find(y => y.id === a.id); if (x) Object.assign(x, pick(a, ['enabled', 'maxParallel', 'label'])); }
   fs.writeFileSync(file, JSON.stringify(c, null, 2));
   S.emit('config', 'Settings changed from the dashboard', {}, 'dashboard');
@@ -65,7 +82,7 @@ function patchConfig(b) {
 function pick(o, keys) { return Object.fromEntries(keys.filter(k => o[k] !== undefined).map(k => [k, o[k]])); }
 function publicConfig() {
   const c = S.config();
-  return { budget: c.budget, notify: c.notify, models: c.models, accounts: c.accounts, fullAccess: c.agy.fullAccess, port: c.port };
+  return { budget: c.budget, notify: c.notify, models: c.models, accounts: c.accounts, fullAccess: c.agy.fullAccess, port: c.port, review: c.review || { autoCritic: false }, schedules: schedule.list() };
 }
 S.onEvent(ev => { const s = `data: ${JSON.stringify(ev)}\n\n`; for (const c of clients) c.write(s); });
 
@@ -97,6 +114,13 @@ const routes = [
   ['POST', /^\/api\/tasks\/([\w-]+)\/bestof$/, async (req, m) => D.bestOf(m[1], (await body(req)).models)],
   ['POST', /^\/api\/tasks\/([\w-]+)\/critic$/, (req, m) => D.critic(m[1])],
   ['GET', /^\/api\/config$/, () => publicConfig()],
+  ['GET', /^\/api\/standup$/, (req, m, q) => schedule.standup(+(q.get('hours') || 24))],
+  ['GET', /^\/api\/schedules$/, () => schedule.list()],
+  ['POST', /^\/api\/schedules\/([\w-]+)\/run$/, (req, m) => {
+    const j = (S.config().schedules || []).find(x => x.id === m[1]);
+    if (!j) throw new Error('No job ' + m[1]);
+    return schedule.runJob(j, 'manual');
+  }],
   ['PATCH', /^\/api\/config$/, async (req) => patchConfig(await body(req))],
   ['POST', /^\/api\/notify\/test$/, () => { notify.send('Hive: test alert', 'Alerts reach you. This is what a finished worker looks like.'); return { ok: true }; }],
   ['GET', /^\/api\/inbox$/, (req, m, q) => S.readInbox({ markRead: q.get('read') === '1' })],
@@ -150,6 +174,7 @@ server.listen(PORT, '127.0.0.1', () => {
       return null;
     },
   });
+  schedule.start();
   S.emit('hive.start', `Hive hub up on http://localhost:${PORT}`);
   console.log(`HCIG Hive hub on http://localhost:${PORT}`);
 });

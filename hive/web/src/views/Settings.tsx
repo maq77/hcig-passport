@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { toast } from 'sonner';
-import { Bell, Save } from 'lucide-react';
+import { Bell, Save, Play } from 'lucide-react';
 import { Card, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Field, Input, Select, Toggle } from '@/components/ui/form';
 import { useHive } from '@/store/hive';
 import { api } from '@/lib/api';
 import { modelName } from '@/lib/utils';
+import type { Schedule } from '@/lib/types';
 
 interface Cfg {
   budget: { dailyTokens: number; warnAt: number; hardStop: boolean };
@@ -14,9 +15,13 @@ interface Cfg {
   models: { allowBelowBest: boolean; routes: { kind: string; model: string; effort: string }[]; tiers: Record<string, string[]> };
   accounts: { id: string; label: string; kind: string; enabled: boolean; maxParallel?: number; note?: string }[];
   fullAccess: boolean;
+  review: { autoCritic: boolean };
+  schedules: Schedule[];
 }
 
-const ALERTS = [['run.end', 'A worker finishes or fails'], ['deploy.alert', 'A worker runs a deploy or server command'], ['budget', 'The token budget passes its warning line'], ['quota', 'A model hits its quota'], ['order', 'A new order for Claude']] as const;
+const ALERTS = [['standup', 'The morning standup is ready'], ['run.end', 'A worker finishes or fails'], ['deploy.alert', 'A worker runs a deploy or server command'], ['budget', 'The token budget passes its warning line'], ['quota', 'A model hits its quota'], ['order', 'A new order for Claude']] as const;
+
+const dayText = (d: Schedule['days']) => d === 'daily' ? 'Every day' : d === 'weekdays' ? 'Weekdays' : d.map(x => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][x]).join(', ');
 
 export function SettingsView() {
   const [c, setC] = React.useState<Cfg | null>(null);
@@ -29,7 +34,7 @@ export function SettingsView() {
   const save = async () => {
     setSaving(true);
     try {
-      setC(await api.patch<Cfg>('/api/config', { budget: c.budget, notify: c.notify, allowBelowBest: c.models.allowBelowBest, routes: c.models.routes, accounts: c.accounts.map(a => ({ id: a.id, enabled: a.enabled, maxParallel: a.maxParallel })) }));
+      setC(await api.patch<Cfg>('/api/config', { budget: c.budget, notify: c.notify, review: c.review, schedules: c.schedules.map(j => ({ id: j.id, enabled: j.enabled, at: j.at, dispatch: j.dispatch })), allowBelowBest: c.models.allowBelowBest, routes: c.models.routes, accounts: c.accounts.map(a => ({ id: a.id, enabled: a.enabled, maxParallel: a.maxParallel })) }));
       toast.success('Settings saved'); refresh();
     } catch (e) { toast.error((e as Error).message); } finally { setSaving(false); }
   };
@@ -76,6 +81,26 @@ export function SettingsView() {
             </li>
           ))}
         </ul>
+      </Card>
+
+      <Card>
+        <CardHeader title="Automation" sub="Jobs the Hive runs on its own, and the review that runs before Claude looks" />
+        <div className="flex flex-col gap-4 p-4">
+          <Toggle id="r-auto" checked={c.review.autoCritic} onChange={v => setC({ ...c, review: { ...c.review, autoCritic: v } })} label="Second opinion before review: a different model checks every finished worker ticket" />
+          <ul className="divide-y divide-line rounded-lg border border-line">
+            {c.schedules.map((j, i) => (
+              <li key={j.id} className="flex flex-wrap items-center gap-3 px-3 py-3">
+                <div className="min-w-0 flex-1">
+                  <p className="text-[13.5px] font-medium">{j.label}</p>
+                  <p className="text-xs text-ink-3">{dayText(j.days)} at {j.at}{j.kind === 'ticket' ? (j.dispatch ? ', starts a worker' : ', creates a ticket') : ', no tokens used'}{j.lastRun ? ` · last ran ${j.lastRun}` : ''}</p>
+                </div>
+                <Input aria-label={`${j.label} time`} type="time" value={j.at} className="w-28" onChange={e => { const schedules = [...c.schedules]; schedules[i] = { ...j, at: e.target.value }; setC({ ...c, schedules }); }} />
+                <Toggle id={`s-${j.id}`} checked={j.enabled} onChange={v => { const schedules = [...c.schedules]; schedules[i] = { ...j, enabled: v }; setC({ ...c, schedules }); }} label="On" />
+                <Button size="sm" onClick={() => api.post(`/api/schedules/${j.id}/run`).then(() => { toast.success(`${j.label} ran`); refresh(); }).catch(e => toast.error(e.message))}><Play size={13} />Run now</Button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </Card>
 
       <Card>

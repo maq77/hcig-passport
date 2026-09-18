@@ -36,7 +36,7 @@ function send(title, body, { urgent = false } = {}) {
 // Which events deserve an alert.
 function onEvent(ev) {
   const n = S.config().notify || {};
-  const want = n.on || ['run.end', 'deploy.alert', 'budget', 'quota', 'order'];
+  const want = n.on || ['run.end', 'deploy.alert', 'budget', 'quota', 'order', 'standup'];
   const kind = ev.type.startsWith('budget') ? 'budget' : ev.type;
   if (!want.includes(kind)) return;
   if (ev.type === 'run.end') send(ev.data && ev.data.state === 'done' ? 'Hive: worker finished' : 'Hive: worker stopped', ev.msg);
@@ -44,6 +44,7 @@ function onEvent(ev) {
   else if (kind === 'budget') send('Hive: token budget', ev.msg, { urgent: ev.type === 'budget.stop' });
   else if (ev.type === 'quota') send('Hive: quota hit', ev.msg);
   else if (ev.type === 'order') send('Hive: order for Claude', ev.msg);
+  else if (ev.type === 'standup') send('Hive: morning standup', ev.msg.replace(/^Standup: /, ''));
 }
 
 module.exports = { send, onEvent, toast };
