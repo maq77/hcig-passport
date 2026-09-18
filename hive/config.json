@@ -1,0 +1,63 @@
+{
+  "port": 4400,
+  "head": "@claude",
+  "worktreeRoot": "../hcig-wt",
+  "memoryDirs": ["~/.claude/skills/hcig/memory"],
+  "rulesFiles": [".agents/rules/hcig-core-memory.md"],
+  "agy": {
+    "exe": "%LOCALAPPDATA%/Microsoft/WinGet/Packages/Google.AntigravityCLI_Microsoft.Winget.Source_8wekyb3d8bbwe/agy.exe",
+    "desktopExe": "%LOCALAPPDATA%/Programs/Antigravity/Antigravity.exe",
+    "fullAccess": true
+  },
+  "models": {
+    "rule": "Only top-tier models. Effort defaults to high and never drops below medium.",
+    "tiers": {
+      "best": ["claude-opus-4-6-thinking", "gemini-3.1-pro-high"],
+      "strong": ["claude-sonnet-4-6"],
+      "fallbackBelowBest": ["gemini-3.8-flash-high"]
+    },
+    "allowBelowBest": false,
+    "critic": "gpt-oss-120b-medium",
+    "effort": { "default": "high", "minimum": "medium" },
+    "effortFlag": ["gemini-"],
+    "effortNote": "agy accepts --effort only for Gemini. Claude models think at a fixed level; GPT-OSS has effort in its slug.",
+    "routes": [
+      { "kind": "design",  "match": "design|ui\\b|css|layout|visual|component|hero|landing|mockup|figma|canvas|animation|artifact", "model": "gemini-3.1-pro-high", "effort": "high" },
+      { "kind": "content", "match": "translat|copy|wording|german|polish|\\bde\\b|\\bpl\\b|article|meta description|seo text|content", "model": "gemini-3.1-pro-high", "effort": "high" },
+      { "kind": "code",    "match": "bug|fix|php|js\\b|javascript|refactor|api|schema|build|script|test|pipeline|deploy|server|backend", "model": "claude-opus-4-6-thinking", "effort": "high" },
+      { "kind": "review",  "match": "review|audit|verify|check|critique|second opinion", "model": "claude-opus-4-6-thinking", "effort": "high" },
+      { "kind": "bulk",    "match": "batch|convert|rename|resize|compress|bulk|mechanical|sync|copy files", "model": "gemini-3.1-pro-high", "effort": "medium" },
+      { "kind": "research","match": "research|read|summar|large|whole folder|pdf|log", "model": "gemini-3.1-pro-high", "effort": "high" }
+    ],
+    "default": { "kind": "general", "model": "claude-opus-4-6-thinking", "effort": "high" }
+  },
+  "accounts": [
+    {
+      "id": "a1",
+      "label": "Account 1 (CLI)",
+      "kind": "cli",
+      "enabled": true,
+      "profile": null,
+      "maxParallel": 2
+    },
+    {
+      "id": "a2",
+      "label": "Account 2",
+      "kind": "cli",
+      "enabled": false,
+      "profile": ".hive/profiles/a2",
+      "maxParallel": 2,
+      "note": "Disabled until verified. The CLI sign-in is not stored in the profile folder, so a second CLI account needs a tested switch first. Until then, account 2 runs Antigravity Desktop."
+    },
+    {
+      "id": "desktop",
+      "label": "Antigravity Desktop",
+      "kind": "desktop",
+      "enabled": true,
+      "note": "Not scriptable. It takes tickets assigned to @agy-desktop from the board."
+    }
+  ],
+  "deployPatterns": ["\\bssh\\b", "\\bscp\\b", "\\brsync\\b", "git push", "npm run publish", "vercel (--prod|deploy)", "public_html", "@[a-z0-9.-]+\\.(com|net)"],
+  "quotaPatterns": ["quota", "RESOURCE_EXHAUSTED", "rate.?limit", "\\b429\\b", "exhausted"],
+  "watchIgnore": ["node_modules", ".git/objects", ".git/index", "dist", "artifacts", ".next", "/out/", ".hive/runs", ".hive/events.jsonl", ".hive/brain.md", ".hive/state", ".playwright-mcp", ".work", "medpark-live", "video"]
+}

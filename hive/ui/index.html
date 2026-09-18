@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HCIG Hive</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f8f9; --panel:#fff; --ink:#1d2327; --muted:#6b7378; --line:#e3e8eb; --soft:#eef3f5;
+  --brand:#12C0C6; --brand-ink:#0a7e83; --brand-soft:#e3f8f9; --gray:#565759;
+  --ok:#1f9d55; --ok-soft:#e5f6ec; --warn:#b7791f; --warn-soft:#fdf3e1; --bad:#c53030; --bad-soft:#fdeaea; --info:#2b6cb0; --info-soft:#e8f0fa;
+  --r:10px; --mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,system-ui,sans-serif}
+button,select,input,textarea{font:inherit;color:inherit}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:16px;padding:12px 20px;background:var(--panel);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px}
+.logo i{width:28px;height:28px;border-radius:8px;background:var(--brand-ink);display:grid;place-items:center;color:#fff;font-style:normal;font-size:15px}
+.live{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12px}
+.live b{width:8px;height:8px;border-radius:50%;background:var(--bad)}
+.live.on b{background:var(--ok)}
+.spacer{flex:1}
+.btn{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:500;white-space:nowrap}
+.btn:hover{border-color:var(--brand);color:var(--brand-ink)}
+.btn.primary{background:var(--brand-ink);border-color:var(--brand-ink);color:#fff}
+.btn.primary:hover{background:#086a6e;color:#fff}
+.btn.danger{color:var(--bad)} .btn.danger:hover{border-color:var(--bad)}
+.btn.sm{padding:4px 9px;font-size:12px}
+main{padding:18px 20px 40px;display:grid;gap:18px;max-width:1680px;margin:0 auto}
+.alert{display:none;background:var(--bad-soft);border:1px solid #f5c2c2;color:var(--bad);border-radius:var(--r);padding:10px 14px;font-weight:500}
+.alert.show{display:flex;gap:10px;align-items:center}
+h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:600}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.agents{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.agent{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:grid;gap:6px;border-top:3px solid var(--line)}
+.agent.working{border-top-color:var(--brand)} .agent.head{border-top-color:var(--gray)} .agent.off{opacity:.6}
+.agent .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.agent .name{font-weight:600}
+.agent .role{font-size:12px;color:var(--muted)}
+.agent .doing{font-size:12.5px;color:var(--ink)}
+.agent .last{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:2px 9px;font-size:11.5px;font-weight:600;background:var(--soft);color:var(--gray);white-space:nowrap}
+.pill.working,.pill.in_progress,.pill.running{background:var(--brand-soft);color:var(--brand-ink)}
+.pill.needs_review{background:var(--info-soft);color:var(--info)}
+.pill.blocked,.pill.failed{background:var(--bad-soft);color:var(--bad)}
+.pill.done{background:var(--ok-soft);color:var(--ok)}
+.pill.todo,.pill.idle{background:var(--soft);color:var(--gray)}
+.pulse{width:7px;height:7px;border-radius:50%;background:currentColor}
+.grid{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(320px,1fr);gap:18px;align-items:start}
+.board{display:grid;grid-template-columns:repeat(5,minmax(170px,1fr));gap:10px;overflow-x:auto}
+.col{background:var(--soft);border-radius:var(--r);padding:8px;min-height:120px}
+.col h3{font-size:12px;margin:2px 4px 8px;display:flex;justify-content:space-between;color:var(--gray);font-weight:600}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 10px;margin-bottom:8px;cursor:pointer;display:grid;gap:5px}
+.card:hover{border-color:var(--brand)}
+.card .id{font:500 11px var(--mono);color:var(--muted)}
+.card .t{font-weight:500;font-size:13px}
+.card .who{font-size:11.5px;color:var(--muted)}
+.feed{max-height:560px;overflow:auto;display:grid;gap:2px}
+.ev{display:grid;grid-template-columns:44px 1fr;gap:8px;padding:6px 4px;border-bottom:1px solid var(--soft);font-size:12.5px}
+.ev time{font:11px var(--mono);color:var(--muted);padding-top:2px}
+.ev .who{font-weight:600;color:var(--gray);margin-right:4px}
+.ev.deploy{background:var(--bad-soft)} .ev.quota{background:var(--warn-soft)} .ev.order{background:var(--brand-soft)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.chip{border:1px solid var(--line);border-radius:99px;padding:3px 10px;font-size:12px;cursor:pointer;background:var(--panel)}
+.chip.on{background:var(--brand-ink);border-color:var(--brand-ink);color:#fff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;color:var(--muted);font-weight:500;padding:6px;border-bottom:1px solid var(--line)}
+td{padding:6px;border-bottom:1px solid var(--soft)}
+td.n{text-align:right;font-family:var(--mono)}
+textarea,input,select{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--panel)}
+textarea:focus,input:focus,select:focus{outline:2px solid var(--brand-soft);border-color:var(--brand)}
+form{display:grid;gap:8px}
+.row{display:flex;gap:8px;align-items:center}
+.row>*{flex:1}
+.muted{color:var(--muted);font-size:12px}
+.drawer{position:fixed;inset:0 0 0 auto;width:min(760px,100%);background:var(--panel);border-left:1px solid var(--line);box-shadow:-12px 0 40px rgba(20,40,50,.12);transform:translateX(100%);transition:transform .22s ease;z-index:10;display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.drawer .hd{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center}
+.drawer .bd{padding:16px 18px;overflow:auto;display:grid;gap:14px;align-content:start}
+pre{margin:0;background:#f7f9fa;border:1px solid var(--line);border-radius:8px;padding:10px;font:12px/1.5 var(--mono);white-space:pre-wrap;word-break:break-word;max-height:420px;overflow:auto}
+.notes{display:grid;gap:6px;font-size:12.5px}
+.notes div{border-left:3px solid var(--brand-soft);padding-left:8px}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:4px 12px;font-size:13px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0}
+@media (max-width:1100px){.grid,.two{grid-template-columns:minmax(0,1fr)}.board{grid-template-columns:repeat(5,minmax(200px,1fr))}}
+@media (max-width:640px){header{flex-wrap:wrap}main{padding:14px 16px}.row{flex-wrap:wrap}.row>*{min-width:140px}.agents{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><i>H</i>HCIG Hive</div>
+  <div class="live" id="live"><b></b><span>connecting</span></div>
+  <div class="spacer"></div>
+  <button class="btn" data-launch="claude">Open Claude</button>
+  <button class="btn" data-launch="agy">Open agy</button>
+  <button class="btn" data-launch="desktop">Open Desktop</button>
+</header>
+<main>
+  <div class="alert" id="alert"><span>⚠</span><span id="alertText"></span><span class="spacer"></span><button class="btn sm" onclick="this.parentNode.classList.remove('show')">Seen</button></div>
+
+  <section><h2>Fleet</h2><div class="agents" id="agents"></div></section>
+
+  <div class="grid">
+    <section class="panel"><h2>Board</h2><div class="board" id="board"></div></section>
+    <section class="panel">
+      <h2>Live feed</h2>
+      <div class="chips" id="chips"></div>
+      <div class="feed" id="feed"></div>
+    </section>
+  </div>
+
+  <div class="two">
+    <section class="panel">
+      <h2>Tell Claude 🚀</h2>
+      <form id="orderForm">
+        <textarea id="orderText" rows="3" placeholder="An order for the head. Claude reads it with hive_inbox and plans it out."></textarea>
+        <div class="row"><span class="muted" id="inboxCount"></span><button class="btn primary" style="flex:0">Send to Claude</button></div>
+      </form>
+      <h2 style="margin-top:18px">New ticket</h2>
+      <form id="taskForm">
+        <input name="title" placeholder="Title" required>
+        <textarea name="description" rows="3" placeholder="What to do. The worker starts cold, so give it everything."></textarea>
+        <div class="row">
+          <select name="assignee"><option>@agy-cli</option><option>@agy-desktop</option><option>@claude</option></select>
+          <select name="kind"><option value="">Auto route</option><option>code</option><option>design</option><option>content</option><option>review</option><option>bulk</option><option>research</option></select>
+          <input name="folder" placeholder="Folder">
+        </div>
+        <div class="row"><label class="muted" style="flex:0;white-space:nowrap"><input type="checkbox" name="go" style="width:auto"> Start a worker now</label><button class="btn primary" style="flex:0">Create</button></div>
+      </form>
+    </section>
+    <section class="panel">
+      <h2>Usage today</h2>
+      <table><thead><tr><th>Agent</th><th>Model</th><th class="n">Runs</th><th class="n">Tokens</th><th class="n">Fails</th></tr></thead><tbody id="usage"></tbody></table>
+      <p class="muted" id="resting"></p>
+      <h2 style="margin-top:14px">Model routing</h2>
+      <table><tbody id="routes"></tbody></table>
+      <p class="muted" id="effortRule"></p>
+    </section>
+  </div>
+</main>
+
+<aside class="drawer" id="drawer">
+  <div class="hd"><strong id="dTitle"></strong><span class="spacer"></span><button class="btn sm" onclick="closeDrawer()">Close</button></div>
+  <div class="bd" id="dBody"></div>
+</aside>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const k = n => n > 1e6 ? (n/1e6).toFixed(1)+'M' : n > 1e3 ? Math.round(n/1e3)+'k' : String(n||0);
+const ago = ts => { if (!ts) return ''; const s = (Date.now()-Date.parse(ts))/1000; return s<60? Math.round(s)+'s ago' : s<3600? Math.round(s/60)+'m ago' : s<86400? Math.round(s/3600)+'h ago' : Math.round(s/86400)+'d ago'; };
+const hm = ts => new Date(ts).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', hour12:false});
+const api = async (m, p, b) => { const r = await fetch(p, {method:m, headers:{'Content-Type':'application/json'}, body: b ? JSON.stringify(b) : undefined}); const j = await r.json(); if (!r.ok) throw new Error(j.error); return j; };
+
+let S = null, filter = 'all', events = [], openTask = null, logTimer = null;
+const COLS = [['todo','To do'],['in_progress','In progress'],['needs_review','Needs review'],['blocked','Blocked'],['done','Done']];
+const FILTERS = [['all','All'],['work','Workers'],['task','Tickets'],['deploy','Deploys'],['files','Files'],['git','Git']];
+
+async function load() { S = await api('GET', '/api/state'); events = S.events; render(); }
+
+function render() {
+  $('#agents').innerHTML = S.agents.map(a => `
+    <div class="agent ${a.kind==='head'?'head':''} ${a.state==='working'?'working':''} ${a.state==='off'?'off':''}">
+      <div class="top"><span class="name">${esc(a.label)}</span><span class="pill ${a.state==='working'?'working':a.state==='off'?'':'idle'}">${a.state==='working'?'<span class="pulse"></span>':''}${esc(a.state)}</span></div>
+      <div class="role">${esc(a.role)}${a.model?' · '+esc(a.model):''}${a.maxParallel?' · up to '+a.maxParallel+' at once':''}</div>
+      ${(a.runs||[]).map(r => `<div class="doing"><a href="#" onclick="showRun('${r.id}');return false"><b>${esc(r.task)}</b></a> ${esc(r.model)} · ${r.effort} · ${r.steps} steps<br><span class="muted">${esc(r.lastStep||'starting')}</span></div>`).join('')}
+      ${(a.doing||[]).length ? `<div class="doing">${a.doing.map(esc).join(', ')}</div>` : ''}
+      ${a.note && a.state==='off' ? `<div class="last">${esc(a.note)}</div>` : a.last ? `<div class="last">${ago(a.last.ts)}: ${esc(a.last.msg)}</div>` : ''}
+    </div>`).join('');
+
+  const byCol = Object.fromEntries(COLS.map(([c]) => [c, []]));
+  for (const t of S.tasks) (byCol[t.status] || byCol.todo).push(t);
+  byCol.done = byCol.done.sort((a,b)=>b.updated.localeCompare(a.updated)).slice(0,8);
+  $('#board').innerHTML = COLS.map(([c,label]) => `
+    <div class="col"><h3>${label}<span>${byCol[c].length}</span></h3>
+      ${byCol[c].map(t => `<div class="card" onclick="showTask('${t.id}')"><span class="id">${esc(t.id)}</span><span class="t">${esc(t.title)}</span><span class="who">${esc(t.assignee)} · ${ago(t.updated)}</span></div>`).join('')}
+    </div>`).join('');
+
+  $('#chips').innerHTML = FILTERS.map(([f,l]) => `<span class="chip ${filter===f?'on':''}" onclick="filter='${f}';renderFeed();render()">${l}</span>`).join('');
+  renderFeed();
+
+  const u = S.usage;
+  const rows = u.today.map(r => `<tr><td>${esc(r.account)}</td><td>${esc(r.model)}</td><td class="n">${r.runs}</td><td class="n">${k(r.total)}</td><td class="n">${r.fails}</td></tr>`);
+  rows.push(`<tr><td>claude</td><td>Claude Code (head)</td><td class="n">${u.claude.messages}</td><td class="n">${k(u.claude.input+u.claude.output+u.claude.cacheRead)}</td><td class="n">-</td></tr>`);
+  $('#usage').innerHTML = rows.join('');
+  $('#resting').textContent = u.exhausted.length ? 'Resting after a quota hit: ' + u.exhausted.map(e => `${e.key} until ${hm(e.until)}`).join(', ') : 'No model is out of quota.';
+  $('#routes').innerHTML = S.models.routes.map(r => `<tr><td>${r.kind}</td><td>${esc(r.model)}</td><td>${r.effort}</td></tr>`).join('');
+  $('#effortRule').textContent = `Best models only: ${S.models.allowed.join(', ')}. Effort ${S.models.effort.default} by default, never below ${S.models.effort.minimum}.`;
+  $('#inboxCount').textContent = S.inbox.length ? `${S.inbox.length} order(s) waiting for Claude` : 'Inbox clear';
+  if (openTask) showTask(openTask, true);
+}
+
+function match(e) {
+  if (filter === 'all') return e.type !== 'files.changed' || true;
+  if (filter === 'work') return e.type.startsWith('run.') || e.type === 'quota';
+  if (filter === 'task') return e.type.startsWith('task.') || e.type === 'order';
+  if (filter === 'deploy') return e.type === 'deploy.alert';
+  if (filter === 'files') return e.type === 'files.changed';
+  if (filter === 'git') return e.type === 'git';
+}
+function renderFeed() {
+  $('#feed').innerHTML = events.filter(match).slice(0, 200).map(e => `
+    <div class="ev ${e.type==='deploy.alert'?'deploy':e.type==='quota'?'quota':e.type==='order'?'order':''}" title="${esc(e.type)}">
+      <time>${hm(e.ts)}</time><div><span class="who">${esc(e.actor)}</span>${esc(e.msg)}${e.type==='files.changed'&&e.data?`<div class="muted">${e.data.files.slice(0,6).map(f=>esc(f.f)).join(' · ')}</div>`:''}</div>
+    </div>`).join('') || '<p class="muted">Nothing yet.</p>';
+}
+
+function openDrawer(title, html) { $('#dTitle').textContent = title; $('#dBody').innerHTML = html; $('#drawer').classList.add('open'); }
+function closeDrawer() { $('#drawer').classList.remove('open'); openTask = null; clearInterval(logTimer); }
+
+async function showTask(id, quiet) {
+  const t = S.tasks.find(x => x.id === id); if (!t) return;
+  openTask = id;
+  if (quiet && !$('#drawer').classList.contains('open')) return;
+  const runs = S.runs.filter(r => r.task === id);
+  const route = await api('GET', `/api/tasks/${id}/route`).catch(() => null);
+  const models = S.models.allowed.map(m => `<option ${route&&route.model===m?'selected':''}>${m}</option>`).join('');
+  openDrawer(`${t.id}  ${t.title}`, `
+    <dl class="kv"><dt>Status</dt><dd><span class="pill ${t.status}">${t.status}</span></dd><dt>Assignee</dt><dd>${esc(t.assignee)}</dd>
+      <dt>Folder</dt><dd>${esc(t.folder||'-')}</dd><dt>Branch</dt><dd>${esc(t.branch||'-')}</dd><dt>Route</dt><dd>${route?`${route.kind} · ${esc(route.model)} · ${route.effort}`:'-'}</dd></dl>
+    ${t.description?`<div>${esc(t.description)}</div>`:''}
+    ${t.acceptance&&t.acceptance.length?`<ol>${t.acceptance.map(a=>`<li>${esc(a)}</li>`).join('')}</ol>`:''}
+    ${t.details?`<pre>${esc(t.details)}</pre>`:''}
+    <div class="panel" style="display:grid;gap:8px">
+      <strong>Start a worker</strong>
+      <div class="row"><select id="dModel">${models}</select><select id="dEffort"><option ${route&&route.effort==='high'?'selected':''}>high</option><option ${route&&route.effort==='medium'?'selected':''}>medium</option></select>
+      <select id="dWs"><option value="">Auto workspace</option><option value="worktree">Worktree</option><option value="main">Main folder</option></select></div>
+      <textarea id="dSay" rows="2" placeholder="Extra instructions for this run (optional)"></textarea>
+      <div class="row" style="justify-content:flex-start">
+        <button class="btn primary" style="flex:0" onclick="go('${id}')">Dispatch</button>
+        <select id="dStatus" style="flex:0;min-width:150px" onchange="setStatus('${id}',this.value)">${['','todo','in_progress','needs_review','blocked','done'].map(s=>`<option value="${s}">${s?'Set '+s:'Change status'}</option>`).join('')}</select>
+        ${t.branch?`<button class="btn" style="flex:0" onclick="showDiff('${id}')">Diff</button><button class="btn" style="flex:0" onclick="doMerge('${id}')">Merge</button>`:''}
+      </div>
+    </div>
+    ${runs.length?`<div><strong>Runs</strong>${runs.map(r=>`<div class="row" style="margin-top:6px"><a href="#" onclick="showRun('${r.id}');return false" style="flex:0;white-space:nowrap">${esc(r.id)}</a><span class="pill ${r.state}" style="flex:0">${r.state}</span><span class="muted">${esc(r.model)} · ${r.steps} steps · ${ago(r.started)}</span></div>`).join('')}</div>`:''}
+    ${t.notes.length?`<div><strong>Notes</strong><div class="notes">${t.notes.slice().reverse().map(n=>`<div><span class="muted">${ago(n.ts)} ${esc(n.by)}</span><br>${esc(n.text)}</div>`).join('')}</div></div>`:''}
+    <div class="row"><input id="dNote" placeholder="Add a note"><button class="btn" style="flex:0" onclick="addNote('${id}')">Add</button></div>
+  `);
+}
+
+async function showRun(id) {
+  clearInterval(logTimer);
+  const draw = async () => {
+    const r = S.runs.find(x => x.id === id) || {};
+    const log = await api('GET', `/api/runs/${id}/log?tail=150`);
+    openDrawer(`Run ${id}`, `
+      <dl class="kv"><dt>State</dt><dd><span class="pill ${r.state}">${r.state||''}</span></dd><dt>Ticket</dt><dd><a href="#" onclick="showTask('${r.task}');return false">${esc(r.task)}</a></dd>
+      <dt>Account</dt><dd>${esc(r.account)}</dd><dt>Model</dt><dd>${esc(r.model)} · ${esc(r.effort)}</dd><dt>Workspace</dt><dd>${esc(r.cwd)}</dd></dl>
+      ${r.state==='running'?`<div><button class="btn danger" onclick="kill('${id}')">Stop this worker</button></div>`:''}
+      <pre id="logPre">${esc(log.lines.join('\n'))||'Waiting for the first step.'}</pre>
+      ${r.diffstat?`<pre>${esc(r.diffstat)}</pre>`:''}`);
+    const pre = $('#logPre'); if (pre) pre.scrollTop = pre.scrollHeight;
+  };
+  await draw();
+  logTimer = setInterval(() => { const r = S.runs.find(x => x.id === id); if (r && r.state === 'running') draw(); }, 3000);
+}
+
+async function showDiff(id) { const d = await api('GET', `/api/tasks/${id}/diff`); openDrawer(`Diff ${id}`, `<pre>${esc([d.note,d.commits,d.stat].filter(Boolean).join('\n\n'))}</pre><pre>${esc(d.diff||'')}</pre>`); }
+async function go(id) { try { await api('POST', `/api/tasks/${id}/dispatch`, { model: $('#dModel').value, effort: $('#dEffort').value, workspace: $('#dWs').value || undefined, instructions: $('#dSay').value || undefined }); await load(); } catch (e) { alert(e.message); } }
+async function setStatus(id, s) { if (!s) return; await api('PATCH', `/api/tasks/${id}`, { status: s, actor: 'dashboard' }); load(); }
+async function addNote(id) { const v = $('#dNote').value.trim(); if (!v) return; await api('PATCH', `/api/tasks/${id}`, { note: v, actor: 'dashboard' }); load(); }
+async function doMerge(id) { if (!confirm(`Merge ${id} into main?`)) return; try { const r = await api('POST', `/api/tasks/${id}/merge`, {}); openDrawer(`Merged ${id}`, `<pre>${esc(r.output)}</pre>`); load(); } catch (e) { alert(e.message); } }
+async function kill(id) { await api('POST', `/api/runs/${id}/kill`); load(); }
+
+$('#orderForm').onsubmit = async e => { e.preventDefault(); const t = $('#orderText').value.trim(); if (!t) return; await api('POST', '/api/orders', { text: t }); $('#orderText').value = ''; load(); };
+$('#taskForm').onsubmit = async e => { e.preventDefault(); const f = new FormData(e.target); const b = Object.fromEntries(f); b.dispatch = b.go ? {} : undefined; delete b.go; if (!b.kind) delete b.kind; b.actor = 'dashboard'; try { await api('POST', '/api/tasks', b); e.target.reset(); load(); } catch (x) { alert(x.message); } };
+document.querySelectorAll('[data-launch]').forEach(b => b.onclick = () => api('POST', '/api/launch', { what: b.dataset.launch }).catch(e => alert(e.message)));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+let reloadTimer = null;
+function connect() {
+  const es = new EventSource('/api/stream');
+  es.onopen = () => { $('#live').classList.add('on'); $('#live span').textContent = 'live'; };
+  es.onerror = () => { $('#live').classList.remove('on'); $('#live span').textContent = 'reconnecting'; };
+  es.onmessage = m => {
+    const e = JSON.parse(m.data);
+    events.unshift(e); events = events.slice(0, 400);
+    renderFeed();
+    if (e.type === 'deploy.alert') { $('#alertText').textContent = e.msg; $('#alert').classList.add('show'); }
+    if (e.type !== 'files.changed') { clearTimeout(reloadTimer); reloadTimer = setTimeout(load, 400); }
+  };
+}
+load().then(connect);
+setInterval(load, 30000);
+</script>
+</body>
+</html>

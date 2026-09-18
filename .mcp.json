@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": [
+        "/c",
+        "npx",
+        "@playwright/mcp@latest"
+      ],
+      "env": {}
+    },
+    "hive": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "hive/mcp.js"
+      ],
+      "env": {}
+    }
+  }
+}
