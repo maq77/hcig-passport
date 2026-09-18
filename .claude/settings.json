@@ -1,0 +1,31 @@
+{
+  "enabledPlugins": {
+    "impeccable@impeccable": true,
+    "nateherk-design@nateherk": true
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/hive/hooks/claude-notify.js\" notification",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${CLAUDE_PROJECT_DIR}/hive/hooks/claude-notify.js\" stop",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

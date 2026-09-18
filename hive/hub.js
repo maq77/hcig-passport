@@ -68,13 +68,24 @@ function agents() {
 
 function state() {
   return { now: S.now(), port: PORT, tasks: S.loadTasks(), runs: D.listRuns().slice(-40).reverse(), agents: agents(),
-    events: S.readEvents(150).reverse(), usage: M.usageSummary(), budget: M.budget(), inbox: S.readInbox().filter(i => !i.read),
+    events: S.readEvents(150).reverse(), usage: M.usageSummary(), budget: M.budget(), inbox: S.readInbox().slice(-10).reverse(),
     models: { allowed: M.allowed(), routes: S.config().models.routes.map(r => ({ kind: r.kind, model: r.model, effort: r.effort })), effort: S.config().models.effort } };
 }
 
 const clients = new Set();
 S.onEvent(ev => { try { notify.onEvent(ev); } catch {} });
 S.onEvent(ev => { if (ev.type === 'task.update' && ev.data && ev.data.status === 'done') setTimeout(() => D.releaseReady(), 200); });
+
+// Queue: when a worker finishes, the oldest queued ticket takes its place.
+S.onEvent(ev => {
+  if (ev.type !== 'run.end') return;
+  setTimeout(() => {
+    const next = S.loadTasks().filter(t => t.queued && t.status === 'todo').sort((x, y) => x.created.localeCompare(y.created))[0];
+    if (!next) return;
+    try { S.updateTask(next.id, { queued: false }, 'hive'); D.dispatch(next.id); S.emit('queue', `${next.id} started from the queue`, { id: next.id }, 'hive'); }
+    catch (e) { S.updateTask(next.id, { queued: true }, 'hive'); }
+  }, 1500);
+});
 
 // Automatic second opinion: a worker's own "ready for review" triggers a review by a
 // different model. The review ticket is advisory, so it closes itself when it finishes.
@@ -135,13 +146,23 @@ const routes = [
     // No assignee, or "auto": the head's triage rules decide, and say why.
     let tri = null;
     if (!b.assignee || b.assignee === 'auto') { tri = policy.triage(b); b.assignee = tri.assignee; b.kind = b.kind || tri.kind; }
+    if (!b.agent || b.agent === 'auto') { const ag = policy.pickAgent({ ...b, agent: undefined }); b.agent = ag ? ag.id : undefined; }
     const t = S.createTask(b, b.actor || '@claude');
-    if (tri) S.updateTask(t.id, { note: `Triage (${tri.rule}): ${tri.why}` }, 'triage');
+    if (tri || t.agent) S.updateTask(t.id, { note: [tri ? `Triage (${tri.rule}): ${tri.why}` : '', t.agent ? `Specialist: ${(policy.ROLES().find(r => r.id === t.agent) || {}).name || t.agent}.` : ''].filter(Boolean).join(' ') }, 'triage');
     const auto = tri && (S.config().policy || {}).autoStart && t.assignee === '@agy-cli' && b.dispatch === undefined && !(t.dependsOn || []).length;
-    if (b.dispatch || auto) { try { D.dispatch(t.id, b.dispatch && b.dispatch !== true ? b.dispatch : {}); } catch (e) { S.updateTask(t.id, { note: `Not started: ${e.message}` }, 'hive'); } }
+    if (b.dispatch || auto) {
+      try { D.dispatch(t.id, b.dispatch && b.dispatch !== true ? b.dispatch : {}); }
+      catch (e) { const full = /parallel limit/.test(e.message); S.updateTask(t.id, { ...(full ? { queued: true } : {}), note: full ? 'Queued: starts when a worker frees up.' : `Not started: ${e.message}` }, 'hive'); }
+    }
     return { ...S.getTask(t.id), triage: tri };
   }],
   ['POST', /^\/api\/triage$/, async (req) => policy.triage(await body(req))],
+  ['GET', /^\/api\/agents$/, () => {
+    const tasks = S.loadTasks(), runs = D.listRuns();
+    return policy.ROLES().map(r => ({ id: r.id, name: r.name, lead: r.lead, when: r.when, kind: r.kind, agyModel: r.agyModel, skills: r.skills || [], mcp: r.mcp || [],
+      open: tasks.filter(t => t.agent === r.id && t.status !== 'done').length, done: tasks.filter(t => t.agent === r.id && t.status === 'done').length,
+      running: runs.filter(x => x.state === 'running' && (tasks.find(t => t.id === x.task) || {}).agent === r.id).map(x => x.id) }));
+  }],
   // Attachments: files and images pasted or dropped into the dashboard. Saved under
   // .hive/files/<day>/ and returned as an absolute path the agents can read.
   ['POST', /^\/api\/upload$/, (req, m, q) => new Promise((resolve, reject) => {
@@ -183,6 +204,8 @@ const routes = [
   ['GET', /^\/api\/inbox$/, (req, m, q) => S.readInbox({ markRead: q.get('read') === '1' })],
   ['POST', /^\/api\/orders$/, async (req) => { const b = await body(req); return S.pushInbox(b.text, b.from || 'dashboard', b.files || []); }],
   ['POST', /^\/api\/launch$/, async (req) => { const b = await body(req); return D.launch(b.what, b); }],
+  ['POST', /^\/api\/runs\/([\w-]+)\/open$/, (req, m) => D.launch('watch', { run: m[1] })],
+  ['POST', /^\/api\/agents\/([\w-]+)\/open$/, (req, m) => D.launch('agent', { agent: m[1] })],
   ['POST', /^\/api\/events$/, async (req) => { const b = await body(req); return S.emit(b.type || 'note', b.msg, b.data || {}, b.actor || 'agent'); }],
 ];
 

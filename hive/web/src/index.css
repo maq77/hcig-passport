@@ -3,8 +3,8 @@
 /* HCIG Hive tokens. Light only (HCIG rule: no dark designs). Brand turquoise is
    for fills and accents; text on it uses the deeper teal for 4.5:1 contrast. */
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", system-ui, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", ui-monospace, Consolas, monospace;
 
   --color-canvas: #f7f8fa;
   --color-surface: #ffffff;
@@ -44,9 +44,9 @@
   --color-s4: #eda100;
   --color-s5: #e87ba4;
 
-  --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.05);
-  --shadow-pop: 0 12px 32px -8px rgba(16, 24, 40, 0.18), 0 2px 6px rgba(16, 24, 40, 0.06);
-  --radius-card: 10px;
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  --shadow-pop: 0 20px 48px -10px rgba(16, 24, 40, 0.16), 0 4px 12px rgba(16, 24, 40, 0.05);
+  --radius-card: 14px;
 }
 
 /* Dark theme: its own steps, not an inverted light theme. Chart series use the
@@ -90,10 +90,26 @@
 }
 
 html, body, #root { height: 100%; }
-body { @apply bg-canvas text-ink font-sans antialiased; font-size: 14px; line-height: 1.5; }
+body { @apply bg-canvas text-ink font-sans antialiased; font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+h1, h2, h3 { letter-spacing: -0.018em; text-rendering: optimizeLegibility; }
 .tabular { font-variant-numeric: tabular-nums; }
-:focus-visible { outline: 2px solid var(--color-brand-ink); outline-offset: 2px; border-radius: 6px; }
+:focus-visible { outline: 2px solid var(--color-brand-ink); outline-offset: 2px; border-radius: 8px; }
 ::selection { background: var(--color-brand-soft); }
 .scroll-thin { scrollbar-width: thin; scrollbar-color: var(--color-line-strong) transparent; }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; } }
+
+/* Apple response: instant tactile press feedback */
+button:active:not(:disabled),
+[role="button"]:active:not(:disabled) {
+  transform: scale(0.975);
+  transition-duration: 70ms !important;
+}
+
+/* Apple fluid deceleration curve */
+.ease-apple {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; transform: none !important; }
+}
 [cmdk-input]:focus-visible { outline: none; }

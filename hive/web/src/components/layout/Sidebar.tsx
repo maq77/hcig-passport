@@ -1,4 +1,4 @@
-import { Home, Columns3, ListTodo, Activity, BarChart3, BookOpen, SlidersHorizontal, Terminal, Monitor, Bot, X } from 'lucide-react';
+import { Users, Home, Columns3, ListTodo, Activity, BarChart3, BookOpen, SlidersHorizontal, Terminal, Monitor, Bot, X } from 'lucide-react';
 import { cn, tokens } from '@/lib/utils';
 import { useHive } from '@/store/hive';
 import { useUI } from '@/store/ui';
@@ -12,6 +12,7 @@ export const NAV = [
   { id: 'board', label: 'Board', icon: Columns3, key: 'B' },
   { id: 'list', label: 'List', icon: ListTodo, key: 'L' },
   { id: 'runs', label: 'Runs', icon: Activity, key: 'R' },
+  { id: 'agents', label: 'Agents', icon: Users, key: 'T' },
   { id: 'analytics', label: 'Analytics', icon: BarChart3, key: 'A' },
   { id: 'brain', label: 'Brain', icon: BookOpen, key: 'M' },
   { id: 'settings', label: 'Settings', icon: SlidersHorizontal, key: 'S' },
@@ -40,14 +41,14 @@ export function Sidebar({ view }: { view: string }) {
       <nav
         aria-label="Main"
         className={cn(
-          'fixed inset-y-0 left-0 z-30 flex w-60 flex-col border-r border-line bg-surface transition-transform duration-200 lg:static lg:translate-x-0',
+          'fixed inset-y-0 left-0 z-30 flex w-60 flex-col border-r border-line/70 bg-surface/90 backdrop-blur-xl saturate-180 transition-transform duration-300 ease-apple lg:static lg:translate-x-0',
           navOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
-        <div className="flex h-14 items-center gap-2.5 border-b border-line px-4">
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-ink text-[13px] font-bold text-on-brand">H</span>
-          <span className="font-semibold tracking-tight">HCIG Hive</span>
-          <button className="ml-auto grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-ink-3 hover:bg-sunken lg:hidden" onClick={() => setNav(false)} aria-label="Close menu"><X size={16} /></button>
+        <div className="flex h-14 items-center gap-2.5 border-b border-line/70 px-4">
+          <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-ink text-[13px] font-bold text-on-brand shadow-sm">H</span>
+          <span className="font-semibold tracking-tight text-ink">HCIG Hive</span>
+          <button className="ml-auto grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-ink-3 hover:bg-sunken active:scale-95 transition-transform lg:hidden" onClick={() => setNav(false)} aria-label="Close menu"><X size={16} /></button>
         </div>
 
         <div className="scroll-thin flex-1 overflow-y-auto px-2.5 py-3">
@@ -60,12 +61,12 @@ export function Sidebar({ view }: { view: string }) {
                     href={`#/${n.id}`}
                     onClick={() => setNav(false)}
                     aria-current={active ? 'page' : undefined}
-                    className={cn('flex h-9 items-center gap-2.5 rounded-lg px-2.5 text-[13.5px] font-medium transition-colors',
-                      active ? 'bg-brand-soft text-brand-ink' : 'text-ink-2 hover:bg-sunken hover:text-ink')}
+                    className={cn('flex h-9 items-center gap-2.5 rounded-xl px-2.5 text-[13.5px] font-medium transition-all duration-150 active:scale-[0.98]',
+                      active ? 'bg-brand-soft text-brand-ink font-semibold' : 'text-ink-2 hover:bg-sunken/80 hover:text-ink')}
                   >
                     <n.icon size={17} strokeWidth={1.9} />
                     <span className="flex-1">{n.label}</span>
-                    {counts[n.id] ? <span className={cn('tabular rounded-md px-1.5 text-[11px] font-semibold', active ? 'bg-surface text-brand-ink' : 'bg-sunken text-ink-3')}>{counts[n.id]}</span> : null}
+                    {counts[n.id] ? <span className={cn('tabular rounded-md px-1.5 text-[11px] font-semibold', active ? 'bg-surface text-brand-ink shadow-sm' : 'bg-sunken text-ink-3')}>{counts[n.id]}</span> : null}
                   </a>
                 </li>
               );

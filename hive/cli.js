@@ -14,6 +14,8 @@
 //   node hive/cli.js policy | triage "title" | set <path> <value> | config [path]
 //   node hive/cli.js consult "question" [--files a,b] [--model m]   read-only answer from agy (/delegate)
 //   node hive/cli.js standup | jobs | job <id>
+//   node hive/cli.js agents | role <id> [prompt] [--claude]    list specialists, open one live
+//   add ... --agent seo-specialist                pick the specialist (default: chosen from the wording)
 //   node hive/cli.js usage | inbox | brain | open | launch <agy|claude|desktop> [--account a1]
 const { api, PORT } = require('./lib/client');
 
@@ -43,9 +45,9 @@ async function main() {
   }
   switch (cmd) {
     case 'add': {
-      const after = flag('after', ''), auto = flag('auto');
+      const after = flag('after', ''), auto = flag('auto'), agent = flag('agent');
       const to = flag('to', 'auto'), desc = flag('desc', ''), folder = flag('folder', ''), accept = flag('accept', ''), kind = flag('kind'), go = flag('go'), prio = flag('priority', 'normal');
-      const t = await api('POST', '/api/tasks', { title: argv.join(' '), assignee: to, description: desc, folder, kind, priority: prio, acceptance: accept ? accept.split(';').map(s => s.trim()) : [], actor, dispatch: go ? {} : undefined, dependsOn: after ? after.split(',') : [], autoDispatch: !!auto });
+      const t = await api('POST', '/api/tasks', { title: argv.join(' '), assignee: to, description: desc, folder, kind, priority: prio, acceptance: accept ? accept.split(';').map(s => s.trim()) : [], actor, dispatch: go ? {} : undefined, dependsOn: after ? after.split(',') : [], autoDispatch: !!auto, agent });
       return console.log(`${t.id} created for ${t.assignee}${t.triage ? ` (${t.triage.rule}: ${t.triage.why})` : ''}${go ? ', worker started' : ''}`);
     }
     case 'go': case 'dispatch': {
@@ -84,6 +86,8 @@ ${h}
 ` + xs.map(x => `  ${pad(x.id, 18)} ${x.title}`).join('\n')); return; }
     case 'jobs': { const j = await api('GET', '/api/schedules'); return console.log(j.map(x => `  ${x.enabled ? 'on ' : 'off'} ${pad(x.id, 16)} ${x.at} ${pad(Array.isArray(x.days) ? x.days.join(',') : x.days, 9)} last ${x.lastRun || 'never'}  ${x.label}`).join('\n')); }
     case 'job': { const r = await api('POST', `/api/schedules/${argv[0]}/run`); return console.log(r.line || r.id || 'ran'); }
+    case 'agents': { const a = await api('GET', '/api/agents'); return console.log(a.map(r => `  ${pad(r.id, 24)} ${pad(r.lead, 12)} ${pad(r.agyModel, 26)} open ${r.open}${r.running.length ? '  RUNNING' : ''}\n      ${r.when}`).join('\n')); }
+    case 'role': { const id = argv.shift(); const w = flag('claude') ? 'claude' : 'agy'; const r = await api('POST', '/api/launch', { what: 'role', role: id, with: w, prompt: argv.join(' ') }); return console.log(`${r.title} opened`); }
     case 'route': { const r = await api('GET', `/api/tasks/${argv[0]}/route`); return console.log(JSON.stringify(r, null, 2)); }
     case 'usage': { const u = await api('GET', '/api/usage'); return console.log(JSON.stringify(u, null, 2)); }
     case 'inbox': { const items = await api('GET', '/api/inbox?read=1'); return console.log(items.filter(i => !i.read).map(i => `${i.ts.slice(0, 16)} ${i.from}: ${i.text}`).join('\n') || 'Inbox empty.'); }
@@ -91,6 +95,7 @@ ${h}
     case 'brain': { const b = await api('GET', '/api/brain'); return console.log(b.text); }
     case 'launch': { const r = await api('POST', '/api/launch', { what: argv[0], account: flag('account') }); return console.log(r.title || 'opened'); }
     case 'open': { require('child_process').spawn('cmd', ['/c', 'start', '', `http://localhost:${PORT}`], { detached: true, stdio: 'ignore' }).unref(); return; }
+    case 'notify': { const category = flag('category', 'update'), url = flag('url', `http://localhost:${PORT}`), urgent = !!flag('urgent'); const title = argv.shift() || 'Hive Alert'; const body = argv.join(' ') || ''; require('./lib/notify').send(title, body, { category, url, urgent }); return console.log('Notification triggered'); }
     case 'hub': { await require('./lib/client').ensureHub(); return console.log(`Hub running on http://localhost:${PORT}`); }
     default: console.log(require('fs').readFileSync(__filename, 'utf8').split('\n').filter(l => l.startsWith('//')).join('\n'));
   }

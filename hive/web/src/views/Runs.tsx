@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { ModelTag, RunState } from '@/components/ui/badge';
 import { api } from '@/lib/api';
 import { cn, duration, relTime, tokens } from '@/lib/utils';
+import { MarkdownText } from '@/components/MarkdownText';
 import type { Run, Step } from '@/lib/types';
 
 export function RunsView() {
@@ -63,8 +64,8 @@ export function RunReplayView({ id }: { id: string }) {
           <RunState state={run.state} />
           <ModelTag model={run.model} />
           <a href={`#/task/${run.task}`} className="font-mono text-xs text-brand-ink hover:underline">{run.task}</a>
-          <span className="text-xs text-ink-3">{run.steps} steps · {tokens(run.tokens)} tokens · started {relTime(run.started)}</span>
-          {run.state === 'running' ? <Button size="sm" variant="danger" className="ml-auto" onClick={() => api.post(`/api/runs/${run.id}/kill`).then(() => toast.success('Worker stopped'))}><Square size={12} />Stop</Button> : null}
+          <Button size="sm" variant="secondary" className="ml-auto" onClick={() => api.post('/api/launch', { what: 'watch', run: run.id }).then(() => toast.success('Live terminal opened in Windows Terminal'))}><Terminal size={13} /> Open Terminal</Button>
+          {run.state === 'running' ? <Button size="sm" variant="danger" onClick={() => api.post(`/api/runs/${run.id}/kill`).then(() => toast.success('Worker stopped'))}><Square size={12} />Stop</Button> : null}
         </> : null}
       </div>
 
@@ -98,7 +99,7 @@ export function RunReplayView({ id }: { id: string }) {
         ) : <Empty title="No steps recorded" hint="The run may have failed before its first step. Check the ticket notes." />}
       </Card>
       {run?.response ? (
-        <Card><CardHeader title="Final answer" /><p className="px-4 py-3 text-[13.5px] whitespace-pre-wrap">{run.response}</p></Card>
+        <Card><CardHeader title="Final answer" /><div className="px-4 py-3"><MarkdownText text={run.response} /></div></Card>
       ) : null}
     </div>
   );

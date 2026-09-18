@@ -62,25 +62,25 @@ export function BoardView() {
               onDragOver={e => { e.preventDefault(); setOver(s.id); }}
               onDragLeave={() => setOver(null)}
               onDrop={e => { e.preventDefault(); setOver(null); if (dragId) move(dragId, s.id); setDragId(null); }}
-              className={cn('flex w-[280px] shrink-0 flex-col rounded-xl bg-sunken/70 transition-colors', over === s.id && 'bg-brand-soft ring-2 ring-brand-ink/30')}
+              className={cn('flex w-[284px] shrink-0 flex-col rounded-2xl border border-line/40 bg-sunken/60 backdrop-blur-sm transition-all duration-200 ease-apple', over === s.id && 'bg-brand-soft border-brand-ink/40 ring-2 ring-brand-ink/20')}
             >
-              <header className="flex items-center gap-2 px-3 pt-3 pb-2">
-                <span className={cn('inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-xs font-semibold', s.soft, s.text)}>
+              <header className="flex items-center gap-2 px-3.5 pt-3.5 pb-2.5">
+                <span className={cn('inline-flex items-center gap-1.5 rounded-lg px-2 py-0.5 text-xs font-semibold', s.soft, s.text)}>
                   <span className={cn('h-2 w-2 rounded-full', s.dot)} />{s.label}
                 </span>
                 <span className="tabular text-xs text-ink-3">{col.length}</span>
-                <button onClick={() => openNewTask({ status: s.id })} className="ml-auto grid h-7 w-7 cursor-pointer place-items-center rounded-md text-ink-3 hover:bg-surface hover:text-ink" aria-label={`Add a ticket to ${s.label}`}>
+                <button onClick={() => openNewTask({ status: s.id })} className="ml-auto grid h-7 w-7 cursor-pointer place-items-center rounded-lg text-ink-3 hover:bg-surface hover:text-ink active:scale-95 transition-transform" aria-label={`Add a ticket to ${s.label}`}>
                   <Plus size={15} />
                 </button>
               </header>
-              <ol className="scroll-thin flex min-h-24 flex-1 flex-col gap-2 overflow-y-auto px-2 pb-2">
+              <ol className="scroll-thin flex min-h-24 flex-1 flex-col gap-2.5 overflow-y-auto px-2.5 pb-2.5">
                 {shown.map(t => (
                   <li key={t.id}>
                     <TaskCard t={t} all={tasks} dragging={dragId === t.id} onOpen={() => openTask(t.id)} onDrag={setDragId} />
                   </li>
                 ))}
                 {s.id === 'done' && col.length > shown.length ? <li className="px-2 py-1 text-xs text-ink-3">{col.length - shown.length} older in List view</li> : null}
-                {!col.length ? <li className="rounded-lg border border-dashed border-line-strong px-3 py-5 text-center text-xs text-ink-3">Drop a ticket here</li> : null}
+                {!col.length ? <li className="rounded-xl border border-dashed border-line-strong/60 px-3 py-6 text-center text-xs text-ink-3">Drop a ticket here</li> : null}
               </ol>
             </section>
           );
@@ -102,19 +102,23 @@ function TaskCard({ t, all, dragging, onOpen, onDrag }: { t: Task; all: Task[]; 
       tabIndex={0}
       role="button"
       aria-label={`${t.id} ${t.title}`}
-      className={cn('group cursor-pointer rounded-lg border border-line bg-surface p-3 shadow-card transition-[border-color,box-shadow] hover:border-line-strong hover:shadow-pop', dragging && 'opacity-50')}
+      className={cn(
+        'group cursor-pointer rounded-xl border border-line/75 bg-surface p-3.5 shadow-card',
+        'transition-all duration-150 ease-apple hover:-translate-y-0.5 hover:border-line-strong hover:shadow-pop active:scale-[0.98]',
+        dragging && 'opacity-40 scale-95'
+      )}
     >
-      <div className="mb-1 flex items-center gap-2">
+      <div className="mb-1.5 flex items-center gap-2">
         <span className="font-mono text-[11px] text-ink-3">{t.id}</span>
         <PriorityFlag priority={t.priority} />
       </div>
-      <p className="line-clamp-3 text-[13.5px] leading-snug font-medium text-ink">{t.title}</p>
-      <div className="mt-2.5 flex items-center gap-2.5 text-xs text-ink-3">
+      <p className="line-clamp-3 text-[13.5px] leading-snug font-medium text-ink tracking-tight">{t.title}</p>
+      <div className="mt-3 flex items-center gap-2.5 text-xs text-ink-3">
         <Avatar who={t.assignee} size={20} />
         {waiting.length ? <span className="inline-flex items-center gap-1 text-warn" title={`Waits on ${waiting.join(', ')}`}><Link2 size={13} />{waiting.length}</span> : null}
         {t.branch ? <span className="inline-flex items-center" title={t.branch}><GitBranch size={13} /></span> : null}
         {t.notes.length ? <span className="inline-flex items-center gap-1" title="Notes"><MessageSquare size={13} />{t.notes.length}</span> : null}
-        <span className="ml-auto">{relTime(t.updated)}</span>
+        <span className="ml-auto tabular text-[11.5px]">{relTime(t.updated)}</span>
       </div>
     </article>
   );

@@ -5,6 +5,19 @@ const S = require('./store');
 const M = require('./models');
 
 const PRIORITIES = ['low', 'normal', 'high', 'critical'];
+const ROLES = () => { delete require.cache[require.resolve('../agents/roles')]; return require('../agents/roles'); };
+
+// The specialist for a piece of work: most keyword hits in the title and brief.
+function pickAgent(task) {
+  if (task.agent) return ROLES().find(r => r.id === task.agent) || null;
+  const text = `${task.title || ''} ${task.description || ''}`.toLowerCase();
+  let best = null, score = 0;
+  for (const r of ROLES()) {
+    const hits = (text.match(new RegExp(r.match, 'gi')) || []).length;
+    if (hits > score) { best = r; score = hits; }
+  }
+  return best;
+}
 
 function claudePressure() {
   const p = S.config().policy || {};
@@ -33,9 +46,10 @@ function triage(task) {
       assignee = '@agy-cli';
       why = `${rule.why} Claude is past its daily output line (${Math.round(pressure.used / 1000)}k), so a worker takes it and Claude reviews.`;
     }
-    return { assignee, rule: rule.id, why, kind, priority: task.priority || 'normal', pressure };
+    const ag = pickAgent(task);
+    return { assignee, rule: rule.id, why, kind, priority: task.priority || 'normal', pressure, agent: ag ? ag.id : null, agentName: ag ? ag.name : null };
   }
   return { assignee: '@agy-cli', rule: 'fallback', why: 'No rule matched. A worker does it; Claude reviews.', kind, priority: task.priority || 'normal', pressure };
 }
 
-module.exports = { triage, claudePressure, PRIORITIES };
+module.exports = { triage, claudePressure, pickAgent, ROLES, PRIORITIES };

@@ -17,6 +17,7 @@ import { RunsView, RunReplayView } from '@/views/Runs';
 import { AnalyticsView } from '@/views/Analytics';
 import { BrainView } from '@/views/Brain';
 import { SettingsView } from '@/views/Settings';
+import { AgentsView } from '@/views/Agents';
 
 const TITLES: Record<string, [string, string]> = {
   home: ['Home', 'What needs you, who is working, and what just happened'],
@@ -25,6 +26,7 @@ const TITLES: Record<string, [string, string]> = {
   list: ['List', 'Every ticket, grouped by status'],
   runs: ['Runs', 'Worker runs and their replays'],
   run: ['Run replay', 'Every step the worker took'],
+  agents: ['Agents', 'The specialists. Each one works in Claude and in agy'],
   analytics: ['Analytics', 'Tokens, success and time, per model and per kind of work'],
   brain: ['Brain', 'The shared memory every agent reads'],
   settings: ['Settings', 'Budget, models, accounts and alerts'],
@@ -78,6 +80,7 @@ export default function App() {
             : view === 'list' ? <ListView />
             : view === 'runs' ? <RunsView />
             : view === 'run' && route.id ? <RunReplayView id={route.id} />
+            : view === 'agents' ? <AgentsView />
             : view === 'analytics' ? <AnalyticsView />
             : view === 'brain' ? <BrainView />
             : view === 'settings' ? <SettingsView />

@@ -33,6 +33,26 @@ function agyExe() {
   return fs.existsSync(p) ? p : 'agy';
 }
 
+function openTerminal({ title, cwd = S.ROOT, cmd }) {
+  try {
+    const p = spawn('wt', ['-w', 'new', '--title', title, '-d', cwd, 'cmd', '/k', cmd], {
+      detached: true,
+      stdio: 'ignore',
+      shell: false,
+    });
+    p.on('error', () => {
+      try {
+        spawn('cmd.exe', ['/c', 'start', title, 'cmd', '/k', cmd], { cwd, detached: true, stdio: 'ignore' }).unref();
+      } catch {}
+    });
+    p.unref();
+  } catch {
+    try {
+      spawn('cmd.exe', ['/c', 'start', title, 'cmd', '/k', cmd], { cwd, detached: true, stdio: 'ignore' }).unref();
+    } catch {}
+  }
+}
+
 function accountEnv(acc) {
   const env = { ...process.env };
   if (acc && acc.profile) {
@@ -67,12 +87,21 @@ function workspaceFor(task, mode) {
   return { cwd: dir, branch, isolated: true };
 }
 
+// The specialist role's part of a worker brief (roles live in hive/agents/roles.js).
+function roleBrief(role) {
+  const extras = [];
+  if (role.skills && role.skills.length) extras.push('Also use these skills: ' + role.skills.join(', ') + '.');
+  if (role.mcp && role.mcp.length) extras.push('MCP servers: ' + role.mcp.join(', ') + '.');
+  return ['## Your role: ' + role.name, 'Load the skill "role-' + role.id + '" and work as it says. ' + extras.join(' '), '', role.body, ''].join('\n');
+}
+
 function brief(task, ws, route, extra) {
   const cfg = S.config();
   return [
     `# Hive ticket ${task.id}: ${task.title}`, '',
     `You are an Antigravity worker in the HCIG Hive. Claude Code (@claude) is the head and reviews your work.`,
     `Model ${route.model}, effort ${route.effort}, task kind ${route.kind}.`, '',
+    route.role ? roleBrief(route.role) : '',
     `## First`, `Read the shared brain: ${S.P.brain}`, `It holds the rules, the state of play and the memory index. Follow it.`, '',
     `## Where you work`,
     ws.isolated ? `Your own git worktree: ${ws.cwd} on branch ${ws.branch}. Commit your work there with message "feat(${task.id.toLowerCase()}): <summary>". Do not touch the main folder.`
@@ -100,10 +129,28 @@ function dispatch(taskId, opts = {}) {
   const cfg = S.config();
   const waiting = (task.dependsOn || []).filter(d => { const t = S.getTask(d); return !t || t.status !== 'done'; });
   if (waiting.length && !opts.force) throw new Error(`${task.id} waits on ${waiting.join(', ')}. Finish those first, or pass force.`);
+
+  if (task.assignee === '@agy-desktop') {
+    const ws = workspaceFor(task, opts.workspace);
+    S.updateTask(task.id, { status: 'in_progress', branch: ws.branch || task.branch }, '@agy-desktop');
+    launch('desktop', { cwd: ws.cwd });
+    S.emit('run.start', `${task.id} started on Antigravity Desktop`, { task: task.id }, 'desktop');
+    return { id: `${task.id}-desktop`, task: task.id, account: 'desktop', state: 'running' };
+  }
+  if (task.assignee === '@claude') {
+    const ws = workspaceFor(task, opts.workspace);
+    S.updateTask(task.id, { status: 'in_progress' }, '@claude');
+    launch('claude', { cwd: ws.cwd });
+    S.emit('run.start', `${task.id} opened for Claude in Windows Terminal`, { task: task.id }, '@claude');
+    return { id: `${task.id}-claude`, task: task.id, account: 'claude', state: 'running' };
+  }
+
   const b = M.budget();
   if (b.over && b.hardStop && !opts.force) throw new Error(`Daily token budget used (${b.used} of ${b.limit}). Raise it in Settings or pass force.`);
   const acc = pickAccount(opts.account);
-  const r = M.route(task, { model: opts.model, effort: opts.effort, account: acc.id });
+  const role = task.agent ? require('./policy').ROLES().find(x => x.id === task.agent) : null;
+  const r = M.route(task, { model: opts.model || (role && role.agyModel), effort: opts.effort, account: acc.id });
+  r.role = role;
   const ws = workspaceFor(task, opts.workspace);
   const id = `${task.id}-${Date.now().toString(36)}`;
   const briefPath = path.join(S.P.runs, `${id}.brief.md`);
@@ -126,6 +173,18 @@ function dispatch(taskId, opts = {}) {
   saveRun(run);
   S.updateTask(task.id, { status: 'in_progress', branch: ws.branch || task.branch, runs: [...(task.runs || []), id] }, 'hive');
   S.emit('run.start', `${task.id} started on ${acc.label} with ${r.model} (${r.effort})${ws.isolated ? ' in ' + ws.branch : ' in the main folder'}`, { run: id, task: task.id, account: acc.id, model: r.model }, `agy:${acc.id}`);
+
+  // Automatically open visible CLI terminal or desktop on screen for live monitoring
+  if (opts.open !== false) {
+    openTerminal({
+      title: `Hive Live: ${task.id} (${r.model})`,
+      cwd: S.ROOT,
+      cmd: `node hive/lib/watch-run.js ${id}`
+    });
+    if (task.assignee === '@agy-desktop' || opts.desktop) {
+      try { launch('desktop', { cwd: ws.cwd }); } catch {}
+    }
+  }
 
   const deployRe = new RegExp(cfg.deployPatterns.join('|'), 'i');
   const quotaRe = new RegExp(cfg.quotaPatterns.join('|'), 'i');
@@ -255,20 +314,67 @@ Co-Authored-By: Claude Opus 5 <noreply@anthropic.com>`, t.branch]);
   return out;
 }
 
-// Open an interactive agy (or claude) in a Windows Terminal tab, under an account.
-function launch(what, { account, cwd } = {}) {
+// Open an interactive agy, claude, live run monitor, or desktop window.
+function launch(what, opts = {}) {
   const cfg = S.config();
-  const dir = cwd ? S.abs(cwd) : S.ROOT;
-  if (what === 'desktop') {
+  const dir = opts.cwd ? S.abs(opts.cwd) : S.ROOT;
+  if (what === 'desktop' || opts.agent === 'desktop' || opts.agent === '@agy-desktop') {
     spawn(S.expand(cfg.agy.desktopExe), [dir], { detached: true, stdio: 'ignore' }).unref();
     S.emit('launch', 'Antigravity Desktop opened', {}, '@claude');
-    return { ok: true };
+    return { ok: true, title: 'Antigravity Desktop' };
   }
-  const acc = what === 'agy' ? pickAccount(account) : null;
+  if (what === 'watch' || what === 'run') {
+    const runId = opts.run || opts.id || opts.agent;
+    if (!runId) throw new Error('Specify run ID to watch');
+    const title = `Hive Live: ${runId}`;
+    openTerminal({
+      title,
+      cwd: S.ROOT,
+      cmd: `node hive/lib/watch-run.js ${runId}`
+    });
+    S.emit('launch', `Live monitor opened for ${runId}`, { run: runId }, '@claude');
+    return { ok: true, title };
+  }
+  // A specialist role, live and interactive: agy loads the role skill, or Claude
+  // starts with its subagent. The user watches and talks to it in its own window.
+  if (what === 'role') {
+    const role = require('./policy').ROLES().find(r => r.id === opts.role);
+    if (!role) throw new Error(`No role ${opts.role}`);
+    const ask = String(opts.prompt || '').replace(/"/g, "'");
+    if (opts.with === 'claude') {
+      const p = `Use the ${role.id} subagent. ${ask || 'Ask me what I need, then do it.'}`;
+      openTerminal({ title: `Claude: ${role.name}`, cwd: dir, cmd: `claude "${p}"` });
+    } else {
+      const p = `Load the skill role-${role.id} and act as the HCIG ${role.name}. Read .hive/brain.md first. ${ask || 'Say hello in one line and ask what I need.'}`;
+      openTerminal({ title: `agy: ${role.name}`, cwd: dir, cmd: `"${agyExe()}" --model ${role.agyModel} -i "${p}"` });
+    }
+    S.emit('launch', `${role.name} opened live${opts.with === 'claude' ? ' in Claude' : ' in agy'}`, { role: role.id }, '@claude');
+    return { ok: true, title: role.name };
+  }
+  if (what === 'agent') {
+    const agentId = opts.agent || opts.account;
+    if (agentId === 'claude' || agentId === '@claude') {
+      return launch('claude', { cwd: dir });
+    }
+    if (agentId === 'desktop' || agentId === '@agy-desktop') {
+      return launch('desktop', { cwd: dir });
+    }
+    const acc = pickAccount(agentId);
+    const activeRun = [...live.values()].find(l => l.run.account === acc.id);
+    if (activeRun) {
+      return launch('watch', { run: activeRun.run.id });
+    }
+    return launch('agy', { account: acc.id, cwd: dir });
+  }
+  const acc = what === 'agy' ? pickAccount(opts.account) : null;
   const cmd = what === 'claude' ? ['claude'] : [agyExe()];
   const envSet = acc && acc.profile ? `set "USERPROFILE=${S.abs(acc.profile)}" && set "HOME=${S.abs(acc.profile)}" && ` : '';
   const title = what === 'claude' ? 'Claude (head)' : `agy ${acc.id}`;
-  spawn('wt', ['-w', 'hive', 'new-tab', '--title', title, '-d', dir, 'cmd', '/k', `${envSet}${cmd.map(c => `"${c}"`).join(' ')}`], { detached: true, stdio: 'ignore', shell: false }).unref();
+  openTerminal({
+    title,
+    cwd: dir,
+    cmd: `${envSet}${cmd.map(c => `"${c}"`).join(' ')}`
+  });
   S.emit('launch', `${title} opened in Windows Terminal`, {}, '@claude');
   return { ok: true, title };
 }

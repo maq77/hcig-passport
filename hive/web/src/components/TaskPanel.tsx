@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { toast } from 'sonner';
-import { Play, Copy, Eye, FileDiff, GitMerge, Link2, Send, Square, FolderOpen, GitBranch, Check } from 'lucide-react';
+import { Play, Copy, Eye, FileDiff, GitMerge, Link2, Send, Square, FolderOpen, GitBranch, Check, Terminal, Monitor } from 'lucide-react';
 import { SlideOver } from '@/components/ui/overlay';
 import { Button } from '@/components/ui/button';
 import { Avatar, Badge, ModelTag, PriorityFlag, RunState, StatusPill } from '@/components/ui/badge';
 import { Select, Textarea } from '@/components/ui/form';
+import { MarkdownText } from '@/components/MarkdownText';
 import { useHive } from '@/store/hive';
 import { useUI } from '@/store/ui';
 import { api } from '@/lib/api';
@@ -78,6 +79,7 @@ function TaskBody({ task, refresh }: { task: Task; refresh: () => Promise<void> 
           <dd><Select aria-label="Priority" value={task.priority} onChange={e => patch({ priority: e.target.value }, 'Priority changed')} className="h-8 w-44">
             {['low', 'normal', 'high'].map(p => <option key={p} value={p}>{p[0].toUpperCase() + p.slice(1)}</option>)}
           </Select></dd>
+          {task.agent ? <><dt className="text-ink-3">Specialist</dt><dd><a href="#/agents" className="text-[13px] font-medium text-brand-ink hover:underline">{task.agent.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join(' ')}</a></dd></> : null}
           {route ? <><dt className="text-ink-3">Route</dt><dd className="flex items-center gap-2"><Badge tone="brand">{route.kind}</Badge><ModelTag model={route.model} /></dd></> : null}
           {task.folder ? <><dt className="text-ink-3">Folder</dt><dd className="flex items-center gap-1.5 font-mono text-xs"><FolderOpen size={14} className="text-ink-3" />{task.folder}</dd></> : null}
           {task.branch ? <><dt className="text-ink-3">Branch</dt><dd className="flex items-center gap-1.5 font-mono text-xs"><GitBranch size={14} className="text-ink-3" />{task.branch}</dd></> : null}
@@ -92,7 +94,7 @@ function TaskBody({ task, refresh }: { task: Task; refresh: () => Promise<void> 
 
       {task.description || task.acceptance?.length || task.details ? (
         <section className="flex flex-col gap-3 border-b border-line px-6 py-5 text-[13.5px] leading-relaxed">
-          {task.description ? <p className="whitespace-pre-wrap text-ink">{task.description}</p> : null}
+          {task.description ? <MarkdownText text={task.description} /> : null}
           {task.acceptance?.length ? (
             <div>
               <p className="mb-1.5 text-xs font-semibold text-ink-3">Acceptance criteria</p>
@@ -106,7 +108,16 @@ function TaskBody({ task, refresh }: { task: Task; refresh: () => Promise<void> 
       <section className="border-b border-line px-6 py-5">
         <p className="mb-3 text-xs font-semibold text-ink-3">Work on it</p>
         {!dispatchable ? (
-          <p className="text-[13px] text-ink-2">Assigned to {assigneeName(task.assignee)}. Only tickets for an agy worker can be started from here.</p>
+          <div className="flex flex-col gap-2">
+            <p className="text-[13px] text-ink-2">Assigned to {assigneeName(task.assignee)}.</p>
+            {task.assignee === '@agy-desktop' ? (
+              <div>
+                <Button size="sm" variant="secondary" onClick={() => api.post('/api/launch', { what: 'desktop', cwd: task.folder }).then(() => toast.success('Antigravity Desktop opened'))}>
+                  <Monitor size={14} /> Open in Antigravity Desktop
+                </Button>
+              </div>
+            ) : null}
+          </div>
         ) : (
           <div className="flex flex-col gap-3">
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
@@ -156,8 +167,8 @@ function TaskBody({ task, refresh }: { task: Task; refresh: () => Promise<void> 
                 <a href={`#/run/${r.id}`} className="font-mono text-xs text-brand-ink hover:underline">{r.id}</a>
                 <RunState state={r.state} />
                 <ModelTag model={r.model} />
-                <span className="ml-auto text-xs text-ink-3">{r.steps} steps · {relTime(r.started)}</span>
-                {r.state === 'running' ? <Button size="sm" variant="danger" onClick={() => act('kill', () => api.post(`/api/runs/${r.id}/kill`), 'Worker stopped')}><Square size={12} /> Stop</Button> : null}
+                <Button size="sm" variant="secondary" className="h-6 px-2 text-xs" onClick={() => api.post('/api/launch', { what: 'watch', run: r.id }).then(() => toast.success('Live terminal opened in Windows Terminal'))} title="Open in terminal"><Terminal size={12} /> Live</Button>
+                {r.state === 'running' ? <Button size="sm" variant="danger" className="h-6 px-2 text-xs" onClick={() => act('kill', () => api.post(`/api/runs/${r.id}/kill`), 'Worker stopped')}><Square size={12} /> Stop</Button> : null}
               </li>
             ))}
           </ul>
@@ -176,8 +187,8 @@ function TaskBody({ task, refresh }: { task: Task; refresh: () => Promise<void> 
               <li key={i} className="flex gap-3">
                 <Avatar who={n.by.startsWith('agy') ? '@agy-cli' : n.by} size={24} />
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs text-ink-3"><span className="font-medium text-ink-2">{n.by}</span> · {relTime(n.ts)}</p>
-                  <p className="mt-0.5 text-[13px] leading-relaxed whitespace-pre-wrap break-words">{n.text}</p>
+                  <p className="text-xs text-ink-3 mb-1"><span className="font-medium text-ink-2">{n.by}</span> · {relTime(n.ts)}</p>
+                  <MarkdownText text={n.text} />
                 </div>
               </li>
             ))}

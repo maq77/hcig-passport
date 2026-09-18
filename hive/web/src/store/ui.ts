@@ -2,13 +2,13 @@ import { create } from 'zustand';
 
 interface UIStore {
   taskId: string | null;
-  newTask: { open: boolean; status?: string; assignee?: string };
+  newTask: { open: boolean; status?: string; assignee?: string; agent?: string };
   palette: boolean;
   navOpen: boolean;
   consult: boolean;
   setConsult: (v: boolean) => void;
   openTask: (id: string | null) => void;
-  openNewTask: (preset?: { status?: string; assignee?: string }) => void;
+  openNewTask: (preset?: { status?: string; assignee?: string; agent?: string }) => void;
   closeNewTask: () => void;
   setPalette: (v: boolean) => void;
   setNav: (v: boolean) => void;

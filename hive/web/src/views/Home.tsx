@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { toast } from 'sonner';
-import { Send, ArrowRight, Eye, AlertOctagon, Inbox } from 'lucide-react';
+import { Send, ArrowRight, Eye, AlertOctagon, Inbox, Radio, Terminal } from 'lucide-react';
 import { useHive } from '@/store/hive';
 import { useUI } from '@/store/ui';
 import { Card, CardHeader, Empty, Kpi } from '@/components/ui/card';
@@ -51,14 +51,59 @@ export function HomeView() {
 
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
         <div className="flex min-w-0 flex-col gap-5">
+          {running > 0 ? (
+            <Card className="border-progress/30 bg-progress/5 p-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="relative flex h-3 w-3">
+                    
+                    <span className="relative inline-flex h-3 w-3 rounded-full bg-progress" />
+                  </span>
+                  <div>
+                    <p className="text-[13.5px] font-semibold text-ink">
+                      {running} worker{running === 1 ? '' : 's'} active right now
+                    </p>
+                    <p className="text-xs text-ink-3">
+                      Live terminal output and reasoning streamed directly on your screen.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  {data.runs.filter(r => r.state === 'running').map(r => (
+                    <Button
+                      key={r.id}
+                      size="sm"
+                      variant="primary"
+                      onClick={() => {
+                        api.post('/api/launch', { what: 'watch', run: r.id })
+                          .then(() => toast.success(`Watching ${r.task} live in Windows Terminal`))
+                          .catch(e => toast.error(e.message));
+                      }}
+                    >
+                      <Radio size={13} />
+                      Watch {r.task}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </Card>
+          ) : null}
+
           <Card>
             <CardHeader title="Needs you" sub="Blocked tickets, work to review, and orders not yet read" />
             {needsYou.length || data.inbox.length ? (
               <ul className="divide-y divide-line">
                 {data.inbox.map(i => (
                   <li key={i.id} className="flex items-start gap-3 px-4 py-3">
-                    <Inbox size={16} className="mt-0.5 text-warn" />
-                    <div className="min-w-0 flex-1"><p className="text-[13.5px]">{i.text}</p>{i.files?.length ? <p className="truncate text-xs text-ink-3">{i.files.length} attached: {i.files.map(f => f.split(/[\/]/).pop()).join(', ')}</p> : null}<p className="text-xs text-ink-3">Order for Claude · {relTime(i.ts)}</p></div>
+                    <Inbox size={16} className={i.read ? 'mt-0.5 text-ink-3' : 'mt-0.5 text-warn'} />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[13.5px] leading-relaxed">{i.text}</p>
+                      {i.files?.length ? <p className="truncate text-xs text-ink-3">{i.files.length} attached: {i.files.map(f => f.split(/[\/]/).pop()).join(', ')}</p> : null}
+                      <p className="mt-1 text-xs text-ink-3">Order for Claude · {relTime(i.ts)} · <span className={i.read ? 'text-ink-2 font-medium' : 'text-warn font-medium'}>{i.read ? 'Acknowledged' : 'New'}</span></p>
+                    </div>
+                    <Button size="sm" variant="secondary" onClick={() => api.post('/api/launch', { what: 'claude' }).then(() => toast.success('Claude opened in Windows Terminal'))} title="Open Claude terminal">
+                      <Terminal size={13} /> Open Claude
+                    </Button>
                   </li>
                 ))}
                 {needsYou.map(t => (
@@ -96,7 +141,15 @@ export function HomeView() {
                   onKeyDown={e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) send(e); }} />
               </DropArea>
               <AttachBar att={att} />
-              <div className="flex items-center justify-between"><span className="text-xs text-ink-3">Ctrl Enter to send</span><Button variant="primary" loading={sending} type="submit"><Send size={15} />Send</Button></div>
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-ink-3">Ctrl Enter to send</span>
+                <div className="flex items-center gap-2">
+                  <Button variant="secondary" size="sm" type="button" onClick={() => api.post('/api/launch', { what: 'claude' }).then(() => toast.success('Claude opened in Windows Terminal'))} title="Open interactive Claude terminal">
+                    <Terminal size={14} /> Open Claude CLI
+                  </Button>
+                  <Button variant="primary" loading={sending} type="submit"><Send size={15} />Send</Button>
+                </div>
+              </div>
             </form>
           </Card>
           <Card className="flex max-h-[640px] min-h-[360px] flex-col">

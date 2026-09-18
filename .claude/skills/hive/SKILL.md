@@ -41,3 +41,11 @@ Use `/review-agent <ID>` for each `needs_review` ticket. Never merge on the work
 
 ## 6. Report
 Tell the user in short lines: what was split, who took what, what is done, what waits for them. Update the HCIG Work registry if a deliverable changed state.
+
+## The playbook decides
+
+Read `hive/PLAYBOOK.md` before splitting any job. In short:
+- Create tickets with no assignee: the triage rules pick Claude or a worker and write why.
+- `hive_consult` (the /delegate pattern) when you need an answer, not a change. It is cheap and tracked.
+- Past the busy line (`hive_settings` shows `pressure`), let workers take the "unless busy" work and only review.
+- Workers gather, the head decides and ships. Only the head deploys to a live site.

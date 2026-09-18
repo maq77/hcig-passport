@@ -5,6 +5,7 @@ import { Dialog } from '@/components/ui/overlay';
 import { Button } from '@/components/ui/button';
 import { Field, Select, Textarea } from '@/components/ui/form';
 import { AttachBar, DropArea, useAttachments } from '@/components/Attachments';
+import { MarkdownText } from '@/components/MarkdownText';
 import { useHive } from '@/store/hive';
 import { useUI } from '@/store/ui';
 import { api } from '@/lib/api';
@@ -49,7 +50,9 @@ export function ConsultDialog() {
               {modelName(answer.model)} · {answer.seconds}s · {tokens(answer.tokens)} tokens
               <button className="ml-auto inline-flex cursor-pointer items-center gap-1 rounded px-1.5 py-0.5 hover:bg-sunken" onClick={() => navigator.clipboard.writeText(answer.answer).then(() => toast.success('Copied'))}><Copy size={12} />Copy</button>
             </div>
-            <p className="scroll-thin max-h-80 overflow-y-auto px-3 py-2.5 text-[13.5px] leading-relaxed whitespace-pre-wrap">{answer.answer}</p>
+            <div className="scroll-thin max-h-80 overflow-y-auto px-3 py-2.5">
+              <MarkdownText text={answer.answer} />
+            </div>
           </div>
         ) : null}
       </div>

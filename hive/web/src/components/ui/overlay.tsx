@@ -40,20 +40,20 @@ export function SlideOver({ open, onClose, title, width = 720, children, headerE
   useFocusTrap(panel, open);
   return (
     <div className={cn('fixed inset-0 z-40', !open && 'pointer-events-none')} aria-hidden={!open}>
-      <div className={cn('absolute inset-0 bg-[rgba(16,24,40,0.16)] transition-opacity duration-200', open ? 'opacity-100' : 'opacity-0')} onClick={onClose} />
+      <div className={cn('absolute inset-0 bg-black/20 backdrop-blur-sm transition-opacity duration-300 ease-apple', open ? 'opacity-100' : 'opacity-0')} onClick={onClose} />
       <aside
         ref={panel}
         tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-label={typeof title === 'string' ? title : 'Details'}
-        className={cn('absolute inset-y-0 right-0 flex w-full flex-col bg-surface shadow-pop transition-transform duration-200 ease-out', open ? 'translate-x-0' : 'translate-x-full')}
+        className={cn('absolute inset-y-0 right-0 flex w-full flex-col bg-surface shadow-pop transition-transform duration-300 ease-apple', open ? 'translate-x-0' : 'translate-x-full')}
         style={{ maxWidth: width }}
       >
-        <header className="flex items-center gap-3 border-b border-line px-5 py-3">
-          <div className="min-w-0 flex-1 truncate text-sm font-semibold">{title}</div>
+        <header className="flex items-center gap-3 border-b border-line/70 px-5 py-3.5">
+          <div className="min-w-0 flex-1 truncate text-[14.5px] font-semibold tracking-tight">{title}</div>
           {headerExtra}
-          <button onClick={onClose} className="grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-ink-3 hover:bg-sunken hover:text-ink" aria-label="Close">
+          <button onClick={onClose} className="grid h-8 w-8 cursor-pointer place-items-center rounded-xl text-ink-3 hover:bg-sunken hover:text-ink active:scale-95 transition-transform" aria-label="Close">
             <X size={16} />
           </button>
         </header>
@@ -70,16 +70,16 @@ export function Dialog({ open, onClose, title, children, footer, width = 560 }: 
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 grid place-items-start justify-items-center overflow-y-auto p-4 pt-[10vh]">
-      <div className="fixed inset-0 bg-[rgba(16,24,40,0.2)]" onClick={onClose} />
-      <div ref={box} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title} className="relative w-full rounded-xl border border-line bg-surface shadow-pop" style={{ maxWidth: width }}>
-        <header className="flex items-center justify-between border-b border-line px-5 py-3.5">
-          <h2 className="text-[15px] font-semibold">{title}</h2>
-          <button onClick={onClose} className="grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-ink-3 hover:bg-sunken hover:text-ink" aria-label="Close">
+      <div className="fixed inset-0 bg-black/25 backdrop-blur-md transition-opacity duration-200" onClick={onClose} />
+      <div ref={box} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title} className="relative w-full rounded-2xl border border-line/80 bg-surface shadow-pop transition-all duration-200 ease-apple" style={{ maxWidth: width }}>
+        <header className="flex items-center justify-between border-b border-line/70 px-5 py-4">
+          <h2 className="text-[15px] font-semibold tracking-tight">{title}</h2>
+          <button onClick={onClose} className="grid h-8 w-8 cursor-pointer place-items-center rounded-xl text-ink-3 hover:bg-sunken hover:text-ink active:scale-95 transition-transform" aria-label="Close">
             <X size={16} />
           </button>
         </header>
         <div className="px-5 py-4">{children}</div>
-        {footer ? <footer className="flex justify-end gap-2 border-t border-line bg-canvas px-5 py-3 rounded-b-xl">{footer}</footer> : null}
+        {footer ? <footer className="flex justify-end gap-2 border-t border-line/70 bg-sunken/40 px-5 py-3 rounded-b-2xl">{footer}</footer> : null}
       </div>
     </div>
   );

@@ -85,6 +85,7 @@ function createTask(fields, actor = '@claude') {
     kind: fields.kind || undefined,
     parent: fields.parent || undefined,
     files: fields.files || [],
+    agent: fields.agent || undefined,
     notes: [],
     runs: [],
     created: now(),

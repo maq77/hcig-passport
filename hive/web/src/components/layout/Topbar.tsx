@@ -13,8 +13,8 @@ export function Topbar({ title, sub }: { title: string; sub?: string }) {
   const ThemeIcon = theme.pref === 'dark' ? Moon : theme.pref === 'system' ? Monitor : Sun;
 
   return (
-    <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b border-line bg-surface/95 px-4 backdrop-blur lg:px-6">
-      <button className="grid h-9 w-9 cursor-pointer place-items-center rounded-lg text-ink-2 hover:bg-sunken lg:hidden" onClick={() => setNav(true)} aria-label="Open menu">
+    <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b border-line/70 bg-surface/75 px-4 backdrop-blur-xl saturate-180 lg:px-6">
+      <button className="grid h-9 w-9 cursor-pointer place-items-center rounded-xl text-ink-2 hover:bg-sunken lg:hidden" onClick={() => setNav(true)} aria-label="Open menu">
         <Menu size={18} />
       </button>
       <div className="min-w-0">
@@ -24,7 +24,7 @@ export function Topbar({ title, sub }: { title: string; sub?: string }) {
 
       <button
         onClick={() => setPalette(true)}
-        className="ml-auto hidden h-9 w-72 cursor-pointer items-center gap-2 rounded-lg border border-line bg-canvas px-3 text-[13px] text-ink-3 hover:border-line-strong md:flex"
+        className="ml-auto hidden h-9 w-72 cursor-pointer items-center gap-2 rounded-xl border border-line/70 bg-sunken/50 px-3 text-[13px] text-ink-3 transition-colors hover:border-line-strong hover:bg-sunken md:flex"
       >
         <Search size={15} />
         <span className="flex-1 text-left">Search or run a command</span>

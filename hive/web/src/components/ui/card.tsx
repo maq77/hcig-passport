@@ -2,15 +2,15 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn('rounded-[10px] border border-line bg-surface shadow-card', className)} {...props} />;
+  return <div className={cn('rounded-2xl border border-line/80 bg-surface shadow-card transition-shadow duration-150', className)} {...props} />;
 }
 
 export function CardHeader({ title, action, className, sub }: { title: React.ReactNode; action?: React.ReactNode; className?: string; sub?: React.ReactNode }) {
   return (
-    <div className={cn('flex items-center justify-between gap-3 border-b border-line px-4 py-3', className)}>
+    <div className={cn('flex items-center justify-between gap-3 border-b border-line/70 px-4.5 py-3.5', className)}>
       <div className="min-w-0">
-        <h2 className="text-sm font-semibold text-ink">{title}</h2>
-        {sub ? <p className="text-xs text-ink-3">{sub}</p> : null}
+        <h2 className="text-[14px] font-semibold tracking-tight text-ink">{title}</h2>
+        {sub ? <p className="mt-0.5 text-xs text-ink-3">{sub}</p> : null}
       </div>
       {action}
     </div>
@@ -31,11 +31,11 @@ export function Empty({ icon, title, hint, action }: { icon?: React.ReactNode; t
 export function Kpi({ label, value, hint, tone, meter }: { label: string; value: React.ReactNode; hint?: React.ReactNode; tone?: 'blocked' | 'review' | 'progress'; meter?: number }) {
   const toneCls = tone === 'blocked' ? 'text-blocked' : tone === 'review' ? 'text-review' : tone === 'progress' ? 'text-progress' : 'text-ink';
   return (
-    <Card className="flex flex-col gap-1 px-4 py-3.5">
+    <Card className="flex flex-col gap-1 p-4 shadow-[0_1px_3px_rgba(0,0,0,0.03),0_1px_2px_rgba(0,0,0,0.02)] transition-all duration-200 hover:shadow-card hover:-translate-y-0.5">
       <span className="text-xs font-medium text-ink-3">{label}</span>
-      <span className={cn('tabular text-2xl font-semibold tracking-tight', toneCls)}>{value}</span>
-      {meter !== undefined ? <Meter value={meter} /> : null}
-      {hint ? <span className="truncate text-xs text-ink-3">{hint}</span> : null}
+      <span className={cn('tabular text-[26px] font-semibold tracking-tight', toneCls)}>{value}</span>
+      {meter !== undefined ? <Meter value={meter} className="mt-1" /> : null}
+      {hint ? <span className="mt-0.5 truncate text-xs text-ink-3">{hint}</span> : null}
     </Card>
   );
 }

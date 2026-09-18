@@ -16,6 +16,8 @@ export interface Task {
   autoDispatch?: boolean;
   kind?: string;
   parent?: string;
+  agent?: string;
+  files?: string[];
   details?: string;
   notes: Note[];
   runs: string[];
@@ -78,7 +80,7 @@ export interface HiveState {
     claude: { messages: number; input: number; output: number; cacheRead: number; cacheWrite: number };
   };
   budget: Budget;
-  inbox: { id: string; ts: string; from: string; text: string; files?: string[] }[];
+  inbox: { id: string; ts: string; from: string; text: string; files?: string[]; read?: boolean }[];
   models: { allowed: string[]; routes: { kind: string; model: string; effort: string }[]; effort: { default: string; minimum: string } };
 }
 
