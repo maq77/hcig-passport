@@ -122,6 +122,53 @@ function usageSummary() {
   };
 }
 
+
+// ---------- daily token budget ----------
+function budget() {
+  const cfg = S.config().budget || {};
+  const limit = cfg.dailyTokens || 0;
+  const used = Object.values(loadUsage()).filter(r => r.day === S.today()).reduce((a, r) => a + r.total, 0);
+  return { limit, used, pct: limit ? used / limit : 0, over: !!limit && used >= limit, warnAt: cfg.warnAt || 0.8, hardStop: cfg.hardStop !== false };
+}
+let warned = '';
+function checkBudget() {
+  const b = budget();
+  if (!b.limit) return b;
+  const key = S.today() + (b.over ? 'stop' : b.pct >= b.warnAt ? 'warn' : '');
+  if (key !== warned && b.pct >= b.warnAt) {
+    warned = key;
+    S.emit(b.over ? 'budget.stop' : 'budget.warn', `Workers used ${Math.round(b.pct * 100)}% of today's token budget (${b.used.toLocaleString()} of ${b.limit.toLocaleString()}).${b.over && b.hardStop ? ' New workers are paused until tomorrow.' : ''}`, b, 'router');
+  }
+  return b;
+}
+
+// ---------- analytics ----------
+function analytics(days = 14) {
+  const since = new Date(Date.now() - (days - 1) * 864e5).toISOString().slice(0, 10);
+  const rows = Object.values(loadUsage()).filter(r => r.day >= since);
+  const dayList = [];
+  for (let i = days - 1; i >= 0; i--) dayList.push(new Date(Date.now() - i * 864e5).toISOString().slice(0, 10));
+  const models = [...new Set(rows.map(r => r.model))];
+  const perDay = dayList.map(d => ({ day: d, ...Object.fromEntries(models.map(m => [m, rows.filter(r => r.day === d && r.model === m).reduce((a, r) => a + r.total, 0)])) }));
+  const perModel = models.map(m => {
+    const rs = rows.filter(r => r.model === m);
+    const runs = rs.reduce((a, r) => a + r.runs, 0), fails = rs.reduce((a, r) => a + r.fails, 0);
+    return { model: m, runs, fails, success: runs ? (runs - fails) / runs : null, tokens: rs.reduce((a, r) => a + r.total, 0), avgSeconds: runs ? Math.round(rs.reduce((a, r) => a + r.seconds, 0) / runs) : 0 };
+  });
+  let runs = [];
+  try { runs = JSON.parse(fs.readFileSync(path.join(S.P.state, 'runs.json'), 'utf8')).filter(r => (r.started || '').slice(0, 10) >= since && r.state !== 'running'); } catch {}
+  const kinds = [...new Set(runs.map(r => r.kind || 'general'))].map(k => {
+    const rs = runs.filter(r => (r.kind || 'general') === k);
+    const ok = rs.filter(r => r.state === 'done');
+    return { kind: k, runs: rs.length, done: ok.length, avgSeconds: ok.length ? Math.round(ok.reduce((a, r) => a + (r.seconds || (Date.parse(r.ended) - Date.parse(r.started)) / 1000 || 0), 0) / ok.length) : 0 };
+  });
+  const byTicket = {};
+  for (const r of runs) byTicket[r.task] = (byTicket[r.task] || 0) + (r.tokens || 0);
+  const topTickets = Object.entries(byTicket).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([task, tokens]) => ({ task, tokens }));
+  const totals = { runs: runs.length, done: runs.filter(r => r.state === 'done').length, tokens: rows.reduce((a, r) => a + r.total, 0) };
+  return { days, since, models, perDay, perModel, kinds, topTickets, totals, budget: budget() };
+}
+
 function takesEffort(model) { return (S.config().models.effortFlag || ['gemini-']).some(p => model.startsWith(p)); }
 
-module.exports = { takesEffort, route, fallback, classify, clampEffort, markExhausted, recordUsage, usageSummary, allowed };
+module.exports = { budget, checkBudget, analytics, takesEffort, route, fallback, classify, clampEffort, markExhausted, recordUsage, usageSummary, allowed };

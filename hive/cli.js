@@ -8,6 +8,8 @@
 //   node hive/cli.js log <RUN> [n]               last n steps of a worker run
 //   node hive/cli.js kill <RUN>                  stop a worker
 //   node hive/cli.js diff <ID> | merge <ID>      review and merge a worker branch
+//   node hive/cli.js bestof <ID> [models..] | critic <ID> | analytics [days]
+//   add ... --after T-001,T-002 --auto            wait for tickets, then start on its own
 //   node hive/cli.js event <type> "msg"          post an event (standup, deploy, note)
 //   node hive/cli.js usage | inbox | brain | open | launch <agy|claude|desktop> [--account a1]
 const { api, PORT } = require('./lib/client');
@@ -38,8 +40,9 @@ async function main() {
   }
   switch (cmd) {
     case 'add': {
+      const after = flag('after', ''), auto = flag('auto');
       const to = flag('to', '@agy-cli'), desc = flag('desc', ''), folder = flag('folder', ''), accept = flag('accept', ''), kind = flag('kind'), go = flag('go'), prio = flag('priority', 'normal');
-      const t = await api('POST', '/api/tasks', { title: argv.join(' '), assignee: to, description: desc, folder, kind, priority: prio, acceptance: accept ? accept.split(';').map(s => s.trim()) : [], actor, dispatch: go ? {} : undefined });
+      const t = await api('POST', '/api/tasks', { title: argv.join(' '), assignee: to, description: desc, folder, kind, priority: prio, acceptance: accept ? accept.split(';').map(s => s.trim()) : [], actor, dispatch: go ? {} : undefined, dependsOn: after ? after.split(',') : [], autoDispatch: !!auto });
       return console.log(`${t.id} created${go ? ' and dispatched' : ''}`);
     }
     case 'go': case 'dispatch': {
@@ -53,6 +56,9 @@ async function main() {
     case 'kill': { await api('POST', `/api/runs/${argv[0]}/kill`); return console.log('stopped'); }
     case 'diff': { const d = await api('GET', `/api/tasks/${argv[0]}/diff`); return console.log([d.note, d.commits, d.stat, d.diff].filter(Boolean).join('\n\n')); }
     case 'merge': { const r = await api('POST', `/api/tasks/${argv[0]}/merge`, {}); return console.log(r.output); }
+    case 'bestof': { const id = argv.shift(); const r = await api('POST', `/api/tasks/${id}/bestof`, { models: argv.length ? argv : undefined }); return console.log(r.map(x => `${x.id} on ${x.model}`).join('\n')); }
+    case 'critic': { const r = await api('POST', `/api/tasks/${argv[0]}/critic`); return console.log(`${r.id} reviewing with ${r.model}`); }
+    case 'analytics': { const a = await api('GET', `/api/analytics?days=${argv[0] || 14}`); return console.log(JSON.stringify({ totals: a.totals, perModel: a.perModel, kinds: a.kinds, budget: a.budget }, null, 2)); }
     case 'route': { const r = await api('GET', `/api/tasks/${argv[0]}/route`); return console.log(JSON.stringify(r, null, 2)); }
     case 'usage': { const u = await api('GET', '/api/usage'); return console.log(JSON.stringify(u, null, 2)); }
     case 'inbox': { const items = await api('GET', '/api/inbox?read=1'); return console.log(items.filter(i => !i.read).map(i => `${i.ts.slice(0, 16)} ${i.from}: ${i.text}`).join('\n') || 'Inbox empty.'); }

@@ -13,7 +13,9 @@
     "gen:247": "node scripts/gen-247-pages.js",
     "report": "node scripts/report.js",
     "publish": "node scripts/publish.js",
-    "watch": "node watch.js"
+    "watch": "node watch.js",
+    "hive": "node hive/hub.js",
+    "hive:build": "npm --prefix hive/web run build"
   },
   "engines": {
     "node": ">=18"

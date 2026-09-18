@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* HCIG Hive tokens. Light only (HCIG rule: no dark designs). Brand turquoise is
+   for fills and accents; text on it uses the deeper teal for 4.5:1 contrast. */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+
+  --color-canvas: #f7f8fa;
+  --color-surface: #ffffff;
+  --color-sunken: #f1f3f6;
+  --color-line: #e4e7ec;
+  --color-line-strong: #d0d5dd;
+  --color-ink: #1d2327;
+  --color-ink-2: #475467;
+  --color-ink-3: #5d6778;
+
+  --color-brand: #12c0c6;
+  --color-brand-ink: #0a7e83;
+  --color-brand-deep: #086a6e;
+  --color-brand-soft: #e3f8f9;
+  --color-gray-brand: #565759;
+
+  --color-todo: #5d6778;
+  --color-todo-soft: #f2f4f7;
+  --color-progress: #08747a;
+  --color-progress-soft: #e3f8f9;
+  --color-review: #2b6cb0;
+  --color-review-soft: #e8f0fa;
+  --color-blocked: #c53030;
+  --color-blocked-soft: #fdeaea;
+  --color-done: #16753f;
+  --color-done-soft: #e5f6ec;
+  --color-warn: #a15c07;
+  --color-warn-soft: #fef4e6;
+
+  /* chart series, validated palette (dataviz), fixed per model */
+  --color-s1: #2a78d6;
+  --color-s2: #eb6834;
+  --color-s3: #1baf7a;
+  --color-s4: #eda100;
+  --color-s5: #e87ba4;
+
+  --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --shadow-pop: 0 12px 32px -8px rgba(16, 24, 40, 0.18), 0 2px 6px rgba(16, 24, 40, 0.06);
+  --radius-card: 10px;
+}
+
+html, body, #root { height: 100%; }
+body { @apply bg-canvas text-ink font-sans antialiased; font-size: 14px; line-height: 1.5; }
+.tabular { font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 2px solid var(--color-brand-ink); outline-offset: 2px; border-radius: 6px; }
+::selection { background: var(--color-brand-soft); }
+.scroll-thin { scrollbar-width: thin; scrollbar-color: var(--color-line-strong) transparent; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; } }
+[cmdk-input]:focus-visible { outline: none; }

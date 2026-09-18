@@ -97,6 +97,10 @@ function dispatch(taskId, opts = {}) {
   const task = S.getTask(taskId);
   if (!task) throw new Error(`No task ${taskId}`);
   const cfg = S.config();
+  const waiting = (task.dependsOn || []).filter(d => { const t = S.getTask(d); return !t || t.status !== 'done'; });
+  if (waiting.length && !opts.force) throw new Error(`${task.id} waits on ${waiting.join(', ')}. Finish those first, or pass force.`);
+  const b = M.budget();
+  if (b.over && b.hardStop && !opts.force) throw new Error(`Daily token budget used (${b.used} of ${b.limit}). Raise it in Settings or pass force.`);
   const acc = pickAccount(opts.account);
   const r = M.route(task, { model: opts.model, effort: opts.effort, account: acc.id });
   const ws = workspaceFor(task, opts.workspace);
@@ -167,6 +171,8 @@ function dispatch(taskId, opts = {}) {
     run.state = code === 0 && status === 'SUCCESS' ? 'done' : (run.state === 'killed' ? 'killed' : 'failed');
     run.ended = S.now(); run.code = code; run.status = status;
     M.recordUsage(acc.id, r.model, usage || {}, { seconds: secs, failed: run.state !== 'done' });
+    run.tokens = usage ? usage.total_tokens || 0 : 0; run.seconds = Math.round(secs);
+    M.checkBudget();
     if (run.isolated) { try { run.diffstat = git(['diff', '--stat', `main...${run.branch}`]); } catch {} }
     saveRun(run);
 
@@ -266,4 +272,83 @@ function launch(what, { account, cwd } = {}) {
   return { ok: true, title };
 }
 
-module.exports = { dispatch, kill, runLog, diff, merge, launch, listRuns, live };
+// Lease recovery: a hub restart finds runs still marked running whose process
+// is gone. The run becomes "lost" and its ticket goes back to todo with a note.
+function recoverLost() {
+  const runs = loadRuns();
+  let n = 0;
+  for (const r of runs) {
+    if (r.state !== 'running' || live.has(r.id)) continue;
+    let alive = false;
+    try { process.kill(r.pid, 0); alive = true; } catch {}
+    if (alive) continue;
+    r.state = 'lost'; r.ended = S.now(); n++;
+    const t = S.getTask(r.task);
+    if (t && t.status === 'in_progress') S.updateTask(t.id, { status: 'todo', note: `Worker ${r.id} was lost when the hub stopped. Back in the queue.` }, 'hive');
+  }
+  if (n) { fs.writeFileSync(RUNS, JSON.stringify(runs, null, 2)); S.emit('hive.recover', `${n} lost worker run(s) released`); }
+  return n;
+}
+
+// Tickets whose dependencies are now all done start on their own when autoDispatch is set.
+function releaseReady() {
+  for (const t of S.loadTasks()) {
+    if (t.status !== 'todo' || !t.autoDispatch || !(t.dependsOn || []).length) continue;
+    if (t.dependsOn.every(d => { const x = S.getTask(d); return x && x.status === 'done'; })) {
+      try { dispatch(t.id); S.emit('task.release', `${t.id} started: everything it waited on is done`, { id: t.id }); }
+      catch (e) { S.emit('hive.error', `${t.id} could not start: ${e.message}`); }
+    }
+  }
+}
+
+// Best of N: the same brief to different models, each in its own worktree.
+function bestOf(taskId, models) {
+  const t = S.getTask(taskId);
+  if (!t) throw new Error(`No task ${taskId}`);
+  const pool = models && models.length ? models : S.config().models.tiers.best;
+  const out = [];
+  pool.forEach((m, i) => {
+    const id = `${t.id}-${String.fromCharCode(65 + i)}`;
+    if (!S.getTask(id)) S.createTask({ id, title: `${t.title} [option ${String.fromCharCode(65 + i)}: ${m}]`, description: t.description, acceptance: t.acceptance, assignee: '@agy-cli', priority: t.priority, folder: t.folder, parent: t.id, kind: t.kind }, '@claude');
+    out.push(dispatch(id, { model: m }));
+  });
+  S.updateTask(t.id, { note: `Best of ${pool.length} started: ${out.map(r => `${r.task} on ${r.model}`).join(', ')}. Compare the branches and keep one.` }, '@claude');
+  return out;
+}
+
+// Critic pass: a different model reviews a finished branch and reports, without editing.
+function critic(taskId) {
+  const t = S.getTask(taskId);
+  if (!t) throw new Error(`No task ${taskId}`);
+  const author = (listRuns().filter(r => r.task === t.id).pop() || {}).model;
+  const model = S.config().models.tiers.best.find(m => m !== author) || S.config().models.tiers.best[0];
+  const id = `${t.id}-CR`;
+  const target = t.branch ? `branch ${t.branch} (git diff main...${t.branch})` : `the uncommitted changes for this ticket in the main folder`;
+  if (!S.getTask(id)) S.createTask({ id, title: `Second opinion on ${t.id}`, kind: 'review', assignee: '@agy-cli', parent: t.id, folder: t.folder,
+    description: `Review ${target} against the ticket below. Do not edit or commit anything. Report findings with node hive/cli.js note ${t.id} "..." : each finding with file, line, what is wrong and how to fix. Say plainly if it is fine.\n\nTicket: ${t.title}\n${t.description}\nAcceptance: ${(t.acceptance || []).join('; ')}`,
+    acceptance: ['Every finding names a file and a concrete fix', 'No files changed'] }, '@claude');
+  return dispatch(id, { model, workspace: 'main' });
+}
+
+// Replay: the steps of a run as structured data, with timing.
+function steps(runId) {
+  const f = path.join(S.P.runs, `${runId}.jsonl`);
+  if (!fs.existsSync(f)) return [];
+  const byIdx = new Map();
+  for (const line of fs.readFileSync(f, 'utf8').split('\n')) {
+    let e; try { e = JSON.parse(line); } catch { continue; }
+    if (e.event !== 'step_update') continue;
+    const s = e.step_update;
+    const st = byIdx.get(s.step_index) || { i: s.step_index, type: s.step_type, tool: s.tool_name || null, text: '' };
+    if (s.tool_info && s.tool_info.parameters) { const p = s.tool_info.parameters; st.what = String(p.CommandLine || p.AbsolutePath || p.TargetFile || p.Url || p.Query || JSON.stringify(p)).slice(0, 400); }
+    if (s.tool_info && s.tool_info.output) st.output = String(s.tool_info.output).slice(0, 1500);
+    if (s.text_delta) st.text += s.text_delta;
+    if (s.duration_seconds) st.secs = Math.round(s.duration_seconds * 10) / 10;
+    if (s.usage) st.tokens = s.usage.total_tokens;
+    st.state = s.state;
+    byIdx.set(s.step_index, st);
+  }
+  return [...byIdx.values()].filter(x => x.type !== 'user_input').map(x => ({ ...x, text: x.text.trim().slice(0, 1500) }));
+}
+
+module.exports = { dispatch, kill, runLog, diff, merge, launch, listRuns, live, recoverLost, releaseReady, bestOf, critic, steps };

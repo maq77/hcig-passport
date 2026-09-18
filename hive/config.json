@@ -2,8 +2,12 @@
   "port": 4400,
   "head": "@claude",
   "worktreeRoot": "../hcig-wt",
-  "memoryDirs": ["~/.claude/skills/hcig/memory"],
-  "rulesFiles": [".agents/rules/hcig-core-memory.md"],
+  "memoryDirs": [
+    "~/.claude/skills/hcig/memory"
+  ],
+  "rulesFiles": [
+    ".agents/rules/hcig-core-memory.md"
+  ],
   "agy": {
     "exe": "%LOCALAPPDATA%/Microsoft/WinGet/Packages/Google.AntigravityCLI_Microsoft.Winget.Source_8wekyb3d8bbwe/agy.exe",
     "desktopExe": "%LOCALAPPDATA%/Programs/Antigravity/Antigravity.exe",
@@ -12,24 +16,70 @@
   "models": {
     "rule": "Only top-tier models. Effort defaults to high and never drops below medium.",
     "tiers": {
-      "best": ["claude-opus-4-6-thinking", "gemini-3.1-pro-high"],
-      "strong": ["claude-sonnet-4-6"],
-      "fallbackBelowBest": ["gemini-3.8-flash-high"]
+      "best": [
+        "claude-opus-4-6-thinking",
+        "gemini-3.1-pro-high"
+      ],
+      "strong": [
+        "claude-sonnet-4-6"
+      ],
+      "fallbackBelowBest": [
+        "gemini-3.8-flash-high"
+      ]
     },
     "allowBelowBest": false,
     "critic": "gpt-oss-120b-medium",
-    "effort": { "default": "high", "minimum": "medium" },
-    "effortFlag": ["gemini-"],
+    "effort": {
+      "default": "high",
+      "minimum": "medium"
+    },
+    "effortFlag": [
+      "gemini-"
+    ],
     "effortNote": "agy accepts --effort only for Gemini. Claude models think at a fixed level; GPT-OSS has effort in its slug.",
     "routes": [
-      { "kind": "design",  "match": "design|ui\\b|css|layout|visual|component|hero|landing|mockup|figma|canvas|animation|artifact", "model": "gemini-3.1-pro-high", "effort": "high" },
-      { "kind": "content", "match": "translat|copy|wording|german|polish|\\bde\\b|\\bpl\\b|article|meta description|seo text|content", "model": "gemini-3.1-pro-high", "effort": "high" },
-      { "kind": "code",    "match": "bug|fix|php|js\\b|javascript|refactor|api|schema|build|script|test|pipeline|deploy|server|backend", "model": "claude-opus-4-6-thinking", "effort": "high" },
-      { "kind": "review",  "match": "review|audit|verify|check|critique|second opinion", "model": "claude-opus-4-6-thinking", "effort": "high" },
-      { "kind": "bulk",    "match": "batch|convert|rename|resize|compress|bulk|mechanical|sync|copy files", "model": "gemini-3.1-pro-high", "effort": "medium" },
-      { "kind": "research","match": "research|read|summar|large|whole folder|pdf|log", "model": "gemini-3.1-pro-high", "effort": "high" }
+      {
+        "kind": "design",
+        "match": "design|ui\\b|css|layout|visual|component|hero|landing|mockup|figma|canvas|animation|artifact",
+        "model": "gemini-3.1-pro-high",
+        "effort": "high"
+      },
+      {
+        "kind": "content",
+        "match": "translat|copy|wording|german|polish|\\bde\\b|\\bpl\\b|article|meta description|seo text|content",
+        "model": "gemini-3.1-pro-high",
+        "effort": "high"
+      },
+      {
+        "kind": "code",
+        "match": "bug|fix|php|js\\b|javascript|refactor|api|schema|build|script|test|pipeline|deploy|server|backend",
+        "model": "claude-opus-4-6-thinking",
+        "effort": "high"
+      },
+      {
+        "kind": "review",
+        "match": "review|audit|verify|check|critique|second opinion",
+        "model": "claude-opus-4-6-thinking",
+        "effort": "high"
+      },
+      {
+        "kind": "bulk",
+        "match": "batch|convert|rename|resize|compress|bulk|mechanical|sync|copy files",
+        "model": "gemini-3.1-pro-high",
+        "effort": "medium"
+      },
+      {
+        "kind": "research",
+        "match": "research|read|summar|large|whole folder|pdf|log",
+        "model": "gemini-3.1-pro-high",
+        "effort": "high"
+      }
     ],
-    "default": { "kind": "general", "model": "claude-opus-4-6-thinking", "effort": "high" }
+    "default": {
+      "kind": "general",
+      "model": "claude-opus-4-6-thinking",
+      "effort": "high"
+    }
   },
   "accounts": [
     {
@@ -57,7 +107,59 @@
       "note": "Not scriptable. It takes tickets assigned to @agy-desktop from the board."
     }
   ],
-  "deployPatterns": ["\\bssh\\b", "\\bscp\\b", "\\brsync\\b", "git push", "npm run publish", "vercel (--prod|deploy)", "public_html", "@[a-z0-9.-]+\\.(com|net)"],
-  "quotaPatterns": ["quota", "RESOURCE_EXHAUSTED", "rate.?limit", "\\b429\\b", "exhausted"],
-  "watchIgnore": ["node_modules", ".git/objects", ".git/index", "dist", "artifacts", ".next", "/out/", ".hive/runs", ".hive/events.jsonl", ".hive/brain.md", ".hive/state", ".playwright-mcp", ".work", "medpark-live", "video"]
+  "deployPatterns": [
+    "\\bssh\\b",
+    "\\bscp\\b",
+    "\\brsync\\b",
+    "git push",
+    "npm run publish",
+    "vercel (--prod|deploy)",
+    "public_html",
+    "@[a-z0-9.-]+\\.(com|net)"
+  ],
+  "quotaPatterns": [
+    "quota",
+    "RESOURCE_EXHAUSTED",
+    "rate.?limit",
+    "\\b429\\b",
+    "exhausted"
+  ],
+  "watchIgnore": [
+    "node_modules",
+    ".git/objects",
+    ".git/index",
+    "dist",
+    "artifacts",
+    ".next",
+    "/out/",
+    ".hive/runs",
+    ".hive/events.jsonl",
+    ".hive/brain.md",
+    ".hive/state",
+    ".playwright-mcp",
+    ".work",
+    "medpark-live",
+    "video",
+    ".tmp",
+    "hive/ui/",
+    "~"
+  ],
+  "budget": {
+    "dailyTokens": 3000000,
+    "warnAt": 0.8,
+    "hardStop": true,
+    "note": "Worker tokens per day across all accounts. Claude Code's own usage is shown but not capped here."
+  },
+  "notify": {
+    "desktop": true,
+    "ntfyTopic": "",
+    "on": [
+      "run.end",
+      "deploy.alert",
+      "budget",
+      "quota",
+      "order"
+    ],
+    "note": "Set ntfyTopic to a private random name and install the ntfy app to get these on your phone."
+  }
 }

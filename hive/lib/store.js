@@ -80,6 +80,10 @@ function createTask(fields, actor = '@claude') {
     status: fields.status || 'todo',
     folder: fields.folder || '',
     branch: fields.branch || '',
+    dependsOn: fields.dependsOn || [],
+    autoDispatch: !!fields.autoDispatch,
+    kind: fields.kind || undefined,
+    parent: fields.parent || undefined,
     notes: [],
     runs: [],
     created: now(),
@@ -130,6 +134,7 @@ function renderBoard(tasks = loadTasks()) {
     L.push(`### ${t.id}: ${t.title}`);
     L.push(`- **Assignee**: \`${t.assignee}\``, `- **Priority**: ${t.priority}`, `- **Status**: \`[${BOARD_TAG[t.status]}]\``);
     if (t.folder) L.push(`- **Folder**: \`${t.folder}\``);
+    if (t.dependsOn && t.dependsOn.length) L.push(`- **Waits on**: ${t.dependsOn.join(', ')}`);
     if (t.description) L.push(`- **Description**: ${t.description.trim()}`);
     if (t.acceptance && t.acceptance.length) { L.push('- **Acceptance Criteria**:'); t.acceptance.forEach((a, i) => L.push(`  ${i + 1}. ${a}`)); }
     if (t.details) L.push('', t.details.trim());

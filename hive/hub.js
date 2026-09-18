@@ -9,6 +9,7 @@ const D = require('./lib/dispatch');
 const M = require('./lib/models');
 const brain = require('./lib/brain');
 const watch = require('./lib/watch');
+const notify = require('./lib/notify');
 
 const cfg = S.config();
 const PORT = +process.env.HIVE_PORT || cfg.port;
@@ -40,11 +41,32 @@ function agents() {
 
 function state() {
   return { now: S.now(), port: PORT, tasks: S.loadTasks(), runs: D.listRuns().slice(-40).reverse(), agents: agents(),
-    events: S.readEvents(150).reverse(), usage: M.usageSummary(), inbox: S.readInbox().filter(i => !i.read),
+    events: S.readEvents(150).reverse(), usage: M.usageSummary(), budget: M.budget(), inbox: S.readInbox().filter(i => !i.read),
     models: { allowed: M.allowed(), routes: cfg.models.routes.map(r => ({ kind: r.kind, model: r.model, effort: r.effort })), effort: cfg.models.effort } };
 }
 
 const clients = new Set();
+S.onEvent(ev => { try { notify.onEvent(ev); } catch {} });
+S.onEvent(ev => { if (ev.type === 'task.update' && ev.data && ev.data.status === 'done') setTimeout(() => D.releaseReady(), 200); });
+
+// Settings the dashboard may change. Everything else in config.json is edited by hand.
+function patchConfig(b) {
+  const file = path.join(__dirname, 'config.json');
+  const c = JSON.parse(fs.readFileSync(file, 'utf8'));
+  if (b.budget) Object.assign(c.budget, pick(b.budget, ['dailyTokens', 'warnAt', 'hardStop']));
+  if (b.notify) Object.assign(c.notify, pick(b.notify, ['desktop', 'ntfyTopic', 'on']));
+  if (typeof b.allowBelowBest === 'boolean') c.models.allowBelowBest = b.allowBelowBest;
+  if (b.routes) for (const r of b.routes) { const x = c.models.routes.find(y => y.kind === r.kind); if (x) { if (r.model) x.model = r.model; if (r.effort) x.effort = M.clampEffort(r.effort); } }
+  if (b.accounts) for (const a of b.accounts) { const x = c.accounts.find(y => y.id === a.id); if (x) Object.assign(x, pick(a, ['enabled', 'maxParallel', 'label'])); }
+  fs.writeFileSync(file, JSON.stringify(c, null, 2));
+  S.emit('config', 'Settings changed from the dashboard', {}, 'dashboard');
+  return publicConfig();
+}
+function pick(o, keys) { return Object.fromEntries(keys.filter(k => o[k] !== undefined).map(k => [k, o[k]])); }
+function publicConfig() {
+  const c = S.config();
+  return { budget: c.budget, notify: c.notify, models: c.models, accounts: c.accounts, fullAccess: c.agy.fullAccess, port: c.port };
+}
 S.onEvent(ev => { const s = `data: ${JSON.stringify(ev)}\n\n`; for (const c of clients) c.write(s); });
 
 function body(req) {
@@ -70,6 +92,13 @@ const routes = [
   ['GET', /^\/api\/runs\/([\w-]+)\/log$/, (req, m, q) => ({ lines: D.runLog(m[1], +(q.get('tail') || 80)) })],
   ['POST', /^\/api\/runs\/([\w-]+)\/kill$/, (req, m) => D.kill(m[1])],
   ['GET', /^\/api\/usage$/, () => M.usageSummary()],
+  ['GET', /^\/api\/analytics$/, (req, m, q) => M.analytics(Math.min(90, Math.max(1, +(q.get('days') || 14))))],
+  ['GET', /^\/api\/runs\/([\w-]+)\/steps$/, (req, m) => ({ steps: D.steps(m[1]), run: D.listRuns().find(r => r.id === m[1]) || null })],
+  ['POST', /^\/api\/tasks\/([\w-]+)\/bestof$/, async (req, m) => D.bestOf(m[1], (await body(req)).models)],
+  ['POST', /^\/api\/tasks\/([\w-]+)\/critic$/, (req, m) => D.critic(m[1])],
+  ['GET', /^\/api\/config$/, () => publicConfig()],
+  ['PATCH', /^\/api\/config$/, async (req) => patchConfig(await body(req))],
+  ['POST', /^\/api\/notify\/test$/, () => { notify.send('Hive: test alert', 'Alerts reach you. This is what a finished worker looks like.'); return { ok: true }; }],
   ['GET', /^\/api\/inbox$/, (req, m, q) => S.readInbox({ markRead: q.get('read') === '1' })],
   ['POST', /^\/api\/orders$/, async (req) => { const b = await body(req); return S.pushInbox(b.text, b.from || 'dashboard'); }],
   ['POST', /^\/api\/launch$/, async (req) => { const b = await body(req); return D.launch(b.what, b); }],
@@ -111,6 +140,7 @@ server.on('error', e => {
 });
 
 server.listen(PORT, '127.0.0.1', () => {
+  D.recoverLost();
   const n = S.importLegacyBoard();
   if (!n) S.renderBoard();
   fs.writeFileSync(path.join(S.P.state, 'hub.pid'), String(process.pid));

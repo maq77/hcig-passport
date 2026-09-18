@@ -12,6 +12,24 @@ if /i "%1"=="stop" (
   exit /b
 )
 
+rem 0. First run: install and build the dashboard if it is missing.
+if not exist hive\ui\index.html (
+  echo Building the Hive dashboard, first run only...
+  pushd hive\web
+  call npm install --silent
+  call npm run build
+  popd
+)
+
+rem    hive.bat dev   dashboard with live reload on http://localhost:4401, for UI work
+if /i "%1"=="dev" (
+  start "HCIG Hive hub" /min node hive\hub.js
+  start "Hive UI dev" cmd /k "cd /d hive\web && npm run dev"
+  ping -n 5 127.0.0.1 >nul
+  start "" http://localhost:4401
+  exit /b
+)
+
 rem 1. Hub, in the background. Exits quietly if one is already running.
 start "HCIG Hive hub" /min node hive\hub.js
 ping -n 3 127.0.0.1 >nul

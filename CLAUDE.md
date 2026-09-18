@@ -58,7 +58,9 @@ When a ticket in `TASK_BOARD.md` is marked `[NEEDS_REVIEW]`:
 
 `hive/` holds the orchestration layer. `.hive/` holds its state (gitignored, never commit it).
 - **Start:** `hive.bat` (hub, dashboard at http://localhost:4400, terminal panes). Any Hive call also starts the hub.
-- **Tools (MCP server `hive`):** `hive_status`, `hive_create_task`, `hive_dispatch`, `hive_update_task`, `hive_run_log`, `hive_review`, `hive_merge`, `hive_kill`, `hive_inbox`, `hive_usage`, `hive_launch`, `hive_brain`. CLI twin: `node hive/cli.js`.
+- **Tools (MCP server `hive`):** `hive_status`, `hive_create_task`, `hive_dispatch`, `hive_update_task`, `hive_run_log`, `hive_review`, `hive_merge`, `hive_kill`, `hive_inbox`, `hive_usage`, `hive_launch`, `hive_brain`, `hive_bestof` (same ticket on two best models), `hive_critic` (a different model reviews), `hive_analytics`. CLI twin: `node hive/cli.js`.
+- **Dashboard (v2, 2026-09-18):** React + TypeScript + Tailwind in `hive/web`, built into `hive/ui` (`npm run hive:build`). Views: Home, Board, List, Runs with replay, Analytics, Brain, Settings. Ctrl K palette, N new ticket, G then a letter to jump.
+- **Dependencies:** `dependsOn` + `autoDispatch` start a ticket by itself when what it waits on is done. **Budget:** daily worker-token cap in Settings; new workers pause at the limit.
 - **Check `hive_inbox` at the start of every session.** The user sends orders from the dashboard.
 - **Models:** the router in `hive/config.json` picks by task kind, best models only, effort high by default and never below medium, and falls back on quota. Watch `hive_usage`.
 - **Review gate:** a worker's `needs_review` means read `hive_review`, run `npm test` in its worktree, then `hive_merge` or send it back with a note.
