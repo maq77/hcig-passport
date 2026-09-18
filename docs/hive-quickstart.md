@@ -33,7 +33,9 @@ Claude Code (`@claude`) is the head. It plans, assigns, reviews and merges.
 Model tiers (from `hive/config.json`):
 - **best**: claude-opus-4-6-thinking, gemini-3.1-pro-high
 - **strong**: claude-sonnet-4-6
-- **fallback**: gemini-3.8-flash-high
+- **below best**: gemini-3.8-flash-high, switched off by default
+
+Effort is high by default and never below medium. Only Gemini takes an effort setting.
 
 The router picks a model by task kind (code, design, content, review, bulk, research). Override with `--model`.
 
@@ -51,4 +53,4 @@ The router picks a model by task kind (code, design, content, review, bulk, rese
 
 ## Stop
 
-`hive.bat stop` kills the hub. Workers already running finish their current step.
+`hive.bat stop` stops the hub and every worker it started.
