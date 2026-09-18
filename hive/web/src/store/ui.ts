@@ -5,6 +5,8 @@ interface UIStore {
   newTask: { open: boolean; status?: string; assignee?: string };
   palette: boolean;
   navOpen: boolean;
+  consult: boolean;
+  setConsult: (v: boolean) => void;
   openTask: (id: string | null) => void;
   openNewTask: (preset?: { status?: string; assignee?: string }) => void;
   closeNewTask: () => void;
@@ -17,6 +19,8 @@ export const useUI = create<UIStore>(set => ({
   newTask: { open: false },
   palette: false,
   navOpen: false,
+  consult: false,
+  setConsult: v => set({ consult: v }),
   openTask: id => set({ taskId: id }),
   openNewTask: preset => set({ newTask: { open: true, ...preset } }),
   closeNewTask: () => set({ newTask: { open: false } }),

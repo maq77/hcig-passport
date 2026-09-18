@@ -166,7 +166,27 @@ function analytics(days = 14) {
   for (const r of runs) byTicket[r.task] = (byTicket[r.task] || 0) + (r.tokens || 0);
   const topTickets = Object.entries(byTicket).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]).slice(0, 8).map(([task, tokens]) => ({ task, tokens }));
   const totals = { runs: runs.length, done: runs.filter(r => r.state === 'done').length, tokens: rows.reduce((a, r) => a + r.total, 0) };
-  return { days, since, models, perDay, perModel, kinds, topTickets, totals, budget: budget() };
+
+  // Flow of work, from the event log: tickets opened and finished per day,
+  // and when the fleet is busy (events per weekday and hour, local time).
+  const ev = S.readEvents(20000).filter(e => e.ts.slice(0, 10) >= since);
+  const flow = dayList.map(d => ({
+    day: d,
+    created: ev.filter(e => e.type === 'task.create' && e.ts.slice(0, 10) === d).length,
+    done: new Set(ev.filter(e => e.type === 'task.update' && e.data && e.data.status === 'done' && e.ts.slice(0, 10) === d).map(e => e.data.id)).size,
+  }));
+  const hours = Array.from({ length: 7 }, () => Array(24).fill(0));
+  for (const e of ev) { if (e.type === 'files.changed') continue; const t = new Date(e.ts); hours[t.getDay()][t.getHours()]++; }
+  const tasks = S.loadTasks();
+  const workload = ['@claude', '@agy-cli', '@agy-desktop'].map(a => ({
+    assignee: a,
+    open: tasks.filter(t => t.assignee === a && t.status !== 'done').length,
+    review: tasks.filter(t => t.assignee === a && t.status === 'needs_review').length,
+    done: tasks.filter(t => t.assignee === a && t.status === 'done').length,
+  }));
+  const status = ['todo', 'in_progress', 'needs_review', 'blocked', 'done'].map(s => ({ status: s, count: tasks.filter(t => t.status === s).length }));
+  const consults = ev.filter(e => e.type === 'consult.end').length;
+  return { days, since, models, perDay, perModel, kinds, topTickets, totals, budget: budget(), flow, hours, workload, status, consults };
 }
 
 function takesEffort(model) { return (S.config().models.effortFlag || ['gemini-']).some(p => model.startsWith(p)); }

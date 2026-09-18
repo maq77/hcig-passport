@@ -1,4 +1,5 @@
-import { Menu, Plus, Search, Inbox } from 'lucide-react';
+import { Menu, Plus, Search, Inbox, Sun, Moon, Monitor, Sparkles } from 'lucide-react';
+import { useTheme } from '@/hooks/useTheme';
 import { Button, Kbd } from '@/components/ui/button';
 import { useHive } from '@/store/hive';
 import { useUI } from '@/store/ui';
@@ -7,7 +8,9 @@ import { cn } from '@/lib/utils';
 export function Topbar({ title, sub }: { title: string; sub?: string }) {
   const live = useHive(s => s.live);
   const inbox = useHive(s => s.data?.inbox.length || 0);
-  const { setPalette, openNewTask, setNav } = useUI();
+  const { setPalette, openNewTask, setNav, setConsult } = useUI();
+  const theme = useTheme();
+  const ThemeIcon = theme.pref === 'dark' ? Moon : theme.pref === 'system' ? Monitor : Sun;
 
   return (
     <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b border-line bg-surface/95 px-4 backdrop-blur lg:px-6">
@@ -40,6 +43,8 @@ export function Topbar({ title, sub }: { title: string; sub?: string }) {
         </a>
       ) : null}
 
+      <Button variant="ghost" size="icon" onClick={theme.cycle} aria-label={`Theme: ${theme.pref}. Switch`} title={`Theme: ${theme.pref}`}><ThemeIcon size={17} /></Button>
+      <Button variant="secondary" className="hidden md:inline-flex" onClick={() => setConsult(true)} title="Ask a worker a read-only question"><Sparkles size={15} />Ask</Button>
       <Button variant="primary" onClick={() => openNewTask()} title="New ticket (N)" aria-label="New ticket">
         <Plus size={16} /> <span className="hidden sm:inline">New ticket</span>
       </Button>

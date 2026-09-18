@@ -11,6 +11,9 @@
 //   node hive/cli.js bestof <ID> [models..] | critic <ID> | analytics [days]
 //   add ... --after T-001,T-002 --auto            wait for tickets, then start on its own
 //   node hive/cli.js event <type> "msg"          post an event (standup, deploy, note)
+//   node hive/cli.js policy | triage "title" | set <path> <value> | config [path]
+//   node hive/cli.js consult "question" [--files a,b] [--model m]   read-only answer from agy (/delegate)
+//   node hive/cli.js standup | jobs | job <id>
 //   node hive/cli.js usage | inbox | brain | open | launch <agy|claude|desktop> [--account a1]
 const { api, PORT } = require('./lib/client');
 
@@ -41,9 +44,9 @@ async function main() {
   switch (cmd) {
     case 'add': {
       const after = flag('after', ''), auto = flag('auto');
-      const to = flag('to', '@agy-cli'), desc = flag('desc', ''), folder = flag('folder', ''), accept = flag('accept', ''), kind = flag('kind'), go = flag('go'), prio = flag('priority', 'normal');
+      const to = flag('to', 'auto'), desc = flag('desc', ''), folder = flag('folder', ''), accept = flag('accept', ''), kind = flag('kind'), go = flag('go'), prio = flag('priority', 'normal');
       const t = await api('POST', '/api/tasks', { title: argv.join(' '), assignee: to, description: desc, folder, kind, priority: prio, acceptance: accept ? accept.split(';').map(s => s.trim()) : [], actor, dispatch: go ? {} : undefined, dependsOn: after ? after.split(',') : [], autoDispatch: !!auto });
-      return console.log(`${t.id} created${go ? ' and dispatched' : ''}`);
+      return console.log(`${t.id} created for ${t.assignee}${t.triage ? ` (${t.triage.rule}: ${t.triage.why})` : ''}${go ? ', worker started' : ''}`);
     }
     case 'go': case 'dispatch': {
       const id = argv.shift();
@@ -59,6 +62,28 @@ async function main() {
     case 'bestof': { const id = argv.shift(); const r = await api('POST', `/api/tasks/${id}/bestof`, { models: argv.length ? argv : undefined }); return console.log(r.map(x => `${x.id} on ${x.model}`).join('\n')); }
     case 'critic': { const r = await api('POST', `/api/tasks/${argv[0]}/critic`); return console.log(`${r.id} reviewing with ${r.model}`); }
     case 'analytics': { const a = await api('GET', `/api/analytics?days=${argv[0] || 14}`); return console.log(JSON.stringify({ totals: a.totals, perModel: a.perModel, kinds: a.kinds, budget: a.budget }, null, 2)); }
+    case 'set': { const r = await api('POST', '/api/config/set', { path: argv[0], value: argv.slice(1).join(' ') }); return console.log(`${r.path}: ${JSON.stringify(r.before)} -> ${JSON.stringify(r.value)}`); }
+    case 'config': case 'settings': { const c = await api('GET', '/api/config'); return console.log(JSON.stringify(argv[0] ? argv[0].split('.').reduce((o, k) => Array.isArray(o) ? o.find(x => x.id === k || x.kind === k) : o && o[k], c) : c, null, 2)); }
+    case 'policy': {
+      const c = await api('GET', '/api/config');
+      console.log(`Triage mode ${c.policy.mode}, auto start ${c.policy.autoStart}, Claude output today ${Math.round(c.pressure.used / 1000)}k of ${Math.round(c.pressure.soft / 1000)}k soft line${c.pressure.busy ? ' (busy: shifting work to agy)' : ''}
+`);
+      for (const r of c.policy.rules) console.log(`  ${r.enabled === false ? 'off' : 'on '} ${pad(r.id, 14)} -> ${pad(r.assign, 12)} ${r.label}`);
+      return console.log('\nChange: node hive/cli.js set policy.rules.<id>.assign @claude   |   set policy.claudeOutputSoftLimit 600000');
+    }
+    case 'triage': { const r = await api('POST', '/api/triage', { title: argv.join(' '), description: flag('desc', ''), priority: flag('priority', 'normal') }); return console.log(`${r.assignee} (${r.rule}, ${r.kind}): ${r.why}`); }
+    case 'consult': case 'ask': {
+      const files = flag('files', ''); const model = flag('model');
+      const r = await api('POST', '/api/consult', { question: argv.join(' '), files: files ? files.split(',') : [], model });
+      return console.log(`[${r.model}, ${r.seconds}s, ${k(r.tokens)} tokens]
+
+${r.answer}`);
+    }
+    case 'standup': { const s = await api('GET', '/api/standup'); console.log(s.line); for (const [h, xs] of [['Done', s.done], ['To review', s.review], ['Blocked', s.blocked], ['Running', s.running]]) if (xs.length) console.log(`
+${h}
+` + xs.map(x => `  ${pad(x.id, 18)} ${x.title}`).join('\n')); return; }
+    case 'jobs': { const j = await api('GET', '/api/schedules'); return console.log(j.map(x => `  ${x.enabled ? 'on ' : 'off'} ${pad(x.id, 16)} ${x.at} ${pad(Array.isArray(x.days) ? x.days.join(',') : x.days, 9)} last ${x.lastRun || 'never'}  ${x.label}`).join('\n')); }
+    case 'job': { const r = await api('POST', `/api/schedules/${argv[0]}/run`); return console.log(r.line || r.id || 'ran'); }
     case 'route': { const r = await api('GET', `/api/tasks/${argv[0]}/route`); return console.log(JSON.stringify(r, null, 2)); }
     case 'usage': { const u = await api('GET', '/api/usage'); return console.log(JSON.stringify(u, null, 2)); }
     case 'inbox': { const items = await api('GET', '/api/inbox?read=1'); return console.log(items.filter(i => !i.read).map(i => `${i.ts.slice(0, 16)} ${i.from}: ${i.text}`).join('\n') || 'Inbox empty.'); }

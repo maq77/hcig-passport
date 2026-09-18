@@ -45,7 +45,7 @@ export function Sidebar({ view }: { view: string }) {
         )}
       >
         <div className="flex h-14 items-center gap-2.5 border-b border-line px-4">
-          <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-ink text-[13px] font-bold text-white">H</span>
+          <span className="grid h-7 w-7 place-items-center rounded-lg bg-brand-ink text-[13px] font-bold text-on-brand">H</span>
           <span className="font-semibold tracking-tight">HCIG Hive</span>
           <button className="ml-auto grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-ink-3 hover:bg-sunken lg:hidden" onClick={() => setNav(false)} aria-label="Close menu"><X size={16} /></button>
         </div>

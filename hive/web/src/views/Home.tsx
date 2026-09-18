@@ -10,6 +10,8 @@ import { StatusPill } from '@/components/ui/badge';
 import { AgentCard } from '@/components/AgentCard';
 import { EventFeed } from '@/components/EventFeed';
 import { StandupCard } from '@/components/StandupCard';
+import { AttachBar, DropArea, useAttachments } from '@/components/Attachments';
+import { WorkGlance } from '@/components/WorkGlance';
 import { api } from '@/lib/api';
 import { relTime, tokens, assigneeName, pct } from '@/lib/utils';
 
@@ -19,6 +21,7 @@ export function HomeView() {
   const openTask = useUI(s => s.openTask);
   const [order, setOrder] = React.useState('');
   const [sending, setSending] = React.useState(false);
+  const att = useAttachments();
   if (!data) return null;
 
   const running = data.runs.filter(r => r.state === 'running').length;
@@ -32,7 +35,7 @@ export function HomeView() {
     e.preventDefault();
     if (!order.trim()) return;
     setSending(true);
-    try { await api.post('/api/orders', { text: order.trim() }); setOrder(''); toast.success('Sent to Claude. It reads orders at the start of its next turn.'); refresh(); }
+    try { await api.post('/api/orders', { text: order.trim(), files: att.files.map(f => f.path) }); setOrder(''); att.clear(); toast.success('Sent to Claude. It reads orders at the start of its next turn.'); refresh(); }
     catch (x) { toast.error((x as Error).message); } finally { setSending(false); }
   };
 
@@ -55,7 +58,7 @@ export function HomeView() {
                 {data.inbox.map(i => (
                   <li key={i.id} className="flex items-start gap-3 px-4 py-3">
                     <Inbox size={16} className="mt-0.5 text-warn" />
-                    <div className="min-w-0 flex-1"><p className="text-[13.5px]">{i.text}</p><p className="text-xs text-ink-3">Order for Claude · {relTime(i.ts)}</p></div>
+                    <div className="min-w-0 flex-1"><p className="text-[13.5px]">{i.text}</p>{i.files?.length ? <p className="truncate text-xs text-ink-3">{i.files.length} attached: {i.files.map(f => f.split(/[\/]/).pop()).join(', ')}</p> : null}<p className="text-xs text-ink-3">Order for Claude · {relTime(i.ts)}</p></div>
                   </li>
                 ))}
                 {needsYou.map(t => (
@@ -75,6 +78,8 @@ export function HomeView() {
             ) : <Empty title="All caught up 🎉" hint="Nothing blocked, nothing waiting for review." />}
           </Card>
 
+          <WorkGlance />
+
           <div>
             <h2 className="mb-3 text-sm font-semibold">Fleet</h2>
             <div className="grid grid-cols-1 gap-3 md:grid-cols-2">{data.agents.map(a => <AgentCard key={a.id} a={a} />)}</div>
@@ -86,8 +91,11 @@ export function HomeView() {
           <Card>
             <CardHeader title="Tell Claude" sub="Claude reads these with hive_inbox and plans the work" />
             <form onSubmit={send} className="flex flex-col gap-2 p-4">
-              <Textarea rows={3} value={order} onChange={e => setOrder(e.target.value)} placeholder="An order for the head, in your own words" aria-label="Order for Claude"
-                onKeyDown={e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) send(e); }} />
+              <DropArea att={att}>
+                <Textarea rows={4} value={order} onChange={e => setOrder(e.target.value)} onPaste={att.onPaste} placeholder="An order for the head, in your own words. Paste screenshots, drop files." aria-label="Order for Claude"
+                  onKeyDown={e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) send(e); }} />
+              </DropArea>
+              <AttachBar att={att} />
               <div className="flex items-center justify-between"><span className="text-xs text-ink-3">Ctrl Enter to send</span><Button variant="primary" loading={sending} type="submit"><Send size={15} />Send</Button></div>
             </form>
           </Card>

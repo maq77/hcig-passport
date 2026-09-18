@@ -11,6 +11,32 @@ const brain = require('./lib/brain');
 const watch = require('./lib/watch');
 const notify = require('./lib/notify');
 const schedule = require('./lib/schedule');
+const policy = require('./lib/policy');
+
+// Settings the user may change from the CLI or Claude by dotted path. A whitelist,
+// so nothing can rewrite the executable path or the deploy patterns this way.
+const SETTABLE = /^(budget\.(dailyTokens|warnAt|hardStop)|notify\.(desktop|ntfyTopic)|review\.autoCritic|models\.allowBelowBest|policy\.(mode|claudeOutputSoftLimit|autoStart)|policy\.rules\.[\w-]+\.(enabled|assign)|schedules\.[\w-]+\.(enabled|at|dispatch)|accounts\.[\w-]+\.(enabled|maxParallel)|models\.routes\.[\w-]+\.(model|effort)|consult\.model)$/;
+function setPath(p, raw) {
+  if (!SETTABLE.test(p || '')) throw new Error(`${p} is not a setting you can change here. Try: budget.dailyTokens, policy.rules.<id>.assign, schedules.<id>.enabled, review.autoCritic`);
+  let value = raw;
+  if (typeof raw === 'string') { if (raw === 'true' || raw === 'false') value = raw === 'true'; else if (raw !== '' && !isNaN(+raw)) value = +raw; }
+  const file = path.join(__dirname, 'config.json');
+  const c = JSON.parse(fs.readFileSync(file, 'utf8'));
+  const parts = p.split('.');
+  let o = c;
+  for (let i = 0; i < parts.length - 1; i++) {
+    const k = parts[i];
+    if (Array.isArray(o)) { o = o.find(x => x.id === k || x.kind === k); if (!o) throw new Error(`No ${k} in ${parts.slice(0, i).join('.')}`); }
+    else { o[k] = o[k] ?? {}; o = o[k]; }
+  }
+  const last = parts[parts.length - 1];
+  if (last === 'effort') value = M.clampEffort(value);
+  const before = o[last];
+  o[last] = value;
+  fs.writeFileSync(file, JSON.stringify(c, null, 2));
+  S.emit('config', `Setting ${p}: ${JSON.stringify(before)} to ${JSON.stringify(value)}`, { path: p }, 'settings');
+  return { path: p, before, value };
+}
 
 const cfg = S.config();
 const PORT = +process.env.HIVE_PORT || cfg.port;
@@ -23,7 +49,7 @@ function agents() {
   const lastBy = a => { const e = [...ev].reverse().find(x => x.actor === a || x.actor.startsWith(a)); return e ? { ts: e.ts, msg: e.msg } : null; };
   const out = [{ id: 'claude', label: 'Claude Code', role: 'Head', kind: 'head', model: 'claude-opus-5', state: 'on duty',
     doing: tasks.filter(t => t.assignee === '@claude' && t.status === 'in_progress').map(t => t.id), last: lastBy('@claude') }];
-  for (const a of cfg.accounts) {
+  for (const a of S.config().accounts) {
     if (a.kind === 'cli') {
       const mine = running.filter(r => r.account === a.id);
       out.push({ id: a.id, label: a.label, role: 'Worker', kind: 'cli', enabled: a.enabled, note: a.note,
@@ -43,7 +69,7 @@ function agents() {
 function state() {
   return { now: S.now(), port: PORT, tasks: S.loadTasks(), runs: D.listRuns().slice(-40).reverse(), agents: agents(),
     events: S.readEvents(150).reverse(), usage: M.usageSummary(), budget: M.budget(), inbox: S.readInbox().filter(i => !i.read),
-    models: { allowed: M.allowed(), routes: cfg.models.routes.map(r => ({ kind: r.kind, model: r.model, effort: r.effort })), effort: cfg.models.effort } };
+    models: { allowed: M.allowed(), routes: S.config().models.routes.map(r => ({ kind: r.kind, model: r.model, effort: r.effort })), effort: S.config().models.effort } };
 }
 
 const clients = new Set();
@@ -72,6 +98,11 @@ function patchConfig(b) {
   if (b.notify) Object.assign(c.notify, pick(b.notify, ['desktop', 'ntfyTopic', 'on']));
   if (typeof b.allowBelowBest === 'boolean') c.models.allowBelowBest = b.allowBelowBest;
   if (b.routes) for (const r of b.routes) { const x = c.models.routes.find(y => y.kind === r.kind); if (x) { if (r.model) x.model = r.model; if (r.effort) x.effort = M.clampEffort(r.effort); } }
+  if (b.policy) {
+    c.policy = c.policy || { rules: [] };
+    Object.assign(c.policy, pick(b.policy, ['mode', 'claudeOutputSoftLimit', 'autoStart']));
+    if (b.policy.rules) for (const r of b.policy.rules) { const x = c.policy.rules.find(y => y.id === r.id); if (x) Object.assign(x, pick(r, ['enabled', 'assign'])); }
+  }
   if (b.review && typeof b.review.autoCritic === 'boolean') c.review = { ...(c.review || {}), autoCritic: b.review.autoCritic };
   if (b.schedules) for (const j of b.schedules) { const x = (c.schedules || []).find(y => y.id === j.id); if (x) Object.assign(x, pick(j, ['enabled', 'at', 'days', 'dispatch'])); }
   if (b.accounts) for (const a of b.accounts) { const x = c.accounts.find(y => y.id === a.id); if (x) Object.assign(x, pick(a, ['enabled', 'maxParallel', 'label'])); }
@@ -82,7 +113,7 @@ function patchConfig(b) {
 function pick(o, keys) { return Object.fromEntries(keys.filter(k => o[k] !== undefined).map(k => [k, o[k]])); }
 function publicConfig() {
   const c = S.config();
-  return { budget: c.budget, notify: c.notify, models: c.models, accounts: c.accounts, fullAccess: c.agy.fullAccess, port: c.port, review: c.review || { autoCritic: false }, schedules: schedule.list() };
+  return { budget: c.budget, notify: c.notify, models: c.models, accounts: c.accounts, fullAccess: c.agy.fullAccess, port: c.port, review: c.review || { autoCritic: false }, schedules: schedule.list(), policy: c.policy, pressure: policy.claudePressure() };
 }
 S.onEvent(ev => { const s = `data: ${JSON.stringify(ev)}\n\n`; for (const c of clients) c.write(s); });
 
@@ -99,7 +130,33 @@ const routes = [
   ['GET', /^\/api\/brain$/, () => ({ text: fs.readFileSync(S.P.brain, 'utf8') })],
   ['POST', /^\/api\/brain\/rebuild$/, () => ({ text: brain.build() })],
   ['GET', /^\/api\/tasks$/, () => S.loadTasks()],
-  ['POST', /^\/api\/tasks$/, async (req) => { const b = await body(req); const t = S.createTask(b, b.actor || '@claude'); if (b.dispatch) D.dispatch(t.id, b.dispatch === true ? {} : b.dispatch); return t; }],
+  ['POST', /^\/api\/tasks$/, async (req) => {
+    const b = await body(req);
+    // No assignee, or "auto": the head's triage rules decide, and say why.
+    let tri = null;
+    if (!b.assignee || b.assignee === 'auto') { tri = policy.triage(b); b.assignee = tri.assignee; b.kind = b.kind || tri.kind; }
+    const t = S.createTask(b, b.actor || '@claude');
+    if (tri) S.updateTask(t.id, { note: `Triage (${tri.rule}): ${tri.why}` }, 'triage');
+    const auto = tri && (S.config().policy || {}).autoStart && t.assignee === '@agy-cli' && b.dispatch === undefined && !(t.dependsOn || []).length;
+    if (b.dispatch || auto) { try { D.dispatch(t.id, b.dispatch && b.dispatch !== true ? b.dispatch : {}); } catch (e) { S.updateTask(t.id, { note: `Not started: ${e.message}` }, 'hive'); } }
+    return { ...S.getTask(t.id), triage: tri };
+  }],
+  ['POST', /^\/api\/triage$/, async (req) => policy.triage(await body(req))],
+  // Attachments: files and images pasted or dropped into the dashboard. Saved under
+  // .hive/files/<day>/ and returned as an absolute path the agents can read.
+  ['POST', /^\/api\/upload$/, (req, m, q) => new Promise((resolve, reject) => {
+    const name = String(q.get('name') || 'file').replace(/[^\w.\- ]+/g, '_').slice(-120) || 'file';
+    const dir = path.join(S.HIVE, 'files', S.today());
+    fs.mkdirSync(dir, { recursive: true });
+    let file = path.join(dir, name), n = 1;
+    while (fs.existsSync(file)) file = path.join(dir, name.replace(/(\.\w+)?$/, `-${n++}$1`));
+    const chunks = []; let size = 0;
+    req.on('data', d => { size += d.length; if (size > 30 * 1024 * 1024) { req.destroy(); reject(new Error('File over 30 MB')); } else chunks.push(d); });
+    req.on('end', () => { fs.writeFileSync(file, Buffer.concat(chunks)); S.emit('file.upload', `Attached ${path.basename(file)} (${Math.round(size / 1024)} KB)`, { path: file }, 'dashboard'); resolve({ path: file, name: path.basename(file), size }); });
+    req.on('error', reject);
+  })],
+  ['POST', /^\/api\/consult$/, async (req) => D.consult(await body(req))],
+  ['POST', /^\/api\/config\/set$/, async (req) => { const b = await body(req); return setPath(b.path, b.value); }],
   ['PATCH', /^\/api\/tasks\/([\w-]+)$/, async (req, m) => { const b = await body(req); const actor = b.actor || '@claude'; delete b.actor; return S.updateTask(m[1], b, actor); }],
   ['POST', /^\/api\/tasks\/([\w-]+)\/dispatch$/, async (req, m) => D.dispatch(m[1], await body(req))],
   ['GET', /^\/api\/tasks\/([\w-]+)\/diff$/, (req, m) => D.diff(m[1])],
@@ -124,7 +181,7 @@ const routes = [
   ['PATCH', /^\/api\/config$/, async (req) => patchConfig(await body(req))],
   ['POST', /^\/api\/notify\/test$/, () => { notify.send('Hive: test alert', 'Alerts reach you. This is what a finished worker looks like.'); return { ok: true }; }],
   ['GET', /^\/api\/inbox$/, (req, m, q) => S.readInbox({ markRead: q.get('read') === '1' })],
-  ['POST', /^\/api\/orders$/, async (req) => { const b = await body(req); return S.pushInbox(b.text, b.from || 'dashboard'); }],
+  ['POST', /^\/api\/orders$/, async (req) => { const b = await body(req); return S.pushInbox(b.text, b.from || 'dashboard', b.files || []); }],
   ['POST', /^\/api\/launch$/, async (req) => { const b = await body(req); return D.launch(b.what, b); }],
   ['POST', /^\/api\/events$/, async (req) => { const b = await body(req); return S.emit(b.type || 'note', b.msg, b.data || {}, b.actor || 'agent'); }],
 ];

@@ -1,6 +1,6 @@
 import { Command } from 'cmdk';
 import { toast } from 'sonner';
-import { Plus, RefreshCw, Bell, Terminal, Monitor, Hash, CornerDownLeft } from 'lucide-react';
+import { Plus, RefreshCw, Bell, Terminal, Monitor, Hash, CornerDownLeft, Sparkles } from 'lucide-react';
 import { useUI } from '@/store/ui';
 import { useHive, EMPTY } from '@/store/hive';
 import { navigate } from '@/hooks/useRoute';
@@ -11,7 +11,7 @@ import { api } from '@/lib/api';
 const item = 'flex h-10 cursor-pointer items-center gap-3 rounded-lg px-3 text-[13.5px] text-ink-2 data-[selected=true]:bg-brand-soft data-[selected=true]:text-ink';
 
 export function CommandPalette() {
-  const { palette, setPalette, openNewTask, openTask } = useUI();
+  const { palette, setPalette, openNewTask, openTask, setConsult } = useUI();
   const tasks = useHive(s => s.data?.tasks ?? EMPTY);
   const close = () => setPalette(false);
   const run = (fn: () => void) => () => { close(); fn(); };
@@ -29,6 +29,7 @@ export function CommandPalette() {
           <Command.Empty className="px-3 py-6 text-center text-[13px] text-ink-3">Nothing matches.</Command.Empty>
           <Command.Group heading="Actions" className="[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-[11px] [&_[cmdk-group-heading]]:font-semibold [&_[cmdk-group-heading]]:text-ink-3">
             <Command.Item className={item} onSelect={run(() => openNewTask())}><Plus size={16} />New ticket<Shortcut k="N" /></Command.Item>
+            <Command.Item className={item} onSelect={run(() => setConsult(true))}><Sparkles size={16} />Ask a worker a question (read-only)</Command.Item>
             <Command.Item className={item} onSelect={run(() => launch('claude'))}><Terminal size={16} />Open Claude in a terminal</Command.Item>
             <Command.Item className={item} onSelect={run(() => launch('agy'))}><Terminal size={16} />Open agy in a terminal</Command.Item>
             <Command.Item className={item} onSelect={run(() => launch('desktop'))}><Monitor size={16} />Open Antigravity Desktop</Command.Item>

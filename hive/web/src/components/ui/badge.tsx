@@ -48,11 +48,11 @@ export function ModelTag({ model, className }: { model: string; className?: stri
 
 const AVATAR: Record<string, { label: string; cls: string }> = {
   '@claude': { label: 'C', cls: 'bg-gray-brand text-white' },
-  '@agy-cli': { label: 'A', cls: 'bg-brand-ink text-white' },
-  '@agy-desktop': { label: 'D', cls: 'bg-review text-white' },
+  '@agy-cli': { label: 'A', cls: 'bg-brand-ink text-on-brand' },
+  '@agy-desktop': { label: 'D', cls: 'bg-review text-on-brand' },
 };
 export function Avatar({ who, size = 22 }: { who: string; size?: number }) {
-  const a = AVATAR[who] || { label: who.replace(/^@/, '').slice(0, 1).toUpperCase(), cls: 'bg-todo text-white' };
+  const a = AVATAR[who] || { label: who.replace(/^@/, '').slice(0, 1).toUpperCase(), cls: 'bg-todo text-on-brand' };
   return (
     <span className={cn('inline-grid shrink-0 place-items-center rounded-full font-semibold', a.cls)} style={{ width: size, height: size, fontSize: size * 0.45 }} aria-hidden>
       {a.label}

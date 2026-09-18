@@ -81,6 +81,7 @@ function brief(task, ws, route, extra) {
     task.folder ? `Folder: ${task.folder}` : '',
     task.acceptance.length ? `Acceptance criteria:\n${task.acceptance.map((a, i) => `${i + 1}. ${a}`).join('\n')}` : '',
     task.details ? `Details:\n${task.details}` : '',
+    task.files && task.files.length ? `Attached files (read them first):\n${task.files.map(f => `- ${f}`).join('\n')}` : '',
     extra ? `\n## Extra instructions from @claude\n${extra}` : '',
     '', `## Rules`,
     `- No em dashes or en dashes in anything you write.`,
@@ -351,4 +352,42 @@ function steps(runId) {
   return [...byIdx.values()].filter(x => x.type !== 'user_input').map(x => ({ ...x, text: x.text.trim().slice(0, 1500) }));
 }
 
-module.exports = { dispatch, kill, runLog, diff, merge, launch, listRuns, live, recoverLost, releaseReady, bestOf, critic, steps };
+// Consult: the /delegate pattern inside the Hive. A read-only question to agy that
+// returns its answer to the caller, with no ticket, no worktree and no edits
+// (--sandbox, no permission bypass, so tools that write are refused).
+function consult({ question, files = [], model, account, timeoutMin = 10 }) {
+  if (!question) return Promise.reject(new Error('Ask a question'));
+  const acc = pickAccount(account);
+  const m = model || (S.config().consult || {}).model || 'gemini-3.1-pro-high';
+  const prompt = [
+    'You are consulted by Claude Code, the head of the HCIG Hive. Answer only; do not edit files or run commands that change anything.',
+    `Shared rules: ${S.P.brain}`,
+    files.length ? `Read these files first:\n${files.map(f => `- ${f}`).join('\n')}` : '',
+    'No em dashes or en dashes. Never invent medical facts, prices or accreditations. Say plainly when you are unsure.',
+    '', 'Question:', question,
+  ].filter(Boolean).join('\n');
+  const args = ['-p', prompt, '--output-format', 'stream-json', '--model', m, '--sandbox', '--add-dir', S.ROOT, '--print-timeout', `${timeoutMin}m`];
+  if (M.takesEffort(m)) args.push('--effort', 'high');
+  const started = Date.now();
+  S.emit('consult.start', `Consulting ${m}: ${question.slice(0, 140)}`, { model: m }, '@claude');
+  return new Promise((resolve, reject) => {
+    const p = spawn(agyExe(), args, { cwd: S.ROOT, env: accountEnv(acc), windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+    let buf = '', result = null, err = '';
+    p.stdout.on('data', d => { buf += d; });
+    p.stderr.on('data', d => { err += d; });
+    p.on('close', code => {
+      for (const line of buf.split('\n')) { try { const e = JSON.parse(line); if (e.event === 'result') result = e.result; } catch {} }
+      const secs = (Date.now() - started) / 1000;
+      M.recordUsage(acc.id, m, (result && result.usage) || {}, { seconds: secs, failed: !result || result.status !== 'SUCCESS' });
+      M.checkBudget();
+      if (!result || result.status !== 'SUCCESS') {
+        S.emit('consult.end', `Consult failed after ${Math.round(secs)} s`, { model: m }, `agy:${acc.id}`);
+        return reject(new Error((err || (result && JSON.stringify(result)) || `exit ${code}`).slice(0, 600)));
+      }
+      S.emit('consult.end', `Consult answered in ${Math.round(secs)} s, ${result.usage ? result.usage.total_tokens : 0} tokens`, { model: m }, `agy:${acc.id}`);
+      resolve({ model: m, seconds: Math.round(secs), tokens: result.usage ? result.usage.total_tokens : 0, answer: result.response });
+    });
+  });
+}
+
+module.exports = { dispatch, kill, runLog, diff, merge, launch, listRuns, live, recoverLost, releaseReady, bestOf, critic, steps, consult };

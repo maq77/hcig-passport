@@ -84,6 +84,7 @@ function createTask(fields, actor = '@claude') {
     autoDispatch: !!fields.autoDispatch,
     kind: fields.kind || undefined,
     parent: fields.parent || undefined,
+    files: fields.files || [],
     notes: [],
     runs: [],
     created: now(),
@@ -206,8 +207,8 @@ function syncBoardEdits() {
 }
 
 // ---------- inbox (orders for the head) ----------
-function pushInbox(text, from = 'dashboard') {
-  const item = { id: crypto.randomUUID().slice(0, 8), ts: now(), from, text, read: false };
+function pushInbox(text, from = 'dashboard', files = []) {
+  const item = { id: crypto.randomUUID().slice(0, 8), ts: now(), from, text, files, read: false };
   fs.appendFileSync(P.inbox, JSON.stringify(item) + '\n');
   emit('order', `New order for Claude: ${text.slice(0, 160)}`, { id: item.id }, from);
   return item;

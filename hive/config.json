@@ -6,6 +6,7 @@
     "~/.claude/skills/hcig/memory"
   ],
   "rulesFiles": [
+    "hive/PLAYBOOK.md",
     ".agents/rules/hcig-core-memory.md"
   ],
   "agy": {
@@ -70,7 +71,7 @@
       },
       {
         "kind": "research",
-        "match": "research|read|summar|large|whole folder|pdf|log",
+        "match": "research|read|summar|large|whole folder|pdf|log|measure|pagespeed|lighthouse|psi|inventory|list all|find all|count",
         "model": "gemini-3.1-pro-high",
         "effort": "high"
       }
@@ -168,7 +169,7 @@
       "id": "standup",
       "label": "Morning standup",
       "kind": "standup",
-      "at": "08:00",
+      "at": "10:00",
       "days": "daily",
       "enabled": true,
       "sinceHours": 24,
@@ -200,5 +201,94 @@
   "review": {
     "autoCritic": true,
     "note": "When a worker marks a ticket ready for review, a different best model reviews it first and writes notes. Uses tokens; the daily budget still applies."
+  },
+  "policy": {
+    "mode": "auto",
+    "note": "Who does a ticket when no assignee is given. First matching rule wins. Edit in Settings, with node hive/cli.js policy, or here.",
+    "claudeOutputSoftLimit": 400000,
+    "autoStart": true,
+    "rules": [
+      {
+        "id": "critical",
+        "label": "Critical goes to the head",
+        "when": {
+          "priority": [
+            "critical"
+          ]
+        },
+        "assign": "@claude",
+        "why": "Critical: a live site, money, patient safety or security. The head does it."
+      },
+      {
+        "id": "live-systems",
+        "label": "Live systems go to the head",
+        "when": {
+          "match": "deploy|production|live site|go live|server|ssh|cpanel|hosting|dns|.htaccess|gtag|google ads|conversion|tracking tag|search console|schema|robots|sitemap|canonical|hreflang|noindex"
+        },
+        "assign": "@claude",
+        "unlessClaudeBusy": true,
+        "why": "Touches a live system or search visibility. The head does it, or a worker prepares it and the head ships it."
+      },
+      {
+        "id": "claims",
+        "label": "Medical, price and accreditation claims go to the head",
+        "when": {
+          "match": "medical claim|dosage|treatment|diagnos|price|pricing|accredit|certif|insurance terms|legal"
+        },
+        "assign": "@claude",
+        "why": "Medical or commercial claims carry liability. The head writes or approves every word."
+      },
+      {
+        "id": "hard-code",
+        "label": "Hard, high-priority code goes to the head",
+        "when": {
+          "priority": [
+            "high"
+          ],
+          "kind": [
+            "code"
+          ]
+        },
+        "assign": "@claude",
+        "unlessClaudeBusy": true,
+        "why": "High-priority logic where a subtle bug is costly."
+      },
+      {
+        "id": "design",
+        "label": "Visual work goes to a worker",
+        "when": {
+          "kind": [
+            "design"
+          ]
+        },
+        "assign": "@agy-cli",
+        "why": "Visual work: Gemini 3.1 Pro handles it well and it saves the head for review."
+      },
+      {
+        "id": "volume",
+        "label": "Volume work goes to a worker",
+        "when": {
+          "kind": [
+            "bulk",
+            "research",
+            "content",
+            "review"
+          ]
+        },
+        "assign": "@agy-cli",
+        "why": "Reading, measuring, converting or drafting in bulk. A worker does it; the head reviews."
+      },
+      {
+        "id": "default",
+        "label": "Everything else goes to a worker",
+        "when": {},
+        "assign": "@agy-cli",
+        "why": "Default: a worker does it, the head reviews and merges."
+      }
+    ]
+  },
+  "consult": {
+    "model": "gemini-3.1-pro-high",
+    "note": "Read-only questions to agy (the /delegate pattern). Sandboxed: can read, never write."
   }
 }

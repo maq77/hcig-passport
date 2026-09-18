@@ -78,7 +78,7 @@ export interface HiveState {
     claude: { messages: number; input: number; output: number; cacheRead: number; cacheWrite: number };
   };
   budget: Budget;
-  inbox: { id: string; ts: string; from: string; text: string }[];
+  inbox: { id: string; ts: string; from: string; text: string; files?: string[] }[];
   models: { allowed: string[]; routes: { kind: string; model: string; effort: string }[]; effort: { default: string; minimum: string } };
 }
 
@@ -91,6 +91,11 @@ export interface Analytics {
   topTickets: { task: string; tokens: number }[];
   totals: { runs: number; done: number; tokens: number };
   budget: Budget;
+  flow: { day: string; created: number; done: number }[];
+  hours: number[][];
+  workload: { assignee: string; open: number; review: number; done: number }[];
+  status: { status: string; count: number }[];
+  consults: number;
 }
 
 export interface Step { i: number; type: string; tool: string | null; what?: string; output?: string; text: string; secs?: number; tokens?: number; state: string }

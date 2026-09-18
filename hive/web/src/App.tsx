@@ -9,6 +9,7 @@ import { Topbar } from '@/components/layout/Topbar';
 import { TaskPanel } from '@/components/TaskPanel';
 import { NewTaskDialog } from '@/components/NewTaskDialog';
 import { CommandPalette } from '@/components/CommandPalette';
+import { ConsultDialog } from '@/components/ConsultDialog';
 import { HomeView } from '@/views/Home';
 import { BoardView } from '@/views/Board';
 import { ListView } from '@/views/List';
@@ -63,7 +64,7 @@ export default function App() {
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar title={title} sub={sub} />
         {lastDeploy ? (
-          <div role="alert" className="flex items-start gap-3 border-b border-[#f5c2c2] bg-blocked-soft px-4 py-2.5 text-[13px] text-blocked lg:px-6">
+          <div role="alert" className="flex items-start gap-3 border-b border-alert-line bg-blocked-soft px-4 py-2.5 text-[13px] text-blocked lg:px-6">
             <AlertTriangle size={16} className="mt-0.5 shrink-0" />
             <p className="min-w-0 flex-1"><strong className="font-semibold">Deploy command by {lastDeploy.actor}.</strong> {lastDeploy.msg}</p>
             <button onClick={dismissDeploy} className="grid h-6 w-6 cursor-pointer place-items-center rounded hover:bg-surface" aria-label="Dismiss"><X size={14} /></button>
@@ -86,7 +87,8 @@ export default function App() {
       <TaskPanel />
       <NewTaskDialog />
       <CommandPalette />
-      <Toaster position="bottom-right" richColors closeButton toastOptions={{ style: { fontFamily: 'Inter, sans-serif' } }} />
+      <ConsultDialog />
+      <Toaster position="bottom-right" richColors closeButton theme={document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'} toastOptions={{ style: { fontFamily: 'Inter, sans-serif' } }} />
     </div>
   );
 }

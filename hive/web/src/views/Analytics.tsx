@@ -5,8 +5,10 @@ import { useHive } from '@/store/hive';
 import { Card, CardHeader, Empty, Kpi } from '@/components/ui/card';
 import { Segmented } from '@/components/ui/form';
 import { StackedBars, HBars, Legend, DataTable } from '@/components/ui/charts';
+import { GroupedBars, Heatmap, ProportionBar } from '@/components/ui/charts-more';
+import { STATUS_COLOR } from '@/components/WorkGlance';
 import { api } from '@/lib/api';
-import { duration, modelColor, modelName, pct, tokens } from '@/lib/utils';
+import { duration, modelColor, modelName, pct, tokens, assigneeName, statusMeta } from '@/lib/utils';
 import type { Analytics } from '@/lib/types';
 
 export function AnalyticsView() {
@@ -29,12 +31,38 @@ export function AnalyticsView() {
         <p className="text-xs text-ink-3">Worker tokens come from agy runs. Claude Code is shown on its own.</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
         <Kpi label={`Worker tokens, ${days} days`} value={tokens(a.totals.tokens)} hint={`${a.models.length} model${a.models.length === 1 ? '' : 's'} used`} />
         <Kpi label="Runs" value={a.totals.runs} hint={`${a.totals.done} finished`} />
         <Kpi label="Success rate" value={pct(success)} tone={success !== null && success < 0.7 ? 'blocked' : undefined} hint="Finished without failing" />
+        <Kpi label="Consults" value={a.consults} hint="Read-only questions to agy" />
         <Kpi label="Claude Code today" value={tokens((claude?.output || 0) + (claude?.input || 0))} hint={`${claude?.messages || 0} messages, ${tokens(claude?.cacheRead)} from cache`} />
       </div>
+
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+        <Card>
+          <CardHeader title="Flow of work" sub="Tickets opened and finished each day" />
+          <div className="flex flex-col gap-3 p-4">
+            <ul className="flex gap-4 text-xs text-ink-2">
+              <li className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm" style={{ background: 'var(--color-s1)' }} />Opened <b className="tabular text-ink">{a.flow.reduce((s, r) => s + r.created, 0)}</b></li>
+              <li className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm" style={{ background: 'var(--color-s3)' }} />Finished <b className="tabular text-ink">{a.flow.reduce((s, r) => s + r.done, 0)}</b></li>
+            </ul>
+            <GroupedBars rows={a.flow} series={[{ key: 'created', label: 'Opened', color: 'var(--color-s1)' }, { key: 'done', label: 'Finished', color: 'var(--color-s3)' }]} />
+          </div>
+        </Card>
+        <Card>
+          <CardHeader title="Where the work stands" sub="Every ticket by status, and who carries the open ones" />
+          <div className="flex flex-col gap-5 p-4">
+            <ProportionBar label="Tickets by status" parts={a.status.map(s => ({ key: s.status, label: statusMeta(s.status).label, value: s.count, color: STATUS_COLOR[s.status] }))} />
+            <DataTable head={['Who', 'Open', 'To review', 'Done']} rows={a.workload.map(w => [assigneeName(w.assignee), w.open, w.review, w.done])} />
+          </div>
+        </Card>
+      </div>
+
+      <Card>
+        <CardHeader title="When the fleet works" sub={`Events by weekday and hour, last ${days} days, your local time`} />
+        <div className="p-4"><Heatmap grid={a.hours} /></div>
+      </Card>
 
       {empty ? <Card><Empty icon={<BarChart3 size={22} />} title="No worker runs in this range" hint="Charts fill in as soon as the first worker finishes." /></Card> : <>
         <Card>
