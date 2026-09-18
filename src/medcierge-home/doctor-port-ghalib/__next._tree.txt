@@ -7,4 +7,4 @@
 :HL["/medcierge-home/img/hero.jpg","image"]
 :HL["/medcierge-home/img/coast.jpg","image"]
 :HL["/medcierge-home/logos/group-medpark.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"lang","param":{"type":"d","key":"doctor-port-ghalib","siblings":["about","contact","destinations","facilities","hotels","insurance","partners","services"]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"TweMOjWj-oJIwpjXZQUgY"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"lang","param":{"type":"d","key":"doctor-port-ghalib","siblings":["about","contact","destinations","facilities","hotels","insurance","partners","services"]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"5Gekv1OcrDrkRT1Lwve-Z"}
