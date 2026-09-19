@@ -146,21 +146,20 @@ def nav():
 
 
 def hero_content():
-    """Section 6, copied from the brief."""
-    return '''<div class="main-slider-two__content">
-    <div class="tagline">
-        <div class="border-box"></div>
-        <div class="text-box"><p>24/7 Medical Care &bull; Cashless Insurance &bull; Multilingual Support</p></div>
-    </div>
-    <div class="title"><h1>Urgent Medical Care. Right Inside Your Hotel.</h1></div>
+    """Section 6, copied from the brief. Sits on a white panel over their film:
+    no dark scrims (his rule), the headline reads on white instead."""
+    chips = ''.join('<li>%s</li>' % t for t in ('24/7 Medical Care', 'Cashless Insurance', 'Multilingual Support'))
+    return """<div class="main-slider-two__content rp-hero-panel">
+    <ul class="rp-chips">%s</ul>
+    <div class="title"><h1>Urgent Medical Care. <span>Right Inside Your Hotel.</span></h1></div>
     <p class="rp-hero-text">24/7 Clinic operates a network of on-site urgent care clinics inside hotels and resorts across Egypt&rsquo;s leading tourist destinations, giving international travelers fast access to medical care without unnecessary hospital visits.</p>
-    <div class="main-slider-one__content-btn">
-        <div class="btn-one"><a class="thm-btn rp-btn-wa" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">WhatsApp Us 24/7</a></div>
-        <div class="btn-two"><a href="#rp-find">Find Your Clinic</a></div>
+    <div class="rp-hero-btns">
+        <a class="rp-btn rp-btn--wa rp-shine" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">%sWhatsApp Us 24/7</a>
+        <a class="rp-btn rp-btn--ghost" href="#rp-find">%sFind Your Clinic</a>
     </div>
-    <p class="rp-trust">%sInternationally Accredited Urgent Care Network</p>
+    <p class="rp-trust"><img src="%s/assets/accreditation/c7acc-uca.png" alt="Urgent Care Association" width="40" height="40">Internationally Accredited Urgent Care Network</p>
 </div>
-''' % (wa(WA_HOME), svg('shield'))
+""" % (chips, wa(WA_HOME), svg('wa'), svg('pin'), PREFIX)
 
 
 def accreditation():
@@ -212,7 +211,8 @@ def why_hotel():
         ('stethoscope', 'Treatment On-Site', 'Many common urgent and primary care conditions can be assessed and treated without a hospital visit.'),
         ('hospital', 'Hospital Transfer Only When Needed', 'If higher-level care is required, our team coordinates the appropriate hospital, ambulance or next medical step.'),
     ]
-    body = ''.join('<div class="rp-card"><span class="rp-card__i">%s</span><h3>%s</h3><p>%s</p></div>'
+    body = ''.join('<div class="rp-card rp-spot"><i class="rp-x rp-x--a"></i><i class="rp-x rp-x--b"></i>'
+                   '<span class="rp-card__i">%s</span><h3>%s</h3><p>%s</p></div>'
                    % (svg(i), t, d) for i, t, d in cards)
     return '''<!--Start Repositioning Why Hotel-->
 <section class="rp-sec rp-sec--tint">
@@ -234,7 +234,8 @@ def services():
         ('specialist', 'Specialist Consultation', 'Access to specialist physicians and coordinated consultations where further medical assessment is required.'),
         ('bed', 'Hotel Room Doctor Visit', 'When appropriate, a doctor visit can be arranged directly in the guest&rsquo;s hotel room.'),
     ]
-    body = ''.join('<div class="rp-card"><span class="rp-card__i">%s</span><h3>%s</h3><p>%s</p></div>'
+    body = ''.join('<div class="rp-card rp-spot"><i class="rp-x rp-x--a"></i><i class="rp-x rp-x--b"></i>'
+                   '<span class="rp-card__i">%s</span><h3>%s</h3><p>%s</p></div>'
                    % (svg(i), t, d) for i, t, d in cards)
     return '''<!--Start Repositioning Services-->
 <section class="rp-sec">
@@ -265,7 +266,7 @@ def insurance():
             <p class="rp-ins__label">Our team can assist with:</p>
             <ul class="rp-ticks rp-ticks--col">%s</ul>
             <div class="rp-cta-row rp-cta-row--left">
-                <a class="thm-btn rp-btn-wa" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_insurance_click">Check Your Insurance on WhatsApp</a>
+                <a class="rp-btn rp-btn--wa rp-shine" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_insurance_click">Check Your Insurance on WhatsApp</a>
                 <a class="rp-link" href="/insurance">Learn About Insurance &amp; Cashless Care</a>
             </div>
         </div>
@@ -282,14 +283,14 @@ def how_it_works():
         ('We Check Your Insurance', 'Send us your insurance details and, where applicable, our team can coordinate directly with your insurer.'),
         ('Receive Medical Care', 'Treatment is provided on-site whenever clinically appropriate. If higher-level care is needed, we coordinate the next step.'),
     ]
-    body = ''.join('<div class="rp-step"><span class="rp-step__n">%d</span><h3>%s</h3><p>%s</p></div>'
+    body = ''.join('<li class="rp-step"><span class="rp-step__n">%02d</span><h3>%s</h3><p>%s</p></li>'
                    % (i + 1, t, d) for i, (t, d) in enumerate(steps))
     return '''<!--Start Repositioning How It Works-->
 <section class="rp-sec rp-sec--tint">
     <div class="container">
         <div class="sec-title text-center"><h2 class="sec-title__title">Getting Medical Help Is Simple</h2></div>
-        <div class="rp-grid rp-grid--4">%s</div>
-        <div class="rp-cta-row"><a class="thm-btn rp-btn-wa" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">Get Medical Help Now</a></div>
+        <ol class="rp-steps">%s</ol>
+        <div class="rp-cta-row"><a class="rp-btn rp-btn--wa rp-shine" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">Get Medical Help Now</a></div>
     </div>
 </section>
 ''' % (body, wa(WA_HOME))
@@ -339,7 +340,7 @@ def final_cta():
             <p>Tell us where you are staying and what happened. Our medical coordination team is available 24/7.</p>
         </div>
         <div class="rp-final__btns">
-            <a class="rp-btn rp-btn--wa" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">%sWhatsApp Us Now</a>
+            <a class="rp-btn rp-btn--wa rp-shine" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">%sWhatsApp Us Now</a>
             <a class="rp-btn rp-btn--ghost" href="#rp-find">Find Your Nearest Clinic</a>
         </div>
     </div>
@@ -349,8 +350,23 @@ def final_cta():
 
 def floating():
     """Section 5: floating button on desktop, sticky bar on a phone."""
-    return '''<a class="rp-float" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">%s<span>Need a Doctor? Chat on WhatsApp</span></a>
+    return '''<a class="rp-float" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click"><i class="rp-pulse" aria-hidden="true"></i>%s<span>Need a Doctor? Chat on WhatsApp</span></a>
 <a class="rp-sticky" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">%sWhatsApp Medical Support 24/7</a>
+<script>
+(function(){
+  /* One hero slide now, so no carousel adds .active. Adding it after load
+     lets their own entrance animation play as it always did. */
+  var s=document.querySelector('.rp-hero-one .main-slider-two__single');
+  if(s)requestAnimationFrame(function(){requestAnimationFrame(function(){s.classList.add('active')})});
+  var v=document.querySelector('.rp-hero-film');
+  if(v&&matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.pause()}
+  /* Spotlight cards: the glow follows the pointer. */
+  document.querySelectorAll('.rp-spot').forEach(function(c){
+    c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();
+      c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px')});
+  });
+})();
+</script>
 ''' % (wa(WA_HOME), svg('wa'), wa(WA_HOME), svg('wa'))
 
 
@@ -363,20 +379,34 @@ REPOSITIONING_CSS = r"""/* Repositioning, applied on top of their own stylesheet
 .rp-ico{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 
 /* ---- hero: the headline is the page's first and only h1 ---------------- */
-.main-slider-two__content .title h1{color:#fff;font-size:72px;line-height:1.1em;font-weight:700;font-family:var(--uterpy-font-two);margin:0}
-@media (max-width:1199px){.main-slider-two__content .title h1{font-size:56px}}
-@media (max-width:767px){.main-slider-two__content .title h1{font-size:38px}}
-.rp-hero-text{color:rgba(255,255,255,.92);font-size:19px;line-height:1.6;max-width:640px;margin:22px 0 0}
-.rp-trust{display:inline-flex;align-items:center;gap:9px;margin:22px 0 0;color:#fff;font-weight:600;font-size:15px;letter-spacing:.02em}
-.rp-trust .rp-ico{color:#fff;width:20px;height:20px}
-.rp-btn-wa{background:#25D366!important}
-.rp-btn-wa:hover{background:#128C7E!important}
-/* On a phone their two hero buttons sit side by side and each label wraps onto
-   two lines. Stacked and full width, each stays on one. */
-@media (max-width:575px){
-  .main-slider-two__content .main-slider-one__content-btn{flex-direction:column;align-items:stretch}
-  .main-slider-one__content-btn .btn-two{margin-left:0;margin-top:12px}
-  .main-slider-one__content-btn a{display:block;text-align:center;white-space:nowrap}
+/* One static slide: their film over their photo, their red shapes, and the
+   copy on a white panel. Fits a 900px laptop screen with the trust line. */
+.rp-hero-one .main-slider-two__single-inner{padding:56px 0 64px;min-height:min(78vh,720px);align-items:center}
+.rp-hero-film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.rp-hero-one .shape3,.rp-hero-one .shape4{z-index:2}
+.rp-hero-one .container{position:relative;z-index:3}
+.rp-hero-panel{max-width:660px;padding:36px 38px 30px;border-radius:24px;background:rgba(255,255,255,.93);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 30px 60px -30px rgba(40,10,10,.45)}
+.rp-hero-one .main-slider-two__content .title{opacity:1}
+.main-slider-two__content .title h1{color:var(--uterpy-black);font-size:54px;line-height:1.08;font-weight:700;font-family:var(--uterpy-font-two);margin:0}
+.main-slider-two__content .title h1 span{color:var(--uterpy-base)}
+@media (max-width:1199px){.main-slider-two__content .title h1{font-size:46px}}
+@media (max-width:767px){.main-slider-two__content .title h1{font-size:34px}}
+.rp-chips{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.rp-chips li{display:inline-flex;align-items:center;gap:8px;padding:6px 13px 6px 10px;border-radius:999px;background:#fff4f3;
+  border:1px solid #f3dcd9;font-size:13.5px;font-weight:600;color:#3b3533}
+.rp-chips li:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--uterpy-base)}
+.rp-hero-text{color:#4d4643;font-size:17.5px;line-height:1.62;margin:16px 0 0}
+.rp-hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.rp-trust{display:flex;align-items:center;gap:12px;margin:22px 0 0;padding-top:18px;border-top:1px solid #efe8e5;
+  color:var(--uterpy-black);font-weight:600;font-size:14.5px}
+.rp-trust img{width:40px;height:40px;object-fit:contain;flex:none}
+.rp-hero-one .main-slider-two__video{position:relative;z-index:3}
+@media (max-width:767px){
+  .rp-hero-one .main-slider-two__single-inner{padding:24px 0 30px;min-height:0}
+  .rp-hero-panel{padding:24px 20px 20px;border-radius:18px}
+  .rp-hero-btns .rp-btn{flex:1 1 100%;justify-content:center}
+  .rp-hero-one .main-slider-two__video{display:none}
 }
 
 /* ---- header WhatsApp button ------------------------------------------- */
@@ -487,6 +517,86 @@ REPOSITIONING_CSS = r"""/* Repositioning, applied on top of their own stylesheet
     box-shadow:0 10px 30px -10px rgba(0,0,0,.35)}
   body{padding-bottom:78px}
 }
+
+/* ================= design upgrade, 2026-09-19 ================= */
+
+/* ---- spotlight cards (ported from 21st.dev "Feature Grid Spotlight Cards") */
+.rp-spot{position:relative;overflow:visible;border-radius:16px;transition:border-color .3s,transform .3s,box-shadow .3s}
+.rp-spot:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(220px circle at var(--mx,50%) var(--my,0%),rgba(192,0,0,.09),transparent 70%)}
+.rp-spot:hover{border-color:#f0c9c4;transform:translateY(-4px);box-shadow:0 22px 40px -28px rgba(120,20,20,.35)}
+.rp-spot:hover:before{opacity:1}
+.rp-spot>*{position:relative}
+.rp-x{position:absolute!important;width:14px;height:14px;pointer-events:none;opacity:.55}
+.rp-x:before,.rp-x:after{content:"";position:absolute;background:var(--uterpy-base)}
+.rp-x:before{left:0;right:0;top:50%;height:1px}
+.rp-x:after{top:0;bottom:0;left:50%;width:1px}
+.rp-x--a{top:-7px;left:-7px}
+.rp-x--b{bottom:-7px;right:-7px}
+.rp-card__i{width:58px;height:58px;border-radius:16px;background:#fff4f3;border:1px solid #f3dcd9;transition:background .3s,color .3s}
+.rp-spot:hover .rp-card__i{background:var(--uterpy-base);color:#fff;border-color:var(--uterpy-base)}
+
+/* ---- steps on a rail (ported from 21st.dev "How It Works Steps") ------- */
+.rp-steps{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;position:relative}
+.rp-steps:before{content:"";position:absolute;left:12.5%;right:12.5%;top:30px;height:2px;
+  background:repeating-linear-gradient(90deg,var(--uterpy-base) 0 10px,transparent 10px 18px);opacity:.45}
+.rp-steps .rp-step{position:relative;text-align:center;background:none;border:0;padding:0 8px}
+.rp-steps .rp-step__n{position:relative;z-index:1;width:62px;height:62px;margin:0 auto 20px;border-radius:50%;
+  background:#fff;border:2px solid var(--uterpy-base);color:var(--uterpy-base);font-size:18px;letter-spacing:.02em;
+  box-shadow:0 0 0 8px #f7f5f4}
+.rp-steps .rp-step:first-child .rp-step__n{background:var(--uterpy-base);color:#fff}
+@media (max-width:991px){
+  .rp-steps{grid-template-columns:1fr;gap:0}
+  .rp-steps:before{left:30px;right:auto;top:10px;bottom:10px;width:2px;height:auto;
+    background:repeating-linear-gradient(180deg,var(--uterpy-base) 0 10px,transparent 10px 18px)}
+  .rp-steps .rp-step{text-align:left;padding:0 0 28px 88px}
+  .rp-steps .rp-step__n{position:absolute;left:0;top:0;margin:0}
+}
+
+/* ---- buttons: pill with a shine sweep (Uiverse-style) ------------------ */
+.rp-btn{justify-content:center;min-height:54px;padding:0 26px;transition:background .2s,color .2s,transform .15s}
+.rp-btn:active{transform:scale(.98)}
+.rp-btn .rp-ico{width:20px;height:20px}
+.rp-shine{position:relative;overflow:hidden;isolation:isolate}
+.rp-shine:after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;z-index:-1;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-18deg);
+  animation:rp-shine 4.5s ease-in-out infinite}
+@keyframes rp-shine{0%,70%{left:-60%}100%{left:130%}}
+.rp-btn--ghost{background:#fff;color:var(--uterpy-black);border:1.5px solid var(--uterpy-black)}
+.rp-btn--ghost:hover{background:var(--uterpy-black);color:#fff}
+
+/* ---- floating WhatsApp: pulse ring --------------------------------------- */
+.rp-float{bottom:24px}
+.rp-pulse{position:absolute;inset:0;border-radius:inherit;border:2px solid #25D366;animation:rp-pulse 2.4s ease-out infinite;pointer-events:none}
+@keyframes rp-pulse{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(1.18,1.5)}}
+
+/* ---- brand red: their theme ships #f45144, the 24/7 guideline is Classic
+   Red #C00000. One variable, so every red on their page follows. ------- */
+:root{--uterpy-base:#C00000;--uterpy-base-rgb:192,0,0}
+
+/* ---- no black bands (his rule): top bar, numbers, reviews, footer ------ */
+.main-header-one.style2 .main-header-one__top,.main-header-one.style2 .main-header-one__top-inner{background:#f7f5f4!important}
+.main-header-one.style2 .main-header-one__top::before,.main-header-one.style2 .main-header-one__top-left::before{display:none!important}
+.main-header-one__top{border-bottom:1px solid #ece7e4}
+.main-header-one.style2 .main-header-one__top *{color:#3b3533!important}
+.main-header-one.style2 .main-header-one__top [class^="icon-"]:before,.main-header-one.style2 .main-header-one__top [class*=" icon-"]:before{color:var(--uterpy-base)!important}
+.site-footer--two .shape1,.site-footer--two .shape2,.site-footer--two .shape3{display:none!important}
+.site-footer--two__pattern{background-image:none!important}
+@media (max-width:767px){.rp-chips li{font-size:12.5px;padding:5px 10px 5px 8px}.rp-chips{gap:6px;margin-bottom:14px}}
+.main-header-one__top,.main-header-one__top a,.main-header-one__top p,.main-header-one__top span,.main-header-one__top h6{color:#3b3533!important}
+.counter-one--two .counter-one__inner-bg{background:#fff4f3;border:1px solid #f3dcd9}
+.counter-one--two .counter-one__single-bottom p,.counter-one--two h3,.counter-one--two .odometer,.counter-one--two .counter-one__single-top span{color:var(--uterpy-black)!important}
+.testimonial-one--two.testimonial-one:before{background-color:#f7f5f4}
+.site-footer--two__pattern{background:#f7f5f4}
+.site-footer--two,.site-footer--two p,.site-footer--two a,.site-footer--two li,.site-footer--two h3,.site-footer--two h4,
+.site-footer--two .footer-widget__title,.site-footer__bottom-text p{color:#3b3533!important}
+.site-footer--two a:hover{color:var(--uterpy-base)!important}
+.site-footer__bottom{border-top:1px solid #e7e1da}
+
+@media (prefers-reduced-motion:reduce){
+  .rp-shine:after,.rp-pulse{animation:none;display:none}
+  .rp-spot,.rp-spot:hover{transform:none}
+}
 """
 
 
@@ -522,9 +632,21 @@ def main():
         v = slide1.find('<div class="main-slider-two__video">')
         if c >= 0 and v > c:
             slide1 = slide1[:c] + hero_content() + slide1[v:]
-            # Slide two is "Be Beautiful". Sections 6 and 29: no Beauty & Wellness in the hero.
-            h = h[:s1] + slide1 + h[s3:]
-            note('6', 'Hero rewritten word for word, headline is now the page h1, Beauty slide removed')
+            # Their Le Reve film, as video, over their photo. The brief asks the
+            # hero to show an actual hotel clinic; this film is one.
+            slide1 = slide1.replace('<div class="shape3">',
+                '<video class="rp-hero-film" src="https://hcig-passport.vercel.app/assets/v-commercial.mp4" '
+                'autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>\n'
+                '                    <div class="shape3">', 1)
+            # Slide two was "Be Beautiful" (sections 6 and 29), slide three
+            # "We work with all insurance companies", a claim the brief does not
+            # make. One slide stays, so the carousel is switched off: its
+            # looping clones had tripled the h1.
+            end = h.find('<div class="owl-theme">', s3)
+            h = h[:s1] + slide1 + '</div>\n' + h[h.find('</section>', end):]
+            h = h.replace('<div class="owl-carousel owl-theme main-slider-two__carousel">',
+                          '<div class="rp-hero-one">', 1)
+            note('6', 'Hero: one slide, their Le Reve film, headline on a white panel, one h1, carousel off')
         else:
             print('   SKIPPED, hero content block not found')
     else:
@@ -593,6 +715,19 @@ def main():
     if n:
         h = h.replace('href=""', 'href="/our-clinics"')
         note('39', '%d empty links pointed at Our Clinics' % n)
+
+    # --------------------------------------------------- 39. their map bug
+    # Their page calls initMap on DOMContentLoaded, before the async Maps API
+    # has loaded, so every visit throws "google is not defined". The API's own
+    # callback=initMap already calls it once the library is ready.
+    h = sub(h, r"document\.addEventListener\('DOMContentLoaded', function \(\) \{\s*initMap\(\);\s*\}\);", '',
+            '39', 'Map: removed the early initMap call that threw "google is not defined"')
+    h = one(h, 'function initMap() {', "function initMap() {\n            if (typeof google === 'undefined') return;",
+            '39', 'Map: initMap guarded')
+
+    # Light footer (his rule: no black backgrounds), so it takes the red logo.
+    h = one(h, 'clinic-logo-white.svg" class="w-25"', 'clinic-logo.svg" class="w-25"', '2',
+            'Footer logo in colour for the light footer')
 
     # ---------------------------------------------------- 5. floating WhatsApp
     h = one(h, '</body>', floating() + '</body>', '5', 'Floating WhatsApp button and mobile sticky bar')

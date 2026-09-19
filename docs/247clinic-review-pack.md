@@ -6,8 +6,8 @@ Updated 2026-09-19.
 
 | What | Link | State |
 |---|---|---|
-| New homepage, our design on their brand book | [/247clinic/new](https://hcig-passport.vercel.app/247clinic/new) | For your review |
-| Homepage on their current layout, for comparison | [/247clinic/website-preview](https://hcig-passport.vercel.app/247clinic/website-preview) | Older approach, 2026-09-18 |
+| **Homepage, their layout with her content (chosen 2026-09-19)** | [/247clinic/website-preview](https://hcig-passport.vercel.app/247clinic/website-preview) | For your review |
+| Our own design, parked | [/247clinic/new](https://hcig-passport.vercel.app/247clinic/new) | Not chosen |
 | Landing page design 4, to the brief | [Le Rêve](https://hcig-passport.vercel.app/247clinic/hotel-landing-pages/design-4) . [Steigenberger](https://hcig-passport.vercel.app/247clinic/hotel-landing-pages/design-4-steigenberger) . [Amwaj](https://hcig-passport.vercel.app/247clinic/hotel-landing-pages/design-4-amwaj) | Waiting for Irina |
 | Landing page design 1, clean | [Le Rêve](https://hcig-passport.vercel.app/247clinic/hotel-landing-pages/design-1) . [Steigenberger](https://hcig-passport.vercel.app/247clinic/hotel-landing-pages/design-1-steigenberger) . [Amwaj](https://hcig-passport.vercel.app/247clinic/hotel-landing-pages/design-1-amwaj) | Waiting for Irina |
 | Landing page design 2, cinematic | [Le Rêve](https://hcig-passport.vercel.app/247clinic/hotel-landing-pages/design-2) . [Steigenberger](https://hcig-passport.vercel.app/247clinic/hotel-landing-pages/design-2-steigenberger) . [Amwaj](https://hcig-passport.vercel.app/247clinic/hotel-landing-pages/design-2-amwaj) | Waiting for Irina |
@@ -33,6 +33,7 @@ Updated 2026-09-19.
 | 2026-09-19 | Built the new homepage. Every sentence checked against the brief by the build itself. |
 | 2026-09-19 | Put all brief content into one file per page, ready for every page and every language. |
 | 2026-09-19 | Keyword research with real Google evidence in 4 languages. |
+| 2026-09-19 | You chose their layout. Hero rebuilt: their Le Rêve film, headline on a white panel, one h1 instead of three. Brand red #C00000 everywhere, no black bands, spotlight cards and a step rail from 21st.dev. Fixed their map error, "google is not defined", which also breaks their live site. |
 
 ## What research did we make?
 
