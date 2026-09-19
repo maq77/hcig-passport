@@ -58,9 +58,9 @@ Full map: [Keywords](https://hcig-passport.vercel.app/247clinic/website/keywords
 
 ## What needs your review?
 
-1. The new homepage, against the one on their layout. Which way?
+1. The homepage on their layout: the hero, the colours, the cards and steps.
 2. The keyword map, and the two questions in it: pharmacy, and doctors who speak German, Polish or Czech.
-3. Whether the landing pages follow the new homepage's design once Irina decides.
+3. Whether the landing pages take the same look once Irina decides.
 
 ## What needs Irina?
 
@@ -80,9 +80,9 @@ Full map: [Keywords](https://hcig-passport.vercel.app/247clinic/website/keywords
 
 | Next | Who | Waits for |
 |---|---|---|
-| The remaining pages of her brief: services, insurance, find a clinic, about, contact, FAQ, accreditation, for hotels, for insurers | agy, reviewed by Claude | Your yes on the new homepage |
+| The remaining pages of her brief: services, insurance, find a clinic, about, contact, FAQ, accreditation, for hotels, for insurers | agy, reviewed by Claude | Your yes on the homepage |
 | German, Polish and Czech versions of every page | agy, then a native speaker | Content is ready. agy quota resets today |
-| Hotel clinic and destination pages on the new design | agy, reviewed by Claude | Irina's pick and your yes |
+| Hotel clinic and destination pages in the same look | agy, reviewed by Claude | Irina's pick and your yes |
 | Soft 404 and canonical on 247clinic.net | Claude | Rebuild of their app or a Cloudflare rule |
 | GA4 and our tracking on 247clinic.net | Claude | Your go |
 | Going live on 247clinic.net | Claude | Approval of the preview |
