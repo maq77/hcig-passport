@@ -288,6 +288,167 @@
 .site-footer--two a:hover{color:var(--uterpy-base)!important}
 .site-footer__bottom{border-top:1px solid #e7e1da}
 
+/* ================= pass four, 2026-09-19 ================= */
+
+/* One width for every section: their .container. */
+.rp-sec--tight{padding:70px 0}
+
+/* ---- find a clinic: cards, rows centred ------------------------------- */
+.rp-places{display:flex!important;flex-wrap:wrap;justify-content:center;gap:18px}
+.rp-place{flex:0 0 calc((100% - 54px)/4);position:relative;display:flex;align-items:flex-start;gap:14px;padding:22px 20px 22px 18px;
+  border-radius:18px;background:#fff;border:1px solid #ece7e4;box-shadow:0 18px 36px -30px rgba(80,10,10,.45);
+  transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s,border-color .35s;overflow:hidden}
+.rp-place:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--uterpy-base);transform:scaleY(0);
+  transform-origin:top;transition:transform .35s cubic-bezier(.22,.61,.36,1)}
+.rp-place:hover{transform:translateY(-4px);border-color:#f0c9c4;box-shadow:0 26px 44px -28px rgba(120,20,20,.5)}
+.rp-place:hover:before{transform:none}
+.rp-place__pin{display:grid;place-items:center;width:46px;height:46px;flex:none;border-radius:14px;background:#fff4f3;color:var(--uterpy-base);
+  transition:background .3s,color .3s}
+.rp-place:hover .rp-place__pin{background:var(--uterpy-base);color:#fff}
+.rp-place__pin .rp-ico{margin:0}
+.rp-place__body{flex:1;min-width:0}
+.rp-place__body b{display:block;font-size:18px;line-height:1.25;color:var(--uterpy-black)}
+.rp-place__body small{display:block;margin-top:5px;font-size:14px;line-height:1.45;color:#6b625e}
+.rp-place__go{align-self:center;color:var(--uterpy-base);font-size:18px;transition:transform .3s}
+.rp-place:hover .rp-place__go{transform:translateX(4px)}
+@media (max-width:1199px){.rp-place{flex-basis:calc((100% - 36px)/3)}}
+
+/* ---- insurance, compact ------------------------------------------------ */
+.rp-ins2{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center;max-width:1080px;margin:0 auto;
+  padding:40px 40px 40px 44px;border-radius:26px;background:var(--uterpy-base);color:#fff;
+  box-shadow:0 34px 60px -40px rgba(120,0,0,.7)}
+.rp-ins2 h2{color:#fff;font-size:34px;line-height:1.2;margin:0;font-weight:700;font-family:var(--uterpy-font-two)}
+.rp-ins2__sub{font-size:18px;font-weight:700;margin:8px 0 12px;color:#fff}
+.rp-ins2 p{color:rgba(255,255,255,.92);font-size:15.5px;line-height:1.6;margin:0 0 8px}
+.rp-ins2__label{font-weight:700;color:#fff!important;margin-top:12px!important}
+.rp-ins2__ticks{list-style:none;padding:0;margin:8px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:8px 18px}
+.rp-ins2__ticks li{display:flex;gap:8px;align-items:flex-start;font-size:14.5px;font-weight:600;line-height:1.35}
+.rp-ins2__ticks .rp-ico{width:17px;height:17px;flex:none;stroke-width:2.4;margin-top:1px}
+.rp-ins2__btns{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin-top:22px}
+.rp-ins2__img{margin:0;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 20px 40px -24px rgba(0,0,0,.45)}
+.rp-ins2__img img{display:block;width:100%;height:auto;aspect-ratio:859/427;object-fit:cover}
+
+/* ---- films: a Watch button on every card ------------------------------- */
+.rp-watch{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;
+  min-height:44px;padding:0 18px;border:0;border-radius:999px;background:rgba(255,255,255,.94);color:#15120f;font-weight:700;
+  font-size:14px;cursor:pointer;box-shadow:0 10px 24px -12px rgba(0,0,0,.45);transition:background .2s,color .2s,transform .2s}
+.rp-watch .rp-ico{width:16px;height:16px;fill:currentColor;stroke:none}
+.rp-watch:hover{background:var(--uterpy-base);color:#fff}
+.rp-sound{display:none}
+
+/* ---- guest films: one portrait shape, a caption, auto-advancing ------- */
+.rp-stories{padding:20px 0 96px}
+.rp-stories__rail{gap:18px;scroll-behavior:smooth;scrollbar-width:none}
+.rp-stories__rail::-webkit-scrollbar{display:none}
+.rp-story{height:auto!important;width:calc((100% - 54px)/4);aspect-ratio:9/16!important;border-radius:22px}
+.rp-story:after{content:"";position:absolute;inset:auto 0 0 0;height:45%;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.45))}
+.rp-story figcaption{position:absolute;left:14px;top:14px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:6px 12px 6px 8px;
+  border-radius:999px;background:rgba(255,255,255,.92);font-size:13px;font-weight:700;color:#15120f}
+.rp-story figcaption:empty{display:none}
+.rp-story figcaption img{border-radius:3px}
+.rp-story .rp-watch{z-index:2}
+.rp-story video{transition:transform 1.2s cubic-bezier(.22,.61,.36,1)}
+.rp-story:hover video{transform:scale(1.05)}
+@media (max-width:1199px){.rp-story{width:calc((100% - 36px)/3)}}
+
+/* ---- the viewer: frosted white, never black ---------------------------- */
+.rp-lb{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:24px;
+  background:rgba(250,248,246,.82);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);animation:rp-fade .25s ease-out}
+.rp-lb[hidden]{display:none}
+.rp-lb__v{max-width:min(92vw,1100px);max-height:86vh;width:auto;height:auto;border-radius:18px;background:#e9e4de;
+  box-shadow:0 40px 80px -30px rgba(40,10,10,.55);animation:rp-pop .3s cubic-bezier(.22,.61,.36,1)}
+.rp-lb__close{position:absolute;top:16px;right:16px;width:48px;height:48px;border-radius:50%;border:0;background:#fff;color:#15120f;
+  font-size:28px;line-height:1;cursor:pointer;box-shadow:0 8px 20px -10px rgba(0,0,0,.4)}
+.rp-lb-open,.rp-lb-open body{overflow:hidden}
+@keyframes rp-fade{from{opacity:0}to{opacity:1}}
+@keyframes rp-pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+
+/* ---- section rhythm: the same breathing room everywhere --------------- */
+.rp-sec,.services-one.rp-services{padding:96px 0}
+.rp-films{padding-top:40px}
+
+/* ======================= mobile first layer ========================== */
+@media (max-width:767px){
+  /* type: big, left, tight, like a native app */
+  .sec-title.text-center{text-align:left!important}
+  .sec-title__title{font-size:30px!important;line-height:1.15!important;letter-spacing:-.01em}
+  .rp-sec,.services-one.rp-services,.rp-stories{padding:56px 0}
+  .rp-sec--tight{padding:40px 0}
+  .container{padding-left:18px;padding-right:18px}
+
+  /* hero: tall, film behind, words at the bottom, thumb-reach buttons */
+  .main-slider-two__single-inner{min-height:calc(100svh - 170px);display:flex!important;align-items:flex-end;padding:0 0 34px!important}
+  .rp-hero-shade{background:linear-gradient(180deg,rgba(20,8,8,.1) 0%,rgba(20,8,8,.35) 45%,rgba(20,8,8,.72) 100%)!important}
+  .main-slider-two__video,.main-slider-two .shape3,.main-slider-two .shape4{display:none!important}
+  .rp-hero-text{font-size:15.5px;margin-top:12px}
+  .main-slider-one__content-btn{margin-top:20px!important;gap:10px}
+  .main-slider-one__content-btn a{min-height:52px;border-radius:14px!important}
+  .rp-trust{margin-top:16px}
+
+  /* every row of cards becomes a swipe carousel with a peek */
+  .rp-snap{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px!important;
+    margin-left:-18px!important;margin-right:-18px!important;padding:6px 18px 14px!important;scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+  .rp-snap::-webkit-scrollbar{display:none}
+  .rp-snap{scroll-padding-left:18px}
+  .rp-snap>*{flex:0 0 84%!important;max-width:84%!important;scroll-snap-align:start}
+  .rp-lead{text-align:left;margin:-8px 0 22px}
+  .rp-svc-row>*{padding:0!important}
+  .rp-svc-row .services-one__single{height:100%;margin:0}
+  .rp-films__row>*{flex-basis:68%!important;max-width:68%!important}
+  .rp-stories__rail>.rp-story{flex-basis:64%!important;max-width:64%!important;width:auto}
+  .rp-places>.rp-place{flex-basis:80%!important;max-width:80%!important}
+  .rp-grid--2.rp-snap>*{flex-basis:80%!important;max-width:80%!important}
+
+  /* why: the film first, smaller */
+  .rp-reel{max-width:none;aspect-ratio:4/5;margin:0 0 18px;border-radius:20px}
+
+  /* insurance: one column, image on top */
+  .rp-ins2{grid-template-columns:1fr;padding:22px 20px 24px;gap:18px;border-radius:22px}
+  .rp-ins2__img{order:-1}
+  .rp-ins2 h2{font-size:27px}
+  .rp-ins2__ticks{grid-template-columns:1fr}
+  .rp-ins2__btns .rp-btn{width:100%}
+
+  /* guest films: arrows hide, swipe instead */
+  .rp-stories__nav{display:none}
+
+  /* the dots under each carousel */
+  .rp-dots{display:flex;justify-content:center;gap:6px;margin-top:4px}
+  .rp-dots i{width:6px;height:6px;border-radius:999px;background:#d9d0cc;transition:width .3s,background .3s}
+  .rp-dots i.on{width:20px;background:var(--uterpy-base)}
+}
+/* ---- from the mobile review (Gemini via /delegate, checked) ---------- */
+.site-footer__bottom,.site-footer__bottom *{color:#6b625e!important}
+.site-footer__bottom a{color:var(--uterpy-base)!important}
+.footer-widget__about-social-link a{background:#fff4f3!important;color:var(--uterpy-base)!important;border:1px solid #f3dcd9}
+.footer-widget__about-social-link a:hover{background:var(--uterpy-base)!important;color:#fff!important}
+.footer-widget__about-social-link a *{color:inherit!important}
+.services-one__single-img-icon-inner{background:var(--uterpy-base)!important}
+@media (max-width:767px){
+  .therapy-two__content-list li{display:flex!important;gap:14px;align-items:flex-start;text-align:left}
+  .therapy-two__content-list .icon-box{width:56px!important;height:56px!important;min-width:56px;flex:none;margin:0!important}
+  .therapy-two__content-list .icon-box svg{width:30px;height:30px}
+  .therapy-two__content-list h2{font-size:19px!important;margin-top:0!important}
+  .therapy-two__content .title-box h2{font-size:26px!important;line-height:1.2!important}
+  .therapy-two__img-content{display:flex!important;flex-wrap:nowrap;overflow-x:auto;gap:8px;padding:12px!important;background:transparent!important;scrollbar-width:none}
+  .therapy-two__img-content .thm-btn{flex:none;margin:0!important;padding:10px 18px!important;border-radius:999px!important;
+    background:#fff!important;color:var(--uterpy-base)!important;border:1px solid #f0c9c4!important;font-size:14px!important;line-height:1.2}
+  .rp-steps .rp-step{padding-left:70px}
+  .rp-steps .rp-step__n{width:48px;height:48px;font-size:15px;box-shadow:0 0 0 6px #f7f5f4}
+  .rp-steps:before{left:23px}
+  .rp-acc__row{flex-wrap:wrap}
+  .rp-mark figcaption{font-size:13px}
+  .main-slider-two__content .title h1{line-height:1.15!important}
+}
+@media (min-width:768px){.rp-dots{display:none}}
+@media (min-width:768px) and (max-width:991px){
+  .rp-place{flex-basis:calc((100% - 18px)/2)}
+  .rp-story{width:calc((100% - 18px)/2)}
+  .rp-ins2{grid-template-columns:1fr}
+}
+
 @media (prefers-reduced-motion:reduce){
   .rp-shine:after,.rp-pulse{animation:none;display:none}
   .rp-steps:before{transform:none!important;transition:none}

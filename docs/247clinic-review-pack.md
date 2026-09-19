@@ -35,6 +35,7 @@ Updated 2026-09-19.
 | 2026-09-19 | Keyword research with real Google evidence in 4 languages. |
 | 2026-09-19 | You chose their layout. Hero rebuilt: their Le Rêve film, headline on a white panel, one h1 instead of three. Brand red #C00000 everywhere, no black bands, spotlight cards and a step rail from 21st.dev. Fixed their map error, "google is not defined", which also breaks their live site. |
 | 2026-09-19 | Your feedback applied: their own hero back, three slides, our Le Rêve film on the first. Their Services block back with a photo per service. Their insurance banner back, on brand red. Their "where you are in your hotel" film beside the why cards, three team films, and six guest story films under the reviews. Motion on every section with their own animations. |
+| 2026-09-19 | Broken photos fixed (their jpgs never reached the host). New order: Find a Clinic, numbers and map at the end. Clinic cards centred. Insurance compact, photo whole. Guest films auto-advance, every film opens whole with sound. A separate phone layout: swipe carousels with dots, tall hero, left-aligned headings. Mobile reviewed by Gemini, confirmed findings fixed. |
 
 ## What research did we make?
 
