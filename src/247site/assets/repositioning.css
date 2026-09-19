@@ -1,0 +1,133 @@
+/* Repositioning, applied on top of their own stylesheet.
+   Their bundle.min.css is untouched. Delete this file and the site is theirs
+   again. Every rule is namespaced rp- so nothing of theirs is overridden by
+   accident, except the three hero rules marked below, which exist because the
+   headline is now an h1 and their theme only styles an h2 there. */
+
+.rp-ico{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---- hero: the headline is the page's first and only h1 ---------------- */
+.main-slider-two__content .title h1{color:#fff;font-size:72px;line-height:1.1em;font-weight:700;font-family:var(--uterpy-font-two);margin:0}
+@media (max-width:1199px){.main-slider-two__content .title h1{font-size:56px}}
+@media (max-width:767px){.main-slider-two__content .title h1{font-size:38px}}
+.rp-hero-text{color:rgba(255,255,255,.92);font-size:19px;line-height:1.6;max-width:640px;margin:22px 0 0}
+.rp-trust{display:inline-flex;align-items:center;gap:9px;margin:22px 0 0;color:#fff;font-weight:600;font-size:15px;letter-spacing:.02em}
+.rp-trust .rp-ico{color:#fff;width:20px;height:20px}
+.rp-btn-wa{background:#25D366!important}
+.rp-btn-wa:hover{background:#128C7E!important}
+/* On a phone their two hero buttons sit side by side and each label wraps onto
+   two lines. Stacked and full width, each stays on one. */
+@media (max-width:575px){
+  .main-slider-two__content .main-slider-one__content-btn{flex-direction:column;align-items:stretch}
+  .main-slider-one__content-btn .btn-two{margin-left:0;margin-top:12px}
+  .main-slider-one__content-btn a{display:block;text-align:center;white-space:nowrap}
+}
+
+/* ---- header WhatsApp button ------------------------------------------- */
+/* Their header sets the menu box to display:block at a higher specificity,
+   which dropped the button onto a second row. Seven menu items at their 54px
+   spacing also leave no room for it, so the spacing tightens to 30px. */
+.main-menu .main-menu__main-menu-box,.stricky-header .main-menu__main-menu-box{display:flex!important;align-items:center;flex-wrap:nowrap}
+.main-menu .main-menu__list>li+li,.stricky-header .main-menu__list>li+li{margin-left:30px}
+.main-menu .main-menu__list>li>a,.stricky-header .main-menu__list>li>a{font-size:16px;white-space:nowrap}
+.rp-head-wa{display:inline-flex;align-items:center;gap:8px;margin-left:26px;padding:11px 18px;border-radius:999px;
+  background:#25D366;color:#fff!important;font-weight:700;font-size:15px;white-space:nowrap;text-decoration:none;flex:none}
+.rp-head-wa:hover{background:#128C7E}
+.rp-head-wa .rp-ico{width:19px;height:19px}
+.rp-head-wa .rp-short{display:none}
+@media (max-width:1439px){.rp-head-wa .rp-long{display:none}.rp-head-wa .rp-short{display:inline}}
+
+/* ---- shared section rhythm ------------------------------------------- */
+.rp-sec{padding:100px 0}
+.rp-sec--tint{background:#f7f5f4}
+@media (max-width:767px){.rp-sec{padding:64px 0}}
+.rp-lead{text-align:center;max-width:640px;margin:-20px auto 36px;font-size:18px;color:#555}
+.rp-grid{display:grid;gap:24px;margin-top:10px}
+.rp-grid--3{grid-template-columns:repeat(3,1fr)}
+.rp-grid--4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:1199px){.rp-grid--4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:991px){.rp-grid--3{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:575px){.rp-grid--3,.rp-grid--4{grid-template-columns:1fr}}
+.rp-card{background:#fff;border:1px solid #ece7e4;border-radius:14px;padding:30px 26px}
+.rp-card__i{display:inline-grid;place-items:center;width:54px;height:54px;border-radius:50%;
+  background:rgba(var(--uterpy-base-rgb),.1);color:var(--uterpy-base);margin-bottom:18px}
+.rp-card h3{font-size:21px;line-height:1.3;margin:0 0 10px;font-weight:700}
+.rp-card p{margin:0;font-size:16px;line-height:1.65;color:#5b5b5b}
+.rp-cta-row{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;justify-content:center;margin-top:44px}
+.rp-cta-row--left{justify-content:flex-start;margin-top:28px}
+.rp-link{font-weight:700;color:var(--uterpy-black);text-decoration:underline;text-underline-offset:4px}
+.rp-ticks{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-wrap:wrap;gap:10px 26px}
+.rp-ticks li{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:16px}
+.rp-ticks .rp-ico{color:var(--uterpy-base);width:19px;height:19px;stroke-width:2.4}
+.rp-ticks--col{flex-direction:column;gap:12px}
+
+/* ---- accreditation --------------------------------------------------- */
+.rp-acc{background:#fff;border-bottom:1px solid #ece7e4;padding:54px 0}
+.rp-acc__in{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center}
+@media (max-width:991px){.rp-acc__in{grid-template-columns:1fr;gap:30px}}
+.rp-acc h2{font-size:34px;line-height:1.25;margin:0 0 12px;font-weight:700}
+.rp-acc p{margin:0;font-size:17px;line-height:1.65;color:#555;max-width:640px}
+.rp-acc__marks{display:flex;flex-wrap:wrap;gap:22px 40px;justify-content:flex-end;align-items:flex-start}
+@media (max-width:991px){.rp-acc__marks{justify-content:flex-start}}
+.rp-acc__group{display:flex;flex-direction:column;gap:10px}
+.rp-acc__label{margin:0!important;font-size:12px!important;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#888!important;max-width:260px}
+.rp-acc__row{display:flex;gap:26px;align-items:flex-start}
+.rp-mark{margin:0;width:118px;text-align:center}
+.rp-mark img{display:block;margin:0 auto;width:auto}
+.rp-mark--round img{height:84px}
+.rp-mark--wide img{height:58px;margin:13px auto}
+.rp-mark figcaption{margin-top:9px;font-size:12px;line-height:1.35;color:#777}
+
+/* ---- insurance ------------------------------------------------------- */
+.rp-ins__in{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+@media (max-width:991px){.rp-ins__in{grid-template-columns:1fr;gap:30px}}
+.rp-ins .sec-title{margin-bottom:14px}
+.rp-ins__sub{font-size:21px;font-weight:700;color:var(--uterpy-base);margin:0 0 16px}
+.rp-ins p{font-size:17px;line-height:1.7;color:#555}
+.rp-ins__box{background:#f7f5f4;border-radius:16px;padding:36px}
+.rp-ins__label{font-weight:700;color:var(--uterpy-black)!important;margin:0}
+
+/* ---- how it works ---------------------------------------------------- */
+.rp-step{background:#fff;border:1px solid #ece7e4;border-radius:14px;padding:30px 26px}
+.rp-step__n{display:inline-grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--uterpy-base);
+  color:#fff;font-weight:700;font-size:19px;margin-bottom:16px}
+.rp-step h3{font-size:20px;line-height:1.3;margin:0 0 10px;font-weight:700}
+.rp-step p{margin:0;font-size:16px;line-height:1.65;color:#5b5b5b}
+
+/* ---- find a clinic --------------------------------------------------- */
+.rp-places{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:991px){.rp-places{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:575px){.rp-places{grid-template-columns:1fr}}
+.rp-place{display:flex;gap:12px;align-items:flex-start;padding:20px;border:1px solid #ece7e4;border-radius:14px;background:#fff;
+  color:var(--uterpy-black);text-decoration:none;transition:border-color .2s,transform .2s}
+.rp-place:hover{border-color:var(--uterpy-base);transform:translateY(-2px)}
+.rp-place .rp-ico{color:var(--uterpy-base);margin-top:2px}
+.rp-place b{display:block;font-size:18px}
+.rp-place small{display:block;margin-top:3px;font-size:14px;color:#777;line-height:1.4}
+
+/* ---- final CTA ------------------------------------------------------- */
+/* Light, so it does not merge with their red newsletter band right below. */
+.rp-final{background:#fff4f3;border-top:1px solid #f3dcd9;padding:64px 0}
+.rp-final__in{display:flex;flex-wrap:wrap;gap:26px 40px;align-items:center;justify-content:space-between}
+.rp-final h2{color:var(--uterpy-black);font-size:38px;line-height:1.2;margin:0 0 10px;font-weight:700}
+.rp-final p{color:#555;font-size:18px;margin:0;max-width:560px}
+.rp-final__btns{display:flex;flex-wrap:wrap;gap:12px}
+.rp-btn{display:inline-flex;align-items:center;gap:9px;padding:16px 26px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none}
+.rp-btn--wa{background:#25D366;color:#fff}
+.rp-btn--wa:hover{background:#128C7E;color:#fff}
+.rp-btn--ghost{background:#fff;color:var(--uterpy-base);border:1.5px solid var(--uterpy-base)}
+.rp-btn--ghost:hover{background:var(--uterpy-base);color:#fff}
+
+/* ---- floating WhatsApp, and the phone's sticky bar ------------------- */
+.rp-float{position:fixed;right:20px;bottom:104px;z-index:9990;display:flex;align-items:center;gap:10px;padding:14px 20px;
+  border-radius:999px;background:#25D366;color:#fff;font-weight:700;font-size:15px;text-decoration:none;
+  box-shadow:0 14px 34px -12px rgba(18,140,126,.6)}
+.rp-float:hover{background:#128C7E;color:#fff}
+.rp-sticky{display:none}
+@media (max-width:767px){
+  .rp-float{display:none}
+  .rp-sticky{position:fixed;left:10px;right:10px;bottom:10px;z-index:9990;display:flex;align-items:center;justify-content:center;
+    gap:10px;padding:15px;border-radius:14px;background:#25D366;color:#fff;font-weight:700;font-size:16px;text-decoration:none;
+    box-shadow:0 10px 30px -10px rgba(0,0,0,.35)}
+  body{padding-bottom:78px}
+}

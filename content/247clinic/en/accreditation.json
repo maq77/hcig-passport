@@ -1,0 +1,52 @@
+{
+  "page": "accreditation",
+  "briefSections": [
+    23
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "international-accreditation",
+      "briefSection": 23,
+      "heading": "Internationally Accredited Urgent Care",
+      "subheading": null,
+      "body": [
+        "24/7 Clinic is the first international urgent care network outside the United States to achieve accreditation through the Urgent Care Association and CAUCQ."
+      ],
+      "items": [
+        {
+          "title": "Patient safety",
+          "text": null
+        },
+        {
+          "title": "Clinical governance",
+          "text": null
+        },
+        {
+          "title": "Quality",
+          "text": null
+        },
+        {
+          "title": "Operational standards",
+          "text": null
+        },
+        {
+          "title": "Urgent care processes",
+          "text": null
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Find an Accredited 24/7 Clinic",
+          "target": "Internal"
+        }
+      ],
+      "devNotes": [
+        "Recommended URL: /international-accreditation",
+        "Do not make additional accreditation claims unless officially approved.",
+        "Add accreditation logos according to brand usage rules.",
+        "Explain briefly that accreditation reflects standards related to:"
+      ]
+    }
+  ]
+}

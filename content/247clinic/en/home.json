@@ -1,0 +1,376 @@
+{
+  "page": "home",
+  "briefSections": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    41,
+    42
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "hero",
+      "briefSection": 6,
+      "heading": "Urgent Medical Care. Right Inside Your Hotel.",
+      "subheading": "24/7 Medical Care • Cashless Insurance • Multilingual Support",
+      "body": [
+        "24/7 Clinic operates a network of on-site urgent care clinics inside hotels and resorts across Egypt’s leading tourist destinations, giving international travelers fast access to medical care without unnecessary hospital visits.",
+        "Internationally Accredited Urgent Care Network"
+      ],
+      "items": [],
+      "ctas": [
+        {
+          "label": "WhatsApp Us 24/7",
+          "target": "Primary CTA"
+        },
+        {
+          "label": "Find Your Clinic",
+          "target": "Secondary CTA"
+        }
+      ],
+      "devNotes": [
+        "Remove generic messaging such as: “We Cover All Your Needs” and any Beauty & Wellness communication from the main hero.",
+        "Trust statement below CTAs:",
+        "The hero visual should preferably show: an actual hotel clinic; a doctor assisting an international traveler; a resort/hospitality environment.",
+        "Avoid generic beauty photography or highly artificial stock imagery."
+      ]
+    },
+    {
+      "id": "accreditation-block",
+      "briefSection": 7,
+      "heading": "Internationally Accredited Urgent Care",
+      "subheading": null,
+      "body": [
+        "24/7 Clinic is the first international urgent care network outside the United States to achieve accreditation through the Urgent Care Association and CAUCQ."
+      ],
+      "items": [
+        {
+          "title": "International Standards",
+          "text": null
+        },
+        {
+          "title": "Patient Safety",
+          "text": null
+        },
+        {
+          "title": "Clinical Quality",
+          "text": null
+        },
+        {
+          "title": "Operational Excellence",
+          "text": null
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Learn About Our Accreditation",
+          "target": "Link to a new Accreditation page."
+        }
+      ],
+      "devNotes": [
+        "This should appear immediately after the hero or very close to the top of the homepage.",
+        "Add relevant accreditation logos where legally and contractually permitted.",
+        "Supporting points:"
+      ]
+    },
+    {
+      "id": "what-is-247-clinic",
+      "briefSection": 8,
+      "heading": "Medical Care Without Leaving Your Resort",
+      "subheading": null,
+      "body": [
+        "When you become ill or injured while travelling, visiting a hospital should not always be the first step.",
+        "24/7 Clinic brings urgent and primary medical care directly into hotels and resorts, allowing international guests to receive medical consultation, diagnostics and treatment close to their hotel room.",
+        "Our medical teams can manage a wide range of conditions on-site and coordinate hospital care only when medically necessary.",
+        "Hospital care when necessary - not automatically."
+      ],
+      "items": [],
+      "ctas": [
+        {
+          "label": "Find a Clinic",
+          "target": "Secondary CTA"
+        }
+      ],
+      "devNotes": [
+        "Reuse an existing About / Intro block where possible.",
+        "Optional highlighted line: Hospital care when necessary - not automatically."
+      ]
+    },
+    {
+      "id": "why-hotel-based-medical-care",
+      "briefSection": 9,
+      "heading": "Why Leave Your Hotel When Medical Care Is Already There?",
+      "subheading": null,
+      "body": [],
+      "items": [
+        {
+          "title": "Inside Your Resort",
+          "text": "No need to search for an unfamiliar medical facility in another part of the city."
+        },
+        {
+          "title": "Fast Access to Medical Care",
+          "text": "Our hotel-based model gives travelers direct access to medical support where they are staying."
+        },
+        {
+          "title": "Treatment On-Site",
+          "text": "Many common urgent and primary care conditions can be assessed and treated without a hospital visit."
+        },
+        {
+          "title": "Hospital Transfer Only When Needed",
+          "text": "If higher-level care is required, our team coordinates the appropriate hospital, ambulance or next medical step."
+        }
+      ],
+      "ctas": [],
+      "devNotes": [
+        "Add a new four-card section."
+      ]
+    },
+    {
+      "id": "medical-services",
+      "briefSection": 10,
+      "heading": "What We Can Treat On-Site",
+      "subheading": null,
+      "body": [],
+      "items": [
+        {
+          "title": "Urgent Medical Care",
+          "text": "Assessment and treatment of sudden illness, fever, infections, gastrointestinal conditions, dehydration, respiratory problems and other urgent conditions."
+        },
+        {
+          "title": "Injuries & Minor Procedures",
+          "text": "Treatment of wounds, burns, sprains, minor trauma, dressings, suturing and other minor procedures where clinically appropriate."
+        },
+        {
+          "title": "Diagnostics & Laboratory Tests",
+          "text": "Medical assessment with access to laboratory tests and diagnostic services when required."
+        },
+        {
+          "title": "IV Therapy & Medication",
+          "text": "Doctor-prescribed medication, injections and IV therapy when medically indicated."
+        },
+        {
+          "title": "Specialist Consultation",
+          "text": "Access to specialist physicians and coordinated consultations where further medical assessment is required."
+        },
+        {
+          "title": "Hotel Room Doctor Visit",
+          "text": "When appropriate, a doctor visit can be arranged directly in the guest’s hotel room."
+        }
+      ],
+      "ctas": [
+        {
+          "label": "View All Medical Services",
+          "target": "Medical Services page"
+        }
+      ],
+      "devNotes": [
+        "Replace the current service emphasis with urgent and traveler-focused healthcare.",
+        "Use six cards."
+      ]
+    },
+    {
+      "id": "insurance-cashless-care",
+      "briefSection": 11,
+      "heading": "Travelling With Medical Insurance?",
+      "subheading": "We Can Coordinate Directly With Your Insurer",
+      "body": [
+        "24/7 Clinic works with international travel insurers and assistance companies worldwide.",
+        "Where insurance approval and policy conditions allow, we can arrange cashless medical treatment, meaning the patient may not need to pay the full medical cost upfront and claim it back later.",
+        "Our team can assist with:"
+      ],
+      "items": [
+        {
+          "title": "Insurance verification",
+          "text": null
+        },
+        {
+          "title": "Guarantee of Payment coordination",
+          "text": null
+        },
+        {
+          "title": "Direct communication with the insurer",
+          "text": null
+        },
+        {
+          "title": "Medical documentation",
+          "text": null
+        },
+        {
+          "title": "Billing coordination",
+          "text": null
+        },
+        {
+          "title": "Cashless treatment where approved",
+          "text": null
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Check Your Insurance on WhatsApp",
+          "target": "Primary CTA"
+        },
+        {
+          "label": "Learn About Insurance & Cashless Care",
+          "target": "Secondary CTA"
+        }
+      ],
+      "devNotes": [
+        "This should become one of the strongest homepage conversion blocks.",
+        "Important: Do not guarantee cashless treatment universally.",
+        "Always use wording such as: “subject to insurance approval and policy conditions” or: “where approved by the insurer.”"
+      ]
+    },
+    {
+      "id": "how-it-works",
+      "briefSection": 12,
+      "heading": "Getting Medical Help Is Simple",
+      "subheading": null,
+      "body": [],
+      "items": [
+        {
+          "title": "Message Us on WhatsApp",
+          "text": "Tell us your hotel, location and what happened."
+        },
+        {
+          "title": "We Find the Nearest Medical Option",
+          "text": "If your hotel has a 24/7 Clinic, we direct you there. If not, our coordination team identifies the most appropriate medical solution."
+        },
+        {
+          "title": "We Check Your Insurance",
+          "text": "Send us your insurance details and, where applicable, our team can coordinate directly with your insurer."
+        },
+        {
+          "title": "Receive Medical Care",
+          "text": "Treatment is provided on-site whenever clinically appropriate. If higher-level care is needed, we coordinate the next step."
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Get Medical Help Now",
+          "target": "Primary CTA"
+        }
+      ],
+      "devNotes": [
+        "Add a four-step section."
+      ]
+    },
+    {
+      "id": "find-a-clinic",
+      "briefSection": 13,
+      "heading": "Find a 24/7 Clinic Near You",
+      "subheading": null,
+      "body": [
+        "Our clinics are located inside hotels and resorts across Egypt’s major tourism destinations."
+      ],
+      "items": [
+        {
+          "title": "Hurghada",
+          "text": null
+        },
+        {
+          "title": "Sahl Hasheesh",
+          "text": null
+        },
+        {
+          "title": "Soma Bay",
+          "text": null
+        },
+        {
+          "title": "Makadi Bay",
+          "text": null
+        },
+        {
+          "title": "Marsa Alam",
+          "text": null
+        },
+        {
+          "title": "El Quseir",
+          "text": null
+        },
+        {
+          "title": "North Coast",
+          "text": null
+        }
+      ],
+      "ctas": [
+        {
+          "label": "View All Clinics",
+          "target": "Find a Clinic page"
+        }
+      ],
+      "devNotes": [
+        "Existing clinic/location functionality should be improved and made more prominent.",
+        "Only list locations where the network is currently active.",
+        "Each destination should eventually link to a dedicated SEO landing page."
+      ]
+    },
+    {
+      "id": "trust-numbers",
+      "briefSection": 14,
+      "heading": "Trust / Numbers",
+      "subheading": null,
+      "body": [
+        "Years of Healthcare Experience",
+        "Hotel & Resort Clinics",
+        "International Patients Assisted",
+        "Insurance & Assistance Partners"
+      ],
+      "items": [],
+      "ctas": [],
+      "devNotes": [
+        "Keep the current statistics block but fix all broken counters and replace temporary values.",
+        "Do not show: 00 Years, 00 Clinics, 00 Staff, etc.",
+        "Use verified current numbers only.",
+        "Any number used must be factually confirmed before publication."
+      ]
+    },
+    {
+      "id": "reviews-testimonials",
+      "briefSection": 15,
+      "heading": "What Our Patients Say",
+      "subheading": null,
+      "body": [],
+      "items": [],
+      "ctas": [],
+      "devNotes": [
+        "Keep patient testimonials but improve the title.",
+        "Do not use: “What Our Patients Says”",
+        "Where possible, use real patient reviews connected with Google reviews or another verifiable source."
+      ]
+    },
+    {
+      "id": "final-cta",
+      "briefSection": 16,
+      "heading": "Feeling Unwell During Your Holiday?",
+      "subheading": null,
+      "body": [
+        "Tell us where you are staying and what happened. Our medical coordination team is available 24/7."
+      ],
+      "items": [],
+      "ctas": [
+        {
+          "label": "WhatsApp Us Now",
+          "target": "Primary CTA"
+        },
+        {
+          "label": "Find Your Nearest Clinic",
+          "target": "Secondary CTA"
+        }
+      ],
+      "devNotes": [
+        "Add a strong final conversion block."
+      ]
+    }
+  ]
+}

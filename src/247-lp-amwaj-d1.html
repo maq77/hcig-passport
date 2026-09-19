@@ -239,6 +239,9 @@ h1{font-size:clamp(32px,6.2vw,54px);font-weight:700;letter-spacing:-.04em;margin
 .acc-points .ico{width:17px;height:17px;color:var(--red,#C00000);stroke-width:2.4}
 
 .acc-marks{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px 26px}
+.acc-group{display:flex;flex-direction:column;gap:8px}
+.acc-label{margin:0;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3,#8A817B);max-width:240px}
+.acc-row{display:flex;gap:18px;align-items:flex-start}
 @media(min-width:1000px){.acc-marks{justify-content:flex-end;gap:16px 30px}}
 .acc-mark{margin:0;width:104px;text-align:center}
 .acc-mark img{display:block;margin:0 auto;width:auto}
@@ -481,16 +484,17 @@ a.credit:hover b{color:var(--red)}
           <p>24/7 Clinic is the first international urgent care network outside the United States to achieve accreditation through the Urgent Care Association and CAUCQ.</p>
           <ul class="acc-points"><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>International standards</li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Patient safety</li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Clinical quality</li><li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4.6 12.4 5 5 9.8-10.8"/></svg>Operational excellence</li></ul>
         </div>
-        <div class="acc-marks"><figure class="acc-mark acc-mark--circle">
+        <div class="acc-marks"><div class="acc-group"><p class="acc-label">Accredited through</p><div class="acc-row"><figure class="acc-mark acc-mark--circle">
             <img src="%%C7ACCUCA%%" alt="Urgent Care Association, Egypt and MENA" loading="lazy">
             <figcaption>Urgent Care Association</figcaption>
-          </figure><figure class="acc-mark acc-mark--wide">
-            <img src="%%C7ACCGHA%%" alt="Global Healthcare Accreditation, for medical travel" loading="lazy">
-            <figcaption>Global Healthcare Accreditation</figcaption>
+          </figure></div></div>
+          <div class="acc-group"><p class="acc-label">Healthcare International Group is an Official Partner of</p><div class="acc-row"><figure class="acc-mark acc-mark--wide">
+            <img src="%%C7ACCGHA%%" alt="Global Healthcare Accreditation" loading="lazy">
+            <figcaption>Global Healthcare Accreditation™</figcaption>
           </figure><figure class="acc-mark acc-mark--circle">
-            <img src="%%C7ACCGMWA%%" alt="Deutscher Medical Wellness Verband e.V., certified" loading="lazy">
-            <figcaption>Deutscher Medical Wellness Verband</figcaption>
-          </figure></div>
+            <img src="%%C7ACCGMWA%%" alt="German Medical Wellness Association" loading="lazy">
+            <figcaption>German Medical Wellness Association</figcaption>
+          </figure></div></div></div>
       </div>
     </section>
 

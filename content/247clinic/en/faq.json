@@ -1,0 +1,66 @@
+{
+  "page": "faq",
+  "briefSections": [
+    28
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "faq",
+      "briefSection": 28,
+      "heading": "FAQ PAGE",
+      "subheading": null,
+      "body": [],
+      "items": [
+        {
+          "title": "Is there a 24/7 Clinic inside my hotel?",
+          "text": "Use the Find a Clinic page or contact us on WhatsApp and send your hotel name."
+        },
+        {
+          "title": "Do you accept travel insurance?",
+          "text": "We work with international travel insurers and assistance companies. Coverage depends on the patient’s policy."
+        },
+        {
+          "title": "Can my treatment be cashless?",
+          "text": "Cashless treatment may be available where approved by the insurer and subject to policy conditions."
+        },
+        {
+          "title": "Do I need to contact my insurance company first?",
+          "text": "Not always. Send us your insurance details and our team can advise you on the next step."
+        },
+        {
+          "title": "What should I send you on WhatsApp?",
+          "text": "Please send your name, hotel, location, brief description of the medical problem and insurance information if available."
+        },
+        {
+          "title": "Can a doctor come to my hotel room?",
+          "text": "Hotel room medical visits may be arranged depending on location, availability and medical condition."
+        },
+        {
+          "title": "What conditions can you treat at the hotel clinic?",
+          "text": "Our clinics can assess and treat many urgent and primary medical conditions, minor injuries and other conditions that do not require hospital-level care."
+        },
+        {
+          "title": "Can you arrange an ambulance?",
+          "text": "Yes. If ambulance transport is medically necessary, our team can coordinate it."
+        },
+        {
+          "title": "What happens if I need a hospital?",
+          "text": "If hospital-level diagnostics, treatment or admission are required, our team can coordinate the appropriate hospital referral."
+        },
+        {
+          "title": "Can you provide documentation for my insurance?",
+          "text": "Yes. Medical reports, invoices and other required documentation can be provided according to the case and insurer requirements."
+        },
+        {
+          "title": "What if my hotel does not have a 24/7 Clinic?",
+          "text": "Contact our coordination team on WhatsApp and we will advise you about the nearest available medical solution."
+        }
+      ],
+      "ctas": [],
+      "devNotes": [
+        "The existing FAQ should be rewritten."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "page": "for-hotels",
+  "briefSections": [
+    24
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "for-hotels",
+      "briefSection": 24,
+      "heading": "On-Site Medical Solutions for Hotels & Resorts",
+      "subheading": null,
+      "body": [
+        "A medical incident is part of the guest experience. When a guest becomes ill or injured, hotel teams need immediate access to professional medical support and a clear escalation process."
+      ],
+      "items": [
+        {
+          "title": "On-site hotel clinics",
+          "text": null
+        },
+        {
+          "title": "Doctors and medical staff",
+          "text": null
+        },
+        {
+          "title": "Medical room setup",
+          "text": null
+        },
+        {
+          "title": "24/7 case coordination",
+          "text": null
+        },
+        {
+          "title": "Guest medical assistance",
+          "text": null
+        },
+        {
+          "title": "Ambulance coordination",
+          "text": null
+        },
+        {
+          "title": "Hospital referral",
+          "text": null
+        },
+        {
+          "title": "Insurance coordination",
+          "text": null
+        },
+        {
+          "title": "Medical reporting",
+          "text": null
+        },
+        {
+          "title": "Emergency escalation procedures",
+          "text": null
+        },
+        {
+          "title": "Better Guest Experience",
+          "text": null
+        },
+        {
+          "title": "Faster Medical Response",
+          "text": null
+        },
+        {
+          "title": "Reduced Operational Pressure",
+          "text": null
+        },
+        {
+          "title": "Professional Medical Escalation",
+          "text": null
+        },
+        {
+          "title": "International Insurance Coordination",
+          "text": null
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Discuss a Hotel Medical Partnership",
+          "target": "B2B contact form or WhatsApp Business contact"
+        }
+      ],
+      "devNotes": [
+        "Recommended URL: /for-hotels",
+        "This should be a B2B landing page and should not dominate the B2C homepage.",
+        "This should lead to a B2B contact form or WhatsApp Business contact.",
+        "24/7 Clinic can provide:",
+        "Benefits:"
+      ]
+    }
+  ]
+}

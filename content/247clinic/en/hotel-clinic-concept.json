@@ -1,0 +1,75 @@
+{
+  "page": "hotel-clinic-concept",
+  "briefSections": [
+    22
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "hotel-clinic-concept",
+      "briefSection": 22,
+      "heading": "Medical Clinics Inside Hotels & Resorts",
+      "subheading": null,
+      "body": [
+        "24/7 Clinic brings urgent medical care directly into the hospitality environment. Our clinics are located inside hotels and resorts, giving guests convenient access to healthcare during their stay.",
+        "Benefits for Travelers",
+        "Benefits for Hotels"
+      ],
+      "items": [
+        {
+          "title": "Immediate access to medical care",
+          "text": null
+        },
+        {
+          "title": "Less travel while sick",
+          "text": null
+        },
+        {
+          "title": "Familiar hotel environment",
+          "text": null
+        },
+        {
+          "title": "International insurance coordination",
+          "text": null
+        },
+        {
+          "title": "Multilingual support",
+          "text": null
+        },
+        {
+          "title": "Hospital referral only when medically necessary",
+          "text": null
+        },
+        {
+          "title": "Stronger guest experience",
+          "text": null
+        },
+        {
+          "title": "Professional medical partner",
+          "text": null
+        },
+        {
+          "title": "Clear escalation procedures",
+          "text": null
+        },
+        {
+          "title": "24/7 coordination",
+          "text": null
+        },
+        {
+          "title": "Reduced pressure on hotel staff during medical incidents",
+          "text": null
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Find a Hotel Clinic",
+          "target": "Internal"
+        }
+      ],
+      "devNotes": [
+        "Recommended URL: /hotel-clinics"
+      ]
+    }
+  ]
+}

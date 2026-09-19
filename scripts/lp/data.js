@@ -801,23 +801,28 @@ const ACCRED = {
   /* Each mark is captioned with what it actually is. An unexplained GHA roundel
      tells a guest nothing, and the captions state the body's name only. No
      claim is made about what any of them means, per section 23 of their brief. */
+  /* Two statuses, kept apart. UCA is the accreditation their sentence states.
+     GHA and the German Medical Wellness Association are partnerships: HCIG is
+     an Official Partner of both (references/compliance.md). Showing their marks
+     under "accredited" would upgrade partner into accredited, which is a
+     misrepresentation. Found and fixed 2026-09-13. The last field says which. */
   marks: [
-    ['C7ACCUCA', 'Urgent Care Association', 'Urgent Care Association, Egypt and MENA', 'circle'],
-    ['C7ACCGHA', 'Global Healthcare Accreditation', 'Global Healthcare Accreditation, for medical travel', 'wide'],
-    ['C7ACCGMWA', 'Deutscher Medical Wellness Verband', 'Deutscher Medical Wellness Verband e.V., certified', 'circle'],
+    ['C7ACCUCA', 'Urgent Care Association', 'Urgent Care Association, Egypt and MENA', 'circle', 'accredited'],
+    ['C7ACCGHA', 'Global Healthcare Accreditation™', 'Global Healthcare Accreditation', 'wide', 'partner'],
+    ['C7ACCGMWA', 'German Medical Wellness Association', 'German Medical Wellness Association', 'circle', 'partner'],
   ],
 };
 
 function accreditation() {
   const points = ACCRED.points.map((t) => `<li>${svg('check')}${esc(t)}</li>`).join('');
-  const marks = ACCRED.marks
-    .map(
-      ([token, caption, alt, shape]) => `<figure class="acc-mark acc-mark--${shape}">
+  const fig = ([token, caption, alt, shape]) => `<figure class="acc-mark acc-mark--${shape}">
             <img src="%%${token}%%" alt="${esc(alt)}" loading="lazy">
             <figcaption>${esc(caption)}</figcaption>
-          </figure>`
-    )
-    .join('');
+          </figure>`;
+  const accredited = ACCRED.marks.filter((m) => m[4] === 'accredited').map(fig).join('');
+  const partners = ACCRED.marks.filter((m) => m[4] === 'partner').map(fig).join('');
+  const marks = `<div class="acc-group"><p class="acc-label">Accredited through</p><div class="acc-row">${accredited}</div></div>
+          <div class="acc-group"><p class="acc-label">Healthcare International Group is an Official Partner of</p><div class="acc-row">${partners}</div></div>`;
 
   return `<section class="acc">
       <div class="wrap acc-in">
@@ -846,6 +851,9 @@ const ACCRED_CSS = `
 .acc-points .ico{width:17px;height:17px;color:var(--red,#C00000);stroke-width:2.4}
 
 .acc-marks{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px 26px}
+.acc-group{display:flex;flex-direction:column;gap:8px}
+.acc-label{margin:0;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3,#8A817B);max-width:240px}
+.acc-row{display:flex;gap:18px;align-items:flex-start}
 @media(min-width:1000px){.acc-marks{justify-content:flex-end;gap:16px 30px}}
 .acc-mark{margin:0;width:104px;text-align:center}
 .acc-mark img{display:block;margin:0 auto;width:auto}

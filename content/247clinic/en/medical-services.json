@@ -1,0 +1,63 @@
+{
+  "page": "medical-services",
+  "briefSections": [
+    17
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "medical-services",
+      "briefSection": 17,
+      "heading": "Medical Services for International Travelers",
+      "subheading": null,
+      "body": [
+        "24/7 Clinic provides urgent and primary medical care through a network of clinics located directly inside hotels and resorts. Many common medical conditions can be assessed and treated on-site, reducing unnecessary hospital visits and helping travelers receive care quickly and conveniently."
+      ],
+      "items": [
+        {
+          "title": "Urgent Care",
+          "text": "Fever, Respiratory infections, Gastrointestinal illness, Dehydration, Allergic reactions, Pain, Ear infections, Minor infections, Other acute medical conditions"
+        },
+        {
+          "title": "Minor Injuries & Procedures",
+          "text": "Wound care, Burns, Minor trauma, Sprains, Dressings, Suturing, Follow-up care"
+        },
+        {
+          "title": "Diagnostics",
+          "text": "Medical examination, Laboratory testing, Basic diagnostic services, Referral for advanced diagnostics when required"
+        },
+        {
+          "title": "Medication & IV Treatment",
+          "text": "Doctor-prescribed medication, Injections, IV therapy when clinically indicated"
+        },
+        {
+          "title": "Specialist Care",
+          "text": "Access to specialist physicians and referral where medically required."
+        },
+        {
+          "title": "Hotel Room Visits",
+          "text": "Doctor attendance may be arranged in the patient’s hotel room depending on location and medical condition."
+        },
+        {
+          "title": "Dental Care",
+          "text": "Keep existing dental services as a secondary service category."
+        },
+        {
+          "title": "Beauty & Wellness",
+          "text": null
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Need Medical Help? WhatsApp Us 24/7",
+          "target": "WhatsApp"
+        }
+      ],
+      "devNotes": [
+        "The page should focus first on urgent care and traveler medical needs.",
+        "CTA throughout:",
+        "Beauty & Wellness may remain as a secondary service but should no longer define the main medical positioning of the website."
+      ]
+    }
+  ]
+}

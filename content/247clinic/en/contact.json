@@ -1,0 +1,73 @@
+{
+  "page": "contact",
+  "briefSections": [
+    27
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "contact",
+      "briefSection": 27,
+      "heading": "Need Medical Help?",
+      "subheading": "Our medical coordination team is available 24/7 on WhatsApp.",
+      "body": [
+        "General & Business Enquiries"
+      ],
+      "items": [
+        {
+          "title": "Your name",
+          "text": null
+        },
+        {
+          "title": "Your hotel",
+          "text": null
+        },
+        {
+          "title": "Your location",
+          "text": null
+        },
+        {
+          "title": "What happened",
+          "text": null
+        },
+        {
+          "title": "Your insurance company, if applicable",
+          "text": null
+        },
+        {
+          "title": "Hotel partnerships",
+          "text": null
+        },
+        {
+          "title": "Insurance partnerships",
+          "text": null
+        },
+        {
+          "title": "General enquiries",
+          "text": null
+        },
+        {
+          "title": "Careers",
+          "text": null
+        },
+        {
+          "title": "Corporate communication",
+          "text": null
+        }
+      ],
+      "ctas": [
+        {
+          "label": "WhatsApp Us Now",
+          "target": "Primary button"
+        }
+      ],
+      "devNotes": [
+        "The Contact page should be redesigned around urgent patient communication.",
+        "Keep the existing form below for: Hotel partnerships, Insurance partnerships, General enquiries, Careers, Corporate communication.",
+        "Do not force urgent patients to fill out a long form.",
+        "When contacting us, please tell us:",
+        "Then separate section:"
+      ]
+    }
+  ]
+}

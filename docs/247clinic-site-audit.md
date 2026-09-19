@@ -15,7 +15,9 @@ note said it returned a 500. That is no longer true.
 and a meta description, and they are decent ones. Our earlier note said several
 were blank. Also no longer true.
 
-Whoever fixed those did good work. The list below is what is left.
+Both were fixed by us on 2026-09-07, without touching their code: the titles
+are rows in their MetaTag table, and the sitemap is a static file in their web
+root that shadows the broken route. The list below is what is left.
 
 ## Still broken
 

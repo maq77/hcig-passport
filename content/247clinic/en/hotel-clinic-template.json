@@ -1,0 +1,63 @@
+{
+  "page": "hotel-clinic-template",
+  "briefSections": [
+    20
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "hotel-clinic-template",
+      "briefSection": 20,
+      "heading": "Medical Clinic at [Hotel Name]",
+      "subheading": null,
+      "body": [
+        "24/7 Clinic provides on-site medical care for guests staying at [Hotel Name] in [Destination].",
+        "Our medical team can assess and treat a wide range of urgent and primary medical conditions without requiring guests to leave the resort unnecessarily."
+      ],
+      "items": [
+        {
+          "title": "Medical Services",
+          "text": null
+        },
+        {
+          "title": "Travel Insurance & Cashless Treatment",
+          "text": null
+        },
+        {
+          "title": "Doctor Availability",
+          "text": null
+        },
+        {
+          "title": "Hotel Room Visits",
+          "text": null
+        },
+        {
+          "title": "When Hospital Care Is Required",
+          "text": null
+        },
+        {
+          "title": "Location / Map",
+          "text": null
+        },
+        {
+          "title": "Contact / WhatsApp",
+          "text": null
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Need a Doctor at [Hotel Name]? WhatsApp Us Now",
+          "target": "Primary CTA"
+        }
+      ],
+      "devNotes": [
+        "This is an important SEO development.",
+        "Every active hotel clinic should eventually have its own indexable page.",
+        "Suggested structure: /clinics/destination/hotel-name",
+        "Example: /clinics/soma-bay/steigenberger-hotel-clinic",
+        "Each page must contain unique content.",
+        "Pre-filled WhatsApp message: Hello, I am staying at [Hotel Name] and need medical assistance."
+      ]
+    }
+  ]
+}

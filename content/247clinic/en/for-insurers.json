@@ -1,0 +1,80 @@
+{
+  "page": "for-insurers",
+  "briefSections": [
+    25
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "for-insurance-assistance-companies",
+      "briefSection": 25,
+      "heading": "Medical Assistance for Insurance & Assistance Companies",
+      "subheading": null,
+      "body": [
+        "24/7 Clinic provides local medical access and case coordination for international insurers and assistance companies managing travelers in Egypt.",
+        "Treatment at the appropriate level of care, with hospital referral when medically necessary."
+      ],
+      "items": [
+        {
+          "title": "Urgent care",
+          "text": null
+        },
+        {
+          "title": "On-site hotel clinics",
+          "text": null
+        },
+        {
+          "title": "Doctor visits",
+          "text": null
+        },
+        {
+          "title": "Medical case coordination",
+          "text": null
+        },
+        {
+          "title": "GOP coordination",
+          "text": null
+        },
+        {
+          "title": "Medical documentation",
+          "text": null
+        },
+        {
+          "title": "Cost containment",
+          "text": null
+        },
+        {
+          "title": "Hospital referral",
+          "text": null
+        },
+        {
+          "title": "Ambulance coordination",
+          "text": null
+        },
+        {
+          "title": "Follow-up",
+          "text": null
+        },
+        {
+          "title": "Medical reports",
+          "text": null
+        },
+        {
+          "title": "Direct billing where agreed",
+          "text": null
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Partner With 24/7 Clinic",
+          "target": "B2B contact"
+        }
+      ],
+      "devNotes": [
+        "Recommended URL: /insurance-assistance-partners",
+        "Services may include:",
+        "Positioning:"
+      ]
+    }
+  ]
+}

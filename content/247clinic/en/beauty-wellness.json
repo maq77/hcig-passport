@@ -1,0 +1,29 @@
+{
+  "page": "beauty-wellness",
+  "briefSections": [
+    29
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "beauty-wellness",
+      "briefSection": 29,
+      "heading": "BEAUTY & WELLNESS",
+      "subheading": null,
+      "body": [
+        "Urgent Care + Hotel Clinics + International Travelers + Insurance"
+      ],
+      "items": [],
+      "ctas": [],
+      "devNotes": [
+        "Do not remove the page.",
+        "However:",
+        "Remove it from primary navigation.",
+        "Keep it under Medical Services or Secondary Services.",
+        "Do not feature Beauty & Wellness in the homepage hero.",
+        "Do not allow Beauty & Wellness messaging to compete with urgent care positioning.",
+        "The primary brand identity should remain:"
+      ]
+    }
+  ]
+}

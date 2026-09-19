@@ -91,6 +91,13 @@ Each carries a small caption naming the body and nothing else. An unexplained
 roundel tells a guest nothing, and a caption that only names the issuer makes no
 claim about what the mark means, which is what section 23 requires.
 
+**Corrected 2026-09-13: partner is not accredited.** Healthcare International
+Group is an Official Partner of Global Healthcare Accreditation and of the German
+Medical Wellness Association. That is a partnership, not an accreditation, and
+the first version of this band put both marks under "accredited". The marks now
+sit in two labelled groups: "Accredited through" for UCA, and "Healthcare
+International Group is an Official Partner of" for the other two.
+
 The band is white rather than the brand pink. UCA came through as a transparent
 PNG and is used exactly as supplied. GHA and GMWA are flat JPEGs on white, so a
 coloured band would put a white box behind those two. Send those two with

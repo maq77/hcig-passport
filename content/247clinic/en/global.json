@@ -1,0 +1,127 @@
+{
+  "page": "global",
+  "briefSections": [
+    4,
+    5,
+    38,
+    41,
+    42
+  ],
+  "meta": null,
+  "nav": [
+    {
+      "title": "Home",
+      "text": null
+    },
+    {
+      "title": "Medical Services",
+      "text": null
+    },
+    {
+      "title": "Insurance & Cashless Care",
+      "text": null
+    },
+    {
+      "title": "Find a Clinic",
+      "text": null
+    },
+    {
+      "title": "For Hotels & Partners",
+      "text": null
+    },
+    {
+      "title": "About Us",
+      "text": null
+    },
+    {
+      "title": "Contact",
+      "text": null
+    }
+  ],
+  "footerOnly": [
+    {
+      "title": "Beauty & Wellness",
+      "text": null
+    },
+    {
+      "title": "Blog",
+      "text": null
+    },
+    {
+      "title": "FAQ",
+      "text": null
+    }
+  ],
+  "whatsapp": {
+    "floatingText": "Need a Doctor? Chat on WhatsApp",
+    "stickyText": "WhatsApp Medical Support 24/7",
+    "prefill": {
+      "general": "Hello, I need medical assistance. I am currently staying at [Hotel Name / Location].",
+      "insurance": "Hello, I need medical assistance and would like to check whether my travel insurance can be used for cashless treatment.",
+      "hotel": "Hello, I am staying at [Hotel Name] and need medical assistance.",
+      "homepage": "Hello, I need medical assistance through the 24/7 Clinic website.",
+      "hurghada": "Hello, I am in Hurghada and need medical assistance."
+    }
+  },
+  "sections": [
+    {
+      "id": "final-website-message",
+      "briefSection": 41,
+      "heading": "FINAL WEBSITE MESSAGE",
+      "subheading": null,
+      "body": [
+        "24/7 Clinic gives international travelers direct access to urgent medical care inside hotels and resorts, works with international travel insurance and provides 24/7 medical coordination through WhatsApp."
+      ],
+      "items": [
+        {
+          "title": "1. Medical Clinics Inside Hotels & Resorts",
+          "text": null
+        },
+        {
+          "title": "2. International Insurance & Cashless Care",
+          "text": null
+        },
+        {
+          "title": "3. International Urgent Care Accreditation",
+          "text": null
+        }
+      ],
+      "ctas": [],
+      "devNotes": [
+        "The website should not look like a general medical center, beauty clinic or standard hospital website.",
+        "It should clearly feel like: A specialized international travel healthcare network built around hotels, resorts, tourists and insurance companies.",
+        "Every major website page should reinforce one consistent concept:",
+        "Our three strongest differentiators must remain visible throughout the site:"
+      ]
+    },
+    {
+      "id": "primary-website-cta",
+      "briefSection": 42,
+      "heading": "PRIMARY WEBSITE CTA",
+      "subheading": null,
+      "body": [],
+      "items": [],
+      "ctas": [
+        {
+          "label": "Need Medical Help? WhatsApp Us 24/7",
+          "target": "Primary CTA"
+        },
+        {
+          "label": "Find Your Nearest Clinic",
+          "target": "Secondary CTA"
+        },
+        {
+          "label": "Check Your Insurance",
+          "target": "For insurance-related pages"
+        },
+        {
+          "label": "Discuss a Partnership",
+          "target": "For B2B pages"
+        }
+      ],
+      "devNotes": [
+        "The main CTA throughout the complete website should be:"
+      ]
+    }
+  ]
+}

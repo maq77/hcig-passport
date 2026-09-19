@@ -1,0 +1,73 @@
+{
+  "page": "insurance-cashless",
+  "briefSections": [
+    18
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "insurance-cashless-care",
+      "briefSection": 18,
+      "heading": "Travel Insurance & Cashless Medical Treatment",
+      "subheading": null,
+      "body": [
+        "If you become ill or injured during your holiday, dealing with medical bills and insurance paperwork can add unnecessary stress.",
+        "24/7 Clinic works with international insurance and medical assistance companies and can coordinate directly with insurers where applicable.",
+        "How Cashless Treatment Works",
+        "Cashless treatment means that, when approved by the insurer, medical costs can be coordinated directly between the clinic and the insurance company instead of requiring the patient to pay the full amount upfront.",
+        "Cashless treatment is subject to policy coverage, insurer approval and issuance of the required payment guarantee.",
+        "What We Can Coordinate"
+      ],
+      "items": [
+        {
+          "title": "Insurance verification",
+          "text": null
+        },
+        {
+          "title": "Policy details",
+          "text": null
+        },
+        {
+          "title": "Guarantee of Payment",
+          "text": null
+        },
+        {
+          "title": "Medical reports",
+          "text": null
+        },
+        {
+          "title": "Doctor documentation",
+          "text": null
+        },
+        {
+          "title": "Direct billing",
+          "text": null
+        },
+        {
+          "title": "Communication with assistance companies",
+          "text": null
+        },
+        {
+          "title": "Follow-up documentation",
+          "text": null
+        },
+        {
+          "title": "What We Need From the Patient",
+          "text": "Please send us: Full name, Hotel name, Insurance company, Policy number, Insurance card or certificate, Passport or ID if required, Short description of the medical problem"
+        }
+      ],
+      "ctas": [
+        {
+          "label": "Check Cashless Treatment",
+          "target": "WhatsApp"
+        }
+      ],
+      "devNotes": [
+        "The existing Insurance page should be substantially strengthened.",
+        "Recommended URL: /insurance-cashless-care",
+        "Important disclaimer:",
+        "CTA: Have Travel Insurance? Send Your Insurance Details on WhatsApp"
+      ]
+    }
+  ]
+}

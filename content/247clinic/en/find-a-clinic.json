@@ -1,0 +1,42 @@
+{
+  "page": "find-a-clinic",
+  "briefSections": [
+    19
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "find-a-clinic",
+      "briefSection": 19,
+      "heading": "Find a 24/7 Clinic",
+      "subheading": null,
+      "body": [
+        "24/7 Clinic operates medical clinics inside hotels and resorts across Egypt’s major tourism destinations. Find the nearest clinic or contact our 24/7 coordination team for assistance."
+      ],
+      "items": [
+        {
+          "title": "Filters",
+          "text": "Destination, Hotel, Clinic, Current location if technically possible"
+        },
+        {
+          "title": "Clinic Card Details",
+          "text": "Hotel name, Destination, Clinic opening hours, WhatsApp CTA, Map / Directions, Medical services available, Insurance accepted, “View Clinic” button"
+        }
+      ],
+      "ctas": [
+        {
+          "label": "WhatsApp This Clinic",
+          "target": "Primary card CTA"
+        },
+        {
+          "label": "View Clinic",
+          "target": "Secondary CTA"
+        }
+      ],
+      "devNotes": [
+        "The existing list of clinics should remain but be improved.",
+        "Avoid generic: “Make an Appointment”. The user is often seeking urgent medical care rather than a scheduled appointment."
+      ]
+    }
+  ]
+}

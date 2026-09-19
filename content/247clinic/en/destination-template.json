@@ -1,0 +1,56 @@
+{
+  "page": "destination-template",
+  "briefSections": [
+    21
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "destination-seo-pages",
+      "briefSection": 21,
+      "heading": "Doctor in Hurghada. Hotel Clinics for International Travelers",
+      "subheading": null,
+      "body": [
+        "Looking for a doctor in Hurghada during your holiday? 24/7 Clinic operates medical clinics inside hotels and resorts and provides 24/7 medical coordination for international travelers."
+      ],
+      "items": [
+        {
+          "title": "Available clinics",
+          "text": null
+        },
+        {
+          "title": "Hotel names",
+          "text": null
+        },
+        {
+          "title": "Medical services",
+          "text": null
+        },
+        {
+          "title": "Travel insurance information",
+          "text": null
+        },
+        {
+          "title": "WhatsApp CTA",
+          "text": null
+        },
+        {
+          "title": "FAQs",
+          "text": null
+        },
+        {
+          "title": "Map if appropriate",
+          "text": null
+        }
+      ],
+      "ctas": [],
+      "devNotes": [
+        "Create dedicated pages for major destinations.",
+        "Examples: /hurghada, /soma-bay, /sahl-hasheesh, /makadi-bay, /marsa-alam, /el-quseir, /north-coast",
+        "Each page should target real traveler search intent.",
+        "Target searches may include: doctor in Hurghada, hotel doctor Hurghada, clinic in Hurghada, doctor near hotel, travel insurance clinic Hurghada, doctor in Soma Bay, doctor in Marsa Alam, clinic in Sahl Hasheesh",
+        "Do not keyword-stuff. Content must remain natural and useful."
+      ]
+    }
+  ]
+}

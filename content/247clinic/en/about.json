@@ -1,0 +1,49 @@
+{
+  "page": "about",
+  "briefSections": [
+    26
+  ],
+  "meta": null,
+  "sections": [
+    {
+      "id": "about-us",
+      "briefSection": 26,
+      "heading": "Built Around the Needs of International Travelers",
+      "subheading": null,
+      "body": [
+        "24/7 Clinic has developed a network of urgent care centers and on-site hotel clinics across Egypt’s leading tourism destinations.",
+        "Unlike traditional medical facilities, our model places medical care where international travelers are already staying. inside hotels and resorts.",
+        "Our medical teams provide urgent and primary care, coordinate with international insurers and assistance companies, and arrange higher-level hospital care when medically required."
+      ],
+      "items": [
+        {
+          "title": "Hotel & Resort Clinics",
+          "text": null
+        },
+        {
+          "title": "International Travelers",
+          "text": null
+        },
+        {
+          "title": "International Insurance Coordination",
+          "text": null
+        },
+        {
+          "title": "24/7 Medical Support",
+          "text": null
+        },
+        {
+          "title": "International Urgent Care Accreditation",
+          "text": null
+        }
+      ],
+      "ctas": [],
+      "devNotes": [
+        "The current About page should be shortened and repositioned.",
+        "Keep corporate group information below this section.",
+        "Do not lead with generic mission/vision language.",
+        "Key proof points section:"
+      ]
+    }
+  ]
+}
