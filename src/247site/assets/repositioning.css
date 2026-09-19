@@ -7,35 +7,102 @@
 .rp-ico{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 
 /* ---- hero: the headline is the page's first and only h1 ---------------- */
-/* One static slide: their film over their photo, their red shapes, and the
-   copy on a white panel. Fits a 900px laptop screen with the trust line. */
-.rp-hero-one .main-slider-two__single-inner{padding:56px 0 64px;min-height:min(78vh,720px);align-items:center}
+/* Their slider, their type, their shapes. Our film sits over the photo on
+   the first slide, under a light shade on the reading side only. */
 .rp-hero-film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-.rp-hero-one .shape3,.rp-hero-one .shape4{z-index:2}
-.rp-hero-one .container{position:relative;z-index:3}
-.rp-hero-panel{max-width:660px;padding:36px 38px 30px;border-radius:24px;background:rgba(255,255,255,.93);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 30px 60px -30px rgba(40,10,10,.45)}
-.rp-hero-one .main-slider-two__content .title{opacity:1}
-.main-slider-two__content .title h1{color:var(--uterpy-black);font-size:54px;line-height:1.08;font-weight:700;font-family:var(--uterpy-font-two);margin:0}
-.main-slider-two__content .title h1 span{color:var(--uterpy-base)}
-@media (max-width:1199px){.main-slider-two__content .title h1{font-size:46px}}
-@media (max-width:767px){.main-slider-two__content .title h1{font-size:34px}}
-.rp-chips{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.rp-chips li{display:inline-flex;align-items:center;gap:8px;padding:6px 13px 6px 10px;border-radius:999px;background:#fff4f3;
-  border:1px solid #f3dcd9;font-size:13.5px;font-weight:600;color:#3b3533}
-.rp-chips li:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--uterpy-base)}
-.rp-hero-text{color:#4d4643;font-size:17.5px;line-height:1.62;margin:16px 0 0}
-.rp-hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
-.rp-trust{display:flex;align-items:center;gap:12px;margin:22px 0 0;padding-top:18px;border-top:1px solid #efe8e5;
-  color:var(--uterpy-black);font-weight:600;font-size:14.5px}
-.rp-trust img{width:40px;height:40px;object-fit:contain;flex:none}
-.rp-hero-one .main-slider-two__video{position:relative;z-index:3}
+.rp-hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(20,8,8,.5) 0%,rgba(20,8,8,.28) 45%,rgba(20,8,8,0) 75%)}
+.main-slider-two .shape3,.main-slider-two .shape4{z-index:2}
+.main-slider-two__single .container{position:relative;z-index:3}
+.main-slider-two__content .title h1,.main-slider-two__content .title .rp-h1{color:#fff;font-size:60px;line-height:1.08;font-weight:700;
+  font-family:var(--uterpy-font-two);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.25)}
+@media (max-width:1199px){.main-slider-two__content .title h1,.main-slider-two__content .title .rp-h1{font-size:54px}}
+@media (max-width:767px){.main-slider-two__content .title h1,.main-slider-two__content .title .rp-h1,.main-slider-two__content .title h2{font-size:34px!important}}
+.rp-hero-text{color:rgba(255,255,255,.95);font-size:18px;line-height:1.6;max-width:600px;margin:18px 0 0;text-shadow:0 1px 12px rgba(0,0,0,.3)}
+.main-slider-two .active .rp-hero-text,.main-slider-two .active .rp-trust{animation:rp-rise .9s cubic-bezier(.22,.61,.36,1) 1.3s both}
+@keyframes rp-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.rp-trust{display:inline-flex;align-items:center;gap:12px;margin:22px 0 0;padding:8px 16px 8px 8px;border-radius:999px;
+  background:rgba(255,255,255,.92);color:var(--uterpy-black);font-weight:600;font-size:14.5px}
+.rp-trust img{width:36px!important;height:36px!important;max-width:36px!important;object-fit:contain;flex:none;border-radius:50%;margin:0!important}
+.rp-trust{white-space:nowrap;max-width:100%}
+@media (max-width:420px){.rp-trust{white-space:normal;font-size:13px;border-radius:18px}}
+.rp-wa-btn{display:inline-flex!important;align-items:center;gap:10px}
+.rp-wa-btn .rp-ico{width:20px;height:20px}
 @media (max-width:767px){
-  .rp-hero-one .main-slider-two__single-inner{padding:24px 0 30px;min-height:0}
-  .rp-hero-panel{padding:24px 20px 20px;border-radius:18px}
-  .rp-hero-btns .rp-btn{flex:1 1 100%;justify-content:center}
-  .rp-hero-one .main-slider-two__video{display:none}
+  .rp-hero-text{font-size:16px}
+  .main-slider-two__content .main-slider-one__content-btn{flex-direction:column;align-items:stretch}
+  .main-slider-one__content-btn .btn-two{margin-left:0;margin-top:12px}
+  .main-slider-one__content-btn a{display:flex;justify-content:center;text-align:center}
+  .rp-hero-shade{background:rgba(20,8,8,.42)}
 }
+.main-slider-two__content .tagline .text-box p{white-space:normal}
+
+/* ---- services, in their block: text under the title, image zoom ------- */
+.rp-services .services-one__single{height:calc(100% - 30px)}
+.rp-services .services-one__single-img .inner{display:block;overflow:hidden}
+.rp-services .services-one__single-img img{aspect-ratio:57/34;object-fit:cover;width:100%;transition:transform 1.2s cubic-bezier(.22,.61,.36,1)}
+.rp-services .services-one__single:hover .services-one__single-img img{transform:scale(1.08)}
+.rp-svc__text{margin:10px 0 0;font-size:15.5px;line-height:1.6;color:#5b5b5b}
+.rp-services .services-one__single-content-inner h2{font-size:22px;line-height:1.3}
+
+/* ---- why: their film beside the cards --------------------------------- */
+.rp-why__in{display:grid;grid-template-columns:.75fr 1.25fr;gap:32px;align-items:start}
+.rp-grid--2{grid-template-columns:1fr 1fr}
+@media (max-width:991px){.rp-why__in{grid-template-columns:1fr}.rp-reel{max-width:360px;margin:0 auto}}
+@media (max-width:575px){.rp-grid--2{grid-template-columns:1fr}}
+.rp-reel,.rp-film,.rp-story{position:relative;overflow:hidden;border-radius:22px;background:#e9e4de;margin:0}
+.rp-reel{aspect-ratio:9/16;max-height:640px;box-shadow:0 30px 60px -34px rgba(120,20,20,.55)}
+.rp-reel video,.rp-film video,.rp-story video{width:100%;height:100%;object-fit:cover;display:block}
+.rp-sound{position:absolute;right:12px;bottom:12px;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px;
+  border:0;border-radius:999px;background:rgba(255,255,255,.92);color:#15120f;font-weight:700;font-size:13px;cursor:pointer;
+  transition:background .2s,color .2s}
+.rp-sound .rp-ico{width:16px;height:16px}
+.rp-sound[aria-pressed="true"]{background:var(--uterpy-base);color:#fff}
+
+/* ---- insurance: their banner, on brand red ------------------------------ */
+.rp-banner.banner-one{background:var(--uterpy-base);border-radius:24px;overflow:hidden;margin:100px auto}
+.rp-banner .right-side{position:relative;min-height:320px}
+.rp-banner .right-side img{height:100%;object-fit:cover}
+.rp-banner .right-side::before{background-image:linear-gradient(to left,rgba(192,0,0,0),rgba(192,0,0,.15),#C00000)!important;z-index:1}
+.rp-banner__tag{flex:none;fill:#fff;stroke:#fff}
+.rp-banner__sub{font-size:20px;font-weight:700;color:#fff;margin:0 0 12px}
+.rp-banner p{color:rgba(255,255,255,.92)}
+.rp-banner__label{font-weight:700;color:#fff!important;margin:16px 0 0}
+.rp-banner .rp-ticks--2{display:grid!important;grid-template-columns:1fr 1fr;gap:10px 22px;align-items:start}
+.rp-banner .rp-ticks--2 li{align-items:flex-start;line-height:1.35}
+@media (max-width:575px){.rp-banner .rp-ticks--2{grid-template-columns:1fr}}
+.rp-banner .rp-ticks li{color:#fff}
+.rp-banner .rp-ticks .rp-ico{color:#fff}
+.rp-btn--white{background:#fff;color:var(--uterpy-base)}
+.rp-btn--white:hover{background:#fff4f3;color:var(--uterpy-base)}
+.rp-link--white{color:#fff!important}
+@media (max-width:991px){.rp-banner.banner-one{margin:64px 12px;border-radius:18px}}
+
+/* ---- step rail draws itself ------------------------------------------- */
+.rp-steps:before{transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.22,.61,.36,1) .2s}
+.rp-steps.rp-drawn:before{transform:none}
+@media (max-width:991px){.rp-steps:before{transform:scaleY(0);transform-origin:top}.rp-steps.rp-drawn:before{transform:none}}
+
+/* ---- team films ---------------------------------------------------------- */
+.rp-films__row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:0 auto}
+.rp-film{aspect-ratio:9/16;box-shadow:0 26px 50px -32px rgba(120,20,20,.5);transition:transform .4s}
+.rp-film:hover{transform:translateY(-6px)}
+@media (max-width:767px){.rp-films__row{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;overflow-x:auto;
+  scroll-snap-type:x mandatory;padding-bottom:8px}.rp-film{scroll-snap-align:center}}
+
+/* ---- guest story rail ---------------------------------------------------- */
+.rp-stories{padding:10px 0 90px;background:#f7f5f4}
+.rp-stories__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.rp-stories__nav{display:flex;gap:10px}
+.rp-arrow{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--uterpy-black);background:#fff;font-size:20px;cursor:pointer;
+  transition:background .2s,color .2s}
+.rp-arrow:hover{background:var(--uterpy-black);color:#fff}
+.rp-stories__rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:thin}
+.rp-story{flex:none;height:440px;scroll-snap-align:start;box-shadow:0 24px 44px -30px rgba(80,10,10,.5)}
+.rp-story--p{aspect-ratio:9/16}
+.rp-story--l{aspect-ratio:16/9}
+.rp-story__flag{position:absolute;left:14px;top:14px;border-radius:4px;box-shadow:0 0 0 2px #fff}
+@media (max-width:767px){.rp-story{height:380px}}
 
 /* ---- header WhatsApp button ------------------------------------------- */
 /* Their header sets the menu box to display:block at a higher specificity,
@@ -223,5 +290,8 @@
 
 @media (prefers-reduced-motion:reduce){
   .rp-shine:after,.rp-pulse{animation:none;display:none}
+  .rp-steps:before{transform:none!important;transition:none}
+  .main-slider-two .active .rp-hero-text,.main-slider-two .active .rp-trust{animation:none}
+  .rp-film:hover,.rp-services .services-one__single:hover .services-one__single-img img{transform:none}
   .rp-spot,.rp-spot:hover{transform:none}
 }

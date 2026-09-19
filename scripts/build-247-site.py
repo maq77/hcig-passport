@@ -145,22 +145,69 @@ def nav():
             % (lis, wa(WA_HOME), svg('wa')))
 
 
-def hero_content():
-    """Section 6, copied from the brief. Sits on a white panel over their film:
-    no dark scrims (his rule), the headline reads on white instead."""
-    chips = ''.join('<li>%s</li>' % t for t in ('24/7 Medical Care', 'Cashless Insurance', 'Multilingual Support'))
-    return """<div class="main-slider-two__content rp-hero-panel">
-    <ul class="rp-chips">%s</ul>
-    <div class="title"><h1>Urgent Medical Care. <span>Right Inside Your Hotel.</span></h1></div>
-    <p class="rp-hero-text">24/7 Clinic operates a network of on-site urgent care clinics inside hotels and resorts across Egypt&rsquo;s leading tourist destinations, giving international travelers fast access to medical care without unnecessary hospital visits.</p>
-    <div class="rp-hero-btns">
-        <a class="rp-btn rp-btn--wa rp-shine" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">%sWhatsApp Us 24/7</a>
-        <a class="rp-btn rp-btn--ghost" href="#rp-find">%sFind Your Clinic</a>
-    </div>
-    <p class="rp-trust"><img src="%s/assets/accreditation/c7acc-uca.png" alt="Urgent Care Association" width="40" height="40">Internationally Accredited Urgent Care Network</p>
-</div>
-""" % (chips, wa(WA_HOME), svg('wa'), svg('pin'), PREFIX)
+FILM = 'https://hcig-passport.vercel.app/assets/'
 
+
+def hero_slide(bg, tagline, title, text, btn1, btn2, film=None, trust=False):
+    """One slide in their own markup, so their styles and their entrance
+    motion apply unchanged. Every word is the brief's."""
+    video = ('<video class="rp-hero-film" src="%s%s" autoplay muted loop playsinline preload="metadata" '
+             'aria-hidden="true"></video>' % (FILM, film)) if film else ''
+    trust_html = ('<p class="rp-trust"><img src="/assets/accreditation/c7acc-uca.png" alt="Urgent Care Association" '
+                  'width="44" height="44">Internationally Accredited Urgent Care Network</p>') if trust else ''
+    return """<!--Start Main Slider Two Single-->
+                <div class="main-slider-two__single">
+                    <div class="image-layer" style="background-image:url('%s')"></div>
+                    %s
+                    <div class="rp-hero-shade"></div>
+                    <div class="shape3"><img src="/assets/images/shapes/main-slider-v2-shape2.webp" alt=""></div>
+                    <div class="shape4"><img src="/assets/images/shapes/main-slider-v2-shape3.webp" alt=""></div>
+                    <div class="container">
+                        <div class="main-slider-two__single-inner">
+                            <div class="main-slider-two__content">
+                                <div class="tagline"><div class="border-box"></div><div class="text-box"><p>%s</p></div></div>
+                                <div class="title">%s</div>
+                                <p class="rp-hero-text">%s</p>
+                                <div class="main-slider-one__content-btn">
+                                    <div class="btn-one">%s</div>
+                                    <div class="btn-two">%s</div>
+                                </div>
+                                %s
+                            </div>
+                            <div class="main-slider-two__video">
+                                <a class="video-popup" href="https://www.youtube.com/watch?v=G8xUK_jtO5s" aria-label="Play the 24/7 Clinic film">
+                                    <div class="main-slider-two__video-icon"><span class="icon-play"></span><i class="ripple"></i></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+""" % (bg, video, tagline, title, text, btn1, btn2, trust_html)
+
+
+def hero_slides():
+    """Section 6 first, then the brief's two strongest messages, sections 8 and
+    11, in their slider as their homepage always had three slides."""
+    wa_btn = ('<a class="thm-btn rp-wa-btn" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">'
+              '%sWhatsApp Us 24/7</a>' % (wa(WA_HOME), svg('wa')))
+    return ''.join([
+        hero_slide('/photos/home-banners/slider-v2-img2_2_lg.jpg',
+                   '24/7 Medical Care &bull; Cashless Insurance &bull; Multilingual Support',
+                   '<h1>Urgent Medical Care. Right Inside Your Hotel.</h1>',
+                   '24/7 Clinic operates a network of on-site urgent care clinics inside hotels and resorts across Egypt&rsquo;s leading tourist destinations, giving international travelers fast access to medical care without unnecessary hospital visits.',
+                   wa_btn, '<a href="#rp-find">Find Your Clinic</a>', film='v-commercial.mp4', trust=True),
+        hero_slide('/assets/rp/resort.webp',
+                   'On-Site Hotel Clinics',
+                   '<h2>Medical Care Without Leaving Your Resort</h2>',
+                   '24/7 Clinic brings urgent and primary medical care directly into hotels and resorts, allowing international guests to receive medical consultation, diagnostics and treatment close to their hotel room.',
+                   '<a class="thm-btn" href="#rp-find">Find a Clinic</a>', '<a href="/services">View All Medical Services</a>'),
+        hero_slide('/photos/home-banners/247 insurance with overlay_lg.jpg',
+                   'Cashless Treatment',
+                   '<h2>Travelling With Medical Insurance?</h2>',
+                   'Where insurance approval and policy conditions allow, we can arrange cashless medical treatment, meaning the patient may not need to pay the full medical cost upfront and claim it back later.',
+                   '<a class="thm-btn rp-wa-btn" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_insurance_click">%sCheck Your Insurance on WhatsApp</a>' % (wa(WA_INSURANCE), svg('wa')),
+                   '<a href="/insurance">Learn About Insurance &amp; Cashless Care</a>'),
+    ])
 
 def accreditation():
     """Section 7. The CTA to an accreditation page is left out: that page is
@@ -204,76 +251,111 @@ def accreditation():
 
 
 def why_hotel():
-    """Section 9, four cards."""
+    """Section 9, four cards, beside their film of where the clinic is in the
+    hotel. Video as video, lazy, muted, never a still cut from it."""
     cards = [
         ('pin', 'Inside Your Resort', 'No need to search for an unfamiliar medical facility in another part of the city.'),
         ('clock', 'Fast Access to Medical Care', 'Our hotel-based model gives travelers direct access to medical support where they are staying.'),
         ('stethoscope', 'Treatment On-Site', 'Many common urgent and primary care conditions can be assessed and treated without a hospital visit.'),
         ('hospital', 'Hospital Transfer Only When Needed', 'If higher-level care is required, our team coordinates the appropriate hospital, ambulance or next medical step.'),
     ]
-    body = ''.join('<div class="rp-card rp-spot"><i class="rp-x rp-x--a"></i><i class="rp-x rp-x--b"></i>'
+    body = ''.join('<div class="rp-card rp-spot wow fadeInUp" data-wow-delay="%.1fs"><i class="rp-x rp-x--a"></i><i class="rp-x rp-x--b"></i>'
                    '<span class="rp-card__i">%s</span><h3>%s</h3><p>%s</p></div>'
-                   % (svg(i), t, d) for i, t, d in cards)
-    return '''<!--Start Repositioning Why Hotel-->
-<section class="rp-sec rp-sec--tint">
+                   % (0.1 + k * 0.1, svg(i), t, d) for k, (i, t, d) in enumerate(cards))
+    return """<!--Start Repositioning Why Hotel-->
+<section class="rp-sec rp-sec--tint rp-why">
     <div class="container">
         <div class="sec-title text-center"><h2 class="sec-title__title">Why Leave Your Hotel When Medical Care Is Already There?</h2></div>
-        <div class="rp-grid rp-grid--4">%s</div>
+        <div class="rp-why__in">
+            <div class="rp-reel wow fadeInLeft" data-wow-delay="0.1s">
+                <video class="rp-lazy" data-src="%sv-intro.mp4" muted loop playsinline preload="none" aria-label="Where the 24/7 Clinic is inside the hotel"></video>
+                <button class="rp-sound" type="button" aria-pressed="false">%sSound</button>
+            </div>
+            <div class="rp-grid rp-grid--2">%s</div>
+        </div>
     </div>
 </section>
-''' % body
-
+""" % (FILM, svg('play') if 'play' in ICON else '', body)
 
 def services():
-    """Section 10, six cards, replacing the old service emphasis."""
-    cards = [
-        ('stethoscope', 'Urgent Medical Care', 'Assessment and treatment of sudden illness, fever, infections, gastrointestinal conditions, dehydration, respiratory problems and other urgent conditions.'),
-        ('bandage', 'Injuries &amp; Minor Procedures', 'Treatment of wounds, burns, sprains, minor trauma, dressings, suturing and other minor procedures where clinically appropriate.'),
-        ('flask', 'Diagnostics &amp; Laboratory Tests', 'Medical assessment with access to laboratory tests and diagnostic services when required.'),
-        ('drip', 'IV Therapy &amp; Medication', 'Doctor-prescribed medication, injections and IV therapy when medically indicated.'),
-        ('specialist', 'Specialist Consultation', 'Access to specialist physicians and coordinated consultations where further medical assessment is required.'),
-        ('bed', 'Hotel Room Doctor Visit', 'When appropriate, a doctor visit can be arranged directly in the guest&rsquo;s hotel room.'),
+    """Section 10, six services, in their own Services One block: photo, icon
+    badge, title, Learn More. The brief's text goes under each title.
+    Photos: their own IV photo, and Pexels for the rest (src/assets/CREDITS.md)."""
+    items = [
+        ('c7n-urgent.webp', 'call-sos', 'Urgent Medical Care', 'Assessment and treatment of sudden illness, fever, infections, gastrointestinal conditions, dehydration, respiratory problems and other urgent conditions.'),
+        ('c7n-injury.webp', 'first-aid-kit', 'Injuries &amp; Minor Procedures', 'Treatment of wounds, burns, sprains, minor trauma, dressings, suturing and other minor procedures where clinically appropriate.'),
+        ('c7n-lab.webp', 'medical-screen', 'Diagnostics &amp; Laboratory Tests', 'Medical assessment with access to laboratory tests and diagnostic services when required.'),
+        (None, 'heart', 'IV Therapy &amp; Medication', 'Doctor-prescribed medication, injections and IV therapy when medically indicated.'),
+        ('c7n-specialist.webp', 'doctor', 'Specialist Consultation', 'Access to specialist physicians and coordinated consultations where further medical assessment is required.'),
+        ('c7n-roomvisit.webp', 'paramedic', 'Hotel Room Doctor Visit', 'When appropriate, a doctor visit can be arranged directly in the guest&rsquo;s hotel room.'),
     ]
-    body = ''.join('<div class="rp-card rp-spot"><i class="rp-x rp-x--a"></i><i class="rp-x rp-x--b"></i>'
-                   '<span class="rp-card__i">%s</span><h3>%s</h3><p>%s</p></div>'
-                   % (svg(i), t, d) for i, t, d in cards)
-    return '''<!--Start Repositioning Services-->
-<section class="rp-sec">
-    <div class="container">
-        <div class="sec-title text-center"><h2 class="sec-title__title">What We Can Treat On-Site</h2></div>
-        <div class="rp-grid rp-grid--3">%s</div>
-        <div class="rp-cta-row"><a class="thm-btn" href="/services">View All Medical Services</a></div>
-    </div>
-</section>
-''' % body
-
-
-def insurance():
-    """Section 11. Cashless care is never promised universally."""
-    items = ['Insurance verification', 'Guarantee of Payment coordination', 'Direct communication with the insurer',
-             'Medical documentation', 'Billing coordination', 'Cashless treatment where approved']
-    ticks = ''.join('<li>%s%s</li>' % (svg('check'), t) for t in items)
-    return '''<!--Start Repositioning Insurance-->
-<section class="rp-sec rp-ins">
-    <div class="container rp-ins__in">
-        <div>
-            <div class="sec-title"><h2 class="sec-title__title">Travelling With Medical Insurance?</h2></div>
-            <p class="rp-ins__sub">We Can Coordinate Directly With Your Insurer</p>
-            <p>24/7 Clinic works with international travel insurers and assistance companies worldwide.</p>
-            <p>Where insurance approval and policy conditions allow, we can arrange cashless medical treatment, meaning the patient may not need to pay the full medical cost upfront and claim it back later.</p>
+    cards = []
+    for k, (img, icon, title, text) in enumerate(items):
+        src = '/assets/rp/%s' % img if img else '/photos/serviceCategories/Urgent Care Services_lg.jpg'
+        alt = title.replace('&amp;', 'and')
+        cards.append("""<div class="col-xl-4 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="%.1fs">
+    <div class="services-one__single rp-svc">
+        <div class="services-one__single-img">
+            <a href="/services" class="inner"><img src="%s" alt="%s" loading="lazy"></a>
+            <div class="services-one__single-img-icon"><div class="services-one__single-img-icon-inner">
+                <svg width="34" height="34"><use xlink:href="/assets/images/svg/master.svg#%s" stroke="white"></use></svg>
+            </div></div>
         </div>
-        <div class="rp-ins__box">
-            <p class="rp-ins__label">Our team can assist with:</p>
-            <ul class="rp-ticks rp-ticks--col">%s</ul>
-            <div class="rp-cta-row rp-cta-row--left">
-                <a class="rp-btn rp-btn--wa rp-shine" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_insurance_click">Check Your Insurance on WhatsApp</a>
-                <a class="rp-link" href="/insurance">Learn About Insurance &amp; Cashless Care</a>
+        <div class="services-one__single-content clearfix">
+            <div class="btn-box"><a href="/services"><div class="text-box">Learn More</div><div class="icon-box"><span class="icon-arrow-right1"></span></div></a></div>
+            <div class="services-one__single-content-inner">
+                <h2><a href="/services">%s</a></h2>
+                <p class="rp-svc__text">%s</p>
             </div>
         </div>
     </div>
+</div>""" % (0.1 + (k % 3) * 0.15, src, alt, icon, title, text))
+    return """<!--Start Services One-->
+<section class="services-one rp-services">
+    <div class="container_lg">
+        <div class="sec-title text-center">
+            <div class="sec-title__tagline"><h6>Our Services</h6></div>
+            <h2 class="sec-title__title">What We Can Treat On-Site</h2>
+        </div>
+        <div class="row">%s</div>
+        <div class="rp-cta-row"><a class="thm-btn" href="/services">View All Medical Services</a></div>
+    </div>
 </section>
-''' % (ticks, wa(WA_INSURANCE))
+""" % ''.join(cards)
 
+def insurance():
+    """Section 11 in their own Banner One block, which the first pass had
+    removed: their icon, their insurance photo, now on brand red. Cashless care
+    is never promised universally."""
+    items = ['Insurance verification', 'Guarantee of Payment coordination', 'Direct communication with the insurer',
+             'Medical documentation', 'Billing coordination', 'Cashless treatment where approved']
+    ticks = ''.join('<li>%s%s</li>' % (svg('check'), t) for t in items)
+    return """<!--Start Banner One-->
+<section class="banner-one container_lg rp-banner">
+    <div class="row">
+        <div class="col-lg-6 p-sm-5 p-4 wow fadeInLeft" data-wow-delay="0.1s">
+            <div class="d-sm-flex align-items-start">
+                <svg width="120" height="160" class="me-sm-5 me-4 mb-3 rp-banner__tag"><use xlink:href="/assets/images/svg/master.svg#hospital-tag"></use></svg>
+                <div>
+                    <h2 class="sec-title__title text-white fw-normal mb-2">Travelling With Medical Insurance?</h2>
+                    <p class="rp-banner__sub">We Can Coordinate Directly With Your Insurer</p>
+                    <p class="my-1">24/7 Clinic works with international travel insurers and assistance companies worldwide.</p>
+                    <p class="my-1">Where insurance approval and policy conditions allow, we can arrange cashless medical treatment, meaning the patient may not need to pay the full medical cost upfront and claim it back later.</p>
+                    <p class="rp-banner__label">Our team can assist with:</p>
+                    <ul class="rp-ticks rp-ticks--2">%s</ul>
+                    <div class="rp-cta-row rp-cta-row--left">
+                        <a class="rp-btn rp-btn--white rp-shine" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_insurance_click">%sCheck Your Insurance on WhatsApp</a>
+                        <a class="rp-link rp-link--white" href="/insurance">Learn About Insurance &amp; Cashless Care</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 px-0 right-side wow fadeInRight" data-wow-delay="0.2s">
+            <img src="/assets/images/backgrounds/insurance.webp" class="w-100" alt="Health insurance" loading="lazy">
+        </div>
+    </div>
+</section>
+""" % (ticks, wa(WA_INSURANCE), svg('wa'))
 
 def how_it_works():
     """Section 12, four steps."""
@@ -283,8 +365,8 @@ def how_it_works():
         ('We Check Your Insurance', 'Send us your insurance details and, where applicable, our team can coordinate directly with your insurer.'),
         ('Receive Medical Care', 'Treatment is provided on-site whenever clinically appropriate. If higher-level care is needed, we coordinate the next step.'),
     ]
-    body = ''.join('<li class="rp-step"><span class="rp-step__n">%02d</span><h3>%s</h3><p>%s</p></li>'
-                   % (i + 1, t, d) for i, (t, d) in enumerate(steps))
+    body = ''.join('<li class="rp-step wow fadeInUp" data-wow-delay="%.1fs"><span class="rp-step__n">%02d</span><h3>%s</h3><p>%s</p></li>'
+                   % (0.15 + i * 0.2, i + 1, t, d) for i, (t, d) in enumerate(steps))
     return '''<!--Start Repositioning How It Works-->
 <section class="rp-sec rp-sec--tint">
     <div class="container">
@@ -294,6 +376,64 @@ def how_it_works():
     </div>
 </section>
 ''' % (body, wa(WA_HOME))
+
+
+def team_films():
+    """Their three team films, played muted as they scroll into view. The
+    heading is an approved line from their brand guideline."""
+    films = [('v-staff-1.mp4', 'The 24/7 Clinic team'), ('v-staff-2.mp4', 'The 24/7 Clinic team at work'),
+             ('v-staff-3.mp4', 'Inside a 24/7 Clinic')]
+    cards = ''.join("""<div class="rp-film wow fadeInUp" data-wow-delay="%.1fs">
+        <video class="rp-lazy" data-src="%s%s" muted loop playsinline preload="none" aria-label="%s"></video>
+        <button class="rp-sound" type="button" aria-pressed="false">Sound</button>
+    </div>""" % (0.1 + k * 0.15, FILM, f, label) for k, (f, label) in enumerate(films))
+    return """<!--Start Repositioning Team Films-->
+<section class="rp-sec rp-films">
+    <div class="container">
+        <div class="sec-title text-center">
+            <div class="sec-title__tagline"><h6>24/7 Clinic</h6></div>
+            <h2 class="sec-title__title">You&rsquo;re far from home, but not far from help.</h2>
+        </div>
+        <div class="rp-films__row">%s</div>
+    </div>
+</section>
+""" % cards
+
+
+def guest_stories():
+    """Their guest films, the same six the landing pages carry, as a rail under
+    their written reviews. Portrait and landscape keep their own shape: the
+    rail fixes the height and each card takes the film's width. Flags only
+    where the film names the country."""
+    films = [
+        ('v-story-italy.mp4', 'it', 'Guest story, Italy', 'p'),
+        ('v-story-romania-family.mp4', 'ro', 'Guest story, a family from Romania', 'l'),
+        ('v-story-scotland.mp4', 'gb', 'Guest story, Scotland', 'p'),
+        ('v-story-poland.mp4', 'pl', 'Guest story, Poland', 'l'),
+        ('v-story-romania-iv.mp4', 'ro', 'Guest story, Romania', 'p'),
+        ('v-story-scooter.mp4', None, 'Guest story, a scooter accident', 'p'),
+    ]
+    cards = ''.join("""<figure class="rp-story rp-story--%s wow fadeInUp" data-wow-delay="%.2fs">
+        <video class="rp-lazy" data-src="%s%s" muted loop playsinline preload="none" aria-label="%s"></video>
+        %s
+        <button class="rp-sound" type="button" aria-pressed="false">Sound</button>
+    </figure>""" % (shape, 0.05 + k * 0.08, FILM, f, label,
+                    ('<img class="rp-story__flag" src="%sc7flag-%s.svg" alt="" width="30" height="21">' % (FILM, flag)) if flag else '')
+        for k, (f, flag, label, shape) in enumerate(films))
+    return """<!--Start Repositioning Guest Stories-->
+<section class="rp-stories">
+    <div class="container">
+        <div class="rp-stories__head">
+            <div class="sec-title__tagline"><h6>Patient Feedback</h6></div>
+            <div class="rp-stories__nav">
+                <button type="button" class="rp-arrow" data-dir="-1" aria-label="Previous">&#8592;</button>
+                <button type="button" class="rp-arrow" data-dir="1" aria-label="Next">&#8594;</button>
+            </div>
+        </div>
+        <div class="rp-stories__rail" tabindex="0">%s</div>
+    </div>
+</section>
+""" % cards
 
 
 def find_clinic():
@@ -316,8 +456,8 @@ def find_clinic():
         ('El Quseir', 'Radisson Blu El Quseir', '/our-clinics'),
         ('North Coast', 'Jaz Almaza Beach, Jaz Oriental and more', '/our-clinics'),
     ]
-    body = ''.join('<a class="rp-place" href="%s">%s<span><b>%s</b><small>%s</small></span></a>'
-                   % (h, svg('pin'), d, s) for d, s, h in places)
+    body = ''.join('<a class="rp-place wow fadeInUp" data-wow-delay="%.2fs" href="%s">%s<span><b>%s</b><small>%s</small></span></a>'
+                   % (0.05 + k * 0.07, h, svg('pin'), d, s) for k, (d, s, h) in enumerate(places))
     return '''<!--Start Repositioning Find a Clinic-->
 <section class="rp-sec" id="rp-find">
     <div class="container">
@@ -354,12 +494,34 @@ def floating():
 <a class="rp-sticky" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">%sWhatsApp Medical Support 24/7</a>
 <script>
 (function(){
-  /* One hero slide now, so no carousel adds .active. Adding it after load
-     lets their own entrance animation play as it always did. */
-  var s=document.querySelector('.rp-hero-one .main-slider-two__single');
-  if(s)requestAnimationFrame(function(){requestAnimationFrame(function(){s.classList.add('active')})});
-  var v=document.querySelector('.rp-hero-film');
-  if(v&&matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.pause()}
+  var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Their carousel clones slides for its loop. Clones keep no h1 and no film. */
+  var tries=0,t=setInterval(function(){
+    var c=document.querySelectorAll('.main-slider-two .owl-item.cloned');
+    if(c.length||++tries>40){clearInterval(t);
+      c.forEach(function(el){
+        el.querySelectorAll('h1').forEach(function(h){var d=document.createElement('div');d.className='rp-h1';d.innerHTML=h.innerHTML;h.replaceWith(d)});
+        el.querySelectorAll('video').forEach(function(v){v.removeAttribute('src');v.load();v.remove()});
+      });
+    }
+  },100);
+  document.querySelectorAll('.rp-hero-film').forEach(function(v){if(calm){v.removeAttribute('autoplay');v.pause()}});
+  /* Films play muted once on screen, pause when off it. */
+  var lazy=document.querySelectorAll('video.rp-lazy');
+  if('IntersectionObserver' in window&&!calm){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;
+      if(e.isIntersecting){if(!v.src)v.src=v.dataset.src;v.play().catch(function(){})}else if(v.src)v.pause()})},{rootMargin:'150px'});
+    lazy.forEach(function(v){io.observe(v)});
+  }
+  document.querySelectorAll('.rp-sound').forEach(function(b){b.addEventListener('click',function(){
+    var v=b.parentNode.querySelector('video');if(!v.src)v.src=v.dataset.src;v.muted=!v.muted;
+    b.setAttribute('aria-pressed',String(!v.muted));v.play().catch(function(){})})});
+  document.querySelectorAll('.rp-arrow').forEach(function(b){b.addEventListener('click',function(){
+    var r=document.querySelector('.rp-stories__rail');r.scrollBy({left:(+b.dataset.dir)*r.clientWidth*.8,behavior:calm?'auto':'smooth'})})});
+  /* The step rail draws itself when it comes into view. */
+  var rail=document.querySelector('.rp-steps');
+  if(rail&&'IntersectionObserver' in window){new IntersectionObserver(function(es,o){es.forEach(function(e){
+    if(e.isIntersecting){rail.classList.add('rp-drawn');o.disconnect()}})},{threshold:.3}).observe(rail)}else if(rail)rail.classList.add('rp-drawn');
   /* Spotlight cards: the glow follows the pointer. */
   document.querySelectorAll('.rp-spot').forEach(function(c){
     c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();
@@ -379,35 +541,102 @@ REPOSITIONING_CSS = r"""/* Repositioning, applied on top of their own stylesheet
 .rp-ico{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 
 /* ---- hero: the headline is the page's first and only h1 ---------------- */
-/* One static slide: their film over their photo, their red shapes, and the
-   copy on a white panel. Fits a 900px laptop screen with the trust line. */
-.rp-hero-one .main-slider-two__single-inner{padding:56px 0 64px;min-height:min(78vh,720px);align-items:center}
+/* Their slider, their type, their shapes. Our film sits over the photo on
+   the first slide, under a light shade on the reading side only. */
 .rp-hero-film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-.rp-hero-one .shape3,.rp-hero-one .shape4{z-index:2}
-.rp-hero-one .container{position:relative;z-index:3}
-.rp-hero-panel{max-width:660px;padding:36px 38px 30px;border-radius:24px;background:rgba(255,255,255,.93);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 30px 60px -30px rgba(40,10,10,.45)}
-.rp-hero-one .main-slider-two__content .title{opacity:1}
-.main-slider-two__content .title h1{color:var(--uterpy-black);font-size:54px;line-height:1.08;font-weight:700;font-family:var(--uterpy-font-two);margin:0}
-.main-slider-two__content .title h1 span{color:var(--uterpy-base)}
-@media (max-width:1199px){.main-slider-two__content .title h1{font-size:46px}}
-@media (max-width:767px){.main-slider-two__content .title h1{font-size:34px}}
-.rp-chips{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.rp-chips li{display:inline-flex;align-items:center;gap:8px;padding:6px 13px 6px 10px;border-radius:999px;background:#fff4f3;
-  border:1px solid #f3dcd9;font-size:13.5px;font-weight:600;color:#3b3533}
-.rp-chips li:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--uterpy-base)}
-.rp-hero-text{color:#4d4643;font-size:17.5px;line-height:1.62;margin:16px 0 0}
-.rp-hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
-.rp-trust{display:flex;align-items:center;gap:12px;margin:22px 0 0;padding-top:18px;border-top:1px solid #efe8e5;
-  color:var(--uterpy-black);font-weight:600;font-size:14.5px}
-.rp-trust img{width:40px;height:40px;object-fit:contain;flex:none}
-.rp-hero-one .main-slider-two__video{position:relative;z-index:3}
+.rp-hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(20,8,8,.5) 0%,rgba(20,8,8,.28) 45%,rgba(20,8,8,0) 75%)}
+.main-slider-two .shape3,.main-slider-two .shape4{z-index:2}
+.main-slider-two__single .container{position:relative;z-index:3}
+.main-slider-two__content .title h1,.main-slider-two__content .title .rp-h1{color:#fff;font-size:60px;line-height:1.08;font-weight:700;
+  font-family:var(--uterpy-font-two);margin:0;text-shadow:0 2px 24px rgba(0,0,0,.25)}
+@media (max-width:1199px){.main-slider-two__content .title h1,.main-slider-two__content .title .rp-h1{font-size:54px}}
+@media (max-width:767px){.main-slider-two__content .title h1,.main-slider-two__content .title .rp-h1,.main-slider-two__content .title h2{font-size:34px!important}}
+.rp-hero-text{color:rgba(255,255,255,.95);font-size:18px;line-height:1.6;max-width:600px;margin:18px 0 0;text-shadow:0 1px 12px rgba(0,0,0,.3)}
+.main-slider-two .active .rp-hero-text,.main-slider-two .active .rp-trust{animation:rp-rise .9s cubic-bezier(.22,.61,.36,1) 1.3s both}
+@keyframes rp-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.rp-trust{display:inline-flex;align-items:center;gap:12px;margin:22px 0 0;padding:8px 16px 8px 8px;border-radius:999px;
+  background:rgba(255,255,255,.92);color:var(--uterpy-black);font-weight:600;font-size:14.5px}
+.rp-trust img{width:36px!important;height:36px!important;max-width:36px!important;object-fit:contain;flex:none;border-radius:50%;margin:0!important}
+.rp-trust{white-space:nowrap;max-width:100%}
+@media (max-width:420px){.rp-trust{white-space:normal;font-size:13px;border-radius:18px}}
+.rp-wa-btn{display:inline-flex!important;align-items:center;gap:10px}
+.rp-wa-btn .rp-ico{width:20px;height:20px}
 @media (max-width:767px){
-  .rp-hero-one .main-slider-two__single-inner{padding:24px 0 30px;min-height:0}
-  .rp-hero-panel{padding:24px 20px 20px;border-radius:18px}
-  .rp-hero-btns .rp-btn{flex:1 1 100%;justify-content:center}
-  .rp-hero-one .main-slider-two__video{display:none}
+  .rp-hero-text{font-size:16px}
+  .main-slider-two__content .main-slider-one__content-btn{flex-direction:column;align-items:stretch}
+  .main-slider-one__content-btn .btn-two{margin-left:0;margin-top:12px}
+  .main-slider-one__content-btn a{display:flex;justify-content:center;text-align:center}
+  .rp-hero-shade{background:rgba(20,8,8,.42)}
 }
+.main-slider-two__content .tagline .text-box p{white-space:normal}
+
+/* ---- services, in their block: text under the title, image zoom ------- */
+.rp-services .services-one__single{height:calc(100% - 30px)}
+.rp-services .services-one__single-img .inner{display:block;overflow:hidden}
+.rp-services .services-one__single-img img{aspect-ratio:57/34;object-fit:cover;width:100%;transition:transform 1.2s cubic-bezier(.22,.61,.36,1)}
+.rp-services .services-one__single:hover .services-one__single-img img{transform:scale(1.08)}
+.rp-svc__text{margin:10px 0 0;font-size:15.5px;line-height:1.6;color:#5b5b5b}
+.rp-services .services-one__single-content-inner h2{font-size:22px;line-height:1.3}
+
+/* ---- why: their film beside the cards --------------------------------- */
+.rp-why__in{display:grid;grid-template-columns:.75fr 1.25fr;gap:32px;align-items:start}
+.rp-grid--2{grid-template-columns:1fr 1fr}
+@media (max-width:991px){.rp-why__in{grid-template-columns:1fr}.rp-reel{max-width:360px;margin:0 auto}}
+@media (max-width:575px){.rp-grid--2{grid-template-columns:1fr}}
+.rp-reel,.rp-film,.rp-story{position:relative;overflow:hidden;border-radius:22px;background:#e9e4de;margin:0}
+.rp-reel{aspect-ratio:9/16;max-height:640px;box-shadow:0 30px 60px -34px rgba(120,20,20,.55)}
+.rp-reel video,.rp-film video,.rp-story video{width:100%;height:100%;object-fit:cover;display:block}
+.rp-sound{position:absolute;right:12px;bottom:12px;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px;
+  border:0;border-radius:999px;background:rgba(255,255,255,.92);color:#15120f;font-weight:700;font-size:13px;cursor:pointer;
+  transition:background .2s,color .2s}
+.rp-sound .rp-ico{width:16px;height:16px}
+.rp-sound[aria-pressed="true"]{background:var(--uterpy-base);color:#fff}
+
+/* ---- insurance: their banner, on brand red ------------------------------ */
+.rp-banner.banner-one{background:var(--uterpy-base);border-radius:24px;overflow:hidden;margin:100px auto}
+.rp-banner .right-side{position:relative;min-height:320px}
+.rp-banner .right-side img{height:100%;object-fit:cover}
+.rp-banner .right-side::before{background-image:linear-gradient(to left,rgba(192,0,0,0),rgba(192,0,0,.15),#C00000)!important;z-index:1}
+.rp-banner__tag{flex:none;fill:#fff;stroke:#fff}
+.rp-banner__sub{font-size:20px;font-weight:700;color:#fff;margin:0 0 12px}
+.rp-banner p{color:rgba(255,255,255,.92)}
+.rp-banner__label{font-weight:700;color:#fff!important;margin:16px 0 0}
+.rp-banner .rp-ticks--2{display:grid!important;grid-template-columns:1fr 1fr;gap:10px 22px;align-items:start}
+.rp-banner .rp-ticks--2 li{align-items:flex-start;line-height:1.35}
+@media (max-width:575px){.rp-banner .rp-ticks--2{grid-template-columns:1fr}}
+.rp-banner .rp-ticks li{color:#fff}
+.rp-banner .rp-ticks .rp-ico{color:#fff}
+.rp-btn--white{background:#fff;color:var(--uterpy-base)}
+.rp-btn--white:hover{background:#fff4f3;color:var(--uterpy-base)}
+.rp-link--white{color:#fff!important}
+@media (max-width:991px){.rp-banner.banner-one{margin:64px 12px;border-radius:18px}}
+
+/* ---- step rail draws itself ------------------------------------------- */
+.rp-steps:before{transform:scaleX(0);transform-origin:left;transition:transform 1.6s cubic-bezier(.22,.61,.36,1) .2s}
+.rp-steps.rp-drawn:before{transform:none}
+@media (max-width:991px){.rp-steps:before{transform:scaleY(0);transform-origin:top}.rp-steps.rp-drawn:before{transform:none}}
+
+/* ---- team films ---------------------------------------------------------- */
+.rp-films__row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:0 auto}
+.rp-film{aspect-ratio:9/16;box-shadow:0 26px 50px -32px rgba(120,20,20,.5);transition:transform .4s}
+.rp-film:hover{transform:translateY(-6px)}
+@media (max-width:767px){.rp-films__row{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;overflow-x:auto;
+  scroll-snap-type:x mandatory;padding-bottom:8px}.rp-film{scroll-snap-align:center}}
+
+/* ---- guest story rail ---------------------------------------------------- */
+.rp-stories{padding:10px 0 90px;background:#f7f5f4}
+.rp-stories__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.rp-stories__nav{display:flex;gap:10px}
+.rp-arrow{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--uterpy-black);background:#fff;font-size:20px;cursor:pointer;
+  transition:background .2s,color .2s}
+.rp-arrow:hover{background:var(--uterpy-black);color:#fff}
+.rp-stories__rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:thin}
+.rp-story{flex:none;height:440px;scroll-snap-align:start;box-shadow:0 24px 44px -30px rgba(80,10,10,.5)}
+.rp-story--p{aspect-ratio:9/16}
+.rp-story--l{aspect-ratio:16/9}
+.rp-story__flag{position:absolute;left:14px;top:14px;border-radius:4px;box-shadow:0 0 0 2px #fff}
+@media (max-width:767px){.rp-story{height:380px}}
 
 /* ---- header WhatsApp button ------------------------------------------- */
 /* Their header sets the menu box to display:block at a higher specificity,
@@ -595,6 +824,9 @@ REPOSITIONING_CSS = r"""/* Repositioning, applied on top of their own stylesheet
 
 @media (prefers-reduced-motion:reduce){
   .rp-shine:after,.rp-pulse{animation:none;display:none}
+  .rp-steps:before{transform:none!important;transition:none}
+  .main-slider-two .active .rp-hero-text,.main-slider-two .active .rp-trust{animation:none}
+  .rp-film:hover,.rp-services .services-one__single:hover .services-one__single-img img{transform:none}
   .rp-spot,.rp-spot:hover{transform:none}
 }
 """
@@ -624,33 +856,18 @@ def main():
             'Navigation simplified to the seven items, Beauty, Blog and FAQs moved out, WhatsApp button added')
 
     # ----------------------------------------------------------- 6. hero
-    starts = [m.start() for m in re.finditer(r'<!--Start Main Slider Two Single-->', h)]
-    if len(starts) >= 3:
-        s1, s2, s3 = starts[0], starts[1], starts[2]
-        slide1 = h[s1:s2]
-        c = slide1.find('<div class="main-slider-two__content">')
-        v = slide1.find('<div class="main-slider-two__video">')
-        if c >= 0 and v > c:
-            slide1 = slide1[:c] + hero_content() + slide1[v:]
-            # Their Le Reve film, as video, over their photo. The brief asks the
-            # hero to show an actual hotel clinic; this film is one.
-            slide1 = slide1.replace('<div class="shape3">',
-                '<video class="rp-hero-film" src="https://hcig-passport.vercel.app/assets/v-commercial.mp4" '
-                'autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>\n'
-                '                    <div class="shape3">', 1)
-            # Slide two was "Be Beautiful" (sections 6 and 29), slide three
-            # "We work with all insurance companies", a claim the brief does not
-            # make. One slide stays, so the carousel is switched off: its
-            # looping clones had tripled the h1.
-            end = h.find('<div class="owl-theme">', s3)
-            h = h[:s1] + slide1 + '</div>\n' + h[h.find('</section>', end):]
-            h = h.replace('<div class="owl-carousel owl-theme main-slider-two__carousel">',
-                          '<div class="rp-hero-one">', 1)
-            note('6', 'Hero: one slide, their Le Reve film, headline on a white panel, one h1, carousel off')
-        else:
-            print('   SKIPPED, hero content block not found')
+    # Their slider, their look, three slides of brief copy. The first plays our
+    # Le Reve film. The carousel clones slides for its loop; the page script
+    # turns the h1 in each clone into a div and drops the clone's film, so the
+    # page keeps one h1 and downloads the film once.
+    first = h.find('<!--Start Main Slider Two Single-->')
+    ctrl = h.find('<div class="owl-theme">', first)
+    if first >= 0 and ctrl > first:
+        close = h.rfind('</div>', first, ctrl)
+        h = h[:first] + hero_slides() + '            ' + h[close:]
+        note('6', 'Hero: their slider with three brief slides, our Le Reve film on the first, one h1')
     else:
-        print('   SKIPPED, fewer than three hero slides')
+        print('   SKIPPED, hero slides not found')
 
     # -------------------------------------------------- 7. accreditation
     h = one(h, '<!--Start About One-->', accreditation() + '<!--Start About One-->',
@@ -673,12 +890,12 @@ def main():
             '8', 'About block closing text rewritten')
 
     # ------------------------------------- 9 and 10, replacing Services One
-    h = between(h, '<!--Start Services One-->', '<!--Start Banner One-->', why_hotel() + services(),
+    h = between(h, '<!--Start Services One-->', '<!--Start Banner One-->', services() + why_hotel(),
                 '9, 10', 'Why hotel-based care, four cards, then What We Can Treat On-Site, six cards')
 
     # ----------------------------- 11, 12 and 13, replacing Banner One
     h = between(h, '<!--Start Banner One-->', '<!--Start Counter One -->',
-                insurance() + how_it_works() + find_clinic(),
+                insurance() + how_it_works() + team_films() + find_clinic(),
                 '11, 12, 13', 'Insurance and cashless care, how it works, find a clinic with the landing pages linked')
 
     # ---------------------------------------------------------- 14. numbers
@@ -695,6 +912,8 @@ def main():
 
     # ---------------------------------------------------------- 15 and 31
     h = one(h, 'What our Patients Says', 'What Our Patients Say', '15', 'Testimonials heading corrected')
+    h = one(h, '<!--Start Blog Two-->', guest_stories() + '<!--Start Blog Two-->', '15',
+            'Guest story films under the written reviews')
     h = h.replace('North Cost', 'North Coast')
 
     # ---------------------------------------------------------- 16. final CTA
@@ -736,6 +955,11 @@ def main():
 
     # ------------------------------------------------ our files, then paths
     io.open(os.path.join(OUT, 'assets', 'repositioning.css'), 'w', encoding='utf-8').write(REPOSITIONING_CSS)
+    rp = os.path.join(OUT, 'assets', 'rp')
+    os.makedirs(rp, exist_ok=True)
+    for f in ('c7n-urgent.webp', 'c7n-injury.webp', 'c7n-lab.webp', 'c7n-specialist.webp', 'c7n-roomvisit.webp'):
+        shutil.copyfile(os.path.join('src', 'assets', f), os.path.join(rp, f))
+    shutil.copyfile(os.path.join('src', 'assets', 'px-resort-lereve.webp'), os.path.join(rp, 'resort.webp'))
     acc = os.path.join(OUT, 'assets', 'accreditation')
     os.makedirs(acc, exist_ok=True)
     for f in ('c7acc-uca.png', 'c7acc-gha.png', 'c7acc-gmwa.png'):

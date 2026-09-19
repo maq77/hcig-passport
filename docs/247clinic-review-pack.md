@@ -34,6 +34,7 @@ Updated 2026-09-19.
 | 2026-09-19 | Put all brief content into one file per page, ready for every page and every language. |
 | 2026-09-19 | Keyword research with real Google evidence in 4 languages. |
 | 2026-09-19 | You chose their layout. Hero rebuilt: their Le Rêve film, headline on a white panel, one h1 instead of three. Brand red #C00000 everywhere, no black bands, spotlight cards and a step rail from 21st.dev. Fixed their map error, "google is not defined", which also breaks their live site. |
+| 2026-09-19 | Your feedback applied: their own hero back, three slides, our Le Rêve film on the first. Their Services block back with a photo per service. Their insurance banner back, on brand red. Their "where you are in your hotel" film beside the why cards, three team films, and six guest story films under the reviews. Motion on every section with their own animations. |
 
 ## What research did we make?
 
@@ -74,6 +75,7 @@ Full map: [Keywords](https://hcig-passport.vercel.app/247clinic/website/keywords
 | Is "Steigenberger soma bay" the same as Ras Soma | One page per real clinic |
 | Photos and facts for Steigenberger and Amwaj | Those two pages are 92% alike without them |
 | May we reuse the published guest reviews | They appear on the homepage |
+| Did each guest in the six story films agree to website use | Their faces are on the homepage now |
 | Hotel page URL: `/sahl-hasheesh/premier-le-reve-clinic` or `/clinics/soma-bay/...` | Her two briefs disagree. Decide before anything is indexed |
 
 ## What is still left to do?
