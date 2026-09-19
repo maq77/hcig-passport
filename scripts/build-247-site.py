@@ -1150,6 +1150,10 @@ def main():
     h = one(h, 'function initMap() {', "function initMap() {\n            if (typeof google === 'undefined') return;",
             '39', 'Map: initMap guarded')
 
+    # Footer credit, his instruction 2026-09-19. No link: no URL was given.
+    h = sub(h, r'Powered by\s*<a href="https://innovixsolutions\.com"[^>]*>Innovix Solutions</a>',
+            'Powered by Pulse Marketing', '2', 'Footer credit: Powered by Pulse Marketing')
+
     # Light footer (his rule: no black backgrounds), so it takes the red logo.
     h = one(h, 'clinic-logo-white.svg" class="w-25"', 'clinic-logo.svg" class="w-25"', '2',
             'Footer logo in colour for the light footer')
