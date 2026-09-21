@@ -1127,6 +1127,10 @@ window.HCIG_MEASUREMENT_CONFIG = {
 
   function send(name, extra) {
     if (!window.hcig || !window.hcig.send) return;
+    /* Only what this page knows. site, page and language come from the shared
+       module via config, and must not be overridden here: a preview domain
+       would report itself as a different site and the group total would stop
+       adding up. */
     var d = { hotel: HOTEL, area: AREA };
     for (var k in extra) d[k] = extra[k];
     window.hcig.send(name, d);
@@ -1136,9 +1140,17 @@ window.HCIG_MEASUREMENT_CONFIG = {
      the calls and messages that came out of it. */
   send('clinic_view');
 
+  var lastPress = {};
   document.addEventListener('click', function (e) {
     var a = e.target.closest('[data-ev]');
-    if (a) send(a.getAttribute('data-ev'), { link: a.getAttribute('href') });
+    if (a) {
+      var ev = a.getAttribute('data-ev');
+      var now = Date.now();
+      /* Swallow an accidental double press, not a real second contact. */
+      if (lastPress[ev] && now - lastPress[ev] < 1500) return;
+      lastPress[ev] = now;
+      send(ev, { link: a.getAttribute('href') });
+    }
   });
 })();
 </script>`;
