@@ -1127,7 +1127,13 @@ window.HCIG_MEASUREMENT_CONFIG = {
 
   function send(name, extra) {
     if (!window.hcig || !window.hcig.send) return;
-    var d = { hotel: HOTEL, area: AREA };
+    var d = { 
+      hotel: HOTEL, 
+      area: AREA,
+      site: window.location.hostname || '247clinic.net',
+      page: window.location.pathname,
+      language: document.documentElement.lang || 'en'
+    };
     for (var k in extra) d[k] = extra[k];
     window.hcig.send(name, d);
   }
@@ -1136,9 +1142,15 @@ window.HCIG_MEASUREMENT_CONFIG = {
      the calls and messages that came out of it. */
   send('clinic_view');
 
+  var pressed = {};
   document.addEventListener('click', function (e) {
     var a = e.target.closest('[data-ev]');
-    if (a) send(a.getAttribute('data-ev'), { link: a.getAttribute('href') });
+    if (a) {
+      var ev = a.getAttribute('data-ev');
+      if (pressed[ev]) return;
+      pressed[ev] = true;
+      send(ev, { link: a.getAttribute('href') });
+    }
   });
 })();
 </script>`;
