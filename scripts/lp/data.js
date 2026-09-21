@@ -1115,14 +1115,21 @@ function viewer() {
  */
 function tracking(c) {
   return `<script>
+window.HCIG_MEASUREMENT_CONFIG = {
+  id: '',
+  site: ${JSON.stringify(c.hotelShort + ' (24/7 Clinic)')}
+};
+</script>
+<script src="%%TRACKING%%"></script>
+<script>
 (function () {
   var HOTEL = ${JSON.stringify(c.hotelShort)}, AREA = ${JSON.stringify(c.area)};
 
   function send(name, extra) {
-    if (!window.gtag) return;
+    if (!window.hcig || !window.hcig.send) return;
     var d = { hotel: HOTEL, area: AREA };
     for (var k in extra) d[k] = extra[k];
-    window.gtag('event', name, d);
+    window.hcig.send(name, d);
   }
 
   /* One per page load, so impressions on a clinic page are countable next to

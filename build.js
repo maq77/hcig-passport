@@ -163,6 +163,7 @@ const ASSETS = {
   QRA: 'qr-hcig.png',
   QRB: 'qr-247.png',
   QRC: 'qr-medpark.png',
+  TRACKING: 'hcig-tracking.js',
 };
 
 const MIME = {
