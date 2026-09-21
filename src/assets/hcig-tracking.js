@@ -34,11 +34,25 @@
       }
     }
 
-    // FR-004: Never send anything that identifies a person.
+    // FR-004: never send anything that identifies a person.
     delete payload.name;
     delete payload.email;
     delete payload.phone;
     delete payload.message;
+
+    // A raw href is personal data in disguise. tel: and wa.me carry a phone
+    // number, and a prefilled WhatsApp link carries the message text. Reduce
+    // it to the kind of destination, which is the part worth counting.
+    if (payload.link) {
+      var href = String(payload.link);
+      var kind = 'other';
+      if (href.indexOf('tel:') === 0) kind = 'tel';
+      else if (href.indexOf('mailto:') === 0) kind = 'email';
+      else if (href.indexOf('wa.me') > -1 || href.indexOf('api.whatsapp') > -1) kind = 'whatsapp';
+      else if (href.indexOf('maps.') > -1 || href.indexOf('goo.gl/maps') > -1) kind = 'maps';
+      else if (href.indexOf('http') === 0) kind = 'link';
+      payload.link = kind;
+    }
 
     window.gtag('event', name, payload);
   };
@@ -66,18 +80,29 @@
     'send_page_view': false
   });
 
+  // Storage can throw: a private window, blocked site data, or a locked down
+  // browser. A throw here would kill the rest of this script, and the spec says
+  // the page must never error. Treat an unreadable store as "not asked yet".
+  function readConsent() {
+    try { return localStorage.getItem('hcig_consent'); } catch (e) { return null; }
+  }
+  function writeConsent(v) {
+    try { localStorage.setItem('hcig_consent', v); } catch (e) { /* nothing to do */ }
+  }
+
   // Consent UI banner
-  if (localStorage.getItem('hcig_consent') === 'granted') {
+  var stored = readConsent();
+  if (stored === 'granted') {
     gtag('consent', 'update', { 'analytics_storage': 'granted' });
-  } else if (!localStorage.getItem('hcig_consent')) {
+  } else if (!stored) {
     var banner = document.createElement('div');
     banner.className = 'hcig-consent-banner';
     banner.innerHTML = 
       '<div class="hcig-consent-inner">' +
-        '<p>We use cookies to measure how our sites are used. Do you accept?</p>' +
+        '<p>' + (config.consentText || 'We use cookies to measure how our sites are used. Do you accept?') + '</p>' +
         '<div class="hcig-consent-actions">' +
-          '<button type="button" class="hcig-btn hcig-btn-accept">Accept</button>' +
-          '<button type="button" class="hcig-btn hcig-btn-deny">Deny</button>' +
+          '<button type="button" class="hcig-btn hcig-btn-accept">' + (config.consentAccept || 'Accept') + '</button>' +
+          '<button type="button" class="hcig-btn hcig-btn-deny">' + (config.consentDeny || 'Deny') + '</button>' +
         '</div>' +
       '</div>';
     document.body.appendChild(banner);
@@ -96,12 +121,12 @@
     document.head.appendChild(style);
 
     banner.querySelector('.hcig-btn-accept').addEventListener('click', function() {
-      localStorage.setItem('hcig_consent', 'granted');
+      writeConsent('granted');
       gtag('consent', 'update', { 'analytics_storage': 'granted' });
       banner.style.display = 'none';
     });
     banner.querySelector('.hcig-btn-deny').addEventListener('click', function() {
-      localStorage.setItem('hcig_consent', 'denied');
+      writeConsent('denied');
       banner.style.display = 'none';
     });
   }

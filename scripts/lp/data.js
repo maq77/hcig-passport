@@ -1117,7 +1117,7 @@ function tracking(c) {
   return `<script>
 window.HCIG_MEASUREMENT_CONFIG = {
   id: '',
-  site: ${JSON.stringify(c.hotelShort + ' (24/7 Clinic)')}
+  site: '247clinic.net'
 };
 </script>
 <script src="%%TRACKING%%"></script>
