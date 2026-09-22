@@ -475,3 +475,33 @@
   .rp-film:hover,.rp-services .services-one__single:hover .services-one__single-img img{transform:none}
   .rp-spot,.rp-spot:hover{transform:none}
 }
+
+/* ---- breadcrumbs on inner pages -------------------------------------- */
+.rp-breadcrumb{margin:0 auto 16px!important;padding:0;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;color:#777}
+.rp-breadcrumb li{display:inline-flex;align-items:center;gap:8px;color:#777}
+.rp-breadcrumb li a{color:#888;text-decoration:none;transition:color .2s}
+.rp-breadcrumb li a:hover{color:var(--uterpy-base)}
+.rp-breadcrumb li+li:before{content:"/";color:#bbb}
+.rp-breadcrumb li.active{color:var(--uterpy-base);font-weight:600}
+
+/* ---- header dropdown submenu polish ---------------------------------- */
+.main-menu .main-menu__list>li.dropdown>a:after{content:" \\25BE";font-size:11px;margin-left:4px;opacity:.6}
+.main-menu .main-menu__list>li>ul{border-radius:10px;overflow:hidden;box-shadow:0 14px 35px rgba(0,0,0,.12);border:1px solid #f0e6e4;padding:6px 0;min-width:240px}
+.main-menu .main-menu__list>li>ul>li>a{padding:10px 20px;font-size:15px;color:#333;font-weight:500;white-space:normal;line-height:1.4}
+.main-menu .main-menu__list>li>ul>li>a:hover{background:#C00000;color:#fff}
+.main-menu .main-menu__list>li>ul>li.current>a{color:#C00000;font-weight:700}
+.main-menu .main-menu__list>li>ul>li.current>a:hover{color:#fff}
+
+/* ---- footer links grid ------------------------------------------------ */
+.footer-widget__service-list.rp-footer-grid{display:grid!important;grid-template-columns:1fr 1fr;gap:8px 18px}
+.footer-widget__service-list.rp-footer-grid li{margin:0!important}
+.footer-widget__service-list.rp-footer-grid li a{font-size:15px;white-space:nowrap}
+@media (max-width:575px){.footer-widget__service-list.rp-footer-grid{grid-template-columns:1fr}}
+
+/* ---- related pages interlinking -------------------------------------- */
+.rp-related{padding:70px 0}
+.rp-related-card{display:block;text-decoration:none;transition:border-color .2s,transform .2s,box-shadow .2s;color:inherit;height:100%}
+.rp-related-card:hover{border-color:var(--uterpy-base);transform:translateY(-3px);box-shadow:0 12px 28px -10px rgba(192,0,0,.15)}
+.rp-related-card h3{font-size:18px;color:var(--uterpy-black);transition:color .2s;margin:0 0 8px;font-weight:700}
+.rp-related-card:hover h3{color:var(--uterpy-base)}
+.rp-related-card p{font-size:14.5px;color:#666;line-height:1.55;margin:0}

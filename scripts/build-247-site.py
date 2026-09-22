@@ -135,39 +135,63 @@ def rewrite_paths(text, is_css=False):
     # Longest first, so /for-insurance is not caught by a shorter prefix.
     for page in sorted(MIRRORED, key=len, reverse=True):
         text = text.replace('href="%s"' % page, 'href="%s%s/"' % (PREFIX, page))
+    # Keep preview internal: links to root "/" (e.g. logos, Home links) stay inside the preview root.
+    text = re.sub(r'href=[\'"]/[\'"](?=[\s>])', 'href="%s/"' % PREFIX, text)
     return text
 
 
 # ---------------------------------------------------------------- the blocks
 
-NAV_ITEMS = [
-    ('/', 'Home'),
-    ('/services', 'Medical Services'),
-    ('/insurance', 'Insurance & Cashless Care'),
-    ('/our-clinics', 'Find a Clinic'),
-    # Section 24's page exists since 2026-09-22, so this points at it instead
-    # of falling back to contact.
-    ('/for-hotels', 'For Hotels & Partners'),
-    ('/about-us', 'About Us'),
-    ('/contact-us', 'Contact'),
+NAV_STRUCTURE = [
+    ('/', 'Home', []),
+    ('/services', 'Medical Services', [
+        ('/services', 'Medical Services'),
+        ('/hotel-clinics', 'The Hotel Clinic Concept'),
+        ('/beauty-wellness', 'Beauty & Wellness'),
+    ]),
+    ('/insurance', 'Insurance & Cashless', [
+        ('/insurance', 'Insurance & Cashless Care'),
+        ('/for-insurance', 'For Insurance & Assistance'),
+    ]),
+    ('/our-clinics', 'Find a Clinic', []),
+    ('/for-hotels', 'For Hotels & Partners', []),
+    ('/about-us', 'About Us', [
+        ('/about-us', 'About Us'),
+        ('/accreditation', 'International Accreditation'),
+        ('/faq', 'FAQ'),
+    ]),
+    ('/contact-us', 'Contact', []),
 ]
 
 
 def nav(current='/'):
-    """Section 4. Beauty & Wellness, Blog and FAQ move to the footer.
+    """Section 4. Main navigation interlinking all 12 pages.
 
-    `current` marks the open page with their own `li.current` class, which
-    their stylesheet already colours. Without it every inner page looked as
-    though you were still on the homepage.
+    Dropdown submenus group related services, insurance options, and about
+    pages so all 12 pages are reachable directly from the header without
+    overflowing the row.
 
-    Home points at the preview root rather than "/", which would send a
-    visitor out of the preview and up to the HCIG Work index.
+    `current` marks the open page and its parent with their own `li.current`
+    class, which their stylesheet already colours.
     """
+    cur = (current or '/').rstrip('/') or '/'
     lis = []
-    for h, t in NAV_ITEMS:
-        cls = ' class="current"' if h.rstrip('/') == (current or '/').rstrip('/') else ''
+    for h, t, children in NAV_STRUCTURE:
         href = (PREFIX + '/') if h == '/' else h
-        lis.append('<li%s><a href="%s">%s</a></li>' % (cls, href, t.replace('&', '&amp;')))
+        if children:
+            child_hrefs = [c[0].rstrip('/') or '/' for c in children]
+            is_parent_active = (cur == (h.rstrip('/') or '/')) or (cur in child_hrefs)
+            pcls = 'dropdown' + (' current' if is_parent_active else '')
+            sub_lis = []
+            for ch, ct in children:
+                ccls = ' class="current"' if (ch.rstrip('/') or '/') == cur else ''
+                sub_lis.append('<li%s><a href="%s">%s</a></li>' % (ccls, ch, ct.replace('&', '&amp;')))
+            sub_html = '\n'.join(sub_lis)
+            lis.append('<li class="%s"><a href="%s">%s</a>\n<ul>\n%s\n</ul>\n</li>'
+                       % (pcls, href, t.replace('&', '&amp;'), sub_html))
+        else:
+            cls = ' class="current"' if (h.rstrip('/') or '/') == cur else ''
+            lis.append('<li%s><a href="%s">%s</a></li>' % (cls, href, t.replace('&', '&amp;')))
     lis = '\n'.join(lis)
     return ('<ul class="main-menu__list">\n%s\n</ul>\n'
             '<a class="rp-head-wa" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">'
@@ -271,6 +295,7 @@ def accreditation():
             <h2>Internationally Accredited Urgent Care</h2>
             <p>24/7 Clinic is the first international urgent care network outside the United States to achieve accreditation through the Urgent Care Association and CAUCQ.</p>
             <ul class="rp-ticks">%s</ul>
+            <div class="rp-cta-row rp-cta-row--left"><a class="rp-link" href="/accreditation">Learn more about our international accreditation &rarr;</a></div>
         </div>
         <div class="rp-acc__marks">
             <div class="rp-acc__group"><p class="rp-acc__label">Accredited through</p><div class="rp-acc__row">%s</div></div>
@@ -304,6 +329,7 @@ def why_hotel():
             </div>
             <div class="rp-grid rp-grid--2 rp-snap">%s</div>
         </div>
+        <div class="rp-cta-row"><a class="thm-btn" href="/hotel-clinics">Explore The Hotel Clinic Concept</a></div>
     </div>
 </section>
 """ % (FILM, FILM, PLAY, body)
@@ -374,6 +400,7 @@ def insurance():
                 <div class="rp-ins2__btns">
                     <a class="rp-btn rp-btn--white rp-shine" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_insurance_click">%sCheck Your Insurance on WhatsApp</a>
                     <a class="rp-link rp-link--white" href="/insurance">Learn About Insurance &amp; Cashless Care</a>
+                    <a class="rp-link rp-link--white" href="/for-insurance">For Insurance &amp; Assistance Partners &rarr;</a>
                 </div>
             </div>
             <figure class="rp-ins2__img wow fadeInRight" data-wow-delay="0.25s">
@@ -1070,6 +1097,36 @@ REPOSITIONING_CSS = r"""/* Repositioning, applied on top of their own stylesheet
   .rp-film:hover,.rp-services .services-one__single:hover .services-one__single-img img{transform:none}
   .rp-spot,.rp-spot:hover{transform:none}
 }
+
+/* ---- breadcrumbs on inner pages -------------------------------------- */
+.rp-breadcrumb{margin:0 auto 16px!important;padding:0;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;color:#777}
+.rp-breadcrumb li{display:inline-flex;align-items:center;gap:8px;color:#777}
+.rp-breadcrumb li a{color:#888;text-decoration:none;transition:color .2s}
+.rp-breadcrumb li a:hover{color:var(--uterpy-base)}
+.rp-breadcrumb li+li:before{content:"/";color:#bbb}
+.rp-breadcrumb li.active{color:var(--uterpy-base);font-weight:600}
+
+/* ---- header dropdown submenu polish ---------------------------------- */
+.main-menu .main-menu__list>li.dropdown>a:after{content:" \\25BE";font-size:11px;margin-left:4px;opacity:.6}
+.main-menu .main-menu__list>li>ul{border-radius:10px;overflow:hidden;box-shadow:0 14px 35px rgba(0,0,0,.12);border:1px solid #f0e6e4;padding:6px 0;min-width:240px}
+.main-menu .main-menu__list>li>ul>li>a{padding:10px 20px;font-size:15px;color:#333;font-weight:500;white-space:normal;line-height:1.4}
+.main-menu .main-menu__list>li>ul>li>a:hover{background:#C00000;color:#fff}
+.main-menu .main-menu__list>li>ul>li.current>a{color:#C00000;font-weight:700}
+.main-menu .main-menu__list>li>ul>li.current>a:hover{color:#fff}
+
+/* ---- footer links grid ------------------------------------------------ */
+.footer-widget__service-list.rp-footer-grid{display:grid!important;grid-template-columns:1fr 1fr;gap:8px 18px}
+.footer-widget__service-list.rp-footer-grid li{margin:0!important}
+.footer-widget__service-list.rp-footer-grid li a{font-size:15px;white-space:nowrap}
+@media (max-width:575px){.footer-widget__service-list.rp-footer-grid{grid-template-columns:1fr}}
+
+/* ---- related pages interlinking -------------------------------------- */
+.rp-related{padding:70px 0}
+.rp-related-card{display:block;text-decoration:none;transition:border-color .2s,transform .2s,box-shadow .2s;color:inherit;height:100%}
+.rp-related-card:hover{border-color:var(--uterpy-base);transform:translateY(-3px);box-shadow:0 12px 28px -10px rgba(192,0,0,.15)}
+.rp-related-card h3{font-size:18px;color:var(--uterpy-black);transition:color .2s;margin:0 0 8px;font-weight:700}
+.rp-related-card:hover h3{color:var(--uterpy-base)}
+.rp-related-card p{font-size:14.5px;color:#666;line-height:1.55;margin:0}
 """
 
 
@@ -1091,6 +1148,10 @@ def main():
     # ------------------------------------------------------------ our sheet
     h = one(h, '</head>', '<link rel="stylesheet" href="%s/assets/repositioning.css">\n</head>' % PREFIX,
             '2', 'repositioning.css loaded after their bundle, which is untouched')
+
+    # First-party measurement is injected before </body> further down (section 5),
+    # in the generator, so every page including the inner ones carries it and a
+    # rebuild never loses it. Token 247clinic is the dashboard row in lib/sites.php.
 
     # ------------------------------------------------------------ 4. nav
     h = sub(h, r'<ul class="main-menu__list">[\s\S]*?</ul>', nav(), '4',
@@ -1206,6 +1267,23 @@ def main():
     # Light footer (his rule: no black backgrounds), so it takes the red logo.
     h = one(h, 'clinic-logo-white.svg" class="w-25"', 'clinic-logo.svg" class="w-25"', '2',
             'Footer logo in colour for the light footer')
+
+    # Footer links: comprehensive grid interlinking all 11 inner pages
+    footer_links = """<ul class="footer-widget__service-list list-unstyled clearfix rp-footer-grid">
+                                    <li><a href="/services">Medical Services</a></li>
+                                    <li><a href="/hotel-clinics">Hotel Clinic Concept</a></li>
+                                    <li><a href="/insurance">Insurance &amp; Cashless</a></li>
+                                    <li><a href="/for-insurance">For Insurers</a></li>
+                                    <li><a href="/our-clinics">Find a Clinic</a></li>
+                                    <li><a href="/for-hotels">For Hotels &amp; Partners</a></li>
+                                    <li><a href="/beauty-wellness">Beauty &amp; Wellness</a></li>
+                                    <li><a href="/accreditation">Accreditation</a></li>
+                                    <li><a href="/about-us">About Us</a></li>
+                                    <li><a href="/faq">FAQ</a></li>
+                                    <li><a href="/contact-us">Contact Us</a></li>
+                                </ul>"""
+    h = sub(h, r'<ul class="footer-widget__service-list list-unstyled clearfix">[\s\S]*?</ul>',
+            footer_links, '2', 'Footer links updated with all 11 inner pages')
 
     # ---------------------------------------------------- 5. floating WhatsApp & tracking
     fp_tracking = '\n<!-- HCIG First-Party Measurement: 24/7 Clinic -->\n<script src="https://www.medparkhospitals.com/dashboard/t.js?s=247clinic" defer></script>\n'
