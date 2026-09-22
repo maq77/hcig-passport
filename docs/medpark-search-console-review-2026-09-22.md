@@ -281,11 +281,10 @@ worse than leaving it and asking.
 - No search volume figures appear here. None were measured. Every number in
   this report comes from your own Search Console data.
 - Query totals cover 64 of 139 clicks. Google hides the rest.
-- Open question: intermittent connection failures were seen while testing the
-  live site from this machine. It is most likely the host rate limiting one IP
-  after many requests, which would not affect real visitors. It must be
-  confirmed in Search Console under Settings, Crawl stats, host status. If
-  Googlebot is seeing failures, it matters a great deal. If not, ignore it.
+- Closed question: intermittent connection failures seen while testing are the
+  internet here dropping, confirmed by you on 22 Sep. Not the server. The same
+  cause explains the agy worker DNS errors. The server answers in 0.66s when
+  it answers. Nothing to fix on MedPark.
 - The speed work you asked about is done and live, checked 22 Sep 2026.
   Caching: static files return `public, max-age=31536000, immutable`, one
   year, with gzip on CSS. HTML is `no-cache`, which is correct for PHP.
