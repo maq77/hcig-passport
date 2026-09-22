@@ -34,6 +34,8 @@ import subprocess
 import sys
 import urllib.parse
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 RAW = os.path.join('.work', 'mirror')
 OUT = os.path.join('src', '247site')
 PREFIX = '/247clinic/website-preview'
@@ -49,9 +51,19 @@ WA_HOME = 'Hello, I need medical assistance through the 24/7 Clinic website.'
 WA_INSURANCE = ('Hello, I need medical assistance and would like to check whether '
                 'my travel insurance can be used for cashless treatment.')
 
+# Pages that exist on their live site but not in this preview. Their links are
+# sent to the live site so nothing 404s. As a page gets built here it moves out
+# of this list and into MIRRORED below, or the preview would send a visitor off
+# to the old version of a page we have just rewritten.
 NOT_MIRRORED = [
+    '/blog', '/faqs', '/article/',
+]
+
+# Built by build_247_inner.py. Their links stay inside the preview.
+MIRRORED = [
     '/services', '/insurance', '/our-clinics', '/about-us', '/contact-us',
-    '/beauty-wellness', '/blog', '/faqs', '/article/',
+    '/beauty-wellness', '/faq', '/hotel-clinics', '/accreditation',
+    '/for-hotels', '/for-insurance',
 ]
 
 edits = []
@@ -120,25 +132,43 @@ def rewrite_paths(text, is_css=False):
     for page in NOT_MIRRORED:
         text = text.replace('href="%s"' % page, 'href="%s%s"' % (LIVE, page))
         text = text.replace('href="%s' % page, 'href="%s%s' % (LIVE, page))
+    # Longest first, so /for-insurance is not caught by a shorter prefix.
+    for page in sorted(MIRRORED, key=len, reverse=True):
+        text = text.replace('href="%s"' % page, 'href="%s%s/"' % (PREFIX, page))
     return text
 
 
 # ---------------------------------------------------------------- the blocks
 
-def nav():
-    """Section 4. Beauty & Wellness, Blog and FAQ move to the footer."""
-    items = [
-        ('/', 'Home'),
-        ('/services', 'Medical Services'),
-        ('/insurance', 'Insurance & Cashless Care'),
-        ('/our-clinics', 'Find a Clinic'),
-        # No partner page exists yet (section 24, Phase 2). Contact is where a
-        # partnership enquiry goes today, so the item works rather than 404s.
-        ('/contact-us', 'For Hotels & Partners'),
-        ('/about-us', 'About Us'),
-        ('/contact-us', 'Contact'),
-    ]
-    lis = '\n'.join('<li><a href="%s">%s</a></li>' % (h, t.replace('&', '&amp;')) for h, t in items)
+NAV_ITEMS = [
+    ('/', 'Home'),
+    ('/services', 'Medical Services'),
+    ('/insurance', 'Insurance & Cashless Care'),
+    ('/our-clinics', 'Find a Clinic'),
+    # Section 24's page exists since 2026-09-22, so this points at it instead
+    # of falling back to contact.
+    ('/for-hotels', 'For Hotels & Partners'),
+    ('/about-us', 'About Us'),
+    ('/contact-us', 'Contact'),
+]
+
+
+def nav(current='/'):
+    """Section 4. Beauty & Wellness, Blog and FAQ move to the footer.
+
+    `current` marks the open page with their own `li.current` class, which
+    their stylesheet already colours. Without it every inner page looked as
+    though you were still on the homepage.
+
+    Home points at the preview root rather than "/", which would send a
+    visitor out of the preview and up to the HCIG Work index.
+    """
+    lis = []
+    for h, t in NAV_ITEMS:
+        cls = ' class="current"' if h.rstrip('/') == (current or '/').rstrip('/') else ''
+        href = (PREFIX + '/') if h == '/' else h
+        lis.append('<li%s><a href="%s">%s</a></li>' % (cls, href, t.replace('&', '&amp;')))
+    lis = '\n'.join(lis)
     return ('<ul class="main-menu__list">\n%s\n</ul>\n'
             '<a class="rp-head-wa" href="%s" target="_blank" rel="noopener" data-ev="whatsapp_medical_click">'
             '%s<span class="rp-long">WhatsApp Us 24/7</span><span class="rp-short">Need a Doctor?</span></a>'
@@ -684,6 +714,25 @@ REPOSITIONING_CSS = r"""/* Repositioning, applied on top of their own stylesheet
 @media (max-width:1439px){.rp-head-wa .rp-long{display:none}.rp-head-wa .rp-short{display:inline}}
 
 /* ---- shared section rhythm ------------------------------------------- */
+/* Inner pages, added 2026-09-22. A page title band, because their mirror has
+   only a homepage and there is no inner-page hero of theirs to copy. Built
+   from the same tokens as everything else here, so it reads as their site. */
+.rp-pagehead{background:#f7f5f4;padding:64px 0 48px;text-align:center;border-bottom:1px solid #eee}
+.rp-pagehead h1{font-size:40px;line-height:1.15;margin:0 0 14px}
+.rp-pagehead .rp-lead{margin:0 auto;max-width:720px}
+@media (max-width:767px){.rp-pagehead{padding:40px 0 32px}.rp-pagehead h1{font-size:28px}}
+/* The brief's sections carry two to eight items, so the inner-page grid fits
+   itself rather than locking to a column count. */
+.rp-grid--auto{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+/* Sub-headings the brief has inside a section, and the plain lists several of
+   its sections really are. */
+.rp-sub{font-size:22px;margin:34px 0 10px}
+.rp-list{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:10px;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.rp-list li{position:relative;padding:10px 14px 10px 30px;background:#faf8f7;
+  border:1px solid #efe9e7;border-radius:8px}
+.rp-list li:before{content:"";position:absolute;left:12px;top:18px;width:7px;height:7px;
+  border-radius:50%;background:#C00000}
 .rp-sec{padding:100px 0}
 .rp-sec--tint{background:#f7f5f4}
 @media (max-width:767px){.rp-sec{padding:64px 0}}
@@ -1162,6 +1211,17 @@ def main():
     h = one(h, '</body>', floating() + '</body>', '5', 'Floating WhatsApp button and mobile sticky bar')
 
     io.open(index, 'w', encoding='utf-8').write(h)
+
+    # ------------------------------------------------------- inner pages
+    # Phase 2 of the brief, section 40. Their header and footer wrapped around
+    # sections built from content/247clinic/en/*.json, which is WEBSITE.docx
+    # word for word. Their live URLs are kept: /services, /insurance,
+    # /our-clinics, /about-us and /contact-us all return 200 today, and the
+    # ranking they already have is worth more than a tidier slug.
+    print('\n  inner pages:')
+    import build_247_inner
+    INNER = build_247_inner.build(OUT, h, PREFIX, wa(WA_HOME), svg('wa'), final_cta(),
+                                  nav_for=nav)
 
     # ------------------------------------------------ our files, then paths
     io.open(os.path.join(OUT, 'assets', 'repositioning.css'), 'w', encoding='utf-8').write(REPOSITIONING_CSS)

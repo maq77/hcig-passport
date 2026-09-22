@@ -119,6 +119,25 @@
 @media (max-width:1439px){.rp-head-wa .rp-long{display:none}.rp-head-wa .rp-short{display:inline}}
 
 /* ---- shared section rhythm ------------------------------------------- */
+/* Inner pages, added 2026-09-22. A page title band, because their mirror has
+   only a homepage and there is no inner-page hero of theirs to copy. Built
+   from the same tokens as everything else here, so it reads as their site. */
+.rp-pagehead{background:#f7f5f4;padding:64px 0 48px;text-align:center;border-bottom:1px solid #eee}
+.rp-pagehead h1{font-size:40px;line-height:1.15;margin:0 0 14px}
+.rp-pagehead .rp-lead{margin:0 auto;max-width:720px}
+@media (max-width:767px){.rp-pagehead{padding:40px 0 32px}.rp-pagehead h1{font-size:28px}}
+/* The brief's sections carry two to eight items, so the inner-page grid fits
+   itself rather than locking to a column count. */
+.rp-grid--auto{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+/* Sub-headings the brief has inside a section, and the plain lists several of
+   its sections really are. */
+.rp-sub{font-size:22px;margin:34px 0 10px}
+.rp-list{margin:18px 0 0;padding:0;list-style:none;display:grid;gap:10px;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.rp-list li{position:relative;padding:10px 14px 10px 30px;background:#faf8f7;
+  border:1px solid #efe9e7;border-radius:8px}
+.rp-list li:before{content:"";position:absolute;left:12px;top:18px;width:7px;height:7px;
+  border-radius:50%;background:#C00000}
 .rp-sec{padding:100px 0}
 .rp-sec--tint{background:#f7f5f4}
 @media (max-width:767px){.rp-sec{padding:64px 0}}
