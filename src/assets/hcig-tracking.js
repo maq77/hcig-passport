@@ -60,6 +60,29 @@
   // FR-001: Stay silent when ID is empty.
   if (!id) return;
 
+  // FR-009: Automated and preview traffic must not inflate the numbers.
+  // We identify it here and abort, so gtag is never loaded and no events are sent.
+  function isAutomated() {
+    try {
+      if (navigator.webdriver) return true;
+      
+      var host = window.location.hostname;
+      if (host === 'localhost' || host === '127.0.0.1' || host.indexOf('.vercel.app') !== -1) return true;
+      
+      var ua = navigator.userAgent || '';
+      if (ua.indexOf('Lighthouse') !== -1 || 
+          ua.indexOf('Speed Insights') !== -1 ||
+          ua.indexOf('Chrome-Lighthouse') !== -1 ||
+          ua.indexOf('Googlebot') !== -1 ||
+          ua.indexOf('HeadlessChrome') !== -1) {
+        return true;
+      }
+    } catch (e) {}
+    return false;
+  }
+
+  if (isAutomated()) return;
+
   // Load GA4 snippet
   var s = document.createElement('script');
   s.async = true;
