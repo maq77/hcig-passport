@@ -1,0 +1,90 @@
+{
+  "version": "1.0.0",
+  "description": "Answer-first 40-60 word summaries and exact-match schema definitions for HCIG service pages.",
+  "blocks": [
+    {
+      "id": "ans-mp-quseir-en",
+      "site": "medparkhospitals.com",
+      "url": "/medparkhospital.php",
+      "language": "en",
+      "question": "Where can tourists receive emergency hospital care in El Quseir?",
+      "answer": "MedPark Hospital in El Quseir provides 24 hour emergency medical care, intensive care, surgical theaters, and inpatient admissions. Located in Al Owina, the hospital treats international travelers and local residents with direct travel insurance coordination. On-site emergency physicians, diagnostic imaging, and laboratory testing operate continuously every day of the week.",
+      "wordCount": 52,
+      "entity": {
+        "name": "MedPark Hospital",
+        "location": "Al Owina, El Quseir, Egypt",
+        "type": "Hospital"
+      }
+    },
+    {
+      "id": "ans-mp-healthhub-en",
+      "site": "medparkhospitals.com",
+      "url": "/healthhub.php",
+      "language": "en",
+      "question": "What medical services are available at MedPark Health Hub in Hurghada?",
+      "answer": "MedPark Health Hub on Sahl Hasheesh Road in Hurghada delivers outpatient specialist consultations, medical diagnostics, and daytime urgent care. The facility features multi-specialty clinics, clinical laboratory testing, and pharmacy access for resort guests. International patients receive direct billing support where insurance approval and policy conditions allow without upfront delays.",
+      "wordCount": 51,
+      "entity": {
+        "name": "MedPark Health Hub",
+        "location": "Sahl Hasheesh Road, Hurghada, Egypt",
+        "type": "MedicalClinic"
+      }
+    },
+    {
+      "id": "ans-247-services-en",
+      "site": "247clinic.net",
+      "url": "/services",
+      "language": "en",
+      "question": "How do hotel doctor consultations work with 24/7 Clinic in Egypt?",
+      "answer": "24/7 Clinic operates accredited on-site medical rooms inside Egyptian hotels and resorts across the Red Sea. Doctors provide urgent bedroom consultations, immediate treatments, laboratory diagnostics, and medication for unwell guests. Care is delivered 24 hours daily with cashless travel insurance billing coordination where policy conditions and insurer approvals allow.",
+      "wordCount": 53,
+      "entity": {
+        "name": "24/7 Clinic",
+        "location": "Resort Hotels Nationwide, Egypt",
+        "type": "EmergencyService"
+      }
+    },
+    {
+      "id": "ans-247-services-de",
+      "site": "247clinic.net",
+      "url": "/services",
+      "language": "de",
+      "question": "Wie funktioniert der Hotelarztdienst von 24/7 Clinic in Aegypten?",
+      "answer": "24/7 Clinic betreibt akkreditierte medizinische Behandlungsraeume direkt in Hotels und Resorts am Roten Meer. Erfahrene Hotelarzte fuehren dringende Zimmerbesuche, Erstversorgungen und Labordiagnostik fuer Gaeste durch. Der aerztliche Notdienst ist rund um die Uhr verfuegbar. Die Abrechnung erfolgt bargeldlos ueber internationale Reiseversicherungen, sofern Versicherungszusage und Police dies vorsehen.",
+      "wordCount": 48,
+      "entity": {
+        "name": "24/7 Clinic",
+        "location": "Resort Hotels landesweit, Aegypten",
+        "type": "EmergencyService"
+      }
+    },
+    {
+      "id": "ans-247-services-pl",
+      "site": "247clinic.net",
+      "url": "/services",
+      "language": "pl",
+      "question": "Jak dziala pomoc lekarza hotelowego 24/7 Clinic w Egipcie?",
+      "answer": "Siec 24/7 Clinic prowadzi akredytowane gabinety lekarskie na terenie hoteli i kurortow nad Morzem Czerwonym w Egipcie. Lekarze zapewniaja calodobowe wizyty w pokojach, natychmiastowa pomoc medyczna, badania laboratoryjne oraz leki. Pomoc swiadczona jest 24 godziny na dobe z bezgotowkowa koordynacja ubezpieczen turystycznych, jesli warunki polisy i zgoda ubezpieczyciela na to pozwalaja.",
+      "wordCount": 50,
+      "entity": {
+        "name": "24/7 Clinic",
+        "location": "Hotele i kurorty w calym Egipcie",
+        "type": "EmergencyService"
+      }
+    },
+    {
+      "id": "ans-247-services-cs",
+      "site": "247clinic.net",
+      "url": "/services",
+      "language": "cs",
+      "question": "Jak funguje hotelovy lekar 24/7 Clinic v resortech v Egypte?",
+      "answer": "Sit 24/7 Clinic provozuje akreditovane lekarske ordinace v hotelovych resortech v Egypte u Rudeho more. Lekari zajistuji nepretrzite navstevy na pokojich, osetreni, laboratorni testy a leky pro hotelove hosty. Pece funguje 24 hodin denne s bezhotovostnim vyrizenim cestovniho pojisteni, pokud to podminky pojistne smlouvy a schvaleni asistencni sluzby umoznuji.",
+      "wordCount": 49,
+      "entity": {
+        "name": "24/7 Clinic",
+        "location": "Hotelove resorty po celem Egypte",
+        "type": "EmergencyService"
+      }
+    }
+  ]
+}

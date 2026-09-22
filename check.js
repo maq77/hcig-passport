@@ -169,6 +169,21 @@ try {
   problems.push(`keyword map load error: ${err.message}`);
 }
 
+/* ------------------------------------------------ Spec 003: AI visibility */
+
+try {
+  const { loadAnswerBlocks, validateAnswerBlock } = require('./scripts/ai-visibility/markup');
+  const blocksData = loadAnswerBlocks();
+  for (const b of blocksData.blocks || []) {
+    const val = validateAnswerBlock(b);
+    if (!val.valid) {
+      for (const err of val.errors) problems.push(`ai answer block: ${err}`);
+    }
+  }
+} catch (err) {
+  problems.push(`ai visibility load error: ${err.message}`);
+}
+
 /* --------------------------------------------------------------- report */
 
 console.log(`\n  Checked ${htmlFiles.length} pages, ${files.length} files in dist/\n`);

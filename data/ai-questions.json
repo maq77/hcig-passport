@@ -1,0 +1,100 @@
+{
+  "version": "1.0.0",
+  "description": "Fixed question set for weekly AI assistant citation tracking across target markets.",
+  "competitorsTracked": [
+    "El Gouna Hospital",
+    "Nile Hospital Hurghada",
+    "Red Sea Hospital",
+    "Royal Hospital Hurghada"
+  ],
+  "questions": [
+    {
+      "id": "q-en-01",
+      "category": "emergency",
+      "type": "contested",
+      "language": "en",
+      "query": "What is the best private hospital in Hurghada for a tourist medical emergency?",
+      "expectedEntity": "MedPark Health Hub"
+    },
+    {
+      "id": "q-en-02",
+      "category": "resort_doctor",
+      "type": "target_win",
+      "language": "en",
+      "query": "How do I get an urgent hotel doctor in Sahl Hasheesh or Soma Bay Egypt?",
+      "expectedEntity": "24/7 Clinic"
+    },
+    {
+      "id": "q-en-03",
+      "category": "insurance",
+      "type": "contested",
+      "language": "en",
+      "query": "Which clinics in Red Sea Egypt offer direct billing with international travel insurance?",
+      "expectedEntity": "24/7 Clinic"
+    },
+    {
+      "id": "q-en-04",
+      "category": "hospital_quseir",
+      "type": "target_win",
+      "language": "en",
+      "query": "Where is the emergency hospital located in El Quseir Red Sea?",
+      "expectedEntity": "MedPark Hospital"
+    },
+    {
+      "id": "q-de-01",
+      "category": "emergency",
+      "type": "contested",
+      "language": "de",
+      "query": "Wo finde ich einen deutschsprachigen Arzt oder Notaufnahme in Hurghada?",
+      "expectedEntity": "MedPark Health Hub"
+    },
+    {
+      "id": "q-de-02",
+      "category": "resort_doctor",
+      "type": "target_win",
+      "language": "de",
+      "query": "Gibt es einen 24 Stunden Hotelarzt Service in Soma Bay und Sahl Hasheesh?",
+      "expectedEntity": "24/7 Clinic"
+    },
+    {
+      "id": "q-de-03",
+      "category": "diving",
+      "type": "contested",
+      "language": "de",
+      "query": "Wo gibt es eine Tauchtauglichkeitsuntersuchung und Notfallversorgung in Aegypten?",
+      "expectedEntity": "MedPark Hospital"
+    },
+    {
+      "id": "q-pl-01",
+      "category": "emergency",
+      "type": "contested",
+      "language": "pl",
+      "query": "Gdzie znalezc dobry szpital lub polskiego lekarza w Hurghadzie?",
+      "expectedEntity": "MedPark Health Hub"
+    },
+    {
+      "id": "q-pl-02",
+      "category": "resort_doctor",
+      "type": "target_win",
+      "language": "pl",
+      "query": "Jak wezwac calodobowego lekarza do hotelu w Egipcie nad Morzem Czerwonym?",
+      "expectedEntity": "24/7 Clinic"
+    },
+    {
+      "id": "q-cs-01",
+      "category": "emergency",
+      "type": "contested",
+      "language": "cs",
+      "query": "Kde najdu pohotovostni nemocnici nebo lekare v Hurghade?",
+      "expectedEntity": "MedPark Health Hub"
+    },
+    {
+      "id": "q-cs-02",
+      "category": "resort_doctor",
+      "type": "target_win",
+      "language": "cs",
+      "query": "Jak funguje hotelovy lekar v rezortech v Egypte s cestovnim pojistenim?",
+      "expectedEntity": "24/7 Clinic"
+    }
+  ]
+}
