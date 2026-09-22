@@ -54,9 +54,9 @@ numbers down. These are the causes worth your attention.
 | 1 | The site only wins its own name. Non-brand searches almost never convert to a click. | 209 non-brand queries, 918 impressions, 9 clicks. CTR 0.98%. Brand CTR is 4.25%. | Growth is capped. Nobody new finds us. | P0 |
 | 2 | The German homepage carries an English meta description. | Checked live 22 Sep 2026. `/de/` description begins "MedPark Hospitals provides high-quality medical services". | German searchers read English before deciding to click. Germany is our second market. | P0 |
 | 3 | Mobile LCP is 3.3s and failing. | Core Web Vitals export 17 Sep 2026. 14 URLs affected, data to 15 Sep. | Mobile is two thirds of impressions, 3,563 of 5,398. Slow pages lose visitors and rank. | P0 |
-| 4 | 9 pages have no self-referencing hreflang. | Watchdog crawl 22 Sep 2026, confirmed on a second request. | Google is less certain which language page to show which country. | P1 |
-| 5 | sitemap.xml contains no German or Polish URLs at all. | Fetched 22 Sep 2026. 15 URLs, every one English. The /de/ and /pl/ trees are absent. | We are asking Google to find our two target markets by luck. | P0 |
-| 6 | The new /hospitals-in-hurghada/ page is not in the sitemap either. | Fetched 22 Sep 2026. | The newest page, built for exactly this problem, is the hardest one for Google to find. | P1 |
+| 4 | ~~9 pages have no self-referencing hreflang.~~ **WITHDRAWN 22 Sep 2026. This was wrong.** | Checked every page by hand: all 14 carry en, de, pl and x-default, with a correct self reference. The finding was a bug in our own watchdog, which strips trailing slashes when it normalises a URL and then compared `/about` against the page's `/about/`. Tool fixed, regression test added. | None. There was never a defect here. | n/a |
+| 5 | The German and Polish pages are never listed in sitemap.xml as pages of their own. | Fetched 22 Sep 2026. 15 `<loc>` entries, every one English. The 30 German and Polish URLs appear only as `<xhtml:link rel="alternate">` annotations, and there is no x-default anywhere. | Google can still find them, but a page that is only ever an annotation is weaker than one that is listed. These are our two target markets. | P0 |
+| 6 | The new /hospitals-in-hurghada/ page is not in the sitemap at all. | Fetched 22 Sep 2026. | The newest page, built for exactly this problem, is the hardest one for Google to find. | P1 |
 
 Two pages are where the loss is concentrated.
 
@@ -76,7 +76,6 @@ Yes, all of it. In this order.
 | Fix | Effort | Why first |
 |---|---|---|
 | Write a German meta description for `/de/` and every German page. | 2 hours | Cheapest fix on the list. Germany is 634 impressions. |
-| Add self-referencing hreflang to the 9 pages missing it. | 2 hours | Invisible to visitors, removes an indexing doubt. |
 | Get the mobile LCP under 2.5s. | Needs your Lighthouse data | Blocks everything else. See the note at the end. |
 | Rewrite the title and description on `/healthhub.php` and `/emergency-urgent-care/` to answer the search, not describe the building. | 3 hours | These two pages are the largest single loss. |
 | Put the German and Polish URLs into sitemap.xml, plus the new Hurghada page. | 1 hour | Largest fix for the smallest effort on this list. |
@@ -87,7 +86,8 @@ Yes, all of it. In this order.
 **Mistakes we made.** Three, and they are ours.
 
 1. The German description was never translated.
-2. The sitemap has no German or Polish URLs.
+2. The sitemap listed only the English pages. German and Polish appeared as
+   annotations, never as pages of their own, and x-default was missing.
 3. A claim we had already removed came back. `/hospitals-in-hurghada/` is live
    and says "Allianz, AXA, Cigna, Bupa direct billing". The review on 19 Sep
    removed exactly that claim. It returned on the new page. I have stopped

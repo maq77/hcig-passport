@@ -14,6 +14,7 @@
  * 6. A clean crawl produces no ticket and no notification at all.
  * 7. A site we could not reach is reported as "could not check", never as down.
  * 8. One dead page on an otherwise healthy site is still reported as a fault.
+ * 9. A stripped trailing slash is not mistaken for a missing hreflang self tag.
  *
  * If any test fails, this script exits with code 1 and says what failed.
  */
@@ -344,6 +345,42 @@ async function testSingleDeadPage() {
   assert(v3.tickets.length === 0, 'A page that answers on the retry must not be filed');
 }
 
+
+// ---------- 9. hreflang self reference survives a stripped trailing slash ----------
+
+console.log('  9. hreflang self reference and trailing slashes\n');
+
+async function testHreflangSelf() {
+  const { checkHreflang } = require('./checks');
+  const body =
+    '<link rel="alternate" hreflang="en" href="https://x.test/about/">' +
+    '<link rel="alternate" hreflang="de" href="https://x.test/de/ueber/">' +
+    '<link rel="alternate" hreflang="x-default" href="https://x.test/about/">';
+
+  const noSelf = r => checkHreflang(r).some(f => f.kind === 'hreflang-no-self');
+
+  // The crawler strips the trailing slash when it normalises a URL, so the
+  // page it fetched is "/about" while the page's own hreflang says "/about/".
+  // Treating that as a missing self reference produced a false fault on 9
+  // MedPark pages on 2026-09-22, and it was reported to the user as real.
+  assert(
+    !noSelf({ body, ok: true, url: 'https://x.test/about', finalUrl: 'https://x.test/about/' }),
+    'A stripped trailing slash must not look like a missing self reference',
+  );
+  assert(
+    !noSelf({ body, ok: true, url: 'https://x.test/about/', finalUrl: 'https://x.test/about/' }),
+    'An exact match must still be found',
+  );
+  assert(
+    noSelf({ body, ok: true, url: 'https://x.test/other', finalUrl: 'https://x.test/other' }),
+    'A page genuinely missing its self reference must still be reported',
+  );
+  assert(
+    !noSelf({ body, ok: true, url: 'https://x.test/about', finalUrl: null }),
+    'A missing finalUrl must not break the check',
+  );
+}
+
 // ---------- run ----------
 
 async function main() {
@@ -355,6 +392,7 @@ async function main() {
   await testClean();
   await testUnreachable();
   await testSingleDeadPage();
+  await testHreflangSelf();
 
   console.log(`\n  ${'='.repeat(50)}`);
   console.log(`  Judgement proof: ${passed} passed, ${failed} failed`);

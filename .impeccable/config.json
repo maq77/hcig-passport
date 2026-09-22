@@ -1,0 +1,23 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-09-14T12:55:01.778Z",
+        "reason": "user confirmed 2026-09-14: chose 'Light premium, keep gold' which keeps the live medcierge.com fonts, Playfair Display + Inter"
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "scripts/watchdog/checks.js"
+        ],
+        "createdAt": "2026-09-22T11:00:15.506Z",
+        "reason": "Not UI. checks.js is the watchdog crawler's HTML analyser: the <img> regex on L290 detects images missing alt text on OTHER sites. It renders nothing and ships no markup."
+      }
+    ]
+  }
+}

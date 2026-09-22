@@ -193,13 +193,28 @@ function checkHreflang(result) {
     return findings;
   }
 
-  // Check for self-referencing hreflang
+  // Check for self-referencing hreflang.
+  //
+  // Paths are compared with the trailing slash removed, and against the URL
+  // after redirects as well as the one we asked for. Without that this reports
+  // a false fault on every page: the crawler strips the trailing slash when it
+  // normalises a URL for deduplication, so it would compare "/about" against
+  // the page's own "/about/" and conclude there is no self reference. That
+  // false positive was reported as real on 9 MedPark pages on 2026-09-22.
+  const samePath = (a, b) => {
+    const strip = s => (s.length > 1 ? s.replace(/\/+$/, '') : s);
+    return strip(a) === strip(b);
+  };
   const self = pairs.find(p => {
-    try {
-      const u = new URL(p.href, result.url);
-      const pu = new URL(result.url);
-      return u.pathname === pu.pathname && u.origin === pu.origin;
-    } catch { return false; }
+    for (const against of [result.url, result.finalUrl]) {
+      if (!against) continue;
+      try {
+        const u = new URL(p.href, against);
+        const pu = new URL(against);
+        if (u.origin === pu.origin && samePath(u.pathname, pu.pathname)) return true;
+      } catch { /* a malformed href is caught by the bad-canonical style checks */ }
+    }
+    return false;
   });
   if (!self) {
     findings.push({
