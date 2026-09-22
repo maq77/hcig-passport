@@ -1,0 +1,291 @@
+{
+  "$schema": "./keyword-page-map.schema.json",
+  "version": "1.0.0",
+  "description": "HCIG keyword to page mapping and internal linking directory across group properties.",
+  "sites": {
+    "medparkhospitals.com": {
+      "name": "MedPark Health Group",
+      "languages": {
+        "en": [
+          {
+            "url": "/",
+            "keywords": ["medpark hospitals", "hospital red sea", "private hospital egypt"],
+            "intent": "Branded and general hospital care in the Red Sea region",
+            "anchorText": "MedPark Hospitals emergency care and healthcare hub",
+            "related": ["/healthhub.php", "/emergency-urgent-care/", "/medparkhospital.php"]
+          },
+          {
+            "url": "/healthhub.php",
+            "keywords": ["medpark health hub", "health hub hurghada", "sahl hasheesh road clinic"],
+            "intent": "Outpatient specialist clinics and advanced diagnostics on Sahl Hasheesh Road in Hurghada",
+            "anchorText": "MedPark Health Hub on Sahl Hasheesh Road in Hurghada",
+            "related": ["/emergency-urgent-care/", "/hospitals-in-hurghada/", "/doctors/"]
+          },
+          {
+            "url": "/medparkhospital.php",
+            "keywords": ["medpark hospital", "hospital el quseir", "el quseir emergency hospital"],
+            "intent": "Full-service inpatient hospital and emergency facility in El Quseir",
+            "anchorText": "MedPark Hospital emergency and inpatient facility in El Quseir",
+            "related": ["/emergency-urgent-care/", "/healthhub.php", "/contact-us/"]
+          },
+          {
+            "url": "/emergency-urgent-care/",
+            "keywords": ["emergency care hurghada", "urgent care red sea", "24 7 hospital emergency"],
+            "intent": "Emergency medical response and trauma services across Hurghada and El Quseir",
+            "anchorText": "24/7 emergency and urgent medical care departments",
+            "related": ["/healthhub.php", "/medparkhospital.php", "/hospitals-in-hurghada/"]
+          },
+          {
+            "url": "/hospitals-in-hurghada/",
+            "keywords": ["hospitals in hurghada", "hospital hurghada", "tourist hospital hurghada"],
+            "intent": "Tourist hospital care with cashless travel insurance coordination in Hurghada",
+            "anchorText": "Tourist hospital services and direct insurance coordination in Hurghada",
+            "related": ["/healthhub.php", "/emergency-urgent-care/", "/contact-us/"]
+          },
+          {
+            "url": "/medical-tourism/",
+            "keywords": ["medical tourism egypt", "red sea healthcare travel", "international patient care"],
+            "intent": "Specialist elective procedures and recovery travel along the Red Sea",
+            "anchorText": "International patient care and medical tourism coordination",
+            "related": ["/healthhub.php", "/doctors/", "/contact-us/"]
+          },
+          {
+            "url": "/doctors/",
+            "keywords": ["doctors hurghada", "specialist consultants red sea", "physician directory"],
+            "intent": "Consultant doctors and medical specialists directory",
+            "anchorText": "Consultant doctors and clinical specialists directory",
+            "related": ["/healthhub.php", "/medical-tourism/", "/contact-us/"]
+          },
+          {
+            "url": "/contact-us/",
+            "keywords": ["contact medpark", "medpark phone number", "hospital location map"],
+            "intent": "Direct communication, hospital phone lines, and GPS directions",
+            "anchorText": "Contact details and hospital location maps",
+            "related": ["/healthhub.php", "/medparkhospital.php", "/emergency-urgent-care/"]
+          }
+        ],
+        "de": [
+          {
+            "url": "/de/",
+            "keywords": ["krankenhaus hurghada", "deutsche klinik rotes meer", "medpark deutsches krankenhaus"],
+            "intent": "General hospital overview for German speakers",
+            "anchorText": "MedPark Krankenhaeuser und medizinische Versorgung am Roten Meer",
+            "related": ["/de/healthhub.php", "/de/notaufnahme-hurghada.php", "/de/medparkhospital.php"]
+          },
+          {
+            "url": "/de/healthhub.php",
+            "keywords": ["gesundheitszentrum hurghada", "facharztzentrum hurghada", "diagnostik sahl hasheesh road"],
+            "intent": "Outpatient clinic and diagnostics on Sahl Hasheesh Road",
+            "anchorText": "MedPark Health Hub auf der Sahl Hasheesh Road in Hurghada",
+            "related": ["/de/notaufnahme-hurghada.php", "/de/", "/de/aerzte.php"]
+          },
+          {
+            "url": "/de/medparkhospital.php",
+            "keywords": ["krankenhaus el quseir", "notfall el quseir", "klinik el quseir"],
+            "intent": "Inpatient and emergency hospital in El Quseir",
+            "anchorText": "MedPark Hospital Notaufnahme und Stationaere Klinik in El Quseir",
+            "related": ["/de/notaufnahme-hurghada.php", "/de/healthhub.php", "/de/kontakt.php"]
+          },
+          {
+            "url": "/de/notaufnahme-hurghada.php",
+            "keywords": ["notaufnahme hurghada", "notarzt rotes meer", "aerztlicher notdienst aegypten"],
+            "intent": "24/7 emergency care for German tourists",
+            "anchorText": "24/7 Notaufnahme und aerztliche Notfallversorgung am Roten Meer",
+            "related": ["/de/healthhub.php", "/de/medparkhospital.php", "/de/kontakt.php"]
+          },
+          {
+            "url": "/de/aerzte.php",
+            "keywords": ["deutscher arzt hurghada", "aerzte hurghada", "facharzt aegypten"],
+            "intent": "German speaking and consultant doctors",
+            "anchorText": "Fachaerzte und medizinisches Team am Roten Meer",
+            "related": ["/de/healthhub.php", "/de/", "/de/kontakt.php"]
+          },
+          {
+            "url": "/de/kontakt.php",
+            "keywords": ["medpark kontakt", "notfall telefon hurghada", "anfahrt krankenhaus"],
+            "intent": "Emergency contact numbers and directions",
+            "anchorText": "Kontaktinformationen und Standortkarte",
+            "related": ["/de/healthhub.php", "/de/medparkhospital.php", "/de/notaufnahme-hurghada.php"]
+          }
+        ],
+        "pl": [
+          {
+            "url": "/pl/",
+            "keywords": ["szpital hurghada", "polski lekarz hurghada", "opieka medyczna egipt"],
+            "intent": "General hospital overview for Polish tourists",
+            "anchorText": "Szpitale MedPark i calodobowa opieka medyczna nad Morzem Czerwonym",
+            "related": ["/pl/healthhub.php", "/pl/pogotowie-hurghada.php", "/pl/medparkhospital.php"]
+          },
+          {
+            "url": "/pl/healthhub.php",
+            "keywords": ["centrum medyczne hurghada", "diagnostyka sahl hasheesh road", "poliklinika hurghada"],
+            "intent": "Outpatient clinic and diagnostic centre",
+            "anchorText": "MedPark Health Hub przy Sahl Hasheesh Road w Hurghadzie",
+            "related": ["/pl/pogotowie-hurghada.php", "/pl/", "/pl/lekarze.php"]
+          },
+          {
+            "url": "/pl/medparkhospital.php",
+            "keywords": ["szpital el quseir", "pomoc medyczna el quseir", "klinika el quseir"],
+            "intent": "Hospital care in El Quseir",
+            "anchorText": "MedPark Hospital oddzial ratunkowy i szpitalny w El Quseir",
+            "related": ["/pl/pogotowie-hurghada.php", "/pl/healthhub.php", "/pl/kontakt.php"]
+          },
+          {
+            "url": "/pl/pogotowie-hurghada.php",
+            "keywords": ["pogotowie hurghada", "ostry dyzur morze czerwone", "lekarz calodobowo egipt"],
+            "intent": "24/7 emergency care for Polish tourists",
+            "anchorText": "Calodobowy oddzial ratunkowy i ostry dyzur w Egipcie",
+            "related": ["/pl/healthhub.php", "/pl/medparkhospital.php", "/pl/kontakt.php"]
+          },
+          {
+            "url": "/pl/lekarze.php",
+            "keywords": ["lekarze specjalisci hurghada", "konsultacje lekarskie egipt"],
+            "intent": "Medical specialists and consultant team",
+            "anchorText": "Zespol lekarzy specjalistow MedPark",
+            "related": ["/pl/healthhub.php", "/pl/", "/pl/kontakt.php"]
+          },
+          {
+            "url": "/pl/kontakt.php",
+            "keywords": ["medpark kontakt pl", "telefon alarmowy hurghada", "adres szpitala"],
+            "intent": "Emergency contact numbers and maps",
+            "anchorText": "Dane kontaktowe i lokalizacja szpitali",
+            "related": ["/pl/healthhub.php", "/pl/medparkhospital.php", "/pl/pogotowie-hurghada.php"]
+          }
+        ]
+      }
+    },
+    "247clinic.net": {
+      "name": "24/7 Clinic",
+      "languages": {
+        "en": [
+          {
+            "url": "/",
+            "keywords": ["24 7 clinic", "hotel doctor egypt", "resort urgent care egypt"],
+            "intent": "Urgent care clinic network inside Egyptian hotels and resorts",
+            "anchorText": "24/7 Clinic resort urgent care network",
+            "related": ["/services", "/insurance", "/our-clinics"]
+          },
+          {
+            "url": "/services",
+            "keywords": ["hotel doctor service", "resort emergency medical consultation", "hotel room doctor visit"],
+            "intent": "Doctor consultations and urgent treatments inside resort hotels",
+            "anchorText": "Hotel medical services and urgent room visits",
+            "related": ["/insurance", "/our-clinics", "/hotel-clinics"]
+          },
+          {
+            "url": "/insurance",
+            "keywords": ["cashless treatment travel insurance", "travel insurance doctor egypt", "direct billing clinic egypt"],
+            "intent": "Cashless medical insurance coordination with international insurers",
+            "anchorText": "Cashless travel insurance coordination and direct billing",
+            "related": ["/services", "/our-clinics", "/for-insurance"]
+          },
+          {
+            "url": "/our-clinics",
+            "keywords": ["clinic hurghada", "clinic sahl hasheesh", "clinic soma bay", "clinic marsa alam"],
+            "intent": "Directory of 28 resort clinic locations across Red Sea destinations",
+            "anchorText": "Resort clinic locations across Hurghada and the Red Sea",
+            "related": ["/services", "/hotel-clinics", "/contact-us"]
+          },
+          {
+            "url": "/hotel-clinics",
+            "keywords": ["hotel clinic concept", "in hotel medical center", "resort doctor standard"],
+            "intent": "Explanation of the on-site hotel clinic model and emergency response",
+            "anchorText": "The in-hotel clinic concept and emergency care standard",
+            "related": ["/services", "/for-hotels", "/accreditation"]
+          },
+          {
+            "url": "/accreditation",
+            "keywords": ["urgent care association accreditation", "caucq quality clinic egypt", "gha partner clinic egypt"],
+            "intent": "Quality standards, UCA accreditation, and official GHA / DMWV partnerships",
+            "anchorText": "International accreditation and clinical quality certifications",
+            "related": ["/about-us", "/for-insurance", "/hotel-clinics"]
+          },
+          {
+            "url": "/for-hotels",
+            "keywords": ["hotel medical partnership", "resort medical service provider", "guest health safety egypt"],
+            "intent": "B2B clinic management and health operations for hotel general managers",
+            "anchorText": "Medical partnership solutions for resort hotels and operators",
+            "related": ["/hotel-clinics", "/services", "/contact-us"]
+          },
+          {
+            "url": "/for-insurance",
+            "keywords": ["assistance company egypt partner", "tpa network clinic egypt", "insurer medical coordination"],
+            "intent": "B2B coordination protocol for travel assistance companies and insurers",
+            "anchorText": "Coordination protocols for travel insurers and assistance companies",
+            "related": ["/insurance", "/accreditation", "/contact-us"]
+          },
+          {
+            "url": "/about-us",
+            "keywords": ["about 24 7 clinic", "20 years resort healthcare egypt", "28 resort clinics network"],
+            "intent": "Background, history, 20 years experience, 28 clinics, and leadership",
+            "anchorText": "About 24/7 Clinic history and resort healthcare experience",
+            "related": ["/our-clinics", "/accreditation", "/contact-us"]
+          },
+          {
+            "url": "/contact-us",
+            "keywords": ["emergency doctor hotline egypt", "whatsapp doctor egypt", "contact 24 7 clinic"],
+            "intent": "24/7 emergency dispatch hotline and WhatsApp medical response",
+            "anchorText": "Contact our 24/7 medical dispatch and doctor team",
+            "related": ["/services", "/our-clinics", "/faq"]
+          },
+          {
+            "url": "/faq",
+            "keywords": ["tourist health questions egypt", "what to do sick in egypt hotel", "hotel doctor cost egypt"],
+            "intent": "Answers to common guest questions about billing, insurance, and visits",
+            "anchorText": "Frequently asked questions for hotel guests and tourists",
+            "related": ["/insurance", "/services", "/contact-us"]
+          },
+          {
+            "url": "/beauty-wellness",
+            "keywords": ["hotel wellness treatments egypt", "aesthetic clinic red sea", "resort wellness care"],
+            "intent": "Beauty and wellness clinic procedures offered at resort hubs",
+            "anchorText": "Beauty and wellness treatments at resort clinic locations",
+            "related": ["/services", "/our-clinics", "/about-us"]
+          }
+        ]
+      }
+    },
+    "healthcareig.com": {
+      "name": "Healthcare International Group",
+      "languages": {
+        "en": [
+          {
+            "url": "/",
+            "keywords": ["healthcare international group", "hcig egypt", "red sea health group"],
+            "intent": "Group parent company overview and operating healthcare divisions",
+            "anchorText": "Healthcare International Group holding and healthcare estate",
+            "related": ["/medpark", "/247clinic", "/tmasi"]
+          },
+          {
+            "url": "/medpark",
+            "keywords": ["medpark health group", "hcig hospitals", "red sea hospital facilities"],
+            "intent": "MedPark hospital and outpatient health hub division",
+            "anchorText": "MedPark Health Group hospitals and medical facilities",
+            "related": ["/", "/247clinic", "/tmasi"]
+          },
+          {
+            "url": "/247clinic",
+            "keywords": ["24 7 clinic network", "hcig resort clinics", "in hotel urgent care"],
+            "intent": "Resort and hotel clinic operating division",
+            "anchorText": "24/7 Clinic resort and hotel clinic network",
+            "related": ["/", "/medpark", "/tmasi"]
+          },
+          {
+            "url": "/tmasi",
+            "keywords": ["tmasi global", "medical assistance egypt", "repatriation red sea"],
+            "intent": "Medical assistance, emergency evacuation, and ground repatriation",
+            "anchorText": "TMASI Global medical assistance and patient repatriation",
+            "related": ["/", "/medpark", "/247clinic"]
+          },
+          {
+            "url": "/one-medical-center",
+            "keywords": ["one medical center egypt", "specialist polyclinic red sea"],
+            "intent": "Specialized polyclinic and day-surgery facilities",
+            "anchorText": "One Medical Center specialist polyclinics",
+            "related": ["/", "/medpark", "/247clinic"]
+          }
+        ]
+      }
+    }
+  }
+}

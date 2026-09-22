@@ -155,6 +155,20 @@ for (const file of htmlFiles) {
   }
 }
 
+/* ----------------------------------------------- Spec 004: internal links */
+
+try {
+  const { loadMap, validateMap } = require('./scripts/internal-links');
+  const mapData = loadMap();
+  const mapVal = validateMap(mapData);
+  if (!mapVal.valid) {
+    for (const err of mapVal.errors) problems.push(`keyword map: ${err}`);
+  }
+  for (const warn of mapVal.warnings) notes.push(`keyword map note: ${warn}`);
+} catch (err) {
+  problems.push(`keyword map load error: ${err.message}`);
+}
+
 /* --------------------------------------------------------------- report */
 
 console.log(`\n  Checked ${htmlFiles.length} pages, ${files.length} files in dist/\n`);

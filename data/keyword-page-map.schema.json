@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HCIG Keyword to Page Map Schema",
+  "type": "object",
+  "required": ["version", "sites"],
+  "properties": {
+    "version": { "type": "string" },
+    "description": { "type": "string" },
+    "sites": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "languages"],
+        "properties": {
+          "name": { "type": "string" },
+          "languages": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["url", "keywords", "intent", "anchorText", "related"],
+                "properties": {
+                  "url": { "type": "string" },
+                  "keywords": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 1
+                  },
+                  "intent": { "type": "string" },
+                  "anchorText": { "type": "string" },
+                  "related": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "minItems": 2
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
