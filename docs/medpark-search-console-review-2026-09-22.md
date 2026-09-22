@@ -55,6 +55,8 @@ numbers down. These are the causes worth your attention.
 | 2 | The German homepage carries an English meta description. | Checked live 22 Sep 2026. `/de/` description begins "MedPark Hospitals provides high-quality medical services". | German searchers read English before deciding to click. Germany is our second market. | P0 |
 | 3 | Mobile LCP is 3.3s and failing. | Core Web Vitals export 17 Sep 2026. 14 URLs affected, data to 15 Sep. | Mobile is two thirds of impressions, 3,563 of 5,398. Slow pages lose visitors and rank. | P0 |
 | 4 | 9 pages have no self-referencing hreflang. | Watchdog crawl 22 Sep 2026, confirmed on a second request. | Google is less certain which language page to show which country. | P1 |
+| 5 | sitemap.xml contains no German or Polish URLs at all. | Fetched 22 Sep 2026. 15 URLs, every one English. The /de/ and /pl/ trees are absent. | We are asking Google to find our two target markets by luck. | P0 |
+| 6 | The new /hospitals-in-hurghada/ page is not in the sitemap either. | Fetched 22 Sep 2026. | The newest page, built for exactly this problem, is the hardest one for Google to find. | P1 |
 
 Two pages are where the loss is concentrated.
 
@@ -77,12 +79,19 @@ Yes, all of it. In this order.
 | Add self-referencing hreflang to the 9 pages missing it. | 2 hours | Invisible to visitors, removes an indexing doubt. |
 | Get the mobile LCP under 2.5s. | Needs your Lighthouse data | Blocks everything else. See the note at the end. |
 | Rewrite the title and description on `/healthhub.php` and `/emergency-urgent-care/` to answer the search, not describe the building. | 3 hours | These two pages are the largest single loss. |
+| Put the German and Polish URLs into sitemap.xml, plus the new Hurghada page. | 1 hour | Largest fix for the smallest effort on this list. |
 | Claim the local pack for "hospital hurghada" through Google Business Profile. | Ongoing | See the next answer. |
 
 ## full review about each and all to make everything works right and fix mistakes we made if we made?
 
-**Mistakes we made.** One. The German description was never translated. That
-is a real error and it is ours.
+**Mistakes we made.** Three, and they are ours.
+
+1. The German description was never translated.
+2. The sitemap has no German or Polish URLs.
+3. A claim we had already removed came back. `/hospitals-in-hurghada/` is live
+   and says "Allianz, AXA, Cigna, Bupa direct billing". The review on 19 Sep
+   removed exactly that claim. It returned on the new page. I have stopped
+   that ticket and it needs your answer, below.
 
 **Not mistakes, but wrong assumptions.**
 
@@ -242,6 +251,22 @@ Ideas not in the current plan.
 
 6. **Own the misspellings.** medprk, medparc, med park. Cheap, and they are
    already producing impressions.
+
+## One thing only you can answer
+
+`/hospitals-in-hurghada/` is live right now and states "Allianz, AXA, Cigna,
+Bupa direct billing" and "direct cashless billing with major international
+travel insurers".
+
+Naming four insurers and promising direct billing is a contractual claim, not
+marketing copy. Does MedPark hold direct billing agreements with Allianz, AXA,
+Cigna and Bupa?
+
+- If yes, it stays and I will add the sitemap entry and hreflang.
+- If no, it comes down today.
+
+I have not changed the wording, because guessing at an insurance claim is
+worse than leaving it and asking.
 
 ## Notes
 
