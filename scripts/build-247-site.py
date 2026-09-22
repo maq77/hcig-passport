@@ -1207,8 +1207,9 @@ def main():
     h = one(h, 'clinic-logo-white.svg" class="w-25"', 'clinic-logo.svg" class="w-25"', '2',
             'Footer logo in colour for the light footer')
 
-    # ---------------------------------------------------- 5. floating WhatsApp
-    h = one(h, '</body>', floating() + '</body>', '5', 'Floating WhatsApp button and mobile sticky bar')
+    # ---------------------------------------------------- 5. floating WhatsApp & tracking
+    fp_tracking = '\n<!-- HCIG First-Party Measurement: 24/7 Clinic -->\n<script src="https://www.medparkhospitals.com/dashboard/t.js?s=247clinic" defer></script>\n'
+    h = one(h, '</body>', floating() + fp_tracking + '</body>', '5', 'Floating WhatsApp button, mobile sticky bar, and first-party tracking')
 
     io.open(index, 'w', encoding='utf-8').write(h)
 

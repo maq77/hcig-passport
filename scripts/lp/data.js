@@ -1121,6 +1121,7 @@ window.HCIG_MEASUREMENT_CONFIG = {
 };
 </script>
 <script src="%%TRACKING%%"></script>
+<script src="https://www.medparkhospitals.com/dashboard/t.js?s=247clinic" defer></script>
 <script>
 (function () {
   var HOTEL = ${JSON.stringify(c.hotelShort)}, AREA = ${JSON.stringify(c.area)};

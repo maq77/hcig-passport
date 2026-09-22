@@ -293,26 +293,41 @@ function mp_site_save(array $row): bool {
    settings it already holds, so the registry appearing changes nothing that a
    reader can see. Runs once: after that the table is the source of truth. */
 function mp_sites_bootstrap(): void {
-    if (mp_sites(true)) return;
-    $key = mp_site_default_key();
-    $url = mp_get('site_url');
-    $host = '';
-    if ($url !== '') {
-        $h = parse_url($url, PHP_URL_HOST);
-        if (is_string($h)) $host = strtolower($h);
-    }
-    $bare = preg_replace('~^www\.~', '', $host) ?? '';
-    $domains = array_values(array_unique(array_filter(array($host, $bare, $bare !== '' ? 'www.' . $bare : ''))));
+    if (!mp_sites(true)) {
+        $key = mp_site_default_key();
+        $url = mp_get('site_url');
+        $host = '';
+        if ($url !== '') {
+            $h = parse_url($url, PHP_URL_HOST);
+            if (is_string($h)) $host = strtolower($h);
+        }
+        $bare = preg_replace('~^www\.~', '', $host) ?? '';
+        $domains = array_values(array_unique(array_filter(array($host, $bare, $bare !== '' ? 'www.' . $bare : ''))));
 
-    mp_site_save(array(
-        'site_key' => $key,
-        'token'    => $bare !== '' ? explode('.', $bare)[0] : $key,
-        'label'    => mp_get('brand_name', $key),
-        'brand'    => mp_get('brand_name', ''),
-        'site_url' => $url,
-        'domains'  => implode("\n", $domains),
-        'timezone' => 'UTC',
-        'active'   => 1,
-        'sort'     => 0,
-    ));
+        mp_site_save(array(
+            'site_key' => $key,
+            'token'    => $bare !== '' ? explode('.', $bare)[0] : $key,
+            'label'    => mp_get('brand_name', $key),
+            'brand'    => mp_get('brand_name', ''),
+            'site_url' => $url,
+            'domains'  => implode("\n", $domains),
+            'timezone' => 'UTC',
+            'active'   => 1,
+            'sort'     => 0,
+        ));
+    }
+
+    if (!mp_site('247clinic')) {
+        mp_site_save(array(
+            'site_key' => '247clinic',
+            'token'    => '247clinic',
+            'label'    => '24/7 Clinic',
+            'brand'    => '24/7 Clinic',
+            'site_url' => 'https://www.247clinic.net',
+            'domains'  => "247clinic.net\nwww.247clinic.net\nhcig-passport.vercel.app\nserv3.innovix.net",
+            'timezone' => 'UTC',
+            'active'   => 1,
+            'sort'     => 1,
+        ));
+    }
 }
