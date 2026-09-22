@@ -109,6 +109,12 @@ Yes, all of it. In this order.
 | Polish page is properly localised. | `/pl/` title and description are both Polish. |
 | Schema is rich and correct. | Hospital, MedicalWebPage, BreadcrumbList, GeoCoordinates all present. |
 | Brand searches rank well. | "medpark hospital hurghada" position 1.1, "medpark health hub" position 1.2. |
+| Tracking is on the right property. | Checked live 22 Sep 2026. All five pages tested serve G-LE2B44N7SF plus the Ads tag AW-17729597588. |
+
+One latent risk, not live. The previous developer's property G-QSK7TQV4S0 is
+still written into `medpark-live/header.php` for English, German and Polish.
+Those templates are not the ones being served, so nothing is leaking today.
+Delete them before someone switches a template back.
 
 **One caveat on all query numbers.** Google hides rare queries. The named
 queries account for 64 clicks. The site total is 139. So 54% of clicks are on
