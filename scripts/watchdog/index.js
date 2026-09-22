@@ -8,13 +8,20 @@
  *   node scripts/watchdog/index.js --max-pages 10     limit page count (for testing)
  *   node scripts/watchdog/index.js --json             output raw JSON instead of summary
  *   node scripts/watchdog/index.js --out results.json save JSON to file
+ *   node scripts/watchdog/index.js --judge            crawl, then judge: show what
+ *                                                     WOULD be filed, file nothing
+ *   node scripts/watchdog/index.js --file             crawl, judge, and file the
+ *                                                     confirmed faults as tickets
+ *
+ * --judge and --file combine with --site, which is how you test one domain by
+ * hand before trusting the nightly run.
  *
  * The crawler reports only. It never fixes anything and never touches a live file.
  */
 
 const fs = require('node:fs');
 const path = require('node:path');
-const { SITES } = require('./sites');
+const { activeSites } = require('./sites');
 const { crawlSite, crawlAll } = require('./crawl');
 
 // ---------- parse args ----------
@@ -31,14 +38,17 @@ const siteFilter = flag('--site');
 const maxPages = parseInt(flag('--max-pages') || '500', 10);
 const jsonMode = args.includes('--json');
 const outFile = flag('--out');
+const judgeMode = args.includes('--judge');
+const fileMode = args.includes('--file');
 
 // ---------- select sites ----------
 
-let sites = SITES;
+const ALL = activeSites();
+let sites = ALL;
 if (siteFilter) {
-  sites = SITES.filter(s => s.id === siteFilter);
+  sites = ALL.filter(s => s.id === siteFilter);
   if (sites.length === 0) {
-    console.error(`Unknown site "${siteFilter}". Available: ${SITES.map(s => s.id).join(', ')}`);
+    console.error(`Unknown or disabled site "${siteFilter}". Active: ${ALL.map(s => s.id).join(', ')}`);
     process.exit(1);
   }
 }
@@ -152,7 +162,66 @@ function printSummary(group) {
 
 // ---------- main ----------
 
+/**
+ * Crawl, judge, and optionally file. This is the same path the nightly
+ * scheduler takes, so running it by hand tests the real thing.
+ */
+async function runJudged() {
+  const W = require('./run');
+  let store = null;
+  if (fileMode) {
+    try {
+      store = require('../../hive/lib/store');
+    } catch (err) {
+      console.error(`\n  Cannot file tickets: the hive store is unavailable (${err.message}).`);
+      console.error('  Run with --judge to see what would be filed.\n');
+      process.exit(2);
+    }
+  }
+
+  console.log(`\n  HCIG Watchdog (${fileMode ? 'filing' : 'judging, filing nothing'})`);
+  console.log(`  ${sites.length} site${sites.length > 1 ? 's' : ''}, max ${maxPages} pages each\n`);
+
+  const report = await W.run({
+    site: siteFilter || null,
+    maxPages,
+    dryRun: !fileMode,
+    createTask: store ? (t => store.createTask({ ...t, folder: '' }, 'watchdog')) : null,
+    isStillOpen: store ? (id => { const t = store.getTask(id); return !!t && t.status !== 'done'; }) : null,
+    emit: store ? ((type, msg, data) => store.emit(type, msg, data, 'watchdog')) : null,
+    onPage: jsonMode ? null : ((siteId, pr) => logProgress(siteId, pr)),
+  });
+
+  console.log('\n  VERDICT');
+  console.log(`  ${'='.repeat(60)}`);
+  for (const v of report.verdicts) {
+    console.log(`  ${v.summary}`);
+    if (v.expectedNoindex) console.log(`      ${v.expectedNoindex} page(s) noindex by design, not reported`);
+    if (v.cleared) console.log(`      ${v.cleared} fault kind(s) cleared on the second attempt`);
+    if (v.duplicates) console.log(`      ${v.duplicates} already covered by an open ticket`);
+  }
+  if (report.released.length) {
+    console.log(`\n  Released ${report.released.length} fingerprint(s) whose ticket is closed.`);
+  }
+  if (report.filed.length === 0) {
+    console.log('\n  Nothing to file. No ticket, no notification.\n');
+  } else {
+    console.log(`\n  ${fileMode ? 'Filed' : 'Would file'} ${report.filed.length} ticket(s):`);
+    for (const f of report.filed) console.log(`      ${f.id || '(dry run)'}  ${f.title}`);
+    console.log('');
+  }
+
+  if (outFile) {
+    fs.writeFileSync(path.resolve(outFile), JSON.stringify(report, null, 2));
+    console.log(`  Report saved to ${path.resolve(outFile)}\n`);
+  }
+
+  process.exit(report.ok ? 0 : 2);
+}
+
 async function main() {
+  if (judgeMode || fileMode) return runJudged();
+
   if (!jsonMode) {
     console.log(`\n  HCIG Watchdog`);
     console.log(`  Crawling ${sites.length} site${sites.length > 1 ? 's' : ''}, max ${maxPages} pages each\n`);

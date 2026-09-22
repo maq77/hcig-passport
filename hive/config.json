@@ -40,6 +40,12 @@
     "effortNote": "agy accepts --effort only for Gemini. Claude models think at a fixed level; GPT-OSS has effort in its slug.",
     "routes": [
       {
+        "kind": "spec",
+        "match": "spec|specification|constitution|initiative|epic|speckit",
+        "model": "claude-opus-4-6-thinking",
+        "effort": "high"
+      },
+      {
         "kind": "design",
         "match": "design|ui\\b|css|layout|visual|component|hero|landing|mockup|figma|canvas|animation|artifact",
         "model": "gemini-3.1-pro-high",
@@ -89,7 +95,7 @@
       "kind": "cli",
       "enabled": true,
       "profile": null,
-      "maxParallel": 2
+      "maxParallel": 4
     },
     {
       "id": "a2",
@@ -196,6 +202,15 @@
           "Any page that got worse is named first"
         ]
       }
+    },
+    {
+      "id": "watchdog-nightly",
+      "label": "Nightly site watchdog",
+      "kind": "watchdog",
+      "at": "03:30",
+      "days": "daily",
+      "enabled": true,
+      "note": "Crawls every enabled site in watchdog.sites, confirms each fault with a second request, groups by kind, and files only what is new. A clean run is silent."
     }
   ],
   "review": {
@@ -206,8 +221,24 @@
     "mode": "auto",
     "note": "Who does a ticket when no assignee is given. First matching rule wins. Edit in Settings, with node hive/cli.js policy, or here.",
     "claudeOutputSoftLimit": 400000,
+    "specGate": {
+      "enabled": true,
+      "dir": "specs",
+      "note": "A ticket with an epic will not dispatch until specs/<epic>/spec.md says Status: approved. Set by the head after the user approves. Small tickets carry no epic and are never gated."
+    },
     "autoStart": true,
     "rules": [
+      {
+        "id": "spec",
+        "label": "Specs are written by the head with the user",
+        "when": {
+          "kind": [
+            "spec"
+          ]
+        },
+        "assign": "@claude",
+        "why": "A spec decides what gets built. The head writes it with the user and the user approves it. No worker writes a spec."
+      },
       {
         "id": "critical",
         "label": "Critical goes to the head",
@@ -290,5 +321,60 @@
   "consult": {
     "model": "gemini-3.1-pro-high",
     "note": "Read-only questions to agy (the /delegate pattern). Sandboxed: can read, never write."
+  },
+  "watchdog": {
+    "note": "Domains the nightly watchdog crawls. Add, remove or set enabled:false here. No code change needed. Medcierge is deliberately absent: the project is closed until the user reopens it.",
+    "maxPages": 500,
+    "delayMs": 500,
+    "sites": [
+      {
+        "id": "medpark",
+        "name": "MedPark Hospitals",
+        "origin": "https://www.medparkhospitals.com",
+        "seedPaths": [
+          "/"
+        ],
+        "noindex": [
+          "/dashboard/"
+        ],
+        "skipPaths": [
+          "/dashboard/",
+          "/api/",
+          "/cron/"
+        ],
+        "enabled": true
+      },
+      {
+        "id": "247clinic",
+        "name": "24/7 Clinic",
+        "origin": "https://www.247clinic.net",
+        "seedPaths": [
+          "/"
+        ],
+        "noindex": [],
+        "skipPaths": [
+          "/admin/",
+          "/api/"
+        ],
+        "enabled": true
+      },
+      {
+        "id": "hcig-work",
+        "name": "HCIG Work",
+        "origin": "https://hcig-passport.vercel.app",
+        "seedPaths": [
+          "/"
+        ],
+        "noindex": [
+          "*"
+        ],
+        "skipPaths": [
+          "/medcierge-v2/",
+          "/medcierge-home/",
+          "/medcierge-next/"
+        ],
+        "enabled": true
+      }
+    ]
   }
 }

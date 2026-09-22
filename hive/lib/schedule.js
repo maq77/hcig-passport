@@ -1,6 +1,8 @@
-// Scheduled jobs. Checked once a minute. Two kinds:
-//   standup: a summary built from the event log. Free, no model runs.
-//   ticket:  creates a ticket from a template and, if asked, starts a worker.
+// Scheduled jobs. Checked once a minute. Three kinds:
+//   standup:  a summary built from the event log. Free, no model runs.
+//   ticket:   creates a ticket from a template and, if asked, starts a worker.
+//   watchdog: crawls the live sites, judges what it found, and files only
+//             confirmed, grouped, non-duplicate faults. Free, no model runs.
 // A job runs at most once per day at or after its time, and catches up once if the
 // PC was asleep at that time. Last-run dates live in .hive/state/schedule.json.
 const fs = require('fs');
@@ -71,7 +73,43 @@ function runJob(job, reason = 'schedule') {
     }
     return t;
   }
+  if (job.kind === 'watchdog') return runWatchdog(job);
   throw new Error(`Unknown job kind ${job.kind}`);
+}
+
+// ---------- watchdog ----------
+// Crawls the live sites and files what survives judgement. The site list lives
+// in config under watchdog.sites, so domains change without touching code.
+// A clean run files nothing and notifies nobody. A site we could not reach is
+// recorded as "could not check", never as the site being down. A run that
+// fails is written to the event log, never swallowed.
+//
+// Returns a promise. tick() does not await it: the crawl takes minutes and the
+// scheduler must not block for it. Every outcome reaches the event log.
+function runWatchdog(job, reason = 'schedule') {
+  const W = require('../../scripts/watchdog/run');
+  const opts = (S.config().watchdog || {});
+  return W.run({
+    site: job.site || null,
+    maxPages: job.maxPages || opts.maxPages || 500,
+    delayMs: job.delayMs == null ? (opts.delayMs == null ? 500 : opts.delayMs) : job.delayMs,
+    dryRun: !!job.dryRun,
+    createTask: t => S.createTask({ ...t, folder: '' }, 'watchdog'),
+    isStillOpen: id => {
+      const t = S.getTask(id);
+      return !!t && t.status !== 'done';
+    },
+    emit: (type, msg, data) => S.emit(type, msg, data, 'watchdog'),
+  }).then(report => {
+    S.emit('watchdog.run', W.summarise(report), { job: job.id, reason }, 'watchdog');
+    return report;
+  }).catch(err => {
+    // A failed run must be visible, never silent. It is swallowed here rather
+    // than rethrown: tick() does not await this, so a rejection would surface
+    // as an unhandled promise and take the hub down instead of being reported.
+    S.emit('watchdog.error', `Watchdog job ${job.id} failed: ${err.message}`, { job: job.id }, 'watchdog');
+    return { ok: false, error: err.message };
+  });
 }
 
 function tick() {
