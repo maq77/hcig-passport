@@ -286,5 +286,16 @@ worse than leaving it and asking.
   after many requests, which would not affect real visitors. It must be
   confirmed in Search Console under Settings, Crawl stats, host status. If
   Googlebot is seeing failures, it matters a great deal. If not, ignore it.
-- Not done yet: the mobile speed work. Waiting on your Lighthouse tree for the
-  homepage before changing anything, as agreed.
+- The speed work you asked about is done and live, checked 22 Sep 2026.
+  Caching: static files return `public, max-age=31536000, immutable`, one
+  year, with gzip on CSS. HTML is `no-cache`, which is correct for PHP.
+  Hero before video: `/videos/hero-poster.webp` is preloaded at
+  `fetchpriority="high"`, and every `<video>` on the page carries
+  `preload="none"`, so no video byte downloads before the image.
+- The 3.3s LCP predates that work. The export is dated 17 Sep and its data
+  stops on 15 Sep. The fixes went live around 19 Sep.
+- Field data is a 28 day rolling average, so it moves slowly. We are reading
+  an old number. A fresh Lighthouse run is the next step.
+- One thing that may still cost us: the hero poster is 145 KB. It is the
+  likely LCP element. Worth testing a smaller one once we have the new
+  reading.
