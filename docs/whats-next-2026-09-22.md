@@ -1,0 +1,85 @@
+# What is next
+
+22 Sep 2026 · Mohamed Amin · after closing MedPark
+
+## MedPark is closed, except one thing
+
+| Done today | Result |
+|---|---|
+| Speed | 68 to **88**. Hero video 2,895 KB to 766 KB. Critical path 527 KB to 190 KB. Page weight 4,090 KB to about 1,024 KB. |
+| Sitemap | 15 entries to **52**. German and Polish are now pages in their own right, not annotations. x-default on every one. All 52 verified 200 before deploying. |
+| German homepage | Carried the English description word for word. Now German, leading with "Krankenhaus". |
+| Tracking | Confirmed on our own property, and confirmed still firing after the speed work. |
+
+**The one open item is yours to answer.**
+
+`/hospitals-in-hurghada/` is live and says "Allianz, AXA, Cigna, Bupa direct
+billing". The review on 19 Sep removed exactly that claim and it came back.
+
+Does MedPark hold direct billing agreements with those four named insurers?
+Yes and it stays. No and it comes down today. I have not reworded it, because
+guessing at an insurance claim is worse than asking.
+
+## Next, in the order I would do it
+
+| # | Job | Why now | Needs |
+|---|---|---|---|
+| 1 | **24/7 website** | Your call, and the real work. | You and me together |
+| 2 | Rewrite `healthhub.php` and `emergency-urgent-care` titles and descriptions | 1,266 impressions producing 7 clicks. Biggest single visibility loss left on MedPark. | Your review, it is copy |
+| 3 | Google Business Profile and reviews | "hospital hurghada" clicks go to the map, not the site. 270 impressions, zero clicks. | Who owns the profile |
+| 4 | Google Ads search campaigns | You said later. Plan exists. | Your word |
+
+## What we will retry, and why it failed
+
+Every one of these failed for the same reason: **the internet here drops**.
+None of them are broken. They just need running again on a good connection.
+
+| Ticket | What it is | What happened |
+|---|---|---|
+| T-013 | 24/7 DE, PL, CS translations | The worker reported launching three translators, then never committed. Branch is empty. Starts from zero. |
+| T-015 | 24/7 inner pages | Worker lost when the hub stopped. |
+| T-019 | Prove every 24/7 event fires | Blocked for a different and better reason. See below. |
+| T-011-CR to T-021-CR | Four second opinions | All died on `dial tcp: lookup ... no such host`. Closed rather than retried: three are moot now. |
+
+I have written the internet fact into HCIG memory, so no future session wastes
+time blaming a server, a site or a worker for it.
+
+**T-019 is the exception.** It did not fail on the connection. A critic caught
+that the worker tested on `localhost`, and our own new rule makes tracking
+abort on localhost by design. So no event could fire and the evidence proved
+nothing. That is the rule working correctly. The qa-tester role has been taught
+it so it cannot happen again.
+
+Its real answer stands: 24/7 has no GA4 property configured at all. `id` is an
+empty string. Nothing can fire anywhere until you say which property
+247clinic.net reports into.
+
+## Features still to add
+
+**Built and running, needs nothing from you**
+
+- Watchdog: crawls the live sites nightly at 03:30, confirms every fault twice,
+  groups by kind, never files a duplicate, and stays silent when clean.
+- Before and after screenshots on any branch, desktop and phone.
+- Our own traffic excluded from the numbers, with the method written down.
+
+**Ready to build, waiting on a decision**
+
+| Feature | Waiting on |
+|---|---|
+| 24/7 inner pages and hotel pages | Which landing page design won |
+| 24/7 translations, DE, PL, CS | Same, plus your review of the copy |
+| 24/7 measurement switched on | Which GA4 property |
+| MedPark `srcset` images | Nothing. Small win, I held it because Lighthouse's advice would have made them blurry on phones. |
+| Numbers page, AI visibility, internal links, local and partners | Four specs written, all still draft. They cannot start until you approve each spec. |
+
+**Deliberately not done on MedPark**
+
+Contrast fix and removing unused CSS. Both can change what you see, and you
+said you like the site. They need showing to you first, not shipping.
+
+## Then 24/7
+
+Nothing on 24/7 has been touched. Four tickets are held on purpose, not stuck.
+When you are ready, the first question is the one that unblocks everything
+else: which of the four landing page designs won.
