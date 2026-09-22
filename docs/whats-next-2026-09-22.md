@@ -78,6 +78,51 @@ empty string. Nothing can fire anywhere until you say which property
 Contrast fix and removing unused CSS. Both can change what you see, and you
 said you like the site. They need showing to you first, not shipping.
 
+## The six-initiative plan, where each one stands
+
+The watchdog was one of six specs written on 21 Sep. Here is the whole plan.
+
+| # | Initiative | Spec | Built | What it is |
+|---|---|---|---|---|
+| 001 | Measurement foundation | approved | **most of it** | One tracking module, consent first, our own traffic excluded. |
+| 005 | Site watchdog | approved | **all 11 requirements** | Nightly crawl, confirm twice, group, never duplicate, silent when clean. |
+| 002 | The numbers page | draft | nothing | One page: visits, calls, WhatsApp presses, per site and per language. |
+| 003 | AI visibility | draft | nothing | Get cited by ChatGPT, Gemini and Perplexity. Weekly citation tracker. |
+| 004 | Internal links | draft | nothing | One keyword-to-page map, contextual links generated at build. |
+| 006 | Local and partners | draft | nothing | Hotel pages with per-hotel QR codes, Business Profile posting. |
+
+**Four of the six cannot start.** The spec gate refuses any ticket whose spec
+is still draft. That is working as designed. You approve a spec, then work
+begins.
+
+### 005, the watchdog: one piece left
+
+All 11 requirements are built and running. One is built but not enforced.
+
+FR-010 and SC-004 say a changed page must have a before and after image
+**attached to its review, before the branch is merged**. The tool does that.
+It is not wired into the merge step, so a reviewer has to remember to run it.
+That is the last honest gap in the watchdog, and it is small.
+
+### 001, measurement: one thing blocks it
+
+FR-001 says every site we control loads a GA4 tag on every page, in every
+language. MedPark does. **24/7 does not.** Its measurement ID is an empty
+string, so nothing fires anywhere on it.
+
+That is not a code fix. You have to say which GA4 property 247clinic.net
+reports into. Until then 001 cannot close, and 002 cannot start, because a
+numbers page with no numbers from 24/7 is a page that lies.
+
+### The order these have to happen in
+
+    001 measurement  ->  002 numbers page
+                     ->  006 local and partners (needs per-hotel counting)
+    004 internal links  ->  003 AI visibility (answers need somewhere to link)
+
+002 depends on 001. 006 depends on 001 for per-hotel attribution. 003 is
+stronger after 004. Only 004 could start on its own today.
+
 ## Then 24/7
 
 Nothing on 24/7 has been touched. Four tickets are held on purpose, not stuck.
