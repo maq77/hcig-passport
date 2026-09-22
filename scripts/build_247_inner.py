@@ -77,11 +77,14 @@ def shell(index_html):
 
 
 def banner(title, lead):
-    """A page title band. Their site has no inner-page hero to copy, so this
-    uses the repositioning sheet's own classes rather than inventing a look."""
+    """A page title band with breadcrumbs."""
     out = ['<!--Start Repositioning Page Head-->',
            '<section class="rp-pagehead">',
            '  <div class="container">',
+           '    <ul class="thm-breadcrumb list-unstyled rp-breadcrumb">',
+           '      <li><a href="/">Home</a></li>',
+           '      <li class="active">%s</li>' % esc(title),
+           '    </ul>',
            '    <h1>%s</h1>' % esc(title)]
     if lead:
         out.append('    <p class="rp-lead">%s</p>' % esc(lead))
@@ -198,6 +201,101 @@ def section(sec, wa_href, wa_svg):
     return '\n'.join(out)
 
 
+RELATED_MAP = {
+    '/services': [
+        ('/hotel-clinics', 'The Hotel Clinic Concept', 'How medical clinics are integrated inside Egyptian resorts.'),
+        ('/insurance', 'Insurance & Cashless Care', 'Direct coordination with international travel insurance providers.'),
+        ('/our-clinics', 'Find a Clinic Near You', 'Active resort clinics across Hurghada, Sahl Hasheesh, and the Red Sea.'),
+        ('/beauty-wellness', 'Beauty & Wellness Services', 'Specialized aesthetic and wellness treatments at selected resort clinics.'),
+    ],
+    '/hotel-clinics': [
+        ('/services', 'Medical Services', 'Comprehensive acute care, diagnostic checks, and room visits.'),
+        ('/for-hotels', 'For Hotels & Resorts', 'Partnership structure and operational benefits for resort operators.'),
+        ('/accreditation', 'International Accreditation', 'First UCA-accredited urgent care network in Egypt and MENA.'),
+        ('/our-clinics', 'Resort Locations', 'Browse resort clinics across Egypt tourism destinations.'),
+    ],
+    '/insurance': [
+        ('/for-insurance', 'For Insurance & Assistance', 'Dedicated operational coordination for insurance partners.'),
+        ('/services', 'Medical Services', 'On-site clinical capabilities and acute treatments provided.'),
+        ('/faq', 'Insurance FAQ', 'Answers to common travel insurance and cashless billing questions.'),
+        ('/contact-us', 'Contact Coordination Team', 'Get immediate assistance for patient cases and insurance verification.'),
+    ],
+    '/for-insurance': [
+        ('/insurance', 'Cashless Care Overview', 'How cashless treatment operates for international policyholders.'),
+        ('/hotel-clinics', 'The Hotel Clinic Concept', 'On-site hotel clinic infrastructure avoiding unnecessary hospitalizations.'),
+        ('/accreditation', 'International Accreditation', 'Clinical quality, patient safety, and international UCA standards.'),
+        ('/contact-us', 'Assistance Team Contact', 'Direct liaison channel for international assistance coordinators.'),
+    ],
+    '/for-hotels': [
+        ('/hotel-clinics', 'The Hotel Clinic Concept', 'Operational model, medical staffing, and resort integration.'),
+        ('/accreditation', 'International Accreditation', 'Internationally recognized standards protecting guest safety.'),
+        ('/services', 'Guest Medical Services', 'Full scope of on-site acute medical care available to guests.'),
+        ('/contact-us', 'Partner With Us', 'Discuss establishing an accredited 24/7 Clinic inside your property.'),
+    ],
+    '/our-clinics': [
+        ('/hotel-clinics', 'The Hotel Clinic Concept', 'Learn why on-site resort clinics deliver faster care.'),
+        ('/services', 'Medical Services Available', 'Complete list of outpatient medical treatments and doctor consultations.'),
+        ('/insurance', 'Insurance & Cashless Care', 'Using your travel medical insurance at any 24/7 Clinic location.'),
+        ('/contact-us', '24/7 Central Dispatch', 'Connect with our medical team on WhatsApp or phone immediately.'),
+    ],
+    '/about-us': [
+        ('/accreditation', 'International Accreditation', 'Our UCA urgent care accreditation and healthcare quality marks.'),
+        ('/hotel-clinics', 'The Hotel Clinic Concept', 'The founding vision and operational architecture of 24/7 Clinic.'),
+        ('/services', 'Clinical Scope', 'Medical services delivered daily across all resort clinics.'),
+        ('/contact-us', 'Group Operations & Head Office', 'Reach executive management, medical directors, and team.'),
+    ],
+    '/accreditation': [
+        ('/about-us', 'About 24/7 Clinic', 'Background, leadership, and our mission in Egyptian travel healthcare.'),
+        ('/hotel-clinics', 'The Hotel Clinic Concept', 'How international standards are applied inside hotel-based clinics.'),
+        ('/services', 'Standardized Medical Services', 'Strict clinical pathways followed for every guest interaction.'),
+        ('/for-insurance', 'For Insurance & Assistance', 'Assurance of quality and documentation standards for insurers.'),
+    ],
+    '/beauty-wellness': [
+        ('/services', 'Primary Medical Services', 'Urgent medical care, doctor consultations, and diagnostic tests.'),
+        ('/hotel-clinics', 'The Hotel Clinic Concept', 'Care delivered right where you stay during your Egyptian holiday.'),
+        ('/our-clinics', 'Find a Clinic', 'Locate the nearest resort clinic offering aesthetic services.'),
+        ('/contact-us', 'Book a Consultation', 'Speak with our aesthetic and medical specialists today.'),
+    ],
+    '/faq': [
+        ('/insurance', 'Insurance & Cashless Care', 'Complete guide to using your travel policy for medical treatment.'),
+        ('/services', 'What We Can Treat', 'Conditions evaluated and treated on-site without hospital transfer.'),
+        ('/hotel-clinics', 'The Hotel Clinic Concept', 'Why hotel clinics offer faster, calmer urgent medical care.'),
+        ('/contact-us', 'Ask a Direct Question', 'Contact our medical team 24 hours a day on WhatsApp.'),
+    ],
+    '/contact-us': [
+        ('/our-clinics', 'Find a Clinic Near You', 'Map and directory of 24/7 Clinic resort locations across Egypt.'),
+        ('/services', 'Medical Services Overview', 'Explore the complete range of on-site medical treatments.'),
+        ('/insurance', 'Travel Insurance Information', 'Check your policy eligibility for cashless medical treatment.'),
+        ('/for-hotels', 'Partnership Inquiries', 'Explore hotel clinic partnerships and resort medical operations.'),
+    ],
+}
+
+
+def related_block(path):
+    links = RELATED_MAP.get(path.rstrip('/'))
+    if not links:
+        return ''
+    cards = []
+    for href, title, desc in links:
+        cards.append('''    <a class="rp-card rp-related-card wow fadeInUp" href="%s">
+      <h3>%s &rarr;</h3>
+      <p>%s</p>
+    </a>''' % (href, esc(title), esc(desc)))
+    return '''<!--Start Repositioning Related Pages-->
+<section class="rp-sec rp-sec--tint rp-related">
+  <div class="container">
+    <div class="sec-title text-center">
+      <div class="sec-title__tagline"><h6>Explore 24/7 Clinic</h6></div>
+      <h2 class="sec-title__title">Related Services &amp; Information</h2>
+    </div>
+    <div class="rp-grid rp-grid--auto rp-related__grid">
+%s
+    </div>
+  </div>
+</section>
+''' % '\n'.join(cards)
+
+
 def set_active_nav(html, nav_html):
     """Swap in this page's own nav, so their `li.current` marks the open page.
 
@@ -207,10 +305,15 @@ def set_active_nav(html, nav_html):
     Only the list is taken. nav() also returns the WhatsApp button that sits
     beside it, and that is already in the shell, so swapping the whole thing in
     would put a second one in the header."""
-    m = re.search(r'<ul class="main-menu__list">[\s\S]*?</ul>', nav_html)
+    m = re.search(r'<ul class="main-menu__list">[\s\S]*?</ul>(?=\s*<a class="rp-head-wa")', nav_html)
     if not m:
-        return html
+        m = re.search(r'<ul class="main-menu__list">[\s\S]*?</ul>', nav_html)
+        if not m:
+            return html
     ul = m.group(0)
+    if re.search(r'<ul class="main-menu__list">[\s\S]*?</ul>(?=\s*<a class="rp-head-wa")', html):
+        return re.sub(r'<ul class="main-menu__list">[\s\S]*?</ul>(?=\s*<a class="rp-head-wa")',
+                      lambda _: ul, html, count=1)
     return re.sub(r'<ul class="main-menu__list">[\s\S]*?</ul>', lambda _: ul,
                   html, count=1)
 
@@ -230,6 +333,9 @@ def page_html(head, foot, data, title, wa_href, wa_svg, final_cta, prefix, path,
         if i == 0 and lead:
             s['body'] = [x for x in (s.get('body') or []) if x.strip() != lead]
         parts.append(section(s, wa_href, wa_svg))
+    rel = related_block(path)
+    if rel:
+        parts.append(rel)
     parts.append(final_cta)
 
     page_head = head
