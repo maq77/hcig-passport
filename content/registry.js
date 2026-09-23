@@ -425,6 +425,7 @@ const COMPANIES = [
           'Home built 2026-09-23: film hero, green WhatsApp and red call everywhere, the Medcierge floating WhatsApp, insurer and hotel logos, patient films, clinic map, 20 / 30 / 300.',
           'Dashed boxes mark where your dedicated designs go. The list is linked below.',
           'The home is ready for Mohamed to review. Irina sees it after his notes are in.',
+          'Round 2, 23 September: image hero, the film in its own facilities and accreditation section, new header and footer, real WhatsApp green, colour insurer and hotel logos in two rows, Find a Clinic on Google Maps, their blog posts, a resort photo behind the last call to action. CAUCQ removed: accredited by UCA only, part of HCIG.',
         ],
         checklist: [
           { text: 'Approve the v3 spec', done: true, who: 'Mohamed' },

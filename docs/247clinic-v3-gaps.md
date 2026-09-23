@@ -14,4 +14,11 @@ the brief does not have, it is left out and listed here, never written.
 | 7 | Map | Jaz Crystal, Jaz Samaya and Jaz Dar El Madina share one generic coordinate in their data | Left off the map until each position is checked. |
 | 8 | Patient stories | Their films carry captions in the file names (country, story) | Not shown as text, because they are not brief text. A flag shows the country where the file name names it. |
 | 9 | Reviews | Their published reviews are in German, Italian and French | Shown in the original only. A translation would be new words. |
-| 10 | Accreditation | The CAUCQ mark | A design slot until Irina sends the official file. |
+| 10 | Accreditation | CAUCQ | Removed by the user 2026-09-23 ("accredited from UCA only"). The brief sentence now ends at "the Urgent Care Association." Logged in content/247clinic/approved-edits.json. |
+
+## Changes the user named (2026-09-23)
+
+Every one is logged with his words in `content/247clinic/approved-edits.json`, and the
+word check accepts exactly those lines: CAUCQ removed; "Accredited by the Urgent Care
+Association"; "Part of Healthcare International Group"; lines taken from their live site
+(page title, footer description, address, email, "Our Blog", post titles and dates).

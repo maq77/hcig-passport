@@ -22,6 +22,10 @@ const contentDir = path.join(ROOT, "content", "247clinic", "en");
 const parts = [fs.readFileSync(path.join(ROOT, "docs", "247clinic-website-brief.md"), "utf8")];
 for (const f of fs.readdirSync(contentDir)) parts.push(...jsonStrings(JSON.parse(fs.readFileSync(path.join(contentDir, f), "utf8"))));
 parts.push(...jsonStrings(JSON.parse(fs.readFileSync(path.join(ROOT, "content", "247clinic", "reviews.json"), "utf8")).reviews));
+/* Changes he named (logged with his words) and lines he allowed from their live site. */
+const approved = JSON.parse(fs.readFileSync(path.join(ROOT, "content", "247clinic", "approved-edits.json"), "utf8"));
+for (const e of approved.edits) parts.push(...[].concat(e.to ?? [], e.text ?? []));
+parts.push(...approved.fromTheirSite.text);
 const corpus = ` ${parts.map(norm).join(" | ")} `;
 
 const ui = JSON.parse(fs.readFileSync(path.resolve("src/content/ui-labels.json"), "utf8"));
@@ -30,7 +34,8 @@ const patterns = ui.patterns.map((p) => new RegExp(p));
 const media = fs.readFileSync(path.resolve("src/data/media.ts"), "utf8");
 for (const m of media.matchAll(/name: "([^"]+)"/g)) labels.add(norm(m[1]));
 const clinics = fs.readFileSync(path.resolve("src/data/clinics.ts"), "utf8");
-for (const m of clinics.matchAll(/c\("([^"]+)"/g)) labels.add(norm(m[1]));
+/* every hotel name in the clinic data, as their data has it and as corrected */
+for (const call of clinics.matchAll(/\bc\(([^)]*)\)/g)) for (const s of call[1].matchAll(/"([^"]+)"/g)) labels.add(norm(s[1]));
 
 /* ---- extract text from a built page ---- */
 const decode = (s) => s
@@ -79,7 +84,10 @@ for (const file of pages) {
   const rel = path.relative(OUT, file);
   const html = fs.readFileSync(file, "utf8");
   for (const [kind, raw] of chunks(html)) {
-    const pieces = raw.split(/\s\|\s/);
+    /* a whole registered pattern (design slots, phone) passes as it is; otherwise
+       "Title | Brand" and "Label: Name" are two things, each checked on its own */
+    if (patterns.some((re) => re.test(raw.trim()))) continue;
+    const pieces = raw.split(/\s\|\s|:\s/);
     for (const s of pieces) {
       const problems = [];
       if (/[–—]/.test(s)) problems.push("em or en dash");

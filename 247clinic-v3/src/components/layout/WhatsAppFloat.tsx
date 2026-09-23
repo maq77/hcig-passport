@@ -1,8 +1,9 @@
 "use client";
 
-/* Copied from medcierge-next/src/components/WhatsAppFloat.tsx (the user's choice,
-   2026-09-23). Same pill, ring and cycling line. The phrases are the brief's own;
-   the greens are one shade deeper so white text passes contrast. */
+/* Copied from medcierge-next/src/components/WhatsAppFloat.tsx (the user, 2026-09-23),
+   now in its original WhatsApp greens ("lighter green like the real color of whatsapp")
+   and shown from the first second ("whatsapp button should appear directly").
+   The phrases it cycles are the brief's own. */
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { WhatsAppGlyph } from "@/components/ui/Icon";
@@ -18,21 +19,10 @@ export function WhatsAppFloat({ prompts, sub, aria }: { prompts: string[]; sub: 
     return () => clearInterval(t);
   }, [prompts.length, reduce]);
 
-  /* Stays out of the way while the hero's own WhatsApp button is on screen (on a
-     phone it would sit on top of it), then slides in. Without JS it is always shown. */
-  const [shown, setShown] = useState(false);
-  useEffect(() => {
-    const target = document.querySelector(".hero .cta-row");
-    if (!target) { setShown(true); return; }
-    const io = new IntersectionObserver(([e]) => setShown(!e.isIntersecting), { threshold: 0 });
-    io.observe(target);
-    return () => io.disconnect();
-  }, []);
-
   const label = prompts[i];
 
   return (
-    <a href={waHref("homepage")} target="_blank" rel="noopener" className={`wa-float ${shown ? "shown" : ""}`} aria-label={aria}
+    <a href={waHref("homepage")} target="_blank" rel="noopener" className="wa-float" aria-label={aria}
       data-ev="whatsapp_medical_click" data-placement="floating">
       <span className="wa-bubble" aria-hidden="true">
         <AnimatePresence mode="wait" initial={false}>

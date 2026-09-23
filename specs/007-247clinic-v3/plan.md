@@ -199,6 +199,65 @@ Backup of their `wwwroot` over FTP, the production build uploaded beside it, swi
 `web.config`, Cloudflare purge, rendered-head check, Search Console sitemap, 4 weeks of
 monitoring. Rollback: restore the backup's `web.config` and folder (contracts/iis-deploy.md).
 
+## Added 2026-09-23 after the user's gap check (his original rebuild brief)
+
+He asked what his original rebuild brief wanted that this plan did not yet cover.
+Covered already: from-scratch design, Next.js, concise sections, films and motion,
+partner and insurer logos, conversion to WhatsApp and calls. Missing, now added:
+
+### Phase G1. Business, audience and system analysis (docs, before inner pages)
+- `docs/247clinic-v3/01-business.md`: how a case flows (WhatsApp, coordination, clinic
+  visit, insurer billing), services, the 30 clinics, what separates 24/7 from MedPark and
+  Medcierge so the three sites never compete.
+- `02-audience.md`: guest (DE, PL, CS, EN, often with travel insurance), companion, hotel
+  reception, tour-operator rep, insurer case handler; their questions in order; where each
+  converts.
+- `03-system-analysis.md`: use cases, flows (urgent, insurance check, B2B enquiry), data
+  model (already in data-model.md), integrations, non-functional targets.
+- `06-fact-sheet.md`: every number and claim the site and blog may use, with its source.
+
+### Phase G2. Keyword research and mapping
+- Extend `docs/247clinic-keywords.md` (autocomplete evidence exists) with Keyword Planner
+  volumes once an Ads account is reachable.
+- Clusters: doctor + destination, **hotel name + doctor/clinic for all 30 hotels**,
+  symptom + destination, travel insurance + clinic, dentist/pharmacy + destination, B2B
+  (hotel doctor service Egypt). EN, DE, PL, CS.
+- Output: one keyword per page (home, 11 inner, 6 destinations, 30 hotels), no two pages
+  on the same term, and the MedPark/Medcierge split respected.
+
+### Phase G3. On-page and technical SEO (every page)
+Titles and descriptions from the page's own words plus its keyword, one h1, schema
+(MedicalClinic per clinic with real coordinates, Organization, BreadcrumbList, FAQPage,
+Article for posts), sitemap, robots, canonical, hreflang when languages ship, internal
+links from the keyword map (Spec 004 tooling), image alt text, Core Web Vitals.
+
+### Phase G4. AEO and GEO (cited by ChatGPT, Gemini, Perplexity, AI Overviews)
+- Baseline: ~30 prompts in EN, DE, PL, CS ("doctor in my hotel Hurghada", "Arzt
+  Hurghada Hotel", "czy ubezpieczenie pokrywa lekarza w Egipcie") recorded before launch,
+  repeated monthly (`scripts/ai-visibility/`).
+- Answer-first blocks (the brief's FAQ answers), `llms.txt`, Organization schema with
+  `sameAs`, one consistent name, phone and description everywhere (entity consistency).
+
+### Phase G5. Off-page (after go-live)
+Google Business Profile per clinic (never fake listings), partner hotel pages and guest
+info folders linking to their clinic page, insurer and assistance provider networks,
+medical-travel directories, cross-links from healthcareig.com, MedPark and Medcierge with
+planned anchors, a review request flow that never scripts keywords.
+
+### Phase G6. Blog and news
+The brief's seven topics first (section 30), then a monthly plan from the keyword
+clusters, in four languages. Drafted with AI where useful, every fact from the fact
+sheet, and **approved by him before publishing** (the content rule covers new articles
+too). The two 2023 posts from their site show on the home now.
+
+### Phase G7. Measurement
+GA4 property for 247clinic.net (still missing), Search Console for 247clinic.net, the
+first-party tracker (already on), rank tracking for the G2 keyword set, monthly report.
+
+### Phase G8. Backend for forms (before go-live)
+The B2B and contact forms need somewhere to send. Options (research R12): a hosted form
+service, or a thin ASP.NET endpoint on their existing .NET host. Decided with him.
+
 ## Risks
 
 | Risk | Answer |

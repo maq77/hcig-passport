@@ -3,7 +3,7 @@ import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { global, section } from "@/content/load";
-import { BRIEF } from "@/content/brief";
+import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
 import { IS_PREVIEW } from "@/data/facts";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -26,7 +26,8 @@ const hero = section("home", "hero");
 
 /* Meta from the brief's own lines (spec assumption): h1 + brand, and the opening sentence. */
 export const metadata: Metadata = {
-  title: `${hero.heading} | 24/7 Clinic`,
+  /* their live title, kept (the user, 2026-09-23) */
+  title: THEIRS.pageTitle,
   description: hero.body[0],
   robots: IS_PREVIEW ? { index: false, follow: false } : { index: true, follow: true },
   ...(IS_PREVIEW ? {} : { alternates: { canonical: "https://www.247clinic.net/" }, metadataBase: new URL("https://www.247clinic.net") }),
@@ -50,9 +51,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <a className="skip" href="#main">Skip to content</a>
-        <Header labels={{ nav, waLong: BRIEF.waUs, waShort: BRIEF.needDoctor }} />
+        <Header labels={{ nav, waLong: BRIEF.waUs, waShort: BRIEF.needDoctor, promises: (hero.subheading ?? "").split("•").map((s) => s.trim()), email: THEIRS.email, address: THEIRS.address, accredited: APPROVED.accredited, partOf: APPROVED.partOf }} />
         <main id="main">{children}</main>
-        <Footer nav={nav} footerOnly={g.footerOnly.map((n) => n.title)} message={g.finalMessage} waLabel={BRIEF.waUs} />
+        <Footer nav={nav} footerOnly={g.footerOnly.map((n) => n.title)} />
         <WhatsAppFloat prompts={[BRIEF.needDoctor, BRIEF.needHelp, BRIEF.waUs]} sub={BRIEF.sticky} aria={g.whatsapp.floatingText} />
         <RevealObserver />
         <Tracker />

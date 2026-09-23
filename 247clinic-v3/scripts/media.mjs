@@ -25,10 +25,17 @@ function loop(src, out, { from = 0, secs, w, crf, vp9crf }) {
   console.log(out, `${kb(`${out}.mp4`)} KB mp4`, vp9crf ? `${kb(`${out}.webm`)} KB webm` : "");
 }
 
-/* The full film with sound, for the viewer. */
-function full(src, out, { w, crf }) {
-  ff(["-i", path.join(SRC, src), "-vf", `scale=${w}:-2:flags=lanczos`, ...X264, "-crf", String(crf), "-c:a", "aac", "-b:a", "96k", path.join(OUT, `${out}.mp4`)]);
-  console.log(out, `${kb(`${out}.mp4`)} KB`);
+/* The full film with sound, for the viewer: a stream copy, so it keeps the exact
+   quality of his file (the user, 2026-09-23: "video be high quality"). */
+function full(src, out) {
+  ff(["-i", path.join(SRC, src), "-c", "copy", "-movflags", "+faststart", path.join(OUT, `${out}.mp4`)]);
+  console.log(out, `${kb(`${out}.mp4`)} KB (stream copy)`);
+}
+
+/* A silent loop cut from the source without re-encoding (no generational loss). */
+function copyLoop(src, out, secs) {
+  ff(["-i", path.join(SRC, src), "-t", String(secs), "-an", "-c:v", "copy", "-movflags", "+faststart", path.join(OUT, `${out}.mp4`)]);
+  console.log(out, `${kb(`${out}.mp4`)} KB (stream copy)`);
 }
 
 const HERO = "Le reve 247 full commercial.mp4";
@@ -43,16 +50,17 @@ const STORIES = [
 const INTRO = "247 clinic video intro - where you are in your hotel.mp4";
 
 if (!only || only === "hero") {
-  loop(HERO, "hero", { secs: 14, w: 1276, crf: 24, vp9crf: 36 });
-  loop(HERO, "hero-m", { secs: 14, w: 960, crf: 26, vp9crf: 38 });
+  for (const old of ["hero.webm", "hero-m.mp4", "hero-m.webm"]) fs.rmSync(path.join(OUT, old), { force: true });
+  copyLoop(HERO, "hero", 14);
+  full(HERO, "commercial"); // the whole film with sound, for Watch in the facilities section
 }
 if (!only || only === "intro") {
-  loop(INTRO, "intro-prev", { secs: 10, w: 540, crf: 28 });
-  full(INTRO, "intro", { w: 720, crf: 26 });
+  loop(INTRO, "intro-prev", { secs: 10, w: 540, crf: 23 });
+  full(INTRO, "intro");
 }
 if (!only || only === "stories") {
   for (const [id, src, w] of STORIES) {
-    loop(src, `${id}-prev`, { secs: 8, w, crf: 30 });
-    full(src, id, { w: w > 500 ? 1276 : 720, crf: 27 });
+    loop(src, `${id}-prev`, { secs: 8, w, crf: 24 });
+    full(src, id);
   }
 }
