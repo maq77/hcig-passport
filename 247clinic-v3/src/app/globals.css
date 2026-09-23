@@ -223,7 +223,8 @@ html.js .hero-media .slot-hero.show { opacity: 1; }
 .watch { position: absolute; left: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.94); color: var(--ink); font-weight: 600; font-size: 15px; box-shadow: var(--shadow-sm); transition: transform 0.25s var(--ease); }
 .watch:hover { transform: scale(1.04); }
 .watch i { width: 32px; height: 32px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; }
-.pull { position: relative; margin-top: 6px; padding: 18px 0 18px 26px; font-family: var(--font-display), serif; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.2; color: var(--ink); border-left: 3px solid var(--primary); }
+.pull { position: relative; margin-top: 10px; padding-top: 22px; font-family: var(--font-display), serif; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.2; color: var(--ink); }
+.pull::before { content: ""; position: absolute; top: 0; left: 0; width: 48px; height: 2px; border-radius: 2px; background: var(--primary); }
 .intro-deco { position: absolute; inset: auto -40px -40px auto; width: 220px; aspect-ratio: 1; border-radius: 50%; background: var(--primary-tint); z-index: -1; }
 .intro-media { position: relative; isolation: isolate; }
 
