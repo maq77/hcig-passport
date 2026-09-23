@@ -25,7 +25,8 @@ export const STORIES: Film[] = [
 
 /* Pexels photographs (credits in docs/247clinic-v3-media-credits.md). */
 export const PHOTOS = {
-  why: { src: "/img/why-roomvisit.webp", w: 1600, h: 1068 },
+  why: { src: "/img/why-bedside.webp", w: 1400, h: 933 },
+  whyResort: { src: "/img/why-resort.webp", w: 900, h: 602 },
   resort: { src: "/img/resort-aerial-2400.webp", small: "/img/resort-aerial-1200.webp", w: 2400, h: 1600 },
 };
 
@@ -52,13 +53,31 @@ export const INSURERS: Logo[] = [
   { name: "Connecx", src: "/logos/insurers/connecx.webp", w: 320, h: 172 },
 ];
 
-/* Hotel brands where a 24/7 Clinic operates, with an official file that reads on white. */
-export const HOTELS: Logo[] = [
-  { name: "Jaz Hotels", src: "/logos/hotels/jaz.png", w: 96, h: 96 },
-  { name: "Long Beach Resort", src: "/logos/hotels/longbeach.png", w: 122, h: 110 },
-  { name: "Hilton", src: "/logos/hotels/hilton.svg", w: 500, h: 259 },
-  { name: "Radisson Blu", src: "/logos/hotels/radisson-blu.svg", w: 162, h: 49 },
+/* Every hotel brand in their clinic data (16). An official logo where one reads on white;
+   the rest are set as a name until he sends the logo (the user, 2026-09-23: "are you
+   sure that only these are the hotel partners"). */
+export type Brand = { name: string; logo?: Logo };
+export const HOTEL_BRANDS: Brand[] = [
+  { name: "Jaz Hotels", logo: { name: "Jaz Hotels", src: "/logos/hotels/jaz.png", w: 96, h: 96 } },
+  { name: "Steigenberger" },
+  { name: "Hilton", logo: { name: "Hilton", src: "/logos/hotels/hilton.svg", w: 500, h: 259 } },
+  { name: "Iberotel" },
+  { name: "Radisson Blu", logo: { name: "Radisson Blu", src: "/logos/hotels/radisson-blu.svg", w: 162, h: 49 } },
+  { name: "Premier Le Rêve" },
+  { name: "Long Beach Resort", logo: { name: "Long Beach Resort", src: "/logos/hotels/longbeach.png", w: 122, h: 110 } },
+  { name: "Baron Palace" },
+  { name: "Pyramisa" },
+  { name: "Amwaj Beach Club" },
+  { name: "Caribbean World" },
+  { name: "Old Palace" },
+  { name: "Palm Royale" },
+  { name: "Reef Oasis" },
+  { name: "True Beach" },
+  { name: "Casa Mare" },
 ];
+
+/* Review countries shown as flags (the user, 2026-09-23). */
+export const FLAGS: Record<string, string> = { Germany: "de", Italy: "it", Switzerland: "ch", "Czech Republic": "cz", France: "fr" };
 
 /* Their two published posts (www.247clinic.net), quoted exactly. Excerpts are left
    out: one is still Lorem ipsum on their site (brief section 30: remove it). */

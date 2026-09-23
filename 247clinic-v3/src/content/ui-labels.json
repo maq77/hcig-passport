@@ -33,7 +33,9 @@
     "Email",
     "Phone",
     "Address",
-    "Watch video"
+    "Watch video",
+    "Show on map",
+    "More details"
   ],
   "patterns": [
     "^Call \\+20 122 222 8247$",
