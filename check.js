@@ -72,12 +72,22 @@ const REDIRECTS = new Set(
   (JSON.parse(fs.readFileSync(path.join(__dirname, 'vercel.json'), 'utf8')).redirects || []).map((r) => r.source)
 );
 
+/* 24/7 Clinic v3 is built home first (spec 007): its nav already points at the
+   inner pages that follow the user's home review. Only these planned routes, from
+   specs/007-247clinic-v3/contracts/urls.md, may be missing for now. Remove each
+   one as its page ships; any other dead link still fails. */
+const V3_PLANNED = new Set([
+  '/services', '/insurance', '/our-clinics', '/about-us', '/contact-us', '/faqs', '/beauty-wellness', '/blog',
+  '/for-hotels', '/hotel-clinics', '/international-accreditation', '/insurance-assistance-partners',
+].map((p) => `/247clinic/v3${p}`));
+
 /** Mirror Vercel's cleanUrls + directory index, so the checker resolves a URL
  *  the same way production will. */
 function resolves(url) {
   const clean = url.split('#')[0].split('?')[0];
   if (!clean || clean === '/') return fs.existsSync(path.join(DIST, 'index.html'));
   if (REDIRECTS.has(clean)) return true;
+  if (V3_PLANNED.has(clean)) return true;
   const p = path.join(DIST, clean.replace(/^\/+/, ''));
   if (fs.existsSync(p) && fs.statSync(p).isFile()) return true;
   if (fs.existsSync(p + '.html')) return true;

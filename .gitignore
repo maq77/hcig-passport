@@ -54,3 +54,7 @@ TASK_BOARD.md
 # Python bytecode from the build scripts.
 __pycache__/
 *.pyc
+
+# Licensed fonts supplied by the user. Never commit the raw files (repo is public).
+247 material/*.ttf
+247 material/*.otf

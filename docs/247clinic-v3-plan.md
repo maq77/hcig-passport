@@ -1,5 +1,9 @@
 # 24/7 Clinic v3. Full plan (from scratch, premium)
 
+> **Superseded 2026-09-23 by `specs/007-247clinic-v3/`** (spec, plan, research,
+> contracts). The six open questions below were answered by the user that day and
+> are recorded in the spec's decisions table. Kept for history.
+
 Written 2026-09-23 to start a dedicated new session for the v3 build. Modelled
 on the Medcierge plan (`~/.claude/plans/tingly-wobbling-metcalfe.md`), same
 objectives and phases, adapted to 24/7 Clinic. **The new session should read

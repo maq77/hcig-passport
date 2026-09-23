@@ -410,6 +410,50 @@ const COMPANIES = [
           },
         ],
       },
+      {
+        slug: 'website-v3',
+        name: 'Website v3, bespoke premium',
+        status: 'draft',
+        updated: '2026-09-23',
+        summary: 'A new premium design with the brief’s words exactly. Home first, then every page.',
+        detail: [
+          'Built from scratch at /247clinic/v3. v2 stays as the fallback.',
+          'Full-bleed film hero, WhatsApp on every screen, insurer and hotel logos, the clinic’s own films.',
+          'Content is WEBSITE.docx word for word. A checker fails the build on any other sentence.',
+          'Uploads to 247clinic.net as plain files. Nothing has to run on their server.',
+          'Home is reviewed first. The 30 hotel pages and the inner pages follow its approved patterns.',
+          'Home built 2026-09-23: film hero, green WhatsApp and red call everywhere, the Medcierge floating WhatsApp, insurer and hotel logos, patient films, clinic map, 20 / 30 / 300.',
+          'Dashed boxes mark where your dedicated designs go. The list is linked below.',
+          'The home is ready for Mohamed to review. Irina sees it after his notes are in.',
+        ],
+        checklist: [
+          { text: 'Approve the v3 spec', done: true, who: 'Mohamed' },
+          { text: 'Supply Calisto MT web font files', done: true, who: 'Mohamed' },
+          { text: 'Supply the dedicated designs for the design slots', done: false, who: 'Mohamed' },
+          { text: 'Build and verify the home', done: true, who: 'Us' },
+          { text: 'Review the home', done: false, who: 'Mohamed' },
+          { text: 'Inner pages, 6 destination pages, 30 hotel pages', done: false, who: 'Us' },
+          { text: 'Create a GA4 property for 247clinic.net', done: false, who: 'Us' },
+        ],
+        stages: [
+          {
+            name: 'Plan',
+            items: [
+              { slug: 'spec', name: 'What v3 is, and every decision', kind: 'md', src: 'specs/007-247clinic-v3/spec.md', status: 'approved', note: 'The approval document' },
+              { slug: 'plan', name: 'How it is built, phase by phase', kind: 'md', src: 'specs/007-247clinic-v3/plan.md', status: 'approved', note: 'Stack, phases, review gates, risks' },
+            ],
+          },
+          {
+            name: 'Preview',
+            note: 'Home first. Inner pages follow your notes on it.',
+            items: [
+              { slug: 'home', name: 'Homepage v3', kind: 'link', href: 'https://hcig-passport.vercel.app/247clinic/v3', status: 'draft', note: 'The whole brief home, word for word, in the new design' },
+              { slug: 'slots', name: 'Where your designs go', kind: 'md', src: 'docs/247clinic-v3-design-slots.md', status: 'draft', note: 'Eight dashed boxes: hero still, CAUCQ mark, six service cards' },
+              { slug: 'gaps', name: 'What the brief does not say', kind: 'md', src: 'docs/247clinic-v3-gaps.md', status: 'draft', note: 'Every line left out rather than written' },
+            ],
+          },
+        ],
+      },
     ],
   },
 

@@ -523,6 +523,14 @@ if (fs.existsSync(MCH_SRC)) {
   fs.cpSync(MCH_SRC, path.join(OUT, 'medcierge-home'), { recursive: true });
 }
 
+/* 24/7 Clinic v3 (spec 007): the Next.js static export in 247clinic-v3, synced into
+   src/247clinic-v3 by its `npm run sync`, served at /247clinic/v3. The preview build
+   carries its own robots noindex, nofollow on every page. */
+const C7V3_SRC = path.join(__dirname, 'src', '247clinic-v3');
+if (fs.existsSync(C7V3_SRC)) {
+  fs.cpSync(C7V3_SRC, path.join(OUT, '247clinic', 'v3'), { recursive: true });
+}
+
 /* ---- shared shell files ------------------------------------------------ */
 
 write('studio.css', fs.readFileSync(path.join(CONTENT, 'theme.css'), 'utf8'));

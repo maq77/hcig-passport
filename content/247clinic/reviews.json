@@ -1,0 +1,14 @@
+{
+  "source": "Guest reviews published by 24/7 Clinic on www.247clinic.net, quoted exactly, names as published. Carried from scripts/lp/data.js (collected 2026-09-08). Originals only: no translation is shown, because a translation would be new words.",
+  "reviews": [
+    { "name": "Joerg Finger", "country": "Germany", "lang": "de", "text": "Sehr freundlicher und kompetenter Arzt. Sehr schnelle Hilfe ich fühlte mich in guten Händen." },
+    { "name": "Carla di Scanno", "country": "Italy", "lang": "it", "text": "Molto professionale Disponibile e paziente Problema risolto in poche ore" },
+    { "name": "B Waltert", "country": "Switzerland", "lang": "de", "text": "Der Arzt war sehr nett und kompetent. Gute Unterstützung durch den Arzt." },
+    { "name": "Katarina Poindexter", "country": "Germany", "lang": "de", "text": "Ich bin sehr zufrieden sie haben mir wirklich geholfen. Sehr gutes Team." },
+    { "name": "Christa Offinger", "country": "Germany", "lang": "de", "text": "Danke für die sachliche und freundliche Behandlung. Es war alles bestens." },
+    { "name": "Nicotr Kraver", "country": "Switzerland", "lang": "de", "text": "Dr Mahmoud war ein sehr guter Arzt und konnte mir sehr gut helfen." },
+    { "name": "Andria Henzel", "country": "Germany", "lang": "de", "text": "Freundliche und schnelle Hilfe." },
+    { "name": "C.G.", "country": "Czech Republic", "lang": "de", "text": "Guter medizinischer Service" },
+    { "name": "Lavorsire Fabien", "country": "France", "lang": "fr", "text": "Très bien, merci" }
+  ]
+}

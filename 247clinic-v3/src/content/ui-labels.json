@@ -1,0 +1,17 @@
+{
+  "_rule": "Our own interface words only. No claim, no number, no adjective about care. Everything else on the page must be the brief's (specs/007-247clinic-v3/contracts/content.md).",
+  "labels": [
+    "Accreditation", "On-site care", "Why a hotel clinic", "What we treat", "Insurance & cashless",
+    "How it works", "Patient stories", "Find a clinic",
+    "Menu", "More", "Main", "Footer", "Close", "Play", "Pause", "Watch", "Previous", "Next",
+    "Skip to content", "Call", "Staff", "404",
+    "24/7 Clinic", "Urgent Care Association", "Healthcare International Group", "OpenStreetMap"
+  ],
+  "patterns": [
+    "^Call \\+20 122 222 8247$",
+    "^\\+20 122 222 8247$",
+    "^© \\d{4} 24/7 Clinic$",
+    "^Dedicated design",
+    "^\\d+$"
+  ]
+}

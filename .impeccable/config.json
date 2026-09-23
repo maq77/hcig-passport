@@ -17,6 +17,15 @@
         ],
         "createdAt": "2026-09-22T11:00:15.506Z",
         "reason": "Not UI. checks.js is the watchdog crawler's HTML analyser: the <img> regex on L290 detects images missing alt text on OTHER sites. It renders nothing and ships no markup."
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "check.js"
+        ],
+        "createdAt": "2026-09-23T11:34:17.444Z",
+        "reason": "Claude: check.js is the site checker; line 147 is a regex that scans for <img> tags, not markup"
       }
     ]
   }
