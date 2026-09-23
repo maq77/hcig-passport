@@ -1,0 +1,15 @@
+[data-e-section] > section {
+  padding-top: var(--pad-top) !important;
+  padding-bottom: var(--pad-bottom) !important;
+}
+
+[data-e-section] > section .container {
+  max-width: var(--max-width) !important;
+}
+
+[data-e-section] > section h1,
+[data-e-section] > section h2,
+[data-e-section] > section h3 {
+  transform: scale(var(--heading-scale, 1));
+  transform-origin: left center;
+}

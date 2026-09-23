@@ -1,0 +1,17 @@
+{
+  "order": [
+    "Hero",
+    "Facilities",
+    "Intro",
+    "WhyHotel",
+    "Services",
+    "Insurance",
+    "HowItWorks",
+    "Stories",
+    "Posts",
+    "HotelBand",
+    "Finder",
+    "FinalCta"
+  ],
+  "hidden": []
+}
