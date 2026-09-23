@@ -111,7 +111,7 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
 .site-header.scrolled { border-color: var(--line); box-shadow: 0 8px 24px rgba(26, 20, 20, 0.07); }
 .hdr { height: 100%; max-width: 1440px; margin-inline: auto; padding-inline: 16px; display: flex; align-items: center; gap: 10px; }
 .hdr .logo { display: flex; align-items: center; flex: none; }
-.hdr .logo img { height: 46px; width: auto; transition: height 0.3s var(--ease); }
+.hdr .logo img { height: 46px; width: auto; transform-origin: left center; transition: transform 0.3s var(--ease); }
 .nav { display: none; }
 .hdr-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .hdr .wa-long, .hdr .hdr-call { display: none; }
@@ -121,7 +121,7 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
 @media (min-width: 1200px) {
   .hdr { padding-inline: 32px; gap: 20px; }
   .hdr .logo img { height: 58px; }
-  .site-header.scrolled .logo img { height: 50px; }
+  .site-header.scrolled .logo img { transform: scale(0.86); }
   .nav { display: flex; gap: 4px; margin-left: auto; }
   .nav a { position: relative; padding: 10px 14px; border-radius: 999px; font-size: 14.5px; font-weight: 500; color: var(--ink); white-space: nowrap; transition: background-color 0.2s var(--ease), color 0.2s var(--ease); }
   .nav a:hover { background: var(--surface-2); }
