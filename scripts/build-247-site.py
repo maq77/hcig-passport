@@ -556,6 +556,21 @@ def floating():
 <script>
 (function(){
   var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Scroll-reveal, our own, since animate.css and wow.js do not reveal here.
+     Content is visible by default (CSS forces .wow visible); this only adds a
+     gentle fade-up. If it never runs, nothing is hidden. */
+  (function(){
+    if(calm||!('IntersectionObserver' in window))return;
+    document.documentElement.classList.add('rp-anim');
+    var els=[].slice.call(document.querySelectorAll('.wow'));
+    els.forEach(function(e){e.classList.add('rp-pre');});
+    var io=new IntersectionObserver(function(en){en.forEach(function(x){
+      if(x.isIntersecting){x.target.classList.add('rp-seen');io.unobserve(x.target);}});
+    },{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    els.forEach(function(e){io.observe(e);});
+    /* Failsafe: reveal everything shortly after load no matter what. */
+    addEventListener('load',function(){setTimeout(function(){els.forEach(function(e){e.classList.add('rp-seen');});},1600);});
+  })();
   /* Their carousel clones slides for its loop. Clones keep no h1 and no film. */
   var tries=0,t=setInterval(function(){
     var c=document.querySelectorAll('.main-slider-two .owl-item.cloned');
@@ -820,7 +835,9 @@ h1, h2, h3, h4, h5, h6 {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(90deg, rgba(20,8,8,.52) 0%, rgba(20,8,8,.32) 50%, rgba(20,8,8,0) 80%);
+  /* A soft light wash, not a dark scrim. The brand rule is no dark designs:
+     the photo stays visible and the headline sits on its own light panel. */
+  background: linear-gradient(90deg, rgba(255,255,255,.30) 0%, rgba(255,255,255,.10) 42%, rgba(255,255,255,0) 68%);
 }
 .main-slider-two .shape3,
 .main-slider-two .shape4 {
@@ -830,48 +847,74 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   z-index: 3;
 }
+/* The headline sits on a frosted white panel, readable over any photo and on
+   brand. Dark ink text, red accent, one soft shadow. */
 .main-slider-two__content {
-  padding: 85px 0 80px !important;
+  padding: 34px 38px 36px !important;
+  max-width: 620px;
+  margin: 64px 0 !important;
+  background: rgba(255,255,255,.90);
+  border: 1px solid rgba(255,255,255,.85);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(20,8,8,.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .main-slider-two__content .tagline .text-box p {
-  font-size: 14px !important;
-  line-height: 24px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.04em !important;
+  color: var(--uterpy-base, #C00000) !important;
+  font-size: 13px !important;
+  line-height: 22px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase;
   white-space: normal;
 }
+.main-slider-two__content .tagline .border-box { background: var(--uterpy-base, #C00000) !important; }
 .main-slider-two__content .title h1,
-.main-slider-two__content .title .rp-h1 {
-  color: #fff;
-  font-size: clamp(34px, 3.6vw, 46px) !important;
-  line-height: 1.12 !important;
-  font-weight: 700 !important;
-  margin: 0;
-  text-shadow: 0 2px 20px rgba(0,0,0,.35);
-}
+.main-slider-two__content .title .rp-h1,
 .main-slider-two__content .title h2 {
-  color: #fff;
-  font-size: clamp(34px, 3.6vw, 46px) !important;
-  line-height: 1.12 !important;
-  font-weight: 700 !important;
+  color: #14100F !important;
+  font-size: clamp(30px, 3.4vw, 44px) !important;
+  line-height: 1.1 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-shadow: none;
 }
 .rp-hero-text {
-  color: rgba(255,255,255,.94);
+  color: #4E4743 !important;
   font-size: 16px !important;
-  line-height: 1.6 !important;
-  max-width: 560px;
+  line-height: 1.62 !important;
+  max-width: 540px;
   margin: 14px 0 0 !important;
-  text-shadow: 0 1px 10px rgba(0,0,0,.3);
+  text-shadow: none;
 }
 .main-slider-two__content .main-slider-one__content-btn {
   margin-top: 24px !important;
   gap: 12px;
 }
 .main-slider-two__content .main-slider-one__content-btn a {
-  min-height: 48px;
+  min-height: 50px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: 999px !important;
+  font-weight: 700;
+  padding: 0 26px;
+}
+/* Second hero button: a red-outline pill that matches the primary, instead of
+   the bundle's underlined white link that vanished on the light panel. */
+.main-slider-two__content .main-slider-one__content-btn .btn-two a {
+  background: #fff !important;
+  color: var(--uterpy-base, #C00000) !important;
+  border: 2px solid var(--uterpy-base, #C00000) !important;
+  box-shadow: none !important;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+.main-slider-two__content .main-slider-one__content-btn .btn-two a:hover {
+  background: var(--uterpy-base, #C00000) !important;
+  color: #fff !important;
+  transform: translateY(-2px);
 }
 .main-slider-two__video-icon {
   width: 64px !important;
@@ -900,7 +943,8 @@ h1, h2, h3, h4, h5, h6 {
   margin: 18px 0 0 !important;
   padding: 6px 14px 6px 8px !important;
   border-radius: 999px;
-  background: rgba(255,255,255,.92);
+  background: #FBF0EF;
+  border: 1px solid #EBD3D1;
   color: var(--uterpy-black);
   font-weight: 600;
   font-size: 13.5px !important;
@@ -1183,16 +1227,25 @@ h1, h2, h3, h4, h5, h6 {
 /* ---- insurance banner: compact & punchy ------------------------------- */
 .rp-ins2 {
   display: grid;
-  grid-template-columns: 1.15fr .85fr;
-  gap: 32px;
+  grid-template-columns: 1.3fr .7fr;
+  gap: 44px;
   align-items: center;
-  max-width: 1040px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 32px 36px !important;
-  border-radius: 20px !important;
-  background: var(--uterpy-base);
+  padding: 44px 48px !important;
+  border-radius: 24px !important;
+  background:
+    radial-gradient(120% 120% at 100% 0%, #D42332 0%, var(--uterpy-base) 55%);
   color: #fff;
-  box-shadow: 0 24px 50px -30px rgba(120,0,0,.6);
+  box-shadow: 0 30px 60px -32px rgba(120,0,0,.6);
+}
+.rp-ins2__img img {
+  border-radius: 16px;
+  border: 6px solid rgba(255,255,255,.16);
+  box-shadow: 0 20px 40px -20px rgba(0,0,0,.45);
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 .rp-ins2 h2 {
   color: #fff !important;
@@ -1221,19 +1274,20 @@ h1, h2, h3, h4, h5, h6 {
 .rp-ins2__ticks {
   list-style: none;
   padding: 0;
-  margin: 8px 0 0;
+  margin: 12px 0 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px 16px;
+  gap: 10px 28px;
 }
 .rp-ins2__ticks li {
   display: flex;
-  gap: 8px;
-  align-items: flex-start;
-  font-size: 13.5px !important;
+  gap: 9px;
+  align-items: center;
+  font-size: 14.5px !important;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.3;
 }
+.rp-ins2__ticks .rp-ico { color: #fff; }
 .rp-ins2__ticks .rp-ico {
   width: 16px;
   height: 16px;
@@ -2421,6 +2475,25 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+/* White variants for use on the brand-red insurance panel. Without these the
+   button and links fell back to red-on-red and were invisible. */
+.rp-btn--white {
+  background: #fff !important;
+  color: var(--uterpy-base, #C00000) !important;
+  box-shadow: 0 10px 24px -12px rgba(0,0,0,.4);
+}
+.rp-btn--white:hover {
+  background: #FBF0EF !important;
+  transform: translateY(-2px);
+}
+.rp-btn--white svg,
+.rp-btn--white .rp-ico { color: var(--uterpy-base, #C00000) !important; }
+.rp-link--white {
+  color: #fff !important;
+  text-decoration-color: rgba(255,255,255,.7);
+  text-underline-offset: 4px;
+}
+.rp-link--white:hover { color: #FBF0EF !important; }
 
 /* ---- map details on phone -------------------------------------------- */
 @media (max-width: 767px) {
@@ -2470,6 +2543,71 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
   }
 }
+
+/* =======================================================================
+   FIX PASS 2026-09-23. Repairs regressions on the shared layout.
+   Loaded last so these win. Every rule here fixes a confirmed defect:
+   ======================================================================= */
+
+/* 1. CONTENT WAS INVISIBLE. animate.css is not loaded, so wow.js set every
+   animated block to visibility:hidden and never revealed it. Most sections
+   were blank. Force all wow content visible; our own reveal below adds the
+   motion so nothing depends on the missing library. */
+.wow {
+  visibility: visible !important;
+  opacity: 1 !important;
+  animation-name: none !important;
+}
+/* Gentle, dependency-free entrance. Starts hidden only when JS is present and
+   marks the page; reveals on scroll. If JS never runs, content stays visible. */
+.rp-anim .wow.rp-pre { opacity: 0 !important; transform: translateY(20px); }
+.rp-anim .wow.rp-seen {
+  opacity: 1 !important; transform: none;
+  transition: opacity .6s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rp-anim .wow.rp-pre { opacity: 1 !important; transform: none; }
+}
+
+/* 2. BUTTONS 93px TALL. .thm-btn inherited line-height:65px from their bundle,
+   which plus padding made every primary button ~93px. Normalise it. */
+.thm-btn {
+  line-height: 1.15 !important;
+  padding: 15px 30px !important;
+  min-height: 52px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px;
+}
+
+/* 3. BUTTONS COLLAPSED TO 18px. The .rp-btn base had no display, so <a>
+   elements collapsed to text height. Give it the flex box it always needed. */
+.rp-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 52px !important;
+  padding: 0 26px !important;
+  gap: 8px;
+  line-height: 1.15 !important;
+}
+.rp-btn--wa { background: var(--rp-wa, #25D366) !important; color: #fff !important; }
+.rp-btn--wa:hover { background: var(--rp-wa-deep, #128C7E) !important; }
+.rp-btn--wa svg, .rp-btn--wa .rp-ico { color: #fff !important; }
+
+/* 4. SECTION CTAs LEFT-ALIGNED. Their sections are centred but the CTA row was
+   flush left, floating oddly under centred content. Centre them. */
+.rp-cta-row {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap;
+}
+
+/* 5. Icons inside buttons keep a consistent size. */
+.thm-btn svg, .thm-btn .rp-ico,
+.rp-btn svg, .rp-btn .rp-ico { width: 18px; height: 18px; flex: none; }
 """
 
 
