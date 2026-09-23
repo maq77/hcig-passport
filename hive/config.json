@@ -73,7 +73,7 @@
         "kind": "bulk",
         "match": "batch|convert|rename|resize|compress|bulk|mechanical|sync|copy files",
         "model": "gemini-3.1-pro-high",
-        "effort": "medium"
+        "effort": "high"
       },
       {
         "kind": "research",
