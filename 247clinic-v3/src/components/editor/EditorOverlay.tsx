@@ -22,7 +22,9 @@ type Layout = {
   styles?: Record<string, Record<string, string>>;
   blocks?: Record<string, Record<string, string>>;
 };
-type Theme = Record<"--primary" | "--ink" | "--surface" | "font-size", string>;
+/* --primary, --ink, --surface, font-size, and the space between sections: --section for
+   every width, --section-m for phones only. */
+type Theme = Record<string, string>;
 type Draft = {
   layout: Layout;
   theme: Theme | null; // null: untouched, the file is not written
@@ -31,11 +33,13 @@ type Draft = {
   rules: Record<string, string>; // "selector|property" -> value
 };
 type Selected = { selector: string; label: string };
+type Sec = { name: string; pads: { top: number; bottom: number } | null };
+const PHONE_MQ = "@media (max-width: 767px)";
 type Note = { id: number; ok: boolean; text: string };
 
 const NAMES: Record<string, string> = {
-  Hero: "Hero", HotelBand: "Hotel logos", Facilities: "Facilities film", Services: "Services",
-  Intro: "Care in your hotel", WhyHotel: "Why a hotel clinic", HowItWorks: "How it works",
+  Hero: "Hero", HotelBand: "Numbers and hotels", Facilities: "Accreditation film", Services: "Services",
+  Intro: "Care in your resort", HowItWorks: "How it works",
   Insurance: "Insurance", Stories: "Patient stories", Posts: "Blog posts", Finder: "Find a clinic",
   FinalCta: "Final call",
 };
@@ -72,14 +76,20 @@ const ruleText = (key: string, value: string) => {
 /* Everything pending, as one stylesheet for the iframe. */
 function previewCss(d: Draft): string {
   const css: string[] = ["main{display:flex;flex-direction:column}"];
-  if (d.theme) css.push(`:root{${Object.entries(d.theme).map(([k, v]) => `${k}:${v}`).join(";")}}`);
+  if (d.theme) {
+    const { "--section-m": sm, ...all } = d.theme;
+    css.push(`:root{${Object.entries(all).map(([k, v]) => `${k}:${v}`).join(";")}}`);
+    if (sm) css.push(`${PHONE_MQ}{:root{--section:${sm}}}`);
+  }
   d.layout.order.forEach((n, i) => {
     css.push(`[data-e-section="${n}"]{order:${i};display:${d.layout.hidden.includes(n) ? "none" : "block"}!important}`);
   });
   for (const [n, st] of Object.entries(d.layout.styles ?? {})) {
-    const sec = `[data-e-section="${n}"]>section`;
+    const sec = `[data-e-section="${n}"]>*`;
     if (st["--pad-top"]) css.push(`${sec}{padding-top:${st["--pad-top"]}!important}`);
     if (st["--pad-bottom"]) css.push(`${sec}{padding-bottom:${st["--pad-bottom"]}!important}`);
+    if (st["--pad-top-m"]) css.push(`${PHONE_MQ}{${sec}{padding-top:${st["--pad-top-m"]}!important}}`);
+    if (st["--pad-bottom-m"]) css.push(`${PHONE_MQ}{${sec}{padding-bottom:${st["--pad-bottom-m"]}!important}}`);
     if (st["--heading-scale"]) css.push(`${sec} :is(h1,h2,h3){zoom:${st["--heading-scale"]}}`);
   }
   for (const [k, v] of Object.entries(d.rules)) css.push(ruleText(k, v));
@@ -113,25 +123,100 @@ function EditorInner() {
       [data-e-hover]{outline:2px dashed #c00000!important;outline-offset:2px;cursor:pointer}
       [data-e-selected]{outline:2px solid #c00000!important;outline-offset:2px}
       [data-e-drop]{outline:3px solid #25d366!important;outline-offset:-3px}
-      [contenteditable]{cursor:text;background:rgba(192,0,0,.04)}`;
+      [contenteditable]{cursor:text;background:rgba(192,0,0,.04)}
+      .e-gaps{position:absolute;left:0;top:0;width:100%;height:0;z-index:2147483000;pointer-events:none}
+      .e-gap{position:absolute;left:0;right:0;height:22px;margin-top:-11px;pointer-events:auto;cursor:ns-resize;display:flex;align-items:center;justify-content:center;touch-action:none}
+      .e-gap::before{content:"";position:absolute;left:0;right:0;top:10px;height:2px;background:#c00000;opacity:.18;transition:opacity .15s}
+      .e-gap:hover::before,.e-gap.drag::before{opacity:1}
+      .e-gap span{position:relative;display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#c00000;color:#fff;font:600 12px/1.3 system-ui,sans-serif;box-shadow:0 6px 16px rgba(192,0,0,.3);opacity:0;transform:scale(.9);transition:opacity .15s,transform .15s;white-space:nowrap}
+      .e-gap:hover span,.e-gap.drag span{opacity:1;transform:none}`;
     document.head.append(style, marks);
+
+    /* Drag handles on every boundary between sections: drag to change the space. Half the
+       change goes under the section above, half over the one below. On a phone-width
+       preview the phone spacing changes; otherwise the spacing for every width. */
+    const layer = document.createElement("div");
+    layer.className = "e-gaps";
+    document.body.append(layer);
+    const inlined: HTMLElement[] = [];
+    let dragging = false; // handles are not rebuilt under a pointer that is dragging one
+    const px =(el: Element, p: "paddingTop" | "paddingBottom") => parseFloat(getComputedStyle(el)[p]) || 0;
+    const place = () => {
+      if (dragging) return;
+      const any = document.querySelector(".section");
+      if (any) post({ type: "metrics", section: px(any, "paddingTop") });
+      layer.replaceChildren();
+      const secs = [...document.querySelectorAll<HTMLElement>("[data-e-section]")]
+        .filter((s) => s.firstElementChild && s.getClientRects().length)
+        .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
+      for (let k = 1; k < secs.length; k++) {
+        const a = secs[k - 1], b = secs[k];
+        const ai = a.firstElementChild as HTMLElement, bi = b.firstElementChild as HTMLElement;
+        const h = document.createElement("div");
+        h.className = "e-gap";
+        h.style.top = `${b.getBoundingClientRect().top + scrollY}px`;
+        const tag = document.createElement("span");
+        tag.textContent = `↕ ${Math.round(px(ai, "paddingBottom") + px(bi, "paddingTop"))}px, drag to change`;
+        h.append(tag);
+        h.addEventListener("pointerdown", (ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          h.setPointerCapture(ev.pointerId);
+          h.classList.add("drag");
+          dragging = true;
+          const y0 = ev.clientY, a0 = px(ai, "paddingBottom"), b0 = px(bi, "paddingTop");
+          let aN = a0, bN = b0;
+          const move = (m: PointerEvent) => {
+            const dy = m.clientY - y0;
+            aN = Math.max(0, Math.round((a0 + dy / 2) / 2) * 2);
+            bN = Math.max(0, Math.round((b0 + dy / 2) / 2) * 2);
+            ai.style.setProperty("padding-bottom", `${aN}px`, "important");
+            bi.style.setProperty("padding-top", `${bN}px`, "important");
+            inlined.push(ai, bi);
+            tag.textContent = `↕ ${aN + bN}px`;
+            h.style.top = `${b.getBoundingClientRect().top + scrollY}px`;
+          };
+          h.addEventListener("pointermove", move);
+          h.addEventListener("pointerup", () => {
+            h.removeEventListener("pointermove", move);
+            h.classList.remove("drag");
+            dragging = false;
+            if (aN !== a0 || bN !== b0) {
+              post({ type: "gap", a: a.dataset.eSection, b: b.dataset.eSection, aBottom: aN, bTop: bN, phone: innerWidth < 768 });
+            }
+          }, { once: true });
+        });
+        layer.append(h);
+      }
+    };
+    let raf = 0;
+    const replace = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(place); };
+    const ro = new ResizeObserver(replace);
+    ro.observe(document.body);
+    window.addEventListener("load", replace);
 
     let selected: HTMLElement | null = null;
     let original = "";
     const editable = (el: HTMLElement) => el.children.length === 0 && !!el.textContent?.trim();
 
-    const over = (e: MouseEvent) => (e.target as HTMLElement).setAttribute?.("data-e-hover", "");
+    const over = (e: MouseEvent) => { const t = e.target as HTMLElement; if (!t.closest?.(".e-gaps")) t.setAttribute?.("data-e-hover", ""); };
     const out = (e: MouseEvent) => (e.target as HTMLElement).removeAttribute?.("data-e-hover");
     const click = (e: MouseEvent) => {
       const el = e.target as HTMLElement;
       if (el.isContentEditable) return;
       e.preventDefault();
       e.stopPropagation();
+      if (el.closest(".e-gaps")) return;
       selected?.removeAttribute("data-e-selected");
       selected = el;
       el.setAttribute("data-e-selected", "");
       const text = (el.textContent ?? "").trim().replace(/\s+/g, " ");
-      post({ type: "select", selector: selectorFor(el), label: `${el.tagName.toLowerCase()}${text ? `: ${text.slice(0, 48)}` : ""}` });
+      const sec = el.closest<HTMLElement>("[data-e-section]");
+      const inner = sec?.firstElementChild;
+      post({
+        type: "select", selector: selectorFor(el), label: `${el.tagName.toLowerCase()}${text ? `: ${text.slice(0, 48)}` : ""}`,
+        section: sec?.dataset.eSection, pads: inner ? { top: px(inner, "paddingTop"), bottom: px(inner, "paddingBottom") } : null,
+      });
       if (editable(el)) {
         original = el.textContent!.trim();
         el.contentEditable = "plaintext-only";
@@ -185,7 +270,16 @@ function EditorInner() {
     };
 
     const message = (e: MessageEvent) => {
-      if (e.origin === location.origin && e.data?.type === "css") style.textContent = e.data.css;
+      if (e.origin !== location.origin) return;
+      if (e.data?.type === "css") {
+        style.textContent = e.data.css;
+        /* The pending stylesheet now carries any dragged gap: drop the drag's inline values. */
+        for (const el of inlined.splice(0)) { el.style.removeProperty("padding-top"); el.style.removeProperty("padding-bottom"); }
+        replace();
+      }
+      if (e.data?.type === "scrollTo") {
+        document.querySelector(`[data-e-section="${CSS.escape(e.data.name)}"]`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     };
 
     document.addEventListener("mouseover", over);
@@ -206,6 +300,10 @@ function EditorInner() {
       document.removeEventListener("dragover", dragover);
       document.removeEventListener("drop", drop);
       window.removeEventListener("message", message);
+      window.removeEventListener("load", replace);
+      ro.disconnect();
+      cancelAnimationFrame(raf);
+      layer.remove();
       style.remove();
       marks.remove();
     };
@@ -244,16 +342,18 @@ function IconBtn({ label, onClick, children, disabled, active }: {
   );
 }
 
-function Slider({ label, value, min, max, step, unit = "", onChange, onClear }: {
+function Slider({ label, value, min, max, step, unit = "", auto, onChange, onClear }: {
   label: string; value: number | null; min: number; max: number; step: number; unit?: string;
-  onChange: (v: number) => void; onClear: () => void;
+  auto?: number | null; onChange: (v: number) => void; onClear: () => void;
 }) {
+  /* Unset, the slider sits at the size the page has now (auto) and shows it greyed. */
+  const shown = value ?? (auto != null ? Math.round(auto) : null);
   return (
     <label className="grid grid-cols-[88px_1fr_52px_20px] items-center gap-2 text-xs text-stone-600">
       <span>{label}</span>
-      <input type="range" min={min} max={max} step={step} value={value ?? min} onChange={(e) => onChange(Number(e.target.value))}
-        className={`accent-[#c00000] ${value === null ? "opacity-40" : ""}`} />
-      <span className="text-right tabular-nums text-stone-800">{value === null ? "auto" : `${value}${unit}`}</span>
+      <input type="range" min={min} max={max} step={step} value={shown ?? min} onChange={(e) => onChange(Number(e.target.value))}
+        className={`accent-[#c00000] ${value === null ? "opacity-50" : ""}`} />
+      <span className={`text-right tabular-nums ${value === null ? "text-stone-400" : "text-stone-800"}`}>{shown === null ? "auto" : `${shown}${unit}`}</span>
       <button type="button" onClick={onClear} aria-label={`Reset ${label}`} className="text-stone-400 hover:text-stone-800" disabled={value === null}>
         <RotateCcw size={12} />
       </button>
@@ -269,6 +369,8 @@ function EditorShell() {
   const [width, setWidth] = useState(1440);
   const [area, setArea] = useState({ w: 1000, h: 800 });
   const [selected, setSelected] = useState<Selected | null>(null);
+  const [sec, setSec] = useState<Sec | null>(null);
+  const [sectionPx, setSectionPx] = useState<number | null>(null); // the page's own gap, measured in the preview
   const [notes, setNotes] = useState<Note[]>([]);
   const [log, setLog] = useState("");
   const [online, setOnline] = useState<boolean | null>(null);
@@ -322,7 +424,21 @@ function EditorShell() {
       if (e.origin !== location.origin || e.source !== frame.current?.contentWindow) return;
       const m = e.data;
       if (m.type === "ready") sendCss();
-      if (m.type === "select") setSelected({ selector: m.selector, label: m.label });
+      if (m.type === "select") {
+        setSelected({ selector: m.selector, label: m.label });
+        if (m.section) setSec({ name: m.section, pads: m.pads });
+      }
+      if (m.type === "metrics") setSectionPx(m.section);
+      if (m.type === "gap") {
+        const [top, bottom] = m.phone ? ["--pad-top-m", "--pad-bottom-m"] : ["--pad-top", "--pad-bottom"];
+        push((d) => {
+          const styles = d.layout.styles ?? {};
+          styles[m.a] = { ...(styles[m.a] ?? {}), [bottom]: `${m.aBottom}px` };
+          styles[m.b] = { ...(styles[m.b] ?? {}), [top]: `${m.bTop}px` };
+          d.layout.styles = styles;
+          return d;
+        });
+      }
       if (m.type === "note") note(m.ok, m.text);
       if (m.type === "image") { note(true, m.text); refreshLog(); frame.current?.contentWindow?.location.reload(); }
       if (m.type === "text") {
@@ -407,6 +523,26 @@ function EditorShell() {
   };
   const ruleOf = (prop: string) => (selected ? draft.rules[`${selected.selector}|${prop}`] : undefined);
 
+  /* Spacing: on the Phone preview the phone values change, otherwise the values for every
+     width (phones keep their own when set). */
+  const phone = width < 768;
+  const padKey = (side: "top" | "bottom") => `--pad-${side}${phone ? "-m" : ""}`;
+  const padOf = (name: string, side: "top" | "bottom") => {
+    const v = L.styles?.[name]?.[padKey(side)];
+    return v ? Number(v.replace("px", "")) : null;
+  };
+  const pick = (name: string) => {
+    setSec({ name, pads: null });
+    frame.current?.contentWindow?.postMessage({ type: "scrollTo", name }, location.origin);
+  };
+  const gapKey = phone ? "--section-m" : "--section";
+  const gapVal = draft.theme?.[gapKey] ? Number(draft.theme[gapKey].replace("px", "")) : null;
+  const setGap = (v: number | null) => push((d) => {
+    const t: Theme = { ...(d.theme ?? brand ?? {}) };
+    if (v === null) delete t[gapKey]; else t[gapKey] = `${v}px`;
+    return { ...d, themeReset: false, theme: t };
+  });
+
   const reload = () => frame.current?.contentWindow?.location.reload();
 
   const save = async () => {
@@ -477,6 +613,36 @@ function EditorShell() {
         </header>
 
         <div className="flex-1 overflow-y-auto">
+          <Panel title="Space between sections" extra={
+            <span className={`rounded-full px-2 py-0.5 text-[10.5px] font-semibold ${phone ? "bg-[#e9f9ef] text-[#146c38]" : "bg-stone-100 text-stone-600"}`}>
+              {phone ? "Phone" : "All widths"}
+            </span>
+          }>
+            <div className="grid gap-2.5">
+              <Slider label="Every section" value={gapVal} auto={sectionPx} min={16} max={160} step={2} unit="px"
+                onChange={(v) => setGap(v)} onClear={() => setGap(null)} />
+              <p className="text-[11px] leading-relaxed text-stone-500">
+                Or drag the red line between two sections on the page. {phone ? "These change the phone only." : "Pick Phone above to set phones on their own."}
+              </p>
+              {sec && (
+                <div className="mt-1 grid gap-2 rounded-xl border border-[#f1d5d2] bg-[#fdf3f2] p-3">
+                  <div className="flex items-center justify-between">
+                    <b className="text-[12.5px] text-stone-900">{labelOf(sec.name)}</b>
+                    <button type="button" className="text-[11px] text-stone-500 hover:text-stone-900" onClick={() => setSec(null)}>Close</button>
+                  </div>
+                  <Slider label="Space above" value={padOf(sec.name, "top")} auto={sec.pads?.top} min={0} max={200} step={2} unit="px"
+                    onChange={(v) => setStyle(sec.name, padKey("top"), `${v}px`)} onClear={() => setStyle(sec.name, padKey("top"), null)} />
+                  <Slider label="Space below" value={padOf(sec.name, "bottom")} auto={sec.pads?.bottom} min={0} max={200} step={2} unit="px"
+                    onChange={(v) => setStyle(sec.name, padKey("bottom"), `${v}px`)} onClear={() => setStyle(sec.name, padKey("bottom"), null)} />
+                  <Slider label="Heading size" value={L.styles?.[sec.name]?.["--heading-scale"] ? Number(L.styles[sec.name]["--heading-scale"]) : null}
+                    min={0.7} max={1.5} step={0.05} unit="x"
+                    onChange={(v) => setStyle(sec.name, "--heading-scale", String(v))} onClear={() => setStyle(sec.name, "--heading-scale", null)} />
+                </div>
+              )}
+              {!sec && <p className="text-[11px] text-stone-500">Click a section on the page, or its name below, to set its own space.</p>}
+            </div>
+          </Panel>
+
           {selected && (
             <Panel title="Selected" extra={<button type="button" className="text-xs text-stone-500 hover:text-stone-900" onClick={() => setSelected(null)}>Close</button>}>
               <p className="mb-3 truncate rounded-md bg-stone-100 px-2 py-1.5 font-mono text-[11px] text-stone-600" title={selected.selector}>{selected.label}</p>
@@ -520,32 +686,19 @@ function EditorShell() {
           <Panel title="Sections">
             <ol className="grid gap-2">
               {L.order.map((name, i) => {
-                const st = L.styles?.[name] ?? {};
                 const hidden = L.hidden.includes(name);
-                const px = (v?: string) => (v ? Number(v.replace("px", "")) : null);
+                const on = sec?.name === name;
                 return (
-                  <li key={name} className={`rounded-xl border px-3 py-2.5 ${hidden ? "border-dashed border-stone-300 bg-stone-50" : "border-stone-200 bg-white"}`}>
+                  <li key={name} className={`rounded-xl border px-3 py-2.5 ${hidden ? "border-dashed border-stone-300 bg-stone-50" : on ? "border-[#c00000] bg-[#fdf3f2]" : "border-stone-200 bg-white"}`}>
                     <div className="flex items-center gap-1.5">
                       <span className="w-5 text-[11px] tabular-nums text-stone-400">{i + 1}</span>
-                      <span className={`flex-1 truncate text-[13px] ${hidden ? "text-stone-400 line-through" : "font-medium"}`}>{labelOf(name)}</span>
+                      <button type="button" onClick={() => pick(name)} title="Show it and set its space"
+                        className={`flex-1 truncate text-left text-[13px] hover:text-[#c00000] ${hidden ? "text-stone-400 line-through" : "font-medium"}`}>{labelOf(name)}</button>
                       <IconBtn label="Move up" onClick={() => move(i, -1)} disabled={i === 0}><ArrowUp size={13} /></IconBtn>
                       <IconBtn label="Move down" onClick={() => move(i, 1)} disabled={i === L.order.length - 1}><ArrowDown size={13} /></IconBtn>
                       <IconBtn label={hidden ? "Show" : "Hide"} onClick={() => toggle(name)}>{hidden ? <EyeOff size={13} /> : <Eye size={13} />}</IconBtn>
                       {blockType(name) && <IconBtn label="Remove" onClick={() => removeBlock(name)}><Trash2 size={13} /></IconBtn>}
                     </div>
-                    {!hidden && (
-                      <details className="mt-2 group">
-                        <summary className="cursor-pointer list-none text-[11px] text-stone-500 hover:text-stone-900">Spacing and heading size</summary>
-                        <div className="mt-2 grid gap-2">
-                          <Slider label="Space above" value={px(st["--pad-top"])} min={0} max={160} step={4} unit="px"
-                            onChange={(v) => setStyle(name, "--pad-top", `${v}px`)} onClear={() => setStyle(name, "--pad-top", null)} />
-                          <Slider label="Space below" value={px(st["--pad-bottom"])} min={0} max={160} step={4} unit="px"
-                            onChange={(v) => setStyle(name, "--pad-bottom", `${v}px`)} onClear={() => setStyle(name, "--pad-bottom", null)} />
-                          <Slider label="Heading size" value={st["--heading-scale"] ? Number(st["--heading-scale"]) : null} min={0.7} max={1.5} step={0.05} unit="x"
-                            onChange={(v) => setStyle(name, "--heading-scale", String(v))} onClear={() => setStyle(name, "--heading-scale", null)} />
-                        </div>
-                      </details>
-                    )}
                   </li>
                 );
               })}

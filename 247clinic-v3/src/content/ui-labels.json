@@ -35,13 +35,20 @@
     "Address",
     "Watch video",
     "Show on map",
-    "More details"
+    "More details",
+    "Photos",
+    "Show photo",
+    "Show more",
+    "Show less"
   ],
   "patterns": [
     "^Call \\+20 122 222 8247$",
     "^\\+20 122 222 8247$",
     "^© \\d{4} 24/7 Clinic$",
     "^Dedicated design",
-    "^\\d+$"
+    "^\\d+$",
+    "^\\d+ / \\d+$",
+    "^Show photo \\d+$",
+    "^Step \\d+$"
   ]
 }

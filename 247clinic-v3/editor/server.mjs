@@ -138,10 +138,11 @@ const routes = {
       log("Theme: reset to brand");
       return { ok: true };
     }
-    const decl = Object.entries(vars)
-      .filter(([k, v]) => /^--[a-z0-9-]+$|^font-size$/.test(k) && /^[#a-z0-9.%() ,-]+$/i.test(String(v)))
-      .map(([k, v]) => `  ${k}: ${v};`).join("\n");
-    writeFileSync(CSS_FILES.theme, `${head}:root {\n${decl}\n}\n`);
+    const ok = Object.entries(vars).filter(([k, v]) => /^--[a-z0-9-]+$|^font-size$/.test(k) && /^[#a-z0-9.%() ,-]+$/i.test(String(v)));
+    /* --section-m is the space between sections on phones: written as --section for them. */
+    const decl = ok.filter(([k]) => k !== "--section-m").map(([k, v]) => `  ${k}: ${v};`).join("\n");
+    const phone = ok.find(([k]) => k === "--section-m");
+    writeFileSync(CSS_FILES.theme, `${head}:root {\n${decl}\n}\n${phone ? `@media (max-width: 767px) {\n  :root { --section: ${phone[1]}; }\n}\n` : ""}`);
     log(`Theme: ${Object.entries(vars).map(([k, v]) => `${k} ${v}`).join(", ")}`);
     return { ok: true };
   },

@@ -9,6 +9,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { RevealObserver, Tracker } from "@/components/ui/Motion";
+import { SmoothScroll } from "@/components/ui/SmoothScroll";
 
 const sans = Poppins({ subsets: ["latin", "latin-ext"], weight: ["400", "500", "600", "700"], variable: "--font-sans", display: "swap" });
 /* Calisto MT, licensed, supplied by the user 2026-09-23. Latin subsets built by scripts/fonts.mjs. */
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer nav={nav} footerOnly={g.footerOnly.map((n) => n.title)} />
         <WhatsAppFloat prompts={[BRIEF.needDoctor, BRIEF.needHelp, BRIEF.waUs]} sub={BRIEF.sticky} aria={g.whatsapp.floatingText} />
         <RevealObserver />
+        <SmoothScroll />
         <Tracker />
       </body>
     </html>

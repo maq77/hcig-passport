@@ -14,14 +14,15 @@ import { telHref, waHref } from "@/lib/wa";
 
 export function Footer({ nav, footerOnly }: { nav: string[]; footerOnly: string[] }) {
   const year = new Date().getFullYear();
-  const contact = section("contact", "contact");
+  /* One closing message for the whole site: the brief's final call (section 16), said once. */
+  const close = section("home", "final-cta");
   return (
     <footer className="site-footer">
       <div className="container">
         <div className="help-band rv">
           <div>
-            <h2 className="h2">{BRIEF.needHelp}</h2>
-            {contact.subheading && <p className="lead">{contact.subheading}</p>}
+            <h2 className="h2">{close.heading}</h2>
+            <p className="lead">{close.body[0]}</p>
           </div>
           <div className="cta-row">
             <WaButton placement="footer-band">{BRIEF.waUs}</WaButton>

@@ -25,8 +25,7 @@
       "heading": "Urgent Medical Care. Right Inside Your Hotel.",
       "subheading": "24/7 Medical Care • Cashless Insurance • Multilingual Support",
       "body": [
-        "24/7 Clinic operates a network of on-site urgent care clinics inside hotels and resorts across Egypt’s leading tourist destinations, giving international travelers fast access to medical care without unnecessary hospital visits.",
-        "Internationally Accredited Urgent Care Network"
+        "On-site urgent care inside hotels and resorts across Egypt’s top tourist destinations. Fast care, without unnecessary hospital visits."
       ],
       "items": [],
       "ctas": [
@@ -52,7 +51,7 @@
       "heading": "Internationally Accredited Urgent Care",
       "subheading": null,
       "body": [
-        "24/7 Clinic is the first international urgent care network outside the United States to achieve accreditation through the Urgent Care Association."
+        "The first international urgent care network outside the United States accredited by the Urgent Care Association."
       ],
       "items": [
         {
@@ -90,18 +89,23 @@
       "heading": "Medical Care Without Leaving Your Resort",
       "subheading": null,
       "body": [
-        "When you become ill or injured while travelling, visiting a hospital should not always be the first step.",
-        "24/7 Clinic brings urgent and primary medical care directly into hotels and resorts, allowing international guests to receive medical consultation, diagnostics and treatment close to their hotel room.",
-        "Our medical teams can manage a wide range of conditions on-site and coordinate hospital care only when medically necessary.",
-        "Hospital care when necessary - not automatically."
+        "Ill or injured on holiday? A hospital shouldn’t always be your first stop."
       ],
-      "items": [],
-      "ctas": [
+      "items": [
         {
-          "label": "Find a Clinic",
-          "target": "Secondary CTA"
+          "title": "Inside Your Resort",
+          "text": "No searching for an unfamiliar medical facility across the city. Care is already where you are staying."
+        },
+        {
+          "title": "Treated On-Site",
+          "text": "Many urgent and primary care conditions are assessed and treated right here, with consultation, diagnostics and treatment close to your room."
+        },
+        {
+          "title": "Hospital Only When Needed",
+          "text": "If you need more, our team arranges the right hospital, ambulance or next medical step."
         }
       ],
+      "ctas": [],
       "devNotes": [
         "Reuse an existing About / Intro block where possible.",
         "Optional highlighted line: Hospital care when necessary - not automatically."
@@ -113,24 +117,7 @@
       "heading": "Why Leave Your Hotel When Medical Care Is Already There?",
       "subheading": null,
       "body": [],
-      "items": [
-        {
-          "title": "Inside Your Resort",
-          "text": "No need to search for an unfamiliar medical facility in another part of the city."
-        },
-        {
-          "title": "Fast Access to Medical Care",
-          "text": "Our hotel-based model gives travelers direct access to medical support where they are staying."
-        },
-        {
-          "title": "Treatment On-Site",
-          "text": "Many common urgent and primary care conditions can be assessed and treated without a hospital visit."
-        },
-        {
-          "title": "Hospital Transfer Only When Needed",
-          "text": "If higher-level care is required, our team coordinates the appropriate hospital, ambulance or next medical step."
-        }
-      ],
+      "items": [],
       "ctas": [],
       "devNotes": [
         "Add a new four-card section."
@@ -145,15 +132,15 @@
       "items": [
         {
           "title": "Urgent Medical Care",
-          "text": "Assessment and treatment of sudden illness, fever, infections, gastrointestinal conditions, dehydration, respiratory problems and other urgent conditions."
+          "text": "Sudden illness, fever, infections, stomach and gut problems, dehydration, breathing problems and other urgent conditions."
         },
         {
           "title": "Injuries & Minor Procedures",
-          "text": "Treatment of wounds, burns, sprains, minor trauma, dressings, suturing and other minor procedures where clinically appropriate."
+          "text": "Wounds, burns, sprains and minor trauma, with dressings, stitches and other minor procedures where clinically appropriate."
         },
         {
           "title": "Diagnostics & Laboratory Tests",
-          "text": "Medical assessment with access to laboratory tests and diagnostic services when required."
+          "text": "Medical assessment with laboratory tests and diagnostic services when required."
         },
         {
           "title": "IV Therapy & Medication",
@@ -161,11 +148,11 @@
         },
         {
           "title": "Specialist Consultation",
-          "text": "Access to specialist physicians and coordinated consultations where further medical assessment is required."
+          "text": "Access to specialist physicians when further medical assessment is required."
         },
         {
           "title": "Hotel Room Doctor Visit",
-          "text": "When appropriate, a doctor visit can be arranged directly in the guest’s hotel room."
+          "text": "When appropriate, a doctor comes directly to your hotel room."
         }
       ],
       "ctas": [
@@ -185,9 +172,8 @@
       "heading": "Travelling With Medical Insurance?",
       "subheading": "We Can Coordinate Directly With Your Insurer",
       "body": [
-        "24/7 Clinic works with international travel insurers and assistance companies worldwide.",
-        "Where insurance approval and policy conditions allow, we can arrange cashless medical treatment, meaning the patient may not need to pay the full medical cost upfront and claim it back later.",
-        "Our team can assist with:"
+        "We work with international travel insurers and assistance companies worldwide.",
+        "Where approved, treatment is cashless, so you may not need to pay the full cost upfront and claim it back later."
       ],
       "items": [
         {
@@ -199,19 +185,7 @@
           "text": null
         },
         {
-          "title": "Direct communication with the insurer",
-          "text": null
-        },
-        {
           "title": "Medical documentation",
-          "text": null
-        },
-        {
-          "title": "Billing coordination",
-          "text": null
-        },
-        {
-          "title": "Cashless treatment where approved",
           "text": null
         }
       ],
@@ -240,19 +214,19 @@
       "items": [
         {
           "title": "Message Us on WhatsApp",
-          "text": "Tell us your hotel, location and what happened."
+          "text": "Tell us your hotel and what happened."
         },
         {
           "title": "We Find the Nearest Medical Option",
-          "text": "If your hotel has a 24/7 Clinic, we direct you there. If not, our coordination team identifies the most appropriate medical solution."
+          "text": "If your hotel has a 24/7 Clinic, we direct you there. If not, our coordination team finds the most appropriate medical option nearby."
         },
         {
           "title": "We Check Your Insurance",
-          "text": "Send us your insurance details and, where applicable, our team can coordinate directly with your insurer."
+          "text": "Send us your insurance details and, where applicable, we coordinate directly with your insurer."
         },
         {
           "title": "Receive Medical Care",
-          "text": "Treatment is provided on-site whenever clinically appropriate. If higher-level care is needed, we coordinate the next step."
+          "text": "Treatment on-site whenever clinically appropriate."
         }
       ],
       "ctas": [
@@ -270,9 +244,7 @@
       "briefSection": 13,
       "heading": "Find a 24/7 Clinic Near You",
       "subheading": null,
-      "body": [
-        "Our clinics are located inside hotels and resorts across Egypt’s major tourism destinations."
-      ],
+      "body": [],
       "items": [
         {
           "title": "Hurghada",

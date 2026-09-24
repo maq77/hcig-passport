@@ -12,6 +12,16 @@ import { waHref } from "@/lib/wa";
 export function WhatsAppFloat({ prompts, sub, aria }: { prompts: string[]; sub: string; aria: string }) {
   const reduce = useReducedMotion();
   const [i, setI] = useState(0);
+  /* On phones the speech bubble waits until the hero buttons are off screen, so it never
+     covers them; the green button itself shows from the first second. */
+  const [quiet, setQuiet] = useState(false);
+  useEffect(() => {
+    const ctas = document.querySelector(".hero-ctas");
+    if (!ctas || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(([e]) => setQuiet(e.isIntersecting), { threshold: 0 });
+    io.observe(ctas);
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     if (reduce) return;
@@ -22,10 +32,11 @@ export function WhatsAppFloat({ prompts, sub, aria }: { prompts: string[]; sub: 
   const label = prompts[i];
 
   return (
-    <a href={waHref("homepage")} target="_blank" rel="noopener" className="wa-float" aria-label={aria}
+    <a href={waHref("homepage")} target="_blank" rel="noopener" className={`wa-float ${quiet ? "quiet" : ""}`} aria-label={aria}
       data-ev="whatsapp_medical_click" data-placement="floating">
       <span className="wa-bubble" aria-hidden="true">
-        <AnimatePresence mode="wait" initial={false}>
+        {/* popLayout: the old phrase leaves while the new one arrives, so the bubble is never empty. */}
+        <AnimatePresence mode="popLayout" initial={false}>
           <motion.span key={label} style={{ display: "block" }}
             initial={reduce ? false : { opacity: 0, y: 8, scale: 0.94 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}

@@ -24,7 +24,7 @@ for (const f of fs.readdirSync(contentDir)) parts.push(...jsonStrings(JSON.parse
 parts.push(...jsonStrings(JSON.parse(fs.readFileSync(path.join(ROOT, "content", "247clinic", "reviews.json"), "utf8")).reviews));
 /* Changes he named (logged with his words) and lines he allowed from their live site. */
 const approved = JSON.parse(fs.readFileSync(path.join(ROOT, "content", "247clinic", "approved-edits.json"), "utf8"));
-for (const e of approved.edits) parts.push(...[].concat(e.to ?? [], e.text ?? []));
+for (const e of approved.edits) parts.push(...jsonStrings(e.to ?? []), ...jsonStrings(e.text ?? []));
 parts.push(...approved.fromTheirSite.text);
 const corpus = ` ${parts.map(norm).join(" | ")} `;
 

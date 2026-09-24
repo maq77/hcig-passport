@@ -30,6 +30,16 @@ export const PHOTOS = {
   resort: { src: "/img/resort-aerial-2400.webp", small: "/img/resort-aerial-1200.webp", w: 2400, h: 1600 },
 };
 
+/* The hero carousel (the user, 2026-09-24). Generated mood stills (Nano Banana): they
+   stand for the service, never for their real staff, patients or rooms. The first is the
+   approved hero and stays a slot the editor can replace. Captions come from the page. */
+export const HERO_SLIDES = [
+  { src: "/slots/hero-desktop.webp", slot: "hero-desktop.webp", w: 1376, h: 768, pos: "64% 50%" },
+  { src: "/img/hero-resort.webp", w: 1376, h: 768, pos: "74% 50%" },
+  { src: "/img/hero-message.webp", w: 1376, h: 768, pos: "72% 50%" },
+  { src: "/img/hero-family.webp", w: 1376, h: 768, pos: "70% 50%" },
+];
+
 export type Logo = { name: string; src: string; w: number; h: number };
 
 /* Official files in their own colours (the user, 2026-09-23: "colorful with their

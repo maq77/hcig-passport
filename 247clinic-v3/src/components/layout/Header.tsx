@@ -109,12 +109,6 @@ export function Header({ labels }: { labels: Labels }) {
               </div>
               <ul className="sheet-info">
                 <li><Mail size={16} aria-hidden="true" /><a href={`mailto:${labels.email}`}>{labels.email}</a></li>
-                <li className="sheet-badges">
-                  <img src={asset("/logos/marks/uca.png")} alt="" width={44} height={44} /><span>{labels.accredited}</span>
-                </li>
-                <li className="sheet-badges">
-                  <img src={asset("/logos/marks/hcig.png")} alt="" width={46} height={44} /><span>{labels.partOf}</span>
-                </li>
               </ul>
             </motion.div>
           </>
