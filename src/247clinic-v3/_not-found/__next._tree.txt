@@ -1,2 +1,2 @@
-:HL["/247clinic/v3/_next/static/chunks/1zwkrlqod2fpd.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"5LRA20Vp7mDnZfMubKihP"}
+:HL["/247clinic/v3/_next/static/chunks/1o_9mxk7leyy6.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"oA81FVPBZXMr-DeJ_3o0L"}

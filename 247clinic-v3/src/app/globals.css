@@ -31,7 +31,7 @@
   --hdr: 64px;
   color-scheme: light;
 }
-@media (min-width: 1200px) { :root { --hdr: 84px; } }
+@media (min-width: 1200px) { :root { --hdr: 96px; } }
 
 /* Element defaults sit in the base layer, so a Tailwind utility on an element (the editor
    panel, the More arrow) can override them; every class rule below still wins over both. */
@@ -123,16 +123,39 @@
 .menu-btn:hover { background: var(--line); }
 @media (min-width: 380px) { .hdr .hdr-call { display: inline-flex; } }
 @media (min-width: 1200px) {
-  .hdr { padding-inline: 32px; gap: 20px; }
-  .hdr .logo img { height: 58px; }
-  .site-header.scrolled .logo img { transform: scale(0.86); }
-  .nav { display: flex; gap: 4px; margin-left: auto; }
-  .nav a { position: relative; padding: 10px 14px; border-radius: 999px; font-size: 14.5px; font-weight: 500; color: var(--ink); white-space: nowrap; transition: background-color 0.2s var(--ease), color 0.2s var(--ease); }
-  .nav a:hover { background: var(--surface-2); }
-  .nav a[aria-current="page"] { color: var(--primary); background: var(--primary-tint); }
-  .hdr-actions { margin-left: 12px; gap: 10px; }
-  .hdr .wa-long { display: inline-flex; }
+  /* Desktop header, round 6 (the user, 2026-09-24: "better and bigger header"). */
+  .hdr { padding-inline: 32px; gap: 18px; }
+  .hdr .logo img { height: 68px; }
+  .site-header.scrolled .logo img { transform: scale(0.84); }
+  .nav { display: flex; gap: 2px; margin-inline: auto; }
+  .nav a { position: relative; padding: 12px 10px; font-size: 14.5px; font-weight: 500; color: var(--ink); white-space: nowrap; transition: color 0.2s var(--ease); }
+  .nav a::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: 5px; height: 2px; border-radius: 2px; background: var(--primary); transform: scaleX(0); transform-origin: left center; transition: transform 0.3s var(--ease); }
+  .nav a:hover { color: var(--primary); }
+  .nav a:hover::after, .nav a[aria-current="page"]::after { transform: scaleX(1); }
+  .nav a[aria-current="page"] { color: var(--primary); font-weight: 600; }
+  .hdr-actions { margin-left: 0; gap: 10px; padding-left: 18px; border-left: 1px solid var(--line); }
+  .hdr .hdr-call { width: 50px; min-height: 50px; flex: none; }
+  .hdr .wa-long { display: inline-flex; flex: none; white-space: nowrap; min-height: 50px; padding: 10px 22px; font-size: 15.5px; }
+  .hdr-actions { flex: none; }
   .hdr .wa-short, .menu-btn { display: none; }
+}
+@media (min-width: 1200px) and (max-width: 1379px) {
+  .hdr { gap: 10px; padding-inline: 20px; }
+  .hdr .logo img { height: 58px; }
+  .nav a { padding: 12px 6px; font-size: 14px; }
+  .nav a::after { left: 6px; right: 6px; }
+  .hdr-actions { gap: 8px; padding-left: 12px; }
+  .hdr .hdr-call { width: 46px; min-height: 46px; }
+  .hdr .wa-long { min-height: 48px; padding: 10px 16px; font-size: 14.5px; }
+}
+@media (min-width: 1380px) {
+  .hdr { gap: 20px; }
+  .nav { gap: 2px; }
+  .nav a { padding: 12px 9px; font-size: 15px; }
+  .nav a::after { left: 9px; right: 9px; }
+  .hdr-actions { gap: 12px; padding-left: 20px; }
+  .hdr .hdr-call { width: 54px; min-height: 54px; }
+  .hdr .wa-long { min-height: 54px; padding: 10px 24px; font-size: 16px; }
 }
 
 /* menu sheet */
@@ -271,27 +294,28 @@ html.js .hero-copy > :nth-child(5) { animation-delay: 0.32s; }
 
 /* ---------- the numbers, then the hotels they are inside (round 4) ---------- */
 .proof { position: relative; z-index: 3; padding-top: 6px; }
-.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 20px 4px 18px; border-radius: 26px; background: #fff; border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(26, 20, 20, 0.05), 0 20px 44px rgba(26, 20, 20, 0.08); }
-.stat { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; padding: 0 6px; min-width: 0; }
-.stat + .stat { border-left: 1px solid var(--line); }
-.stat-ico { display: none; }
-.stat-num b { display: block; font-family: var(--font-display), serif; font-weight: 700; font-size: clamp(38px, 11vw, 46px); line-height: 1; color: var(--primary); font-variant-numeric: tabular-nums; }
-.stat-num::after { content: ""; display: block; width: 22px; height: 3px; margin: 8px auto 0; border-radius: 3px; background: var(--primary-line); transform-origin: center; transition: transform 0.8s var(--ease) 0.3s, background-color 0.3s; }
-html.js .stat.rv:not(.in) .stat-num::after { transform: scaleX(0); }
-.stat-label { font-size: 12px; line-height: 1.35; font-weight: 500; color: var(--ink-2); text-wrap: balance; }
+.stats { display: grid; grid-template-columns: minmax(0, 1fr); padding: 6px 18px; border-radius: 26px; background: #fff; border: 1px solid var(--line); box-shadow: 0 4px 12px rgba(26, 20, 20, 0.05), 0 20px 44px rgba(26, 20, 20, 0.08); }
+/* Phones: a row each, icon, number, label, like the desktop band turned on its side. */
+.stat { display: flex; align-items: center; gap: 14px; padding: 14px 0; min-width: 0; }
+.stat + .stat { border-top: 1px solid var(--line); }
+.stat-ico { display: grid; place-items: center; width: 48px; height: 48px; flex: none; border-radius: 16px; background: var(--primary-tint); color: var(--primary); }
+.stat-num { min-width: 86px; }
+.stat-num b { display: block; font-family: var(--font-display), serif; font-weight: 700; font-size: 42px; line-height: 1; color: var(--primary); font-variant-numeric: tabular-nums; }
+.stat-label { font-size: 15px; line-height: 1.35; font-weight: 600; color: var(--ink); text-wrap: balance; }
 .proof .mq { margin-top: 16px; }
 .proof .logo-tile { height: 64px; min-width: 132px; padding: 0 20px; border-radius: 16px; box-shadow: none; }
 .proof .logo-tile img { max-height: 40px; max-width: 128px; }
 .proof .name-tile span { font-size: 17px; }
 @media (min-width: 768px) {
   .proof { margin-top: -64px; padding-top: 0; }
-  .stats { padding: 26px 12px; border-radius: 30px; box-shadow: var(--shadow-lg); max-width: 1040px; margin-inline: auto; }
-  .stat { flex-direction: row; justify-content: center; text-align: left; gap: 16px; padding: 4px 20px; }
-  .stat-ico { display: grid; place-items: center; width: 56px; height: 56px; flex: none; border-radius: 18px; background: var(--primary-tint); color: var(--primary); transition: background-color 0.3s var(--ease), color 0.3s var(--ease), transform 0.4s var(--ease); }
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 26px 12px; border-radius: 30px; box-shadow: var(--shadow-lg); max-width: 1040px; margin-inline: auto; }
+  .stat { justify-content: center; text-align: left; gap: 16px; padding: 4px 20px; }
+  .stat + .stat { border-top: 0; border-left: 1px solid var(--line); }
+  .stat-num { min-width: 0; }
+  .stat-ico { width: 56px; height: 56px; border-radius: 18px; transition: background-color 0.3s var(--ease), color 0.3s var(--ease), transform 0.4s var(--ease); }
   .stat:hover .stat-ico { background: var(--primary); color: #fff; transform: rotate(-8deg) scale(1.05); }
   .stat-num b { font-size: clamp(46px, 4.4vw, 60px); }
-  .stat-num::after { display: none; }
-  .stat-label { font-size: 14.5px; max-width: 15ch; }
+  .stat-label { font-size: 14.5px; font-weight: 500; color: var(--ink-2); max-width: 15ch; }
   .stat > .stat-num { order: 1; }
   .stat > .stat-ico { order: 0; }
   .stat > .stat-label { order: 2; }
