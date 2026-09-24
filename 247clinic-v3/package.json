@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "edit": "node editor/start.mjs",
     "build": "next build && node scripts/flatten-rsc.mjs && node scripts/check-brief.mjs",
     "check": "node scripts/check-brief.mjs",
     "media": "node scripts/media.mjs",

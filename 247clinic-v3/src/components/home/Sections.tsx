@@ -41,7 +41,7 @@ export function Hero() {
       <div className="hero-media">
         <HeroDepth className="hero-pic">
           {img
-            ? <img src={img} alt="" width={1376} height={768} fetchPriority="high" decoding="async" />
+            ? <img src={img} data-slot="hero-desktop.webp" alt="" width={1376} height={768} fetchPriority="high" decoding="async" />
             : <Slot file="hero-desktop.webp" purpose="hero image" px="2400 x 1350" />}
         </HeroDepth>
         <div className="hero-veil" aria-hidden="true" />

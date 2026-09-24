@@ -4,3 +4,4 @@
 /public/media/
 *.tsbuildinfo
 .env*
+/editor/changes.log

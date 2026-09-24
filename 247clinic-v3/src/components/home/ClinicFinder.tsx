@@ -297,9 +297,10 @@ function LeafletFallback({ clinics }: { clinics: FinderClinic[] }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let map: import("leaflet").Map | undefined;
+    let gone = false; // the effect may be cleaned up before the import resolves
     (async () => {
       const L = (await import("leaflet")).default;
-      if (!ref.current) return;
+      if (gone || !ref.current) return;
       map = L.map(ref.current, { scrollWheelZoom: false, attributionControl: false });
       L.control.attribution({ position: "bottomleft", prefix: false }).addTo(map);
       L.tileLayer("https://tile.openstreetmap.de/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "&copy; OpenStreetMap" }).addTo(map);
@@ -307,7 +308,7 @@ function LeafletFallback({ clinics }: { clinics: FinderClinic[] }) {
         L.circleMarker([c.lat, c.lng], { radius: 7, color: "#fff", weight: 2, fillColor: "#C00000", fillOpacity: 1 }).bindTooltip(c.hotel))).addTo(map);
       map.fitBounds(g.getBounds(), { padding: [36, 36] });
     })();
-    return () => { map?.remove(); };
+    return () => { gone = true; map?.remove(); };
   }, [clinics]);
   return <div ref={ref} className="map-canvas" />;
 }
