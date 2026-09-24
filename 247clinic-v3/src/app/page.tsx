@@ -3,7 +3,7 @@ import { WA_MESSAGES } from "@/lib/wa";
 import layout from "@/content/home-layout.json";
 import Block from "@/components/editor/Block";
 import dynamic from "next/dynamic";
-import type { CSSProperties, FC } from "react";
+import type { FC } from "react";
 import "./editor-overrides.css";
 import "./theme-overrides.css";
 
@@ -43,7 +43,7 @@ export default function Home() {
       {L.order.filter((name) => DEV || !L.hidden.includes(name)).map((name) => {
         const Comp = SECTIONS[name];
         return (
-          <div key={name} data-e-section={name} hidden={L.hidden.includes(name) || undefined} style={L.styles?.[name] as CSSProperties | undefined}>
+          <div key={name} data-e-section={name} hidden={L.hidden.includes(name) || undefined}>
             {Comp ? <Comp /> : <Block name={name} content={L.blocks?.[name] ?? {}} />}
           </div>
         );

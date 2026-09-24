@@ -39,7 +39,8 @@
     "Photos",
     "Show photo",
     "Show more",
-    "Show less"
+    "Show less",
+    "FAQ"
   ],
   "patterns": [
     "^Call \\+20 122 222 8247$",

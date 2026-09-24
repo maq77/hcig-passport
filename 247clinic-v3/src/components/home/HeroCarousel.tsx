@@ -7,7 +7,8 @@
      Transform only, so it stays smooth everywhere.
    - The progress bars are the timer: the active bar fills, and when it ends the next slide
      comes. Pausing freezes the bar, so nothing jumps on resume.
-   - Pauses on hover, keyboard focus, a held touch, off screen and in a hidden tab.
+   - Keeps playing on hover and on tap (the user, 2026-09-24); it only waits while off
+     screen or in a hidden tab. A click on an arrow or a bar starts that slide fresh.
      No autoplay and no motion under reduced motion; arrows, bars and swipe still work. */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -15,7 +16,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export type HeroSlide = { src: string; w: number; h: number; caption: string; pos?: string; slot?: string };
 
-const SLIDE_MS = 6500;
+/* Seconds each photo stays: 6.5 until 2026-09-24, then 5 ("a little faster"). */
+const SLIDE_MS = 5000;
 const EASE = [0.76, 0, 0.24, 1] as const;
 
 export function HeroCarousel({ slides, label, labels }: {
@@ -24,7 +26,6 @@ export function HeroCarousel({ slides, label, labels }: {
   const n = slides.length;
   const [i, setI] = useState(0);
   const [dir, setDir] = useState(1);
-  const [hold, setHold] = useState(false);
   const [onScreen, setOnScreen] = useState(true);
   const reduce = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
@@ -55,16 +56,14 @@ export function HeroCarousel({ slides, label, labels }: {
   }, [i, n, slides]);
 
   const auto = !reduce && n > 1;
-  const running = auto && !hold && onScreen;
+  const running = auto && onScreen;
 
   const onPointerDown = (e: React.PointerEvent) => {
     start.current = { x: e.clientX, y: e.clientY };
-    if (e.pointerType !== "mouse") setHold(true);
   };
   const onPointerUp = (e: React.PointerEvent) => {
     const s = start.current;
     start.current = null;
-    if (e.pointerType !== "mouse") setHold(false);
     if (!s) return;
     const dx = e.clientX - s.x;
     if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(e.clientY - s.y) * 1.3) (dx < 0 ? next : prev)();
@@ -78,13 +77,10 @@ export function HeroCarousel({ slides, label, labels }: {
       role="region"
       aria-roledescription="carousel"
       aria-label={label}
-      onPointerEnter={(e) => e.pointerType === "mouse" && setHold(true)}
-      onPointerLeave={(e) => { if (e.pointerType === "mouse") setHold(false); start.current = null; }}
+      onPointerLeave={() => { start.current = null; }}
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
-      onPointerCancel={() => { setHold(false); start.current = null; }}
-      onFocus={() => setHold(true)}
-      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setHold(false); }}
+      onPointerCancel={() => { start.current = null; }}
       onKeyDown={(e) => {
         if (e.key === "ArrowRight") { e.preventDefault(); next(); }
         if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }

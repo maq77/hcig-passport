@@ -309,6 +309,43 @@
       ],
       "to": [],
       "his_words": "see the policy entry of 2026-09-24"
+    },
+    {
+      "date": "2026-09-24",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "content/247clinic/en/home.json (part of a longer line)",
+      "from": "Urgent Medical Care.",
+      "to": "Urgent Medical Care"
+    },
+    {
+      "date": "2026-09-24",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "content/247clinic/en/home.json (part of a longer line)",
+      "from": "Right Inside Your Hotel.",
+      "to": "Right Inside Your Hotel"
+    },
+    {
+      "date": "2026-09-24",
+      "by": "Claude, keeping the user editor wording",
+      "kind": "edit",
+      "where": "home hero.heading",
+      "from": "Urgent Medical Care Right Inside Your Hotel",
+      "to": "Urgent Medical Care\nRight Inside Your Hotel",
+      "note": "Line break marks the red second line; his wording without full stops kept."
+    },
+    {
+      "date": "2026-09-24",
+      "by": "Claude, on the user instruction",
+      "kind": "add",
+      "where": "home, FAQ section (faq-home)",
+      "text": [
+        "Frequently Asked Questions",
+        "Quick answers before you message us.",
+        "All FAQs"
+      ],
+      "his_words": "at last section between view clinic button and feeling unwell part, i want to add FAQs with good styling and design"
     }
   ],
   "fromTheirSite": {

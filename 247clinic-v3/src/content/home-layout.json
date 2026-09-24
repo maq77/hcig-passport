@@ -13,6 +13,46 @@
     "FinalCta"
   ],
   "hidden": [],
-  "styles": {},
+  "styles": {
+    "HotelBand": {
+      "--pad-bottom": "10px",
+      "--pad-top": "26px"
+    },
+    "Facilities": {
+      "--pad-top": "26px",
+      "--pad-bottom": "18px"
+    },
+    "Services": {
+      "--pad-top": "18px",
+      "--pad-bottom": "42px"
+    },
+    "Intro": {
+      "--pad-bottom": "20px",
+      "--pad-top": "42px"
+    },
+    "HowItWorks": {
+      "--pad-top": "20px",
+      "--pad-bottom": "12px"
+    },
+    "Insurance": {
+      "--pad-top": "12px",
+      "--pad-bottom": "14px"
+    },
+    "Stories": {
+      "--pad-top": "14px",
+      "--pad-bottom": "0px"
+    },
+    "Posts": {
+      "--pad-top": "64px",
+      "--pad-bottom": "64px"
+    },
+    "Finder": {
+      "--pad-top": "22px",
+      "--pad-bottom": "6px"
+    },
+    "Hero": {
+      "--pad-bottom": "34px"
+    }
+  },
   "blocks": {}
 }

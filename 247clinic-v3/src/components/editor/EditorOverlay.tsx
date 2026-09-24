@@ -1,18 +1,22 @@
 "use client";
 
 /* The home editor (dev only: npm run edit, then open the home with ?edit=1).
-   The page loads twice: the outer copy is the editor panel, the inner copy runs in
-   an iframe at a chosen device width and takes the clicks, typing and image drops.
-   Pending changes show live in the iframe through an injected stylesheet; Save hands
-   them to the save server (editor/server.mjs), which writes the source files. */
+   The page loads twice: the outer copy is the editor panel, the inner copy runs in an
+   iframe at a chosen device width and takes the clicks, typing, drags and image drops.
+   Every change shows live through one stylesheet built by editor/css.mjs, the same code
+   the save server uses, so what you see is what is saved. The iframe carries the class
+   e-live, which switches the saved rules off while the live copy (saved + pending) runs,
+   so a later change always wins over an earlier saved one.
+   Changes apply to the device being viewed: Desktop, Tablet or Phone. */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
-  AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, Eye, EyeOff, ImagePlus, Minus,
+  AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, Eye, EyeOff, GripVertical, ImagePlus, Minus,
   Monitor, Plus, Redo2, RotateCcw, Smartphone, Tablet, Trash2, Undo2,
 } from "lucide-react";
 import initialLayout from "@/content/home-layout.json";
 import { BLOCK_PLACEHOLDER, BLOCK_TYPES } from "./blocks";
+import { DEVICE_OF_WIDTH, editsCss, mergeRules } from "../../../editor/css.mjs";
 
 const API = "http://127.0.0.1:3100";
 
@@ -25,24 +29,38 @@ type Layout = {
 /* --primary, --ink, --surface, font-size, and the space between sections: --section for
    every width, --section-m for phones only. */
 type Theme = Record<string, string>;
+type Rule = { media: string; selector: string; props: Record<string, string> };
 type Draft = {
   layout: Layout;
   theme: Theme | null; // null: untouched, the file is not written
   themeReset: boolean;
-  texts: { from: string; to: string }[];
-  rules: Record<string, string>; // "selector|property" -> value
+  texts: { from: string; to: string; section?: string }[];
+  rules: Record<string, string | null>; // media␁selector␁prop -> value (null removes)
 };
-type Selected = { selector: string; label: string };
+type Computed = { zoom: number; mt: number; mb: number; lh: number; ls: number };
+type Selected = { selector: string; label: string; computed: Computed | null };
 type Sec = { name: string; pads: { top: number; bottom: number } | null };
-const PHONE_MQ = "@media (max-width: 767px)";
 type Note = { id: number; ok: boolean; text: string };
+
+const SEP = "\u0001";
+const keyOf = (media: string, selector: string, prop: string) => [media, selector, prop].join(SEP);
+function changesOf(rules: Draft["rules"]) {
+  const out: { media: string; selector: string; props: Record<string, string | null> }[] = [];
+  for (const [k, v] of Object.entries(rules)) {
+    const [media, selector, prop] = k.split(SEP);
+    let c = out.find((x) => x.media === media && x.selector === selector);
+    if (!c) out.push((c = { media, selector, props: {} }));
+    c.props[prop] = v;
+  }
+  return out;
+}
 
 const NAMES: Record<string, string> = {
   Hero: "Hero", HotelBand: "Numbers and hotels", Facilities: "Accreditation film", Services: "Services",
-  Intro: "Care in your resort", HowItWorks: "How it works",
-  Insurance: "Insurance", Stories: "Patient stories", Posts: "Blog posts", Finder: "Find a clinic",
-  FinalCta: "Final call",
+  Intro: "Care in your resort", HowItWorks: "How it works", Insurance: "Insurance", Stories: "Patient stories",
+  Posts: "Blog posts", Finder: "Find a clinic", FinalCta: "FAQs on the photo",
 };
+const DEVICE_LABEL: Record<string, string> = { desktop: "Desktop", tablet: "Tablet", phone: "Phone" };
 const blockType = (name: string) => BLOCK_TYPES.find((b) => name.startsWith(`${b.type}-`));
 const labelOf = (name: string) => NAMES[name] ?? `${blockType(name)?.label ?? "Section"} (added)`;
 
@@ -57,6 +75,7 @@ const SWATCHES = [
 
 const clone = <T,>(v: T): T => JSON.parse(JSON.stringify(v));
 const fresh = (layout: Layout): Draft => ({ layout: clone(layout), theme: null, themeReset: false, texts: [], rules: {} });
+const num = (v: string | null | undefined) => (v == null || v === "" ? null : parseFloat(v));
 
 function luminance(hex: string) {
   const c = hex.replace("#", "").match(/.{2}/g)?.map((x) => parseInt(x, 16) / 255) ?? [1, 1, 1];
@@ -68,47 +87,44 @@ const contrast = (a: string, b: string) => {
   return (x + 0.05) / (y + 0.05);
 };
 
-const ruleText = (key: string, value: string) => {
-  const [selector, prop] = key.split("|");
-  return `${selector} { ${prop}: ${value} !important; }`;
-};
-
-/* Everything pending, as one stylesheet for the iframe. */
-function previewCss(d: Draft): string {
+/* Everything, saved and pending, as one stylesheet for the iframe. */
+function previewCss(d: Draft, saved: Rule[]): string {
   const css: string[] = ["main{display:flex;flex-direction:column}"];
   if (d.theme) {
     const { "--section-m": sm, ...all } = d.theme;
     css.push(`:root{${Object.entries(all).map(([k, v]) => `${k}:${v}`).join(";")}}`);
-    if (sm) css.push(`${PHONE_MQ}{:root{--section:${sm}}}`);
+    if (sm) css.push(`@media (max-width: 767px){:root{--section:${sm}}}`);
   }
   d.layout.order.forEach((n, i) => {
     css.push(`[data-e-section="${n}"]{order:${i};display:${d.layout.hidden.includes(n) ? "none" : "block"}!important}`);
   });
-  for (const [n, st] of Object.entries(d.layout.styles ?? {})) {
-    const sec = `[data-e-section="${n}"]>*`;
-    if (st["--pad-top"]) css.push(`${sec}{padding-top:${st["--pad-top"]}!important}`);
-    if (st["--pad-bottom"]) css.push(`${sec}{padding-bottom:${st["--pad-bottom"]}!important}`);
-    if (st["--pad-top-m"]) css.push(`${PHONE_MQ}{${sec}{padding-top:${st["--pad-top-m"]}!important}}`);
-    if (st["--pad-bottom-m"]) css.push(`${PHONE_MQ}{${sec}{padding-bottom:${st["--pad-bottom-m"]}!important}}`);
-    if (st["--heading-scale"]) css.push(`${sec} :is(h1,h2,h3){zoom:${st["--heading-scale"]}}`);
-  }
-  for (const [k, v] of Object.entries(d.rules)) css.push(ruleText(k, v));
+  css.push(editsCss(d.layout, { rules: mergeRules(saved, changesOf(d.rules)) }, "html.e-live"));
   return css.join("\n");
 }
 
 /* ------------------------------------------------------------ inside the iframe */
 
+/* A selector that survives small markup changes: ids and section names first, then
+   class names, and a position only where two siblings would otherwise match. */
+const STATE = /^(rv|in|on|done|run|is-.*|scrolled|open|quiet|has-img)$/;
 function selectorFor(el: Element): string {
+  const cls = (e: Element) => [...e.classList].find((c) => /^[a-z][a-z0-9_-]*$/i.test(c) && !STATE.test(c));
   const parts: string[] = [];
   let cur: Element | null = el;
   while (cur && cur !== document.body) {
+    if (cur.id) { parts.unshift(`#${CSS.escape(cur.id)}`); return parts.join(" > "); }
     const sec = cur.getAttribute("data-e-section");
-    if (sec) return [`[data-e-section="${sec}"]`, ...parts].join(" > ");
-    if (cur.id) return [`#${CSS.escape(cur.id)}`, ...parts].join(" > ");
-    let i = 1;
-    for (let s = cur.previousElementSibling; s; s = s.previousElementSibling) if (s.tagName === cur.tagName) i++;
-    parts.unshift(`${cur.tagName.toLowerCase()}:nth-of-type(${i})`);
-    cur = cur.parentElement;
+    if (sec) { parts.unshift(`[data-e-section="${sec}"]`); return parts.join(" > "); }
+    const tag = cur.tagName.toLowerCase();
+    const c = cls(cur);
+    let part = c ? `${tag}.${CSS.escape(c)}` : tag;
+    const p: Element | null = cur.parentElement;
+    const node: Element = cur;
+    if (p && [...p.children].filter((s) => s.matches(part)).length > 1) {
+      part += `:nth-of-type(${[...p.children].filter((s) => s.tagName === node.tagName).indexOf(node) + 1})`;
+    }
+    parts.unshift(part);
+    cur = p;
   }
   return ["body", ...parts].join(" > ");
 }
@@ -116,36 +132,107 @@ function selectorFor(el: Element): string {
 function EditorInner() {
   useEffect(() => {
     const post = (msg: object) => window.parent.postMessage(msg, location.origin);
+    document.documentElement.classList.add("e-live");
     const style = document.createElement("style");
     style.id = "e-preview";
     const marks = document.createElement("style");
     marks.textContent = `
       [data-e-hover]{outline:2px dashed #c00000!important;outline-offset:2px;cursor:pointer}
-      [data-e-selected]{outline:2px solid #c00000!important;outline-offset:2px}
       [data-e-drop]{outline:3px solid #25d366!important;outline-offset:-3px}
       [contenteditable]{cursor:text;background:rgba(192,0,0,.04)}
-      .e-gaps{position:absolute;left:0;top:0;width:100%;height:0;z-index:2147483000;pointer-events:none}
+      .e-layer{position:absolute;left:0;top:0;width:100%;height:0;z-index:2147483000;pointer-events:none}
       .e-gap{position:absolute;left:0;right:0;height:22px;margin-top:-11px;pointer-events:auto;cursor:ns-resize;display:flex;align-items:center;justify-content:center;touch-action:none}
       .e-gap::before{content:"";position:absolute;left:0;right:0;top:10px;height:2px;background:#c00000;opacity:.18;transition:opacity .15s}
       .e-gap:hover::before,.e-gap.drag::before{opacity:1}
-      .e-gap span{position:relative;display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#c00000;color:#fff;font:600 12px/1.3 system-ui,sans-serif;box-shadow:0 6px 16px rgba(192,0,0,.3);opacity:0;transform:scale(.9);transition:opacity .15s,transform .15s;white-space:nowrap}
-      .e-gap:hover span,.e-gap.drag span{opacity:1;transform:none}`;
+      .e-pill{position:relative;display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:#c00000;color:#fff;font:600 12px/1.3 system-ui,sans-serif;box-shadow:0 6px 16px rgba(192,0,0,.3);white-space:nowrap}
+      .e-gap .e-pill{opacity:0;transform:scale(.9);transition:opacity .15s,transform .15s}
+      .e-gap:hover .e-pill,.e-gap.drag .e-pill{opacity:1;transform:none}
+      .e-sel{position:absolute;outline:2px solid #c00000;outline-offset:2px;border-radius:4px;pointer-events:none}
+      .e-h{position:absolute;pointer-events:auto;touch-action:none;background:#fff;border:2px solid #c00000;box-shadow:0 2px 8px rgba(26,20,20,.25)}
+      .e-h-size{right:-9px;bottom:-9px;width:14px;height:14px;border-radius:4px;cursor:nwse-resize}
+      .e-h-top,.e-h-bot{left:50%;width:34px;height:10px;margin-left:-17px;border-radius:999px;cursor:ns-resize}
+      .e-h-top{top:-7px}.e-h-bot{bottom:-7px}
+      .e-sel .e-pill{position:absolute;right:0;top:-34px}`;
     document.head.append(style, marks);
 
-    /* Drag handles on every boundary between sections: drag to change the space. Half the
-       change goes under the section above, half over the one below. On a phone-width
-       preview the phone spacing changes; otherwise the spacing for every width. */
     const layer = document.createElement("div");
-    layer.className = "e-gaps";
+    layer.className = "e-layer";
     document.body.append(layer);
-    const inlined: HTMLElement[] = [];
-    let dragging = false; // handles are not rebuilt under a pointer that is dragging one
-    const px =(el: Element, p: "paddingTop" | "paddingBottom") => parseFloat(getComputedStyle(el)[p]) || 0;
-    const place = () => {
-      if (dragging) return;
-      const any = document.querySelector(".section");
-      if (any) post({ type: "metrics", section: px(any, "paddingTop") });
-      layer.replaceChildren();
+    const gaps = document.createElement("div");
+    const box = document.createElement("div");
+    box.className = "e-sel";
+    box.hidden = true;
+    box.innerHTML = `<span class="e-pill"></span><span class="e-h e-h-top" title="Drag: space above"></span><span class="e-h e-h-bot" title="Drag: space below"></span><span class="e-h e-h-size" title="Drag: size"></span>`;
+    layer.append(gaps, box);
+    const pill = box.querySelector(".e-pill") as HTMLElement;
+
+    const inlined = new Set<HTMLElement>();
+    let dragging = false;
+    let selected: HTMLElement | null = null;
+    let original = "";
+    const px = (el: Element, p: "paddingTop" | "paddingBottom" | "marginTop" | "marginBottom") => parseFloat(getComputedStyle(el)[p]) || 0;
+    const computedOf = (el: HTMLElement): Computed => {
+      const cs = getComputedStyle(el);
+      const fs = parseFloat(cs.fontSize) || 16;
+      return {
+        zoom: parseFloat(cs.zoom) || 1,
+        mt: parseFloat(cs.marginTop) || 0,
+        mb: parseFloat(cs.marginBottom) || 0,
+        lh: cs.lineHeight === "normal" ? 1.2 : Math.round((parseFloat(cs.lineHeight) / fs) * 100) / 100,
+        ls: cs.letterSpacing === "normal" ? 0 : parseFloat(cs.letterSpacing) || 0,
+      };
+    };
+
+    /* The selection box and its three handles. */
+    const drawSel = () => {
+      if (!selected || !selected.isConnected) { box.hidden = true; return; }
+      const r = selected.getBoundingClientRect();
+      box.hidden = false;
+      Object.assign(box.style, { left: `${r.left + scrollX}px`, top: `${r.top + scrollY}px`, width: `${r.width}px`, height: `${r.height}px` });
+      const c = computedOf(selected);
+      pill.textContent = `${Math.round(c.zoom * 100)}%  ·  ↑ ${Math.round(c.mt)}  ↓ ${Math.round(c.mb)}`;
+    };
+    const dragHandle = (cls: string, onMove: (dx: number, dy: number, start: Computed) => Record<string, string | null>) => {
+      const h = box.querySelector(cls) as HTMLElement;
+      h.addEventListener("pointerdown", (ev) => {
+        if (!selected) return;
+        ev.preventDefault();
+        ev.stopPropagation();
+        h.setPointerCapture(ev.pointerId);
+        dragging = true;
+        const el = selected, x0 = ev.clientX, y0 = ev.clientY, start = computedOf(el);
+        let props: Record<string, string | null> = {};
+        const move = (m: PointerEvent) => {
+          props = onMove(m.clientX - x0, m.clientY - y0, start);
+          for (const [k, v] of Object.entries(props)) el.style.setProperty(k, v ?? "", "important");
+          inlined.add(el);
+          drawSel();
+        };
+        h.addEventListener("pointermove", move);
+        h.addEventListener("pointerup", () => {
+          h.removeEventListener("pointermove", move);
+          dragging = false;
+          if (Object.keys(props).length) post({ type: "rule", selector: selectorFor(el), props });
+        }, { once: true });
+      });
+    };
+    dragHandle(".e-h-size", (dx, _dy, s) => {
+      const z = Math.min(3, Math.max(0.3, Math.round((s.zoom * (1 + dx / 220)) / 0.05) * 0.05));
+      return { zoom: z.toFixed(2) };
+    });
+    dragHandle(".e-h-top", (_dx, dy, s) => ({ "margin-top": `${Math.round(s.mt - dy)}px` }));
+    dragHandle(".e-h-bot", (_dx, dy, s) => ({ "margin-bottom": `${Math.round(s.mb + dy)}px` }));
+
+    /* Drag handles on every boundary between sections: drag to change the space. Half the
+       change goes under the section above, half over the one below. */
+    const placeGaps = () => {
+      /* The page-wide gap itself, measured on a probe (a section may carry its own). */
+      const probe = document.createElement("div");
+      probe.style.cssText = "position:absolute;visibility:hidden;padding-top:var(--section)";
+      layer.append(probe);
+      post({ type: "metrics", section: px(probe, "paddingTop") });
+      probe.remove();
+      gaps.replaceChildren();
       const secs = [...document.querySelectorAll<HTMLElement>("[data-e-section]")]
         .filter((s) => s.firstElementChild && s.getClientRects().length)
         .sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top);
@@ -156,6 +243,7 @@ function EditorInner() {
         h.className = "e-gap";
         h.style.top = `${b.getBoundingClientRect().top + scrollY}px`;
         const tag = document.createElement("span");
+        tag.className = "e-pill";
         tag.textContent = `↕ ${Math.round(px(ai, "paddingBottom") + px(bi, "paddingTop"))}px, drag to change`;
         h.append(tag);
         h.addEventListener("pointerdown", (ev) => {
@@ -172,7 +260,8 @@ function EditorInner() {
             bN = Math.max(0, Math.round((b0 + dy / 2) / 2) * 2);
             ai.style.setProperty("padding-bottom", `${aN}px`, "important");
             bi.style.setProperty("padding-top", `${bN}px`, "important");
-            inlined.push(ai, bi);
+            inlined.add(ai);
+            inlined.add(bi);
             tag.textContent = `↕ ${aN + bN}px`;
             h.style.top = `${b.getBoundingClientRect().top + scrollY}px`;
           };
@@ -181,40 +270,38 @@ function EditorInner() {
             h.removeEventListener("pointermove", move);
             h.classList.remove("drag");
             dragging = false;
-            if (aN !== a0 || bN !== b0) {
-              post({ type: "gap", a: a.dataset.eSection, b: b.dataset.eSection, aBottom: aN, bTop: bN, phone: innerWidth < 768 });
-            }
+            if (aN !== a0 || bN !== b0) post({ type: "gap", a: a.dataset.eSection, b: b.dataset.eSection, aBottom: aN, bTop: bN });
           }, { once: true });
         });
-        layer.append(h);
+        gaps.append(h);
       }
     };
     let raf = 0;
-    const replace = () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(place); };
-    const ro = new ResizeObserver(replace);
+    const redraw = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => { if (!dragging) { placeGaps(); drawSel(); } });
+    };
+    const ro = new ResizeObserver(redraw);
     ro.observe(document.body);
-    window.addEventListener("load", replace);
+    window.addEventListener("load", redraw);
 
-    let selected: HTMLElement | null = null;
-    let original = "";
     const editable = (el: HTMLElement) => el.children.length === 0 && !!el.textContent?.trim();
-
-    const over = (e: MouseEvent) => { const t = e.target as HTMLElement; if (!t.closest?.(".e-gaps")) t.setAttribute?.("data-e-hover", ""); };
+    const over = (e: MouseEvent) => { const t = e.target as HTMLElement; if (!t.closest?.(".e-layer")) t.setAttribute?.("data-e-hover", ""); };
     const out = (e: MouseEvent) => (e.target as HTMLElement).removeAttribute?.("data-e-hover");
     const click = (e: MouseEvent) => {
       const el = e.target as HTMLElement;
       if (el.isContentEditable) return;
       e.preventDefault();
       e.stopPropagation();
-      if (el.closest(".e-gaps")) return;
-      selected?.removeAttribute("data-e-selected");
+      if (el.closest(".e-layer")) return;
       selected = el;
-      el.setAttribute("data-e-selected", "");
+      drawSel();
       const text = (el.textContent ?? "").trim().replace(/\s+/g, " ");
       const sec = el.closest<HTMLElement>("[data-e-section]");
       const inner = sec?.firstElementChild;
       post({
         type: "select", selector: selectorFor(el), label: `${el.tagName.toLowerCase()}${text ? `: ${text.slice(0, 48)}` : ""}`,
+        computed: computedOf(el),
         section: sec?.dataset.eSection, pads: inner ? { top: px(inner, "paddingTop"), bottom: px(inner, "paddingBottom") } : null,
       });
       if (editable(el)) {
@@ -229,7 +316,7 @@ function EditorInner() {
       if (!keep) el.textContent = original;
       el.removeAttribute("contenteditable");
       if (keep && now && now !== original) {
-        post({ type: "text", from: original, to: now, block: el.dataset.eBlock, field: el.dataset.eField });
+        post({ type: "text", from: original, to: now, block: el.dataset.eBlock, field: el.dataset.eField, section: el.closest<HTMLElement>("[data-e-section]")?.dataset.eSection });
         original = now;
       }
     };
@@ -258,12 +345,11 @@ function EditorInner() {
         post({ type: "note", ok: false, text: "Drop an image file on a picture or a design slot." });
         return;
       }
-      const name = slot.dataset.slot!;
       try {
-        const res = await fetch(`${API}/save/image`, { method: "POST", headers: { "X-Slot-Name": name }, body: file });
-        const out = await res.json();
-        if (!res.ok) throw new Error(out.error);
-        post({ type: "image", text: `Saved ${out.file} (${out.width} x ${out.height}).` });
+        const res = await fetch(`${API}/save/image`, { method: "POST", headers: { "X-Slot-Name": slot.dataset.slot! }, body: file });
+        const outp = await res.json();
+        if (!res.ok) throw new Error(outp.error);
+        post({ type: "image", text: `Saved ${outp.file} (${outp.width} x ${outp.height}).` });
       } catch (err) {
         post({ type: "note", ok: false, text: `Image not saved: ${(err as Error).message}. Is npm run edit running?` });
       }
@@ -273,13 +359,17 @@ function EditorInner() {
       if (e.origin !== location.origin) return;
       if (e.data?.type === "css") {
         style.textContent = e.data.css;
-        /* The pending stylesheet now carries any dragged gap: drop the drag's inline values. */
-        for (const el of inlined.splice(0)) { el.style.removeProperty("padding-top"); el.style.removeProperty("padding-bottom"); }
-        replace();
+        /* The live stylesheet now carries every drag: drop the drags' inline values. */
+        for (const el of inlined) {
+          for (const p of ["padding-top", "padding-bottom", "zoom", "margin-top", "margin-bottom"]) el.style.removeProperty(p);
+        }
+        inlined.clear();
+        redraw();
       }
       if (e.data?.type === "scrollTo") {
         document.querySelector(`[data-e-section="${CSS.escape(e.data.name)}"]`)?.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+      if (e.data?.type === "deselect") { selected = null; drawSel(); }
     };
 
     document.addEventListener("mouseover", over);
@@ -300,12 +390,13 @@ function EditorInner() {
       document.removeEventListener("dragover", dragover);
       document.removeEventListener("drop", drop);
       window.removeEventListener("message", message);
-      window.removeEventListener("load", replace);
+      window.removeEventListener("load", redraw);
       ro.disconnect();
       cancelAnimationFrame(raf);
       layer.remove();
       style.remove();
       marks.remove();
+      document.documentElement.classList.remove("e-live");
     };
   }, []);
   return null;
@@ -322,7 +413,7 @@ const WIDTHS = [
 function Panel({ title, children, extra }: { title: string; children: React.ReactNode; extra?: React.ReactNode }) {
   return (
     <section className="border-b border-stone-200 px-4 py-4">
-      <div className="mb-3 flex items-center justify-between">
+      <div className="mb-3 flex items-center justify-between gap-2">
         <h3 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-stone-500">{title}</h3>
         {extra}
       </div>
@@ -342,19 +433,20 @@ function IconBtn({ label, onClick, children, disabled, active }: {
   );
 }
 
-function Slider({ label, value, min, max, step, unit = "", auto, onChange, onClear }: {
+function Slider({ label, value, min, max, step, unit = "", auto, format, onChange, onClear }: {
   label: string; value: number | null; min: number; max: number; step: number; unit?: string;
-  auto?: number | null; onChange: (v: number) => void; onClear: () => void;
+  auto?: number | null; format?: (v: number) => string; onChange: (v: number) => void; onClear: () => void;
 }) {
   /* Unset, the slider sits at the size the page has now (auto) and shows it greyed. */
-  const shown = value ?? (auto != null ? Math.round(auto) : null);
+  const shown = value ?? (auto != null ? auto : null);
+  const text = shown === null ? "auto" : format ? format(shown) : `${Math.round(shown * 100) / 100}${unit}`;
   return (
-    <label className="grid grid-cols-[88px_1fr_52px_20px] items-center gap-2 text-xs text-stone-600">
+    <label className="grid grid-cols-[92px_1fr_56px_20px] items-center gap-2 text-xs text-stone-600">
       <span>{label}</span>
       <input type="range" min={min} max={max} step={step} value={shown ?? min} onChange={(e) => onChange(Number(e.target.value))}
-        className={`accent-[#c00000] ${value === null ? "opacity-50" : ""}`} />
-      <span className={`text-right tabular-nums ${value === null ? "text-stone-400" : "text-stone-800"}`}>{shown === null ? "auto" : `${shown}${unit}`}</span>
-      <button type="button" onClick={onClear} aria-label={`Reset ${label}`} className="text-stone-400 hover:text-stone-800" disabled={value === null}>
+        className={`w-full accent-[#c00000] ${value === null ? "opacity-50" : ""}`} />
+      <span className={`text-right tabular-nums ${value === null ? "text-stone-400" : "font-medium text-stone-900"}`}>{text}</span>
+      <button type="button" onClick={onClear} aria-label={`Reset ${label}`} title="Back to the design" className="text-stone-400 hover:text-stone-800 disabled:opacity-30" disabled={value === null}>
         <RotateCcw size={12} />
       </button>
     </label>
@@ -365,18 +457,23 @@ function EditorShell() {
   const [baseline, setBaseline] = useState<Layout>(() => clone(initialLayout as Layout));
   const [hist, setHist] = useState<{ list: Draft[]; ptr: number }>(() => ({ list: [fresh(initialLayout as Layout)], ptr: 0 }));
   const draft = hist.list[hist.ptr];
+  const [saved, setSaved] = useState<Rule[]>([]);
   const [brand, setBrand] = useState<Theme | null>(null);
   const [width, setWidth] = useState(1440);
   const [area, setArea] = useState({ w: 1000, h: 800 });
   const [selected, setSelected] = useState<Selected | null>(null);
   const [sec, setSec] = useState<Sec | null>(null);
-  const [sectionPx, setSectionPx] = useState<number | null>(null); // the page's own gap, measured in the preview
+  const [sectionPx, setSectionPx] = useState<number | null>(null);
   const [notes, setNotes] = useState<Note[]>([]);
   const [log, setLog] = useState("");
   const [online, setOnline] = useState<boolean | null>(null);
   const [saving, setSaving] = useState(false);
+  const [dragFrom, setDragFrom] = useState<number | null>(null);
   const frame = useRef<HTMLIFrameElement>(null);
   const stage = useRef<HTMLDivElement>(null);
+
+  const device: string = DEVICE_OF_WIDTH(width);
+  const phone = device === "phone";
 
   const note = useCallback((ok: boolean, text: string) => {
     setNotes((n) => [{ id: Date.now() + Math.random(), ok, text }, ...n].slice(0, 6));
@@ -385,7 +482,7 @@ function EditorShell() {
   const push = useCallback((fn: (d: Draft) => Draft) => {
     setHist((h) => {
       const next = fn(clone(h.list[h.ptr]));
-      return { list: [...h.list.slice(0, h.ptr + 1), next].slice(-120), ptr: Math.min(h.ptr + 1, 119) };
+      return { list: [...h.list.slice(0, h.ptr + 1), next].slice(-150), ptr: Math.min(h.ptr + 1, 149) };
     });
   }, []);
   const undo = useCallback(() => setHist((h) => ({ ...h, ptr: Math.max(0, h.ptr - 1) })), []);
@@ -401,7 +498,7 @@ function EditorShell() {
     }
   }, []);
 
-  /* The brand values, read from the page's own stylesheet. */
+  /* The brand values, read from the page's own stylesheet; the saved element changes. */
   useEffect(() => {
     const cs = getComputedStyle(document.documentElement);
     setBrand({
@@ -411,26 +508,35 @@ function EditorShell() {
       "font-size": cs.fontSize,
     });
     refreshLog();
+    fetch(`${API}/edits`).then((r) => r.json()).then((d) => setSaved(d.elements?.rules ?? [])).catch(() => {});
   }, [refreshLog]);
 
-  /* Send the pending stylesheet to the iframe whenever the draft changes. */
+  /* Send the live stylesheet to the iframe whenever something changes. */
   const sendCss = useCallback(() => {
-    frame.current?.contentWindow?.postMessage({ type: "css", css: previewCss(draft) }, location.origin);
-  }, [draft]);
+    frame.current?.contentWindow?.postMessage({ type: "css", css: previewCss(draft, saved) }, location.origin);
+  }, [draft, saved]);
   useEffect(sendCss, [sendCss]);
+
+  const setRules = useCallback((selector: string, props: Record<string, string | null>, media: string) => {
+    push((d) => {
+      for (const [p, v] of Object.entries(props)) d.rules[keyOf(media, selector, p)] = v;
+      return d;
+    });
+  }, [push]);
 
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {
       if (e.origin !== location.origin || e.source !== frame.current?.contentWindow) return;
       const m = e.data;
       if (m.type === "ready") sendCss();
+      if (m.type === "metrics") setSectionPx(m.section);
       if (m.type === "select") {
-        setSelected({ selector: m.selector, label: m.label });
+        setSelected({ selector: m.selector, label: m.label, computed: m.computed ?? null });
         if (m.section) setSec({ name: m.section, pads: m.pads });
       }
-      if (m.type === "metrics") setSectionPx(m.section);
+      if (m.type === "rule") setRules(m.selector, m.props, device);
       if (m.type === "gap") {
-        const [top, bottom] = m.phone ? ["--pad-top-m", "--pad-bottom-m"] : ["--pad-top", "--pad-bottom"];
+        const [top, bottom] = phone ? ["--pad-top-m", "--pad-bottom-m"] : ["--pad-top", "--pad-bottom"];
         push((d) => {
           const styles = d.layout.styles ?? {};
           styles[m.a] = { ...(styles[m.a] ?? {}), [bottom]: `${m.aBottom}px` };
@@ -449,13 +555,13 @@ function EditorShell() {
             return d;
           });
         } else {
-          push((d) => ({ ...d, texts: [...d.texts, { from: m.from, to: m.to }] }));
+          push((d) => ({ ...d, texts: [...d.texts, { from: m.from, to: m.to, section: m.section }] }));
         }
       }
     };
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, [note, push, refreshLog, sendCss]);
+  }, [note, push, refreshLog, sendCss, setRules, device, phone]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -488,11 +594,11 @@ function EditorShell() {
     d.layout.styles = styles;
     return d;
   });
-  const move = (i: number, by: number) => push((d) => {
+  const move = (i: number, j: number) => push((d) => {
     const o = d.layout.order;
-    const j = i + by;
-    if (j < 0 || j >= o.length) return d;
-    [o[i], o[j]] = [o[j], o[i]];
+    if (j < 0 || j >= o.length || i === j) return d;
+    const [it] = o.splice(i, 1);
+    o.splice(j, 0, it);
     return d;
   });
   const toggle = (name: string) => push((d) => {
@@ -513,30 +619,37 @@ function EditorShell() {
     delete d.layout.styles?.[name];
     return d;
   });
-  const setRule = (prop: string, value: string | null) => {
-    if (!selected) return;
-    push((d) => {
-      const k = `${selected.selector}|${prop}`;
-      if (value === null) delete d.rules[k]; else d.rules[k] = value;
-      return d;
-    });
-  };
-  const ruleOf = (prop: string) => (selected ? draft.rules[`${selected.selector}|${prop}`] : undefined);
 
-  /* Spacing: on the Phone preview the phone values change, otherwise the values for every
-     width (phones keep their own when set). */
-  const phone = width < 768;
-  const padKey = (side: "top" | "bottom") => `--pad-${side}${phone ? "-m" : ""}`;
-  const padOf = (name: string, side: "top" | "bottom") => {
-    const v = L.styles?.[name]?.[padKey(side)];
-    return v ? Number(v.replace("px", "")) : null;
+  /* An element's value on this device: pending first, then saved. */
+  const savedProps = (selector: string) => saved.find((r) => r.media === device && r.selector === selector)?.props ?? {};
+  const valueOf = (prop: string): string | null => {
+    if (!selected) return null;
+    const k = keyOf(device, selected.selector, prop);
+    if (k in draft.rules) return draft.rules[k];
+    return savedProps(selected.selector)[prop] ?? null;
   };
+  const setRule = (prop: string, value: string | null) => { if (selected) setRules(selected.selector, { [prop]: value }, device); };
+  const resetElement = () => {
+    if (!selected) return;
+    const props = { ...savedProps(selected.selector) } as Record<string, string | null>;
+    for (const k of Object.keys(draft.rules)) {
+      const [m, s, p] = k.split(SEP);
+      if (m === device && s === selected.selector) props[p] = null;
+    }
+    for (const k of Object.keys(props)) props[k] = null;
+    if (Object.keys(props).length) setRules(selected.selector, props, device);
+  };
+  const zoomNow = num(valueOf("zoom"));
+
+  /* Section spacing: Phone edits phones only; Desktop and Tablet edit both of those. */
+  const padKey = (side: "top" | "bottom") => `--pad-${side}${phone ? "-m" : ""}`;
+  const padOf = (name: string, side: "top" | "bottom") => num(L.styles?.[name]?.[padKey(side)]);
   const pick = (name: string) => {
     setSec({ name, pads: null });
     frame.current?.contentWindow?.postMessage({ type: "scrollTo", name }, location.origin);
   };
   const gapKey = phone ? "--section-m" : "--section";
-  const gapVal = draft.theme?.[gapKey] ? Number(draft.theme[gapKey].replace("px", "")) : null;
+  const gapVal = num(draft.theme?.[gapKey]);
   const setGap = (v: number | null) => push((d) => {
     const t: Theme = { ...(d.theme ?? brand ?? {}) };
     if (v === null) delete t[gapKey]; else t[gapKey] = `${v}px`;
@@ -568,9 +681,13 @@ function EditorShell() {
         note(true, "Sections saved.");
       }
       if (draft.themeReset) { await call("/save/theme", { reset: true }); note(true, "Colours reset to the brand."); }
-      else if (draft.theme) { await call("/save/theme", { vars: draft.theme }); note(true, "Colours saved."); }
-      const rules = Object.entries(draft.rules).map(([k, v]) => ruleText(k, v));
-      if (rules.length) { await call("/save/rules", { rules }); note(true, `${rules.length} element change${rules.length > 1 ? "s" : ""} saved.`); }
+      else if (draft.theme) { await call("/save/theme", { vars: draft.theme }); note(true, "Colours and page spacing saved."); }
+      const changes = changesOf(draft.rules);
+      if (changes.length) {
+        const out = await call("/save/elements", { changes });
+        setSaved(out.rules ?? []);
+        note(true, `${changes.length} element change${changes.length > 1 ? "s" : ""} saved.`);
+      }
       setBaseline(clone(L));
       setHist({ list: [fresh(L)], ptr: 0 });
       if (failed) note(false, `${failed} text change${failed > 1 ? "s were" : " was"} not saved. See above.`);
@@ -589,21 +706,28 @@ function EditorShell() {
   const frameH = (area.h - 32) / scale;
 
   const warnings: string[] = [];
-  if (theme && /^#[0-9a-f]{6}$/i.test(theme["--primary"]) && contrast("#ffffff", theme["--primary"]) < 4.5) {
+  if (theme && /^#[0-9a-f]{6}$/i.test(theme["--primary"] ?? "") && contrast("#ffffff", theme["--primary"]) < 4.5) {
     warnings.push(`White on the red is ${contrast("#ffffff", theme["--primary"]).toFixed(1)}:1, under 4.5:1.`);
   }
-  if (theme && /^#[0-9a-f]{6}$/i.test(theme["--ink"]) && /^#[0-9a-f]{6}$/i.test(theme["--surface"]) && contrast(theme["--ink"], theme["--surface"]) < 4.5) {
+  if (theme && /^#[0-9a-f]{6}$/i.test(theme["--ink"] ?? "") && /^#[0-9a-f]{6}$/i.test(theme["--surface"] ?? "") && contrast(theme["--ink"], theme["--surface"]) < 4.5) {
     warnings.push(`Text on the surface is ${contrast(theme["--ink"], theme["--surface"]).toFixed(1)}:1, under 4.5:1.`);
   }
 
+  const deviceChip = (
+    <span className={`rounded-full px-2 py-0.5 text-[10.5px] font-semibold ${phone ? "bg-[#e9f9ef] text-[#146c38]" : "bg-stone-100 text-stone-600"}`}>
+      {DEVICE_LABEL[device]} only
+    </span>
+  );
+  const c = selected?.computed;
+
   return (
     <div className="fixed inset-0 z-[999999] flex bg-stone-100 font-sans text-sm text-stone-900">
-      <aside className="flex h-full w-[340px] shrink-0 flex-col border-r border-stone-200 bg-white">
+      <aside className="flex h-full w-[360px] shrink-0 flex-col border-r border-stone-200 bg-white">
         <header className="flex items-center justify-between gap-2 border-b border-stone-200 px-4 py-3">
           <div>
             <p className="text-[15px] font-semibold">Home editor</p>
             <p className="text-[11px] text-stone-500">
-              {online === false ? <span className="text-[#c00000]">Save server off. Run npm run edit.</span> : "Click text to type. Drop images on pictures."}
+              {online === false ? <span className="text-[#c00000]">Save server off. Run npm run edit.</span> : "Click to select. Drag the red handles. Type on text."}
             </p>
           </div>
           <div className="flex gap-1.5">
@@ -613,89 +737,99 @@ function EditorShell() {
         </header>
 
         <div className="flex-1 overflow-y-auto">
-          <Panel title="Space between sections" extra={
-            <span className={`rounded-full px-2 py-0.5 text-[10.5px] font-semibold ${phone ? "bg-[#e9f9ef] text-[#146c38]" : "bg-stone-100 text-stone-600"}`}>
-              {phone ? "Phone" : "All widths"}
-            </span>
-          }>
+          {selected && (
+            <Panel title="Selected" extra={<div className="flex items-center gap-2">{deviceChip}
+              <button type="button" className="text-xs text-stone-500 hover:text-stone-900" onClick={() => { setSelected(null); frame.current?.contentWindow?.postMessage({ type: "deselect" }, location.origin); }}>Close</button></div>}>
+              <p className="mb-3 truncate rounded-md bg-stone-100 px-2 py-1.5 font-mono text-[11px] text-stone-600" title={selected.selector}>{selected.label}</p>
+              <div className="grid gap-2.5">
+                <div className="flex items-center gap-2">
+                  <span className="w-[92px] text-xs text-stone-600">Size</span>
+                  <IconBtn label="Smaller" onClick={() => setRule("zoom", Math.max(0.3, (zoomNow ?? c?.zoom ?? 1) - 0.05).toFixed(2))}><Minus size={14} /></IconBtn>
+                  <span className={`w-12 text-center text-xs tabular-nums ${zoomNow === null ? "text-stone-400" : "font-medium"}`}>{Math.round((zoomNow ?? c?.zoom ?? 1) * 100)}%</span>
+                  <IconBtn label="Bigger" onClick={() => setRule("zoom", Math.min(3, (zoomNow ?? c?.zoom ?? 1) + 0.05).toFixed(2))}><Plus size={14} /></IconBtn>
+                  <button type="button" onClick={() => setRule("zoom", null)} aria-label="Reset size" title="Back to the design" className="ml-auto text-stone-400 hover:text-stone-800 disabled:opacity-30" disabled={zoomNow === null}><RotateCcw size={12} /></button>
+                </div>
+                <Slider label="Space above" value={num(valueOf("margin-top"))} auto={c ? Math.round(c.mt) : null} min={-40} max={200} step={2} unit="px"
+                  onChange={(v) => setRule("margin-top", `${v}px`)} onClear={() => setRule("margin-top", null)} />
+                <Slider label="Space below" value={num(valueOf("margin-bottom"))} auto={c ? Math.round(c.mb) : null} min={-40} max={200} step={2} unit="px"
+                  onChange={(v) => setRule("margin-bottom", `${v}px`)} onClear={() => setRule("margin-bottom", null)} />
+                <Slider label="Line spacing" value={num(valueOf("line-height"))} auto={c?.lh ?? null} min={0.8} max={2.4} step={0.05}
+                  onChange={(v) => setRule("line-height", String(v))} onClear={() => setRule("line-height", null)} />
+                <Slider label="Letter spacing" value={num(valueOf("letter-spacing"))} auto={c?.ls ?? null} min={-2} max={8} step={0.5} unit="px"
+                  onChange={(v) => setRule("letter-spacing", `${v}px`)} onClear={() => setRule("letter-spacing", null)} />
+                <div className="flex items-center gap-2">
+                  <span className="w-[92px] text-xs text-stone-600">Align</span>
+                  <IconBtn label="Left" active={valueOf("text-align") === "left"} onClick={() => setRule("text-align", valueOf("text-align") === "left" ? null : "left")}><AlignLeft size={14} /></IconBtn>
+                  <IconBtn label="Centre" active={valueOf("text-align") === "center"} onClick={() => setRule("text-align", valueOf("text-align") === "center" ? null : "center")}><AlignCenter size={14} /></IconBtn>
+                  <IconBtn label="Right" active={valueOf("text-align") === "right"} onClick={() => setRule("text-align", valueOf("text-align") === "right" ? null : "right")}><AlignRight size={14} /></IconBtn>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-[92px] text-xs text-stone-600">Colour</span>
+                  {SWATCHES.map((s) => (
+                    <button key={s.label} type="button" title={s.label} aria-label={s.label} onClick={() => setRule("color", valueOf("color") === s.value ? null : s.value)}
+                      className={`h-7 w-7 rounded-full border ${valueOf("color") === s.value ? "ring-2 ring-[#c00000] ring-offset-2" : "border-stone-300"}`}
+                      style={{ background: s.hex }} />
+                  ))}
+                </div>
+                <div className="flex gap-2 pt-1">
+                  <button type="button" onClick={() => setRule("display", valueOf("display") ? null : "none")}
+                    className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-stone-200 py-2 text-xs hover:border-stone-400">
+                    {valueOf("display") ? <><Eye size={14} /> Show again</> : <><EyeOff size={14} /> Hide this</>}
+                  </button>
+                  <button type="button" onClick={resetElement}
+                    className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-stone-200 py-2 text-xs hover:border-stone-400">
+                    <RotateCcw size={14} /> Back to the design
+                  </button>
+                </div>
+                <p className="text-[11px] leading-relaxed text-stone-500">On the page: drag the corner square to resize, the top or bottom bar to change the space.</p>
+              </div>
+            </Panel>
+          )}
+
+          <Panel title="Space between sections" extra={deviceChip}>
             <div className="grid gap-2.5">
-              <Slider label="Every section" value={gapVal} auto={sectionPx} min={16} max={160} step={2} unit="px"
+              <Slider label="Every section" value={gapVal} auto={sectionPx != null ? Math.round(sectionPx) : null} min={16} max={160} step={2} unit="px"
                 onChange={(v) => setGap(v)} onClear={() => setGap(null)} />
               <p className="text-[11px] leading-relaxed text-stone-500">
-                Or drag the red line between two sections on the page. {phone ? "These change the phone only." : "Pick Phone above to set phones on their own."}
+                Or drag the red line between two sections on the page. A section&apos;s own space, below, wins over this one.
               </p>
-              {sec && (
+              {sec ? (
                 <div className="mt-1 grid gap-2 rounded-xl border border-[#f1d5d2] bg-[#fdf3f2] p-3">
                   <div className="flex items-center justify-between">
                     <b className="text-[12.5px] text-stone-900">{labelOf(sec.name)}</b>
                     <button type="button" className="text-[11px] text-stone-500 hover:text-stone-900" onClick={() => setSec(null)}>Close</button>
                   </div>
-                  <Slider label="Space above" value={padOf(sec.name, "top")} auto={sec.pads?.top} min={0} max={200} step={2} unit="px"
+                  <Slider label="Space above" value={padOf(sec.name, "top")} auto={sec.pads ? Math.round(sec.pads.top) : null} min={0} max={200} step={2} unit="px"
                     onChange={(v) => setStyle(sec.name, padKey("top"), `${v}px`)} onClear={() => setStyle(sec.name, padKey("top"), null)} />
-                  <Slider label="Space below" value={padOf(sec.name, "bottom")} auto={sec.pads?.bottom} min={0} max={200} step={2} unit="px"
+                  <Slider label="Space below" value={padOf(sec.name, "bottom")} auto={sec.pads ? Math.round(sec.pads.bottom) : null} min={0} max={200} step={2} unit="px"
                     onChange={(v) => setStyle(sec.name, padKey("bottom"), `${v}px`)} onClear={() => setStyle(sec.name, padKey("bottom"), null)} />
-                  <Slider label="Heading size" value={L.styles?.[sec.name]?.["--heading-scale"] ? Number(L.styles[sec.name]["--heading-scale"]) : null}
-                    min={0.7} max={1.5} step={0.05} unit="x"
+                  <Slider label="Heading size" value={num(L.styles?.[sec.name]?.["--heading-scale"])} min={0.7} max={1.5} step={0.05} unit="x"
                     onChange={(v) => setStyle(sec.name, "--heading-scale", String(v))} onClear={() => setStyle(sec.name, "--heading-scale", null)} />
                 </div>
+              ) : (
+                <p className="text-[11px] text-stone-500">Click a section on the page, or its name below, to set its own space.</p>
               )}
-              {!sec && <p className="text-[11px] text-stone-500">Click a section on the page, or its name below, to set its own space.</p>}
             </div>
           </Panel>
 
-          {selected && (
-            <Panel title="Selected" extra={<button type="button" className="text-xs text-stone-500 hover:text-stone-900" onClick={() => setSelected(null)}>Close</button>}>
-              <p className="mb-3 truncate rounded-md bg-stone-100 px-2 py-1.5 font-mono text-[11px] text-stone-600" title={selected.selector}>{selected.label}</p>
-              <div className="grid gap-3">
-                <div className="flex items-center gap-2">
-                  <span className="w-[88px] text-xs text-stone-600">Size</span>
-                  <IconBtn label="Smaller" onClick={() => setRule("zoom", String(Math.max(0.5, Number(ruleOf("zoom") ?? 1) - 0.1).toFixed(1)))}><Minus size={14} /></IconBtn>
-                  <span className="w-10 text-center text-xs tabular-nums">{Math.round(Number(ruleOf("zoom") ?? 1) * 100)}%</span>
-                  <IconBtn label="Bigger" onClick={() => setRule("zoom", String(Math.min(2, Number(ruleOf("zoom") ?? 1) + 0.1).toFixed(1)))}><Plus size={14} /></IconBtn>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-[88px] text-xs text-stone-600">Align</span>
-                  <IconBtn label="Left" active={ruleOf("text-align") === "left"} onClick={() => setRule("text-align", "left")}><AlignLeft size={14} /></IconBtn>
-                  <IconBtn label="Centre" active={ruleOf("text-align") === "center"} onClick={() => setRule("text-align", "center")}><AlignCenter size={14} /></IconBtn>
-                  <IconBtn label="Right" active={ruleOf("text-align") === "right"} onClick={() => setRule("text-align", "right")}><AlignRight size={14} /></IconBtn>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-[88px] text-xs text-stone-600">Colour</span>
-                  {SWATCHES.map((s) => (
-                    <button key={s.label} type="button" title={s.label} aria-label={s.label} onClick={() => setRule("color", s.value)}
-                      className={`h-7 w-7 rounded-full border ${ruleOf("color") === s.value ? "ring-2 ring-[#c00000] ring-offset-2" : "border-stone-300"}`}
-                      style={{ background: s.hex }} />
-                  ))}
-                </div>
-                <div className="flex gap-2">
-                  <button type="button" onClick={() => setRule("display", ruleOf("display") ? null : "none")}
-                    className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-stone-200 py-2 text-xs hover:border-stone-400">
-                    {ruleOf("display") ? <><Eye size={14} /> Show again</> : <><EyeOff size={14} /> Hide this</>}
-                  </button>
-                  <button type="button" onClick={() => push((d) => {
-                    for (const k of Object.keys(d.rules)) if (k.startsWith(`${selected.selector}|`)) delete d.rules[k];
-                    return d;
-                  })} className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-stone-200 py-2 text-xs hover:border-stone-400">
-                    <RotateCcw size={14} /> Undo its changes
-                  </button>
-                </div>
-              </div>
-            </Panel>
-          )}
-
-          <Panel title="Sections">
+          <Panel title="Sections" extra={<span className="text-[10.5px] text-stone-400">Drag to reorder</span>}>
             <ol className="grid gap-2">
               {L.order.map((name, i) => {
                 const hidden = L.hidden.includes(name);
                 const on = sec?.name === name;
                 return (
-                  <li key={name} className={`rounded-xl border px-3 py-2.5 ${hidden ? "border-dashed border-stone-300 bg-stone-50" : on ? "border-[#c00000] bg-[#fdf3f2]" : "border-stone-200 bg-white"}`}>
+                  <li key={name} draggable
+                    onDragStart={(e) => { setDragFrom(i); e.dataTransfer.effectAllowed = "move"; }}
+                    onDragOver={(e) => { e.preventDefault(); e.dataTransfer.dropEffect = "move"; }}
+                    onDrop={(e) => { e.preventDefault(); if (dragFrom !== null) move(dragFrom, i); setDragFrom(null); }}
+                    onDragEnd={() => setDragFrom(null)}
+                    className={`rounded-xl border px-2 py-2 transition-opacity ${dragFrom === i ? "opacity-40" : ""} ${hidden ? "border-dashed border-stone-300 bg-stone-50" : on ? "border-[#c00000] bg-[#fdf3f2]" : "border-stone-200 bg-white"}`}>
                     <div className="flex items-center gap-1.5">
-                      <span className="w-5 text-[11px] tabular-nums text-stone-400">{i + 1}</span>
+                      <span className="grid w-5 cursor-grab place-items-center text-stone-400" aria-hidden="true"><GripVertical size={14} /></span>
                       <button type="button" onClick={() => pick(name)} title="Show it and set its space"
                         className={`flex-1 truncate text-left text-[13px] hover:text-[#c00000] ${hidden ? "text-stone-400 line-through" : "font-medium"}`}>{labelOf(name)}</button>
-                      <IconBtn label="Move up" onClick={() => move(i, -1)} disabled={i === 0}><ArrowUp size={13} /></IconBtn>
-                      <IconBtn label="Move down" onClick={() => move(i, 1)} disabled={i === L.order.length - 1}><ArrowDown size={13} /></IconBtn>
+                      <IconBtn label="Move up" onClick={() => move(i, i - 1)} disabled={i === 0}><ArrowUp size={13} /></IconBtn>
+                      <IconBtn label="Move down" onClick={() => move(i, i + 1)} disabled={i === L.order.length - 1}><ArrowDown size={13} /></IconBtn>
                       <IconBtn label={hidden ? "Show" : "Hide"} onClick={() => toggle(name)}>{hidden ? <EyeOff size={13} /> : <Eye size={13} />}</IconBtn>
                       {blockType(name) && <IconBtn label="Remove" onClick={() => removeBlock(name)}><Trash2 size={13} /></IconBtn>}
                     </div>
@@ -733,7 +867,7 @@ function EditorShell() {
                     </span>
                   </label>
                 ))}
-                <Slider label="Base text" value={Number(theme["font-size"].replace("px", ""))} min={14} max={20} step={1} unit="px"
+                <Slider label="Base text" value={num(draft.theme?.["font-size"])} auto={num(brand?.["font-size"])} min={14} max={20} step={1} unit="px"
                   onChange={(v) => push((d) => ({ ...d, themeReset: false, theme: { ...(d.theme ?? brand!), "font-size": `${v}px` } }))}
                   onClear={() => push((d) => ({ ...d, theme: d.theme ? { ...d.theme, "font-size": brand!["font-size"] } : null }))} />
                 {warnings.map((w) => <p key={w} className="rounded-md bg-[#fdf3f2] px-2 py-1.5 text-[11px] text-[#9a0000]">{w}</p>)}

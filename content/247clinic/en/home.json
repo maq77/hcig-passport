@@ -22,7 +22,7 @@
     {
       "id": "hero",
       "briefSection": 6,
-      "heading": "Urgent Medical Care. Right Inside Your Hotel.",
+      "heading": "Urgent Medical Care\nRight Inside Your Hotel",
       "subheading": "24/7 Medical Care • Cashless Insurance • Multilingual Support",
       "body": [
         "On-site urgent care inside hotels and resorts across Egypt’s top tourist destinations. Fast care, without unnecessary hospital visits."
@@ -320,6 +320,48 @@
         "Do not use: “What Our Patients Says”",
         "Where possible, use real patient reviews connected with Google reviews or another verifiable source."
       ]
+    },
+    {
+      "id": "faq-home",
+      "briefSection": 0,
+      "heading": "Frequently Asked Questions",
+      "subheading": null,
+      "body": [
+        "Quick answers before you message us."
+      ],
+      "items": [
+        {
+          "title": "Is there a 24/7 Clinic inside my hotel?",
+          "text": "Use the Find a Clinic page or contact us on WhatsApp and send your hotel name."
+        },
+        {
+          "title": "What should I send you on WhatsApp?",
+          "text": "Please send your name, hotel, location, brief description of the medical problem and insurance information if available."
+        },
+        {
+          "title": "Do I need to contact my insurance company first?",
+          "text": "Not always. Send us your insurance details and our team can advise you on the next step."
+        },
+        {
+          "title": "Can you arrange an ambulance?",
+          "text": "Yes. If ambulance transport is medically necessary, our team can coordinate it."
+        },
+        {
+          "title": "Can you provide documentation for my insurance?",
+          "text": "Yes. Medical reports, invoices and other required documentation can be provided according to the case and insurer requirements."
+        },
+        {
+          "title": "What if my hotel does not have a 24/7 Clinic?",
+          "text": "Contact our coordination team on WhatsApp and we will advise you about the nearest available medical solution."
+        }
+      ],
+      "ctas": [
+        {
+          "label": "All FAQs",
+          "target": "/faqs"
+        }
+      ],
+      "devNotes": "Added 2026-09-24 on the user request (FAQs between Find a Clinic and the closing band). Questions and answers are the brief FAQ page words (faq.json); six that add something the home does not already say."
     },
     {
       "id": "final-cta",

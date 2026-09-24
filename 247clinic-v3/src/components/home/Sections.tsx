@@ -29,6 +29,7 @@ import { HeroCarousel } from "./HeroCarousel";
 import { StoryCarousel } from "./StoryRow";
 import { ClinicFinder } from "./ClinicFinder";
 import { Parallax } from "./Parallax";
+import { FaqList } from "./FaqList";
 
 const href = (p: string) => `${BASE}${p}`;
 const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` });
@@ -36,7 +37,10 @@ const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` });
 /* ---------------- 1. hero ---------------- */
 export function Hero() {
   const s = section("home", "hero");
-  const [first, ...rest] = s.heading.split(". ");
+  /* Two lines, the second in red. A line break in the heading splits them; older content
+     split at the full stop. Nothing is added to the words (the user removed the full stops
+     in the editor, 2026-09-24). */
+  const [first, ...rest] = s.heading.includes("\n") ? s.heading.split("\n") : s.heading.split(/(?<=\.)\s+/);
   const [live, ...tags] = (s.subheading ?? "").split("•").map((t) => t.trim()).filter(Boolean);
   /* Each slide is captioned with the title of what it shows, further down the page. */
   const svc = section("home", "medical-services");
@@ -59,8 +63,8 @@ export function Hero() {
         <div className="hero-copy">
           <p className="live"><span className="pulse" aria-hidden="true" />{live}</p>
           <h1 id="hero-h">
-            <span className="ln">{first}.</span>
-            <span className="ln accent">{rest.join(". ")}</span>
+            <span className="ln">{first}</span>
+            <span className="ln accent">{rest.join(" ")}</span>
           </h1>
           <p className="hero-text">{s.body[0]}</p>
           <div className="cta-row hero-ctas">
@@ -403,13 +407,39 @@ export function Finder() {
   );
 }
 
-/* ---------------- 11. the resort photograph the help band sits on ---------------- */
+/* ---------------- 11. FAQs on the resort photograph; the help band sits on its foot ----------------
+   The user, 2026-09-24: FAQs "between view clinic button and feeling unwell", then "make faq on
+   the image itself, and make it look good". The heading sits on a white panel and the
+   questions on solid white cards (no dark scrim, no blur, so scrolling stays light). */
 export function FinalCta() {
+  const s = section("home", "faq-home");
+  const items = s.items.map((it) => ({ q: it.title, a: it.text ?? "" }));
+  /* The same questions and answers as on screen, for search engines and AI answers. */
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((it) => ({ "@type": "Question", name: it.q, acceptedAnswer: { "@type": "Answer", text: it.a } })),
+  };
   return (
-    <div className="final" aria-hidden="true">
+    <section className="final" aria-labelledby="faq-h">
       <Parallax src={asset(PHOTOS.resort.src)} small={asset(PHOTOS.resort.small)} />
-      <div className="final-scrim" />
-    </div>
+      <div className="final-scrim" aria-hidden="true" />
+      <div className="container final-in">
+        <div className="faq-grid">
+          <div className="faq-side">
+            <div className="faq-panel rv">
+              <Head eyebrow="FAQ" id="faq-h" title={s.heading} lead={<p>{s.body[0]}</p>} />
+            </div>
+            <div className="faq-help rv">
+              <WaButton placement="section-faq">{BRIEF.waUs}</WaButton>
+              <TextLink href={href("/faqs")} placement="faq">{s.ctas[0].label}</TextLink>
+            </div>
+          </div>
+          <FaqList items={items} />
+        </div>
+      </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
+    </section>
   );
 }
 

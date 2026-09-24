@@ -1,11 +1,37 @@
-/* Written by the dev-only home editor (npm run edit). Section rules apply only when
-   the editor set that value on the section's wrapper, so an unset value never touches
-   the designed spacing. The -m values are for phones only. Element rules the editor
-   saves are appended below. */
-[data-e-section][style*="--pad-top:"] > * { padding-top: var(--pad-top) !important; }
-[data-e-section][style*="--pad-bottom:"] > * { padding-bottom: var(--pad-bottom) !important; }
-@media (max-width: 767px) {
-  [data-e-section][style*="--pad-top-m:"] > * { padding-top: var(--pad-top-m) !important; }
-  [data-e-section][style*="--pad-bottom-m:"] > * { padding-bottom: var(--pad-bottom-m) !important; }
+/* Written by the home editor (npm run edit). Do not edit by hand: it is generated from
+   src/content/home-layout.json and src/content/home-edits.json (editor/css.mjs). */
+
+@media (min-width: 768px) {
+  html:not(.e-live) [data-e-section="HotelBand"] > * { padding-top: 26px !important; padding-bottom: 10px !important; }
+  html:not(.e-live) [data-e-section="Facilities"] > * { padding-top: 26px !important; padding-bottom: 18px !important; }
+  html:not(.e-live) [data-e-section="Services"] > * { padding-top: 18px !important; padding-bottom: 42px !important; }
+  html:not(.e-live) [data-e-section="Intro"] > * { padding-top: 42px !important; padding-bottom: 20px !important; }
+  html:not(.e-live) [data-e-section="HowItWorks"] > * { padding-top: 20px !important; padding-bottom: 12px !important; }
+  html:not(.e-live) [data-e-section="Insurance"] > * { padding-top: 12px !important; padding-bottom: 14px !important; }
+  html:not(.e-live) [data-e-section="Stories"] > * { padding-top: 14px !important; padding-bottom: 0px !important; }
+  html:not(.e-live) [data-e-section="Posts"] > * { padding-top: 64px !important; padding-bottom: 64px !important; }
+  html:not(.e-live) [data-e-section="Finder"] > * { padding-top: 22px !important; padding-bottom: 6px !important; }
+  html:not(.e-live) [data-e-section="Hero"] > * { padding-bottom: 34px !important; }
 }
-[data-e-section][style*="--heading-scale:"] > * :is(h1, h2, h3) { zoom: var(--heading-scale); }
+@media (min-width: 1024px) {
+  html:not(.e-live) #hero-h > span.ln:nth-of-type(1) { zoom: 0.9 !important; }
+  html:not(.e-live) #hero-h > span.ln:nth-of-type(2) { zoom: 0.8 !important; }
+  html:not(.e-live) [data-e-section="Facilities"] > section.section > div.container { zoom: 0.8 !important; }
+  html:not(.e-live) [data-e-section="Facilities"] > section.section > div.container > div.head > span.eyebrow { zoom: 2.0 !important; }
+  html:not(.e-live) [data-e-section="Facilities"] > section.section > div.container > div.head > div.lead > p { zoom: 1.1 !important; }
+  html:not(.e-live) [data-e-section="Services"] > section.section > div.container > div.head-row > div.head > span.eyebrow { zoom: 1.3 !important; }
+  html:not(.e-live) [data-e-section="Intro"] > section.section > div.container > div.intro-copy > div.head > span.eyebrow { zoom: 1.3 !important; }
+  html:not(.e-live) [data-e-section="HowItWorks"] > section.section > div.container > div.head > span.eyebrow { zoom: 1.4 !important; }
+  html:not(.e-live) [data-e-section="Insurance"] > section.section > div.container > div.stack > div.head > span.eyebrow { zoom: 1.4 !important; }
+  html:not(.e-live) [data-e-section="Insurance"] > section.section > div.band > span.band-label { zoom: 1.4 !important; }
+  html:not(.e-live) [data-e-section="Stories"] > section.section > div.container > div.head > span.eyebrow { zoom: 1.4 !important; }
+  html:not(.e-live) #clinics > div.container > div.head > span.eyebrow { zoom: 1.3 !important; }
+  html:not(.e-live) #clinics > div.container > div.finder-grid > div.finder-side > div.chips { text-align: left !important; }
+  html:not(.e-live) [data-e-section="HotelBand"] > section.proof { zoom: 0.8 !important; }
+  html:not(.e-live) [data-e-section="HotelBand"] > section.proof > div.container > ul.stats { zoom: 1.1 !important; }
+  html:not(.e-live) body > header.site-header > div.hdr { zoom: 1.1 !important; }
+  html:not(.e-live) body > header.site-header > div.hdr > div.hdr-actions > a.btn:nth-of-type(2) { zoom: 0.7 !important; }
+  html:not(.e-live) body > header.site-header > div.hdr > div.hdr-actions > a.btn:nth-of-type(1) { zoom: 0.7 !important; }
+  html:not(.e-live) body > footer.site-footer > div.container > div.help-band { zoom: 0.8 !important; }
+  html:not(.e-live) [data-e-section="Posts"] > section.section > div.container { zoom: 0.8 !important; }
+}
