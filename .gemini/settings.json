@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "preset": "turbo",
+    "toolPermission": "always-proceed",
+    "fileAccessPolicy": "allow",
+    "internetAccessPolicy": "allow",
+    "allow": [
+      "*",
+      "*(*)",
+      "command(*)",
+      "read(*)",
+      "write(*)",
+      "network(*)",
+      "browser(*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

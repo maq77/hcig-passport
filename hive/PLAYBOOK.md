@@ -52,6 +52,7 @@ Every agent reads this file through the shared brain. The rules below are enforc
   guidelines, light surfaces and real photography win over any skill's defaults.
 - Finished means: checks run and passing, committed on your branch, `needs_review`, and a note
   listing the files changed.
+- Always include ticket titles with ticket codes: never cite bare IDs like T-015 alone. Always attach its title or a brief explanation, e.g. T-015 (24/7 Clinic: Phase 2 inner pages).
 
 ## 6. Evidence or nothing
 
@@ -63,3 +64,39 @@ Every agent reads this file through the shared brain. The rules below are enforc
 - Best models only. Effort high by default, never below medium.
 - A daily worker-token budget pauses new workers at the limit.
 - Quota on one model moves the work to the next best one, not to a weaker one.
+
+## 8. The spec gate: nothing big starts without an approved spec
+
+Added 2026-09-21, enforced by `policy.specGate` in `hive/config.json` and by the
+dispatcher in `hive/lib/dispatch.js`.
+
+A ticket is the wrong place to decide **what** gets built. It says how. For anything
+bigger than a handful of tickets, the what and the why go in a spec first, the user
+approves it, and only then do workers start.
+
+**The shape of it**
+
+| Size | Route |
+|---|---|
+| One job, a few files | A ticket. No epic, no spec, nothing changes. |
+| An initiative: several tickets, or a week or more of work | Spec first, then tickets, each carrying `epic`. |
+
+**How the head runs it**
+
+1. `/speckit-specify` writes `specs/<NNN-slug>/spec.md`. What and why only,
+   no stack choices. `/speckit-clarify` first if the ask is thin.
+2. Show the spec to the user. This is the approval moment, and the only one.
+3. On yes, put `Status: approved` in the spec, under the title.
+4. `/speckit-plan` and `/speckit-tasks` turn it into a technical plan and a task list.
+5. Create Hive tickets from that list, every one carrying `epic: "<NNN-slug>"`.
+6. Dispatch as usual. `/speckit-implement` is for the head working alone. When the
+   fleet does the work, the Hive tickets are the implementation.
+
+**What the gate does**
+
+`hive_dispatch` refuses any ticket whose `epic` has no `spec.md`, or whose spec does
+not say `Status: approved`. The refusal names the file and what to do. `force` overrides
+it, and forcing is a decision to answer for, not a shortcut.
+
+A ticket with `kind: "spec"` is never gated, since that is the ticket for writing the
+spec itself. Those always go to the head. No worker writes a spec.

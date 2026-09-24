@@ -414,7 +414,7 @@ const COMPANIES = [
         slug: 'website-v3',
         name: 'Website v3, bespoke premium',
         status: 'draft',
-        updated: '2026-09-23',
+        updated: '2026-09-24',
         summary: 'A new premium design with the brief’s words exactly. Home first, then every page.',
         detail: [
           'Built from scratch at /247clinic/v3. v2 stays as the fallback.',
@@ -426,6 +426,7 @@ const COMPANIES = [
           'Dashed boxes mark where your dedicated designs go. The list is linked below.',
           'The home is ready for Mohamed to review. Irina sees it after his notes are in.',
           'Round 2, 23 September: image hero, the film in its own facilities and accreditation section, new header and footer, real WhatsApp green, colour insurer and hotel logos in two rows, Find a Clinic on Google Maps, their blog posts, a resort photo behind the last call to action. CAUCQ removed: accredited by UCA only, part of HCIG.',
+          'Rounds 3 and 4, 24 September: repeated wording removed, a photo carousel in the hero, two-line descriptions that open on an arrow, a numbers band, the phone layout rebuilt, less space between sections, smooth scrolling. A live editor now lets Mohamed change words, order, spacing and pictures himself.',
         ],
         checklist: [
           { text: 'Approve the v3 spec', done: true, who: 'Mohamed' },

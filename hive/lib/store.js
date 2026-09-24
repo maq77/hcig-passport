@@ -84,6 +84,7 @@ function createTask(fields, actor = '@claude') {
     autoDispatch: !!fields.autoDispatch,
     kind: fields.kind || undefined,
     parent: fields.parent || undefined,
+    epic: fields.epic || undefined,
     files: fields.files || [],
     agent: fields.agent || undefined,
     notes: [],

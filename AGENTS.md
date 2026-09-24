@@ -38,6 +38,7 @@ All tasks are tracked in [TASK_BOARD.md](file:///D:/Healthcare%20international%2
   - `npm test`      : Executes full build + check pipeline.
 - Maintain Healthcare International Group branding and aesthetic guidelines.
 - Do not modify files outside the ticket scope without approval.
+- **Ticket Reference Protocol**: Never write bare ticket IDs like T-015 or TASK-247-01 alone. Always include its title or a brief explanation of what it does, e.g. T-015 (24/7 Clinic: Phase 2 inner pages).
 
 ---
 

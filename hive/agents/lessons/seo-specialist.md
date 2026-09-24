@@ -1,0 +1,1 @@
+- Check the rendered head, not the template. A canonical set in the template was overwritten at build time. (2026-09-21)

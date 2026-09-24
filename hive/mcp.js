@@ -15,8 +15,9 @@ const TOOLS = [
     inputSchema: { type: 'object', required: ['title'], properties: {
       title: str('Short title'), description: str('What to do, in full. The worker starts cold.'), acceptance: { type: 'array', items: { type: 'string' }, description: 'Acceptance criteria' },
       assignee: str('Omit (or "auto") to let the triage rules decide. Or @agy-cli, @agy-desktop, @claude'), folder: str('Folder or path the work is in'), priority: str('low | normal | high | critical'),
-      kind: str('Force a route: design | content | code | review | bulk | research'), dispatch: { type: 'boolean' }, agent: str('Specialist role id from hive_agents, e.g. seo-specialist. Omit to pick from the wording.'),
-      dependsOn: { type: 'array', items: { type: 'string' }, description: 'Ticket ids that must be done first' }, autoDispatch: { type: 'boolean', description: 'Start a worker automatically once dependsOn are all done' } } },
+      kind: str('Force a route: spec | design | content | code | review | bulk | research'), dispatch: { type: 'boolean' }, agent: str('Specialist role id from hive_agents, e.g. seo-specialist. Omit to pick from the wording.'),
+      dependsOn: { type: 'array', items: { type: 'string' }, description: 'Ticket ids that must be done first' }, autoDispatch: { type: 'boolean', description: 'Start a worker automatically once dependsOn are all done' },
+      epic: str('Initiative slug this ticket belongs to, matching specs/<slug>/. Set it for every ticket of a big initiative: the dispatcher refuses to start a worker until that spec says Status: approved.') } },
     run: a => api('POST', '/api/tasks', { ...a, actor: '@claude', dispatch: a.dispatch ? {} : undefined }) },
   { name: 'hive_dispatch', description: 'Start an Antigravity CLI worker on a ticket. Account, model and effort are chosen automatically (best models only, effort high by default, never below medium). Override if needed.',
     inputSchema: { type: 'object', required: ['id'], properties: { id: str('Ticket id'), account: str('a1 | a2'), model: str('agy model slug'), effort: str('medium | high'),
@@ -55,6 +56,15 @@ const TOOLS = [
   { name: 'hive_standup', description: 'What happened in the last N hours: done, to review, blocked, running, deploys, orders.',
     inputSchema: { type: 'object', properties: { hours: { type: 'number' } } },
     run: a => api('GET', `/api/standup?hours=${a.hours || 24}`) },
+  { name: 'hive_lesson', description: 'Teach a specialist role something learned from a finished ticket. It is appended to that role and regenerated into BOTH fleets, the Claude subagent and the agy skill, so the mistake is not repeated. Use it after a review found something worth keeping. Omit text to read back what a role has learned.',
+    inputSchema: { type: 'object', required: ['role'], properties: { role: str('Role id, e.g. seo-specialist'), text: str('The rule that replaces the mistake, in one line. Leave out to just read the role lessons.') } },
+    run: a => {
+      const { execFileSync } = require('child_process');
+      const pathx = require('path');
+      const cli = pathx.join(__dirname, 'cli.js');
+      const args = a.text ? ['lesson', a.role, a.text] : ['lessons', a.role];
+      return execFileSync(process.execPath, [cli, ...args], { encoding: 'utf8' });
+    } },
   { name: 'hive_agents', description: 'The specialist roster (SEO, AEO, Google Ads, Maps, frontend, backend, designer, data analyst, video, images and more): what each is for, its model, open tickets. Tickets name a specialist with agent; unset means it is picked from the wording.',
     inputSchema: { type: 'object', properties: {} }, run: () => api('GET', '/api/agents') },
   { name: 'hive_kill', description: 'Stop a running worker.', inputSchema: { type: 'object', required: ['run'], properties: { run: str('Run id') } },

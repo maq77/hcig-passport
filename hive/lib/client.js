@@ -15,7 +15,8 @@ function call(method, p, data) {
       res.on('end', () => { let j; try { j = JSON.parse(b); } catch { j = { raw: b }; } res.statusCode >= 400 ? reject(new Error(j.error || b)) : resolve(j); });
     });
     req.on('error', reject);
-    req.setTimeout(30000, () => req.destroy(new Error('hub timeout')));
+    const timeout = (p.includes('consult') || p.includes('critic') || p.includes('merge') || p.includes('bestof')) ? 300000 : 30000;
+    req.setTimeout(timeout, () => req.destroy(new Error('hub timeout')));
     if (payload) req.write(payload);
     req.end();
   });

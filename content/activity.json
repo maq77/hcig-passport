@@ -1,5 +1,336 @@
 [
   {
+    "date": "2026-09-24",
+    "subject": "24/7 v3 round 4: no repeats, hero carousel, arrows on long text, mobile rebuild, editor spacing"
+  },
+  {
+    "date": "2026-09-23",
+    "subject": "24/7 v3 round 3: logical order, compact sections, remade Why, stories carousel, finder buttons"
+  },
+  {
+    "date": "2026-09-23",
+    "subject": "feat(t-042): add visual live editor"
+  },
+  {
+    "date": "2026-09-23",
+    "subject": "24/7 v3: header logo shrinks with transform, not height (no layout animation)"
+  },
+  {
+    "date": "2026-09-23",
+    "subject": "24/7 v3 round 2: image hero, facilities film, new header and footer, Google Maps finder"
+  },
+  {
+    "date": "2026-09-23",
+    "subject": "24/7 v3: pull line uses a short red rule, not a side bar"
+  },
+  {
+    "date": "2026-09-23",
+    "subject": "Hive: bulk route effort high (agy rejects gemini-3.1-pro-high with medium effort)"
+  },
+  {
+    "date": "2026-09-23",
+    "subject": "24/7 Clinic v3: spec 007 approved, home built at /247clinic/v3"
+  },
+  {
+    "date": "2026-09-23",
+    "subject": "24/7 Clinic v3: full plan, for a dedicated new session"
+  },
+  {
+    "date": "2026-09-23",
+    "subject": "24/7: fix the broken layout regressions (content invisible, buttons)"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "feat(247clinic): modernize typography, scale down oversized sections, and optimize mobile first"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "T-010 redesign live, plus 24/7 preview registry and generator notes"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "feat(247clinic): add breadcrumbs and related page cards to inner pages"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "24/7: de-duplicate the first-party tracker (one tag per page)"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "feat(247clinic): wire first-party measurement tracking across 24/7 Clinic pages and register site"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "feat(T-027): AI visibility citation tracker, answer-first blocks, and llms.txt (Spec 003)"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "feat(T-026): internal links keyword map, validator, and contextual linker (Spec 004)"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "Specs: 004 approved, 006 closed as not needed"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "24/7 Clinic: Phase 2 inner pages on their layout (T-015)"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "Whats next: add the six-initiative plan and where each stands"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "What is next, 22 Sep 2026"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "MedPark Search Console fixes, and withdraw a false finding of my own"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "MedPark speed deploy record, 22 Sep 2026"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "MedPark speed: css minifier, and the 2026-09-22 speed deploy"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "MedPark review: the connection failures were local internet, not the server"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "MedPark review: the caching and hero-before-video work is done and live"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "MedPark review: confirm live tracking property, note the latent old tag"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "MedPark review: add the three live findings from the T-010 check"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "MedPark Search Console review, 22 Sep 2026"
+  },
+  {
+    "date": "2026-09-22",
+    "subject": "Watchdog: judgement, nightly schedule and before/after shots (T-023, T-024, T-025)"
+  },
+  {
+    "date": "2026-09-21",
+    "subject": "T-018 review fixes: the page stops overriding site, and dedupe is a window not a latch"
+  },
+  {
+    "date": "2026-09-21",
+    "subject": "feat(t-018): wire 24/7 hotel landing pages to shared measurement module"
+  },
+  {
+    "date": "2026-09-21",
+    "subject": "feat(t-021): Measurement: keep our own traffic out of the numbers"
+  },
+  {
+    "date": "2026-09-21",
+    "subject": "T-017 review fixes: site is the domain, storage cannot throw, link is not a phone number"
+  },
+  {
+    "date": "2026-09-21",
+    "subject": "feat(t-022): site crawler for the watchdog, with safety proof"
+  },
+  {
+    "date": "2026-09-21",
+    "subject": "feat(t-017): shared measurement module with consent"
+  },
+  {
+    "date": "2026-09-19",
+    "subject": "24/7 Clinic preview: footer credit reads Powered by Pulse Marketing"
+  },
+  {
+    "date": "2026-09-19",
+    "subject": "24/7 Clinic: broken photos fixed, section order, clinic cards, compact insurance, film viewer, phone layout"
+  },
+  {
+    "date": "2026-09-19",
+    "subject": "24/7 Clinic: their hero back with our film, services with photos, films and motion"
+  },
+  {
+    "date": "2026-09-19",
+    "subject": "24/7 review pack: homepage on their layout is the one to review"
+  },
+  {
+    "date": "2026-09-19",
+    "subject": "24/7 Clinic: their layout with her content, hero fixed, brand red, light bands, 21st.dev cards and steps"
+  },
+  {
+    "date": "2026-09-19",
+    "subject": "24/7 Clinic: new homepage, keyword map with Google evidence, review pack"
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "HCIG Work: MedPark site audit fixes going live, contrast fixed site-wide",
+    "projects": [
+      "MedPark: Site audit"
+    ]
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "Hive: evidence-or-nothing and no-credential-hunting rules for every worker and role"
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "HCIG Hive v5: 23 specialist agents, live monitors, rich notifications"
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "feat(TASK-MC-02): add Diana Beach hotel logo and rebuild medcierge-next"
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "HCIG Hive v4: triage policy, consult, attachments, dark theme, more charts"
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "HCIG Hive v3: scheduled jobs, standup, automatic second opinion"
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "Medcierge: fix 397 dead links (hotel breadcrumb and not-found language switch)"
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "HCIG Hive v2: React dashboard, analytics, dependencies, budget, alerts"
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "hive.bat: pause that works without a console"
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "HCIG Hive: one environment for Claude and the Antigravity fleet"
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "fix(t-001): correct fallback and stop notes"
+  },
+  {
+    "date": "2026-09-18",
+    "subject": "feat(t-001): add docs/hive-quickstart.md"
+  },
+  {
+    "date": "2026-09-17",
+    "subject": "Medcierge website: the actual lazy-map build",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-17",
+    "subject": "Medcierge website: maps load only when looked at, town pages back on the free map",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-17",
+    "subject": "Medcierge website: the map flies between cities again",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-17",
+    "subject": "Medcierge website: seven languages live",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-16",
+    "subject": "Medcierge website: maps are Google now",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-16",
+    "subject": "Medcierge website: Google Maps ready, seven-language plumbing",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-16",
+    "subject": "Medcierge: new high-resolution OG share cards and metadata linking"
+  },
+  {
+    "date": "2026-09-16",
+    "subject": "Medcierge website: keyword town URLs, map pins, two-line hero",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-16",
+    "subject": "Medcierge website: services, facilities and about from the live site",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-16",
+    "subject": "Medcierge website: German and Polish, language switcher, hero review",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-15",
+    "subject": "Medcierge website: smoother home, new hero photo, quote and why carousel",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-15",
+    "subject": "Medcierge website: light theme with header toggle, responsive fixes",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-15",
+    "subject": "Medcierge: real website preview in Next.js, replacing the home mockup",
+    "projects": [
+      "24/7: Website"
+    ]
+  },
+  {
+    "date": "2026-09-15",
+    "subject": "Medcierge: new home page preview, built from scratch in navy and gold"
+  },
+  {
+    "date": "2026-09-14",
+    "subject": "Elite Medical Concierge design 2: home page rebuilt from ui-ux-pro-max, with hero and coast films"
+  },
+  {
+    "date": "2026-09-14",
+    "subject": "Elite Medical Concierge design 2: lapis and gold, in English, German and Polish, light and dark"
+  },
+  {
+    "date": "2026-09-14",
+    "subject": "Elite Medical Concierge: add the share image that *.jpg in .gitignore kept out"
+  },
+  {
+    "date": "2026-09-14",
+    "subject": "Elite Medical Concierge: medcierge.com rebuilt as a light static site with a 3D hero and scroll motion"
+  },
+  {
+    "date": "2026-09-11",
+    "subject": "Update the site (17 files)"
+  },
+  {
     "date": "2026-09-10",
     "subject": "24/7 Clinic website: their live site mirrored so the repositioning is applied to their real pages, plus a measured audit",
     "projects": [

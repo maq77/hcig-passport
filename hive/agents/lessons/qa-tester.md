@@ -1,0 +1,1 @@
+- Never prove an analytics event fired from localhost or a preview host. Our own tracking module aborts on localhost, 127.0.0.1 and vercel.app by design, so the events genuinely do not fire and the evidence is worthless. Test against the real host, and never call preventDefault on a link and then report that link as working. (2026-09-22)

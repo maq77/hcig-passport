@@ -352,12 +352,6 @@ th:last-child,td:last-child{padding-right:0}
 
 <div class="head">
   <div>
-    <small>Appointment requests</small>
-    <span class="big"><?php echo mp_num($H['requests']); ?></span>
-    <em><?php echo rp($H['requests'], $PH['requests']); ?></em>
-    <u>People who left a name and a number, through the booking form or the assistant</u>
-  </div>
-  <div>
     <small>Contact attempts</small>
     <span class="big"><?php echo mp_num($enq); ?></span>
     <em><?php echo rp($enq, $penq); ?></em>
@@ -388,8 +382,6 @@ th:last-child,td:last-child{padding-right:0}
   Visits and contact attempts above are measured with
   <strong><?php echo e(mp_source_label($SRC)); ?></strong>.
   <?php echo e(mp_source_note($SRC)); ?>
-  Appointment requests are counted the same way whichever source is selected, because they are
-  stored by the website's own booking form and assistant rather than by any analytics.
   A contact attempt means somebody pressed a way of reaching us; whether they then spoke to
   anyone happens off the website and cannot be measured from here.
 </p>
@@ -412,9 +404,6 @@ th:last-child,td:last-child{padding-right:0}
     <tr><td><strong>Total enquiries</strong></td><td class="n"><strong><?php echo mp_num($enq); ?></strong></td><td class="n"><?php echo mp_num($penq); ?></td><td class="n"><?php echo rp($enq,$penq); ?></td></tr>
     <tr><td>Telephone calls</td><td class="n"><?php echo mp_num($calls); ?></td><td class="n"><?php echo mp_num($pcalls); ?></td><td class="n"><?php echo rp($calls,$pcalls); ?></td></tr>
     <tr><td>WhatsApp messages</td><td class="n"><?php echo mp_num($whats); ?></td><td class="n"><?php echo mp_num($pwhats); ?></td><td class="n"><?php echo rp($whats,$pwhats); ?></td></tr>
-    <tr><td>Website assistant requests</td><td class="n"><?php echo mp_num($chat); ?></td><td class="n"><?php echo mp_num($pchat); ?></td><td class="n"><?php echo rp($chat,$pchat); ?></td></tr>
-    <tr><td>Calls from map listings</td><td class="n"><?php echo $mapCalls > 0 ? mp_num($mapCalls) : '&ndash;'; ?></td><td class="n"><?php echo $pmapCalls > 0 ? mp_num($pmapCalls) : '&ndash;'; ?></td><td class="n"><?php echo rp($mapCalls,$pmapCalls); ?></td></tr>
-    <tr><td>Direction requests</td><td class="n"><?php echo $dirs > 0 ? mp_num($dirs) : '&ndash;'; ?></td><td class="n"><?php echo $pdirs > 0 ? mp_num($pdirs) : '&ndash;'; ?></td><td class="n"><?php echo rp($dirs,$pdirs); ?></td></tr>
     <tr><td>Enquiry rate</td><td class="n"><?php echo $sessions > 0 ? number_format($rate,2).'%' : '&ndash;'; ?></td><td class="n"><?php echo $psessions > 0 ? number_format($prate,2).'%' : '&ndash;'; ?></td><td class="n"><?php echo rp($rate,$prate); ?></td></tr>
     <tr><td>Visits</td><td class="n"><?php echo $sessions > 0 ? mp_num($sessions) : '&ndash;'; ?></td><td class="n"><?php echo $psessions > 0 ? mp_num($psessions) : '&ndash;'; ?></td><td class="n"><?php echo rp($sessions,$psessions); ?></td></tr>
     <tr><td>Clicks from Google</td><td class="n"><?php echo $clicks > 0 ? mp_num($clicks) : '&ndash;'; ?></td><td class="n"><?php echo $pclicks > 0 ? mp_num($pclicks) : '&ndash;'; ?></td><td class="n"><?php echo rp($clicks,$pclicks); ?></td></tr>

@@ -1,0 +1,1 @@
+- A rule like `padding-top: var(--x) !important` with --x unset resets the property to its initial value on every match (padding 0). Gate override rules on the value being set, e.g. `[style*="--x"] > section { ... }`, or give var() a fallback. Never write default theme values the user did not choose: read the real tokens and write only what changed. (2026-09-24)

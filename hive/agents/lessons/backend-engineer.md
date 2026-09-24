@@ -1,0 +1,1 @@
+- A local dev server that writes files must refuse any request whose Origin is not a localhost page and whose Host is not its own address, and must write only a fixed list of files. `Access-Control-Allow-Origin: *` plus a client-chosen path lets any open website write anywhere on disk. (2026-09-24)

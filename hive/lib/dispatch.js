@@ -74,6 +74,80 @@ function pickAccount(want) {
 
 // Worktree when the folder is tracked, otherwise the main folder (untracked work
 // such as medcierge-next/ would not exist inside a fresh worktree).
+// ---------------------------------------------------------------------------
+// The connection here drops in and out. A worker that starts while the line is
+// down burns a run, a model call and quota, and comes back with a DNS error
+// that looks exactly like a real fault. So: check before starting, and when a
+// run dies of the network, put the ticket back rather than blaming the work.
+// ---------------------------------------------------------------------------
+
+// Errors that mean "the line was down", not "the work was wrong".
+const NET_RE = /ENOTFOUND|EAI_AGAIN|ETIMEDOUT|ECONNRESET|ECONNREFUSED|ENETUNREACH|ENETDOWN|getaddrinfo|no such host|dial tcp|network is unreachable|could not resolve|server was offline|socket hang up|TLS handshake timeout|proxyconnect|context deadline exceeded/i;
+
+// Hosts that should always answer. If none of them do, the line is down.
+const NET_PROBES = ['https://clients3.google.com/generate_204', 'https://cloudflare.com/cdn-cgi/trace'];
+let netState = { up: true, at: 0, checking: null };
+
+function probe(url, ms) {
+  return new Promise(resolve => {
+    let done = false;
+    const finish = v => { if (!done) { done = true; resolve(v); } };
+    try {
+      const lib = require(url.startsWith('https') ? 'https' : 'http');
+      const req = lib.get(url, { timeout: ms }, res => { res.resume(); finish(res.statusCode > 0); });
+      req.on('error', () => finish(false));
+      req.on('timeout', () => { req.destroy(); finish(false); });
+    } catch (e) { finish(false); }
+    setTimeout(() => finish(false), ms + 500);
+  });
+}
+
+// Cached briefly so a burst of dispatches does not probe over and over.
+async function netUp(maxAgeMs) {
+  if (maxAgeMs === undefined) maxAgeMs = 15000;
+  if (Date.now() - netState.at < maxAgeMs) return netState.up;
+  if (netState.checking) return netState.checking;
+  netState.checking = (async () => {
+    let up = false;
+    for (const u of NET_PROBES) { if (await probe(u, 6000)) { up = true; break; } }
+    const was = netState.up;
+    netState = { up: up, at: Date.now(), checking: null };
+    if (was !== up) {
+      S.emit(up ? 'net.up' : 'net.down',
+        up ? 'Connection is back. Waiting tickets will start again.'
+           : 'Connection is down. New workers are held until it returns.',
+        { online: up }, 'hive');
+    }
+    return up;
+  })();
+  return netState.checking;
+}
+
+// Tickets held because the line was down. Retried when it comes back.
+function holdForNet(task, why) {
+  S.updateTask(task.id, { status: 'todo', waitingForNet: true, note: why }, 'hive');
+  S.emit('net.wait', task.id + ' is waiting for the connection: ' + why, { id: task.id }, 'hive');
+  watchForNet();
+}
+
+let netTimer = null;
+function watchForNet() {
+  if (netTimer) return;
+  netTimer = setInterval(async () => {
+    const waiting = S.loadTasks().filter(t => t.waitingForNet && t.status === 'todo');
+    if (!waiting.length) { clearInterval(netTimer); netTimer = null; return; }
+    const up = await netUp(0);
+    if (!up) return;
+    for (const t of waiting) {
+      try {
+        S.updateTask(t.id, { waitingForNet: false, note: 'Connection is back. Starting again.' }, 'hive');
+        dispatch(t.id);
+      } catch (e) { S.emit('hive.error', t.id + ' could not restart: ' + e.message); }
+    }
+  }, 60000);
+  if (netTimer.unref) netTimer.unref();
+}
+
 function workspaceFor(task, mode) {
   const tracked = (() => { try { return !task.folder || !!git(['ls-files', '--', task.folder.replace(/\/$/, '')]).split('\n')[0]; } catch { return false; } })();
   if (mode === 'main' || (mode !== 'worktree' && !tracked)) return { cwd: S.ROOT, branch: '', isolated: false, reason: tracked ? 'asked for main' : `${task.folder} is not tracked in git` };
@@ -125,12 +199,36 @@ function brief(task, ws, route, extra) {
   ].filter(x => x !== '').join('\n');
 }
 
+// The spec gate. A ticket that belongs to an initiative (epic set) will not start a
+// worker until that initiative has a spec the user has approved. The spec is written
+// with Spec Kit (/speckit-specify) into .specify/specs/<epic>/spec.md, and it counts as
+// approved once its front matter carries "Status: approved", which the head writes only
+// after the user says yes. Small one-off tickets carry no epic and are not gated.
+function specState(epic, cfg) {
+  const g = (cfg.policy && cfg.policy.specGate) || {};
+  const dir = g.dir || '.specify/specs';
+  const file = path.join(S.ROOT, dir, epic, 'spec.md');
+  if (!fs.existsSync(file)) return { exists: false, approved: false, file };
+  const head = fs.readFileSync(file, 'utf8').slice(0, 4000);
+  return { exists: true, approved: /^[\s*_#>-]*status[\s*_]*:\s*approved\b/im.test(head), file };
+}
+function specGate(task, cfg, opts) {
+  const g = (cfg.policy && cfg.policy.specGate) || {};
+  if (g.enabled === false || opts.force) return;
+  if (!task.epic) return;
+  if (task.kind === 'spec') return; // writing the spec itself is never gated
+  const st = specState(task.epic, cfg);
+  if (!st.exists) throw new Error(`${task.id} belongs to initiative "${task.epic}", which has no spec yet. Write one with /speckit-specify, get the user to approve it, then dispatch. Expected: ${path.relative(S.ROOT, st.file)}`);
+  if (!st.approved) throw new Error(`${task.id} waits on the spec for "${task.epic}". ${path.relative(S.ROOT, st.file)} is not approved yet: show it to the user, then set "Status: approved" in it. Pass force to override.`);
+}
+
 function dispatch(taskId, opts = {}) {
   const task = S.getTask(taskId);
   if (!task) throw new Error(`No task ${taskId}`);
   const cfg = S.config();
   const waiting = (task.dependsOn || []).filter(d => { const t = S.getTask(d); return !t || t.status !== 'done'; });
   if (waiting.length && !opts.force) throw new Error(`${task.id} waits on ${waiting.join(', ')}. Finish those first, or pass force.`);
+  specGate(task, cfg, opts);
 
   if (task.assignee === '@agy-desktop') {
     const ws = workspaceFor(task, opts.workspace);
@@ -146,6 +244,14 @@ function dispatch(taskId, opts = {}) {
     S.emit('run.start', `${task.id} opened for Claude in Windows Terminal`, { task: task.id }, '@claude');
     return { id: `${task.id}-claude`, task: task.id, account: 'claude', state: 'running' };
   }
+
+  // Do not spend a run on a dead line. The check is cheap, and the alternative
+  // is a burnt run plus a DNS error that reads like a broken site.
+  if (!opts.skipNetCheck && netState.at && !netState.up && Date.now() - netState.at < 60000) {
+    holdForNet(task, "The connection was down when this was due to start. It will start itself when the line is back.");
+    return { id: task.id + "-waiting", task: task.id, state: "waiting_for_connection" };
+  }
+  netUp();
 
   const b = M.budget();
   if (b.over && b.hardStop && !opts.force) throw new Error(`Daily token budget used (${b.used} of ${b.limit}). Raise it in Settings or pass force.`);
@@ -190,7 +296,7 @@ function dispatch(taskId, opts = {}) {
 
   const deployRe = new RegExp(cfg.deployPatterns.join('|'), 'i');
   const quotaRe = new RegExp(cfg.quotaPatterns.join('|'), 'i');
-  let buf = '', errBuf = '', quotaHit = false, usage = null, status = null;
+  let buf = '', errBuf = '', quotaHit = false, usage = null, status = null, resultErr = '';
 
   proc.stdout.on('data', chunk => {
     buf += chunk;
@@ -218,6 +324,7 @@ function dispatch(taskId, opts = {}) {
       }
       if (ev.event === 'result') {
         status = ev.result.status; usage = ev.result.usage;
+        resultErr = ev.result.error ? String(ev.result.error) : '';
         if (ev.result.response) run.response = ev.result.response;
         if (status !== 'SUCCESS' && quotaRe.test(JSON.stringify(ev.result))) quotaHit = true;
       }
@@ -252,7 +359,21 @@ function dispatch(taskId, opts = {}) {
       if (fresh.status === 'in_progress') S.updateTask(task.id, { status: 'needs_review', note: `Worker finished (${r.model}, ${Math.round(secs)} s). ${summary}` }, `agy:${acc.id}`);
       else S.updateTask(task.id, { note: `Worker finished. ${summary}` }, `agy:${acc.id}`);
     } else if (run.state !== 'killed') {
-      S.updateTask(task.id, { status: 'blocked', note: `Worker failed (exit ${code}, ${status || 'no result'}). ${summary.slice(0, 600)}` }, `agy:${acc.id}`);
+      // A run that died of the network is not failed work. Put the ticket back
+      // and start it again when the line returns, capped so something that is
+      // genuinely unreachable cannot loop forever.
+      // agy reports the real reason in result.error, not in the response text or
+      // stderr. Without this the detector reads a half-finished sentence and
+      // concludes the work failed.
+      const netDied = NET_RE.test(errBuf + ' ' + summary + ' ' + resultErr);
+      const netAttempt = (fresh.netAttempt || 0) + 1;
+      if (netDied && netAttempt <= 5) {
+        S.updateTask(task.id, { netAttempt: netAttempt }, 'hive');
+        holdForNet(fresh, 'The connection dropped during the run (attempt ' + netAttempt + ' of 5). The work is not at fault. It starts again when the line is back.');
+      } else {
+        const extra = netDied ? ', and the connection dropped 5 times in a row, so it is being left alone' : '';
+        S.updateTask(task.id, { status: 'blocked', note: `Worker failed (exit ${code}, ${status || 'no result'})` + extra + '. ' + (resultErr ? 'Reason: ' + resultErr.slice(0, 300) + ' ' : '') + `${summary.slice(0, 400)}` }, `agy:${acc.id}`);
+      }
     }
     S.emit('run.end', `${task.id} ${run.state} after ${Math.round(secs)} s, ${run.steps} steps, ${usage ? usage.total_tokens : 0} tokens`, { run: id, state: run.state, task: task.id }, `agy:${acc.id}`);
   });
@@ -469,6 +590,9 @@ function consult({ question, files = [], model, account, timeoutMin = 10 }) {
   const m = model || (S.config().consult || {}).model || 'gemini-3.1-pro-high';
   const prompt = [
     'You are consulted by Claude Code, the head of the HCIG Hive. Answer only; do not edit files or run commands that change anything.',
+    // Headless --sandbox soft-denies every shell command (escalate_admin), and a
+    // model that tries `cat` first then gives up with no answer. Found 2026-09-19.
+    'Never run shell or terminal commands: they are blocked here. Read files only with your built-in file viewing tool.',
     `Shared rules: ${S.P.brain}`,
     files.length ? `Read these files first:\n${files.map(f => `- ${f}`).join('\n')}` : '',
     'No em dashes or en dashes. Never invent medical facts, prices or accreditations. Say plainly when you are unsure.',
@@ -498,4 +622,4 @@ function consult({ question, files = [], model, account, timeoutMin = 10 }) {
   });
 }
 
-module.exports = { dispatch, kill, runLog, diff, merge, launch, listRuns, live, recoverLost, releaseReady, bestOf, critic, steps, consult };
+module.exports = { dispatch, specState, netUp, watchForNet, kill, runLog, diff, merge, launch, listRuns, live, recoverLost, releaseReady, bestOf, critic, steps, consult };

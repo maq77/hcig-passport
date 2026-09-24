@@ -9,6 +9,8 @@ const ROLES = require('./roles');
 const ROOT = path.resolve(__dirname, '..', '..');
 const CLAUDE_DIR = path.join(ROOT, '.claude', 'agents');
 const AGY_DIR = path.join(__dirname, 'skills');
+const AGY_AGENTS_DIR = path.join(ROOT, '.agents', 'agents');
+const GLOBAL_AGENTS_DIR = path.join(os.homedir(), '.gemini', 'config', 'agents');
 const SKILLS_JSON = path.join(os.homedir(), '.gemini', 'config', 'skills.json');
 
 const SHARED = `## Rules for every HCIG agent
@@ -20,7 +22,8 @@ const SHARED = `## Rules for every HCIG agent
 - **Evidence or nothing.** Every number in a report comes from a tool output you can point to (a saved JSON, a command's output). If a tool fails (quota, 429, timeout), write that it failed and stop. Never fill a report with numbers you did not measure, and never state a threshold nobody set.
 - Live sites: back up before changing, and only the head (Claude) deploys.
 - Never hunt for credentials in other tools' files, transcripts or browser data, and never write a key into a file. Missing a key means blocked, not improvised.
-- Report on a Hive ticket with \`node hive/cli.js note <ID> "..."\`; finished means checks passed and the ticket is \`needs_review\`.`;
+- Report on a Hive ticket with \`node hive/cli.js note <ID> "..."\`; finished means checks passed and the ticket is \`needs_review\`.
+- Always include ticket titles with ticket codes: never cite bare IDs like T-015 alone. Always attach its title or a brief explanation, e.g. T-015 (24/7 Clinic: Phase 2 inner pages).`;
 
 const esc = s => s.replace(/"/g, '\\"');
 
@@ -28,7 +31,7 @@ function claudeAgent(r) {
   return `---
 name: ${r.id}
 description: "${esc(r.name)}. Use for: ${esc(r.when)}"
-model: ${r.claudeModel || 'inherit'}
+model: ${r.claudeModel || 'inherit'}${r.color ? '\ncolor: ' + r.color : ''}
 ---
 
 # ${r.name}
@@ -63,8 +66,31 @@ ${SHARED}
 `;
 }
 
+function agyAgent(r) {
+  return `---
+name: ${r.id}
+description: "${esc(r.name)}. Use for: ${esc(r.when)}"
+subagent: true
+---
+
+# ${r.name}
+
+You are the HCIG Hive's ${r.name}. The head (Claude Code) or Antigravity hands you focused work. Do it fully and report back in short lines.
+
+**Use me for:** ${r.when}
+
+## How I work
+${r.body}
+
+${r.skills && r.skills.length ? `## Skills to load when they fit\n${r.skills.map(s => `- \`${s}\``).join('\n')}\n` : ''}${r.mcp && r.mcp.length ? `## Tools\n${r.mcp.map(m => `- MCP \`${m}\``).join('\n')}\n` : ''}
+${SHARED}
+`;
+}
+
 fs.mkdirSync(CLAUDE_DIR, { recursive: true });
 fs.mkdirSync(AGY_DIR, { recursive: true });
+fs.mkdirSync(AGY_AGENTS_DIR, { recursive: true });
+fs.mkdirSync(GLOBAL_AGENTS_DIR, { recursive: true });
 const ids = new Set(ROLES.map(r => r.id));
 
 // Remove generated files for roles that no longer exist.
@@ -73,12 +99,24 @@ for (const f of fs.readdirSync(CLAUDE_DIR)) {
   const txt = fs.readFileSync(path.join(CLAUDE_DIR, f), 'utf8');
   if (!ids.has(id) && txt.includes("The head (Claude Code) hands you focused work")) fs.unlinkSync(path.join(CLAUDE_DIR, f));
 }
-for (const d of fs.readdirSync(AGY_DIR)) if (!ids.has(d.replace(/^role-/, ''))) fs.rmSync(path.join(AGY_DIR, d), { recursive: true, force: true });
+for (const d of fs.readdirSync(AGY_DIR)) {
+  if (!ids.has(d.replace(/^role-/, ''))) fs.rmSync(path.join(AGY_DIR, d), { recursive: true, force: true });
+}
+for (const f of fs.readdirSync(AGY_AGENTS_DIR)) {
+  const id = f.replace(/\.md$/, '');
+  if (!ids.has(id)) fs.unlinkSync(path.join(AGY_AGENTS_DIR, f));
+}
+for (const f of fs.readdirSync(GLOBAL_AGENTS_DIR)) {
+  const id = f.replace(/\.md$/, '');
+  if (!ids.has(id)) fs.unlinkSync(path.join(GLOBAL_AGENTS_DIR, f));
+}
 
 for (const r of ROLES) {
   fs.writeFileSync(path.join(CLAUDE_DIR, `${r.id}.md`), claudeAgent(r));
   fs.mkdirSync(path.join(AGY_DIR, `role-${r.id}`), { recursive: true });
   fs.writeFileSync(path.join(AGY_DIR, `role-${r.id}`, 'SKILL.md'), agySkill(r));
+  fs.writeFileSync(path.join(AGY_AGENTS_DIR, `${r.id}.md`), agyAgent(r));
+  fs.writeFileSync(path.join(GLOBAL_AGENTS_DIR, `${r.id}.md`), agyAgent(r));
 }
 
 // Register the role skills with agy. Written with node: PowerShell 5.1 adds a BOM agy cannot parse.
@@ -90,4 +128,7 @@ try {
   fs.writeFileSync(SKILLS_JSON, JSON.stringify(cfg, null, 2));
 } catch (e) { console.error('Could not register with agy:', e.message); }
 
-console.log(`${ROLES.length} roles written: .claude/agents/ (Claude) and hive/agents/skills/ (agy, registered in ${SKILLS_JSON})`);
+console.log(`${ROLES.length} roles synced:`);
+console.log(`- Claude Code agents: ${CLAUDE_DIR}`);
+console.log(`- Antigravity subagents: ${AGY_AGENTS_DIR} & ${GLOBAL_AGENTS_DIR}`);
+console.log(`- Antigravity role skills: ${AGY_DIR}`);

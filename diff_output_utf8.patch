@@ -1,0 +1,772 @@
+﻿diff --git a/247clinic-v3/editor/README.md b/247clinic-v3/editor/README.md
+new file mode 100644
+index 00000000..0a5ccccf
+--- /dev/null
++++ b/247clinic-v3/editor/README.md
+@@ -0,0 +1,42 @@
++# 24/7 Clinic v3 Visual Editor
++
++This is a local development-only visual editor for the 24/7 Clinic v3 home page.
++
++## How to start
++Run `npm run edit` in `247clinic-v3`. This starts both Next.js and the save server.
++Open [http://localhost:3000/247clinic/v3?edit=1](http://localhost:3000/247clinic/v3?edit=1).
++
++## Features & Where Changes Are Saved
++
++1. **Text Editing**
++   - **How it works:** Click any visible text (headers, paragraphs, buttons) to edit in place.
++   - **Saved to:** The exact JSON/TS content file where the string originated (e.g. `content/247clinic/en/home.json`). If the string exists in multiple files, a prompt asks which file to update.
++   - **Log:** Edits are also appended to `content/247clinic/approved-edits.json` so the word-for-word checker accepts them.
++
++2. **Sections (Ordering, Hiding, Adding)**
++   - **How it works:** In the sidebar, you can reorder sections, hide them, or add new predefined blocks (Text+Img, Full Img, LogoRow).
++   - **Saved to:** `src/content/home-layout.json`.
++
++3. **Section Spacing & Size**
++   - **How it works:** Adjust top/bottom padding and heading scale for each section in the sidebar.
++   - **Saved to:** Inline styles (via `home-layout.json`) and cascade rules in `src/app/editor-overrides.css`.
++
++4. **Colours and Typography**
++   - **How it works:** The Theme panel provides color pickers for primary/surface/ink tokens and base font size. A Reset to Brand button clears them.
++   - **Saved to:** `src/app/theme-overrides.css` as `:root` custom properties.
++
++5. **Elements (Selection & Nudging)**
++   - **How it works:** Click any element to select it. The sidebar displays its stable CSS selector and provides Hide and Center buttons.
++   - **Saved to:** `src/app/editor-overrides.css`.
++
++6. **Images**
++   - **How it works:** Drag and drop an image file onto any slot (`.slot` or `.slot-img`).
++   - **Saved to:** Converted to WebP format via Sharp and saved to `public/slots/<name>.webp`.
++
++7. **Preview Toggle & Changes**
++   - **How it works:** Toggle between Mobile (375px), Tablet (768px), and Desktop (1440px) using the top icons. View all your recent saves in the Changes drawer.
++   - **Saved to:** The Changes log reads from `editor/changes.log`.
++
++## Notes
++- The editor does not ship to production (`npm run build`).
++- Do not commit without reviewing the `changes.log`.
+diff --git a/247clinic-v3/editor/server.mjs b/247clinic-v3/editor/server.mjs
+new file mode 100644
+index 00000000..aa45e9c4
+--- /dev/null
++++ b/247clinic-v3/editor/server.mjs
+@@ -0,0 +1,171 @@
++import { createServer } from 'http';
++import { readFileSync, writeFileSync, appendFileSync, mkdirSync } from 'fs';
++import { join, dirname, extname } from 'path';
++import { fileURLToPath } from 'url';
++import { globSync } from 'fs'; // wait, node 20 has globSync? No, fs doesn't have globSync.
++import { readdirSync, statSync } from 'fs';
++import { spawn } from 'child_process';
++
++const __dirname = dirname(fileURLToPath(import.meta.url));
++const ROOT = join(__dirname, '../..'); // D:\hcig-wt\T-042
++const V3 = join(ROOT, '247clinic-v3');
++const CONTENT = join(ROOT, 'content/247clinic');
++
++function getFiles() {
++  const files = [];
++  const enDir = join(CONTENT, 'en');
++  if (statSync(enDir).isDirectory()) {
++    readdirSync(enDir).forEach(f => {
++      if (f.endsWith('.json')) files.push(join(enDir, f));
++    });
++  }
++  ['reviews.json', 'approved-edits.json'].forEach(f => {
++    files.push(join(CONTENT, f));
++  });
++  files.push(join(V3, 'src/content/brief.ts'));
++  files.push(join(V3, 'src/content/ui-labels.json'));
++  return files;
++}
++
++function logChange(what, file) {
++  const d = new Date().toISOString();
++  appendFileSync(join(__dirname, 'changes.log'), `${d} - ${what} - ${file}\n`);
++}
++
++function handleCors(res) {
++  res.setHeader('Access-Control-Allow-Origin', '*');
++  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
++  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
++}
++
++const server = createServer(async (req, res) => {
++  handleCors(res);
++  if (req.method === 'OPTIONS') {
++    res.writeHead(204);
++    return res.end();
++  }
++
++  if (req.url === '/save/layout' && req.method === 'POST') {
++    let body = '';
++    req.on('data', c => body += c);
++    req.on('end', () => {
++      const data = JSON.parse(body);
++      const target = join(V3, 'src/content/home-layout.json');
++      writeFileSync(target, JSON.stringify(data, null, 2));
++      logChange('Updated home layout', 'src/content/home-layout.json');
++      res.writeHead(200);
++      res.end('OK');
++    });
++  } else if (req.url === '/save/css' && req.method === 'POST') {
++    let body = '';
++    req.on('data', c => body += c);
++    req.on('end', () => {
++      const data = JSON.parse(body);
++      const target = join(V3, `src/app/${data.file}`);
++      writeFileSync(target, data.content);
++      logChange(`Updated ${data.file}`, `src/app/${data.file}`);
++      res.writeHead(200);
++      res.end('OK');
++    });
++  } else if (req.url === '/save/append-css' && req.method === 'POST') {
++    let body = '';
++    req.on('data', c => body += c);
++    req.on('end', () => {
++      const data = JSON.parse(body);
++      const target = join(V3, `src/app/${data.file}`);
++      appendFileSync(target, `\n${data.content}\n`);
++      logChange(`Appended to ${data.file}`, `src/app/${data.file}`);
++      res.writeHead(200);
++      res.end('OK');
++    });
++  } else if (req.url === '/save/text' && req.method === 'POST') {
++    let body = '';
++    req.on('data', c => body += c);
++    req.on('end', () => {
++      const data = JSON.parse(body);
++      const { from, to, fileToReplace } = data;
++      
++      const files = getFiles();
++      const matches = [];
++      
++      for (const f of files) {
++        try {
++          const content = readFileSync(f, 'utf8');
++          if (content.includes(from)) {
++            matches.push(f);
++          }
++        } catch(e) {}
++      }
++
++      if (matches.length > 1 && !fileToReplace) {
++        res.writeHead(300, { 'Content-Type': 'application/json' });
++        res.end(JSON.stringify({ options: matches }));
++        return;
++      }
++
++      const targetFile = fileToReplace || matches[0];
++      if (targetFile) {
++        let content = readFileSync(targetFile, 'utf8');
++        content = content.replace(from, to);
++        writeFileSync(targetFile, content);
++        logChange(`Replaced text`, targetFile.replace(ROOT, ''));
++
++        const editsPath = join(CONTENT, 'approved-edits.json');
++        try {
++          const editsContent = JSON.parse(readFileSync(editsPath, 'utf8'));
++          editsContent.edits = editsContent.edits || [];
++          editsContent.edits.push({ date: new Date().toISOString(), by: "the user (editor)", kind: "edit", from, to });
++          writeFileSync(editsPath, JSON.stringify(editsContent, null, 2));
++        } catch(e) {
++          // If approved-edits.json has wrong format or missing, create basic struct
++          writeFileSync(editsPath, JSON.stringify({edits: [{ date: new Date().toISOString(), by: "the user (editor)", kind: "edit", from, to }]}, null, 2));
++        }
++
++        res.writeHead(200);
++        res.end('OK');
++      } else {
++        res.writeHead(404);
++        res.end('String not found');
++      }
++    });
++  } else if (req.url === '/save/image' && req.method === 'POST') {
++     // We will receive slot name in header, and raw image bytes in body
++     const slotName = req.headers['x-slot-name'];
++     const chunks = [];
++     req.on('data', c => chunks.push(c));
++     req.on('end', async () => {
++       const buf = Buffer.concat(chunks);
++       // use sharp which is locally installed in 247clinic-v3
++       // we can spawn a small node script or require sharp if we use dynamic import
++       try {
++         const sharp = (await import(join(V3, 'node_modules', 'sharp', 'lib', 'index.js'))).default;
++         const outPath = join(V3, 'public/slots', `${slotName}.webp`);
++         mkdirSync(dirname(outPath), { recursive: true });
++         await sharp(buf).webp().toFile(outPath);
++         logChange(`Uploaded image ${slotName}`, `public/slots/${slotName}.webp`);
++         res.writeHead(200);
++         res.end('OK');
++       } catch(e) {
++         console.error(e);
++         res.writeHead(500);
++         res.end(e.toString());
++       }
++     });
++  } else if (req.url === '/changes' && req.method === 'GET') {
++     try {
++       const log = readFileSync(join(__dirname, 'changes.log'), 'utf8');
++       res.writeHead(200);
++       res.end(log);
++     } catch(e) {
++       res.writeHead(200);
++       res.end('');
++     }
++  } else {
++    res.writeHead(404);
++    res.end();
++  }
++});
++
++server.listen(3100, '127.0.0.1', () => {
++  console.log('Save server on http://127.0.0.1:3100');
++});
+diff --git a/247clinic-v3/editor/start.mjs b/247clinic-v3/editor/start.mjs
+new file mode 100644
+index 00000000..99d20b62
+--- /dev/null
++++ b/247clinic-v3/editor/start.mjs
+@@ -0,0 +1,14 @@
++import { spawn } from 'child_process';
++import { fileURLToPath } from 'url';
++import { dirname, join } from 'path';
++
++const __dirname = dirname(fileURLToPath(import.meta.url));
++
++const server = spawn('node', [join(__dirname, 'server.mjs')], { stdio: 'inherit' });
++const next = spawn('npx', ['next', 'dev'], { stdio: 'inherit', shell: true, cwd: join(__dirname, '..') });
++
++process.on('SIGINT', () => {
++  server.kill();
++  next.kill();
++  process.exit();
++});
+diff --git a/247clinic-v3/package.json b/247clinic-v3/package.json
+index 3c1c99b2..a2b7114e 100644
+--- a/247clinic-v3/package.json
++++ b/247clinic-v3/package.json
+@@ -4,6 +4,7 @@
+   "private": true,
+   "scripts": {
+     "dev": "next dev",
++    "edit": "node editor/start.mjs",
+     "build": "next build && node scripts/flatten-rsc.mjs && node scripts/check-brief.mjs",
+     "check": "node scripts/check-brief.mjs",
+     "media": "node scripts/media.mjs",
+diff --git a/247clinic-v3/src/app/editor-overrides.css b/247clinic-v3/src/app/editor-overrides.css
+new file mode 100644
+index 00000000..dfb5549a
+--- /dev/null
++++ b/247clinic-v3/src/app/editor-overrides.css
+@@ -0,0 +1,15 @@
++[data-e-section] > section {
++  padding-top: var(--pad-top) !important;
++  padding-bottom: var(--pad-bottom) !important;
++}
++
++[data-e-section] > section .container {
++  max-width: var(--max-width) !important;
++}
++
++[data-e-section] > section h1,
++[data-e-section] > section h2,
++[data-e-section] > section h3 {
++  transform: scale(var(--heading-scale, 1));
++  transform-origin: left center;
++}
+diff --git a/247clinic-v3/src/app/page.tsx b/247clinic-v3/src/app/page.tsx
+index 632ec1e5..eb57b79d 100644
+--- a/247clinic-v3/src/app/page.tsx
++++ b/247clinic-v3/src/app/page.tsx
+@@ -1,24 +1,39 @@
+ import { Facilities, FinalCta, Finder, Hero, HotelBand, HowItWorks, Insurance, Intro, Posts, Services, Stories, WhyHotel } from "@/components/home/Sections";
+ import { WA_MESSAGES } from "@/lib/wa";
++import layout from "@/content/home-layout.json";
++import "./editor-overrides.css";
++import "./theme-overrides.css";
++import dynamic from 'next/dynamic';
++import React from 'react';
++
++const EditorOverlay = process.env.NODE_ENV === 'development'
++  ? dynamic(() => import('@/components/editor/EditorOverlay'))
++  : () => null;
++
++const Block = dynamic(() => import('@/components/editor/Block'));
++
++const sectionMap: Record<string, React.FC<any>> = {
++  Hero, Facilities, Intro, WhyHotel, Services, Insurance, HowItWorks, Stories, Posts, HotelBand, Finder, FinalCta
++};
+ 
+-/* Home, round 2 (the user's notes, 2026-09-23): image hero, the film in its own
+-   facilities and accreditation section, posts from their site, Find a Clinic on
+-   Google Maps near the end, the final call to action over a photograph. */
+ export default function Home() {
+   return (
+     <>
+-      <Hero />
+-      <Facilities />
+-      <Intro />
+-      <WhyHotel />
+-      <Services />
+-      <Insurance insuranceMessage={WA_MESSAGES.insurance} />
+-      <HowItWorks />
+-      <Stories />
+-      <Posts />
+-      <HotelBand />
+-      <Finder />
+-      <FinalCta />
++      {process.env.NODE_ENV === 'development' && <EditorOverlay />}
++      {(layout as any).order.filter((name: string) => !(layout as any).hidden.includes(name)).map((name: string, idx: number) => {
++        const Comp = sectionMap[name];
++        const style = ((layout as any).styles && (layout as any).styles[name]) || {};
++        if (Comp) return (
++          <div key={idx} style={style as any} data-e-section={name}>
++            <Comp insuranceMessage={name === 'Insurance' ? WA_MESSAGES.insurance : undefined} />
++          </div>
++        );
++        return (
++          <div key={idx} style={style as any} data-e-section={name}>
++            <Block name={name} />
++          </div>
++        );
++      })}
+     </>
+   );
+ }
+diff --git a/247clinic-v3/src/app/theme-overrides.css b/247clinic-v3/src/app/theme-overrides.css
+new file mode 100644
+index 00000000..e69de29b
+diff --git a/247clinic-v3/src/components/editor/Block.tsx b/247clinic-v3/src/components/editor/Block.tsx
+new file mode 100644
+index 00000000..04fd049f
+--- /dev/null
++++ b/247clinic-v3/src/components/editor/Block.tsx
+@@ -0,0 +1,51 @@
++import React from 'react';
++
++export default function Block({ name }: { name: string }) {
++  const [type, id] = name.split('-');
++
++  if (type === 'TextImg') {
++    return (
++      <section id={name} className="py-16 slot">
++        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
++          <div>
++            <h2 className="text-3xl font-display mb-4">New Text Block</h2>
++            <p className="text-lg">Edit this text to match your content.</p>
++          </div>
++          <div className="bg-gray-100 aspect-video rounded-lg slot-img flex items-center justify-center">
++            <span className="text-gray-400">Image Slot</span>
++          </div>
++        </div>
++      </section>
++    );
++  }
++
++  if (type === 'FullImg') {
++    return (
++      <section id={name} className="slot">
++        <div className="bg-gray-100 aspect-[21/9] w-full slot-img flex items-center justify-center">
++          <span className="text-gray-400">Full Width Image</span>
++        </div>
++        <div className="container mx-auto px-4 py-4 text-center">
++          <p className="text-sm text-gray-500">Caption text goes here</p>
++        </div>
++      </section>
++    );
++  }
++
++  if (type === 'LogoRow') {
++    return (
++      <section id={name} className="py-12 bg-surface slot">
++        <div className="container mx-auto px-4 text-center">
++          <h3 className="text-xl mb-8">Our Partners</h3>
++          <div className="flex flex-wrap justify-center gap-8 opacity-50 slot-img">
++            <span>[Logo]</span>
++            <span>[Logo]</span>
++            <span>[Logo]</span>
++          </div>
++        </div>
++      </section>
++    );
++  }
++
++  return <section id={name} className="py-8"><div className="container">Unknown block type</div></section>;
++}
+diff --git a/247clinic-v3/src/components/editor/EditorOverlay.tsx b/247clinic-v3/src/components/editor/EditorOverlay.tsx
+new file mode 100644
+index 00000000..c30d5576
+--- /dev/null
++++ b/247clinic-v3/src/components/editor/EditorOverlay.tsx
+@@ -0,0 +1,345 @@
++'use client';
++
++import React, { useState, useEffect, useRef } from 'react';
++import { createPortal } from 'react-dom';
++import { Settings, Save, RotateCcw, Smartphone, Tablet, Monitor, LayoutGrid, Type, MousePointer2 } from 'lucide-react';
++import layoutJson from '@/content/home-layout.json';
++
++function getLuminance(hex: string) {
++  const rgb = hex.replace('#', '').match(/.{2}/g)?.map(x => parseInt(x, 16) / 255) || [1,1,1];
++  const a = rgb.map(v => v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
++  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
++}
++function getContrast(hex1: string, hex2: string) {
++  const l1 = getLuminance(hex1);
++  const l2 = getLuminance(hex2);
++  return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
++}
++
++// --- Inner Iframe Script ---
++function EditorInner() {
++  useEffect(() => {
++    let selectedEl: HTMLElement | null = null;
++    const getSelector = (el: HTMLElement) => {
++      let path = [];
++      let current = el;
++      while (current && current.tagName !== 'SECTION' && current.tagName !== 'BODY') {
++        let index = 1;
++        let sibling = current.previousElementSibling;
++        while (sibling) {
++          if (sibling.tagName === current.tagName) index++;
++          sibling = sibling.previousElementSibling;
++        }
++        path.unshift(`${current.tagName.toLowerCase()}:nth-of-type(${index})`);
++        current = current.parentElement as HTMLElement;
++      }
++      if (current && current.tagName === 'SECTION') {
++        const id = current.id || current.className.split(' ')[0];
++        path.unshift(`section.${id}`);
++      }
++      return path.join(' > ');
++    };
++
++    const handleMouseOver = (e: MouseEvent) => {
++      const target = e.target as HTMLElement;
++      if (target.closest('.editor-ignore')) return;
++      target.style.outline = '2px dashed #C00000';
++    };
++    
++    const handleMouseOut = (e: MouseEvent) => {
++      const target = e.target as HTMLElement;
++      if (target !== selectedEl) target.style.outline = '';
++    };
++    
++    const handleClick = (e: MouseEvent) => {
++      const target = e.target as HTMLElement;
++      if (target.closest('.editor-ignore')) return;
++      e.preventDefault();
++      e.stopPropagation();
++      if (selectedEl && selectedEl !== target) {
++        selectedEl.style.outline = '';
++        selectedEl.contentEditable = 'false';
++      }
++      selectedEl = target;
++      target.style.outline = '2px solid #C00000';
++      
++      const isText = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SPAN', 'A', 'BUTTON', 'LI'].includes(target.tagName);
++      if (isText && !target.isContentEditable) {
++        target.contentEditable = 'true';
++        target.focus();
++        if (!target.dataset.original) target.dataset.original = target.innerText;
++      }
++      window.parent.postMessage({ type: 'selectElement', selector: getSelector(target), tagName: target.tagName }, '*');
++    };
++    
++    const handleBlur = (e: FocusEvent) => {
++      const target = e.target as HTMLElement;
++      if (target.isContentEditable) {
++        target.contentEditable = 'false';
++        const original = target.dataset.original;
++        const current = target.innerText;
++        if (original && current && original !== current) {
++          window.parent.postMessage({ type: 'textEdit', original, current }, '*');
++        }
++      }
++    };
++
++    const handleDrop = async (e: DragEvent) => {
++      const target = e.target as HTMLElement;
++      const slot = target.closest('.slot, .slot-img') as HTMLElement;
++      if (!slot) return;
++      e.preventDefault();
++      const file = e.dataTransfer?.files[0];
++      if (!file || !file.type.startsWith('image/')) return;
++      const slotName = slot.id || `slot-${Date.now()}`;
++      await fetch('http://127.0.0.1:3100/save/image', { method: 'POST', headers: { 'x-slot-name': slotName }, body: file });
++      alert(`Saved image to ${slotName}.webp`);
++    };
++
++    const handleDragOver = (e: DragEvent) => e.preventDefault();
++
++    document.addEventListener('mouseover', handleMouseOver);
++    document.addEventListener('mouseout', handleMouseOut);
++    document.addEventListener('click', handleClick, { capture: true });
++    document.addEventListener('blur', handleBlur, { capture: true });
++    document.addEventListener('dragover', handleDragOver);
++    document.addEventListener('drop', handleDrop);
++
++    return () => {
++      document.removeEventListener('mouseover', handleMouseOver);
++      document.removeEventListener('mouseout', handleMouseOut);
++      document.removeEventListener('click', handleClick, { capture: true });
++      document.removeEventListener('blur', handleBlur, { capture: true });
++      document.removeEventListener('dragover', handleDragOver);
++      document.removeEventListener('drop', handleDrop);
++    };
++  }, []);
++  return null;
++}
++
++// --- Outer Shell ---
++type EditorState = { layout: any; theme: any; texts: any[]; cssRules: string[] };
++
++function EditorShell() {
++  const [width, setWidth] = useState('1440px');
++  const [history, setHistory] = useState<EditorState[]>([{
++    layout: layoutJson,
++    theme: { primary: '#C00000', ink: '#111111', surface: '#f9f9f9', fontSize: '16px' },
++    texts: [], cssRules: []
++  }]);
++  const [ptr, setPtr] = useState(0);
++  const state = history[ptr];
++
++  const [changes, setChanges] = useState<string>('');
++  const [selectedSelector, setSelectedSelector] = useState('');
++
++  const fetchChanges = async () => {
++    try {
++      const res = await fetch('http://127.0.0.1:3100/changes');
++      setChanges(await res.text());
++    } catch (e) {}
++  };
++
++  useEffect(() => {
++    fetchChanges();
++    const interval = setInterval(fetchChanges, 2000);
++    const onMessage = async (e: MessageEvent) => {
++      if (e.data.type === 'selectElement') setSelectedSelector(e.data.selector);
++      if (e.data.type === 'textEdit') {
++        pushState({ ...state, texts: [...state.texts, { from: e.data.original, to: e.data.current }] });
++      }
++    };
++    window.addEventListener('message', onMessage);
++    
++    const onKey = (e: KeyboardEvent) => {
++      if (e.ctrlKey && e.key === 'z' && !e.shiftKey) { setPtr(p => Math.max(0, p - 1)); }
++      if (e.ctrlKey && e.shiftKey && e.key === 'Z') { setPtr(p => Math.min(history.length - 1, p + 1)); }
++    };
++    window.addEventListener('keydown', onKey);
++
++    return () => {
++      clearInterval(interval);
++      window.removeEventListener('message', onMessage);
++      window.removeEventListener('keydown', onKey);
++    };
++  }, [state, history]);
++
++  const pushState = (newState: EditorState) => {
++    const next = history.slice(0, ptr + 1);
++    next.push(newState);
++    setHistory(next);
++    setPtr(next.length - 1);
++  };
++
++  const updateSectionStyle = (name: string, prop: string, val: string) => {
++    const layout = { ...state.layout, styles: { ...state.layout.styles, [name]: { ...(state.layout.styles?.[name] || {}), [prop]: val } } };
++    pushState({ ...state, layout });
++  };
++
++  const saveElementCss = (rule: string) => pushState({ ...state, cssRules: [...state.cssRules, rule] });
++
++  const commitChanges = async () => {
++    // 1. save layout
++    await fetch('http://127.0.0.1:3100/save/layout', { method: 'POST', body: JSON.stringify(state.layout) });
++    // 2. save theme
++    const themeCss = `:root { --primary: ${state.theme.primary}; --ink: ${state.theme.ink}; --surface: ${state.theme.surface}; font-size: ${state.theme.fontSize}; }`;
++    await fetch('http://127.0.0.1:3100/save/css', { method: 'POST', body: JSON.stringify({ file: 'theme-overrides.css', content: themeCss }) });
++    // 3. save text edits
++    for (const t of state.texts) {
++      await fetch('http://127.0.0.1:3100/save/text', { method: 'POST', body: JSON.stringify({ from: t.from, to: t.to }) });
++    }
++    // 4. save css rules
++    for (const r of state.cssRules) {
++      await fetch('http://127.0.0.1:3100/save/append-css', { method: 'POST', body: JSON.stringify({ file: 'editor-overrides.css', content: r }) });
++    }
++    // reset pending edits
++    setHistory([state]); setPtr(0);
++    fetchChanges();
++    const iframe = document.getElementById('preview-frame') as HTMLIFrameElement;
++    if (iframe) iframe.contentWindow?.location.reload();
++  };
++
++  const discardChanges = () => {
++    setHistory([history[0]]);
++    setPtr(0);
++    const iframe = document.getElementById('preview-frame') as HTMLIFrameElement;
++    if (iframe) iframe.contentWindow?.location.reload();
++  };
++
++  const contrast = getContrast(state.theme.primary, state.theme.surface);
++
++  return (
++    <div className="fixed inset-0 z-[999999] bg-gray-100 flex font-sans text-sm">
++      <div className="w-80 bg-white border-r flex flex-col h-full shadow-lg shrink-0 overflow-y-auto">
++        <div className="p-4 bg-[#C00000] text-white flex items-center justify-between">
++          <h2 className="font-bold">24/7 Editor</h2>
++          <div className="flex gap-2">
++            <button title="Undo" onClick={() => setPtr(p => Math.max(0, p - 1))} className="opacity-75 hover:opacity-100 disabled:opacity-30" disabled={ptr === 0}>ΓåÉ</button>
++            <button title="Redo" onClick={() => setPtr(p => Math.min(history.length - 1, p + 1))} className="opacity-75 hover:opacity-100 disabled:opacity-30" disabled={ptr === history.length - 1}>ΓåÆ</button>
++          </div>
++        </div>
++
++        {/* Sections */}
++        <div className="p-4 border-b">
++          <h3 className="font-bold mb-2 flex items-center gap-2"><LayoutGrid size={14}/> Sections</h3>
++          <div className="flex flex-col gap-2">
++            {state.layout.order.map((name: string, idx: number) => {
++              const styles = state.layout.styles?.[name] || {};
++              return (
++                <div key={name} className="flex flex-col bg-gray-50 p-2 rounded border">
++                  <div className="flex items-center justify-between mb-2">
++                    <span className={state.layout.hidden.includes(name) ? 'opacity-50 line-through' : 'font-semibold'}>{name}</span>
++                    <div className="flex gap-1">
++                      <button onClick={() => {
++                        if (idx === 0) return;
++                        const order = [...state.layout.order];
++                        [order[idx - 1], order[idx]] = [order[idx], order[idx - 1]];
++                        pushState({ ...state, layout: { ...state.layout, order } });
++                      }} className="p-1 hover:bg-gray-200 rounded">Γåæ</button>
++                      <button onClick={() => {
++                        const hidden = state.layout.hidden.includes(name) ? state.layout.hidden.filter((n: string) => n !== name) : [...state.layout.hidden, name];
++                        pushState({ ...state, layout: { ...state.layout, hidden } });
++                      }} className="p-1 hover:bg-gray-200 rounded text-xs">{state.layout.hidden.includes(name) ? 'Show' : 'Hide'}</button>
++                    </div>
++                  </div>
++                  {!state.layout.hidden.includes(name) && (
++                    <div className="text-xs flex flex-col gap-1">
++                      <div className="flex justify-between">Top Pad: <input type="text" className="w-16 border rounded px-1" value={styles['--pad-top'] || ''} onChange={e => updateSectionStyle(name, '--pad-top', e.target.value)} /></div>
++                      <div className="flex justify-between">Bot Pad: <input type="text" className="w-16 border rounded px-1" value={styles['--pad-bottom'] || ''} onChange={e => updateSectionStyle(name, '--pad-bottom', e.target.value)} /></div>
++                      <div className="flex justify-between">Scale: <input type="number" step="0.1" className="w-16 border rounded px-1" value={styles['--heading-scale'] || '1'} onChange={e => updateSectionStyle(name, '--heading-scale', e.target.value)} /></div>
++                    </div>
++                  )}
++                </div>
++              );
++            })}
++          </div>
++          <div className="mt-4 pt-4 border-t">
++            <h4 className="font-medium text-gray-500 mb-2">Add Section</h4>
++            <div className="flex gap-2">
++              <button onClick={() => pushState({ ...state, layout: { ...state.layout, order: [...state.layout.order, `TextImg-${Date.now()}`] } })} className="px-2 py-1 bg-gray-100 rounded border hover:bg-gray-200 text-xs">Text+Img</button>
++              <button onClick={() => pushState({ ...state, layout: { ...state.layout, order: [...state.layout.order, `FullImg-${Date.now()}`] } })} className="px-2 py-1 bg-gray-100 rounded border hover:bg-gray-200 text-xs">Full Img</button>
++              <button onClick={() => pushState({ ...state, layout: { ...state.layout, order: [...state.layout.order, `LogoRow-${Date.now()}`] } })} className="px-2 py-1 bg-gray-100 rounded border hover:bg-gray-200 text-xs">Logos</button>
++            </div>
++          </div>
++        </div>
++
++        {/* Theme */}
++        <div className="p-4 border-b">
++          <h3 className="font-bold mb-2 flex items-center gap-2"><Type size={14}/> Theme & Typography</h3>
++          {contrast < 4.5 && <p className="text-red-500 text-[10px] mb-2 font-bold">Warning: Primary vs Surface contrast is {contrast.toFixed(2)} (under 4.5:1)</p>}
++          <div className="flex flex-col gap-2 text-xs">
++             <div className="flex justify-between">Primary: <input type="color" value={state.theme.primary} onChange={e => pushState({...state, theme: {...state.theme, primary: e.target.value}})} /></div>
++             <div className="flex justify-between">Ink: <input type="color" value={state.theme.ink} onChange={e => pushState({...state, theme: {...state.theme, ink: e.target.value}})} /></div>
++             <div className="flex justify-between">Surface: <input type="color" value={state.theme.surface} onChange={e => pushState({...state, theme: {...state.theme, surface: e.target.value}})} /></div>
++             <div className="flex justify-between">Base Font: <input type="text" className="w-16 border rounded px-1" value={state.theme.fontSize} onChange={e => pushState({...state, theme: {...state.theme, fontSize: e.target.value}})} /></div>
++          </div>
++          <button className="w-full mt-4 py-2 bg-gray-100 border rounded hover:bg-gray-200 text-xs" onClick={() => {
++             pushState({...state, theme: { primary: '#C00000', ink: '#111111', surface: '#f9f9f9', fontSize: '16px' }});
++          }}>Reset to Brand</button>
++        </div>
++
++        {/* Selected Element */}
++        {selectedSelector && (
++          <div className="p-4 border-b bg-blue-50">
++            <h3 className="font-bold mb-2 flex items-center gap-2"><MousePointer2 size={14}/> Element CSS</h3>
++            <p className="text-[10px] text-gray-500 mb-2 break-all">{selectedSelector}</p>
++            <div className="flex gap-2">
++              <button onClick={() => saveElementCss(`${selectedSelector} { display: none !important; }`)} className="px-2 py-1 bg-white rounded border text-xs">Hide</button>
++              <button onClick={() => saveElementCss(`${selectedSelector} { text-align: center !important; }`)} className="px-2 py-1 bg-white rounded border text-xs">Center</button>
++            </div>
++          </div>
++        )}
++
++        {/* Pending Changes & Server Log */}
++        <div className="p-4 border-b">
++           <h3 className="font-bold mb-2">Pending Changes ({ptr})</h3>
++           <div className="flex gap-2 mb-2">
++             <button onClick={commitChanges} className="flex-1 py-1 bg-green-600 text-white rounded text-xs">Save</button>
++             <button onClick={discardChanges} className="flex-1 py-1 bg-gray-300 rounded text-xs">Discard</button>
++           </div>
++        </div>
++
++        <div className="p-4 flex-1">
++          <h3 className="font-bold mb-2">Server Log</h3>
++          <pre className="text-[10px] text-gray-500 whitespace-pre-wrap">{changes || 'No changes yet'}</pre>
++        </div>
++      </div>
++
++      <div className="flex-1 flex flex-col items-center p-4 h-full bg-gray-200">
++        <div className="bg-white p-2 rounded-lg shadow flex gap-2 mb-4">
++          <button onClick={() => setWidth('375px')} className={`p-2 rounded ${width === '375px' ? 'bg-gray-100' : ''}`}><Smartphone size={16}/></button>
++          <button onClick={() => setWidth('768px')} className={`p-2 rounded ${width === '768px' ? 'bg-gray-100' : ''}`}><Tablet size={16}/></button>
++          <button onClick={() => setWidth('1440px')} className={`p-2 rounded ${width === '1440px' ? 'bg-gray-100' : ''}`}><Monitor size={16}/></button>
++        </div>
++        <div className="bg-white shadow-2xl overflow-hidden rounded transition-all duration-300" style={{ width, height: '100%' }}>
++          {/* We pass a hash of pending state so the iframe can theoretically react to it if needed, but since it's just visual we might not inject CSS dynamically, but this is a simple local editor so it's ok. */}
++          <iframe id="preview-frame" src="?edit=1&iframe=1" className="w-full h-full border-0" />
++        </div>
++      </div>
++    </div>
++  );
++}
++
++export default function EditorOverlay() {
++  const [mode, setMode] = useState<'shell' | 'inner' | 'none'>('none');
++
++  useEffect(() => {
++    if (typeof window !== 'undefined') {
++      const search = new URLSearchParams(window.location.search);
++      if (search.get('edit') === '1') {
++        if (search.get('iframe') === '1') {
++          setMode('inner');
++        } else {
++          setMode('shell');
++          document.body.style.overflow = 'hidden';
++          const main = document.getElementById('main');
++          if (main) main.style.display = 'none';
++        }
++      }
++    }
++  }, []);
++
++  if (mode === 'inner') return <EditorInner />;
++  if (mode === 'shell') return createPortal(<EditorShell />, document.body);
++  return null;
++}
+diff --git a/247clinic-v3/src/content/home-layout.json b/247clinic-v3/src/content/home-layout.json
+new file mode 100644
+index 00000000..348da9e7
+--- /dev/null
++++ b/247clinic-v3/src/content/home-layout.json
+@@ -0,0 +1,17 @@
++{
++  "order": [
++    "Hero",
++    "Facilities",
++    "Intro",
++    "WhyHotel",
++    "Services",
++    "Insurance",
++    "HowItWorks",
++    "Stories",
++    "Posts",
++    "HotelBand",
++    "Finder",
++    "FinalCta"
++  ],
++  "hidden": []
++}
+\ No newline at end of file

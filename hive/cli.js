@@ -88,6 +88,37 @@ ${h}
     case 'job': { const r = await api('POST', `/api/schedules/${argv[0]}/run`); return console.log(r.line || r.id || 'ran'); }
     case 'agents': { const a = await api('GET', '/api/agents'); return console.log(a.map(r => `  ${pad(r.id, 24)} ${pad(r.lead, 12)} ${pad(r.agyModel, 26)} open ${r.open}${r.running.length ? '  RUNNING' : ''}\n      ${r.when}`).join('\n')); }
     case 'role': { const id = argv.shift(); const w = flag('claude') ? 'claude' : 'agy'; const r = await api('POST', '/api/launch', { what: 'role', role: id, with: w, prompt: argv.join(' ') }); return console.log(`${r.title} opened`); }
+    // Teach a role something. Appends to hive/agents/lessons/<id>.md and re-syncs, so
+    // both the Claude subagent and the agy skill carry it from now on.
+    case 'lesson': {
+      const id = argv.shift();
+      const text = argv.join(' ').trim();
+      const ROLES = require('./agents/roles');
+      if (!id || !text) return console.error('usage: hive lesson <role-id> "what to do differently next time"');
+      if (!ROLES.some(r => r.id === id)) return console.error(`No role ${id}. Try: ` + ROLES.map(r => r.id).join(', '));
+      const fsx = require('fs'), pathx = require('path');
+      const dir = pathx.join(__dirname, 'agents', 'lessons');
+      fsx.mkdirSync(dir, { recursive: true });
+      const file = pathx.join(dir, id + '.md');
+      const day = new Date().toISOString().slice(0, 10);
+      fsx.appendFileSync(file, '- ' + text.replace(/\s+/g, ' ') + ' (' + day + ')' + String.fromCharCode(10));
+      require('child_process').execFileSync(process.execPath, [pathx.join(__dirname, 'agents', 'sync.js')], { stdio: 'inherit' });
+      return console.log(`${id} learned it. Both fleets carry it from the next run.`);
+    }
+    case 'lessons': {
+      const id = argv.shift();
+      const fsx = require('fs'), pathx = require('path');
+      const dir = pathx.join(__dirname, 'agents', 'lessons');
+      if (!fsx.existsSync(dir)) return console.log('nothing learned yet');
+      const files = fsx.readdirSync(dir).filter(f => f.endsWith('.md') && f !== 'README.md' && (!id || f === id + '.md'));
+      if (!files.length) return console.log('nothing learned yet');
+      for (const f of files) {
+        const lines = fsx.readFileSync(pathx.join(dir, f), 'utf8').split(String.fromCharCode(10)).filter(l => l.trim().startsWith('- '));
+        console.log(String.fromCharCode(10) + f.replace(/\.md$/, '') + '  (' + lines.length + ')');
+        lines.forEach(l => console.log('  ' + l.trim()));
+      }
+      return;
+    }
     case 'route': { const r = await api('GET', `/api/tasks/${argv[0]}/route`); return console.log(JSON.stringify(r, null, 2)); }
     case 'usage': { const u = await api('GET', '/api/usage'); return console.log(JSON.stringify(u, null, 2)); }
     case 'inbox': { const items = await api('GET', '/api/inbox?read=1'); return console.log(items.filter(i => !i.read).map(i => `${i.ts.slice(0, 16)} ${i.from}: ${i.text}`).join('\n') || 'Inbox empty.'); }
