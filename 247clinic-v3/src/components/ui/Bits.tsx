@@ -15,9 +15,9 @@ export function Head({ eyebrow, title, id, lead, center, as: As = "h2" }: {
 
 /* Where the user's dedicated design goes (DESIGN.md section 4). Listed in
    docs/247clinic-v3-design-slots.md. */
-export function DesignSlot({ purpose, px, className = "", style }: { purpose: string; px: string; className?: string; style?: React.CSSProperties }) {
+export function DesignSlot({ purpose, px, className = "", style, file }: { purpose: string; px: string; className?: string; style?: React.CSSProperties; file?: string }) {
   return (
-    <div className={`slot ${className}`} style={style} role="img" aria-label={`Dedicated design: ${purpose}`}>
+    <div className={`slot ${className}`} style={style} data-slot={file} role="img" aria-label={`Dedicated design: ${purpose}`}>
       <div className="slot-in" aria-hidden="true">
         <ImagePlus size={22} />
         <b>Dedicated design</b>

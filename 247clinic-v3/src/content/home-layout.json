@@ -1,17 +1,19 @@
 {
   "order": [
     "Hero",
+    "HotelBand",
     "Facilities",
+    "Services",
     "Intro",
     "WhyHotel",
-    "Services",
-    "Insurance",
     "HowItWorks",
+    "Insurance",
     "Stories",
     "Posts",
-    "HotelBand",
     "Finder",
     "FinalCta"
   ],
-  "hidden": []
+  "hidden": [],
+  "styles": {},
+  "blocks": {}
 }

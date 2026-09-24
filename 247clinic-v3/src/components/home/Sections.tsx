@@ -1,7 +1,9 @@
-/* The home, round 2 (the user's notes, 2026-09-23). Every sentence comes from
-   content/247clinic/en/home.json (WEBSITE.docx), from the edits he named
-   (content/247clinic/approved-edits.json), or from their live site with his leave.
-   Our own words are eyebrows and control labels only (src/content/ui-labels.json). */
+/* The home, round 3 (the user's notes, 2026-09-23): compact sections, smooth transitions,
+   a remade Why section, an auto-advancing stories carousel, flags on reviews, every hotel
+   brand, Medcierge's finder with Show on map and More details.
+   Every sentence comes from content/247clinic/en/home.json (WEBSITE.docx), from the edits
+   he named (content/247clinic/approved-edits.json), or from their live site with his leave.
+   Our own words are control labels and a few eyebrows (src/content/ui-labels.json). */
 import {
   Ambulance, ArrowUpRight, Award, Bandage, BedDouble, Check, CheckCheck, FlaskConical, Globe, HeartPulse, Hotel,
   MapPin, ShieldCheck, Stethoscope, Syringe, Thermometer, UserRoundCheck, Zap,
@@ -9,8 +11,8 @@ import {
 import { section, reviews } from "@/content/load";
 import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
 import { asset, BASE, NUMBERS } from "@/data/facts";
-import { CLINICS } from "@/data/clinics";
-import { HOTELS, INSURERS, INTRO, PHOTOS, POSTS, STORIES, type Logo } from "@/data/media";
+import { CLINICS, clinicPath } from "@/data/clinics";
+import { FLAGS, HOTEL_BRANDS, INSURERS, INTRO, PHOTOS, POSTS, STORIES, type Logo } from "@/data/media";
 import { ROUTES } from "@/data/nav";
 import { CallButton, LinkButton, TextLink, WaButton } from "@/components/ui/Buttons";
 import { Head } from "@/components/ui/Bits";
@@ -19,14 +21,15 @@ import { WhatsAppGlyph } from "@/components/ui/Icon";
 import { CountUp, InViewVideo } from "@/components/ui/Motion";
 import { Marquee } from "@/components/ui/Marquee";
 import { BigPlay, Watch } from "@/components/ui/Viewer";
-import { RowControls } from "./StoryRow";
+import { Drift, Grow, HeroDepth } from "@/components/ui/ScrollFx";
+import { StoryCarousel } from "./StoryRow";
 import { ClinicFinder } from "./ClinicFinder";
 import { Parallax } from "./Parallax";
 
 const href = (p: string) => `${BASE}${p}`;
 const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` });
 
-/* ---------------- 1. hero: an image, no film (the user, 2026-09-23) ---------------- */
+/* ---------------- 1. hero: an image ---------------- */
 export function Hero() {
   const s = section("home", "hero");
   const [first, ...rest] = s.heading.split(". ");
@@ -36,9 +39,11 @@ export function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-h">
       <div className="hero-media">
-        {img
-          ? <img src={img} alt="" width={1376} height={768} fetchPriority="high" decoding="async" />
-          : <Slot file="hero-desktop.webp" purpose="hero image" px="2400 x 1350" />}
+        <HeroDepth className="hero-pic">
+          {img
+            ? <img src={img} data-slot="hero-desktop.webp" alt="" width={1376} height={768} fetchPriority="high" decoding="async" />
+            : <Slot file="hero-desktop.webp" purpose="hero image" px="2400 x 1350" />}
+        </HeroDepth>
         <div className="hero-veil" aria-hidden="true" />
       </div>
       <div className="container hero-inner">
@@ -74,11 +79,11 @@ export function Facilities() {
       <div className="container">
         <Head center eyebrow="Accreditation" id="fac-h" title={s.heading} lead={<p>{s.body[0]}</p>} />
         <div className="stage-wrap">
-          <div className="stage rv rv-scale">
+          <Grow className="stage">
             <InViewVideo src={asset("/media/hero.mp4")} className="stage-film" />
             <div className="stage-veil" aria-hidden="true" />
             <BigPlay src="/media/commercial.mp4" label="Watch video" />
-          </div>
+          </Grow>
           <div className="stage-chips">
             <div className="stage-chip rv" style={d(200)}>
               <img src={asset("/logos/marks/uca.png")} alt="Urgent Care Association" width={48} height={48} />
@@ -101,7 +106,7 @@ export function Facilities() {
             );
           })}
         </ul>
-        <div className="cta-row center rv" style={{ marginTop: 32 }}>
+        <div className="cta-row center rv" style={{ marginTop: 24 }}>
           <TextLink href={href(ROUTES.accreditation)} placement="accreditation">{s.ctas[0].label}</TextLink>
         </div>
       </div>
@@ -114,7 +119,7 @@ export function Intro() {
   const s = section("home", "what-is-247-clinic");
   const [a, b, c, pull] = s.body;
   return (
-    <section className="section bg-surface intro" aria-labelledby="intro-h">
+    <section className="section intro" aria-labelledby="intro-h">
       <span className="watermark" aria-hidden="true">24/7</span>
       <div className="container split rev">
         <div className="intro-media rv">
@@ -125,12 +130,12 @@ export function Intro() {
           <div className="intro-deco" aria-hidden="true" />
         </div>
         <div className="stack">
-          <Head eyebrow="On-site care" id="intro-h" title={s.heading} />
+          <Head id="intro-h" title={s.heading} />
           <p className="lead rv">{a}</p>
           <p className="rv">{b}</p>
           <p className="rv">{c}</p>
           <p className="pull rv">{pull}</p>
-          <div className="rv" style={{ marginTop: 8 }}>
+          <div className="rv" style={{ marginTop: 4 }}>
             <LinkButton href={href(ROUTES.clinics)} placement="intro" ev="find_clinic_click">{s.ctas[0].label}</LinkButton>
           </div>
         </div>
@@ -139,34 +144,42 @@ export function Intro() {
   );
 }
 
-/* ---------------- 4. why a hotel clinic (brief 9), with a photograph ---------------- */
+/* ---------------- 4. why a hotel clinic (brief 9), remade ---------------- */
 const WHY_ICONS = [Hotel, Zap, Stethoscope, Ambulance];
 export function WhyHotel() {
   const s = section("home", "why-hotel-based-medical-care");
+  const hero = section("home", "hero");
   const clinics = NUMBERS.find((n) => n.label === BRIEF.hotelClinics);
   return (
-    <section className="section" aria-labelledby="why-h">
+    <section className="section bg-surface why" aria-labelledby="why-h">
       <div className="container why-grid">
-        <div className="why-photo rv">
-          <img src={asset(PHOTOS.why.src)} alt="" width={PHOTOS.why.w} height={PHOTOS.why.h} loading="lazy" />
-          {clinics && <div className="why-stat" aria-hidden="true"><b>{clinics.value}</b><span>{clinics.label}</span></div>}
-        </div>
-        <div>
-          <Head eyebrow="Why a hotel clinic" id="why-h" title={s.heading} />
-          <ul className="why-list">
+        <div className="why-copy">
+          <Head id="why-h" title={s.heading} />
+          <ol className="why-tiles">
             {s.items.map((it, i) => {
               const Ico = WHY_ICONS[i];
               return (
-                <li key={it.title} className="rv" style={d(i * 70)}>
-                  <span className="ico"><Ico size={22} aria-hidden="true" /></span>
-                  <div><h3>{it.title}</h3><p>{it.text}</p></div>
+                <li key={it.title} className="why-tile rv" style={d(i * 80)}>
+                  <div className="wt-top"><span className="ico"><Ico size={22} aria-hidden="true" /></span><span className="wt-n">0{i + 1}</span></div>
+                  <h3>{it.title}</h3>
+                  <p>{it.text}</p>
                 </li>
               );
             })}
-          </ul>
-          <div className="cta-row rv" style={{ marginTop: 28 }}>
+          </ol>
+          <div className="cta-row rv" style={{ marginTop: 24 }}>
             <WaButton placement="section-why">{BRIEF.waUs}</WaButton>
           </div>
+        </div>
+        <div className="why-visual" aria-hidden="true">
+          <Drift speed={0.04} className="wv-main">
+            <img src={asset(PHOTOS.why.src)} alt="" width={PHOTOS.why.w} height={PHOTOS.why.h} loading="lazy" />
+          </Drift>
+          <Drift speed={-0.1} className="wv-sub">
+            <img src={asset(PHOTOS.whyResort.src)} alt="" width={PHOTOS.whyResort.w} height={PHOTOS.whyResort.h} loading="lazy" />
+          </Drift>
+          {clinics && <div className="why-stat"><b>{clinics.value}</b><span>{clinics.label}</span></div>}
+          <div className="why-seal"><img src={asset("/logos/marks/uca.png")} alt="" width={44} height={44} /><span>{hero.body[1]}</span></div>
         </div>
       </div>
     </section>
@@ -182,16 +195,16 @@ export function Services() {
     <section className="section bg-surface" aria-labelledby="svc-h">
       <div className="container">
         <div className="head-row">
-          <Head eyebrow="What we treat" id="svc-h" title={s.heading} />
+          <Head id="svc-h" title={s.heading} />
           <div className="rv"><TextLink href={href(ROUTES.services)} placement="services">{s.ctas[0].label}</TextLink></div>
         </div>
-        <ul className="grid g2 g3">
+        <ul className="grid g2 g3 svc-grid">
           {s.items.map((it, i) => {
             const Ico = SVC_ICONS[i];
             return (
               <li key={it.title} className="rv" style={d((i % 3) * 70)}>
                 <article className="card svc">
-                  <Slot file={`${SVC_FILES[i]}.webp`} purpose={`service card, ${it.title}`} px="1200 x 900" alt={it.title} ratio="4 / 3" />
+                  <Slot file={`${SVC_FILES[i]}.webp`} purpose={`service card, ${it.title}`} px="1200 x 800" alt={it.title} ratio="3 / 2" />
                   <div className="svc-body">
                     <span className="ico"><Ico size={24} aria-hidden="true" /></span>
                     <h3>{it.title}</h3>
@@ -202,7 +215,7 @@ export function Services() {
             );
           })}
         </ul>
-        <div className="cta-row center rv" style={{ marginTop: 40 }}>
+        <div className="cta-row center rv" style={{ marginTop: 32 }}>
           <WaButton placement="section-services">{BRIEF.waUs}</WaButton>
           <CallButton placement="section-services" />
         </div>
@@ -220,7 +233,7 @@ export function Insurance({ insuranceMessage }: { insuranceMessage: string }) {
   const [p1, p2, assist] = s.body;
   const half = Math.ceil(INSURERS.length / 2);
   return (
-    <section className="section" aria-labelledby="ins-h">
+    <section className="section bg-surface" aria-labelledby="ins-h">
       <div className="container split">
         <div className="stack">
           <Head eyebrow="Insurance & cashless" id="ins-h" title={s.heading} />
@@ -233,7 +246,7 @@ export function Insurance({ insuranceMessage }: { insuranceMessage: string }) {
               <li key={it.title} className="rv" style={d(i * 50)}><i aria-hidden="true"><Check size={15} strokeWidth={3} /></i>{it.title}</li>
             ))}
           </ul>
-          <div className="cta-row rv" style={{ marginTop: 10 }}>
+          <div className="cta-row rv" style={{ marginTop: 6 }}>
             <WaButton placement="section-insurance" ctx="insurance">{s.ctas[0].label}</WaButton>
             <LinkButton href={href(ROUTES.insurance)} placement="section-insurance">{s.ctas[1].label}</LinkButton>
           </div>
@@ -241,7 +254,7 @@ export function Insurance({ insuranceMessage }: { insuranceMessage: string }) {
         <div className="rv" style={d(120)}>
           <figure className="chat" aria-hidden="true">
             <div className="chat-top">
-              <span className="av"><img src={asset("/logos/marks/247-logo.svg")} alt="" width={30} height={29} /></span>
+              <span className="av"><img src={asset("/logos/marks/247-mark.svg")} alt="" width={30} height={29} /></span>
               <b>24/7 Clinic</b>
               <WhatsAppGlyph size={22} />
             </div>
@@ -253,11 +266,11 @@ export function Insurance({ insuranceMessage }: { insuranceMessage: string }) {
         </div>
       </div>
       <div className="band rv">
-        <span className="eyebrow">{BRIEF.insurancePartners}</span>
-        <Marquee label={BRIEF.insurancePartners}>
+        <span className="band-label">{BRIEF.insurancePartners}</span>
+        <Marquee label={BRIEF.insurancePartners} bg="#faf7f5">
           {INSURERS.slice(0, half).map((l) => <LogoTile key={l.name} l={l} />)}
         </Marquee>
-        <Marquee label={BRIEF.insurancePartners} direction="right">
+        <Marquee label={BRIEF.insurancePartners} direction="right" bg="#faf7f5">
           {INSURERS.slice(half).map((l) => <LogoTile key={l.name} l={l} />)}
         </Marquee>
       </div>
@@ -270,9 +283,9 @@ const STEP_ICONS: React.ComponentType<{ size?: number }>[] = [WhatsAppGlyph, Map
 export function HowItWorks() {
   const s = section("home", "how-it-works");
   return (
-    <section className="section bg-surface" aria-labelledby="how-h">
+    <section className="section" aria-labelledby="how-h">
       <div className="container">
-        <Head center eyebrow="How it works" id="how-h" title={s.heading} />
+        <Head center id="how-h" title={s.heading} />
         <ol className="steps" data-inview>
           <span className="rail" aria-hidden="true"><i /></span>
           {s.items.map((it, i) => {
@@ -289,7 +302,7 @@ export function HowItWorks() {
             );
           })}
         </ol>
-        <div className="cta-row center rv" style={{ marginTop: 48 }}>
+        <div className="cta-row center rv" style={{ marginTop: 36 }}>
           <WaButton placement="section-how">{s.ctas[0].label}</WaButton>
         </div>
       </div>
@@ -302,14 +315,11 @@ export function Stories() {
   const s = section("home", "reviews-testimonials");
   const list = reviews();
   return (
-    <section className="section" aria-labelledby="st-h">
+    <section className="section stories" aria-labelledby="st-h">
       <div className="container">
-        <div className="head-row">
-          <Head eyebrow="Patient stories" id="st-h" title={s.heading} />
-          <RowControls target="story-row" />
-        </div>
+        <Head eyebrow="Patient stories" id="st-h" title={s.heading} />
       </div>
-      <ul id="story-row" className="row" tabIndex={0} aria-label={s.heading}>
+      <StoryCarousel label={s.heading} count={STORIES.length}>
         {STORIES.map((f) => (
           <li key={f.id} className={`story ${f.shape}`}>
             <InViewVideo src={asset(f.preview)} />
@@ -317,7 +327,7 @@ export function Stories() {
             <Watch src={f.full} />
           </li>
         ))}
-      </ul>
+      </StoryCarousel>
       <div className="reviews">
         <Marquee label={s.heading} speed={28} gap={16} bg="#fff">
           {list.map((r) => (
@@ -325,7 +335,12 @@ export function Stories() {
               <blockquote className="review">
                 <span className="qm" aria-hidden="true">&ldquo;</span>
                 <q lang={r.lang}>{r.text}</q>
-                <footer><b>{r.name}</b><span>{r.country}</span></footer>
+                <footer>
+                  {FLAGS[r.country]
+                    ? <img className="rv-flag" src={asset(`/logos/marks/flag-${FLAGS[r.country]}.svg`)} alt={r.country} width={26} height={26} />
+                    : null}
+                  <b>{r.name}</b>
+                </footer>
               </blockquote>
             </li>
           ))}
@@ -340,7 +355,7 @@ export function Posts() {
   return (
     <section className="section bg-surface" aria-labelledby="blog-h">
       <div className="container">
-        <Head center eyebrow="24/7 Clinic" id="blog-h" title={THEIRS.blog} />
+        <Head center id="blog-h" title={THEIRS.blog} />
         <ul className="posts">
           {POSTS.map((p, i) => (
             <li key={p.href} className="rv" style={d(i * 90)}>
@@ -360,37 +375,40 @@ export function Posts() {
   );
 }
 
-/* ---------------- 10. hotel logos ---------------- */
+/* ---------------- 10. every hotel brand where a clinic operates ---------------- */
 export function HotelBand() {
   return (
-    <section className="section hotels-band" aria-label={BRIEF.hotelClinics}>
-      <div className="container band">
-        <span className="eyebrow">{BRIEF.hotelClinics}</span>
-        <ul className="logo-row">
-          {HOTELS.map((l) => <LogoTile key={l.name} l={l} />)}
-        </ul>
+    <section className="hotels-band" aria-label={BRIEF.hotelClinics}>
+      <div className="band">
+        <span className="band-label">{BRIEF.hotelClinics}</span>
+        <Marquee label={BRIEF.hotelClinics} speed={30}>
+          {HOTEL_BRANDS.map((b) => b.logo
+            ? <LogoTile key={b.name} l={b.logo} />
+            : <li key={b.name} className="logo-tile name-tile"><span>{b.name}</span></li>)}
+        </Marquee>
       </div>
     </section>
   );
 }
 
-/* ---------------- 11. find a clinic + numbers (brief 13, 14), Medcierge style ---------------- */
+/* ---------------- 11. find a clinic + numbers (brief 13, 14), Medcierge's explorer ---------------- */
 export function Finder() {
   const s = section("home", "find-a-clinic");
   return (
-    <section className="section bg-surface finder" id="clinics" aria-labelledby="find-h">
+    <section className="section finder" id="clinics" aria-labelledby="find-h">
       <div className="container">
         <Head eyebrow="Find a clinic" id="find-h" title={s.heading} lead={<p>{s.body[0]}</p>} />
         <ClinicFinder
-          clinics={CLINICS.map(({ hotel, destination, lat, lng, coord }) => ({ hotel, destination, lat, lng, mappable: coord !== "placeholder" }))}
-          labels={{ all: THEIRS.all, waClinic: "WhatsApp This Clinic", directions: "Directions", clinics: BRIEF.hotelClinics, mapLabel: s.heading }}
+          base={BASE}
+          clinics={CLINICS.map((c) => ({ hotel: c.hotel, destination: c.destination, lat: c.lat, lng: c.lng, mappable: c.coord !== "placeholder", href: clinicPath(c) }))}
+          labels={{ all: THEIRS.all, waClinic: "WhatsApp This Clinic", directions: "Directions", clinics: BRIEF.hotelClinics, mapLabel: s.heading, showOnMap: "Show on map", moreDetails: "More details" }}
         />
         <div className="numbers">
           {NUMBERS.map((n) => (
             <div key={n.label} className="rv"><CountUp value={n.value} /><span>{n.label}</span></div>
           ))}
         </div>
-        <div className="cta-row center rv" style={{ marginTop: 36 }}>
+        <div className="cta-row center rv" style={{ marginTop: 28 }}>
           <LinkButton href={href(ROUTES.clinics)} placement="finder" ev="find_clinic_click">{s.ctas[0].label}</LinkButton>
         </div>
       </div>
@@ -413,7 +431,6 @@ export function FinalCta() {
             <WaButton placement="final">{s.ctas[0].label}</WaButton>
             <LinkButton href={href(ROUTES.clinics)} placement="final" ev="find_clinic_click">{s.ctas[1].label}</LinkButton>
           </div>
-          <CallButton placement="final" className="btn-sm" />
         </div>
       </div>
     </section>

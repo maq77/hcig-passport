@@ -15,7 +15,7 @@ export function Slot({ file, purpose, px, alt = "", className = "", ratio }: {
   const src = slotFile(file);
   if (src) {
     const [w, h] = px.split(" x ").map(Number);
-    return <img className={`slot-img ${className}`} src={src} alt={alt} width={w} height={h} loading="lazy" style={ratio ? { aspectRatio: ratio } : undefined} />;
+    return <img className={`slot-img ${className}`} data-slot={file} src={src} alt={alt} width={w} height={h} loading="lazy" style={ratio ? { aspectRatio: ratio } : undefined} />;
   }
-  return <DesignSlot purpose={purpose} px={px} className={className} />;
+  return <DesignSlot purpose={purpose} px={px} className={className} file={file} />;
 }

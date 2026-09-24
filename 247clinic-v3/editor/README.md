@@ -1,42 +1,42 @@
-# 24/7 Clinic v3 Visual Editor
+# 24/7 Clinic v3: home editor
 
-This is a local development-only visual editor for the 24/7 Clinic v3 home page.
+A local editor for the home page. It runs on this computer only and never ships:
+production builds leave it out.
 
-## How to start
-Run `npm run edit` in `247clinic-v3`. This starts both Next.js and the save server.
-Open [http://localhost:3000/247clinic/v3?edit=1](http://localhost:3000/247clinic/v3?edit=1).
+## Start
 
-## Features & Where Changes Are Saved
+    cd 247clinic-v3
+    npm run edit
 
-1. **Text Editing**
-   - **How it works:** Click any visible text (headers, paragraphs, buttons) to edit in place.
-   - **Saved to:** The exact JSON/TS content file where the string originated (e.g. `content/247clinic/en/home.json`). If the string exists in multiple files, a prompt asks which file to update.
-   - **Log:** Edits are also appended to `content/247clinic/approved-edits.json` so the word-for-word checker accepts them.
+Then open http://localhost:3000/247clinic/v3?edit=1
 
-2. **Sections (Ordering, Hiding, Adding)**
-   - **How it works:** In the sidebar, you can reorder sections, hide them, or add new predefined blocks (Text+Img, Full Img, LogoRow).
-   - **Saved to:** `src/content/home-layout.json`.
+The panel is on the left, the page on the right. Pick Phone, Tablet or Desktop at the top.
+Every change shows on the page at once. Nothing is written until you press Save.
+Undo and Redo work with Ctrl Z and Ctrl Y.
 
-3. **Section Spacing & Size**
-   - **How it works:** Adjust top/bottom padding and heading scale for each section in the sidebar.
-   - **Saved to:** Inline styles (via `home-layout.json`) and cascade rules in `src/app/editor-overrides.css`.
+## What you can do
 
-4. **Colours and Typography**
-   - **How it works:** The Theme panel provides color pickers for primary/surface/ink tokens and base font size. A Reset to Brand button clears them.
-   - **Saved to:** `src/app/theme-overrides.css` as `:root` custom properties.
+| Action | How | Saved to |
+|---|---|---|
+| Change words | Click a line and type. Enter keeps it, Esc cancels. | The content file the line comes from (`content/247clinic/en/home.json` and the rest), logged in `content/247clinic/approved-edits.json` |
+| Reorder sections | Arrows in the Sections list | `src/content/home-layout.json` |
+| Hide a section | Eye button | `src/content/home-layout.json` |
+| Space above or below, heading size | "Spacing and heading size" under a section | `src/content/home-layout.json` |
+| Add a section | Add: Text + image, Text, Image | `src/content/home-layout.json` |
+| Replace a picture | Drag an image file onto a picture or a design slot | `public/slots/<name>.webp` |
+| Size, alignment, colour or hiding of one element | Click it, then use the Selected panel | `src/app/editor-overrides.css` |
+| Brand colours and base text size | Colours and type | `src/app/theme-overrides.css` |
 
-5. **Elements (Selection & Nudging)**
-   - **How it works:** Click any element to select it. The sidebar displays its stable CSS selector and provides Hide and Center buttons.
-   - **Saved to:** `src/app/editor-overrides.css`.
+Colours are limited to the brand palette for single elements. The theme pickers warn when
+text would fall under 4.5:1 contrast. "Reset to brand" empties the theme file.
 
-6. **Images**
-   - **How it works:** Drag and drop an image file onto any slot (`.slot` or `.slot-img`).
-   - **Saved to:** Converted to WebP format via Sharp and saved to `public/slots/<name>.webp`.
+## Good to know
 
-7. **Preview Toggle & Changes**
-   - **How it works:** Toggle between Mobile (375px), Tablet (768px), and Desktop (1440px) using the top icons. View all your recent saves in the Changes drawer.
-   - **Saved to:** The Changes log reads from `editor/changes.log`.
-
-## Notes
-- The editor does not ship to production (`npm run build`).
-- Do not commit without reviewing the `changes.log`.
+- A line that is built from two content lines, or a hotel name, cannot be changed here.
+  The panel says so. Tell Claude.
+- A new section starts with placeholder words. The build refuses to publish them, so
+  replace them before asking for a preview update.
+- Element changes are added to the end of `src/app/editor-overrides.css`. To take one
+  back after saving, delete its line there, or ask Claude.
+- Every save is listed under "Saved so far" and in `editor/changes.log` (not committed).
+- The save server listens on 127.0.0.1:3100 and only accepts requests from a localhost page.

@@ -1,51 +1,37 @@
-import React from 'react';
+/* A section the user added in the home editor. Its words live in home-layout.json
+   (blocks.<name>) and its image in public/slots/<name>.webp, so both survive a
+   rebuild. The starting words are placeholders: the word-for-word checker fails the
+   build until the user replaces them, so nothing invented can ship by accident. */
+import { DesignSlot } from "@/components/ui/Bits";
+import { slotFile } from "@/components/ui/Slot";
+import { BLOCK_PLACEHOLDER } from "./blocks";
 
-export default function Block({ name }: { name: string }) {
-  const [type, id] = name.split('-');
+export default function Block({ name, content }: { name: string; content: Record<string, string> }) {
+  const type = name.split("-")[0];
+  const title = content.title ?? BLOCK_PLACEHOLDER.title;
+  const body = content.body ?? BLOCK_PLACEHOLDER.body;
+  const file = `${name.toLowerCase()}.webp`;
+  const src = slotFile(file);
+  const pic = src
+    ? <img className="slot-img" data-slot={file} src={src} alt={content.alt ?? ""} loading="lazy" />
+    : <DesignSlot file={file} purpose="drop an image here in the editor" px="1600 x 1000" />;
 
-  if (type === 'TextImg') {
-    return (
-      <section id={name} className="py-16 slot">
-        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="text-3xl font-display mb-4">New Text Block</h2>
-            <p className="text-lg">Edit this text to match your content.</p>
-          </div>
-          <div className="bg-gray-100 aspect-video rounded-lg slot-img flex items-center justify-center">
-            <span className="text-gray-400">Image Slot</span>
-          </div>
-        </div>
-      </section>
-    );
+  const text = (
+    <div className={`head ${type === "Text" ? "center" : ""}`}>
+      <h2 className="h2" data-e-block={name} data-e-field="title">{title}</h2>
+      <div className="lead"><p data-e-block={name} data-e-field="body">{body}</p></div>
+    </div>
+  );
+
+  if (type === "FullImg") {
+    return <section className="section" id={name}><div className="container">{pic}</div></section>;
   }
-
-  if (type === 'FullImg') {
-    return (
-      <section id={name} className="slot">
-        <div className="bg-gray-100 aspect-[21/9] w-full slot-img flex items-center justify-center">
-          <span className="text-gray-400">Full Width Image</span>
-        </div>
-        <div className="container mx-auto px-4 py-4 text-center">
-          <p className="text-sm text-gray-500">Caption text goes here</p>
-        </div>
-      </section>
-    );
+  if (type === "Text") {
+    return <section className="section" id={name}><div className="container">{text}</div></section>;
   }
-
-  if (type === 'LogoRow') {
-    return (
-      <section id={name} className="py-12 bg-surface slot">
-        <div className="container mx-auto px-4 text-center">
-          <h3 className="text-xl mb-8">Our Partners</h3>
-          <div className="flex flex-wrap justify-center gap-8 opacity-50 slot-img">
-            <span>[Logo]</span>
-            <span>[Logo]</span>
-            <span>[Logo]</span>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  return <section id={name} className="py-8"><div className="container">Unknown block type</div></section>;
+  return (
+    <section className="section" id={name}>
+      <div className="container split">{text}{pic}</div>
+    </section>
+  );
 }

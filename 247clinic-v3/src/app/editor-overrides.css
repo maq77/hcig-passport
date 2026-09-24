@@ -1,15 +1,6 @@
-[data-e-section] > section {
-  padding-top: var(--pad-top) !important;
-  padding-bottom: var(--pad-bottom) !important;
-}
-
-[data-e-section] > section .container {
-  max-width: var(--max-width) !important;
-}
-
-[data-e-section] > section h1,
-[data-e-section] > section h2,
-[data-e-section] > section h3 {
-  transform: scale(var(--heading-scale, 1));
-  transform-origin: left center;
-}
+/* Written by the dev-only home editor (npm run edit). Section rules apply only when
+   the editor set that value on the section's wrapper, so an unset value never touches
+   the designed spacing. Element rules the editor saves are appended below. */
+[data-e-section][style*="--pad-top"] > section { padding-top: var(--pad-top) !important; }
+[data-e-section][style*="--pad-bottom"] > section { padding-bottom: var(--pad-bottom) !important; }
+[data-e-section][style*="--heading-scale"] > section :is(h1, h2, h3) { zoom: var(--heading-scale); }

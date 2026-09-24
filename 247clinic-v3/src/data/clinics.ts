@@ -65,3 +65,9 @@ export const DESTINATIONS: { id: DestinationId; name: string }[] = [
 
 export const clinicsIn = (id: DestinationId) => CLINICS.filter((x) => x.destination === id);
 export const mappable = () => CLINICS.filter((x) => x.coord !== "placeholder");
+
+/* The dedicated clinic page each hotel will get (brief section 20, /clinics/destination/hotel).
+   The pages are built after his home review; the links are live now. */
+export const slugify = (s: string) =>
+  s.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/&/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+export const clinicPath = (c: { hotel: string; destination: DestinationId }) => `/clinics/${c.destination}/${slugify(c.hotel)}-clinic`;

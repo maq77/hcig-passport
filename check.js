@@ -87,7 +87,7 @@ function resolves(url) {
   const clean = url.split('#')[0].split('?')[0];
   if (!clean || clean === '/') return fs.existsSync(path.join(DIST, 'index.html'));
   if (REDIRECTS.has(clean)) return true;
-  if (V3_PLANNED.has(clean)) return true;
+  if (V3_PLANNED.has(clean) || clean.startsWith('/247clinic/v3/clinics/')) return true;
   const p = path.join(DIST, clean.replace(/^\/+/, ''));
   if (fs.existsSync(p) && fs.statSync(p).isFile()) return true;
   if (fs.existsSync(p + '.html')) return true;

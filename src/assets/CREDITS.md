@@ -22,3 +22,4 @@ Stock photography used on HCIG pages, with its source.
 - `c7n-iv` . Pavel Danilyuk on Pexels . https://www.pexels.com/photo/dextrose-on-woman-s-arm-6753445/ . Medical staff attending to a patient with an IV drip in a clinical setting.
 - `c7n-specialist` . cottonbro studio on Pexels . https://www.pexels.com/photo/a-doctor-talking-the-patient-7579831/ . A doctor and patient engaging in a positive consultation in a bright clinic setting.
 - `c7n-roomvisit` . Pavel Danilyuk on Pexels . https://www.pexels.com/photo/people-looking-at-a-sick-woman-by-the-door-6753336/ . Medical professionals attending to a sick woman in her home, offering urgent healthcare support.
+- `px-why-bedside` . RDNE Stock project on Pexels . https://www.pexels.com/photo/smiling-doctor-and-patient-8313253/ . A doctor in a white coat examines a smiling patient indoors in a bright setting.

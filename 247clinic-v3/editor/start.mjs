@@ -1,14 +1,14 @@
-import { spawn } from 'child_process';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+/* npm run edit: the save server and the dev site together. Open
+   http://localhost:3000/247clinic/v3?edit=1 */
+import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const here = dirname(fileURLToPath(import.meta.url));
+const server = spawn(process.execPath, [join(here, "server.mjs")], { stdio: "inherit" });
+const next = spawn("npx", ["next", "dev", "--port", "3000"], { stdio: "inherit", shell: true, cwd: join(here, "..") });
 
-const server = spawn('node', [join(__dirname, 'server.mjs')], { stdio: 'inherit' });
-const next = spawn('npx', ['next', 'dev'], { stdio: 'inherit', shell: true, cwd: join(__dirname, '..') });
-
-process.on('SIGINT', () => {
-  server.kill();
-  next.kill();
-  process.exit();
-});
+const stop = () => { server.kill(); next.kill(); process.exit(); };
+process.on("SIGINT", stop);
+process.on("SIGTERM", stop);
+next.on("exit", stop);
