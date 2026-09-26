@@ -9,7 +9,7 @@ trigger: always_on
 - **Short copy and restraint**: Headlines plus one short note, never paragraphs. Long prose "looks like AI made that".
 - **Clean formatting in CLI and Hive**: Never clutter CLI replies or Hive notes with raw markdown hashes (###) or asterisk bolding (**). Use clean uppercase headings, plain dashes, or simple indentation so terminal output displays cleanly.
 - **Visuals are not decoration**: Never strip icons, images, or videos during a redesign. Every page keeps its own hero.
-- **No dark designs** as a rule, unless explicitly overridden by the user (as done for Medcierge navy/gold).
+- **Keep every word as written**: client wording and content stay exactly as written unless Mohamed says otherwise (his most important rule, 2026-09-26). Dark designs are allowed; the old no-dark rule was removed 2026-09-26.
 - **Never screenshot inside a video**: Video is used as video. Stills grabbed from videos look amateur. Use library photos, official posters, or stock.
 - **Stock photography is allowed** to fill real gaps (Pexels in `scripts/pexels.js`), but real photography first. Check what stock photos actually show (e.g. no "DIAL 911" in Egypt).
 - **Accreditation wording is exact**: "Official Partner of Global Healthcare Accreditation™ (GHA)" and "Official Partner of German Medical Wellness Association (DMWV)". Never "accredited by" or "certified by".

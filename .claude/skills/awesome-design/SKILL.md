@@ -54,7 +54,8 @@ The front matter carries machine-readable tokens (`colors`, `typography`,
   patterns, never to replace its colours, fonts or voice.
 - **HCIG work:** the brand guidelines in `D:\Healthcare international group\brand guideline\`
   and the `hcig` skill's rules win. Many files here are dark-first (Cursor,
-  Tesla, SpaceX, Lamborghini, Bugatti and others); HCIG allows no dark designs.
+  Tesla, SpaceX, Lamborghini, Bugatti and others); dark is allowed for HCIG,
+  but the brand guideline's colours still lead.
   Useful light references for healthcare and hospitality: `airbnb`, `apple`,
   `notion`, `mintlify`, `wise`, `intercom`, `cal`, `stripe`.
 

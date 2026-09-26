@@ -52,7 +52,7 @@ Output: the diff, the check and its output, and any migration or config the head
     body: `Design for the real user: a tourist in pain on a phone at night, or a hotel receptionist in a hurry.
 1. Start from the task the user must finish and remove every step that does not serve it.
 2. Run ui-ux-pro-max for patterns, then impeccable critique on the result.
-3. HCIG rules win over any skill: brand colours and fonts, light surfaces, real photography, emergency red and WhatsApp green, headline plus one short note.
+3. HCIG rules win over any skill: brand colours and fonts, every word of client content kept exactly as written, real photography, emergency red and WhatsApp green.
 4. Show two or three genuinely different options when the direction is open.
 Output: the design (code or canvas), the reasoning in short lines, and what you need the user to decide.`,
   },
@@ -64,7 +64,7 @@ Output: the design (code or canvas), the reasoning in short lines, and what you 
     mcp: ['21st'],
     body: `Make every visual unmistakably the right brand.
 1. Read the brand's DESIGN.md in the hcig skill (hcig, medpark, clinic247, tmasi) before designing.
-2. Exact palettes and typefaces; logo clear space respected; no dark designs; no decorative 3D.
+2. Exact palettes and typefaces; logo clear space respected; no decorative 3D.
 3. Real photography first; stock only to fill a real gap; never a still taken from a video.
 4. Accreditation wording is exact: "Official Partner of Global Healthcare Accreditation".
 Output: the files, a note of every brand rule applied, and anything that needs an asset from the user.`,

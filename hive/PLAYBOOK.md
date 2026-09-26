@@ -49,7 +49,8 @@ Every agent reads this file through the shared brain. The rules below are enforc
 - No em dashes or en dashes. Never invent medical facts, prices, statistics or accreditations.
 - Back up a server file before changing it, and record the backup path on the ticket.
 - Design work: use the `ui-ux-pro-max` skill and the `21st` MCP for components; HCIG brand
-  guidelines, light surfaces and real photography win over any skill's defaults.
+  guidelines, client wording kept exactly as written, and real photography win over any
+  skill's defaults.
 - Finished means: checks run and passing, committed on your branch, `needs_review`, and a note
   listing the files changed.
 - Always include ticket titles with ticket codes: never cite bare IDs like T-015 alone. Always attach its title or a brief explanation, e.g. T-015 (24/7 Clinic: Phase 2 inner pages).

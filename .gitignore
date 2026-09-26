@@ -58,3 +58,7 @@ __pycache__/
 # Licensed fonts supplied by the user. Never commit the raw files (repo is public).
 247 material/*.ttf
 247 material/*.otf
+
+# TMASI working material: news drafts and photos from Mohamed (kept local).
+tmasi material/
+tmasi sponsor/

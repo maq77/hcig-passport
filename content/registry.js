@@ -570,34 +570,44 @@ const COMPANIES = [
       {
         slug: 'urgent-edits',
         name: 'Urgent edits on tmasi.net',
-        status: 'planned',
+        status: 'blocked',
         updated: '2026-09-26',
-        summary: 'Text alignment, new news posts and invisible fixes on the live site.',
+        summary: 'UI and UX fixes, news in four languages, favicon, share image, a sharp map and logo, technical fixes. Every word untouched.',
         detail: [
-          'Server access set up 2026-09-26. The server accepts our key.',
-          '12 defects found on the live site: no canonical or hreflang, every page marked English, German titles on Polish pages, a 404 in the sitemap, the Google tag loading twice, the chat covering the phone screen.',
-          'Invisible fixes ship first. Anything a visitor reads goes to Mohamed first.',
+          'Server access set up 2026-09-26. The server accepts our key; one unlock step on this laptop remains.',
+          '14 defects found on the live site, including a broken favicon and share image, a soft world map with two pins on the wrong countries, no canonical or hreflang, and every page marked English.',
+          'Every word stays exactly as written. Every change is logged for the final email.',
+          'Two news posts received: the Hansa Medica Group partnership at the Grand Egyptian Museum, and the ITIC Global 2026 sponsorship in Istanbul. Their photos arrived the same day.',
         ],
         checklist: [
+          { text: 'Answer the questions on the edits', done: true, who: 'Mohamed' },
+          { text: 'Send the new news posts', done: true, who: 'Mohamed' },
+          { text: 'Add the photos for the two news posts', done: true, who: 'Mohamed' },
           { text: 'Unlock the server key on this laptop', done: false, who: 'Mohamed' },
-          { text: 'Say which texts to centre', done: false, who: 'Mohamed' },
-          { text: 'Send the new news posts', done: false, who: 'Mohamed' },
           { text: 'Back up the live site, then apply the edits', done: false, who: 'Us' },
         ],
-        stages: [],
+        stages: [
+          {
+            name: 'Documents',
+            items: [
+              { slug: 'worklog', name: 'Everything done and fixed', kind: 'md', src: 'docs/tmasi-worklog.md', status: 'draft', note: 'Kept from day one, for the final email' },
+            ],
+          },
+        ],
       },
       {
         slug: 'website-v3',
         name: 'Website v3, rebuilt from scratch',
         status: 'draft',
         updated: '2026-09-26',
-        summary: 'A new tmasi.net: short, visual, found by search and AI, built the Medcierge and 24/7 v3 way.',
+        summary: 'A new tmasi.net: the same words in a new design, found by search and AI, in seven languages.',
         detail: [
-          'Spec written 2026-09-26. Three decisions are open: who the home speaks to first, how much wording changes, and which languages.',
-          'After approval: business, audience, keywords, competitors, fact sheet and sitemap, then the home on HCIG Work.',
+          'Spec written 2026-09-26, with every decision answered in ten rounds of questions.',
+          'Partners first, the dark world map as the hero on light pages, a page per service and per office, seven languages.',
+          'Every word kept exactly as on the live site. Design slots mark where Reham, the graphic designer, adds cards and images.',
         ],
         checklist: [
-          { text: 'Answer the three open decisions', done: false, who: 'Mohamed' },
+          { text: 'Answer the open decisions', done: true, who: 'Mohamed' },
           { text: 'Approve the spec', done: false, who: 'Mohamed' },
           { text: 'Planning documents and keyword map', done: false, who: 'Us' },
           { text: 'Home preview on HCIG Work', done: false, who: 'Us' },
@@ -606,7 +616,7 @@ const COMPANIES = [
           {
             name: 'Plan',
             items: [
-              { slug: 'spec', name: 'What v3 is, and what is still open', kind: 'md', src: 'specs/008-tmasi-website/spec.md', status: 'draft', note: 'Draft. Three decisions open' },
+              { slug: 'spec', name: 'What v3 is, and every decision', kind: 'md', src: 'specs/008-tmasi-website/spec.md', status: 'draft', note: 'Every decision answered. Waiting for approval' },
             ],
           },
         ],

@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain (3 open: FR-B06 languages, FR-B11 audience, FR-B12 wording mode)
+- [x] No [NEEDS CLARIFICATION] markers remain (all answered by Mohamed in ten question rounds, 2026-09-26)
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -32,5 +32,5 @@
 ## Notes
 
 - The hosting line in Assumptions (plain files on their current host) is a constraint the user set on earlier rebuilds, kept as a business constraint, not a stack choice.
-- FR-A02 (which texts to centre) waits on the user's notes. It is a Phase A ticket detail, not a spec decision.
-- Run `/speckit-clarify` or answer the three questions in chat, then set `Status: approved`, then `/speckit-plan`.
+- FR-A02 answered: centre the About Us lines and fix every UI and UX issue found, words untouched.
+- Every item passes. Next: Mohamed approves, then `Status: approved`, then `/speckit-plan` and `/speckit-tasks`.
