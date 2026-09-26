@@ -62,6 +62,7 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - v3 spec approved by Mohamed.
 - v3: partners first; the world map hero as on the original site, made sharp; light pages with the dark map and footer; all-teal buttons; Big Noodle Titling headlines (Mohamed has permission); a page per service group and per office; today's titles kept except wrong-language ones; EN, DE, PL, ES plus FR, IT, CS; one footer line for HCIG; a logo row of only the organisations the site names; news only, keyword articles later.
 
+### Done, not yet on the live site
 - Spanish, German and Polish drafts of both news posts made: first draft by Gemini, reviewed by Claude (grammar only: Spanish "se enorgullece de", "cuando sean necesarios", "sin fisuras"; German commas and one compound). Saved in `tmasi sponsor\translations\`. Waiting for a native speaker's check.
 
 ### Fixed on the live site
