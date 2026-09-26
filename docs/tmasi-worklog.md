@@ -43,7 +43,7 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - Technical fixes ship once SSH works. Titles stay untouched.
 - Edits go straight to the live site after a server backup, with before and after screenshots.
 - The Sofia chat stays as it is.
-- The dark world map stays and gets a sharper image.
+- The dark world map stays. Mohamed chose the original map image over the rebuilt one (2026-09-26).
 - We own the site now. The "Powered by Pulse Marketing" credit stays, better styled.
 - Mohamed approves TMASI changes alone.
 - v3 is a complete new design and rebuild, with keyword planning, SEO and AEO.
@@ -70,5 +70,19 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 ### Done, not yet on the live site
 - Spanish, German and Polish drafts of both news posts made: first draft by Gemini, reviewed by Claude (grammar only: Spanish "se enorgullece de", "cuando sean necesarios", "sin fisuras"; German commas and one compound). Saved in `tmasi sponsor\translations\`. Waiting for a native speaker's check.
 
-### Fixed on the live site
-- Nothing yet. Waiting for the SSH login.
+### Fixed on the live site (2026-09-26, each file backed up on the server first under `~/backups/batch1-technical-news/`)
+- `www.tmasi.net` now redirects to `tmasi.net` (one address for the whole site).
+- Canonical and hreflang (EN, DE, PL, ES) added to 36 pages, so Google can tell the languages apart.
+- Each page now declares its real language (German, Polish and Spanish pages were marked English).
+- Favicon added in every size (tab icon, phone home screen), from the original logo mark.
+- Share image fixed on every page: a branded image for main pages, each post's own photo for news, each doctor's photo for the leadership pages. Share addresses corrected (they pointed to old or placeholder addresses).
+- Broken image links in the structured data fixed (logo and doctor photos pointed to files that do not exist).
+- One H1 heading per page. Where a page had none, its first heading became the H1 with its look unchanged.
+- The Google tags no longer load twice on the four home pages.
+- Sitemap rebuilt: correct format, 27 addresses, no broken link, new posts included.
+- `/pl/uslugi/` (404) now redirects to the real Polish services page. 11 old duplicate pages (about.php, servises.php, news1-4.php and others) now redirect to their current pages.
+- "Your Care. One Call Away." now sits on the left, in line with the lines under it (desktop and phone).
+- Service cards: the picture always sits above the heading, centred. Fixes "TRAVEL / ASSISTANCE SERVICES" breaking beside the picture.
+- Two new English news posts live, first on the blog, word for word from Mohamed's text: ITIC Global 2026 Istanbul sponsorship (/blog/news6.php, "October 2026") and the Hansa Medica Group partnership at the Grand Egyptian Museum (/blog/news5.php, "June 2026", 4 photos). Styled like the older posts: key names in bold, a lead paragraph, a subheading-style dateline, a quote block for the closing line.
+- World map: a sharp new map with every pin on its real country went live, then was switched back to the original map at Mohamed's request the same day. The new map files stay on the server, unused (`img/map-2026.jpg`, `img/mapmob-2026.jpg`).
+- Checked after deploy: all 27 sitemap addresses answer 200; language, canonical, hreflang, H1, favicon and share image verified in each live page.
