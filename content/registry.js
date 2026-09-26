@@ -563,9 +563,55 @@ const COMPANIES = [
     logo: 'LTMASI',
     accent: '#009A9C',
     accentInk: '#0F205C',
-    what: 'Medical assistance and case coordination. Care Without Borders.',
-    where: 'Global',
-    projects: [],
+    site: 'https://tmasi.net',
+    what: 'Medical, travel and insurance assistance. Care Without Borders.',
+    where: 'Egypt, Germany, Spain, UAE and USA',
+    projects: [
+      {
+        slug: 'urgent-edits',
+        name: 'Urgent edits on tmasi.net',
+        status: 'planned',
+        updated: '2026-09-26',
+        summary: 'Text alignment, new news posts and invisible fixes on the live site.',
+        detail: [
+          'Server access set up 2026-09-26. The server accepts our key.',
+          '12 defects found on the live site: no canonical or hreflang, every page marked English, German titles on Polish pages, a 404 in the sitemap, the Google tag loading twice, the chat covering the phone screen.',
+          'Invisible fixes ship first. Anything a visitor reads goes to Mohamed first.',
+        ],
+        checklist: [
+          { text: 'Unlock the server key on this laptop', done: false, who: 'Mohamed' },
+          { text: 'Say which texts to centre', done: false, who: 'Mohamed' },
+          { text: 'Send the new news posts', done: false, who: 'Mohamed' },
+          { text: 'Back up the live site, then apply the edits', done: false, who: 'Us' },
+        ],
+        stages: [],
+      },
+      {
+        slug: 'website-v3',
+        name: 'Website v3, rebuilt from scratch',
+        status: 'draft',
+        updated: '2026-09-26',
+        summary: 'A new tmasi.net: short, visual, found by search and AI, built the Medcierge and 24/7 v3 way.',
+        detail: [
+          'Spec written 2026-09-26. Three decisions are open: who the home speaks to first, how much wording changes, and which languages.',
+          'After approval: business, audience, keywords, competitors, fact sheet and sitemap, then the home on HCIG Work.',
+        ],
+        checklist: [
+          { text: 'Answer the three open decisions', done: false, who: 'Mohamed' },
+          { text: 'Approve the spec', done: false, who: 'Mohamed' },
+          { text: 'Planning documents and keyword map', done: false, who: 'Us' },
+          { text: 'Home preview on HCIG Work', done: false, who: 'Us' },
+        ],
+        stages: [
+          {
+            name: 'Plan',
+            items: [
+              { slug: 'spec', name: 'What v3 is, and what is still open', kind: 'md', src: 'specs/008-tmasi-website/spec.md', status: 'draft', note: 'Draft. Three decisions open' },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     slug: 'medone',
