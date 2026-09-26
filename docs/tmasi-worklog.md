@@ -29,6 +29,7 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - Text alignment is mixed across sections (hero left, headings centred, lists left).
 - The world map image is 800 x 421 px, stretched across the full screen, so it looks soft. Its Germany pin sits over Central Asia and its UAE pin over South East Asia.
 - The logo on the site is a blurry raster picture (1185 x 569, JPEG artefacts).
+- The brand guideline PDF is 30 flat slide pictures (1920 x 1080 each) with no vector logo. Its logo is no sharper than the site's. A sharp logo needs the original file (on the server, or from Mohamed's manager) or a faithful vector redraw.
 
 ### Decided with Mohamed
 - Every word stays exactly as written. Content changes only when Mohamed brings new ideas.
@@ -60,6 +61,8 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - Order of work: the urgent edits first, news included; then v3 with its full plan.
 - v3 spec approved by Mohamed.
 - v3: partners first; the world map hero as on the original site, made sharp; light pages with the dark map and footer; all-teal buttons; Big Noodle Titling headlines (Mohamed has permission); a page per service group and per office; today's titles kept except wrong-language ones; EN, DE, PL, ES plus FR, IT, CS; one footer line for HCIG; a logo row of only the organisations the site names; news only, keyword articles later.
+
+- Spanish, German and Polish drafts of both news posts made: first draft by Gemini, reviewed by Claude (grammar only: Spanish "se enorgullece de", "cuando sean necesarios", "sin fisuras"; German commas and one compound). Saved in `tmasi sponsor\translations\`. Waiting for a native speaker's check.
 
 ### Fixed on the live site
 - Nothing yet. Waiting for the SSH login.
