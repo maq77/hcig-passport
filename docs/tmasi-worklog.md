@@ -31,6 +31,10 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - The logo on the site is a blurry raster picture (1185 x 569, JPEG artefacts).
 - The brand guideline PDF is 30 flat slide pictures (1920 x 1080 each) with no vector logo. Its logo is no sharper than the site's. A sharp logo needs the original file (on the server, or from Mohamed's manager) or a faithful vector redraw.
 
+### Security review
+- The hosting account was reviewed on 2026-09-26. Findings are kept privately (not in this public log) and were shared with Mohamed. Nothing was changed.
+- A full backup of the site folder was downloaded before any change.
+
 ### Decided with Mohamed
 - Every word stays exactly as written. Content changes only when Mohamed brings new ideas.
 - Fix every UI and UX issue found on the live site. Words untouched.
@@ -60,6 +64,7 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - News goes live in English first; German, Polish and Spanish follow after a native speaker's check.
 - Order of work: the urgent edits first, news included; then v3 with its full plan.
 - v3 spec approved by Mohamed.
+- Security items: the urgent edits and the v3 plan come first; Mohamed informs his managers before any security change. Details kept privately.
 - v3: partners first; the world map hero as on the original site, made sharp; light pages with the dark map and footer; all-teal buttons; Big Noodle Titling headlines (Mohamed has permission); a page per service group and per office; today's titles kept except wrong-language ones; EN, DE, PL, ES plus FR, IT, CS; one footer line for HCIG; a logo row of only the organisations the site names; news only, keyword articles later.
 
 ### Done, not yet on the live site

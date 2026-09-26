@@ -62,3 +62,6 @@ __pycache__/
 # TMASI working material: news drafts and photos from Mohamed (kept local).
 tmasi material/
 tmasi sponsor/
+
+# TMASI live-site mirror and backups (may hold server secrets; repo is public).
+tmasi-live/
