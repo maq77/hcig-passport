@@ -53,8 +53,12 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - Analytics: Mohamed asks Pulse for access to the current Analytics, Tag Manager and Search Console. No tag changes until then.
 - Domain and DNS are held by someone at TMASI.
 - Two new posts received and in Mohamed's folder `tmasi sponsor\`, text checked word for word against his message: the Hansa Medica Group partnership at the Grand Egyptian Museum (card date "June 2026") and the ITIC Global 2026 Istanbul sponsorship (card date "October 2026"). Photos arrived the same day: four for the Hansa Medica post (the ambulance at the Grand Egyptian Museum, the team at the entrance, equipment), one ITIC sponsor banner.
-- Found: the ITIC banner and the conference site say 1 to 5 November 2026, but the post's dateline says "October 2026". Asked Mohamed which to use.
+- Found: the ITIC banner and the conference site say 1 to 5 November 2026, but the post's dateline says "October 2026". Mohamed decided: keep the text exactly as written, even if it is wrong.
 - No floating WhatsApp button: the Sofia assistant already sits on the right.
+- Content rule, final wording: the text stays even where it looks wrong; only grammar, punctuation and styling fixes that keep the same words and meaning, each logged here.
+- News goes live in English first; German, Polish and Spanish follow after a native speaker's check.
+- Order of work: the urgent edits first, news included; then v3 with its full plan.
+- v3 spec approved by Mohamed.
 - v3: partners first; the world map hero as on the original site, made sharp; light pages with the dark map and footer; all-teal buttons; Big Noodle Titling headlines (Mohamed has permission); a page per service group and per office; today's titles kept except wrong-language ones; EN, DE, PL, ES plus FR, IT, CS; one footer line for HCIG; a logo row of only the organisations the site names; news only, keyword articles later.
 
 ### Fixed on the live site

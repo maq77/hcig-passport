@@ -4,7 +4,8 @@
 
 **Created**: 2026-09-26
 
-**Status**: draft (every decision answered by Mohamed on 2026-09-26, waiting for his approval)
+**Status**: approved
+**Approved**: 2026-09-26 by Mohamed ("Approved"). Plan and tasks start after the urgent edits, news included: "urgent first, including news adding, then v3 with full plan and everything."
 
 **Input**: User description: "ssh for tmasi, add it to tmasi, it is one of the group of healthcare international group. We will make many edits and updates and redesigning and refactoring and optimization and ui and ux pro max and seo and AEO. First we will make few urgent edits, like text centering and adding new news. Then we will make full refactoring and designing of tmasi and optimization of performance and seo and aeo, a complete remaking like we did in medcierge and 247 v3." Later the same day: "it will need complete v3, new design, re making and refactoring and re styling, ui and ux and keywords planning and semrush, and complete new design from ui and ux pro max and 21st and claude design, and complete seo and aeo, and i just noticed now that it still lacks favicon, and og."
 
@@ -23,7 +24,7 @@ companies, hotels and tour operators. Travellers still find the 24/7 line at onc
 
 | Topic | Decision |
 |---|---|
-| **Content** | **Every word stays exactly as written**, in every language. **The website is the single source of truth** for TMASI facts. Content changes only when Mohamed brings new ideas. Clear typos are fixed, each one logged |
+| **Content** | **Every word stays exactly as written**, in every language. **The website is the single source of truth** for TMASI facts. Content changes only when Mohamed brings new ideas. Text stays even where it looks wrong. Grammar, punctuation and styling fixes that keep the same words and meaning are allowed, each one logged |
 | Approver | Mohamed alone |
 | Ownership | We edit the site freely. "Powered by Pulse Marketing" stays, better styled |
 | Live workflow | Straight to live after a server backup, with before and after screenshots. Every change logged in `docs/tmasi-worklog.md` |
@@ -35,7 +36,7 @@ companies, hotels and tour operators. Travellers still find the 24/7 line at onc
 | Share image | The best we can make now (Gemini, Nano Banana). Reham makes the final one |
 | Logo | The original file from the server if it is there, otherwise from the brand guideline PDF, until the original comes from Mohamed's manager |
 | Images | Live site: finished images only, never a placeholder. v3: labelled design slots with size and format for **Reham**, the graphic designer |
-| News | From Mohamed's folder `tmasi sponsor/` (text and photos per post). Published in EN, DE, PL and ES: we translate, a native speaker checks. German and Polish blogs are built. Card dates as written in each post ("October 2026", "June 2026"). Photos come from the folder (arrived 2026-09-26: four for Hansa Medica, one ITIC banner) |
+| News | From Mohamed's folder `tmasi sponsor/` (text and photos per post). Published in EN, DE, PL and ES: we translate, a native speaker checks. German and Polish blogs are built. Card dates as written in each post ("October 2026", "June 2026"). English goes live first; German, Polish and Spanish follow after a native speaker's check. Photos come from the folder (arrived 2026-09-26: four for Hansa Medica, one ITIC banner) |
 | Analytics | Mohamed asks Pulse for access to the current Analytics, Tag Manager and Search Console. No tag changes until then |
 | Domain and DNS | Held by someone at TMASI. DNS changes go through them; Search Console is verified by file upload |
 | Keyword research | Free tools (Keyword Planner, autocomplete, live results, Search Console, AI prompts) plus Mohamed's **Semrush free account** through Claude in Chrome |
@@ -187,7 +188,7 @@ works with, and sends a quote request in under a minute on a phone.
 - **FR-A04**: Technical fixes MUST ship: www redirect, canonical, hreflang, language tag per page, clean sitemap, Google tag once, one H1 per page. Titles MUST stay untouched.
 - **FR-A05**: The favicon (original logo mark, all sizes) and a share image MUST work on every page.
 - **FR-A06**: The world map MUST be sharp at every screen width, with its five labels and each pin on the right country. The logo MUST be sharp.
-- **FR-A07**: Clear typos MAY be fixed, each logged with before and after. Nothing is reworded.
+- **FR-A07**: Grammar, punctuation and styling fixes MAY be made where the words and meaning stay the same, each logged with before and after. Nothing is reworded, and a fact that looks wrong stays.
 - **FR-A08**: Each fix MUST be checked on the rendered live page, not only in the file.
 
 ### Phase B: TMASI v3

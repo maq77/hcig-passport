@@ -602,13 +602,13 @@ const COMPANIES = [
         updated: '2026-09-26',
         summary: 'A new tmasi.net: the same words in a new design, found by search and AI, in seven languages.',
         detail: [
-          'Spec written 2026-09-26, with every decision answered in ten rounds of questions.',
+          'Spec approved 2026-09-26, with every decision answered in rounds of questions. Planning starts once the urgent edits and news are live.',
           'Partners first, the dark world map as the hero on light pages, a page per service and per office, seven languages.',
           'Every word kept exactly as on the live site. Design slots mark where Reham, the graphic designer, adds cards and images.',
         ],
         checklist: [
           { text: 'Answer the open decisions', done: true, who: 'Mohamed' },
-          { text: 'Approve the spec', done: false, who: 'Mohamed' },
+          { text: 'Approve the spec', done: true, who: 'Mohamed' },
           { text: 'Planning documents and keyword map', done: false, who: 'Us' },
           { text: 'Home preview on HCIG Work', done: false, who: 'Us' },
         ],
@@ -616,7 +616,7 @@ const COMPANIES = [
           {
             name: 'Plan',
             items: [
-              { slug: 'spec', name: 'What v3 is, and every decision', kind: 'md', src: 'specs/008-tmasi-website/spec.md', status: 'draft', note: 'Every decision answered. Waiting for approval' },
+              { slug: 'spec', name: 'What v3 is, and every decision', kind: 'md', src: 'specs/008-tmasi-website/spec.md', status: 'approved', note: 'Approved 26 Sep. Planning starts after the urgent edits' },
             ],
           },
         ],
