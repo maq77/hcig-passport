@@ -34,6 +34,9 @@ brand guideline/
 !247clinic-v3/public/img/**/*.jpg
 !247clinic-v3/public/img/**/*.jpeg
 !247clinic-v3/public/img/**/*.png
+!src/247clinic-v3/**/*.jpg
+!src/247clinic-v3/**/*.jpeg
+!src/247clinic-v3/**/*.png
 
 # OS
 .DS_Store
