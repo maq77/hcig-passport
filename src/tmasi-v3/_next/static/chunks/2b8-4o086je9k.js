@@ -8,11 +8,11 @@ Read more: https://nextjs.org/docs/messages/next-image-missing-loader`),"__NEXT_
         }
         .about-eyebrow {
           font-weight: 400; color: var(--tmasi-teal); margin: 0 0 14px;
-          font-size: clamp(22px, 2vw, 26px); letter-spacing: 0.14em;
+          font-size: clamp(36px, 3.5vw, 46px); letter-spacing: 0.14em;
         }
         .about-statement {
           margin: 0; color: var(--lx-ink); font-weight: 800; letter-spacing: -0.02em;
-          font-size: clamp(30px, 4vw, 52px); line-height: 1.1; white-space: nowrap;
+          font-size: clamp(34px, 4.5vw, 60px); line-height: 1.1; white-space: nowrap;
         }
         .about-copy { max-width: 920px; margin: 0 auto; text-align: center; }
         .about-lead {

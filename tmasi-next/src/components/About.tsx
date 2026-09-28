@@ -10,7 +10,7 @@ export default function About() {
       <div className="lx-wrap">
         <Reveal>
           <div className="about-head">
-            <h2 className="about-eyebrow headline-titling">About Us</h2>
+            <SectionHead title="About Us" />
             <h3 className="about-statement">Your Care. One Call Away.</h3>
           </div>
         </Reveal>
@@ -58,11 +58,11 @@ export default function About() {
         }
         .about-eyebrow {
           font-weight: 400; color: var(--tmasi-teal); margin: 0 0 14px;
-          font-size: clamp(22px, 2vw, 26px); letter-spacing: 0.14em;
+          font-size: clamp(36px, 3.5vw, 46px); letter-spacing: 0.14em;
         }
         .about-statement {
           margin: 0; color: var(--lx-ink); font-weight: 800; letter-spacing: -0.02em;
-          font-size: clamp(30px, 4vw, 52px); line-height: 1.1; white-space: nowrap;
+          font-size: clamp(34px, 4.5vw, 60px); line-height: 1.1; white-space: nowrap;
         }
         .about-copy { max-width: 920px; margin: 0 auto; text-align: center; }
         .about-lead {
@@ -106,3 +106,6 @@ export default function About() {
     </section>
   );
 }
+
+
+
