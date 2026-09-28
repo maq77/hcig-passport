@@ -34,8 +34,11 @@ export default function RelaxBanner() {
       <div className="container" style={{ position: "relative", zIndex: 2, padding: "0 20px" }}>
         <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto" }}>
           <Reveal type="scale">
-            <h2 className="headline-titling" style={{ color: "#ffffff", fontSize: "clamp(30px, 6vw, 42px)", fontWeight: 800, marginBottom: "20px", letterSpacing: "1px", textShadow: "0 4px 20px rgba(0,0,0,0.5)", lineHeight: 1.2 }}>
-              TMASI Global: Where <span style={{ color: "var(--tmasi-teal)" }}>RELAX &amp; ENJOY</span> Is All You Need to Do.
+            <h2 className="headline-titling relax-heading" style={{ color: "#ffffff", fontSize: "clamp(30px, 6vw, 42px)", fontWeight: 800, marginBottom: "20px", letterSpacing: "1px", textShadow: "0 4px 20px rgba(0,0,0,0.5)", lineHeight: 1.2 }}>
+              TMASI Global: Where <br className="mobile-br" />
+              <span style={{ color: "var(--tmasi-teal)", whiteSpace: "nowrap" }}>RELAX &amp; ENJOY</span>{" "}
+              <br className="mobile-br" />
+              Is All You Need to Do.
             </h2>
           </Reveal>
           
@@ -46,6 +49,13 @@ export default function RelaxBanner() {
           </Reveal>
         </div>
       </div>
+      
+      <style dangerouslySetInnerHTML={{__html: `
+        .mobile-br { display: none; }
+        @media (max-width: 768px) {
+          .mobile-br { display: block; margin-bottom: 4px; }
+        }
+      `}} />
     </section>
   );
 }
