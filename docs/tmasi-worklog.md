@@ -125,3 +125,6 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - Request My Free Quote added to the v3 home (preview only), right after Our Services: the live heading, paragraph and eight fields, word for word. A REQUEST A QUOTE button opens the form in place; the hero REQUEST A QUOTE button takes visitors there. A second Request a Quote button sits beside Get in Touch in the last band and opens the same form in a pop-up. Requests go to the same email handler as the live form; after sending, a thank-you with a handshake.
 - The Sofia assistant (Jotform AI agent) added to v3, bottom right, the same as on the live site.
 - Every CALL THE TEAM button opens WhatsApp (https://wa.me/201206788566), as Mohamed asked.
+- Every page now built in English, German, Polish and Spanish (preview only): About, the two leaders, Services and its five groups, Contact and the five offices, the news list and each news post. All words are the live site's own, taken from each language's live pages. The language switcher opens the same page in the other language. Each page has a clean address.
+- Menu links now open the new page at the top. Before, a click could land at the bottom, on the footer.
+- Pages whose live title is in another language (Polish home, about, services and contact; Spanish about and blog) now take their own heading as title.
