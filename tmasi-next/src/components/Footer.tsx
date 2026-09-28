@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "30px" }}>
           <div>
             <h2 className="headline-titling" style={{ fontSize: "36px", marginBottom: "8px", color: "#ffffff" }}>READY TO PARTNER WITH TMASI GLOBAL?</h2>
-            <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.9)", margin: 0, maxWidth: "600px" }}>
+            <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.9)", margin: 0, maxWidth: "700px" }}>
               Join our network of international insurers, corporations, and travel agencies today.
             </p>
           </div>

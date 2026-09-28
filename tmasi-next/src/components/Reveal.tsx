@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 
 interface RevealProps {
@@ -12,6 +12,12 @@ interface RevealProps {
 }
 
 export default function Reveal({ children, delay = 0, className = "", style, type = "rise" }: RevealProps) {
+  // Visitors who ask for less motion get the content in place, with no entrance movement.
+  const reduceMotion = useReducedMotion();
+  if (reduceMotion) {
+    return <div className={className} style={style}>{children}</div>;
+  }
+
   const getVariants = () => {
     switch (type) {
       case "fade":
@@ -32,7 +38,7 @@ export default function Reveal({ children, delay = 0, className = "", style, typ
       case "rise":
       default:
         return {
-          hidden: { opacity: 0, y: 30 },
+          hidden: { opacity: 0, y: 20 },
           visible: { opacity: 1, y: 0 },
         };
     }
@@ -45,7 +51,7 @@ export default function Reveal({ children, delay = 0, className = "", style, typ
       whileInView="visible"
       viewport={{ once: true, margin: "0px 0px -8% 0px" }}
       transition={{
-        duration: 0.8,
+        duration: 0.7,
         delay,
         ease: [0.16, 1, 0.3, 1], // Spring-like ease out
       }}

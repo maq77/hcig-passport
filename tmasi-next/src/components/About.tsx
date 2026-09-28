@@ -3,132 +3,104 @@
 import Reveal from "./Reveal";
 import CountUp from "./CountUp";
 
+// Words are the live tmasi.net About Us, unchanged. Stat labels approved by Mohamed on 2026-09-28.
 export default function About() {
   return (
-    <section className="section-about" id="about" style={{ padding: "100px 0", background: "#ffffff", position: "relative", overflow: "hidden" }}>
-      
-      {/* Moving TMASI Background Marquee */}
-      <div style={{ position: "absolute", top: "20%", left: 0, width: "100%", overflow: "hidden", pointerEvents: "none", zIndex: 0, opacity: 0.03 }}>
-        <div className="marquee-content" style={{ display: "flex", width: "fit-content" }}>
-          {[1, 2, 3, 4].map((i) => (
-            <span key={i} className="headline-titling" style={{ fontSize: "clamp(120px, 15vw, 250px)", lineHeight: 1, paddingRight: "50px", whiteSpace: "nowrap", color: "#0F205C" }}>
-              TMASI GLOBAL
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <div className="container" style={{ maxWidth: "1000px", margin: "0 auto", padding: "0 20px", position: "relative", zIndex: 1 }}>
-        
-        {/* Centered Heading */}
+    <section className="section-about lx-section lx-white" id="about">
+      <div className="lx-wrap">
         <Reveal>
-          <div style={{ textAlign: "center", marginBottom: "40px" }}>
-            <h2 className="headline-titling" style={{ color: "var(--tmasi-teal)", fontSize: "clamp(36px, 5vw, 48px)", letterSpacing: "2px", marginBottom: "8px" }}>
-              ABOUT US
-            </h2>
-            <h3 style={{ color: "#0F205C", fontSize: "clamp(24px, 4vw, 32px)", fontWeight: 800, margin: 0 }}>
-              Your Care. One Call Away.
-            </h3>
+          <div className="about-head">
+            <h2 className="about-eyebrow headline-titling">About Us</h2>
+            <h3 className="about-statement">Your Care. One Call Away.</h3>
           </div>
         </Reveal>
-        
-        {/* Simple Centered Description */}
-        <Reveal delay={0.1}>
-          <div style={{ textAlign: "center", marginBottom: "60px" }}>
-            <p style={{ marginTop: 0, fontSize: "clamp(16px, 2vw, 18px)", fontWeight: 500, color: "#1E293B", lineHeight: 1.8, marginBottom: "24px" }}>
+
+        <Reveal delay={0.08}>
+          <div className="about-copy">
+            <p className="about-lead">
               Leading provider of medical, travel, insurance, and tourism assistance.<br />
               Operations spanning <strong>Germany</strong>, <strong>Spain</strong>, <strong>USA</strong>, <strong>UAE</strong>, and <strong>Egypt</strong>.<br />
               Supporting individuals, corporations, insurers, hotels &amp; resorts, and travelers across the Globe.
             </p>
-            <p style={{ fontSize: "clamp(15px, 2vw, 17px)", lineHeight: 1.8, color: "#475569", margin: "0 auto", maxWidth: "800px" }}>
-              In just the past three years, we've proudly served over 30,000 cases, including more than 570 successful repatriation cases. It's a testament to the professional excellence we bring to every single client.
+            <p className="about-body">
+              In just the past three years, we&apos;ve proudly served over 30,000 cases, including more than 570 successful repatriation cases. It&apos;s a testament to the professional excellence we bring to every single client.
             </p>
           </div>
         </Reveal>
 
-        {/* Clean Metrics Strip */}
-        <Reveal delay={0.2}>
-          <div style={{ 
-            display: "grid", 
-            gridTemplateColumns: "repeat(4, 1fr)", 
-            gap: "0", 
-            background: "#ffffff", 
-            borderRadius: "24px", 
-            boxShadow: "0 20px 40px rgba(0,0,0,0.04)", 
-            border: "1px solid rgba(0,154,156,0.1)",
-            overflow: "hidden"
-          }} className="metrics-container">
-            <div className="metric-box">
-              <div className="metric-number"><CountUp end={30000} suffix="+" /></div>
-              <div className="metric-label">Cases Handled</div>
+        <Reveal delay={0.16}>
+          <dl className="about-stats">
+            <div className="about-stat">
+              <dt className="lx-label">Cases Handled</dt>
+              <dd className="about-stat-num"><CountUp end={30000} suffix="+" /></dd>
             </div>
-            <div className="metric-box">
-              <div className="metric-number"><CountUp end={570} suffix="+" /></div>
-              <div className="metric-label">Medical Repatriations</div>
+            <div className="about-stat">
+              <dt className="lx-label">Medical Repatriations</dt>
+              <dd className="about-stat-num"><CountUp end={570} suffix="+" /></dd>
             </div>
-            <div className="metric-box">
-              <div className="metric-number" style={{ fontFamily: "var(--font-titling)", letterSpacing: "1px" }}>24/7</div>
-              <div className="metric-label">Operational Desk</div>
+            <div className="about-stat">
+              <dt className="lx-label">Operational Desk</dt>
+              <dd className="about-stat-num">24/7</dd>
             </div>
-            <div className="metric-box" style={{ borderRight: "none" }}>
-              <div className="metric-number"><CountUp end={5} /></div>
-              <div className="metric-label">Global Hubs</div>
+            <div className="about-stat">
+              <dt className="lx-label">Global Hubs</dt>
+              <dd className="about-stat-num"><CountUp end={5} /></dd>
             </div>
-          </div>
+          </dl>
         </Reveal>
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
-        @keyframes scroll-marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+        .about-head { text-align: center; margin-bottom: clamp(28px, 3vw, 40px); }
+        .about-head::before {
+          content: ""; display: block; width: 40px; height: 2px;
+          background: var(--tmasi-teal); margin: 0 auto 22px;
         }
-        .marquee-content {
-          animation: scroll-marquee 40s linear infinite;
+        .about-eyebrow {
+          font-weight: 400; color: var(--tmasi-teal); margin: 0 0 14px;
+          font-size: clamp(22px, 2vw, 26px); letter-spacing: 0.14em;
         }
-        
-        .metric-box {
-          text-align: center;
-          padding: 40px 20px;
-          border-right: 1px solid rgba(0,0,0,0.05);
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          transition: background 0.3s;
+        .about-statement {
+          margin: 0; color: var(--lx-ink); font-weight: 800; letter-spacing: -0.02em;
+          font-size: clamp(30px, 4vw, 52px); line-height: 1.1; white-space: nowrap;
         }
-        
-        .metric-box:hover {
-          background: rgba(0,154,156,0.02);
+        .about-copy { max-width: 920px; margin: 0 auto; text-align: center; }
+        .about-lead {
+          margin: 0 0 22px; color: #1E293B; font-weight: 500;
+          font-size: clamp(16px, 1.45vw, 19px); line-height: 1.85;
+        }
+        .about-lead strong { color: var(--lx-ink); font-weight: 700; }
+        .about-body { margin: 0 auto; max-width: 760px; color: var(--lx-body); font-size: clamp(15px, 1.25vw, 17px); line-height: 1.8; }
+
+        /* Stats: an open band between two hairlines, no box, no shadow. */
+        .about-stats {
+          display: grid; grid-template-columns: repeat(4, 1fr);
+          margin: clamp(48px, 5.5vw, 80px) 0 0; padding: 0;
+          border-top: 1px solid var(--lx-line); border-bottom: 1px solid var(--lx-line);
+        }
+        .about-stat {
+          display: flex; flex-direction: column-reverse; align-items: center; gap: 14px;
+          padding: clamp(28px, 3vw, 44px) 12px; text-align: center;
+        }
+        .about-stat + .about-stat { border-left: 1px solid var(--lx-line); }
+        .about-stat dt { color: var(--lx-muted); }
+        .about-stat-num {
+          margin: 0; line-height: 1; color: var(--tmasi-teal);
+          font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif;
+          font-size: clamp(44px, 5vw, 68px); letter-spacing: 0.01em;
+          font-variant-numeric: tabular-nums;
         }
 
-        .metric-number {
-          font-size: clamp(36px, 4vw, 48px);
-          font-weight: 800;
-          color: var(--tmasi-teal);
-          line-height: 1;
-          margin-bottom: 12px;
+        @media (max-width: 900px) {
+          .about-stats { grid-template-columns: repeat(2, 1fr); }
+          .about-stat:nth-child(3) { border-left: none; }
+          .about-stat:nth-child(n+3) { border-top: 1px solid var(--lx-line); }
         }
-
-        .metric-label {
-          color: #0F205C;
-          font-size: 14px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 1.5px;
-        }
-
-        @media (max-width: 992px) {
-          .metrics-container {
-            grid-template-columns: repeat(2, 1fr) !important;
-          }
-          .metric-box:nth-child(2) { border-right: none; }
-          .metric-box:nth-child(3), .metric-box:nth-child(4) { border-top: 1px solid rgba(0,0,0,0.05); }
-        }
-        @media (max-width: 576px) {
-          .metric-number { font-size: clamp(28px, 6vw, 36px); margin-bottom: 8px; }
-          .metric-label { font-size: 11px; letter-spacing: 1px; }
-          .metric-box { padding: 24px 12px; }
+        @media (max-width: 520px) {
+          /* Stays on one line on phones, as on the live site. */
+          .about-statement { font-size: 5.5vw; }
+          .about-stat { padding: 24px 8px; gap: 10px; }
+          .about-stat dt { font-size: 10.5px; letter-spacing: 0.14em; }
         }
       `}} />
     </section>

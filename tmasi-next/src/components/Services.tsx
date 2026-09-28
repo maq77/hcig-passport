@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Reveal from "./Reveal";
+import SectionHead from "./SectionHead";
 import { useEffect, useState } from "react";
 import { ChevronRight, X, CheckCircle2 } from "lucide-react";
 
@@ -108,25 +109,19 @@ export default function Services() {
     }
   ];
 
-  // The card preview lists the group's own item names (live words), so no summary text has to be invented.
+  // The card preview lists the group's first three item names (live words), so no summary text has to be invented.
   const preview = (svc: Service) =>
-    svc.bullets.map((b) => (b.title ?? b.text).replace(/\.$/, "")).join(" · ");
+    svc.bullets.slice(0, 3).map((b) => (b.title ?? b.text).replace(/\.$/, ""));
 
   return (
-    <section id="services" className="services-section">
-      {/* Background Graphics */}
-      <div className="bg-shape bg-shape-top"></div>
-      <div className="bg-shape bg-shape-bottom"></div>
-
-      <div className="services-container">
-        <div className="services-header">
-          <Reveal>
-            <h2 className="headline-titling">OUR SERVICES</h2>
-            <p className="services-subtitle">
-              One Call, Endless Support.<br />TMASI Global Has You Covered.
-            </p>
-          </Reveal>
-        </div>
+    <section id="services" className="services-section lx-section lx-surface">
+      <div className="lx-wrap">
+        <Reveal>
+          <SectionHead
+            title="Our Services"
+            sub={<>One Call, Endless Support.<br />TMASI Global Has You Covered.</>}
+          />
+        </Reveal>
 
         <div className="packages-grid">
           {services.map((svc, idx) => (
@@ -144,7 +139,9 @@ export default function Services() {
                 </div>
                 <div className="package-content">
                   <h3 className="package-title">{svc.title}</h3>
-                  <p className="package-desc">{preview(svc)}</p>
+                  <ul className="package-desc">
+                    {preview(svc).map((line) => <li key={line}>{line}</li>)}
+                  </ul>
                   
                   <div className="package-action">
                     <span className="view-details-btn">
@@ -196,85 +193,36 @@ export default function Services() {
       )}
 
       <style dangerouslySetInnerHTML={{__html: `
-        .services-section {
-          background: #F8FAFC;
-          padding: 100px 0;
-          position: relative;
-          overflow: hidden;
-        }
-
-        .bg-shape {
-          position: absolute;
-          border-radius: 50%;
-          background: rgba(100, 116, 139, 0.05); /* Subtle Slate */
-          pointer-events: none;
-          z-index: 0;
-          animation: pulseSoft 8s ease-in-out infinite alternate;
-        }
-
-        .bg-shape-top { width: 500px; height: 500px; top: -250px; right: -250px; }
-        .bg-shape-bottom { width: 600px; height: 600px; bottom: -300px; left: -300px; animation-duration: 12s; }
-
-        @keyframes pulseSoft {
-          0% { transform: scale(1); }
-          100% { transform: scale(1.1); }
-        }
-
-        .services-container {
-          max-width: 1280px;
-          margin: 0 auto;
-          padding: 0 20px;
-          position: relative;
-          z-index: 10;
-        }
-
-        .services-header {
-          text-align: center;
-          margin-bottom: 60px;
-        }
-
-        .services-header h2 {
-          color: #0F205C;
-          font-size: clamp(32px, 5vw, 48px);
-          margin-bottom: 12px;
-        }
-
-        .services-subtitle {
-          color: #475569;
-          font-size: clamp(16px, 2vw, 18px);
-          margin: 0 auto;
-          max-width: 600px;
-          line-height: 1.6;
-        }
+        .services-section { overflow: hidden; }
 
         /* PACKAGES GRID */
         .packages-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 24px;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: clamp(20px, 2.2vw, 28px);
         }
 
         @media (max-width: 1024px) {
-          .packages-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+          .packages-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
         }
 
         @media (max-width: 640px) {
           /* 2x3 Grid on Mobile */
-          .packages-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+          .packages-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
         }
 
         .package-card-wrapper {
           height: 100%;
+          min-width: 0;
         }
 
         .package-card {
           width: 100%;
           height: 100%;
           background: #ffffff;
-          border-radius: 16px;
+          border-radius: var(--lx-radius);
           overflow: hidden;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-          border: 1px solid #f1f5f9;
+          border: 1px solid var(--lx-line);
           display: flex;
           flex-direction: column;
           text-align: left;
@@ -286,7 +234,8 @@ export default function Services() {
 
         .package-card:hover, .package-card:focus-visible {
           transform: translateY(-4px);
-          box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+          box-shadow: 0 18px 40px -18px rgba(15,32,92,0.22);
+          border-color: rgba(0,154,156,0.35);
         }
 
         .package-img-wrapper {
@@ -323,12 +272,13 @@ export default function Services() {
         }
 
         .package-title {
-          font-family: var(--font-heading), serif;
-          font-size: 22px;
+          font-family: var(--font-montserrat), sans-serif;
+          font-size: 20px;
           font-weight: 700;
-          color: #0F205C;
-          margin: 0 0 8px 0;
-          line-height: 1.2;
+          color: var(--lx-ink);
+          margin: 0 0 10px 0;
+          line-height: 1.25;
+          letter-spacing: -0.015em;
         }
 
         @media (max-width: 640px) {
@@ -336,23 +286,25 @@ export default function Services() {
         }
 
         .package-desc {
-          font-size: 15px;
-          color: #475569;
-          line-height: 1.5;
-          margin: 0 0 20px 0;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          flex-grow: 1;
+          list-style: none; margin: 0 0 22px; padding: 0;
+          display: flex; flex-direction: column; gap: 6px;
+        }
+        .package-desc li {
+          position: relative; padding-left: 16px; font-size: 14.5px; line-height: 1.5; color: var(--lx-body);
+          white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .package-desc li::before {
+          content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%;
+          background: var(--tmasi-teal); opacity: 0.7;
         }
 
         @media (max-width: 640px) {
-          .package-desc { font-size: 13px; margin: 0 0 16px 0; -webkit-line-clamp: 3; }
+          .package-desc { display: none; }
         }
 
         .package-action {
           margin-top: auto;
+          padding-top: 4px;
         }
 
         .view-details-btn {

@@ -1,6 +1,7 @@
 "use client";
 
 import Reveal from "./Reveal";
+import SectionHead from "./SectionHead";
 import { MapPin, Phone, Mail } from "lucide-react";
 
 export default function WorldMap() {
@@ -15,87 +16,65 @@ export default function WorldMap() {
   ];
 
   return (
-    <section id="offices" style={{ padding: "100px 0", background: "#ffffff" }}>
-      <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px" }}>
-        
+    <section id="offices" className="lx-section lx-white">
+      <div className="lx-wrap">
         <Reveal>
-          <div style={{ textAlign: "center", marginBottom: "48px" }}>
-            <h2 className="headline-titling" style={{ color: "#0F205C", fontSize: "clamp(32px, 5vw, 42px)", marginBottom: "16px" }}>
-              Global Operational Hubs
-            </h2>
-          </div>
+          <SectionHead title="Global Operational Hubs" />
         </Reveal>
 
-        <div className="hubs-grid">
-          {hubs.map((hub, idx) => (
-            <Reveal key={hub.id} delay={0.1 * idx}>
-              <div className="hub-card">
-                <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
-                  <div className="hub-icon">
-                    <MapPin size={24} color="var(--tmasi-teal)" />
-                  </div>
-                  <div>
-                    <h3 style={{ color: "#0F205C", fontSize: "20px", fontWeight: 800, margin: 0 }}>{hub.name}</h3>
-                  </div>
-                </div>
-                
-                <div style={{ display: "flex", flexDirection: "column", gap: "12px", color: "#475569", fontSize: "14px" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <MapPin size={16} color="#94a3b8" /> {hub.address}
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <Phone size={16} color="#94a3b8" /> <a href={`tel:${hub.tel}`} style={{ color: "inherit", textDecoration: "none" }}>{hub.phone}</a>
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <Mail size={16} color="#94a3b8" /> <a href={`mailto:${hub.email}`} style={{ color: "inherit", textDecoration: "none" }}>{hub.email}</a>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
+        {/* One panel, five offices side by side, divided by hairlines. */}
+        <Reveal delay={0.08}>
+          <ul className="hubs-panel">
+            {hubs.map((hub) => (
+              <li key={hub.id} className="hub">
+                <h3 className="hub-name">{hub.name}</h3>
+                <p className="hub-line hub-address"><MapPin size={16} aria-hidden="true" /> <span>{hub.address}</span></p>
+                <p className="hub-line"><Phone size={16} aria-hidden="true" /> <a href={`tel:${hub.tel}`}>{hub.phone}</a></p>
+                <p className="hub-line"><Mail size={16} aria-hidden="true" /> <a href={`mailto:${hub.email}`}>{hub.email}</a></p>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
-        /* Flex, not grid, so a short last row sits centred; every card keeps the same width and height. */
-        .hubs-grid {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 24px;
+        .hubs-panel {
+          list-style: none; margin: 0; padding: 0;
+          display: grid; grid-template-columns: repeat(5, 1fr);
+          background: #ffffff; border: 1px solid var(--lx-line); border-radius: var(--lx-radius);
         }
-        .hubs-grid > * { flex: 0 1 360px; display: flex; }
-        .hubs-grid .hub-card { width: 100%; }
-
-        .hub-card {
-          background: #f8fafc;
-          border-radius: 20px;
-          padding: 30px;
-          border: 1px solid #e2e8f0;
-          transition: all 0.3s ease;
+        .hub { padding: clamp(24px, 2.4vw, 34px) clamp(18px, 1.7vw, 26px); position: relative; }
+        .hub + .hub { border-left: 1px solid var(--lx-line); }
+        .hub::before {
+          content: ""; position: absolute; top: -1px; left: clamp(18px, 1.7vw, 26px);
+          width: 32px; height: 2px; background: var(--tmasi-teal);
         }
-
-        .hub-card:hover {
-          background: #ffffff;
-          transform: translateY(-5px);
-          box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-          border-color: rgba(0,154,156,0.2);
+        .hub-name { margin: 0 0 16px; font-size: 16px; font-weight: 700; line-height: 1.35; color: var(--lx-ink); letter-spacing: -0.01em; }
+        .hub-line {
+          display: flex; gap: 10px; align-items: flex-start; margin: 0 0 10px;
+          font-size: 14px; line-height: 1.55; color: var(--lx-body); overflow-wrap: anywhere;
         }
+        .hub-line:last-child { margin-bottom: 0; }
+        .hub-line svg { flex-shrink: 0; margin-top: 2px; color: var(--tmasi-teal); }
+        .hub-line a { color: var(--lx-body); text-decoration: none; transition: color .2s ease; }
+        .hub-line a:hover { color: var(--tmasi-teal); }
 
-        .hub-icon {
-          width: 50px;
-          height: 50px;
-          border-radius: 12px;
-          background: rgba(0,154,156,0.1);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: transform 0.3s;
+        @media (max-width: 1080px) {
+          .hubs-panel { grid-template-columns: repeat(2, 1fr); }
+          .hub + .hub { border-left: none; }
+          .hub:nth-child(even) { border-left: 1px solid var(--lx-line); }
+          .hub:nth-child(n+3) { border-top: 1px solid var(--lx-line); }
+          .hub:last-child:nth-child(odd) { grid-column: 1 / -1; }
+          .hub:nth-child(n+3)::before { display: none; }
         }
-
-        .hub-card:hover .hub-icon {
-          transform: scale(1.1) rotate(5deg);
+        @media (max-width: 600px) {
+          .hubs-panel { grid-template-columns: 1fr; }
+          .hub:nth-child(even) { border-left: none; }
+          .hub:nth-child(n+2) { border-top: 1px solid var(--lx-line); }
+          .hub:nth-child(n+2)::before { display: none; }
+          .hub { padding: 22px 20px; }
+          .hub-name { margin-bottom: 12px; }
+          .hub-line { margin-bottom: 8px; }
         }
       `}} />
     </section>

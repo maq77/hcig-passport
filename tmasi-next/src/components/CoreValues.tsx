@@ -1,126 +1,64 @@
 "use client";
 
 import Reveal from "./Reveal";
+import SectionHead from "./SectionHead";
+
+// Words are the live tmasi.net Core Values, unchanged (the dash in the heading became a colon, as on the live site).
+const VALUES = [
+  { n: "1", title: "Client-Centered", text: "We prioritize the safety, comfort, and needs of every patient and traveler." },
+  { n: "2", title: "Integrity & Transparency", text: "We provide honest, clear, and ethical guidance throughout the journey." },
+  { n: "3", title: "Excellence & Reliability", text: "We deliver seamless, high-quality assistance and dependable support." },
+  { n: "4", title: "Global Collaboration & Respect", text: "We build strong international partnerships and honor cultural diversity." },
+];
 
 export default function CoreValues() {
   return (
-    <section className="values-section" id="values" style={{ position: "relative", overflow: "hidden", zIndex: 1 }}>
-      
-      {/* Background Graphics */}
-      <div className="bg-circle bg-circle-top"></div>
-      <div className="bg-circle bg-circle-bottom"></div>
-
-      <div className="values-container" style={{ position: "relative", zIndex: 10 }}>
+    <section className="values-section lx-section lx-white" id="values">
+      <div className="lx-wrap">
         <Reveal>
-          <h2 className="section-hero-heading center headline-titling">
-            TMASI Global: Core Values
-          </h2>
+          <SectionHead title="TMASI Global: Core Values" />
         </Reveal>
 
-        <div className="values-list">
-          <Reveal delay={0.06} className="values-item">
-            <div className="values-number">1</div>
-            <div>
-              <h3 className="values-title">Client-Centered</h3>
-              <p className="values-description">
-                We prioritize the safety, comfort, and needs of every patient and traveler.
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.12} className="values-item">
-            <div className="values-number">2</div>
-            <div>
-              <h3 className="values-title">Integrity &amp; Transparency</h3>
-              <p className="values-description">
-                We provide honest, clear, and ethical guidance throughout the journey.
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.18} className="values-item">
-            <div className="values-number">3</div>
-            <div>
-              <h3 className="values-title">Excellence &amp; Reliability</h3>
-              <p className="values-description">
-                We deliver seamless, high-quality assistance and dependable support.
-              </p>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.24} className="values-item">
-            <div className="values-number">4</div>
-            <div>
-              <h3 className="values-title">Global Collaboration &amp; Respect</h3>
-              <p className="values-description">
-                We build strong international partnerships and honor cultural diversity.
-              </p>
-            </div>
-          </Reveal>
+        <div className="cv-grid">
+          {VALUES.map((v, i) => (
+            <Reveal key={v.n} delay={0.06 * i} className="cv-item">
+              <div className="cv-card">
+                <span className="cv-num" aria-hidden="true">{v.n}</span>
+                <h3 className="cv-title">{v.title}</h3>
+                <p className="cv-text">{v.text}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
+
       <style dangerouslySetInnerHTML={{__html: `
-        .bg-circle {
-          position: absolute;
-          border-radius: 50%;
-          border: 2px dashed rgba(255, 255, 255, 0.15);
-          pointer-events: none;
-          z-index: 0;
-          animation: spin 60s linear infinite;
+        .values-section { overflow: visible; }
+        /* Open columns: a hairline on top, a teal accent where the number sits. No boxes. */
+        .cv-grid {
+          display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(24px, 3vw, 48px);
         }
-        
-        .bg-circle-top {
-          width: 800px;
-          height: 800px;
-          top: -400px;
-          right: -200px;
+        .cv-card { position: relative; padding-top: 28px; border-top: 1px solid var(--lx-line); height: 100%; }
+        .cv-card::before {
+          content: ""; position: absolute; top: -1px; left: 0; width: 40px; height: 2px; background: var(--tmasi-teal);
         }
+        .cv-num {
+          display: block; line-height: 1; margin-bottom: 18px; color: var(--tmasi-teal);
+          font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif; font-size: 44px;
+          font-variant-numeric: tabular-nums;
+        }
+        .cv-title { margin: 0 0 10px; font-size: 18px; font-weight: 700; line-height: 1.35; color: var(--lx-ink); letter-spacing: -0.01em; }
+        .cv-text { margin: 0; font-size: 15px; line-height: 1.7; color: var(--lx-body); }
 
-        .bg-circle-bottom {
-          width: 600px;
-          height: 600px;
-          bottom: -300px;
-          left: -150px;
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          animation-direction: reverse;
+        @media (max-width: 960px) {
+          .cv-grid { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
         }
-
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-          .bg-circle-top { width: 400px; height: 400px; top: -200px; right: -100px; }
-          .bg-circle-bottom { width: 300px; height: 300px; bottom: -150px; left: -50px; }
-          
-          .values-list {
-            grid-template-columns: 1fr !important;
-            gap: 16px;
-          }
-          .values-item {
-            display: flex !important;
-            flex-direction: row !important;
-            align-items: flex-start !important;
-            gap: 16px !important;
-            padding: 20px !important;
-            text-align: left !important;
-          }
-          .values-number {
-            flex-shrink: 0 !important;
-            margin-bottom: 0 !important;
-            width: 48px !important;
-            height: 48px !important;
-            font-size: 20px !important;
-          }
-          .values-title {
-            font-size: 16px !important;
-            margin: 0 0 4px 0 !important;
-          }
-          .values-description {
-            font-size: 14px !important;
-            margin: 0 !important;
-          }
+        @media (max-width: 520px) {
+          .cv-grid { column-gap: 18px; row-gap: 32px; }
+          .cv-card { padding-top: 20px; }
+          .cv-num { font-size: 34px; margin-bottom: 12px; }
+          .cv-title { font-size: 15.5px; }
+          .cv-text { font-size: 14px; line-height: 1.6; }
         }
       `}} />
     </section>
