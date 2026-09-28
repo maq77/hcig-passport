@@ -6,28 +6,28 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Globe, MessageCircle } from "lucide-react";
 import SocialLinks from "./SocialLinks";
+import { useSite } from "./site/SiteProvider";
+import { asset } from "@/lib/asset";
+import { UI, type Lang } from "@/content/ui";
 
-const NAV = [
-  { name: "Home", href: "#hero" },
-  { name: "About Us", href: "#about" },
-  { name: "Services", href: "#services" },
-  { name: "Contact", href: "#offices" },
-  { name: "Blog", href: "#blog" }
-];
+const LANGS: Lang[] = ["en", "de", "pl", "es"];
+const HOME_OF: Record<Lang, string> = { en: "/", de: "/de/", pl: "/pl/", es: "/es/" };
+// The live German menu says "Uber uns"; its footer spells it "Über uns". Spelling fix, logged.
+const fixSpelling = (t: string) => t.replace(/^Uber uns$/, "Über uns");
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-  const [activeLang, setActiveLang] = useState("EN");
   const langRef = useRef<HTMLDivElement>(null);
-
-  const languages = [
-    { code: "EN", name: "English" },
-    { code: "DE", name: "Deutsch" },
-    { code: "PL", name: "Polski" },
-    { code: "ES", name: "Español" }
-  ];
+  const { lang, live, ui, links, alternates } = useSite();
+  const activeLang = lang.toUpperCase();
+  // Menu labels exactly as each language's live header; each opens the page in that language.
+  const NAV = [links.home, links.about, links.services, links.contact, links.blog]
+    .map((href, i) => ({ name: fixSpelling(live.shell.nav[i] || ""), href: href || "" }))
+    .filter((n) => n.href && n.name);
+  // The language switch opens the same page in the other language (or its home if that page has none).
+  const languages = LANGS.map((code) => ({ code: code.toUpperCase(), name: UI[code].langName, href: alternates[code] || HOME_OF[code] }));
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,9 +79,9 @@ export default function Header() {
       >
         <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 20px" }}>
           
-          <Link href="#hero" aria-label="TMASI Global Home" style={{ display: "flex", alignItems: "center", zIndex: 101 }}>
+          <Link href={links.home} aria-label="TMASI Global Home" style={{ display: "flex", alignItems: "center", zIndex: 101 }}>
             <Image
-              src="/tmasi/v3/img/logo-header.png"
+              src={asset("/img/logo-header.png")}
               alt="TMASI Global Logo"
               width={200}
               height={96}
@@ -145,7 +145,7 @@ export default function Header() {
                   backdropFilter: scrolled ? "none" : "blur(4px)"
                 }}
                 className="lang-btn hover-shadow"
-                aria-label="Select Language"
+                aria-label={ui.language}
               >
                 <Globe size={14} color={scrolled ? "var(--tmasi-teal)" : "#ffffff"} />
                 {activeLang}
@@ -177,13 +177,14 @@ export default function Header() {
                     }}
                   >
                     {languages.map(lang => (
-                      <button
+                      <Link
                         key={lang.code}
-                        onClick={() => {
-                          setActiveLang(lang.code);
-                          setLangDropdownOpen(false);
-                        }}
+                        href={lang.href}
+                        hrefLang={lang.code.toLowerCase()}
+                        aria-current={activeLang === lang.code ? "true" : undefined}
+                        onClick={() => setLangDropdownOpen(false)}
                         style={{
+                          textDecoration: "none",
                           background: activeLang === lang.code ? "rgba(0,154,156,0.05)" : "transparent",
                           border: "none",
                           padding: "14px 16px",
@@ -200,8 +201,8 @@ export default function Header() {
                         className="hover-bg-gray"
                       >
                         {lang.name}
-                        {activeLang === lang.code && <span style={{ fontSize: "12px" }}>✓</span>}
-                      </button>
+                        {activeLang === lang.code && <span style={{ fontSize: "12px" }} aria-hidden="true">✓</span>}
+                      </Link>
                     ))}
                   </motion.div>
                 )}
@@ -229,14 +230,14 @@ export default function Header() {
               }}
             >
               <MessageCircle size={14} aria-hidden="true" />
-              CALL THE TEAM
+              {live.shell.call}
             </a>
 
             {/* Mobile Burger Menu Button */}
             <button
               className="mobile-only"
               onClick={() => setMobileMenuOpen(true)}
-              aria-label="Toggle navigation menu"
+              aria-label={ui.openMenu}
               style={{
                 background: scrolled ? "#ffffff" : "rgba(255,255,255,0.1)",
                 border: scrolled ? "1px solid #e2e8f0" : "1px solid rgba(255,255,255,0.2)",
@@ -287,10 +288,10 @@ export default function Header() {
             aria-modal="true"
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "40px" }}>
-              <Image src="/tmasi/v3/img/logo-header.png" alt="TMASI Global Logo" width={130} height={44} style={{ mixBlendMode: "multiply" }} />
+              <Image src={asset("/img/logo-header.png")} alt="TMASI Global Logo" width={130} height={44} style={{ mixBlendMode: "multiply" }} />
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                aria-label="Close menu"
+                aria-label={ui.closeMenu}
                 style={{ background: "#f1f5f9", border: "none", borderRadius: "50%", width: "44px", height: "44px", fontSize: "24px", color: "#0F205C", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
               >
                 &times;
@@ -336,7 +337,7 @@ export default function Header() {
               }}
             >
               <MessageCircle size={20} aria-hidden="true" />
-              CALL THE TEAM
+              {live.shell.call}
             </a>
           </motion.div>
         )}

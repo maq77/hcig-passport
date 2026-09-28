@@ -1,0 +1,57 @@
+[
+  {
+    "id": "egypt",
+    "country": "Egypt",
+    "city": "Hurghada / Cairo",
+    "address": "Airport Road, Hurghada, Red Sea, Egypt",
+    "phone": "+20 120 678 8566",
+    "email": "egypt@tmasi.net",
+    "lat": 27.2579,
+    "lng": 33.8116,
+    "isHQ": true
+  },
+  {
+    "id": "germany",
+    "country": "Germany",
+    "city": "Munich",
+    "address": "Leopoldstraße 244, 80807 Munich, Germany",
+    "phone": "+49 170 9350490",
+    "email": "germany@tmasi.net",
+    "lat": 48.1764,
+    "lng": 11.5904,
+    "isHQ": false
+  },
+  {
+    "id": "uae",
+    "country": "United Arab Emirates",
+    "city": "Dubai",
+    "address": "Dubai, United Arab Emirates",
+    "phone": "+971 586 824 247",
+    "email": "uae@tmasi.net",
+    "lat": 25.2048,
+    "lng": 55.2708,
+    "isHQ": false
+  },
+  {
+    "id": "spain",
+    "country": "Spain",
+    "city": "Barcelona",
+    "address": "Barcelona, Spain",
+    "phone": "+34 930 414 953",
+    "email": "spain@tmasi.net",
+    "lat": 41.3851,
+    "lng": 2.1734,
+    "isHQ": false
+  },
+  {
+    "id": "usa",
+    "country": "United States",
+    "city": "Florida",
+    "address": "Florida, USA",
+    "phone": "+1 727 591 9010",
+    "email": "info@tmasi.net",
+    "lat": 27.9944,
+    "lng": -81.7603,
+    "isHQ": false
+  }
+]

@@ -2,50 +2,51 @@
 
 import Reveal from "./Reveal";
 import CountUp from "./CountUp";
+import { useSite } from "./site/SiteProvider";
 
-
-// Words are the live tmasi.net About Us, unchanged. Stat labels approved by Mohamed on 2026-09-28.
+// Words are the live tmasi.net About Us in each language, unchanged. Stat labels approved by Mohamed
+// on 2026-09-28 (English; German, Polish, Spanish translated for v3).
 export default function About() {
+  const { lang, live, ui } = useSite();
+  const a = live.home.about;
   return (
     <section className="section-about lx-section lx-white" id="about">
       <div className="lx-wrap">
         <Reveal>
           <div className="lx-head">
-            <h2 className="lx-title">About Us</h2>
-            <h3 className="about-statement" style={{ marginTop: "16px" }}>Your Care. One Call Away.</h3>
+            <h2 className="lx-title">{a.eyebrow}</h2>
+            <h3 className="about-statement" style={{ marginTop: "16px" }}>{a.statement}</h3>
           </div>
         </Reveal>
 
         <Reveal delay={0.08}>
           <div className="about-copy">
             <p className="about-lead">
-              Leading provider of medical, travel, insurance, and tourism assistance.<br />
-              Operations spanning <strong>Germany</strong>, <strong>Spain</strong>, <strong>USA</strong>, <strong>UAE</strong>, and <strong>Egypt</strong>.<br />
-              Supporting individuals, corporations, insurers, hotels &amp; resorts, and travelers across the Globe.
+              {a.lead.map((line, k) => (
+                <span key={k}>{line}{k < a.lead.length - 1 && <br />}</span>
+              ))}
             </p>
-            <p className="about-body">
-              In just the past three years, we&apos;ve proudly served over 30,000 cases, including more than 570 successful repatriation cases. It&apos;s a testament to the professional excellence we bring to every single client.
-            </p>
+            <p className="about-body">{a.body}</p>
           </div>
         </Reveal>
 
         <Reveal delay={0.16}>
           <dl className="about-stats">
             <div className="about-stat">
-              <dt className="lx-label">Cases Handled</dt>
-              <dd className="about-stat-num"><CountUp end={30000} suffix="+" /></dd>
+              <dt className="lx-label">{ui.stats[0]}</dt>
+              <dd className="about-stat-num"><CountUp end={30000} suffix="+" locale={lang} /></dd>
             </div>
             <div className="about-stat">
-              <dt className="lx-label">Medical Repatriations</dt>
-              <dd className="about-stat-num"><CountUp end={570} suffix="+" /></dd>
+              <dt className="lx-label">{ui.stats[1]}</dt>
+              <dd className="about-stat-num"><CountUp end={570} suffix="+" locale={lang} /></dd>
             </div>
             <div className="about-stat">
-              <dt className="lx-label">Operational Desk</dt>
+              <dt className="lx-label">{ui.stats[2]}</dt>
               <dd className="about-stat-num">24/7</dd>
             </div>
             <div className="about-stat">
-              <dt className="lx-label">Global Hubs</dt>
-              <dd className="about-stat-num"><CountUp end={5} /></dd>
+              <dt className="lx-label">{ui.stats[3]}</dt>
+              <dd className="about-stat-num"><CountUp end={5} locale={lang} /></dd>
             </div>
           </dl>
         </Reveal>

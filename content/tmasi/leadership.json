@@ -1,0 +1,27 @@
+[
+  {
+    "id": "dr-amr-abbass",
+    "name": "Dr. Amr Abbass",
+    "role": "Founder & CEO",
+    "bio": [
+      "Dr. Amr is a highly skilled and versatile healthcare professional with extensive experience in various aspects of medical practice and management. His career spans over two decades, allowing him to gather expertise in clinical care, healthcare administration, and the management of medical services. He holds a strong background in Orthopedics, General Medicine, and Hospital Management, with significant exposure to medical tourism.",
+      "Dr. Amr has successfully managed urgent care centers and hospitals across Egypt, providing essential healthcare services to tourists in collaboration with hotel management companies, tour operators, and insurance companies. He is also a Shareholder at The Nile Hospital and The Pyramids Hospital, where he has contributed to leading healthcare initiatives in the Red Sea area and beyond.",
+      "His role as CEO of HCi Healthcare International and TMASI Global has further solidified his leadership in healthcare management, with a particular focus on medical tourism.",
+      "With a solid foundation as a General Practitioner and Orthopedic Resident, Dr. Amr has built a strong understanding of healthcare needs in both hospital and clinic settings. He is now focused on making meaningful contributions to the healthcare industry through innovative practices and ensuring quality care across his diverse ventures."
+    ],
+    "designSlot": "SLOT-LEAD-AMBA"
+  },
+  {
+    "id": "dr-ahmed-nouh",
+    "name": "Dr. Ahmed Nouh",
+    "role": "Chief Strategy Officer",
+    "bio": [
+      "Dr. Ahmed Nouh is a visionary healthcare strategist and digital transformation leader with over 25 years of experience in health insurance, medical assistance, and digital health innovation across the EMEA region. As Chief Strategy Officer at TMASI, he brings deep industry insight, unmatched regional expertise, and a proven track record in building scalable healthcare ecosystems.",
+      "Throughout his career, Dr. Nouh has held strategic leadership roles at global and regional powerhouses such as Munich Re and MedNet, where he was instrumental in shaping managed care, reinsurance, and digital health strategies tailored to the Middle East and Africa. He later spearheaded Vodafone's Digital Healthcare initiatives, leading the development and launch of innovative digital health solutions, seamlessly integrating telecom infrastructure with healthcare delivery and reaching millions of users.",
+      "In parallel with his executive roles, Dr. Nouh has been a driving force behind several successful health tech startups and digital transformation projects. His portfolio includes the design and implementation of national health insurance systems and digital infrastructure in Egypt and the GCC, working closely with ministries of health, insurance regulators, and private sector leaders.",
+      "Dr. Nouh's academic foundation includes a Master of Medicine (MBBCh). He has further strengthened his leadership and industry expertise with executive education from prestigious global institutions, including certifications from Harvard Business School in the USA, IESE Business School in Spain, and Cranfield Management School in the UK. He also holds advanced training in reinsurance and health insurance systems through programs with Munich Re.",
+      "At TMASI, Dr. Nouh is at the forefront of the company's global strategy, innovation pipeline, and market expansion, ensuring the delivery of world-class medical assistance and integrated healthcare services across international markets."
+    ],
+    "designSlot": "SLOT-LEAD-NOUH"
+  }
+]

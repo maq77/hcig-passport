@@ -57,6 +57,7 @@ companies, hotels and tour operators. Travellers still find the 24/7 line at onc
 | Phase | What | Where it ships | Spec gate |
 |---|---|---|---|
 | **A. Urgent edits** | UI and UX fixes, news posts, technical fixes, favicon, share image, sharp map and logo, on the current site | Live site, file by file, backed up first | None. Starts once SSH logs in |
+| **B2. TMASI v2** | The same design, colours, feeling and words, fully improved: new CSS, spacing, type, cards, phone layout (ui-ux-pro-max). Home first, then every page in four languages | Hidden preview at `tmasi.net/?preview=2`, then switched on page by page after Mohamed approves | None: no new content, no new structure |
 | **B. TMASI v3** | A from-scratch rebuild: design, structure, SEO, AEO, same words | HCIG Work preview first, then their hosting after Mohamed approves | This spec, once approved |
 
 ## The current site, verified 2026-09-26

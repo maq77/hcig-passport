@@ -1,0 +1,53 @@
+{
+  "brandName": "TMASI Global",
+  "fullName": "Travel Medical Assistance Services International",
+  "taglines": [
+    "Your Care. One Call Away.",
+    "Care Without Borders",
+    "Your Trusted Partner in Global Medical, Travel, and Tourism Assistance.",
+    "TMASI Global: Where RELAX & ENJOY Is All You Need to Do."
+  ],
+  "mission": "To redefine the standard of safety and care for travelers worldwide, connecting global partners with reliable local medical networks and on-the-ground support.",
+  "vision": "Building a future where healthcare, insurance, and travel work hand in hand to create a world of seamless, reliable support.",
+  "stats": [
+    {
+      "value": "30,000+",
+      "label": "Cases Handled"
+    },
+    {
+      "value": "570+",
+      "label": "Medical Repatriations"
+    },
+    {
+      "value": "24/7",
+      "label": "Operational Desk"
+    },
+    {
+      "value": "5",
+      "label": "Global Operational Hubs"
+    }
+  ],
+  "coreValues": [
+    {
+      "title": "Client-Centered",
+      "description": "Focused on client well-being, providing personalized solutions and rapid response across every case."
+    },
+    {
+      "title": "Integrity & Transparency",
+      "description": "Open, honest communication and reliable reporting with insurers, healthcare providers, and patients."
+    },
+    {
+      "title": "Excellence & Reliability",
+      "description": "Clinical excellence, certified transport protocols, and continuous quality monitoring."
+    },
+    {
+      "title": "Global Collaboration & Respect",
+      "description": "Seamless coordination across borders, languages, and complex healthcare systems."
+    }
+  ],
+  "emergencyContact": {
+    "phone": "+20 120 678 8566",
+    "email": "info@tmasi.net",
+    "callToAction": "CALL THE TEAM"
+  }
+}

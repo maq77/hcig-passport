@@ -12,7 +12,7 @@ import { section, reviews } from "@/content/load";
 import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
 import { asset, BASE, NUMBERS } from "@/data/facts";
 import { CLINICS, clinicPath } from "@/data/clinics";
-import { FLAGS, HERO_SLIDES, HOTEL_BRANDS, INSURERS, INTRO, PHOTOS, POSTS, STORIES, type Logo } from "@/data/media";
+import { FLAGS, HERO_SLIDES, HOTEL_BRANDS, INSURERS, INTRO, PHOTOS, POSTS, STORIES, TRUSTED_PHOTOS, type Logo } from "@/data/media";
 import { ROUTES } from "@/data/nav";
 import { CallButton, LinkButton, TextLink, WaButton } from "@/components/ui/Buttons";
 import { Head } from "@/components/ui/Bits";
@@ -325,7 +325,6 @@ export function Insurance({ insuranceMessage }: { insuranceMessage: string }) {
 /* ---------------- 8. what our patients say (brief 15) ---------------- */
 export function Stories() {
   const s = section("home", "reviews-testimonials");
-  const list = reviews();
   return (
     <section className="section stories" aria-labelledby="st-h">
       <div className="container">
@@ -340,22 +339,19 @@ export function Stories() {
           </li>
         ))}
       </StoryCarousel>
-      <div className="reviews">
-        <Marquee label={s.heading} speed={28} gap={16} bg="#fff">
-          {list.map((r) => (
-            <li key={r.name}>
-              <blockquote className="review">
-                <span className="qm" aria-hidden="true">&ldquo;</span>
-                <q lang={r.lang}>{r.text}</q>
-                <footer>
-                  {FLAGS[r.country]
-                    ? <img className="rv-flag" src={asset(`/logos/marks/flag-${FLAGS[r.country]}.svg`)} alt={r.country} width={26} height={26} />
-                    : null}
-                  <b>{r.name}</b>
-                </footer>
-              </blockquote>
-            </li>
-          ))}
+      <div className="trusted-patients" style={{ marginTop: 64, paddingBottom: 32 }}>
+        <div className="container" style={{ marginBottom: 32 }}>
+          <Head center id="trusted-h" title="Trusted by Patients" />
+        </div>
+        <Marquee label="Trusted by Patients" speed={28} gap={16} bg="#fff">
+          {TRUSTED_PHOTOS.map((p, i) => {
+            const width = Math.round(320 * (p.w / p.h));
+            return (
+              <li key={i} style={{ borderRadius: 12, overflow: 'hidden', height: 320, width, flexShrink: 0 }}>
+                <img src={asset(p.src)} alt="Trusted by patient" width={width} height={320} loading="lazy" style={{ objectFit: 'cover', display: 'block', width: '100%', height: '100%' }} />
+              </li>
+            );
+          })}
         </Marquee>
       </div>
     </section>

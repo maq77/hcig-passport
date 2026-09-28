@@ -1,5 +1,141 @@
 [
   {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: bigger header on desktop (logo 64px, menu 17px), phones unchanged"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI work log: v3 quote form, Sofia assistant, CALL THE TEAM to WhatsApp"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: Request My Free Quote (design B) after Our Services, and in a pop-up"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: Jotform AI agent at bottom right, the same embed as the live site"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: hotline bar removed; every CALL THE TEAM opens WhatsApp"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: 24/7 hotline bar (design 1-A) and journey line (design 5)"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: corner circles on Mission & Vision and the offices"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3 services: premium corner circles (Tailwind + Framer Motion)"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: ship the photos (.jpg was gitignored repo-wide)"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3 hero, phones only: more air under the header, even steps to paragraph and buttons, title in three lines by meaning"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3 home: luxury and space pass (design only, words unchanged)"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3 home on HCIG Work at /tmasi/v3; registry current"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: real content restored on the home, live favicon, social icons"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "style(tmasi): optimize modal dimensions and add custom scrollbar"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "feat(tmasi): redesign services as a package grid with a premium detail modal"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "feat(tmasi): implement smart pause on interaction for Services auto-slide"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "fix(tmasi): correct card widths in 2x3 grid by overriding desktop columns"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "feat(tmasi): apply 2x3 grid to Services mobile layout without shrinking cards"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "feat(tmasi): force text break on mobile for Relax and Enjoy banner"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "feat(tmasi): revert Services mobile layout back to full-height 1-row slider"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "feat(tmasi): implement compact 2-row services layout for mobile"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "feat(tmasi): implement premium background graphics, layout fixes, and services refinements"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "feat(tmasi): TMASI Global v3 complete responsive redesign (Home)"
+  },
+  {
+    "date": "2026-09-26",
+    "subject": "TMASI work log: urgent edits batch 1 live, news posts live, map kept original"
+  },
+  {
+    "date": "2026-09-26",
+    "subject": "TMASI work log: security review noted without details; mirror kept out of git"
+  },
+  {
+    "date": "2026-09-26",
+    "subject": "TMASI work log: separate done work from decisions"
+  },
+  {
+    "date": "2026-09-26",
+    "subject": "TMASI work log: guideline logo finding, news translation drafts"
+  },
+  {
+    "date": "2026-09-26",
+    "subject": "TMASI: spec 008 approved; English news first; content rule refined"
+  },
+  {
+    "date": "2026-09-26",
+    "subject": "TMASI: every decision in spec 008, work log started; \"no dark designs\" rule removed"
+  },
+  {
+    "date": "2026-09-26",
+    "subject": "TMASI: add tmasi.net to HCIG Work, draft spec 008 (urgent edits, then v3)"
+  },
+  {
+    "date": "2026-09-24",
+    "subject": "24/7 v3 round 7: editor rebuilt, his edits kept desktop-only, FAQs on the photo, hero colours"
+  },
+  {
+    "date": "2026-09-24",
+    "subject": "24/7 v3: carousel progress bar grows on hover with a transform, not height"
+  },
+  {
+    "date": "2026-09-24",
+    "subject": "24/7 v3 round 5: services 2 x 3 on phones, hero arrows on phones, bigger desktop header, native scrolling again"
+  },
+  {
+    "date": "2026-09-24",
+    "subject": "Update the site (3320 files)"
+  },
+  {
     "date": "2026-09-24",
     "subject": "24/7 v3 round 4: no repeats, hero carousel, arrows on long text, mobile rebuild, editor spacing"
   },

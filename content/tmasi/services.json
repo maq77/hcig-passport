@@ -1,0 +1,188 @@
+[
+  {
+    "id": "medical-assistance",
+    "title": "Medical Assistance Services",
+    "slug": "medical-assistance",
+    "summary": "Immediate response and professional medical support around the clock, connecting patients to top-quality healthcare services worldwide.",
+    "items": [
+      {
+        "title": "Emergency Medical Assistance",
+        "description": "Immediate response and professional medical support around the clock."
+      },
+      {
+        "title": "Air and Ground Medical Evacuations",
+        "description": "Safe and efficient transport to the nearest accredited medical facilities."
+      },
+      {
+        "title": "Hospital and Treatment Coordination",
+        "description": "Connecting patients to top-quality healthcare services and facilities."
+      },
+      {
+        "title": "Case Management and Follow-Up",
+        "description": "Continuous monitoring and medical oversight to ensure the best outcomes."
+      },
+      {
+        "title": "Evaluation and Review",
+        "description": "Regular clinical assessments to maintain rigorous international standards of care."
+      },
+      {
+        "title": "Funeral Services",
+        "description": "Compassionate and professional coordination of mortal remains repatriation."
+      }
+    ],
+    "designSlot": "SLOT-SVC-MED"
+  },
+  {
+    "id": "elite-concierge",
+    "title": "Elite Medical Concierge Services",
+    "slug": "elite-concierge",
+    "summary": "Personalized, discreet healthcare delivered directly to residences, hotel suites, or workplaces for VIP travellers and families.",
+    "items": [
+      {
+        "title": "Doctor On Call",
+        "description": "Licensed physicians available for private medical consultations at hotels, residences, or workplaces."
+      },
+      {
+        "title": "Private Medical Visits",
+        "description": "Personalized healthcare delivered directly to your location for maximum comfort and privacy."
+      },
+      {
+        "title": "Portable Medical Diagnostics",
+        "description": "Basic diagnostic equipment available during visits for immediate on-site medical assessment."
+      },
+      {
+        "title": "VIP Patient Care",
+        "description": "Discreet and personalized medical support tailored for VIP travelers and families."
+      },
+      {
+        "title": "Insurance Covered Services",
+        "description": "Doctor visits coordinated with international insurance and assistance providers for cashless treatment whenever coverage is available."
+      },
+      {
+        "title": "Follow-up Medical Support",
+        "description": "Ongoing guidance and medical coordination after the initial consultation if further care is required."
+      }
+    ],
+    "designSlot": "SLOT-SVC-VIP"
+  },
+  {
+    "id": "travel-assistance",
+    "title": "Travel Assistance Services",
+    "slug": "travel-assistance",
+    "summary": "Comprehensive non-clinical support ensuring seamless journeys, prompt roadside assistance, financial advance, and legal guidance.",
+    "items": [
+      {
+        "title": "Optimized Customer Experience",
+        "description": "Personalized support to ensure seamless journeys."
+      },
+      {
+        "title": "Translation Assistance",
+        "description": "Multilingual support to overcome language barriers during medical and travel encounters."
+      },
+      {
+        "title": "Advance Cash Provision",
+        "description": "Emergency financial support in critical travel situations."
+      },
+      {
+        "title": "Roadside Assistance and Car Replacement",
+        "description": "Immediate help with vehicle breakdowns and mobility replacements."
+      },
+      {
+        "title": "Taxi Bookings",
+        "description": "Reliable and prompt transportation services for patients and companions."
+      },
+      {
+        "title": "Hotel and Flight Reservations",
+        "description": "Convenient rebooking and reservation support to minimize stress."
+      },
+      {
+        "title": "Legal Consultations and Support",
+        "description": "Professional legal advice and regulatory guidance when needed."
+      }
+    ],
+    "designSlot": "SLOT-SVC-TRV"
+  },
+  {
+    "id": "medical-tourism",
+    "title": "Medical Tourism Services",
+    "slug": "medical-tourism",
+    "summary": "World-class healthcare packages combining medical excellence in Egypt, Germany, Spain, and the UAE with premium hospitality.",
+    "items": [
+      {
+        "title": "Comprehensive Healthcare Packages",
+        "description": "Tailored solutions for wellness, longevity, recovery programs, full body check-ups, second opinions, and specialized surgeries."
+      },
+      {
+        "title": "Top Medical Destinations",
+        "description": "Access to world-renowned hospitals, clinics, rehabilitation centers, and top physicians in Germany, Spain, Egypt, and the UAE."
+      },
+      {
+        "title": "Personalized Travel Arrangements",
+        "description": "Complete travel handling from medical visas and private transport to luxury accommodation and post-treatment care."
+      },
+      {
+        "title": "Dedicated Coordinators",
+        "description": "Single point of contact managing all clinical and logistical aspects of the medical journey."
+      },
+      {
+        "title": "Luxury and Comfort Options",
+        "description": "Combining healthcare with leisure in premium destinations, offering optional spa treatments, sightseeing, and wellness retreats."
+      }
+    ],
+    "designSlot": "SLOT-SVC-TOU"
+  },
+  {
+    "id": "insurance-assistance",
+    "title": "Insurance Assistance Services",
+    "slug": "insurance-assistance",
+    "summary": "Direct billing arrangements, policy verification, and seamless claim management working directly with international insurers.",
+    "items": [
+      {
+        "title": "Insurance Issue Resolution",
+        "description": "Expert support to navigate and resolve insurance-related problems efficiently."
+      },
+      {
+        "title": "Claim Management",
+        "description": "Assistance with submitting, tracking, and processing international insurance claims."
+      },
+      {
+        "title": "Policy Verification",
+        "description": "Confirming coverage, policy limits, and benefits for medical and travel needs."
+      },
+      {
+        "title": "Direct Billing Arrangements",
+        "description": "Simplifying payment workflows by coordinating directly with insurance providers for cashless settlement."
+      },
+      {
+        "title": "Liaison with Insurance Companies",
+        "description": "Direct communications with insurers to guarantee smooth and hassle-free procedures."
+      }
+    ],
+    "designSlot": "SLOT-SVC-INS"
+  },
+  {
+    "id": "additional-services",
+    "title": "Additional Services",
+    "slug": "additional-services",
+    "summary": "Specialized support for corporate partners, international institutions, travel risk mitigation, and repatriation of mortal remains.",
+    "items": [
+      {
+        "title": "Travel Risk Assessments",
+        "description": "Pre-travel medical risk evaluations and safety recommendations."
+      },
+      {
+        "title": "Documentation and Paperwork",
+        "description": "Medical reports, consular certifications, and official translations."
+      },
+      {
+        "title": "Customized Corporate Support",
+        "description": "Tailored healthcare support for multinational corporate clients and insurance partners."
+      },
+      {
+        "title": "Repatriation of Mortal Remains",
+        "description": "Dignified, compassionate, and fully coordinated international repatriation handling all regulatory requirements."
+      }
+    ],
+    "designSlot": "SLOT-SVC-ADD"
+  }
+]

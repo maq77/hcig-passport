@@ -7,9 +7,10 @@ interface CountUpProps {
   end: number;
   suffix?: string;
   duration?: number;
+  locale?: string;
 }
 
-export default function CountUp({ end, suffix = "", duration = 1.4 }: CountUpProps) {
+export default function CountUp({ end, suffix = "", duration = 1.4, locale }: CountUpProps) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
@@ -39,7 +40,7 @@ export default function CountUp({ end, suffix = "", duration = 1.4 }: CountUpPro
 
   return (
     <div ref={ref} className="metric-number">
-      {count.toLocaleString()}
+      {count.toLocaleString(locale)}
       {suffix}
     </div>
   );

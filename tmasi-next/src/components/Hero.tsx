@@ -1,9 +1,22 @@
 "use client";
 
+import { Fragment } from "react";
 import Reveal from "./Reveal";
 import Image from "next/image";
+import { useSite } from "./site/SiteProvider";
+import { Segs, splitLines } from "./site/Segments";
+import { asset } from "@/lib/asset";
+import type { Lang } from "@/content/ui";
+
+// Phone line breaks by meaning, per language (approved for English, 2026-09-28). Languages without an
+// entry let the title wrap on its own.
+const BREAKS: Partial<Record<Lang, string[]>> = { en: ["Partner in", "Travel,"] };
+const ACCENT = { color: "var(--tmasi-teal)" };
 
 export default function Hero() {
+  const { lang, live } = useSite();
+  const h = live.home.hero;
+  const lines = BREAKS[lang] ? splitLines(h.title, BREAKS[lang]!) : null;
   return (
     <section className="section-hero" id="hero" style={{ position: "relative", overflow: "hidden" }}>
       {/* Background Images for Desktop and Mobile */}
@@ -11,7 +24,7 @@ export default function Hero() {
         {/* Desktop Hero Image (hidden on mobile) */}
         <div className="hero-desktop-bg" style={{ position: "absolute", inset: 0 }}>
           <Image 
-            src="/tmasi/v3/img/glavbanner.jpg"
+            src={asset("/img/glavbanner.jpg")}
             alt="TMASI Global Assistance"
             fill
             style={{ objectFit: "cover", objectPosition: "center top" }}
@@ -22,7 +35,7 @@ export default function Hero() {
         {/* Mobile Hero Image (hidden on desktop) */}
         <div className="hero-mobile-bg" style={{ position: "absolute", inset: 0 }}>
           <Image 
-            src="/tmasi/v3/img/bgmob.jpg"
+            src={asset("/img/bgmob.jpg")}
             alt="TMASI Global Assistance"
             fill
             style={{ objectFit: "cover", objectPosition: "center top" }}
@@ -37,20 +50,21 @@ export default function Hero() {
       <div className="hero-container" style={{ position: "relative", zIndex: 2 }}>
         <div className="hero-content">
           <Reveal delay={0.1}>
-            {/* Same words as the live site, broken by meaning: each line is one idea and never wraps. */}
+            {/* The live title, word for word. English breaks by meaning on phones: each line is one idea. */}
             <h1 className="section-hero-heading" style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
-              <span className="hero-line">Your <strong className="orange" style={{ color: "var(--tmasi-teal)" }}>Trusted</strong> Partner in</span>{" "}
-              <span className="hero-line">Global Medical, Travel,</span>{" "}
-              <span className="hero-line">and Tourism Assistance.</span>
+              {lines
+                ? lines.map((l, i) => (
+                    <Fragment key={i}>
+                      <span className="hero-line"><Segs segs={l} accentClass="orange" accentStyle={ACCENT} /></span>{" "}
+                    </Fragment>
+                  ))
+                : <Segs segs={h.title} accentClass="orange" accentStyle={ACCENT} />}
             </h1>
           </Reveal>
 
           <Reveal delay={0.2}>
             <p className="section-hero-description" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
-              At TMASI Global, we specialize in delivering world-class medical, travel, and tourism assistance services.
-              With decades of industry experience and a deep commitment to client care, our company has become synonymous
-              with reliability, excellence, and innovation. We are dedicated to providing swift and effective solutions
-              to individuals, corporations, insurance companies, and travelers across the globe.
+              {h.text}
             </p>
           </Reveal>
 
@@ -61,10 +75,10 @@ export default function Hero() {
                 className="section-hero-btn"
                 onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event("tmasi:open-quote")); }}
               >
-                Request A Quote
+                {h.ctaQuote}
               </a>
               <a href="https://wa.me/201206788566" target="_blank" rel="noopener noreferrer" className="section-hero-btn2">
-                CALL THE TEAM
+                {h.ctaCall}
               </a>
             </div>
           </Reveal>

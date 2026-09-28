@@ -9,9 +9,9 @@ export const PHONE = {
 };
 
 export const NUMBERS = [
-  { value: 20, label: "Years of Healthcare Experience", source: "their own counter; the user 2026-09-23" },
-  { value: 30, label: "Hotel & Resort Clinics", source: "the user 2026-09-23; matches the 30 clinics in their map data" },
-  { value: 300, label: "Staff", source: "their own counter; the user 2026-09-23" },
+  { value: 40, label: "Years of Healthcare Experience", source: "their own counter; the user 2026-09-28" },
+  { value: 130, label: "Hotel & Resort Clinics", source: "the user 2026-09-28; updated stats" },
+  { value: 700, label: "Staff", source: "their own counter; the user 2026-09-28" },
 ] as const;
 
 export const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";

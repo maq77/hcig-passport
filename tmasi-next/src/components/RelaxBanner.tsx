@@ -5,8 +5,16 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
 import JourneyLine from "./JourneyLine";
+import { useSite } from "./site/SiteProvider";
+import { asset } from "@/lib/asset";
+import type { Seg } from "./site/Segments";
 
-export default function RelaxBanner() {
+type Relax = { title: Seg[]; text: string };
+
+// The live slogan and paragraph, per language. On phones the highlighted words sit on their own line.
+export default function RelaxBanner({ content }: { content?: Relax }) {
+  const { live } = useSite();
+  const r: Relax = content || live.home.relax;
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -22,7 +30,7 @@ export default function RelaxBanner() {
         style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "140%", y, zIndex: 0 }}
       >
         <Image 
-          src="/tmasi/v3/img/abouts.jpg" 
+          src={asset("/img/abouts.jpg")} 
           alt="TMASI Global Relax and Enjoy" 
           fill 
           style={{ objectFit: "cover", objectPosition: "center" }}
@@ -36,16 +44,23 @@ export default function RelaxBanner() {
         <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto" }}>
           <Reveal type="scale">
             <h2 className="headline-titling relax-heading" style={{ color: "#ffffff", fontSize: "clamp(30px, 6vw, 42px)", fontWeight: 800, marginBottom: "20px", letterSpacing: "1px", textShadow: "0 4px 20px rgba(0,0,0,0.5)", lineHeight: 1.2 }}>
-              TMASI Global: Where <br className="mobile-br" />
-              <span style={{ color: "var(--tmasi-teal)", whiteSpace: "nowrap" }}>RELAX &amp; ENJOY</span>{" "}
-              <br className="mobile-br" />
-              Is All You Need to Do.
+              {r.title.map((seg, i) =>
+                seg.accent ? (
+                  <span key={i}>
+                    <br className="mobile-br" />
+                    <span style={{ color: "var(--tmasi-teal)", whiteSpace: "nowrap" }}>{seg.t.trim()}</span>
+                    <br className="mobile-br" />
+                  </span>
+                ) : (
+                  <span key={i}>{seg.t}</span>
+                )
+              )}
             </h2>
           </Reveal>
           
           <Reveal delay={0.2}>
             <p style={{ color: "rgba(255,255,255,0.95)", fontSize: "clamp(15px, 2.5vw, 17px)", lineHeight: 1.8, margin: "0 auto", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
-              To make this a reality, we've built a robust infrastructure supported by a dedicated team of professionals. From the moment of booking to their return home, we handle every detail, ensuring immediate and seamless support for all their needs, so they can experience peace of mind throughout their journey.
+              {r.text}
             </p>
           </Reveal>
         </div>

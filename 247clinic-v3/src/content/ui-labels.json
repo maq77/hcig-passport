@@ -40,7 +40,9 @@
     "Show photo",
     "Show more",
     "Show less",
-    "FAQ"
+    "FAQ",
+    "Trusted by Patients",
+    "Trusted by patient"
   ],
   "patterns": [
     "^Call \\+20 122 222 8247$",

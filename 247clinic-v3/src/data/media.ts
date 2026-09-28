@@ -25,7 +25,7 @@ export const STORIES: Film[] = [
 
 /* Pexels photographs (credits in docs/247clinic-v3-media-credits.md). */
 export const PHOTOS = {
-  why: { src: "/img/why-bedside.webp", w: 1400, h: 933 },
+  why: { src: "/img/trusted-main.jpg", w: 967, h: 1280 },
   whyResort: { src: "/img/why-resort.webp", w: 900, h: 602 },
   resort: { src: "/img/resort-aerial-2400.webp", small: "/img/resort-aerial-1200.webp", w: 2400, h: 1600 },
 };
@@ -35,7 +35,7 @@ export const PHOTOS = {
    approved hero and stays a slot the editor can replace. Captions come from the page. */
 export const HERO_SLIDES = [
   { src: "/slots/hero-desktop.webp", slot: "hero-desktop.webp", w: 1376, h: 768, pos: "64% 50%" },
-  { src: "/img/hero-resort.webp", w: 1376, h: 768, pos: "74% 50%" },
+  { src: "/img/hero-resort-authentic.jpg", w: 1080, h: 1440, pos: "74% 50%" },
   { src: "/img/hero-message.webp", w: 1376, h: 768, pos: "72% 50%" },
   { src: "/img/hero-family.webp", w: 1376, h: 768, pos: "70% 50%" },
 ];
@@ -94,4 +94,16 @@ export const FLAGS: Record<string, string> = { Germany: "de", Italy: "it", Switz
 export const POSTS = [
   { title: "Fast & Reliable Medical Services in the Red Sea", day: "22", month: "Nov 2023", img: "/img/post-red-sea.webp", href: "https://www.247clinic.net/article/2023/11/fast-reliable-medical-services-in-the-red-sea" },
   { title: "Unveiling the Best 24/7 Clinics for Travelers", day: "15", month: "Nov 2023", img: "/img/post-best-clinics.webp", href: "https://www.247clinic.net/article/2023/11/unveiling-the-best-urgent-clinics-for-travelers" },
+];
+
+
+/* Photos provided by user for "Trusted by Patients" gallery */
+export const TRUSTED_PHOTOS = [
+  { src: "/img/trusted-1.jpeg", w: 969, h: 1280 },
+  { src: "/img/trusted-2.png", w: 1536, h: 2048 },
+  { src: "/img/trusted-3.png", w: 1600, h: 1200 },
+  { src: "/img/trusted-4.jpeg", w: 1019, h: 1280 },
+  { src: "/img/trusted-5.jpeg", w: 1042, h: 1280 },
+  { src: "/img/trusted-6.jpeg", w: 1038, h: 1280 },
+  { src: "/img/trusted-7.jpeg", w: 973, h: 1280 },
 ];
