@@ -68,9 +68,11 @@ export function SitePage({ lang, slug }: { lang: Lang; slug?: string[] }) {
 }
 
 // Titles and descriptions: the live page's own, kept as they are. Pages the live site does not have
-// get the page's own heading. The Polish home, Polish about and Spanish about carry German titles on
-// the live site; by decision those take the page's own heading instead.
-const WRONG_LANGUAGE_TITLE = new Set(["pl:home", "pl:about", "es:about"]);
+// get the page's own heading. Some live pages carry a title in another language (German on the Polish
+// home, about, services and contact pages and on the Spanish about page, English on the Spanish
+// blog); by decision those take the page's own heading instead (the menu word for Contact, whose
+// heading belongs to its form).
+const WRONG_LANGUAGE_TITLE = new Set(["pl:home", "pl:about", "pl:services", "pl:contact", "es:about", "es:blog"]);
 const stripFlag = (t: string) => t.replace(/^[\u{1F1E6}-\u{1F1FF}]{2}\s*/u, "");
 
 export function siteMetadata(lang: Lang, slug?: string[]): Metadata {
@@ -87,7 +89,14 @@ export function siteMetadata(lang: Lang, slug?: string[]): Metadata {
       title = meta[route.key]?.title || "";
       description = meta[route.key]?.description || "";
       if (WRONG_LANGUAGE_TITLE.has(`${lang}:${route.key}`)) {
-        title = brand(route.key === "home" ? live.home.hero.title.map((s) => s.t).join("") : live.about.heading);
+        const own: Record<string, string> = {
+          home: live.home.hero.title.map((s) => s.t).join(""),
+          about: live.about.heading,
+          services: live.services.heading,
+          contact: live.shell.nav[3] || "",
+          blog: (live as { blog?: { heading: string } }).blog?.heading || ui.latestNews,
+        };
+        title = brand(own[route.key]);
       }
       if (!title && route.key === "blog") title = brand(ui.latestNews);
       break;
