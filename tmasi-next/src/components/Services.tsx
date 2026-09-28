@@ -5,7 +5,19 @@ import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 import CornerOrbs from "./CornerOrbs";
 import { useEffect, useState } from "react";
-import { ChevronRight, X, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ChevronRight, X, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { useSite } from "./site/SiteProvider";
+import { asset } from "@/lib/asset";
+
+// The same photo for each group in every language (the live site's own images).
+const GROUP_IMAGES = ["/img/msa.jpg", "/img/emc.jpeg", "/img/tas.jpg", "/img/mtss.jpg", "/img/ia.jpg", "/img/as.jpg"];
+
+/** "One Call, Endless Support: TMASI Global Has You Covered." shown on two lines after its first colon. */
+function twoLines(t: string) {
+  const i = t.search(/[:.]\s/);
+  return i < 0 ? t : <>{t.slice(0, i + 1)}<br />{t.slice(i + 2)}</>;
+}
 
 type Bullet = {
   title?: string;
@@ -17,10 +29,12 @@ type Service = {
   img: string;
   title: string;
   bullets: Bullet[];
+  href?: string;
 };
 
 export default function Services() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const { live, ui, links } = useSite();
 
   // Disable body scroll when modal is open
   useEffect(() => {
@@ -33,82 +47,14 @@ export default function Services() {
   }, [selectedService]);
 
   // Every group name, item title and item text is word for word from the live tmasi.net home (2026-09-26 backup).
-  const services: Service[] = [
-    {
-      id: 1,
-      img: "/tmasi/v3/img/msa.jpg",
-      title: "Medical Assistance Services",
-      bullets: [
-        { title: "Emergency Medical Assistance", text: "Immediate response and professional medical support around the clock." },
-        { title: "Air and Ground Medical Evacuations", text: "Safe and efficient transport to the nearest medical facilities." },
-        { title: "Hospital and Treatment Coordination", text: "Connecting patients to top-quality healthcare services." },
-        { title: "Case Management and Follow-Up", text: "Continuous monitoring and support to ensure the best outcomes." },
-        { title: "Evaluation and Review", text: "Regular assessments to maintain high standards of care." },
-        { title: "Funeral Services", text: "Compassionate and professional coordination of funeral arrangements." }
-      ]
-    },
-    {
-      id: 2,
-      img: "/tmasi/v3/img/emc.jpeg",
-      title: "Elite Medical Concierge Services",
-      bullets: [
-        { title: "Doctor On Call", text: "Licensed physicians available for private medical consultations at hotels, residences, or workplaces." },
-        { title: "Private Medical Visits", text: "Personalized healthcare delivered directly to your location for maximum comfort and privacy." },
-        { title: "Portable Medical Diagnostics", text: "Basic diagnostic equipment available during visits for immediate medical assessment." },
-        { title: "VIP Patient Care", text: "Discreet and personalized medical support tailored for VIP travelers and families." },
-        { title: "Insurance Covered Services", text: "Doctor visits can be coordinated with international insurance and assistance providers for cashless treatment whenever coverage is available." },
-        { title: "Follow-up Medical Support", text: "Ongoing guidance and medical coordination after the initial consultation if further care is required." }
-      ]
-    },
-    {
-      id: 3,
-      img: "/tmasi/v3/img/tas.jpg",
-      title: "Travel Assistance Services",
-      bullets: [
-        { title: "Optimized Customer Experience", text: "Personalized support to ensure seamless journeys." },
-        { title: "Translation Assistance", text: "Multilingual support to overcome language barriers." },
-        { title: "Advance Cash Provision", text: "Financial support in emergencies." },
-        { title: "Roadside Assistance and Car Replacement", text: "Immediate help with breakdowns and vehicle replacements." },
-        { title: "Taxi Bookings", text: "Reliable and prompt transportation services." },
-        { title: "Hotel and Flight Reservations", text: "Convenient booking support to minimize stress." },
-        { title: "Legal Consultations and Support", text: "Professional advice and guidance when needed." }
-      ]
-    },
-    {
-      id: 4,
-      img: "/tmasi/v3/img/mtss.jpg",
-      title: "Medical Tourism Services",
-      bullets: [
-        { title: "Comprehensive Healthcare Packages", text: "Tailored solutions for wellness, longevity, and recovery programs, full body check-ups, diagnostics, second opinions, treatments, and surgeries." },
-        { title: "Top Medical Destinations", text: "Access to world-renowned hospitals, clinics, and rehabs, top doctors, and technologies/equipment in Germany, Spain, Egypt, and the UAE." },
-        { title: "Personalized Travel Arrangements", text: "From visas and transportation to accommodation and post-treatment care." },
-        { title: "Dedicated Coordinators", text: "One-point contact to manage all aspects of the medical journey." },
-        { title: "Luxury and Comfort Options", text: "Combine healthcare with leisure in premium destinations, offering optional spa treatments, sightseeing, and retreats." }
-      ]
-    },
-    {
-      id: 5,
-      img: "/tmasi/v3/img/ia.jpg",
-      title: "Insurance Assistance",
-      bullets: [
-        { title: "Insurance Issue Resolution", text: "Expert support to navigate and resolve insurance-related problems efficiently." },
-        { title: "Claim Management", text: "Assistance with submitting, tracking, and processing insurance claims." },
-        { title: "Policy Verification", text: "Confirming coverage and benefits for medical and travel needs." },
-        { title: "Direct Billing Arrangements", text: "Simplifying the payment process by coordinating directly with insurance providers." },
-        { title: "Liaison with Insurance Companies", text: "We handle communication with insurers to ensure smooth and hassle-free procedures." }
-      ]
-    },
-    {
-      id: 6,
-      img: "/tmasi/v3/img/as.jpg",
-      title: "Additional Services",
-      bullets: [
-        { text: "Travel risk assessments and safety recommendations." },
-        { text: "Assistance with documentation and paperwork." },
-        { text: "Customized support for corporate clients and insurance partners." }
-      ]
-    }
-  ];
+  // Every group name, item title and item text is word for word from the live home in this language.
+  const services: Service[] = live.home.services.groups.map((g, i) => ({
+    id: i + 1,
+    img: asset(GROUP_IMAGES[i] || GROUP_IMAGES[0]),
+    title: g.title,
+    bullets: g.items as Bullet[],
+    href: links.groups[i],
+  }));
 
   // The card preview lists the group's first three item names (live words), so no summary text has to be invented.
   const preview = (svc: Service) =>
@@ -119,10 +65,7 @@ export default function Services() {
       <CornerOrbs />
       <div className="lx-wrap relative z-10">
         <Reveal>
-          <SectionHead
-            title="Our Services"
-            sub={<>One Call, Endless Support.<br />TMASI Global Has You Covered.</>}
-          />
+          <SectionHead title={live.home.services.title} sub={twoLines(live.home.services.sub)} />
         </Reveal>
 
         <div className="packages-grid">
@@ -147,7 +90,7 @@ export default function Services() {
                   
                   <div className="package-action">
                     <span className="view-details-btn">
-                      View Details <ChevronRight size={16} className="vd-icon" />
+                      {ui.viewDetails} <ChevronRight size={16} className="vd-icon" />
                     </span>
                   </div>
                 </div>
@@ -189,6 +132,11 @@ export default function Services() {
                   </li>
                 ))}
               </ul>
+              {selectedService.href && (
+                <Link href={selectedService.href} className="modal-page-link">
+                  {selectedService.title} <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -492,6 +440,13 @@ export default function Services() {
         @media (max-width: 640px) {
           .modal-quote-box p { font-size: 16px; }
         }
+
+        .modal-page-link {
+          display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; min-height: 44px;
+          color: var(--tmasi-teal); font-weight: 700; font-size: 15px; text-decoration: none;
+          border-bottom: 1px solid rgba(0,154,156,0.35);
+        }
+        .modal-page-link:hover { color: var(--lx-ink); border-color: var(--lx-ink); }
 
         .modal-details-list {
           list-style: none;

@@ -3,66 +3,52 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./Reveal";
+import { useSite } from "./site/SiteProvider";
+import { asset } from "@/lib/asset";
 import { ArrowRight } from "lucide-react";
 
-export default function Blog() {
-  // The three newest posts on the live tmasi.net blog, word for word (titles, place and date line, excerpts).
-  // Cards open the live article until the v3 blog pages exist.
-  const posts = [
-    {
-      id: 6,
-      title: "TMASI Global Joins the International Travel & Health Insurance Conference (ITIC Global) 2026 as an Official Sponsor",
-      date: "Istanbul, Turkey · October 2026",
-      image: "/img/news/itic-global-2026-istanbul.jpg",
-      href: "https://tmasi.net/blog/news6.php",
-      excerpt: "TMASI Global is proud to join the International Travel & Health Insurance Conference (ITIC Global) 2026 in Istanbul as an official sponsor, taking part in one of the leading international gatherings for the travel insurance, medical assistance, and global healthcare industries."
-    },
-    {
-      id: 5,
-      title: "TMASI Global Announces Strategic Partnership with Hansa Medica Group at the Grand Egyptian Museum",
-      date: "Giza, Egypt · June 2026",
-      image: "/img/news/hansa-medica-grand-egyptian-museum-1.jpg",
-      href: "https://tmasi.net/blog/news5.php",
-      excerpt: "TMASI Global is proud to announce a strategic partnership with Hansa Medica Group, the trusted medical provider serving the Grand Egyptian Museum in Giza, Egypt."
-    },
-    {
-      id: 4,
-      title: "TMASI Global Takes the Stage at ITIC Global Venice 2025",
-      date: "Venice, Italy · November 2025",
-      image: "/img/D917A331-9A8C-436C-AB74-A070CB235C40.PNG",
-      href: "https://tmasi.net/blog/news4.php",
-      excerpt: "This year, TMASI Global had the honor of taking the stage at the ITIC Global 2025 - International Travel & Health Insurance Conference in Venice, one of the most prestigious global events for the travel and health insurance industry."
-    }
-  ];
+// News cards in this language, newest first: the live blog's own titles, datelines and excerpts
+// (German and Polish: the translated drafts). On the home: the three newest. On the blog page: all,
+// under the page's own heading.
+export default function Blog({ page = false }: { page?: boolean }) {
+  const { ui, links, posts: all } = useSite();
+  const posts = (page ? all : all.slice(0, 3)).map((p) => ({ ...p, id: p.key, href: links.posts[p.key] }));
+  if (!posts.length) return null;
+  const heading = ui.latestNews;
 
   return (
     <section className="section-blog lx-section lx-white" id="blog">
       <div className="lx-wrap">
+        {/* On the blog page the page hero already carries the title. */}
+        {!page && (
         <Reveal>
-          <div className="news-head">
-            <div className="lx-head lx-head--left" style={{ marginBottom: 0 }}>
-              <h2 className="lx-title">Latest News &amp; Updates</h2>
+            <div className="news-head">
+              <div className="lx-head lx-head--left" style={{ marginBottom: 0 }}>
+                <h2 className="lx-title">{heading}</h2>
+              </div>
+              {!page && links.blog && (
+                <Link href={links.blog} className="news-all">
+                  {ui.viewAllNews} <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+              )}
             </div>
-            <Link href="https://tmasi.net/blog/" className="news-all">
-              View All News <ArrowRight size={16} aria-hidden="true" />
-            </Link>
-          </div>
-        </Reveal>
+          </Reveal>
+        )}
 
         <div className="news-grid">
           {posts.map((post, i) => (
             <Reveal key={post.id} delay={i * 0.08} className="news-cell">
-              <a href={post.href} className="news-card">
+              <Link href={post.href} className="news-card">
                 <div className="news-img">
-                  <Image src={`/tmasi/v3${post.image}`} alt="" fill sizes="(max-width: 700px) 100vw, 33vw" style={{ objectFit: "cover" }} />
+                  <Image src={asset(post.image)} alt="" fill sizes="(max-width: 700px) 100vw, 33vw" style={{ objectFit: "cover" }} />
                 </div>
                 <div className="news-body">
-                  <p className="news-date">{post.date}</p>
+                  <p className="news-date">{post.cardDate}</p>
                   <h3 className="news-title">{post.title}</h3>
                   <p className="news-excerpt">{post.excerpt}</p>
-                  <span className="news-more">Read more <ArrowRight size={15} aria-hidden="true" /></span>
+                  <span className="news-more">{ui.readMore} <ArrowRight size={15} aria-hidden="true" /></span>
                 </div>
-              </a>
+              </Link>
             </Reveal>
           ))}
         </div>

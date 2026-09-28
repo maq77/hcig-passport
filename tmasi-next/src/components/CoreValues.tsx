@@ -2,30 +2,28 @@
 
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
+import { useSite } from "./site/SiteProvider";
 
-// Words are the live tmasi.net Core Values, unchanged (the dash in the heading became a colon, as on the live site).
-const VALUES = [
-  { n: "1", title: "Client-Centered", text: "We prioritize the safety, comfort, and needs of every patient and traveler." },
-  { n: "2", title: "Integrity & Transparency", text: "We provide honest, clear, and ethical guidance throughout the journey." },
-  { n: "3", title: "Excellence & Reliability", text: "We deliver seamless, high-quality assistance and dependable support." },
-  { n: "4", title: "Global Collaboration & Respect", text: "We build strong international partnerships and honor cultural diversity." },
-];
+// Words are the live tmasi.net Core Values in each language (a heading dash became a colon, as live).
+type Values = { title: string; items: { n: string; title: string; text: string }[] };
 
-export default function CoreValues() {
+export default function CoreValues({ content }: { content?: Values }) {
+  const { live } = useSite();
+  const v = content || live.home.values;
   return (
     <section className="values-section lx-section lx-white" id="values">
       <div className="lx-wrap">
         <Reveal>
-          <SectionHead title="TMASI Global: Core Values" />
+          <SectionHead title={v.title} />
         </Reveal>
 
         <div className="cv-grid">
-          {VALUES.map((v, i) => (
-            <Reveal key={v.n} delay={0.06 * i} className="cv-item">
+          {v.items.map((item, i) => (
+            <Reveal key={item.n} delay={0.06 * i} className="cv-item">
               <div className="cv-card">
-                <span className="cv-num" aria-hidden="true">{v.n}</span>
-                <h3 className="cv-title">{v.title}</h3>
-                <p className="cv-text">{v.text}</p>
+                <span className="cv-num" aria-hidden="true">{item.n}</span>
+                <h3 className="cv-title">{item.title}</h3>
+                <p className="cv-text">{item.text}</p>
               </div>
             </Reveal>
           ))}

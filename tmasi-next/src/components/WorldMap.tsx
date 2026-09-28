@@ -4,24 +4,22 @@ import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 import CornerOrbs from "./CornerOrbs";
 import { MapPin, Phone, Mail } from "lucide-react";
+import Link from "next/link";
+import { useSite } from "./site/SiteProvider";
 
 export default function WorldMap() {
-  // Office names, addresses, phones and emails word for word from the live tmasi.net footer (2026-09-26 backup).
-  // The footer gives no USA email; usa@tmasi.net is from the live contacts page.
-  const hubs = [
-    { id: "egypt", name: "Egypt Office", address: "Airport Road, Hurghada, Red Sea, Egypt.", phone: "+20 120 678 8566", tel: "+201206788566", email: "egypt@tmasi.net" },
-    { id: "germany", name: "Germany Office", address: "Leopoldstraße 244, Munich, Germany, 80807", phone: "+49 170 9350490", tel: "+491709350490", email: "germany@tmasi.net" },
-    { id: "uae", name: "United Arab Emirates Office", address: "Dubai, United Arab Emirates", phone: "+971 586 824 247", tel: "+971586824247", email: "uae@tmasi.net" },
-    { id: "spain", name: "Spain Office", address: "Barcelona, Spain", phone: "+34 930 414 953", tel: "+34930414953", email: "spain@tmasi.net" },
-    { id: "usa", name: "USA Office", address: "Florida, USA", phone: "+1 727 591 9010", tel: "+17275919010", email: "usa@tmasi.net" }
-  ];
+  const { live, ui, links } = useSite();
+  // Office names, addresses, phones and emails word for word from the live footer in this language.
+  // The footer gives no USA email; the live contacts page does (usa@tmasi.net).
+  const contactEmails = live.contact.offices.map((o) => o.email[0] || "");
+  const hubs = live.shell.offices.map((o, i) => ({ ...o, id: String(i), email: o.email || contactEmails[i], href: links.offices[i] }));
 
   return (
     <section id="offices" className="lx-section lx-surface">
       <CornerOrbs corners={["top-left", "bottom-right"]} />
       <div className="lx-wrap relative z-10">
         <Reveal>
-          <SectionHead title="Global Operational Hubs" />
+          <SectionHead title={ui.hubsTitle} />
         </Reveal>
 
         {/* One panel, five offices side by side, divided by hairlines. */}
@@ -29,10 +27,10 @@ export default function WorldMap() {
           <ul className="hubs-panel">
             {hubs.map((hub) => (
               <li key={hub.id} className="hub">
-                <h3 className="hub-name">{hub.name}</h3>
+                <h3 className="hub-name">{hub.href ? <Link href={hub.href}>{hub.name}</Link> : hub.name}</h3>
                 <p className="hub-line hub-address"><MapPin size={16} aria-hidden="true" /> <span>{hub.address}</span></p>
                 <p className="hub-line"><Phone size={16} aria-hidden="true" /> <a href={`tel:${hub.tel}`}>{hub.phone}</a></p>
-                <p className="hub-line"><Mail size={16} aria-hidden="true" /> <a href={`mailto:${hub.email}`}>{hub.email}</a></p>
+                {hub.email && <p className="hub-line"><Mail size={16} aria-hidden="true" /> <a href={`mailto:${hub.email}`}>{hub.email}</a></p>}
               </li>
             ))}
           </ul>
@@ -51,6 +49,8 @@ export default function WorldMap() {
           content: ""; position: absolute; top: -1px; left: clamp(18px, 1.7vw, 26px);
           width: 32px; height: 2px; background: var(--tmasi-teal);
         }
+        .hub-name a { color: inherit; text-decoration: none; }
+        .hub-name a:hover { color: var(--tmasi-teal); }
         .hub-name { margin: 0 0 16px; font-size: 16px; font-weight: 700; line-height: 1.35; color: var(--lx-ink); letter-spacing: -0.01em; }
         .hub-line {
           display: flex; gap: 10px; align-items: flex-start; margin: 0 0 10px;

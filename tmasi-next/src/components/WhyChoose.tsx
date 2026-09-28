@@ -3,30 +3,27 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
+import { useSite } from "./site/SiteProvider";
+import { asset } from "@/lib/asset";
 
-// Words are the live tmasi.net "Why Choose TMASI Global?", unchanged
-// (the dash before "no need to coordinate" became a full stop, as on the live site).
-const REASONS = [
-  { icon: "/tmasi/v3/img/support.png", title: "One Call, Total Support", text: "With TMASI Global, you only need to make one call. No need to coordinate with multiple contacts or manage different services on your own." },
-  { icon: "/tmasi/v3/img/maintenance.png", title: "End-to-End Control", text: "We take full responsibility for every step of the process, from medical emergencies to travel arrangements and medical tourism, ensuring a smooth and hassle-free experience." },
-  { icon: "/tmasi/v3/img/support (1).png", title: "Problem Solving and Efficiency", text: "Our dedicated team handles everything with professionalism, quickly resolving issues while keeping you informed at every stage." },
-  { icon: "/tmasi/v3/img/experience.png", title: "Decades of Industry Experience", text: "Our wealth of knowledge and expertise guarantees reliable and innovative solutions." },
-  { icon: "/tmasi/v3/img/social-care.png", title: "Comprehensive Assistance", text: "Medical, travel, and tourism support tailored to meet diverse client needs." },
-];
+// Words are the live tmasi.net "Why Choose TMASI Global?" in each language, unchanged.
+type Why = { title: string; items: { title: string; text: string; icon: string }[] };
 
-export default function WhyChoose() {
+export default function WhyChoose({ content }: { content?: Why }) {
+  const { live } = useSite();
+  const w = content || live.home.why;
   return (
     <section className="section-why lx-section lx-white" id="why">
       <div className="lx-wrap">
         <Reveal>
-          <SectionHead title="Why Choose TMASI Global?" />
+          <SectionHead title={w.title} />
         </Reveal>
 
         {/* Five reasons in one row, divided by hairlines: everything visible at a glance. */}
         <div className="why-row">
-          {REASONS.map((r, i) => (
+          {w.items.map((r, i) => (
             <Reveal key={r.title} delay={0.05 * i} className="why-cell">
-              <Image src={r.icon} alt="" width={48} height={48} className="why-icon" />
+              <Image src={asset(r.icon)} alt="" width={48} height={48} className="why-icon" />
               <div>
                 <h3 className="why-title">{r.title}</h3>
                 <p className="why-text">{r.text}</p>

@@ -6,11 +6,14 @@ import { useEffect, useRef, useState } from "react";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 import QuoteForm from "./QuoteForm";
+import { useSite } from "./site/SiteProvider";
 
 // "Request My Free Quote" on the home (design B, approved 2026-09-28), right after Our Services.
 // Heading and paragraph are the live tmasi.net footer text. The form opens in place from the button;
 // anything else on the page can open it with the "tmasi:open-quote" event (the hero REQUEST A QUOTE does).
 export default function QuoteSection() {
+  const { live } = useSite();
+  const q = live.shell.quote;
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
@@ -42,8 +45,8 @@ export default function QuoteSection() {
       <div className="lx-wrap">
         <Reveal>
           <SectionHead
-            title="Request My Free Quote"
-            sub="Choose TMASI GLOBAL as your travel medical assistant to ensure the safety and well-being of your tourists wherever they go. Simply fill out our quick form to let us know your needs, and our team will get in touch with a customized solution to support your tourists on the move."
+            title={q.title}
+            sub={q.text}
           />
         </Reveal>
 
@@ -55,7 +58,7 @@ export default function QuoteSection() {
             aria-controls="quote-panel"
             onClick={() => setOpen((o) => !o)}
           >
-            Request a Quote
+            {q.submit}
             <ChevronDown size={18} aria-hidden="true" className="qs-chevron" />
           </button>
         </div>

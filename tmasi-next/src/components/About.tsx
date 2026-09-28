@@ -15,7 +15,7 @@ export default function About() {
         <Reveal>
           <div className="lx-head">
             <h2 className="lx-title">{a.eyebrow}</h2>
-            <h3 className="about-statement" style={{ marginTop: "16px" }}>{a.statement}</h3>
+            <h3 className={`about-statement${lang === "en" ? " about-statement--one" : ""}`} style={{ marginTop: "16px" }}>{a.statement}</h3>
           </div>
         </Reveal>
 
@@ -58,8 +58,10 @@ export default function About() {
         
         .about-statement {
           margin: 0; color: var(--tmasi-teal); font-weight: 800; letter-spacing: -0.02em;
-          font-size: clamp(34px, 4.5vw, 60px); line-height: 1.1; white-space: nowrap;
+          font-size: clamp(34px, 4.5vw, 60px); line-height: 1.1; white-space: normal; text-wrap: balance;
         }
+        /* English stays on one line, as approved; longer languages wrap in balanced lines. */
+        .about-statement--one { white-space: nowrap; }
         .about-copy { max-width: 920px; margin: 0 auto; text-align: center; }
         .about-lead {
           margin: 0 0 22px; color: #1E293B; font-weight: 500;
@@ -94,7 +96,8 @@ export default function About() {
         }
         @media (max-width: 520px) {
           /* Stays on one line on phones, as on the live site. */
-          .about-statement { font-size: 5.5vw; }
+          .about-statement { font-size: 26px; }
+          .about-statement--one { font-size: 5.5vw; }
           .about-stat { padding: 24px 8px; gap: 10px; }
           .about-stat dt { font-size: 10.5px; letter-spacing: 0.14em; }
         }

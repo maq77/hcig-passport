@@ -5,10 +5,12 @@ import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import QuoteForm from "./QuoteForm";
+import { useSite } from "./site/SiteProvider";
 
 // The same quote form in a pop-up, opened from the "Ready to partner" band in the footer.
 // Escape or the backdrop closes it; focus moves in on open and back to the button on close.
 export default function QuoteModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { live, ui } = useSite();
   const reduce = useReducedMotion();
   const dialog = useRef<HTMLDivElement>(null);
   // Rendered into <body> so no parent's overflow or containment can clip the fixed overlay.
@@ -55,12 +57,12 @@ export default function QuoteModal({ open, onClose }: { open: boolean; onClose: 
             exit={{ opacity: 0, y: 16, scale: 0.98, transition: { duration: 0.2 } }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
-            <button type="button" className="qm-close" onClick={onClose} aria-label="Close">
+            <button type="button" className="qm-close" onClick={onClose} aria-label={ui.close}>
               <X size={22} aria-hidden="true" />
             </button>
             <span className="qm-rule" aria-hidden="true" />
-            <h2 id="qm-title" className="qm-title">Request My Free Quote</h2>
-            <p className="qm-sub">Choose TMASI GLOBAL as your travel medical assistant to ensure the safety and well-being of your tourists wherever they go. Simply fill out our quick form to let us know your needs, and our team will get in touch with a customized solution to support your tourists on the move.</p>
+            <h2 id="qm-title" className="qm-title">{live.shell.quote.title}</h2>
+            <p className="qm-sub">{live.shell.quote.text}</p>
             <QuoteForm idPrefix="quote-modal" columns={2} />
           </motion.div>
         </motion.div>

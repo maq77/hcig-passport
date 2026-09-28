@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState, type FormEvent } from "react";
+import { useSite } from "./site/SiteProvider";
 
 // The live tmasi.net "Request My Free Quote" form: same eight fields, same field names, same handler.
 // On tmasi.net itself the endpoint is "/send.php" and the reply is read; from the preview the browser
@@ -9,16 +10,18 @@ import { useState, type FormEvent } from "react";
 const QUOTE_ENDPOINT = process.env.NEXT_PUBLIC_QUOTE_ENDPOINT || "https://tmasi.net/send.php";
 const WHATSAPP = "https://wa.me/201206788566";
 
-const FIELDS = [
-  { label: "First Name", name: "fname", type: "text", auto: "given-name" },
-  { label: "Last Name", name: "lname", type: "text", auto: "family-name" },
-  { label: "Work Email", name: "mail", type: "email", auto: "email" },
-  { label: "Phone", name: "mobile", type: "tel", auto: "tel" },
-  { label: "Company", name: "company", type: "text", auto: "organization" },
-  { label: "Job Title", name: "jtitle", type: "text", auto: "organization-title" },
-  { label: "State/Territory", name: "subject", type: "text", auto: "address-level1" },
-  { label: "Country", name: "country", type: "text", auto: "country-name" },
-];
+// Field type and autofill hint per live field name. The labels come from each language's live form.
+const META: Record<string, { type: string; auto: string }> = {
+  fname: { type: "text", auto: "given-name" },
+  lname: { type: "text", auto: "family-name" },
+  mail: { type: "email", auto: "email" },
+  mobile: { type: "tel", auto: "tel" },
+  company: { type: "text", auto: "organization" },
+  jtitle: { type: "text", auto: "organization-title" },
+  subject: { type: "text", auto: "address-level1" },
+  country: { type: "text", auto: "country-name" },
+  msg: { type: "textarea", auto: "off" },
+};
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -31,7 +34,7 @@ const HANDSHAKE = [
   "M3 4h8",
 ];
 
-function Success() {
+function Success({ title, text }: { title: string; text: string }) {
   const reduce = useReducedMotion();
   const burst = Array.from({ length: 12 }, (_, i) => {
     const a = (i / 12) * Math.PI * 2;
@@ -75,13 +78,24 @@ function Success() {
           </svg>
         </motion.span>
       </div>
-      <h3 className="qf-success-title">Thank you!</h3>
-      <p className="qf-success-text">Our team will get in touch with a customized solution to support your tourists on the move.</p>
+      <h3 className="qf-success-title">{title}</h3>
+      <p className="qf-success-text">{text}</p>
     </motion.div>
   );
 }
 
-export default function QuoteForm({ idPrefix, columns = 4 }: { idPrefix: string; columns?: 2 | 4 }) {
+// variant "quote": the live "Request My Free Quote" form. variant "message": the live contact page's
+// "Leave Your Message" form. Both post to the same live handler with the live field names.
+export default function QuoteForm({ idPrefix, columns = 4, variant = "quote" }: { idPrefix: string; columns?: 2 | 4; variant?: "quote" | "message" }) {
+  const { live, ui, quoteThanks } = useSite();
+  const source = variant === "quote" ? live.shell.quote : live.contact.form;
+  const fields = Object.entries(source.fields as Record<string, string>).map(([name, label]) => ({
+    name, label, ...(META[name] || { type: "text", auto: "on" }),
+    ...(variant === "message" && name === "fname" ? { auto: "name" } : {}),
+    ...(variant === "message" && name === "subject" ? { auto: "off" } : {}),
+  }));
+  const submitLabel = source.submit;
+  const successText = variant === "quote" ? quoteThanks : ui.messageReceived;
   const [status, setStatus] = useState<Status>("idle");
 
   async function submit(e: FormEvent<HTMLFormElement>) {
@@ -113,7 +127,7 @@ export default function QuoteForm({ idPrefix, columns = 4 }: { idPrefix: string;
     <div className={`qf qf--${columns}`}>
       <AnimatePresence mode="wait" initial={false}>
         {status === "sent" ? (
-          <Success key="sent" />
+          <Success key="sent" title={ui.thankYou} text={successText} />
         ) : (
           <motion.form
             key="form"
@@ -122,27 +136,31 @@ export default function QuoteForm({ idPrefix, columns = 4 }: { idPrefix: string;
             noValidate
             exit={{ opacity: 0, y: -8, transition: { duration: 0.25 } }}
           >
-            {FIELDS.map((f) => (
-              <label key={f.name} className="qf-field" htmlFor={`${idPrefix}-${f.name}`}>
+            {fields.map((f) => (
+              <label key={f.name} className={`qf-field${f.type === "textarea" ? " qf-field--wide" : ""}`} htmlFor={`${idPrefix}-${f.name}`}>
                 <span className="qf-label">{f.label}</span>
-                <input
-                  id={`${idPrefix}-${f.name}`}
-                  className="qf-input"
-                  type={f.type}
-                  name={f.name}
-                  autoComplete={f.auto}
-                  required
-                />
+                {f.type === "textarea" ? (
+                  <textarea id={`${idPrefix}-${f.name}`} className="qf-input qf-textarea" name={f.name} rows={5} required />
+                ) : (
+                  <input
+                    id={`${idPrefix}-${f.name}`}
+                    className="qf-input"
+                    type={f.type}
+                    name={f.name}
+                    autoComplete={f.auto}
+                    required
+                  />
+                )}
               </label>
             ))}
             <div className="qf-actions">
               <button type="submit" className="qf-submit" disabled={status === "sending"}>
                 {status === "sending" ? <span className="qf-spinner" aria-hidden="true" /> : null}
-                {status === "sending" ? "Sending" : "Request a Quote"}
+                {status === "sending" ? ui.sending : submitLabel}
               </button>
               {status === "error" && (
                 <p className="qf-error" role="alert">
-                  Something went wrong. Please try again, or <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">CALL THE TEAM</a> on WhatsApp.
+                  {ui.errorBefore} <a href={WHATSAPP} target="_blank" rel="noopener noreferrer">{live.shell.call}</a> {ui.errorAfter}
                 </p>
               )}
             </div>
@@ -161,6 +179,8 @@ export default function QuoteForm({ idPrefix, columns = 4 }: { idPrefix: string;
           transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
         }
         .qf-input:hover { border-color: #cfd8e3; }
+        .qf-field--wide { grid-column: 1 / -1; }
+        .qf-textarea { height: auto; min-height: 140px; padding: 14px 16px; line-height: 1.6; resize: vertical; }
         .qf-input:focus { outline: none; background: #ffffff; border-color: var(--tmasi-teal); box-shadow: 0 0 0 4px rgba(0,154,156,0.14); }
         .qf-input:user-invalid { border-color: #c2410c; box-shadow: 0 0 0 4px rgba(194,65,12,0.10); }
         .qf-actions { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 8px; }

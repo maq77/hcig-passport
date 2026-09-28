@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002F[[...slug]]","\u002Fde\u002F[[...slug]]","\u002Fes\u002F[[...slug]]","\u002Fpl\u002F[[...slug]]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
