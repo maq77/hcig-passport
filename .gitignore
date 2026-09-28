@@ -28,6 +28,9 @@ brand guideline/
 *.jpg
 !src/assets/*.jpg
 !docs/**/*.jpg
+# TMASI v3 photos are site assets and must ship to HCIG Work (2026-09-28)
+!tmasi-next/public/**/*.jpg
+!src/tmasi-v3/**/*.jpg
 
 # OS
 .DS_Store
