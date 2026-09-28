@@ -25,7 +25,7 @@ export const STORIES: Film[] = [
 
 /* Pexels photographs (credits in docs/247clinic-v3-media-credits.md). */
 export const PHOTOS = {
-  why: { src: "/img/trusted-main.jpg", w: 967, h: 1280 },
+  why: { src: "/img/new-medical-care.jpg", w: 1080, h: 1346 },
   whyResort: { src: "/img/why-resort.webp", w: 900, h: 602 },
   resort: { src: "/img/resort-aerial-2400.webp", small: "/img/resort-aerial-1200.webp", w: 2400, h: 1600 },
 };
@@ -35,7 +35,7 @@ export const PHOTOS = {
    approved hero and stays a slot the editor can replace. Captions come from the page. */
 export const HERO_SLIDES = [
   { src: "/slots/hero-desktop.webp", slot: "hero-desktop.webp", w: 1376, h: 768, pos: "64% 50%" },
-  { src: "/img/hero-resort-authentic.jpg", w: 1080, h: 1440, pos: "74% 50%" },
+  { src: "/img/hero-resort-authentic.jpg", w: 1080, h: 1440, fitRight: true },
   { src: "/img/hero-message.webp", w: 1376, h: 768, pos: "72% 50%" },
   { src: "/img/hero-family.webp", w: 1376, h: 768, pos: "70% 50%" },
 ];
@@ -99,6 +99,7 @@ export const POSTS = [
 
 /* Photos provided by user for "Trusted by Patients" gallery */
 export const TRUSTED_PHOTOS = [
+  { src: "/img/trusted-main.jpg", w: 967, h: 1280 },
   { src: "/img/trusted-1.jpeg", w: 969, h: 1280 },
   { src: "/img/trusted-2.png", w: 1536, h: 2048 },
   { src: "/img/trusted-3.png", w: 1600, h: 1200 },
