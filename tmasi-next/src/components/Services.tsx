@@ -212,7 +212,10 @@ export default function Services() {
         /* Mobile Slider CSS */
         @media (max-width: 768px) {
           .services-container { 
-            display: flex;
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            grid-auto-flow: column;
+            grid-auto-columns: 85%;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             gap: 16px;
@@ -224,8 +227,8 @@ export default function Services() {
             display: none;
           }
           .service-card-wrapper {
-            flex: 0 0 85%;
             scroll-snap-align: center;
+            height: 100%;
           }
           .mobile-arrows {
             display: flex !important;
