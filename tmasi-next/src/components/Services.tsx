@@ -397,9 +397,15 @@ export default function Services() {
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 20px;
+          padding: 24px;
           opacity: 0;
           animation: modalFadeIn 0.3s forwards;
+        }
+
+        @media (max-width: 640px) {
+          .modal-backdrop {
+            padding: 12px;
+          }
         }
 
         @keyframes modalFadeIn {
@@ -410,8 +416,8 @@ export default function Services() {
         .modal-container {
           background: #ffffff;
           width: 100%;
-          max-width: 700px;
-          max-height: 90vh;
+          max-width: 850px;
+          max-height: 85vh;
           border-radius: 20px;
           overflow-y: auto;
           position: relative;
@@ -421,6 +427,29 @@ export default function Services() {
           animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
           display: flex;
           flex-direction: column;
+        }
+
+        @media (max-width: 640px) {
+          .modal-container {
+            max-height: 95vh;
+            border-radius: 16px;
+          }
+        }
+
+        /* Custom Scrollbar for Modal */
+        .modal-container::-webkit-scrollbar {
+          width: 8px;
+        }
+        .modal-container::-webkit-scrollbar-track {
+          background: transparent;
+          margin: 16px 0; /* Keeps it away from edges */
+        }
+        .modal-container::-webkit-scrollbar-thumb {
+          background: rgba(15, 32, 92, 0.2);
+          border-radius: 10px;
+        }
+        .modal-container::-webkit-scrollbar-thumb:hover {
+          background: rgba(15, 32, 92, 0.4);
         }
 
         @keyframes modalSlideUp {
