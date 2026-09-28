@@ -7,10 +7,25 @@ import { useRef } from "react";
 // an outer hairline ring, and a teal dot that travels along the ring as the visitor scrolls
 // (a flight-path hint). Motion follows the scroll only; nothing moves on its own.
 
-type Corner = "top-right" | "bottom-left";
+export type Corner = "top-right" | "bottom-left" | "top-left" | "bottom-right";
+
+const ANCHOR: Record<Corner, string> = {
+  "top-right": "right-0 top-0",
+  "bottom-left": "left-0 bottom-0",
+  "top-left": "left-0 top-0",
+  "bottom-right": "right-0 bottom-0",
+};
+
+// The visible quarter of each circle, as degrees clockwise from the top: the dot travels inside it.
+const ARC: Record<Corner, [number, number]> = {
+  "top-right": [196, 262],
+  "bottom-left": [12, 80],
+  "top-left": [100, 168],
+  "bottom-right": [280, 348],
+};
 
 function Orb({ corner, drift, orbit }: { corner: Corner; drift: MotionValue<number>; orbit: MotionValue<number> }) {
-  const anchor = corner === "top-right" ? "right-0 top-0" : "left-0 bottom-0";
+  const anchor = ANCHOR[corner];
   const ring = "absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full";
   return (
     <motion.div style={{ y: drift }} className={`absolute ${anchor}`}>
@@ -24,21 +39,23 @@ function Orb({ corner, drift, orbit }: { corner: Corner; drift: MotionValue<numb
   );
 }
 
-export default function CornerOrbs() {
+export default function CornerOrbs({ corners = ["top-right", "bottom-left"] }: { corners?: [Corner, Corner] }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
 
-  // Top-right shows the lower-left quarter of its circle (180 to 270 degrees), bottom-left the upper-right (0 to 90).
-  const driftDown = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [-36, 36]);
-  const driftUp = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [36, -36]);
-  const orbitTopRight = useTransform(scrollYProgress, [0, 1], reduce ? [225, 225] : [196, 262]);
-  const orbitBottomLeft = useTransform(scrollYProgress, [0, 1], reduce ? [45, 45] : [12, 80]);
+  // The two circles drift in opposite directions; each dot sweeps its own visible quarter.
+  const [a, b] = corners;
+  const driftA = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [-36, 36]);
+  const driftB = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [36, -36]);
+  const mid = (c: Corner) => (ARC[c][0] + ARC[c][1]) / 2;
+  const orbitA = useTransform(scrollYProgress, [0, 1], reduce ? [mid(a), mid(a)] : ARC[a]);
+  const orbitB = useTransform(scrollYProgress, [0, 1], reduce ? [mid(b), mid(b)] : ARC[b]);
 
   return (
     <div ref={ref} aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-      <Orb corner="top-right" drift={driftDown} orbit={orbitTopRight} />
-      <Orb corner="bottom-left" drift={driftUp} orbit={orbitBottomLeft} />
+      <Orb corner={a} drift={driftA} orbit={orbitA} />
+      <Orb corner={b} drift={driftB} orbit={orbitB} />
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
+import CornerOrbs from "./CornerOrbs";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useState } from "react";
 
@@ -19,7 +20,8 @@ export default function MissionVision() {
 
   return (
     <section id="mission-vision" className="lx-section lx-surface">
-      <div className="lx-wrap">
+      <CornerOrbs corners={["top-left", "bottom-right"]} />
+      <div className="lx-wrap relative z-10">
         <Reveal>
           <SectionHead title={"Our Mission & Vision"} />
         </Reveal>

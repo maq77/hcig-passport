@@ -2,6 +2,7 @@
 
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
+import CornerOrbs from "./CornerOrbs";
 import { MapPin, Phone, Mail } from "lucide-react";
 
 export default function WorldMap() {
@@ -17,7 +18,8 @@ export default function WorldMap() {
 
   return (
     <section id="offices" className="lx-section lx-white">
-      <div className="lx-wrap">
+      <CornerOrbs corners={["top-left", "bottom-right"]} />
+      <div className="lx-wrap relative z-10">
         <Reveal>
           <SectionHead title="Global Operational Hubs" />
         </Reveal>
