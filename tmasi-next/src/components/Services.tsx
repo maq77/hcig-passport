@@ -16,14 +16,16 @@ export default function Services() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Auto-slide logic for mobile
+  // Auto-slide logic for mobile with Smart Pause
   useEffect(() => {
     if (!isMobile) return;
     
-    let interval: NodeJS.Timeout;
+    let slideInterval: NodeJS.Timeout;
+    let resumeTimeout: NodeJS.Timeout;
     
     const startAutoSlide = () => {
-      interval = setInterval(() => {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(() => {
         if (scrollRef.current) {
           const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
           // If we reach the end, scroll back to start
@@ -36,9 +38,38 @@ export default function Services() {
       }, 3500); // Auto slide every 3.5s
     };
 
+    const pauseAutoSlide = () => {
+      clearInterval(slideInterval);
+      clearTimeout(resumeTimeout);
+    };
+
+    const resumeAutoSlideAfterDelay = () => {
+      clearTimeout(resumeTimeout);
+      resumeTimeout = setTimeout(() => {
+        startAutoSlide();
+      }, 8000); // Wait 8 seconds before resuming
+    };
+
+    const scrollEl = scrollRef.current;
+    if (scrollEl) {
+      scrollEl.addEventListener('touchstart', pauseAutoSlide, { passive: true });
+      scrollEl.addEventListener('touchend', resumeAutoSlideAfterDelay, { passive: true });
+      scrollEl.addEventListener('mousedown', pauseAutoSlide, { passive: true });
+      scrollEl.addEventListener('mouseup', resumeAutoSlideAfterDelay, { passive: true });
+    }
+
     startAutoSlide();
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(slideInterval);
+      clearTimeout(resumeTimeout);
+      if (scrollEl) {
+        scrollEl.removeEventListener('touchstart', pauseAutoSlide);
+        scrollEl.removeEventListener('touchend', resumeAutoSlideAfterDelay);
+        scrollEl.removeEventListener('mousedown', pauseAutoSlide);
+        scrollEl.removeEventListener('mouseup', resumeAutoSlideAfterDelay);
+      }
+    };
   }, [isMobile]);
 
   const scrollPrev = () => {
