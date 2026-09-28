@@ -213,6 +213,7 @@ export default function Services() {
         @media (max-width: 768px) {
           .services-container { 
             display: grid;
+            grid-template-columns: none;
             grid-template-rows: 1fr 1fr;
             grid-auto-flow: column;
             grid-auto-columns: 85%;
