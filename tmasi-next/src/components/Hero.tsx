@@ -73,6 +73,9 @@ export default function Hero() {
 
       <style dangerouslySetInnerHTML={{__html: `
         .hero-mobile-bg { display: none; }
+        /* Desktop: the header grew to 112px at the top, so the hero moves down with it and the
+           gap between header and title stays 64px. */
+        @media (min-width: 992px) { #hero.section-hero { padding-top: 176px; } }
 
         /* Phones only. Desktop keeps its original hero untouched (Mohamed, 2026-09-28). */
         @media (max-width: 768px) {

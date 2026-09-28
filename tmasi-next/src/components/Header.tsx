@@ -62,7 +62,7 @@ export default function Header() {
   return (
     <>
       <header 
-        className="main-header"
+        className={`main-header${scrolled ? " is-scrolled" : ""}`}
         style={{
           position: "fixed",
           top: 0,
@@ -83,8 +83,8 @@ export default function Header() {
             <Image
               src="/tmasi/v3/img/logo-header.png"
               alt="TMASI Global Logo"
-              width={140}
-              height={48}
+              width={200}
+              height={96}
               priority
               style={{ 
                 mixBlendMode: scrolled ? "multiply" : "normal", 
@@ -105,7 +105,7 @@ export default function Header() {
                     href={item.href} 
                     style={{ 
                       color: scrolled ? "#1e293b" : "#ffffff", 
-                      fontSize: "14px", 
+                      fontSize: "17px", 
                       fontWeight: 600, 
                       textDecoration: "none", 
                       transition: "color 0.2s" 
@@ -121,7 +121,7 @@ export default function Header() {
 
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <div className="desktop-only header-social">
-              <SocialLinks tone={scrolled ? "light" : "dark"} size={34} />
+              <SocialLinks tone={scrolled ? "light" : "dark"} size={40} />
             </div>
 
             {/* Animated Language Dropdown (Desktop & Mobile Friendly) */}
@@ -137,7 +137,7 @@ export default function Header() {
                   cursor: "pointer",
                   color: scrolled ? "#0F205C" : "#ffffff",
                   fontWeight: 700,
-                  fontSize: "13px",
+                  fontSize: "14px",
                   padding: "8px 14px",
                   borderRadius: "100px",
                   transition: "all 0.2s",
@@ -222,7 +222,7 @@ export default function Header() {
                 padding: "10px 24px",
                 borderRadius: "100px",
                 fontWeight: 700,
-                fontSize: "13px",
+                fontSize: "14px",
                 textDecoration: "none",
                 letterSpacing: "0.5px",
                 transition: "transform 0.3s, background 0.3s"
@@ -346,6 +346,11 @@ export default function Header() {
       <style dangerouslySetInnerHTML={{__html: `
         @media (min-width: 992px) {
           .mobile-only { display: none !important; }
+          /* Bigger header on desktop [Mohamed, 2026-09-28]; phones keep their sizes. */
+          .main-header .logo-img { max-height: none !important; height: 64px !important; width: auto !important; }
+          .main-header.is-scrolled .logo-img { height: 54px !important; }
+          .main-header .cta-btn { padding: 13px 28px !important; }
+          .main-header .lang-btn { padding: 10px 16px !important; }
         }
         @media (max-width: 991px) {
           .desktop-only { display: none !important; }

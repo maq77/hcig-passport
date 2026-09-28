@@ -75,7 +75,7 @@
   --max-w:   1240px;
 
   /* Header */
-  --hdr: 68px;
+  --hdr: 84px;  /* anchor offset under the fixed header (desktop header is 78 to 112px tall) */
 }
 
 /* ---- Global Reset and Typography ---- */
