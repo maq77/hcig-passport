@@ -65,3 +65,8 @@ tmasi sponsor/
 
 # TMASI live-site mirror and backups (may hold server secrets; repo is public).
 tmasi-live/
+
+# Private: TMASI security findings never go to the public repo (2026-09-28)
+docs/emails/tmasi-security-*
+# Loose review screenshots in the repo root
+/*.png

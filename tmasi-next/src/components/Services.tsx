@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { ChevronRight, X, CheckCircle2 } from "lucide-react";
 
 type Bullet = {
-  title: string;
+  title?: string;
   text: string;
 };
 
@@ -14,7 +14,6 @@ type Service = {
   id: number;
   img: string;
   title: string;
-  desc: string;
   bullets: Bullet[];
 };
 
@@ -31,50 +30,52 @@ export default function Services() {
     return () => { document.body.style.overflow = "unset"; };
   }, [selectedService]);
 
+  // Every group name, item title and item text is word for word from the live tmasi.net home (2026-09-26 backup).
   const services: Service[] = [
     {
       id: 1,
       img: "/tmasi/v3/img/msa.jpg",
-      title: "Medical Assistance",
-      desc: "Immediate emergency response, air/ground evacuations, and full case management.",
+      title: "Medical Assistance Services",
       bullets: [
-        { title: "Emergency Medical Assistance", text: "24/7 access to medical professionals for critical emergencies, trauma care, and on-the-spot triage." },
-        { title: "Air and Ground Evacuations", text: "Coordinated transport via air ambulance or specialized ground vehicles to the nearest center of excellence." },
-        { title: "Hospital Coordination", text: "Seamless admission processes, deposit handling, and direct communication with treating physicians." },
-        { title: "Case Management", text: "Continuous monitoring of the patient's condition by our medical team from admission to discharge." },
-        { title: "Funeral Services", text: "Compassionate, culturally-sensitive arrangements and coordination in the unfortunate event of death." }
+        { title: "Emergency Medical Assistance", text: "Immediate response and professional medical support around the clock." },
+        { title: "Air and Ground Medical Evacuations", text: "Safe and efficient transport to the nearest medical facilities." },
+        { title: "Hospital and Treatment Coordination", text: "Connecting patients to top-quality healthcare services." },
+        { title: "Case Management and Follow-Up", text: "Continuous monitoring and support to ensure the best outcomes." },
+        { title: "Evaluation and Review", text: "Regular assessments to maintain high standards of care." },
+        { title: "Funeral Services", text: "Compassionate and professional coordination of funeral arrangements." }
       ]
     },
     {
       id: 2,
       img: "/tmasi/v3/img/emc.jpeg",
-      title: "Elite Concierge",
-      desc: "Discreet and personalized medical support for VIP travelers and families.",
+      title: "Elite Medical Concierge Services",
       bullets: [
-        { title: "Doctor On Call", text: "Rapid deployment of specialized physicians directly to your hotel suite or residence." },
-        { title: "Private Medical Visits", text: "Exclusive, discreet clinical appointments with top specialists, bypassing standard wait times." },
-        { title: "Portable Diagnostics", text: "In-room lab tests, ultrasounds, and vital checks brought directly to your location." },
-        { title: "VIP Patient Care", text: "A dedicated health manager coordinating all logistics, privacy needs, and premium nursing care." },
-        { title: "Insurance Covered Services", text: "Direct liaison with premium international health insurance providers for zero-friction approvals." }
+        { title: "Doctor On Call", text: "Licensed physicians available for private medical consultations at hotels, residences, or workplaces." },
+        { title: "Private Medical Visits", text: "Personalized healthcare delivered directly to your location for maximum comfort and privacy." },
+        { title: "Portable Medical Diagnostics", text: "Basic diagnostic equipment available during visits for immediate medical assessment." },
+        { title: "VIP Patient Care", text: "Discreet and personalized medical support tailored for VIP travelers and families." },
+        { title: "Insurance Covered Services", text: "Doctor visits can be coordinated with international insurance and assistance providers for cashless treatment whenever coverage is available." },
+        { title: "Follow-up Medical Support", text: "Ongoing guidance and medical coordination after the initial consultation if further care is required." }
       ]
     },
     {
       id: 3,
       img: "/tmasi/v3/img/tas.jpg",
-      title: "Travel Assistance",
-      desc: "Comprehensive support for a seamless journey, from translation to cash provision.",
+      title: "Travel Assistance Services",
       bullets: [
-        { title: "Translation Assistance", text: "On-call medical interpreters breaking down language barriers between patients and local staff." },
-        { title: "Advance Cash Provision", text: "Emergency financial support arranged globally in case of stolen wallets or urgent medical fees." },
-        { title: "Roadside Assistance", text: "Immediate help for vehicular breakdowns, accidents, or secure transport coordination." },
-        { title: "Hotel & Flight Reservations", text: "Urgent rebooking of flights and accommodation for patients, families, and medical escorts." }
+        { title: "Optimized Customer Experience", text: "Personalized support to ensure seamless journeys." },
+        { title: "Translation Assistance", text: "Multilingual support to overcome language barriers." },
+        { title: "Advance Cash Provision", text: "Financial support in emergencies." },
+        { title: "Roadside Assistance and Car Replacement", text: "Immediate help with breakdowns and vehicle replacements." },
+        { title: "Taxi Bookings", text: "Reliable and prompt transportation services." },
+        { title: "Hotel and Flight Reservations", text: "Convenient booking support to minimize stress." },
+        { title: "Legal Consultations and Support", text: "Professional advice and guidance when needed." }
       ]
     },
     {
       id: 4,
       img: "/tmasi/v3/img/mtss.jpg",
-      title: "Medical Tourism",
-      desc: "Tailored healthcare packages combining treatment with luxury destinations.",
+      title: "Medical Tourism Services",
       bullets: [
         { title: "Comprehensive Healthcare Packages", text: "Tailored solutions for wellness, longevity, and recovery programs, full body check-ups, diagnostics, second opinions, treatments, and surgeries." },
         { title: "Top Medical Destinations", text: "Access to world-renowned hospitals, clinics, and rehabs, top doctors, and technologies/equipment in Germany, Spain, Egypt, and the UAE." },
@@ -87,27 +88,29 @@ export default function Services() {
       id: 5,
       img: "/tmasi/v3/img/ia.jpg",
       title: "Insurance Assistance",
-      desc: "Expert support to navigate, resolve, and direct-bill your insurance claims.",
       bullets: [
-        { title: "Insurance Issue Resolution", text: "Expert intervention to untangle denied claims, exclusions, and complex policy disputes." },
-        { title: "Claim Management", text: "End-to-end handling of medical records, receipts, and claim forms on the patient's behalf." },
-        { title: "Policy Verification", text: "Instant checks on coverage limits, deductibles, and network hospitals prior to treatment." },
-        { title: "Direct Billing Arrangements", text: "Setting up cashless treatment globally so the patient never has to pay out of pocket." }
+        { title: "Insurance Issue Resolution", text: "Expert support to navigate and resolve insurance-related problems efficiently." },
+        { title: "Claim Management", text: "Assistance with submitting, tracking, and processing insurance claims." },
+        { title: "Policy Verification", text: "Confirming coverage and benefits for medical and travel needs." },
+        { title: "Direct Billing Arrangements", text: "Simplifying the payment process by coordinating directly with insurance providers." },
+        { title: "Liaison with Insurance Companies", text: "We handle communication with insurers to ensure smooth and hassle-free procedures." }
       ]
     },
     {
       id: 6,
       img: "/tmasi/v3/img/as.jpg",
       title: "Additional Services",
-      desc: "Risk assessments, paperwork, corporate support, and compassionate repatriation.",
       bullets: [
-        { title: "Travel Risk Assessments", text: "Pre-travel health intelligence, vaccination requirements, and destination threat analysis." },
-        { title: "Documentation and Paperwork", text: "Procurement of medical reports, fit-to-fly certificates, and legal attestations." },
-        { title: "Customized Corporate Support", text: "Tailored duty-of-care programs for expat employees and traveling executives." },
-        { title: "Repatriation of Mortal Remains", text: "Handling all legal, logistical, and transport requirements to return a deceased loved one home safely." }
+        { text: "Travel risk assessments and safety recommendations." },
+        { text: "Assistance with documentation and paperwork." },
+        { text: "Customized support for corporate clients and insurance partners." }
       ]
     }
   ];
+
+  // The card preview lists the group's own item names (live words), so no summary text has to be invented.
+  const preview = (svc: Service) =>
+    svc.bullets.map((b) => (b.title ?? b.text).replace(/\.$/, "")).join(" · ");
 
   return (
     <section id="services" className="services-section">
@@ -141,7 +144,7 @@ export default function Services() {
                 </div>
                 <div className="package-content">
                   <h3 className="package-title">{svc.title}</h3>
-                  <p className="package-desc">{svc.desc}</p>
+                  <p className="package-desc">{preview(svc)}</p>
                   
                   <div className="package-action">
                     <span className="view-details-btn">
@@ -175,10 +178,6 @@ export default function Services() {
             </div>
             
             <div className="modal-body">
-              <div className="modal-quote-box">
-                <p>{selectedService.desc}</p>
-              </div>
-              
               <ul className="modal-details-list">
                 {selectedService.bullets.map((bullet, i) => (
                   <li key={i} className="modal-bullet-item">
@@ -186,7 +185,7 @@ export default function Services() {
                       <CheckCircle2 size={20} color="var(--tmasi-teal)" />
                     </div>
                     <div className="modal-bullet-text">
-                      <strong>{bullet.title}:</strong> {bullet.text}
+                      {bullet.title && <strong>{bullet.title}:</strong>} {bullet.text}
                     </div>
                   </li>
                 ))}

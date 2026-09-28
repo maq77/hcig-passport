@@ -5,6 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Globe, PhoneCall } from "lucide-react";
+import SocialLinks from "./SocialLinks";
+
+const NAV = [
+  { name: "Home", href: "#hero" },
+  { name: "About Us", href: "#about" },
+  { name: "Services", href: "#services" },
+  { name: "Contact", href: "#offices" },
+  { name: "Blog", href: "#blog" }
+];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -87,14 +96,7 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="desktop-only" aria-label="Main Navigation">
             <ul style={{ display: "flex", listStyle: "none", margin: 0, padding: 0, gap: "28px", alignItems: "center" }}>
-              {[
-                { name: "Home", href: "#hero" },
-                { name: "About Us", href: "#about" },
-                { name: "Values", href: "#values" },
-                { name: "Why Us", href: "#why" },
-                { name: "Services", href: "#services" },
-                { name: "Global Hubs", href: "#offices" }
-              ].map(item => (
+              {NAV.map(item => (
                 <li key={item.name}>
                   <Link 
                     href={item.href} 
@@ -115,7 +117,10 @@ export default function Header() {
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            
+            <div className="desktop-only header-social">
+              <SocialLinks tone={scrolled ? "light" : "dark"} size={34} />
+            </div>
+
             {/* Animated Language Dropdown (Desktop & Mobile Friendly) */}
             <div ref={langRef} style={{ position: "relative" }}>
               <button 
@@ -219,7 +224,7 @@ export default function Header() {
               }}
             >
               <PhoneCall size={14} />
-              CALL TEAM
+              CALL THE TEAM
             </a>
 
             {/* Mobile Burger Menu Button */}
@@ -280,6 +285,7 @@ export default function Header() {
               <Image src="/tmasi/v3/img/logo-header.png" alt="TMASI Global Logo" width={130} height={44} style={{ mixBlendMode: "multiply" }} />
               <button
                 onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close menu"
                 style={{ background: "#f1f5f9", border: "none", borderRadius: "50%", width: "44px", height: "44px", fontSize: "24px", color: "#0F205C", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
               >
                 &times;
@@ -287,16 +293,7 @@ export default function Header() {
             </div>
 
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "24px", flexGrow: 1 }}>
-              {[
-                { name: "Home", href: "#hero" },
-                { name: "About Us", href: "#about" },
-                { name: "Values", href: "#values" },
-                { name: "Why Us", href: "#why" },
-                { name: "Services", href: "#services" },
-                { name: "Global Hubs", href: "#offices" },
-                { name: "Blog", href: "#blog" },
-                { name: "Contact", href: "#footi" }
-              ].map(item => (
+              {NAV.map(item => (
                 <li key={item.name}>
                   <Link 
                     href={item.href} 
@@ -308,6 +305,10 @@ export default function Header() {
                 </li>
               ))}
             </ul>
+
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
+              <SocialLinks tone="light" size={44} />
+            </div>
             
             <a 
               href="tel:+201206788566" 

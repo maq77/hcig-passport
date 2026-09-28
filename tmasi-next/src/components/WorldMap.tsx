@@ -4,47 +4,14 @@ import Reveal from "./Reveal";
 import { MapPin, Phone, Mail } from "lucide-react";
 
 export default function WorldMap() {
+  // Office names, addresses, phones and emails word for word from the live tmasi.net footer (2026-09-26 backup).
+  // The footer gives no USA email; usa@tmasi.net is from the live contacts page.
   const hubs = [
-    { 
-      id: "egypt",
-      name: "Egypt", 
-      title: "MENA & Africa Hub (HQ)",
-      address: "Cairo, Egypt",
-      phone: "+20 120 678 8566",
-      email: "mena@tmasiglobal.com",
-    },
-    { 
-      id: "germany",
-      name: "Germany", 
-      title: "European Operations",
-      address: "Munich, Germany",
-      phone: "+49 89 1234 5678",
-      email: "europe@tmasiglobal.com",
-    },
-    { 
-      id: "spain",
-      name: "Spain", 
-      title: "Southern Europe & LatAm",
-      address: "Madrid, Spain",
-      phone: "+34 91 123 45 67",
-      email: "spain@tmasiglobal.com",
-    },
-    { 
-      id: "uae",
-      name: "UAE", 
-      title: "GCC Operations Hub",
-      address: "Dubai, UAE",
-      phone: "+971 4 123 4567",
-      email: "gcc@tmasiglobal.com",
-    },
-    { 
-      id: "usa",
-      name: "USA", 
-      title: "Americas Coordinator",
-      address: "New York, USA",
-      phone: "+1 212 555 1234",
-      email: "americas@tmasiglobal.com",
-    }
+    { id: "egypt", name: "Egypt Office", address: "Airport Road, Hurghada, Red Sea, Egypt.", phone: "+20 120 678 8566", tel: "+201206788566", email: "egypt@tmasi.net" },
+    { id: "germany", name: "Germany Office", address: "Leopoldstraße 244, Munich, Germany, 80807", phone: "+49 170 9350490", tel: "+491709350490", email: "germany@tmasi.net" },
+    { id: "uae", name: "United Arab Emirates Office", address: "Dubai, United Arab Emirates", phone: "+971 586 824 247", tel: "+971586824247", email: "uae@tmasi.net" },
+    { id: "spain", name: "Spain Office", address: "Barcelona, Spain", phone: "+34 930 414 953", tel: "+34930414953", email: "spain@tmasi.net" },
+    { id: "usa", name: "USA Office", address: "Florida, USA", phone: "+1 727 591 9010", tel: "+17275919010", email: "usa@tmasi.net" }
   ];
 
   return (
@@ -52,13 +19,10 @@ export default function WorldMap() {
       <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px" }}>
         
         <Reveal>
-          <div style={{ textAlign: "center", marginBottom: "60px" }}>
+          <div style={{ textAlign: "center", marginBottom: "48px" }}>
             <h2 className="headline-titling" style={{ color: "#0F205C", fontSize: "clamp(32px, 5vw, 42px)", marginBottom: "16px" }}>
               Global Operational Hubs
             </h2>
-            <p style={{ color: "#475569", fontSize: "clamp(16px, 2vw, 17px)", maxWidth: "700px", margin: "0 auto", lineHeight: 1.6 }}>
-              Connected operations across continents delivering rapid emergency medical assistance, ground coordination, and local expertise worldwide.
-            </p>
           </div>
         </Reveal>
 
@@ -71,8 +35,7 @@ export default function WorldMap() {
                     <MapPin size={24} color="var(--tmasi-teal)" />
                   </div>
                   <div>
-                    <h3 style={{ color: "#0F205C", fontSize: "20px", fontWeight: 800, margin: "0 0 4px 0" }}>{hub.name}</h3>
-                    <div style={{ color: "var(--tmasi-teal)", fontSize: "14px", fontWeight: 600 }}>{hub.title}</div>
+                    <h3 style={{ color: "#0F205C", fontSize: "20px", fontWeight: 800, margin: 0 }}>{hub.name}</h3>
                   </div>
                 </div>
                 
@@ -81,10 +44,10 @@ export default function WorldMap() {
                     <MapPin size={16} color="#94a3b8" /> {hub.address}
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <Phone size={16} color="#94a3b8" /> {hub.phone}
+                    <Phone size={16} color="#94a3b8" /> <a href={`tel:${hub.tel}`} style={{ color: "inherit", textDecoration: "none" }}>{hub.phone}</a>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <Mail size={16} color="#94a3b8" /> {hub.email}
+                    <Mail size={16} color="#94a3b8" /> <a href={`mailto:${hub.email}`} style={{ color: "inherit", textDecoration: "none" }}>{hub.email}</a>
                   </div>
                 </div>
               </div>
@@ -95,11 +58,15 @@ export default function WorldMap() {
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
+        /* Flex, not grid, so a short last row sits centred; every card keeps the same width and height. */
         .hubs-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
           gap: 24px;
         }
+        .hubs-grid > * { flex: 0 1 360px; display: flex; }
+        .hubs-grid .hub-card { width: 100%; }
 
         .hub-card {
           background: #f8fafc;

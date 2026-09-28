@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, MapPin, Phone, Mail } from "lucide-react";
+import SocialLinks from "./SocialLinks";
 
 export default function Footer() {
   return (
@@ -17,7 +18,7 @@ export default function Footer() {
               Join our network of international insurers, corporations, and travel agencies today.
             </p>
           </div>
-          <a href="mailto:partner@tmasiglobal.com" style={{ background: "#ffffff", color: "#0F205C", padding: "16px 32px", borderRadius: "30px", fontWeight: 700, fontSize: "15px", display: "inline-flex", alignItems: "center", gap: "10px", transition: "transform 0.3s, box-shadow 0.3s" }} className="hover-scale">
+          <a href="mailto:info@tmasi.net" style={{ background: "#ffffff", color: "#0F205C", padding: "16px 32px", borderRadius: "30px", fontWeight: 700, fontSize: "15px", display: "inline-flex", alignItems: "center", gap: "10px", transition: "transform 0.3s, box-shadow 0.3s" }} className="hover-scale">
             Get in Touch <ArrowRight size={18} />
           </a>
         </div>
@@ -29,19 +30,14 @@ export default function Footer() {
           
           {/* Brand Column */}
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ background: "#ffffff", padding: "12px 20px", borderRadius: "12px", display: "inline-block", width: "max-content", marginBottom: "24px" }}>
-              <Image src="/tmasi/v3/img/logo.PNG" alt="TMASI Global Logo" width={140} height={42} style={{ mixBlendMode: "multiply", height: "auto" }} />
+            <div style={{ marginBottom: "24px" }}>
+              <Image src="/tmasi/v3/img/logo-header.png" alt="TMASI Global Logo" width={150} height={51} style={{ filter: "brightness(0) invert(1)", height: "auto" }} />
             </div>
             <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "14px", lineHeight: 1.8, marginBottom: "24px" }}>
-              TMASI Global is the leading provider of medical, travel, insurance, and tourism assistance. Connecting operations across continents to deliver rapid emergency medical assistance.
+              Leading provider of medical, travel, insurance, and tourism assistance.<br />
+              Operations spanning Germany, Spain, USA, UAE, and Egypt.
             </p>
-            <div style={{ display: "flex", gap: "16px" }}>
-              {["FB", "TW", "IN", "IG"].map((net, i) => (
-                <a key={i} href="#" style={{ width: "36px", height: "36px", borderRadius: "50%", background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#ffffff", transition: "background 0.3s", fontSize: "12px", fontWeight: 700 }} className="hover-bg-teal">
-                  {net}
-                </a>
-              ))}
-            </div>
+            <SocialLinks tone="dark" />
           </div>
 
           {/* Quick Links */}
@@ -49,11 +45,11 @@ export default function Footer() {
             <h4 style={{ color: "#ffffff", fontSize: "18px", fontWeight: 700, marginBottom: "24px", letterSpacing: "1px" }}>QUICK LINKS</h4>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "12px" }}>
               {[
-                { name: "About TMASI", href: "#about" },
-                { name: "Our Services", href: "#services" },
-                { name: "Global Hubs", href: "#offices" },
-                { name: "Why Choose Us", href: "#why" },
-                { name: "Latest Insights", href: "#blog" }
+                { name: "Home", href: "#hero" },
+                { name: "About", href: "#about" },
+                { name: "Services", href: "#services" },
+                { name: "Contact Us", href: "#offices" },
+                { name: "Blog", href: "#blog" }
               ].map(link => (
                 <li key={link.name}>
                   <Link href={link.href} style={{ color: "rgba(255,255,255,0.7)", fontSize: "15px", textDecoration: "none", transition: "color 0.3s" }} className="hover-text-teal">
@@ -66,9 +62,9 @@ export default function Footer() {
 
           {/* Services Links */}
           <div>
-            <h4 style={{ color: "#ffffff", fontSize: "18px", fontWeight: 700, marginBottom: "24px", letterSpacing: "1px" }}>OUR EXPERTISE</h4>
+            <h4 style={{ color: "#ffffff", fontSize: "18px", fontWeight: 700, marginBottom: "24px", letterSpacing: "1px" }}>OUR SERVICES</h4>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "12px" }}>
-              {["Medical Assistance", "Elite Medical Concierge", "Travel Assistance", "Medical Tourism", "Insurance Assistance", "Corporate Support"].map(service => (
+              {["Medical Assistance Services", "Elite Medical Concierge Services", "Travel Assistance Services", "Medical Tourism Services", "Insurance Assistance", "Additional Services"].map(service => (
                 <li key={service}>
                   <Link href="#services" style={{ color: "rgba(255,255,255,0.7)", fontSize: "15px", textDecoration: "none", transition: "color 0.3s" }} className="hover-text-teal">
                     {service}
@@ -84,7 +80,7 @@ export default function Footer() {
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "16px" }}>
               <li style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
                 <MapPin size={20} color="var(--tmasi-teal)" style={{ flexShrink: 0, marginTop: "2px" }} />
-                <span style={{ color: "rgba(255,255,255,0.7)", fontSize: "14px", lineHeight: 1.6 }}>125 Masr w El-Sudan St.,<br/>Hadayeq El Qobbah, Cairo, Egypt</span>
+                <span style={{ color: "rgba(255,255,255,0.7)", fontSize: "14px", lineHeight: 1.6 }}>Egypt Office<br/>Airport Road, Hurghada, Red Sea, Egypt.</span>
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <Phone size={20} color="var(--tmasi-teal)" style={{ flexShrink: 0 }} />
@@ -94,8 +90,8 @@ export default function Footer() {
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <Mail size={20} color="var(--tmasi-teal)" style={{ flexShrink: 0 }} />
-                <a href="mailto:info@tmasiglobal.com" style={{ color: "rgba(255,255,255,0.7)", fontSize: "15px", textDecoration: "none", transition: "color 0.3s" }} className="hover-text-teal">
-                  info@tmasiglobal.com
+                <a href="mailto:egypt@tmasi.net" style={{ color: "rgba(255,255,255,0.7)", fontSize: "15px", textDecoration: "none", transition: "color 0.3s" }} className="hover-text-teal">
+                  egypt@tmasi.net
                 </a>
               </li>
             </ul>
@@ -109,8 +105,12 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} TMASI Global. Part of Healthcare International Group.
           </p>
           <div style={{ display: "flex", gap: "24px" }}>
-            <Link href="#" style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", textDecoration: "none", transition: "color 0.3s" }} className="hover-text-teal">Privacy Policy</Link>
-            <Link href="#" style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", textDecoration: "none", transition: "color 0.3s" }} className="hover-text-teal">Terms of Service</Link>
+            <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", margin: 0 }}>
+              Powered by{" "}
+              <a href="https://pulsemarketing.global/" target="_blank" rel="noopener" style={{ color: "rgba(255,255,255,0.8)", fontWeight: 700, letterSpacing: "0.5px", textDecoration: "none" }} className="hover-text-teal">
+                PULSE Marketing
+              </a>
+            </p>
           </div>
         </div>
       </div>
