@@ -60,7 +60,7 @@ export default function Hero() {
               <Link href="#footi" className="section-hero-btn">
                 Request A Quote
               </Link>
-              <a href="tel:+201206788566" className="section-hero-btn2">
+              <a href="https://wa.me/201206788566" target="_blank" rel="noopener noreferrer" className="section-hero-btn2">
                 CALL THE TEAM
               </a>
             </div>
@@ -70,8 +70,6 @@ export default function Hero() {
 
       <style dangerouslySetInnerHTML={{__html: `
         .hero-mobile-bg { display: none; }
-        /* Room for the 24/7 bar above the header; the spacing under the header is unchanged. */
-        #hero.section-hero { padding-top: calc(clamp(100px, 14vw, 160px) + var(--bar-h)); }
 
         /* Phones only. Desktop keeps its original hero untouched (Mohamed, 2026-09-28). */
         @media (max-width: 768px) {
@@ -79,7 +77,7 @@ export default function Hero() {
           .hero-mobile-bg { display: block; }
 
           /* Clear air under the header, then title, paragraph and buttons in even steps. */
-          #hero.section-hero { padding: calc(152px + var(--bar-h)) 0 72px; }
+          #hero.section-hero { padding: 152px 0 72px; }
           #hero .section-hero-heading {
             /* The widest line is about 13 times the font size, so each line stays whole on any phone. */
             font-size: clamp(22px, calc((100vw - 40px) / 13.2), 34px);

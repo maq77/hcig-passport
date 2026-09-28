@@ -1332,9 +1332,7 @@ html.js .hero-content > :nth-child(3) { animation-delay: 160ms; }
   --lx-line: #E4E9F0;
   --lx-surface: #F6F8FB;
   --lx-radius: 16px;
-  --bar-h: 40px;                            /* 24/7 hotline bar above the header */
 }
-@media (max-width: 768px) { :root { --bar-h: 52px; } }
 
 .lx-section { padding-block: var(--lx-section); position: relative; }
 .lx-surface { background: var(--lx-surface); }

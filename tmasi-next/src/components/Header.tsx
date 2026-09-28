@@ -4,9 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Globe, PhoneCall } from "lucide-react";
+import { ChevronDown, Globe, MessageCircle } from "lucide-react";
 import SocialLinks from "./SocialLinks";
-import HotlineBar from "./HotlineBar";
 
 const NAV = [
   { name: "Home", href: "#hero" },
@@ -18,9 +17,6 @@ const NAV = [
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  // The 24/7 bar hides while scrolling down and returns on the way up (or back at the top).
-  const [barHidden, setBarHidden] = useState(false);
-  const lastY = useRef(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [activeLang, setActiveLang] = useState("EN");
@@ -37,12 +33,6 @@ export default function Header() {
     const handleScroll = () => {
       const y = window.scrollY;
       setScrolled(y > 10);
-      // React to real movement only: repeat events at the same position (images loading) change nothing.
-      const dy = y - lastY.current;
-      if (y <= 10) setBarHidden(false);
-      else if (dy > 6) setBarHidden(true);
-      else if (dy < -6) setBarHidden(false);
-      if (y <= 10 || Math.abs(dy) > 6) lastY.current = y;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     
@@ -71,12 +61,11 @@ export default function Header() {
 
   return (
     <>
-      <HotlineBar hidden={barHidden} />
       <header 
         className="main-header"
         style={{
           position: "fixed",
-          top: barHidden ? 0 : "var(--bar-h)",
+          top: 0,
           left: 0,
           right: 0,
           zIndex: 100,
@@ -220,7 +209,9 @@ export default function Header() {
             </div>
 
             <a 
-              href="tel:+201206788566" 
+              href="https://wa.me/201206788566"
+              target="_blank"
+              rel="noopener noreferrer" 
               className="desktop-only cta-btn hover-scale"
               style={{
                 display: "flex",
@@ -237,7 +228,7 @@ export default function Header() {
                 transition: "transform 0.3s, background 0.3s"
               }}
             >
-              <PhoneCall size={14} />
+              <MessageCircle size={14} aria-hidden="true" />
               CALL THE TEAM
             </a>
 
@@ -325,7 +316,9 @@ export default function Header() {
             </div>
             
             <a 
-              href="tel:+201206788566" 
+              href="https://wa.me/201206788566"
+              target="_blank"
+              rel="noopener noreferrer" 
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -342,7 +335,7 @@ export default function Header() {
                 marginBottom: "20px"
               }}
             >
-              <PhoneCall size={20} />
+              <MessageCircle size={20} aria-hidden="true" />
               CALL THE TEAM
             </a>
           </motion.div>
