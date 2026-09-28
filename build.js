@@ -531,6 +531,14 @@ if (fs.existsSync(C7V3_SRC)) {
   fs.cpSync(C7V3_SRC, path.join(OUT, '247clinic', 'v3'), { recursive: true });
 }
 
+/* TMASI Global v3 (spec 008): the Next.js static export in tmasi-next, synced into
+   src/tmasi-v3 by its `npm run sync`, served at /tmasi/v3. Every page carries
+   robots noindex, nofollow, so the preview never competes with tmasi.net. */
+const TMASI_V3_SRC = path.join(__dirname, 'src', 'tmasi-v3');
+if (fs.existsSync(TMASI_V3_SRC)) {
+  fs.cpSync(TMASI_V3_SRC, path.join(OUT, 'tmasi', 'v3'), { recursive: true });
+}
+
 /* ---- shared shell files ------------------------------------------------ */
 
 write('studio.css', fs.readFileSync(path.join(CONTENT, 'theme.css'), 'utf8'));

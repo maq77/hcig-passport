@@ -106,3 +106,18 @@ after, and how it was checked. Words on the site are never changed unless Mohame
   - "Our Services" subtitle ("One Call, Endless Support: TMASI Global Has You Covered.") formatted as two centered, balanced lines.
 - Changes backed up to server backup directory `backups/layout-2026-09-27/` and deployed live via SFTP. Verified on production with HTTP 200 and Playwright visual checks.
 
+
+## 2026-09-28
+
+### Website v3 (preview only, not on the live site)
+- Home redesigned by agy: services as a card grid with a details window, two-column phone grids for About and Core Values, "Show More" on Mission & Vision.
+- Checked word for word against the live site: 63 of 135 text pieces were not on it. All restored:
+  - Office phones and emails were invented (e.g. +1 212 555 1234, @tmasiglobal.com). Now the five real offices from the live footer, with @tmasi.net emails.
+  - Head office showed Cairo and Spain showed Madrid. Now Airport Road, Hurghada and Barcelona, as on the live site.
+  - Every service text had been rewritten. Now the six live service groups with every live item and sentence.
+  - Three made-up news posts replaced by the three newest real posts.
+  - Menu labels, "CALL THE TEAM", footer links and footer contact now use the live wording. Pulse Marketing credit added back.
+- Real Facebook, Instagram and LinkedIn icons in the header and footer (Twitter removed: TMASI has none).
+- Favicon: the one live on tmasi.net.
+- Kept on Mohamed's approval: the stat labels (Cases handled, Medical repatriations, Operational desk, Global hubs) and the "Ready to partner with TMASI Global?" band. The band's button now emails info@tmasi.net.
+- Found on the live site, left as it is: the footer lists the Germany office as +49 170 9350490 / germany@tmasi.net, the contacts page as +49 1768 744 7551 / bc@tmasi.net.

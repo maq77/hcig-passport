@@ -570,11 +570,12 @@ const COMPANIES = [
       {
         slug: 'urgent-edits',
         name: 'Urgent edits on tmasi.net',
-        status: 'blocked',
-        updated: '2026-09-26',
+        status: 'live',
+        updated: '2026-09-27',
         summary: 'UI and UX fixes, news in four languages, favicon, share image, a sharp map and logo, technical fixes. Every word untouched.',
         detail: [
-          'Server access set up 2026-09-26. The server accepts our key; one unlock step on this laptop remains.',
+          'Live 26 Sep: technical fixes, favicon, share image, one H1 per page, sitemap, and the two English news posts.',
+          'Live 27 Sep: news cards, section headings and phone line breaks on the home.',
           '14 defects found on the live site, including a broken favicon and share image, a soft world map with two pins on the wrong countries, no canonical or hreflang, and every page marked English.',
           'Every word stays exactly as written. Every change is logged for the final email.',
           'Two news posts received: the Hansa Medica Group partnership at the Grand Egyptian Museum, and the ITIC Global 2026 sponsorship in Istanbul. Their photos arrived the same day.',
@@ -583,8 +584,9 @@ const COMPANIES = [
           { text: 'Answer the questions on the edits', done: true, who: 'Mohamed' },
           { text: 'Send the new news posts', done: true, who: 'Mohamed' },
           { text: 'Add the photos for the two news posts', done: true, who: 'Mohamed' },
-          { text: 'Unlock the server key on this laptop', done: false, who: 'Mohamed' },
-          { text: 'Back up the live site, then apply the edits', done: false, who: 'Us' },
+          { text: 'Unlock the server key on this laptop', done: true, who: 'Mohamed' },
+          { text: 'Back up the live site, then apply the edits', done: true, who: 'Us' },
+          { text: 'Native check of the German, Polish and Spanish news', done: false, who: 'Mohamed' },
         ],
         stages: [
           {
@@ -599,24 +601,32 @@ const COMPANIES = [
         slug: 'website-v3',
         name: 'Website v3, rebuilt from scratch',
         status: 'draft',
-        updated: '2026-09-26',
+        updated: '2026-09-28',
         summary: 'A new tmasi.net: the same words in a new design, found by search and AI, in seven languages.',
         detail: [
-          'Spec approved 2026-09-26, with every decision answered in rounds of questions. Planning starts once the urgent edits and news are live.',
+          'Spec approved 2026-09-26. The home is built and on HCIG Work, every word checked against the live site.',
           'Partners first, the dark world map as the hero on light pages, a page per service and per office, seven languages.',
           'Every word kept exactly as on the live site. Design slots mark where Reham, the graphic designer, adds cards and images.',
         ],
         checklist: [
           { text: 'Answer the open decisions', done: true, who: 'Mohamed' },
           { text: 'Approve the spec', done: true, who: 'Mohamed' },
-          { text: 'Planning documents and keyword map', done: false, who: 'Us' },
-          { text: 'Home preview on HCIG Work', done: false, who: 'Us' },
+          { text: 'Home preview on HCIG Work', done: true, who: 'Us' },
+          { text: 'Space and luxury pass on the home', done: false, who: 'Us' },
+          { text: 'Review the home', done: false, who: 'Mohamed' },
+          { text: 'Plan the other pages and languages', done: false, who: 'Us' },
         ],
         stages: [
           {
             name: 'Plan',
             items: [
-              { slug: 'spec', name: 'What v3 is, and every decision', kind: 'md', src: 'specs/008-tmasi-website/spec.md', status: 'approved', note: 'Approved 26 Sep. Planning starts after the urgent edits' },
+              { slug: 'spec', name: 'What v3 is, and every decision', kind: 'md', src: 'specs/008-tmasi-website/spec.md', status: 'approved', note: 'Approved 26 Sep' },
+            ],
+          },
+          {
+            name: 'Preview',
+            items: [
+              { slug: 'home', name: 'Homepage v3', kind: 'link', href: 'https://hcig-passport.vercel.app/tmasi/v3', status: 'draft', note: 'Real content restored 28 Sep. Space and luxury pass next' },
             ],
           },
         ],
