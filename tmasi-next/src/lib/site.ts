@@ -9,6 +9,7 @@ import de from "@/content/live/de.json";
 import pl from "@/content/live/pl.json";
 import es from "@/content/live/es.json";
 import draftsJson from "@/content/live/drafts.json";
+import imageSizes from "@/content/live/image-sizes.json";
 import { QUOTE_THANKS, UI, type Lang, type Ui } from "@/content/ui";
 
 export type { Lang, Ui };
@@ -63,7 +64,8 @@ export function slugify(s: string, max = 80): string {
 // ---------------------------------------------------------------------------------------------
 // News posts: live posts plus the translated drafts, newest first.
 
-export type Block = { p?: string; quote?: string; h?: string; li?: string; img?: string; alt?: string; cls?: string };
+// size: an image's own [width, height] (scripts/image-sizes.py), so it can be shown whole.
+export type Block = { p?: string; quote?: string; h?: string; li?: string; img?: string; alt?: string; cls?: string; size?: [number, number] };
 export type Post = {
   key: string; // news1..news6, the same story in every language
   slug: string;
@@ -79,6 +81,7 @@ export type Post = {
 
 type RawPost = { source: string; title: string; date: string; body: Block[]; meta: { title: string; description: string }; draft?: boolean };
 const DRAFTS = draftsJson as unknown as Partial<Record<Lang, RawPost[]>>;
+const SIZES = imageSizes as unknown as Record<string, [number, number]>;
 const newsKey = (source: string) => (source.match(/news(\d)/) || [])[0] || source;
 
 function buildPosts(lang: Lang): Post[] {
@@ -99,7 +102,7 @@ function buildPosts(lang: Lang): Post[] {
       cardDate: card?.date || r.date.replace(/\s[-–]\s/, " · "),
       excerpt: card?.excerpt || firstP,
       image: card?.image || firstImg,
-      body: r.body,
+      body: r.body.map((b) => (b.img && SIZES[b.img] ? { ...b, size: SIZES[b.img] } : b)),
       meta: r.meta,
       draft: r.draft,
     } satisfies Post;

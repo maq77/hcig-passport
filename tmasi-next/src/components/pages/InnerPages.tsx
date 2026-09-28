@@ -374,11 +374,21 @@ export function PostPage({ post }: { post: PostCard & { body: Block[] } }) {
   const text = post.body.filter((b) => !b.img);
   return (
     <>
-      <PageHero title={post.title} eyebrow={post.date} crumbs={[c.home, c.blog, { label: post.title }]} image={lead?.img || "/img/glavbanner.jpg"} />
+      {/* The site's own banner behind the title: a post image there (often a poster with its own text) fights the heading. */}
+      <PageHero title={post.title} eyebrow={post.date} crumbs={[c.home, c.blog, { label: post.title }]} />
       <article className="lx-section lx-white">
         <div className="lx-wrap ip-post">
+          {/* The lead image whole, at its own shape, as on the live site: nothing cropped off a poster. */}
           {lead?.img && (
-            <div className="ip-post-lead"><Image src={asset(lead.img)} alt={lead.alt || post.title} fill sizes="(max-width: 900px) 100vw, 860px" style={{ objectFit: "cover" }} priority /></div>
+            lead.size ? (
+              <div className="ip-post-lead">
+                <Image src={asset(lead.img)} alt={lead.alt || post.title} width={lead.size[0]} height={lead.size[1]} priority
+                  sizes="(max-width: 900px) 100vw, 860px"
+                  style={{ width: `min(100%, calc(min(72vh, 640px) * ${(lead.size[0] / lead.size[1]).toFixed(4)}))`, height: "auto" }} />
+              </div>
+            ) : (
+              <div className="ip-post-lead ip-post-lead--crop"><Image src={asset(lead.img)} alt={lead.alt || post.title} fill sizes="(max-width: 900px) 100vw, 860px" style={{ objectFit: "cover" }} priority /></div>
+            )
           )}
           {text.map((b, i) =>
             b.quote ? <blockquote key={i} className="ip-quote">{b.quote}</blockquote>
@@ -518,7 +528,9 @@ function InnerStyles() {
       .ip-office-line a:hover { color: var(--tmasi-teal); }
 
       .ip-post { max-width: 860px; }
-      .ip-post-lead { position: relative; aspect-ratio: 16 / 9; border-radius: var(--lx-radius); overflow: hidden; margin-bottom: clamp(28px, 3vw, 40px); background: var(--lx-surface); }
+      .ip-post-lead { display: flex; justify-content: center; margin-bottom: clamp(28px, 3vw, 40px); }
+      .ip-post-lead img { display: block; border-radius: var(--lx-radius); box-shadow: 0 24px 60px -36px rgba(15,32,92,0.35); }
+      .ip-post-lead--crop { position: relative; aspect-ratio: 16 / 9; border-radius: var(--lx-radius); overflow: hidden; background: var(--lx-surface); }
       .ip-post-leadp { font-size: clamp(17px, 1.5vw, 20px); color: #1E293B; font-weight: 500; }
       .ip-quote { margin: 28px 0; padding: 4px 0 4px 22px; border-left: 3px solid var(--tmasi-teal); color: var(--lx-ink);
         font-size: clamp(18px, 1.7vw, 22px); font-weight: 700; line-height: 1.5; }
