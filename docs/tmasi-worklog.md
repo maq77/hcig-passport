@@ -64,6 +64,8 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - News goes live in English first; German, Polish and Spanish follow after a native speaker's check.
 - Order of work: the urgent edits first, news included; then v3 with its full plan.
 - v3 spec approved by Mohamed.
+- Three stages (Mohamed, 2026-09-26): urgent edits; **v2** = the same design, colours and feeling, fully improved with new CSS (ui-ux-pro-max), every word kept; **v3** = a complete new design from the brand guideline with its full plan. Order: v2 first, then v3.
+- v2 is reviewed at tmasi.net/?preview=2 (hidden from Google), home first, then every page and language. Gemini builds it, Claude reviews and deploys.
 - Security items: the urgent edits and the v3 plan come first; Mohamed informs his managers before any security change. Details kept privately.
 - v3: partners first; the world map hero as on the original site, made sharp; light pages with the dark map and footer; all-teal buttons; Big Noodle Titling headlines (Mohamed has permission); a page per service group and per office; today's titles kept except wrong-language ones; EN, DE, PL, ES plus FR, IT, CS; one footer line for HCIG; a logo row of only the organisations the site names; news only, keyword articles later.
 
@@ -86,3 +88,21 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - Two new English news posts live, first on the blog, word for word from Mohamed's text: ITIC Global 2026 Istanbul sponsorship (/blog/news6.php, "October 2026") and the Hansa Medica Group partnership at the Grand Egyptian Museum (/blog/news5.php, "June 2026", 4 photos). Styled like the older posts: key names in bold, a lead paragraph, a subheading-style dateline, a quote block for the closing line.
 - World map: a sharp new map with every pin on its real country went live, then was switched back to the original map at Mohamed's request the same day. The new map files stay on the server, unused (`img/map-2026.jpg`, `img/mapmob-2026.jpg`).
 - Checked after deploy: all 27 sitemap addresses answer 200; language, canonical, hreflang, H1, favicon and share image verified in each live page.
+
+## 2026-09-27
+
+### Fixed on the live site
+- Latest news image updated: The hero and card image for the newest post (/blog/news6.php, ITIC Global 2026 Istanbul) replaced with `1.jpeg` from `tmasi sponsor/news 2 image/`. The previous server file was backed up locally (`tmasi-live/itic-global-2026-istanbul-old-server.jpg`). Optimized to 193.5 KB (1280x1280 progressive JPEG) and deployed over SFTP to `public_html/blog/img/itic-global-2026-istanbul.jpg`. Verified live with HTTP 200 on both the image and article page.
+- Blog card dimensions and layout upgraded: All 6 cards now feature uniform widths, identical 220px image crops, and full fill width and height without letterboxing. The first card (Istanbul) uses full cover to match the grid. All cards show metadata formatted as "City, Country · Month Year" with teal accent badges, 2-line clamped titles, 3-line clamped excerpts, and aligned buttons.
+- "Your Care. One Call Away." centered on one line across desktop and mobile versions.
+- "TMASI Global: Core Values" heading made fully responsive: On desktop it renders on one clean line (`TMASI GLOBAL: CORE VALUES`). On mobile it separates cleanly into two balanced lines (`TMASI GLOBAL` and `CORE VALUES`) at 26px font size with no dangling punctuation.
+- Removed legacy 200px width constraint on `.center` headings in `stylesmob.css` so mobile section headings wrap naturally across the site.
+- Cleaned character encodings and replaced em/en dashes with dots, colons, and full stops across home page templates.
+- Desktop container centering: Resolved alignment on `.section-about.perv` where flex container left `.about-content.ctd` offset by 200px. With `justify-content: center` and auto margins, "Your Care. One Call Away." aligns with "ABOUT US" with zero pixel deviation.
+- Mobile heading alignment across all home sections:
+  - Slogan ("TMASI Global: Where RELAX & ENJOY Is All You Need to Do.") breaks into 3 balanced lines with no dangling words and symmetric padding.
+  - "Our Mission & Vision" styled at 24px so it displays on one bold, centered line on mobile.
+  - "Why Choose TMASI Global?" breaks cleanly into two balanced lines ("Why Choose" / "TMASI Global?") on mobile, remaining on one line on desktop.
+  - "Our Services" subtitle ("One Call, Endless Support: TMASI Global Has You Covered.") formatted as two centered, balanced lines.
+- Changes backed up to server backup directory `backups/layout-2026-09-27/` and deployed live via SFTP. Verified on production with HTTP 200 and Playwright visual checks.
+
