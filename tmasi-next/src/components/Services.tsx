@@ -212,13 +212,10 @@ export default function Services() {
         /* Mobile Slider CSS */
         @media (max-width: 768px) {
           .services-container { 
-            display: grid;
-            grid-template-rows: 1fr 1fr;
-            grid-auto-flow: column;
-            grid-auto-columns: 85%;
+            display: flex;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            gap: 12px;
+            gap: 16px;
             padding-bottom: 20px;
             -ms-overflow-style: none;
             scrollbar-width: none;
@@ -227,23 +224,11 @@ export default function Services() {
             display: none;
           }
           .service-card-wrapper {
+            flex: 0 0 85%;
             scroll-snap-align: center;
           }
           .mobile-arrows {
             display: flex !important;
-          }
-          .service-img-wrapper {
-            height: 120px !important;
-          }
-          .service-content {
-            padding: 16px !important;
-          }
-          .service-bullets {
-            display: none !important;
-          }
-          .service-title {
-            font-size: 16px !important;
-            margin-bottom: 8px !important;
           }
         }
 
