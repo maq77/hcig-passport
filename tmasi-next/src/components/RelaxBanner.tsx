@@ -4,6 +4,7 @@ import Reveal from "./Reveal";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Image from "next/image";
+import JourneyLine from "./JourneyLine";
 
 export default function RelaxBanner() {
   const containerRef = useRef<HTMLElement>(null);
@@ -48,6 +49,7 @@ export default function RelaxBanner() {
             </p>
           </Reveal>
         </div>
+        <JourneyLine />
       </div>
       
       <style dangerouslySetInnerHTML={{__html: `

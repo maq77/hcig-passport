@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Globe, PhoneCall } from "lucide-react";
 import SocialLinks from "./SocialLinks";
+import HotlineBar from "./HotlineBar";
 
 const NAV = [
   { name: "Home", href: "#hero" },
@@ -17,6 +18,9 @@ const NAV = [
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
+  // The 24/7 bar hides while scrolling down and returns on the way up (or back at the top).
+  const [barHidden, setBarHidden] = useState(false);
+  const lastY = useRef(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [activeLang, setActiveLang] = useState("EN");
@@ -30,7 +34,16 @@ export default function Header() {
   ];
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
+    const handleScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 10);
+      // React to real movement only: repeat events at the same position (images loading) change nothing.
+      const dy = y - lastY.current;
+      if (y <= 10) setBarHidden(false);
+      else if (dy > 6) setBarHidden(true);
+      else if (dy < -6) setBarHidden(false);
+      if (y <= 10 || Math.abs(dy) > 6) lastY.current = y;
+    };
     window.addEventListener("scroll", handleScroll, { passive: true });
     
     // Click outside to close lang dropdown
@@ -58,11 +71,12 @@ export default function Header() {
 
   return (
     <>
+      <HotlineBar hidden={barHidden} />
       <header 
         className="main-header"
         style={{
           position: "fixed",
-          top: 0,
+          top: barHidden ? 0 : "var(--bar-h)",
           left: 0,
           right: 0,
           zIndex: 100,
