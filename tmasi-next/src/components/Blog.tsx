@@ -11,7 +11,7 @@ export default function Blog() {
       id: 1,
       title: "The Future of Medical Tourism: Quality & Accessibility",
       category: "Medical Tourism",
-      date: "September 24, 2026",
+      date: "Istanbul, Turkey · October 2026",
       image: "/img/msa.jpg",
       excerpt: "Exploring how global healthcare standards and seamless travel assistance are transforming the patient experience across borders."
     },
@@ -19,7 +19,7 @@ export default function Blog() {
       id: 2,
       title: "Ensuring Safety: Repatriation Best Practices",
       category: "Emergency Assistance",
-      date: "September 15, 2026",
+      date: "Cairo, Egypt · September 2026",
       image: "/img/tas.jpg",
       excerpt: "A deep dive into the complex logistics and compassionate care required for successful international medical evacuations."
     },
@@ -27,23 +27,23 @@ export default function Blog() {
       id: 3,
       title: "Why Corporate Health Assistance is Essential",
       category: "Corporate Solutions",
-      date: "September 02, 2026",
+      date: "Dubai, UAE · August 2026",
       image: "/img/emc.jpeg",
       excerpt: "How multinational companies are protecting their most valuable assets—their employees—through dedicated medical concierge services."
     }
   ];
 
   return (
-    <section className="section-blog" id="blog" style={{ padding: "100px 0", background: "#ffffff" }}>
+    <section className="section-blog" id="blog" style={{ padding: "100px 0", background: "#ffffff", position: "relative", zIndex: 1 }}>
       <div className="container">
         <Reveal>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "48px", flexWrap: "wrap", gap: "20px" }}>
             <div>
-              <h2 className="headline-titling" style={{ fontSize: "36px", color: "#0F205C", marginBottom: "8px" }}>LATEST INSIGHTS</h2>
+              <h2 className="headline-titling" style={{ fontSize: "36px", color: "#0F205C", marginBottom: "8px" }}>OUR NEWS</h2>
               <p style={{ color: "#475569", fontSize: "16px" }}>News, updates, and expert articles from TMASI Global.</p>
             </div>
             <Link href="#blog" style={{ display: "inline-flex", alignItems: "center", gap: "8px", color: "var(--tmasi-teal)", fontWeight: 600, borderBottom: "2px solid transparent", transition: "border-color 0.3s", paddingBottom: "2px" }} className="hover-border">
-              View All Articles &rarr;
+              View All News &rarr;
             </Link>
           </div>
         </Reveal>

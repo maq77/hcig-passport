@@ -9,8 +9,23 @@ export default function MissionVision() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <section id="mission-vision" style={{ background: "#F8FAFC", padding: "100px 0" }}>
-      <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px" }}>
+    <section id="mission-vision" style={{ background: "#F8FAFC", padding: "100px 0", position: "relative", overflow: "hidden" }}>
+      
+      {/* Background Graphics */}
+      <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0 }}>
+        {/* Left MISSION text */}
+        <div className="bg-text-mission headline-titling">MISSION</div>
+        {/* Right VISION text */}
+        <div className="bg-text-vision headline-titling">VISION</div>
+        {/* Flying Plane SVG */}
+        <div className="bg-plane">
+          <svg viewBox="0 0 24 24" width="200" height="200" stroke="currentColor" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.7l-1.2 3.6c-.1.5.3.9.8.9l6.5 2.1-3.5 3.5-3.4-.6c-.5-.1-.9.2-1.1.7l-1 2.9c-.1.5.3.9.8.9l4.5 1.5 1.5 4.5c0 .5.4.9.9.8l2.9-1c.5-.2.8-.6.7-1.1l-.6-3.4 3.5-3.5 2.1 6.5c0 .5.4.9.9.8l3.6-1.2c.5-.2.8-.6.7-1.1z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div className="container" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px", position: "relative", zIndex: 10 }}>
         <div className="mv-grid">
           
           {/* Mission Card */}
@@ -83,14 +98,59 @@ export default function MissionVision() {
           gap: 30px;
         }
         
-        /* Force 2 columns even on mobile */
         @media (max-width: 768px) {
-          .mv-grid { gap: 16px; }
+          .mv-grid { grid-template-columns: 1fr; gap: 16px; }
           .mv-card { padding: 24px !important; }
           .mv-title { font-size: 18px !important; }
-          .mv-content { font-size: 13px !important; }
+          .mv-content { font-size: 14px !important; }
           .mv-icon-wrapper { width: 56px !important; height: 56px !important; margin-bottom: 16px !important; }
           .mv-icon-wrapper img { width: 32px !important; height: 32px !important; }
+          
+          /* Hide giant background text on mobile to avoid overflow */
+          .bg-text-mission, .bg-text-vision { display: none; }
+        }
+
+        /* Background Animations */
+        .bg-text-mission {
+          position: absolute;
+          left: -40px;
+          top: 50%;
+          transform: translateY(-50%) rotate(-90deg);
+          font-size: 180px;
+          color: transparent;
+          -webkit-text-stroke: 2px rgba(15, 32, 92, 0.04);
+          white-space: nowrap;
+          animation: floatTextY 12s ease-in-out infinite alternate;
+        }
+        
+        .bg-text-vision {
+          position: absolute;
+          right: -40px;
+          top: 50%;
+          transform: translateY(-50%) rotate(90deg);
+          font-size: 180px;
+          color: transparent;
+          -webkit-text-stroke: 2px rgba(15, 32, 92, 0.04);
+          white-space: nowrap;
+          animation: floatTextY 15s ease-in-out infinite alternate-reverse;
+        }
+
+        .bg-plane {
+          position: absolute;
+          bottom: -100px;
+          left: -100px;
+          color: rgba(0, 154, 156, 0.05);
+          animation: flyAcross 25s linear infinite;
+        }
+
+        @keyframes floatTextY {
+          0% { margin-top: -30px; }
+          100% { margin-top: 30px; }
+        }
+
+        @keyframes flyAcross {
+          0% { transform: translate(0, 0) rotate(15deg); }
+          100% { transform: translate(120vw, -120vh) rotate(15deg); }
         }
 
         .mv-card {
@@ -102,6 +162,8 @@ export default function MissionVision() {
           display: flex;
           flex-direction: column;
           height: 100%;
+          position: relative;
+          overflow: hidden;
         }
 
         .mv-icon-wrapper {
