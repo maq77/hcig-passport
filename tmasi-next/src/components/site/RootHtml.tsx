@@ -3,9 +3,12 @@ import SmoothScroll from "@/components/SmoothScroll";
 import { bigNoodle, montserrat } from "@/app/fonts";
 
 // The <html> of every language: its own lang attribute, the two brand fonts, the Jotform agent.
+// data-scroll-behavior: the site scrolls smoothly within a page, and this tells Next 16 to switch
+// that off while it changes page. Without it, a menu click starts a smooth scroll down to the new
+// page's footer and ends there.
 export default function RootHtml({ lang, children }: { lang: string; children: React.ReactNode }) {
   return (
-    <html lang={lang} className={`${montserrat.variable} ${bigNoodle.variable}`}>
+    <html lang={lang} className={`${montserrat.variable} ${bigNoodle.variable}`} data-scroll-behavior="smooth">
       <body className="antialiased">
         <SmoothScroll>{children}</SmoothScroll>
         {/* Jotform AI agent (the chat at bottom right), the same embed as the live tmasi.net footer. */}
