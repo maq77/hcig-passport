@@ -14,7 +14,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export type HeroSlide = { src: string; w: number; h: number; caption: string; pos?: string; slot?: string; fitRight?: boolean };
+export type HeroSlide = { src: string; w: number; h: number; caption: string; pos?: string; slot?: string };
 
 /* Seconds each photo stays: 6.5 until 2026-09-24, then 5 ("a little faster"). */
 const SLIDE_MS = 5000;
@@ -104,7 +104,6 @@ export function HeroCarousel({ slides, label, labels }: {
             animate="center"
             exit="exit"
             transition={reduce ? { duration: 0.25 } : { duration: 1.1, ease: EASE }}
-            style={s.fitRight ? { backgroundColor: "#fff" } : undefined}
           >
             {/* The picture moves against its frame, so the slide reads as a reveal. */}
             <motion.img
@@ -116,11 +115,7 @@ export function HeroCarousel({ slides, label, labels }: {
               draggable={false}
               fetchPriority={i === 0 ? "high" : "auto"}
               decoding="async"
-              style={{ 
-                objectPosition: s.fitRight ? "right center" : (s.pos ?? "center"), 
-                objectFit: s.fitRight ? "contain" : "cover",
-                transformOrigin: s.fitRight ? "right center" : "center"
-              }}
+              style={{ objectPosition: s.pos }}
               custom={dir}
               variants={{
                 enter: (d: number) => (reduce ? {} : { x: d > 0 ? "-55%" : "55%", scale: 1.14 }),

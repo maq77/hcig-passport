@@ -17,4 +17,4 @@
 :HL["/247clinic/v3/logos/marks/flag-it.svg","image"]
 :HL["/247clinic/v3/logos/marks/flag-ro.svg","image"]
 :HL["/247clinic/v3/logos/marks/247-mark.svg","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4224,"slots":null}}},"staleTime":300,"buildId":"wMTxz5oCqbguBfEDTiWY3"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4224,"slots":null}}},"staleTime":300,"buildId":"apKV1E0M4Io1seaIA-G3U"}

@@ -35,7 +35,7 @@ export const PHOTOS = {
    approved hero and stays a slot the editor can replace. Captions come from the page. */
 export const HERO_SLIDES = [
   { src: "/slots/hero-desktop.webp", slot: "hero-desktop.webp", w: 1376, h: 768, pos: "64% 50%" },
-  { src: "/img/hero-resort-authentic.jpg", w: 1080, h: 1440, fitRight: true },
+  { src: "/img/hero-resort-enhanced.jpg", w: 1080, h: 753, pos: "50% 50%" },
   { src: "/img/hero-message.webp", w: 1376, h: 768, pos: "72% 50%" },
   { src: "/img/hero-family.webp", w: 1376, h: 768, pos: "70% 50%" },
 ];
