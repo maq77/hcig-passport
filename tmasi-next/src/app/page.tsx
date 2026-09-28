@@ -6,6 +6,7 @@ import CoreValues from "@/components/CoreValues";
 import MissionVision from "@/components/MissionVision";
 import WhyChoose from "@/components/WhyChoose";
 import Services from "@/components/Services";
+import QuoteSection from "@/components/QuoteSection";
 import WorldMap from "@/components/WorldMap";
 import Blog from "@/components/Blog";
 import Footer from "@/components/Footer";
@@ -22,6 +23,7 @@ export default function Home() {
         <MissionVision />
         <WhyChoose />
         <Services />
+        <QuoteSection />
         <WorldMap />
         <Blog />
       </main>

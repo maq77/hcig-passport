@@ -2,11 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useCallback, useState } from "react";
 import { ArrowRight, MapPin, Phone, Mail } from "lucide-react";
 import SocialLinks from "./SocialLinks";
+import QuoteModal from "./QuoteModal";
 
 export default function Footer() {
+  const [quoteOpen, setQuoteOpen] = useState(false);
+  const closeQuote = useCallback(() => setQuoteOpen(false), []);
+
   return (
     <footer id="footi" style={{ background: "#0F205C", color: "#ffffff", position: "relative", overflow: "hidden" }}>
       {/* Top CTA Banner in Footer */}
@@ -18,9 +22,14 @@ export default function Footer() {
               Join our network of international insurers, corporations, and travel agencies today.
             </p>
           </div>
-          <a href="mailto:info@tmasi.net" style={{ background: "#ffffff", color: "#0F205C", padding: "16px 32px", borderRadius: "30px", fontWeight: 700, fontSize: "15px", display: "inline-flex", alignItems: "center", gap: "10px", transition: "transform 0.3s, box-shadow 0.3s" }} className="hover-scale">
-            Get in Touch <ArrowRight size={18} />
-          </a>
+          <div className="band-actions">
+            <button type="button" className="band-btn band-btn--solid hover-scale" onClick={() => setQuoteOpen(true)} aria-haspopup="dialog">
+              Request a Quote
+            </button>
+            <a href="mailto:info@tmasi.net" className="band-btn band-btn--line hover-scale">
+              Get in Touch <ArrowRight size={18} aria-hidden="true" />
+            </a>
+          </div>
         </div>
       </div>
 
@@ -120,7 +129,18 @@ export default function Footer() {
         .hover-bg-teal:hover { background: var(--tmasi-teal) !important; color: white !important; }
         .hover-text-teal:hover { color: var(--tmasi-teal) !important; }
         .hover-scale:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .band-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+        .band-btn {
+          display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 30px;
+          border-radius: 999px; font-family: inherit; font-weight: 700; font-size: 15px; cursor: pointer; text-decoration: none;
+          transition: transform .3s, box-shadow .3s, background-color .25s, color .25s;
+        }
+        .band-btn--solid { background: #ffffff; color: #0F205C; border: none; }
+        .band-btn--line { background: transparent; color: #ffffff; border: 1px solid rgba(255,255,255,0.7); }
+        .band-btn--line:hover { background: rgba(255,255,255,0.12); color: #ffffff; }
+        @media (max-width: 600px) { .band-actions { width: 100%; } .band-btn { flex: 1 1 100%; } }
       `}} />
+      <QuoteModal open={quoteOpen} onClose={closeQuote} />
     </footer>
   );
 }

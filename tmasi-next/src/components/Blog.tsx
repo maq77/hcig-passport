@@ -36,7 +36,7 @@ export default function Blog() {
   ];
 
   return (
-    <section className="section-blog lx-section lx-surface" id="blog">
+    <section className="section-blog lx-section lx-white" id="blog">
       <div className="lx-wrap">
         <Reveal>
           <div className="news-head">

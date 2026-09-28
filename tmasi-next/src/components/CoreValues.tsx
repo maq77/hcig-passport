@@ -33,34 +33,52 @@ export default function CoreValues() {
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
-        .values-section { overflow: visible; }
-        /* Open columns: a hairline on top, a teal accent where the number sits. No boxes. */
+                .values-section { overflow: visible; padding-bottom: 60px; }
         .cv-grid {
-          display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(24px, 3vw, 48px);
+          display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(20px, 2vw, 30px);
         }
-        .cv-card { position: relative; padding-top: 28px; border-top: 1px solid var(--lx-line); height: 100%; }
-        .cv-card::before {
-          content: ""; position: absolute; top: -1px; left: 0; width: 40px; height: 2px; background: var(--tmasi-teal);
+        .cv-card { 
+          position: relative; 
+          padding: 32px 24px; 
+          height: 100%; 
+          background: #ffffff;
+          border-radius: 16px;
+          border: 1px solid var(--lx-line);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+          transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .cv-card:hover {
+          transform: translateY(-8px) scale(1.03);
+          box-shadow: 0 20px 40px rgba(15, 32, 92, 0.12);
+          border-color: var(--tmasi-teal);
+          z-index: 10;
         }
         .cv-num {
-          display: block; line-height: 1; margin-bottom: 18px; color: var(--tmasi-teal);
-          font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif; font-size: 44px;
-          font-variant-numeric: tabular-nums;
+          display: flex; align-items: center; justify-content: center;
+          width: 48px; height: 48px; border-radius: 50%;
+          background: var(--tmasi-teal); color: #ffffff;
+          margin-bottom: 24px;
+          font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif; 
+          font-size: 30px; font-variant-numeric: tabular-nums;
+          line-height: 1; padding-top: 4px; /* offset for bignoodle */
         }
-        .cv-title { margin: 0 0 10px; font-size: 18px; font-weight: 700; line-height: 1.35; color: var(--lx-ink); letter-spacing: -0.01em; }
+        .cv-title { margin: 0 0 12px; font-size: 19px; font-weight: 700; line-height: 1.35; color: var(--lx-ink); letter-spacing: -0.01em; }
         .cv-text { margin: 0; font-size: 15px; line-height: 1.7; color: var(--lx-body); }
 
         @media (max-width: 960px) {
-          .cv-grid { grid-template-columns: repeat(2, 1fr); row-gap: 40px; }
+          .cv-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 520px) {
-          .cv-grid { column-gap: 18px; row-gap: 32px; }
-          .cv-card { padding-top: 20px; }
-          .cv-num { font-size: 34px; margin-bottom: 12px; }
-          .cv-title { font-size: 15.5px; }
-          .cv-text { font-size: 14px; line-height: 1.6; }
+          .cv-grid { grid-template-columns: 1fr; }
+          .cv-card { padding: 24px 20px; }
         }
+
+
       `}} />
     </section>
   );
 }
+

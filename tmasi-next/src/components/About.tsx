@@ -3,15 +3,16 @@
 import Reveal from "./Reveal";
 import CountUp from "./CountUp";
 
+
 // Words are the live tmasi.net About Us, unchanged. Stat labels approved by Mohamed on 2026-09-28.
 export default function About() {
   return (
     <section className="section-about lx-section lx-white" id="about">
       <div className="lx-wrap">
         <Reveal>
-          <div className="about-head">
-            <SectionHead title="About Us" />
-            <h3 className="about-statement">Your Care. One Call Away.</h3>
+          <div className="lx-head">
+            <h2 className="lx-title">About Us</h2>
+            <h3 className="about-statement" style={{ marginTop: "16px" }}>Your Care. One Call Away.</h3>
           </div>
         </Reveal>
 
@@ -51,17 +52,11 @@ export default function About() {
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
-        .about-head { text-align: center; margin-bottom: clamp(28px, 3vw, 40px); }
-        .about-head::before {
-          content: ""; display: block; width: 40px; height: 2px;
-          background: var(--tmasi-teal); margin: 0 auto 22px;
-        }
-        .about-eyebrow {
-          font-weight: 400; color: var(--tmasi-teal); margin: 0 0 14px;
-          font-size: clamp(36px, 3.5vw, 46px); letter-spacing: 0.14em;
-        }
+        
+        
+        
         .about-statement {
-          margin: 0; color: var(--lx-ink); font-weight: 800; letter-spacing: -0.02em;
+          margin: 0; color: var(--tmasi-teal); font-weight: 800; letter-spacing: -0.02em;
           font-size: clamp(34px, 4.5vw, 60px); line-height: 1.1; white-space: nowrap;
         }
         .about-copy { max-width: 920px; margin: 0 auto; text-align: center; }
@@ -106,6 +101,13 @@ export default function About() {
     </section>
   );
 }
+
+
+
+
+
+
+
 
 
 

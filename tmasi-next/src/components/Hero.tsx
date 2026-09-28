@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import Reveal from "./Reveal";
 import Image from "next/image";
 
@@ -57,9 +56,13 @@ export default function Hero() {
 
           <Reveal delay={0.3}>
             <div className="section-hero-action">
-              <Link href="#footi" className="section-hero-btn">
+              <a
+                href="#quote"
+                className="section-hero-btn"
+                onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event("tmasi:open-quote")); }}
+              >
                 Request A Quote
-              </Link>
+              </a>
               <a href="https://wa.me/201206788566" target="_blank" rel="noopener noreferrer" className="section-hero-btn2">
                 CALL THE TEAM
               </a>

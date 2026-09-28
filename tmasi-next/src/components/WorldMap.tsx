@@ -17,7 +17,7 @@ export default function WorldMap() {
   ];
 
   return (
-    <section id="offices" className="lx-section lx-white">
+    <section id="offices" className="lx-section lx-surface">
       <CornerOrbs corners={["top-left", "bottom-right"]} />
       <div className="lx-wrap relative z-10">
         <Reveal>
