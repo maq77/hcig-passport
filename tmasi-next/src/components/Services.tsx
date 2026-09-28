@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
+import CornerOrbs from "./CornerOrbs";
 import { useEffect, useState } from "react";
 import { ChevronRight, X, CheckCircle2 } from "lucide-react";
 
@@ -115,7 +116,8 @@ export default function Services() {
 
   return (
     <section id="services" className="services-section lx-section lx-surface">
-      <div className="lx-wrap">
+      <CornerOrbs />
+      <div className="lx-wrap relative z-10">
         <Reveal>
           <SectionHead
             title="Our Services"
