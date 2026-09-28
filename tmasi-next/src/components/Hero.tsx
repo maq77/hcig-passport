@@ -38,8 +38,11 @@ export default function Hero() {
       <div className="hero-container" style={{ position: "relative", zIndex: 2 }}>
         <div className="hero-content">
           <Reveal delay={0.1}>
+            {/* Same words as the live site, broken by meaning: each line is one idea and never wraps. */}
             <h1 className="section-hero-heading" style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
-              Your <strong className="orange" style={{ color: "var(--tmasi-teal)" }}>Trusted</strong> Partner in Global Medical, Travel, and Tourism Assistance.
+              <span className="hero-line">Your <strong className="orange" style={{ color: "var(--tmasi-teal)" }}>Trusted</strong> Partner in</span>{" "}
+              <span className="hero-line">Global Medical, Travel,</span>{" "}
+              <span className="hero-line">and Tourism Assistance.</span>
             </h1>
           </Reveal>
 
@@ -67,11 +70,21 @@ export default function Hero() {
 
       <style dangerouslySetInnerHTML={{__html: `
         .hero-mobile-bg { display: none; }
+
+        /* Phones only. Desktop keeps its original hero untouched (Mohamed, 2026-09-28). */
         @media (max-width: 768px) {
           .hero-desktop-bg { display: none; }
           .hero-mobile-bg { display: block; }
-          .section-hero { padding-top: 100px !important; }
-          .section-hero-heading { font-size: 32px !important; margin-bottom: 20px !important; }
+
+          /* Clear air under the header, then title, paragraph and buttons in even steps. */
+          #hero.section-hero { padding: 152px 0 72px; }
+          #hero .section-hero-heading {
+            /* The widest line is about 13 times the font size, so each line stays whole on any phone. */
+            font-size: clamp(22px, calc((100vw - 40px) / 13.2), 34px);
+            line-height: 1.14; margin: 0 0 24px;
+          }
+          #hero .hero-line { display: block; white-space: nowrap; }
+          #hero .section-hero-description { font-size: 15.5px; line-height: 1.75; margin: 0 0 36px; }
         }
       `}} />
     </section>
