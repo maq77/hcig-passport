@@ -128,3 +128,4 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - Every page now built in English, German, Polish and Spanish (preview only): About, the two leaders, Services and its five groups, Contact and the five offices, the news list and each news post. All words are the live site's own, taken from each language's live pages. The language switcher opens the same page in the other language. Each page has a clean address.
 - Menu links now open the new page at the top. Before, a click could land at the bottom, on the footer.
 - Pages whose live title is in another language (Polish home, about, services and contact; Spanish about and blog) now take their own heading as title.
+- News posts show their main picture whole, as on the live site. The Istanbul ITIC poster was cut to a wide frame before. Post titles now sit on the site banner instead of a darkened copy of the picture.
