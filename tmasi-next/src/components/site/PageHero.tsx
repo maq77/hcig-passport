@@ -9,12 +9,14 @@ export type Crumb = { label: string; href?: string };
 
 // The top of every inner page: a dark band the transparent header sits on, the page's live title,
 // an optional line under it, and a breadcrumb built from the live menu words.
-export default function PageHero({ title, sub, crumbs, image = "/img/glavbanner.jpg", eyebrow }: {
-  title: string; sub?: string; crumbs: Crumb[]; image?: string; eyebrow?: string;
+// soft: blurs the picture a little, for pictures with their own text (news posters) that would
+// otherwise read through the title.
+export default function PageHero({ title, sub, crumbs, image = "/img/glavbanner.jpg", eyebrow, soft = false }: {
+  title: string; sub?: string; crumbs: Crumb[]; image?: string; eyebrow?: string; soft?: boolean;
 }) {
   return (
     <section className="ph">
-      <div className="ph-bg" aria-hidden="true">
+      <div className={`ph-bg${soft ? " ph-bg--soft" : ""}`} aria-hidden="true">
         <Image src={asset(image)} alt="" fill priority sizes="100vw" style={{ objectFit: "cover", objectPosition: "center" }} />
         <div className="ph-shade" />
       </div>
@@ -38,6 +40,7 @@ export default function PageHero({ title, sub, crumbs, image = "/img/glavbanner.
         .ph { position: relative; overflow: hidden; background: #0F205C; color: #ffffff;
           padding: calc(112px + clamp(40px, 5vw, 72px)) 0 clamp(56px, 6vw, 88px); }
         .ph-bg { position: absolute; inset: 0; }
+        .ph-bg--soft img { filter: blur(6px); transform: scale(1.08); }
         .ph-shade { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(8,17,51,0.94) 0%, rgba(15,32,92,0.86) 55%, rgba(15,32,92,0.6) 100%); }
         .ph-inner { position: relative; z-index: 1; }
         .ph-crumbs { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px;

@@ -374,8 +374,8 @@ export function PostPage({ post }: { post: PostCard & { body: Block[] } }) {
   const text = post.body.filter((b) => !b.img);
   return (
     <>
-      {/* The site's own banner behind the title: a post image there (often a poster with its own text) fights the heading. */}
-      <PageHero title={post.title} eyebrow={post.date} crumbs={[c.home, c.blog, { label: post.title }]} />
+      {/* Each post's own first picture behind its title, softened so a poster's text does not read through. */}
+      <PageHero title={post.title} eyebrow={post.date} crumbs={[c.home, c.blog, { label: post.title }]} image={lead?.img} soft />
       <article className="lx-section lx-white">
         <div className="lx-wrap ip-post">
           {/* The lead image whole, at its own shape, as on the live site: nothing cropped off a poster. */}
