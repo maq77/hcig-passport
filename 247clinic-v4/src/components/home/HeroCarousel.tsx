@@ -14,7 +14,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export type HeroSlide = { src: string; w: number; h: number; caption: string; pos?: string; slot?: string };
+/* pos frames the photo on tablet and desktop, posM on phones (the taller cinema-fade crop). */
+export type HeroSlide = { src: string; w: number; h: number; caption: string; pos?: string; posM?: string; slot?: string };
 
 /* Seconds each photo stays: 6.5 until 2026-09-24, then 5 ("a little faster"). */
 const SLIDE_MS = 5000;
@@ -115,7 +116,7 @@ export function HeroCarousel({ slides, label, labels }: {
               draggable={false}
               fetchPriority={i === 0 ? "high" : "auto"}
               decoding="async"
-              style={{ objectPosition: s.pos }}
+              style={{ ["--pos" as string]: s.pos, ["--pos-m" as string]: s.posM ?? s.pos }}
               custom={dir}
               variants={{
                 enter: (d: number) => (reduce ? {} : { x: d > 0 ? "-55%" : "55%", scale: 1.14 }),
