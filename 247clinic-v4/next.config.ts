@@ -4,7 +4,9 @@ import type { NextConfig } from "next";
    V3_TARGET=preview (default) -> static export under hcig-passport.vercel.app/247clinic/v3, noindex
    V3_TARGET=live              -> static export for www.247clinic.net, uploaded over FTP to IIS */
 const target = process.env.V3_TARGET === "live" ? "live" : "preview";
-const basePath = target === "preview" ? "/247clinic/v4" : "";
+/* PREVIEW_BASE picks the preview slot: /247clinic/v4 by default, /247clinic/v3 through
+   `npm run preview:v3` (the user, 2026-09-29: "push v4 on v3"). */
+const basePath = target === "preview" ? (process.env.PREVIEW_BASE || "/247clinic/v4") : "";
 
 const nextConfig: NextConfig = {
   output: "export",

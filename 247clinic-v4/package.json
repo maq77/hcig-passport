@@ -10,7 +10,8 @@
     "media": "node scripts/media.mjs",
     "fonts": "node scripts/fonts.mjs",
     "sync": "node scripts/sync-preview.mjs",
-    "preview": "npm run build && npm run sync"
+    "preview": "npm run build && npm run sync",
+    "preview:v3": "node scripts/preview-slot.mjs v3"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

@@ -25,18 +25,6 @@ medpark-dashboard/
 pack/
 video/
 brand guideline/
-*.jpg
-!src/assets/*.jpg
-!docs/**/*.jpg
-# TMASI v3 photos are site assets and must ship to HCIG Work (2026-09-28)
-!tmasi-next/public/**/*.jpg
-!src/tmasi-v3/**/*.jpg
-!247clinic-v3/public/img/**/*.jpg
-!247clinic-v3/public/img/**/*.jpeg
-!247clinic-v3/public/img/**/*.png
-!src/247clinic-v3/**/*.jpg
-!src/247clinic-v3/**/*.jpeg
-!src/247clinic-v3/**/*.png
 
 # OS
 .DS_Store

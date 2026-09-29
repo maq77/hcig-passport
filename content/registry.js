@@ -429,6 +429,7 @@ const COMPANIES = [
           'Rounds 3 and 4, 24 September: repeated wording removed, a photo carousel in the hero, two-line descriptions that open on an arrow, a numbers band, the phone layout rebuilt, less space between sections, smooth scrolling. A live editor now lets Mohamed change words, order, spacing and pictures himself.',
           'Round 5, 28 September: updated stats, authentic photo replacement for hero and Intro section, removed text testimonials in favor of a Trusted by Patients photo marquee.',
           'Round 6, 29 September: v4, the luxury remake, at /247clinic/v4. On phones the hero is now a cinematic fade: the photo melts into bordeaux, white type, the silk waves and glow from desktop, no blur. Chosen from a design canvas.',
+          'Also 29 September: /247clinic/v3 now shows v4. The earlier v3 build is kept in git (commit 4692ee9f).',
         ],
         checklist: [
           { text: 'Approve the v3 spec', done: true, who: 'Mohamed' },
@@ -451,7 +452,7 @@ const COMPANIES = [
             name: 'Preview',
             note: 'Home first. Inner pages follow your notes on it.',
             items: [
-              { slug: 'home', name: 'Homepage v3', kind: 'link', href: 'https://hcig-passport.vercel.app/247clinic/v3', status: 'draft', note: 'The whole brief home, word for word, in the new design' },
+              { slug: 'home', name: 'Homepage v3', kind: 'link', href: 'https://hcig-passport.vercel.app/247clinic/v3', status: 'draft', note: 'Now shows v4, the luxury remake (29 Sep)' },
               { slug: 'home-v4', name: 'Homepage v4, luxury remake', kind: 'link', href: 'https://hcig-passport.vercel.app/247clinic/v4', status: 'draft', note: 'Bordeaux hero with silk waves. Phone hero is the cinematic fade since 29 Sep' },
               { slug: 'slots', name: 'Where your designs go', kind: 'md', src: 'docs/247clinic-v3-design-slots.md', status: 'draft', note: 'Eight dashed boxes: hero still, CAUCQ mark, six service cards' },
               { slug: 'gaps', name: 'What the brief does not say', kind: 'md', src: 'docs/247clinic-v3-gaps.md', status: 'draft', note: 'Every line left out rather than written' },
