@@ -15,6 +15,7 @@ import Blog from "@/components/Blog";
 import { AboutPage, BlogPage, ContactPage, GroupPage, LeaderPage, OfficePage, PostPage, ServicesPage } from "@/components/pages/InnerPages";
 import { SiteProvider } from "./SiteProvider";
 import { findRoute, getContent, getPosts, type Lang, type Route } from "@/lib/site";
+import { jsonLdText, pageMetadata } from "@/lib/seo";
 
 // Renders any v3 page: finds the route for the address, gives the page its language's words, and
 // picks the template. Every language shares the same templates.
@@ -60,6 +61,8 @@ export function SitePage({ lang, slug }: { lang: Lang; slug?: string[] }) {
   const content = getContent(lang, route.id);
   return (
     <SiteProvider value={content}>
+      {/* What the page is, for search engines and AI answers (lib/seo.ts). */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdText(route) }} />
       <Header />
       <main><Template route={route} /></main>
       <Footer />
@@ -67,61 +70,8 @@ export function SitePage({ lang, slug }: { lang: Lang; slug?: string[] }) {
   );
 }
 
-// Titles and descriptions: the live page's own, kept as they are. Pages the live site does not have
-// get the page's own heading. Some live pages carry a title in another language (German on the Polish
-// home, about, services and contact pages and on the Spanish about page, English on the Spanish
-// blog); by decision those take the page's own heading instead (the menu word for Contact, whose
-// heading belongs to its form).
-const WRONG_LANGUAGE_TITLE = new Set(["pl:home", "pl:about", "pl:services", "pl:contact", "es:about", "es:blog"]);
-const stripFlag = (t: string) => t.replace(/^[\u{1F1E6}-\u{1F1FF}]{2}\s*/u, "");
-
+// Title, description, canonical, hreflang, Open Graph and robots: see lib/seo.ts.
 export function siteMetadata(lang: Lang, slug?: string[]): Metadata {
   const route = findRoute(lang, slug || []);
-  if (!route) return {};
-  const { live, ui } = getContent(lang, route.id);
-  const meta = live.meta as Record<string, { title: string; description: string }>;
-  const brand = (t: string) => `${t} | TMASI Global`;
-  const n = Number(route.ref);
-  let title = "";
-  let description = "";
-  switch (route.key) {
-    case "home": case "about": case "services": case "contact": case "blog":
-      title = meta[route.key]?.title || "";
-      description = meta[route.key]?.description || "";
-      if (WRONG_LANGUAGE_TITLE.has(`${lang}:${route.key}`)) {
-        const own: Record<string, string> = {
-          home: live.home.hero.title.map((s) => s.t).join(""),
-          about: live.about.heading,
-          services: live.services.heading,
-          contact: live.shell.nav[3] || "",
-          blog: (live as { blog?: { heading: string } }).blog?.heading || ui.latestNews,
-        };
-        title = brand(own[route.key]);
-      }
-      if (!title && route.key === "blog") title = brand(ui.latestNews);
-      break;
-    case "leader":
-      title = live.leaders[n].meta.title;
-      description = live.leaders[n].meta.description;
-      break;
-    case "group": {
-      const g = live.services.groups[n];
-      title = brand(g.title);
-      description = g.items.map((i) => ("title" in i && i.title) || i.text).join(", ");
-      break;
-    }
-    case "office": {
-      const o = live.contact.offices[n];
-      title = brand(stripFlag(o.name));
-      description = o.lines.join(" · ");
-      break;
-    }
-    case "post": {
-      const p = getPosts(lang).find((x) => x.key === route.ref);
-      title = p?.meta.title || "";
-      description = p?.meta.description || "";
-      break;
-    }
-  }
-  return { title, description: description.slice(0, 300), robots: "noindex, nofollow" };
+  return route ? pageMetadata(route) : {};
 }

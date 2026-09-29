@@ -174,7 +174,7 @@ export function ServicesPage() {
                     <h2 className="ip-group-title">{g.title}</h2>
                     <ItemList items={g.items as Item[]} columns={1} />
                     {links.groups[i] && (
-                      <Link href={links.groups[i]} className="ip-more">{ui.viewDetails} <ArrowRight size={16} aria-hidden="true" /></Link>
+                      <Link href={links.groups[i]} className="ip-more">{ui.viewDetails}<span className="sr-only">: {g.title}</span> <ArrowRight size={16} aria-hidden="true" /></Link>
                     )}
                   </div>
                 </article>

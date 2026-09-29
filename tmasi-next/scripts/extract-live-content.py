@@ -326,7 +326,7 @@ def post(s) -> dict:
 
 def head(s) -> dict:
     d = s.find("meta", attrs={"name": "description"})
-    return {"title": clean(s.title.get_text()) if s.title else "", "description": d.get("content", "") if d else ""}
+    return {"title": clean(s.title.get_text()) if s.title else "", "description": clean(d.get("content", "")) if d else ""}
 
 
 def main():
