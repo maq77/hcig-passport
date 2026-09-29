@@ -346,6 +346,142 @@
         "All FAQs"
       ],
       "his_words": "at last section between view clinic button and feeling unwell part, i want to add FAQs with good styling and design"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (1)",
+      "from": "HIGH STANDARDS",
+      "to": "PREMIUM QUALITY"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (2)",
+      "from": "PREMIUM QUALITY",
+      "to": "ELITE"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (2)",
+      "from": "ELITE",
+      "to": "ELITE Care"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (1)",
+      "from": "ELITE CARE",
+      "to": "Procedurec"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (1)",
+      "from": "Procedurec",
+      "to": "Procedures"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (1)",
+      "from": "Procedures",
+      "to": "Fast Procedures"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (1)",
+      "from": "UNCOMPROMISED",
+      "to": "Trust"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (1)",
+      "from": "Trust",
+      "to": "Experience"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (2)",
+      "from": "ELITE Care",
+      "to": "PremiumQuality"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (2)",
+      "from": "PremiumQuality",
+      "to": "Premium Quality"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (2)",
+      "from": "Premium Quality",
+      "to": "Elite care"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (2)",
+      "from": "Elite care",
+      "to": "Luxury   Premium    ELite"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (2)",
+      "from": "Luxury   Premium    ELite",
+      "to": "Premium Luxury ELite"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (1)",
+      "from": "WORLD-CLASS CLINICS",
+      "to": "World"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (1)",
+      "from": "World",
+      "to": "Partner"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (1)",
+      "from": "LUXURIOUS TREATMENT",
+      "to": "WORLD-CLASS CLINICS"
+    },
+    {
+      "date": "2026-09-29",
+      "by": "the user, in the home editor",
+      "kind": "edit",
+      "where": "247clinic-v4/src/content/ui-labels.json (2)",
+      "from": "Premium Luxury ELite",
+      "to": "Elite care"
     }
   ],
   "fromTheirSite": {

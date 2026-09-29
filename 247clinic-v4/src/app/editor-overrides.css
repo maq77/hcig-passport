@@ -1,0 +1,54 @@
+/* Written by the home editor (npm run edit). Do not edit by hand: it is generated from
+   src/content/home-layout.json and src/content/home-edits.json (editor/css.mjs). */
+
+@media (min-width: 768px) {
+  html:not(.e-live) [data-e-section="HotelBand"] > * { padding-top: 26px !important; padding-bottom: 10px !important; }
+  html:not(.e-live) [data-e-section="Facilities"] > * { padding-top: 26px !important; padding-bottom: 18px !important; }
+  html:not(.e-live) [data-e-section="Services"] > * { padding-top: 18px !important; padding-bottom: 42px !important; }
+  html:not(.e-live) [data-e-section="Intro"] > * { padding-top: 42px !important; padding-bottom: 20px !important; }
+  html:not(.e-live) [data-e-section="HowItWorks"] > * { padding-top: 20px !important; padding-bottom: 12px !important; }
+  html:not(.e-live) [data-e-section="Insurance"] > * { padding-top: 12px !important; padding-bottom: 52px !important; }
+  html:not(.e-live) [data-e-section="Stories"] > * { padding-top: 52px !important; padding-bottom: 0px !important; }
+  html:not(.e-live) [data-e-section="Posts"] > * { padding-top: 64px !important; padding-bottom: 64px !important; }
+  html:not(.e-live) [data-e-section="Finder"] > * { padding-top: 22px !important; padding-bottom: 6px !important; }
+  html:not(.e-live) [data-e-section="Hero"] > * { padding-bottom: 34px !important; }
+}
+@media (min-width: 1024px) {
+  html:not(.e-live) #hero-h > span.ln:nth-of-type(1) { zoom: 0.9 !important; }
+  html:not(.e-live) #hero-h > span.ln:nth-of-type(2) { zoom: 0.8 !important; }
+  html:not(.e-live) [data-e-section="Facilities"] > section.section > div.container { zoom: 0.8 !important; }
+  html:not(.e-live) [data-e-section="Facilities"] > section.section > div.container > div.head > span.eyebrow { zoom: 2.0 !important; }
+  html:not(.e-live) [data-e-section="Facilities"] > section.section > div.container > div.head > div.lead > p { zoom: 1.1 !important; }
+  html:not(.e-live) [data-e-section="Services"] > section.section > div.container > div.head-row > div.head > span.eyebrow { zoom: 1.3 !important; }
+  html:not(.e-live) [data-e-section="Intro"] > section.section > div.container > div.intro-copy > div.head > span.eyebrow { zoom: 1.3 !important; }
+  html:not(.e-live) [data-e-section="HowItWorks"] > section.section > div.container > div.head > span.eyebrow { zoom: 1.4 !important; }
+  html:not(.e-live) [data-e-section="Insurance"] > section.section > div.container > div.stack > div.head > span.eyebrow { zoom: 1.4 !important; }
+  html:not(.e-live) [data-e-section="Insurance"] > section.section > div.band > span.band-label { zoom: 1.4 !important; }
+  html:not(.e-live) [data-e-section="Stories"] > section.section > div.container > div.head > span.eyebrow { zoom: 1.4 !important; }
+  html:not(.e-live) #clinics > div.container > div.head > span.eyebrow { zoom: 1.3 !important; }
+  html:not(.e-live) #clinics > div.container > div.finder-grid > div.finder-side > div.chips { text-align: left !important; }
+  html:not(.e-live) [data-e-section="HotelBand"] > section.proof { zoom: 0.8 !important; }
+  html:not(.e-live) [data-e-section="HotelBand"] > section.proof > div.container > ul.stats { zoom: 1.1 !important; }
+  html:not(.e-live) body > header.site-header > div.hdr { zoom: 1.1 !important; }
+  html:not(.e-live) body > header.site-header > div.hdr > div.hdr-actions > a.btn:nth-of-type(2) { zoom: 0.7 !important; }
+  html:not(.e-live) body > header.site-header > div.hdr > div.hdr-actions > a.btn:nth-of-type(1) { zoom: 0.7 !important; }
+  html:not(.e-live) body > footer.site-footer > div.container > div.help-band { zoom: 0.8 !important; }
+  html:not(.e-live) [data-e-section="Posts"] > section.section > div.container { zoom: 0.8 !important; }
+  html:not(.e-live) [data-e-section="Facilities"] > section.section > div.edge-label { zoom: 2.25 !important; margin-top: 104px !important; }
+  html:not(.e-live) [data-e-section="Services"] > section.section > div.edge-label { zoom: 3.00 !important; margin-top: 122px !important; line-height: 1.35 !important; letter-spacing: 5.5px !important; margin-bottom: 26px !important; }
+  html:not(.e-live) [data-e-section="Services"] > section.section { margin-top: -2px !important; }
+  html:not(.e-live) [data-e-section="Intro"] > section.section > div.edge-label { zoom: 3.00 !important; margin-top: 52px !important; }
+  html:not(.e-live) [data-e-section="HowItWorks"] > section.section > div.edge-label { zoom: 2.35 !important; margin-top: 76px !important; }
+  html:not(.e-live) [data-e-section="Insurance"] > section.section > div.edge-label { zoom: 2.20 !important; margin-top: 26px !important; }
+  html:not(.e-live) [data-e-section="Stories"] > section.section > div.edge-label { margin-top: 76px !important; zoom: 2.30 !important; }
+  html:not(.e-live) [data-e-section="Stories"] > section.section > div.carousel { margin-bottom: 191px !important; }
+  html:not(.e-live) [data-e-section="Stories"] > section.section > div.carousel > ul.row { margin-bottom: 2px !important; margin-top: 34px !important; }
+  html:not(.e-live) [data-e-section="Stories"] > section.section > div.carousel > div.car-dots { margin-bottom: -95px !important; }
+  html:not(.e-live) [data-e-section="Stories"] > section.section > div:nth-of-type(3) > div { zoom: 2.60 !important; margin-bottom: -8px !important; letter-spacing: 1px !important; }
+  html:not(.e-live) [data-e-section="Stories"] > section.section > div:nth-of-type(3) { margin-bottom: 38px !important; zoom: 0.85 !important; }
+  html:not(.e-live) [data-e-section="Stories"] > section.section > div.trusted-patients > div.container { margin-top: 48px !important; }
+  html:not(.e-live) #trusted-h { zoom: 1.45 !important; margin-top: -12px !important; }
+  html:not(.e-live) [data-e-section="Insurance"] > section.section > div.band { margin-bottom: -6px !important; zoom: 0.65 !important; }
+  html:not(.e-live) [data-e-section="Stories"] > section.section > div:nth-of-type(3) > div.edge-label { margin-top: 26px !important; }
+  html:not(.e-live) #st-h { zoom: 1.10 !important; }
+}
