@@ -273,6 +273,34 @@
       "props": {
         "zoom": "1.10"
       }
+    },
+    {
+      "media": "phone",
+      "selector": "[data-e-section=\"Hero\"] > section.hero > div.container > div.hero-copy > ul.hero-facts > li:nth-of-type(1) > span",
+      "props": {
+        "color": "#ffffff"
+      }
+    },
+    {
+      "media": "phone",
+      "selector": "[data-e-section=\"Hero\"] > section.hero > div.container > div.hero-copy > ul.hero-facts > li:nth-of-type(2) > span",
+      "props": {
+        "color": "#ffffff"
+      }
+    },
+    {
+      "media": "phone",
+      "selector": "#hero-h > span.ln:nth-of-type(1)",
+      "props": {
+        "color": "#ffffff"
+      }
+    },
+    {
+      "media": "phone",
+      "selector": "[data-e-section=\"Hero\"] > section.hero > div.container > div.hero-copy > p.hero-text",
+      "props": {
+        "color": "#ffffff"
+      }
     }
   ]
 }

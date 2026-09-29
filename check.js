@@ -34,7 +34,11 @@ const HIDDEN = COMPANIES.flatMap((c) =>
     .filter((p) => p.hidden)
     .map((p) => ({
       prefix: `/${c.slug}/${p.slug}`,
-      needles: [`/${c.slug}/${p.slug}`, p.name],
+      needles: [`/${c.slug}/${p.slug}`, p.name].map(
+        /* Whole words only: "llms.txt for AI assistants" is prose, not the held-back
+           "AI assistant" project (a false stop on 2026-09-29). */
+        (n) => new RegExp(n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![A-Za-z0-9])')
+      ),
     }))
 );
 
@@ -75,11 +79,12 @@ const REDIRECTS = new Set(
 /* 24/7 Clinic v3 is built home first (spec 007): its nav already points at the
    inner pages that follow the user's home review. Only these planned routes, from
    specs/007-247clinic-v3/contracts/urls.md, may be missing for now. Remove each
-   one as its page ships; any other dead link still fails. */
+   one as its page ships; any other dead link still fails. v4 (the luxury remake in
+   247clinic-v4, 2026-09-28) carries the same nav, so the same planned routes apply. */
 const V3_PLANNED = new Set([
   '/services', '/insurance', '/our-clinics', '/about-us', '/contact-us', '/faqs', '/beauty-wellness', '/blog',
   '/for-hotels', '/hotel-clinics', '/international-accreditation', '/insurance-assistance-partners',
-].map((p) => `/247clinic/v3${p}`));
+].flatMap((p) => [`/247clinic/v3${p}`, `/247clinic/v4${p}`]));
 
 /** Mirror Vercel's cleanUrls + directory index, so the checker resolves a URL
  *  the same way production will. */
@@ -87,7 +92,7 @@ function resolves(url) {
   const clean = url.split('#')[0].split('?')[0];
   if (!clean || clean === '/') return fs.existsSync(path.join(DIST, 'index.html'));
   if (REDIRECTS.has(clean)) return true;
-  if (V3_PLANNED.has(clean) || clean.startsWith('/247clinic/v3/clinics/')) return true;
+  if (V3_PLANNED.has(clean) || /^\/247clinic\/v[34]\/clinics\//.test(clean)) return true;
   const p = path.join(DIST, clean.replace(/^\/+/, ''));
   if (fs.existsSync(p) && fs.statSync(p).isFile()) return true;
   if (fs.existsSync(p + '.html')) return true;
@@ -116,7 +121,8 @@ for (const file of htmlFiles) {
   for (const h of HIDDEN) {
     if (here.startsWith(h.prefix)) continue;
     for (const needle of h.needles) {
-      if (html.includes(needle)) bad(file, `names held-back project: "${needle}"`);
+      const hit = html.match(needle);
+      if (hit) bad(file, `names held-back project: "${hit[0]}"`);
     }
   }
 

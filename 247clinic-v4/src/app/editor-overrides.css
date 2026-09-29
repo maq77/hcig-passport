@@ -13,6 +13,12 @@
   html:not(.e-live) [data-e-section="Finder"] > * { padding-top: 22px !important; padding-bottom: 6px !important; }
   html:not(.e-live) [data-e-section="Hero"] > * { padding-bottom: 34px !important; }
 }
+@media (max-width: 767px) {
+  html:not(.e-live) [data-e-section="Hero"] > section.hero > div.container > div.hero-copy > ul.hero-facts > li:nth-of-type(1) > span { color: #ffffff !important; }
+  html:not(.e-live) [data-e-section="Hero"] > section.hero > div.container > div.hero-copy > ul.hero-facts > li:nth-of-type(2) > span { color: #ffffff !important; }
+  html:not(.e-live) #hero-h > span.ln:nth-of-type(1) { color: #ffffff !important; }
+  html:not(.e-live) [data-e-section="Hero"] > section.hero > div.container > div.hero-copy > p.hero-text { color: #ffffff !important; }
+}
 @media (min-width: 1024px) {
   html:not(.e-live) #hero-h > span.ln:nth-of-type(1) { zoom: 0.9 !important; }
   html:not(.e-live) #hero-h > span.ln:nth-of-type(2) { zoom: 0.8 !important; }

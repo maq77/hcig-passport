@@ -92,7 +92,7 @@ function LogoTile({ l }: { l: Logo }) {
 export function HotelBand() {
   return (
     <section className="proof" aria-label={BRIEF.hotelClinics}>
-      <div className="edge-label left">{UI.labels[52]}</div>
+      <div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[52]}</div>
       <div className="container">
         <ul className="stats">
           {NUMBERS.map((n, i) => {
@@ -121,7 +121,7 @@ const POINT_ICONS = [Globe, ShieldCheck, Stethoscope, Award];
 export function Facilities() {
   const s = section("home", "accreditation-block");
   return (
-    <section className="section bg-surface facilities" aria-labelledby="fac-h"><div className="edge-label right">{UI.labels[56]}</div>
+    <section className="section bg-surface facilities" aria-labelledby="fac-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[56]}</div>
       <div className="container">
         <Head center eyebrow="Accreditation" id="fac-h" title={s.heading} lead={<p>{s.body[0]}</p>} />
         <div className="stage-wrap">
@@ -166,7 +166,7 @@ const SVC_FILES = ["svc-urgent", "svc-injuries", "svc-diagnostics", "svc-iv", "s
 export function Services() {
   const s = section("home", "medical-services");
   return (
-    <section className="section services" aria-labelledby="svc-h"><div className="edge-label left">{UI.labels[53]}</div>
+    <section className="section services" aria-labelledby="svc-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[53]}</div>
       <div className="container">
         <div className="head-row">
           <Head eyebrow="What we treat" id="svc-h" title={s.heading} />
@@ -209,7 +209,7 @@ export function Services() {
 export function Intro() {
   const s = section("home", "what-is-247-clinic");
   return (
-    <section className="section bg-surface intro" aria-labelledby="intro-h"><div className="edge-label right">{UI.labels[57]}</div>
+    <section className="section bg-surface intro" aria-labelledby="intro-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[57]}</div>
       <Watermark />
       <div className="container intro-grid">
         <div className="intro-media rv">
@@ -245,7 +245,7 @@ const STEP_ICONS: React.ComponentType<{ size?: number }>[] = [WhatsAppGlyph, Map
 export function HowItWorks() {
   const s = section("home", "how-it-works");
   return (
-    <section className="section how" aria-labelledby="how-h"><div className="edge-label left">{UI.labels[54]}</div>
+    <section className="section how" aria-labelledby="how-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[54]}</div>
       <div className="container">
         <Head center eyebrow="How it works" id="how-h" title={s.heading} />
         <ol className="steps" data-inview>
@@ -278,7 +278,7 @@ export function Insurance({ insuranceMessage }: { insuranceMessage: string }) {
   const [p1, cashless] = s.body;
   const half = Math.ceil(INSURERS.length / 2);
   return (
-    <section className="section bg-surface insurance" aria-labelledby="ins-h"><div className="edge-label right">{UI.labels[58]}</div>
+    <section className="section bg-surface insurance" aria-labelledby="ins-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[58]}</div>
       <div className="container split">
         <div className="stack">
           <Head eyebrow="Insurance & cashless" id="ins-h" title={s.heading} />
@@ -343,7 +343,7 @@ export function Stories() {
       </StoryCarousel>
       
       <div style={{ position: 'relative' }}>
-        <div className="edge-label left" style={{ top: 0, transform: 'translateY(-50%) rotate(-90deg)' }}>
+        <div data-e-block="edge-label" data-e-field="text" className="edge-label left" style={{ top: 0, transform: 'translateY(-50%) rotate(-90deg)' }}>
           {UI.labels[55]}
         </div>
       </div>

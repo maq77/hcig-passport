@@ -1,5 +1,57 @@
 [
   {
+    "date": "2026-09-29",
+    "subject": "feat(247clinic-v4): phone hero is the cinema fade"
+  },
+  {
+    "date": "2026-09-29",
+    "subject": "feat(247clinic): deploy v4 luxury remake with edge labels"
+  },
+  {
+    "date": "2026-09-29",
+    "subject": "TMASI work log: search and AI-answer setup for v3"
+  },
+  {
+    "date": "2026-09-29",
+    "subject": "TMASI v3: search and AI-answer setup on every page"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI work log: post titles on their own picture"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: each news post shows its own first picture behind its title"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI work log: news pictures shown whole"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: news posts show their lead image whole, as on the live site"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI work log: v3 in four languages, menu scroll fix"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: Polish and Spanish pages with foreign titles use their own heading"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: menu links open the new page at the top, not at its footer"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "TMASI v3: every page in English, German, Polish and Spanish"
+  },
+  {
+    "date": "2026-09-28",
+    "subject": "Update the site (25 files)"
+  },
+  {
     "date": "2026-09-28",
     "subject": "Update the site (25 files)"
   },
