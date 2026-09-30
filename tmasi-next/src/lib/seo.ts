@@ -179,7 +179,8 @@ function organization(lang: Lang) {
     logo: { "@type": "ImageObject", url: abs(LOGO) },
     image: abs(OG_IMAGE.path),
     description: sectionMeta("en", "home")?.description,
-    founder: { "@id": personId(0) },
+    // The live site names its founder; there is no profile page for him since 2026-09-30.
+    founder: { "@type": "Person", name: live.leaders[0]?.name },
     // The head office line the live footer and the live schema lead with (also the WhatsApp number).
     email: live.shell.offices[0]?.email,
     telephone: live.shell.offices[0]?.tel,
