@@ -105,6 +105,10 @@ export default function Hero() {
         /* Desktop: the header grew to 112px at the top, so the hero moves down with it and the
            gap between header and title stays 64px. */
         @media (min-width: 992px) { #hero.section-hero { padding-top: 176px; } }
+        /* Exactly one screen tall (2026-09-30): desktop centres the words in the space under the 112px header. */
+        #hero.section-hero { min-height: 100vh; min-height: 100svh; box-sizing: border-box; display: flex; align-items: center; }
+        #hero .hero-container { width: 100%; }
+        @media (min-width: 992px) { #hero.section-hero { padding: 112px 0 32px; } }
 
         /* Phones only. Desktop keeps its original hero untouched (Mohamed, 2026-09-28). */
         @media (max-width: 768px) {
@@ -112,12 +116,12 @@ export default function Hero() {
           .hero-mobile-bg { display: block; }
 
           /* Clear air under the header, then title, paragraph and buttons in even steps. */
-          #hero.section-hero { padding: 152px 0 min(84vw, 340px); }
-          /* Phones (2026-09-30): the phone photo is made for words on its dark top and the globe in the hand
-             below, so the hero runs on under the buttons to show the globe, centred and bright, with the shade
-             fading out over it. */
+          /* Phones (2026-09-30): one screen tall, words from the top; the photo anchored at its bottom and a
+             little larger, so the globe in the hand rises into view and the empty dark top is cut away. */
+          #hero.section-hero { align-items: flex-start; padding: 116px 0 28px; }
+          #hero .hero-mobile-bg { transform: scale(1.12); transform-origin: center bottom; }
           #hero .hero-shade {
-            background: linear-gradient(to bottom, rgba(15,32,92,0.25) 0%, rgba(15,32,92,0.45) 44%, rgba(15,32,92,0.2) 62%, rgba(15,32,92,0) 76%);
+            background: linear-gradient(to bottom, rgba(15,32,92,0.3) 0%, rgba(15,32,92,0.5) 40%, rgba(15,32,92,0.36) 60%, rgba(15,32,92,0.1) 80%, rgba(15,32,92,0) 100%);
           }
           #hero .hero-photo { filter: brightness(1.22) saturate(1.1); object-position: center bottom !important; }
           #hero .section-hero-heading {
@@ -126,7 +130,7 @@ export default function Hero() {
             line-height: 0.98; margin: 0 0 22px;
           }
           #hero .hero-line { display: block; white-space: nowrap; }
-          #hero .section-hero-description { font-size: 15.5px; line-height: 1.75; margin: 0 0 36px; }
+          #hero .section-hero-description { font-size: 15.5px; line-height: 1.65; margin: 0 0 28px; }
         }
       `}} />
     </section>
