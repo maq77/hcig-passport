@@ -20,10 +20,23 @@
 
 
 
+/* ---- Turquoise wash over the service photos ----
+   The original service photos had the brand turquoise edited into them. The remade photos are natural,
+   and the wash is this layer, kept very light at Mohamed's request (2026-09-30), tuned in one place. */
+.tq-wash { isolation: isolate; }
+.tq-wash::before, .tq-wash::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.tq-wash::before { background: #009A9C; mix-blend-mode: color; opacity: 0.1; }
+.tq-wash::after {
+  background: linear-gradient(120deg, rgba(0,154,156,0.95) 0%, rgba(0,154,156,0.35) 45%, rgba(0,154,156,0) 75%);
+  opacity: 0.08;
+}
+
 /* ---- Design Tokens ---- */
 :root {
   /* Brand Palette */
   --tmasi-teal:          #009A9C;
+  /* Headline face: Big Noodle, with Bebas Neue filling the Polish letters Big Noodle lacks. */
+  --font-display: var(--font-bignoodle), var(--font-bebas), var(--font-montserrat), sans-serif;
   --tmasi-teal-hover:    #008486;
   --tmasi-teal-glow:     rgba(0, 154, 156, 0.4);
   --tmasi-teal-tint:     rgba(0, 154, 156, 0.06);
@@ -110,7 +123,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .headline-titling {
-  font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif;
+  font-family: var(--font-display);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -464,7 +477,7 @@ input, textarea { caret-color: var(--tmasi-teal); }
 }
 
 .metric-number {
-  font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(36px, 5vw, 50px);
   line-height: 1;
   color: var(--tmasi-teal);
@@ -578,7 +591,7 @@ input, textarea { caret-color: var(--tmasi-teal); }
 }
 
 .values-number {
-  font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif;
+  font-family: var(--font-display);
   font-size: 42px;
   line-height: 1;
   color: var(--tmasi-teal);
@@ -1348,7 +1361,7 @@ html.js .hero-content > :nth-child(3) { animation-delay: 160ms; }
 .lx-head--left { text-align: left; }
 .lx-head--left::before { margin-left: 0; }
 .lx-title {
-  font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif;
+  font-family: var(--font-display);
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.02em;

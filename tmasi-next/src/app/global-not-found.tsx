@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { bigNoodle, montserrat } from "./fonts";
+import { bebas, bigNoodle, montserrat } from "./fonts";
 import { alternates, LANG_NAMES, LANGS } from "@/lib/site";
 
 // The 404 for any address no page matches. Each language has its own root layout, so there is no
@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: "404 | TMASI Global", robots: "noinde
 export default function GlobalNotFound() {
   const homes = alternates("home");
   return (
-    <html lang="en" className={`${montserrat.variable} ${bigNoodle.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${bigNoodle.variable} ${bebas.variable}`}>
       <body className="antialiased">
         <main className="nf">
           <p className="nf-code">404</p>
@@ -22,7 +22,7 @@ export default function GlobalNotFound() {
         <style dangerouslySetInnerHTML={{__html: `
           .nf { min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
             background: #0F205C; color: #ffffff; padding: 24px; text-align: center; }
-          .nf-code { margin: 0; font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif; font-size: clamp(96px, 16vw, 180px); line-height: 1; letter-spacing: 0.04em; }
+          .nf-code { margin: 0; font-family: var(--font-display); font-size: clamp(96px, 16vw, 180px); line-height: 1; letter-spacing: 0.04em; }
           .nf-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
           .nf-links a { color: #ffffff; text-decoration: none; font-family: var(--font-montserrat), sans-serif; font-weight: 600; font-size: 15px;
             padding: 12px 22px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); transition: background-color .2s ease; }

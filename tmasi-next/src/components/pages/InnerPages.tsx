@@ -10,16 +10,16 @@ import RelaxBanner from "../RelaxBanner";
 import MissionVision from "../MissionVision";
 import QuoteSection from "../QuoteSection";
 import QuoteForm from "../QuoteForm";
+import { AboutIntro } from "../About";
 import Blog from "../Blog";
 import PageHero, { type Crumb } from "../site/PageHero";
 import { useSite } from "../site/SiteProvider";
-import { asset } from "@/lib/asset";
+import { asset, SERVICE_IMAGES } from "@/lib/asset";
 import type { Block, PostCard } from "@/lib/site";
 
 // Inner pages of TMASI v3. Every word comes from the live tmasi.net page of the same language
 // (src/content/live/<lang>.json); v3 adds only the labels in src/content/ui.ts.
 
-const GROUP_IMAGES = ["/img/msa.jpg", "/img/emc.jpeg", "/img/tas.jpg", "/img/mtss.jpg", "/img/ia.jpg", "/img/as.jpg"];
 const fixSpelling = (t: string) => t.replace(/^Uber uns$/, "Über uns");
 const stripFlag = (t: string) => t.replace(/^[\u{1F1E6}-\u{1F1FF}]{2}\s*/u, "");
 
@@ -64,14 +64,10 @@ export function AboutPage() {
     <>
       <PageHero title={a.heading} crumbs={[c.home, { label: c.about.label }]} />
 
+      {/* The home's About design (2026-09-30): the same words as the live page, the numbers larger here. */}
       <section className="lx-section lx-white">
-        <div className="lx-wrap ip-center">
-          <Reveal>
-            <h2 className="ip-statement">{a.statement}</h2>
-            <div className="ip-lines">
-              {a.lines.map((l, i) => <p key={i} className={i === a.lines.length - 1 && a.lines.length > 3 ? "ip-body" : "ip-lead"}>{l}</p>)}
-            </div>
-          </Reveal>
+        <div className="lx-wrap">
+          <AboutIntro statement={a.statement} facts={a.lines.slice(0, 3)} body={a.lines.slice(3).join(" ")} size="large" />
         </div>
       </section>
 
@@ -95,29 +91,7 @@ export function AboutPage() {
         </div>
       </section>
 
-      {a.board?.members?.length ? (
-        <section className="lx-section lx-surface">
-          <CornerOrbs corners={["top-right", "bottom-left"]} />
-          <div className="lx-wrap relative z-10">
-            <Reveal><SectionHead title={a.board.heading} /></Reveal>
-            <div className="ip-board">
-              {a.board.members.map((m, i) => (
-                <Reveal key={m.name} delay={0.08 * i}>
-                  <Link href={links.leaders[i]} className="ip-person">
-                    {leaders[i]?.image && (
-                      <span className="ip-person-img"><Image src={asset(leaders[i].image)} alt={m.name} fill sizes="160px" style={{ objectFit: "cover" }} /></span>
-                    )}
-                    <span className="ip-person-name">{m.name}</span>
-                    <span className="ip-person-role">{m.role}</span>
-                    {m.org && <span className="ip-person-org">{m.org}</span>}
-                    <ArrowRight size={18} aria-hidden="true" className="ip-person-arrow" />
-                  </Link>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      ) : null}
+      {/* Board Members section removed at Mohamed's request (2026-09-30). */}
 
       <QuoteSection />
       <InnerStyles />
@@ -167,8 +141,8 @@ export function ServicesPage() {
             {s.groups.map((g, i) => (
               <Reveal key={g.title} delay={0.05 * i} className="ip-group-cell">
                 <article className="ip-group">
-                  <div className="ip-group-img">
-                    <Image src={asset(g.image || GROUP_IMAGES[i])} alt="" fill sizes="(max-width: 700px) 100vw, 50vw" style={{ objectFit: "cover" }} />
+                  <div className="ip-group-img tq-wash">
+                    <Image src={asset(SERVICE_IMAGES[i])} alt="" fill sizes="(max-width: 700px) 100vw, 50vw" style={{ objectFit: "cover" }} />
                   </div>
                   <div className="ip-group-body">
                     <h2 className="ip-group-title">{g.title}</h2>
@@ -210,7 +184,7 @@ export function GroupPage({ index }: { index: number }) {
   const s = live.services;
   const g = s.groups[index];
   const c = useCrumbs();
-  const img = g.image || GROUP_IMAGES[index];
+  const img = SERVICE_IMAGES[index];
   return (
     <>
       <PageHero title={g.title} image={img} crumbs={[c.home, c.services, { label: g.title }]} />
@@ -226,7 +200,7 @@ export function GroupPage({ index }: { index: number }) {
           <div className="ip-others">
             {s.groups.map((o, i) => (i === index || !links.groups[i] ? null : (
               <Link key={o.title} href={links.groups[i]} className="ip-other">
-                <span className="ip-other-img"><Image src={asset(o.image || GROUP_IMAGES[i])} alt="" fill sizes="(max-width: 700px) 100vw, 25vw" style={{ objectFit: "cover" }} /></span>
+                <span className="ip-other-img tq-wash"><Image src={asset(SERVICE_IMAGES[i])} alt="" fill sizes="(max-width: 700px) 100vw, 25vw" style={{ objectFit: "cover" }} /></span>
                 <span className="ip-other-title">{o.title}</span>
               </Link>
             )))}
@@ -456,7 +430,7 @@ function InnerStyles() {
       .ip-step-cell:not(:nth-child(3n+1)) { border-left: 1px solid var(--lx-line); }
       .ip-step { list-style: none; padding: clamp(24px, 2.6vw, 36px) clamp(18px, 2vw, 28px); }
       .ip-step-n { display: block; margin-bottom: 14px; color: var(--tmasi-teal); line-height: 1;
-        font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif; font-size: 40px; }
+        font-family: var(--font-display); font-size: 40px; }
       .ip-step-title { margin: 0; font-size: 17px; font-weight: 700; line-height: 1.4; color: var(--lx-ink); }
       .ip-steps-foot { margin: clamp(28px, 3vw, 40px) 0 0; text-align: center; color: var(--lx-ink); font-weight: 800;
         letter-spacing: 0.08em; text-transform: uppercase; font-size: 14px; }

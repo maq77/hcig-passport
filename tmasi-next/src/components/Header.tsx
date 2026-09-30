@@ -106,7 +106,7 @@ export default function Header() {
                     style={{ 
                       color: scrolled ? "#1e293b" : "#ffffff", 
                       fontSize: "17px", 
-                      fontWeight: 600, 
+                      fontWeight: 700, 
                       textDecoration: "none", 
                       transition: "color 0.2s" 
                     }} 

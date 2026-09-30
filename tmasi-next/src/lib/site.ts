@@ -42,7 +42,8 @@ const OFFICE_SLUGS: Record<Lang, string[]> = {
 // The five service groups that get their own page (the sixth, Additional Services, stays on the overview).
 export const GROUP_PAGES = 5;
 const EN_GROUP_SLUGS = ["medical-assistance", "elite-medical-concierge", "travel-assistance", "medical-tourism", "insurance-assistance"];
-const LEADER_SLUGS = ["dr-amr-abbass", "dr-ahmed-nouh"];
+// Dr. Ahmed Nouh ("dr-ahmed-nouh") removed, card and page, at Mohamed's request on 2026-09-30.
+const LEADER_SLUGS = ["dr-amr-abbass"];
 const EN_POST_SLUGS: Record<string, string> = {
   news1: "egypt-healthcare-authority-agreement-africa-health-excon-2025",
   news2: "uniglobal-global-insurance-conference-barcelona",

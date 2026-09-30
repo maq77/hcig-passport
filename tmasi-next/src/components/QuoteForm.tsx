@@ -209,7 +209,7 @@ export default function QuoteForm({ idPrefix, columns = 4, variant = "quote" }: 
         .qf-burst { position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; }
         .qf-success-title {
           margin: 0 0 10px; color: var(--lx-ink);
-          font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif; font-weight: 400;
+          font-family: var(--font-display); font-weight: 400;
           font-size: clamp(34px, 3.4vw, 44px); letter-spacing: 0.02em; text-transform: uppercase;
         }
         .qf-success-text { margin: 0; max-width: 46ch; font-size: 16px; line-height: 1.7; color: var(--lx-body); }

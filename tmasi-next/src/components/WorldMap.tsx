@@ -77,6 +77,8 @@ export default function WorldMap() {
           .hub { padding: 22px 20px; }
           .hub-name { margin-bottom: 12px; }
           .hub-line { margin-bottom: 8px; }
+          /* Phone and email links get a finger-sized tap area (44px) without moving the lines apart. */
+          .hub-line a, .hub-name a { display: inline-block; padding: 11px 0; margin: -11px 0; }
         }
       `}} />
     </section>

@@ -33,12 +33,13 @@ export default function RelaxBanner({ content }: { content?: Relax }) {
           src={asset("/img/abouts.jpg")} 
           alt="TMASI Global Relax and Enjoy" 
           fill 
-          style={{ objectFit: "cover", objectPosition: "center" }}
+          style={{ objectFit: "cover", objectPosition: "center", filter: "brightness(1.1) saturate(1.06)" }}
+          className="relax-photo"
           priority
         />
-        {/* Dark Overlay */}
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(15,32,92,0.9), rgba(8,17,51,0.8))" }} />
       </motion.div>
+      {/* Shade ("balanced", 2026-09-30): darkest behind the words, the photo open at the edges. */}
+      <div aria-hidden="true" className="relax-shade" />
 
       <div className="container" style={{ position: "relative", zIndex: 2, padding: "0 20px" }}>
         <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto" }}>
@@ -69,8 +70,20 @@ export default function RelaxBanner({ content }: { content?: Relax }) {
       
       <style dangerouslySetInnerHTML={{__html: `
         .mobile-br { display: none; }
+        .relax-shade {
+          position: absolute; inset: 0; z-index: 1;
+          background: radial-gradient(ellipse 62% 78% at 50% 50%, rgba(8,17,51,0.74) 0%, rgba(15,32,92,0.5) 62%, rgba(15,32,92,0.3) 100%);
+        }
         @media (max-width: 768px) {
           .mobile-br { display: block; margin-bottom: 4px; }
+          /* Phones only (2026-09-30): the two people sit in the middle, the photo brighter, a lighter shade
+             that stays darkest behind the words. Desktop unchanged. */
+          #relax .relax-photo { object-position: 12% center !important; filter: brightness(1.2) saturate(1.1) !important; }
+          /* The highlighted words in the bright teal the hero uses: the plain teal is too faint on the lighter photo. */
+          #relax .relax-heading span span { color: #00D5D8 !important; }
+          #relax .relax-shade {
+            background: radial-gradient(ellipse 90% 70% at 50% 45%, rgba(8,17,51,0.62) 0%, rgba(15,32,92,0.42) 60%, rgba(15,32,92,0.22) 100%);
+          }
         }
       `}} />
     </section>

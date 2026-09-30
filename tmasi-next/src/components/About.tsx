@@ -1,13 +1,125 @@
 "use client";
 
+import Image from "next/image";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { Globe, HeartPulse, Phone, Users } from "lucide-react";
+import { useRef } from "react";
 import Reveal from "./Reveal";
 import CountUp from "./CountUp";
 import { useSite } from "./site/SiteProvider";
+import { asset } from "@/lib/asset";
 
-// Words are the live tmasi.net About Us in each language, unchanged. Stat labels approved by Mohamed
-// on 2026-09-28 (English; German, Polish, Spanish translated for v3).
+// About Us, as approved on the design canvas (2026-09-30, "hybrid"): the slogan on a photo band with the
+// heartbeat line from the logo running into a phone, the three short lines as icon columns, and the paragraph
+// with the numbers in one panel. Used on the home (compact panel) and on the About Us page (larger numbers).
+// Every word is the live tmasi.net text in each language, unchanged. Stat labels approved 2026-09-28.
+
+const FACT_ICONS = [HeartPulse, Globe, Users];
+const ECG = "M0 28H128L140 6L154 50L168 12L178 28H300";
+
+/** The slogan on two lines, split after its first sentence ("Your Care." / "One Call Away."). */
+function sloganLines(s: string) {
+  const i = s.search(/\.\s/);
+  return i < 0 ? [s] : [s.slice(0, i + 1), s.slice(i + 2)];
+}
+
+/** The heartbeat: the line draws in once, then a pulse runs along it into the phone, again and again, only
+ *  while the band is on screen. Visitors who ask for less motion see the still line. */
+function Heartbeat() {
+  const ref = useRef<HTMLDivElement>(null);
+  const live = useInView(ref, { amount: 0.5 });
+  const reduce = useReducedMotion();
+  const beat = live && !reduce;
+  return (
+    <div ref={ref} className={`about-band-signal${beat ? " is-beating" : ""}`} aria-hidden="true">
+      <svg className="about-ecg" viewBox="0 0 300 56" fill="none">
+        <motion.path
+          d={ECG} stroke="rgba(255,255,255,0.85)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+          initial={reduce ? false : { pathLength: 0 }}
+          animate={live || reduce ? { pathLength: 1 } : undefined}
+          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+        />
+        {beat && (
+          <motion.path
+            d={ECG} stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"
+            className="about-ecg-pulse"
+            initial={{ pathLength: 0.14, pathOffset: 0, opacity: 0 }}
+            animate={{ pathOffset: [0, 0.86], opacity: [0, 1, 1, 0] }}
+            transition={{ duration: 1.6, ease: "easeInOut", repeat: Infinity, repeatDelay: 0.8, delay: 1.2 }}
+          />
+        )}
+      </svg>
+      <span className="about-band-phone"><Phone size={26} /></span>
+    </div>
+  );
+}
+
+export function AboutIntro({ statement, facts, body, size }: {
+  statement: string; facts: string[]; body: string; size: "compact" | "large";
+}) {
+  const { lang, ui } = useSite();
+  const long = statement.length > 34; // Polish runs to two long lines: set a size smaller
+  return (
+    <>
+      <Reveal delay={0.06}>
+        <div className="about-band">
+          <div className="about-band-photo">
+            <Image src={asset("/img/about-band.webp")} alt="" fill sizes="(max-width: 900px) 100vw, 720px" className="about-band-img" />
+          </div>
+          <div className="about-band-shade" aria-hidden="true" />
+          <div className="about-band-copy">
+            <Heartbeat />
+            <p className={`about-slogan${long ? " about-slogan--long" : ""}`}>
+              {sloganLines(statement).map((line, i) => <span key={i}>{line}</span>)}
+            </p>
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal delay={0.1}>
+        <ul className="about-facts">
+          {facts.map((line, i) => {
+            const Icon = FACT_ICONS[i % FACT_ICONS.length];
+            return (
+              <li key={i}>
+                <span className="about-fact-icon" aria-hidden="true"><Icon size={26} /></span>
+                <p>{line}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </Reveal>
+
+      <Reveal delay={0.14}>
+        <div className={`about-panel about-panel--${size}`}>
+          <p className="about-body">{body}</p>
+          <dl className="about-stats">
+            <div className="about-stat">
+              <dt>{ui.stats[0]}</dt>
+              <dd className="about-stat-num"><CountUp end={30000} suffix="+" locale={lang} /></dd>
+            </div>
+            <div className="about-stat">
+              <dt>{ui.stats[1]}</dt>
+              <dd className="about-stat-num"><CountUp end={570} suffix="+" locale={lang} /></dd>
+            </div>
+            <div className="about-stat">
+              <dt>{ui.stats[2]}</dt>
+              <dd className="about-stat-num">24/7</dd>
+            </div>
+            <div className="about-stat">
+              <dt>{ui.stats[3]}</dt>
+              <dd className="about-stat-num"><CountUp end={5} locale={lang} /></dd>
+            </div>
+          </dl>
+        </div>
+      </Reveal>
+      <AboutStyles />
+    </>
+  );
+}
+
 export default function About() {
-  const { lang, live, ui } = useSite();
+  const { live } = useSite();
   const a = live.home.about;
   return (
     <section className="section-about lx-section lx-white" id="about">
@@ -15,103 +127,145 @@ export default function About() {
         <Reveal>
           <div className="lx-head">
             <h2 className="lx-title">{a.eyebrow}</h2>
-            <h3 className={`about-statement${lang === "en" ? " about-statement--one" : ""}`} style={{ marginTop: "16px" }}>{a.statement}</h3>
           </div>
         </Reveal>
-
-        <Reveal delay={0.08}>
-          <div className="about-copy">
-            <p className="about-lead">
-              {a.lead.map((line, k) => (
-                <span key={k}>{line}{k < a.lead.length - 1 && <br />}</span>
-              ))}
-            </p>
-            <p className="about-body">{a.body}</p>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.16}>
-          <dl className="about-stats">
-            <div className="about-stat">
-              <dt className="lx-label">{ui.stats[0]}</dt>
-              <dd className="about-stat-num"><CountUp end={30000} suffix="+" locale={lang} /></dd>
-            </div>
-            <div className="about-stat">
-              <dt className="lx-label">{ui.stats[1]}</dt>
-              <dd className="about-stat-num"><CountUp end={570} suffix="+" locale={lang} /></dd>
-            </div>
-            <div className="about-stat">
-              <dt className="lx-label">{ui.stats[2]}</dt>
-              <dd className="about-stat-num">24/7</dd>
-            </div>
-            <div className="about-stat">
-              <dt className="lx-label">{ui.stats[3]}</dt>
-              <dd className="about-stat-num"><CountUp end={5} locale={lang} /></dd>
-            </div>
-          </dl>
-        </Reveal>
+        <AboutIntro statement={a.statement} facts={a.lead} body={a.body} size="compact" />
       </div>
-
-      <style dangerouslySetInnerHTML={{__html: `
-        
-        
-        
-        .about-statement {
-          margin: 0; color: var(--tmasi-teal); font-weight: 800; letter-spacing: -0.02em;
-          font-size: clamp(34px, 4.5vw, 60px); line-height: 1.1; white-space: normal; text-wrap: balance;
-        }
-        /* English stays on one line, as approved; longer languages wrap in balanced lines. */
-        .about-statement--one { white-space: nowrap; }
-        .about-copy { max-width: 920px; margin: 0 auto; text-align: center; }
-        .about-lead {
-          margin: 0 0 22px; color: #1E293B; font-weight: 500;
-          font-size: clamp(16px, 1.45vw, 19px); line-height: 1.85;
-        }
-        .about-lead strong { color: var(--lx-ink); font-weight: 700; }
-        .about-body { margin: 0 auto; max-width: 760px; color: var(--lx-body); font-size: clamp(15px, 1.25vw, 17px); line-height: 1.8; }
-
-        /* Stats: an open band between two hairlines, no box, no shadow. */
-        .about-stats {
-          display: grid; grid-template-columns: repeat(4, 1fr);
-          margin: clamp(48px, 5.5vw, 80px) 0 0; padding: 0;
-          border-top: 1px solid var(--lx-line); border-bottom: 1px solid var(--lx-line);
-        }
-        .about-stat {
-          display: flex; flex-direction: column-reverse; align-items: center; gap: 14px;
-          padding: clamp(28px, 3vw, 44px) 12px; text-align: center;
-        }
-        .about-stat + .about-stat { border-left: 1px solid var(--lx-line); }
-        .about-stat dt { color: var(--lx-muted); }
-        .about-stat-num {
-          margin: 0; line-height: 1; color: var(--tmasi-teal);
-          font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif;
-          font-size: clamp(44px, 5vw, 68px); letter-spacing: 0.01em;
-          font-variant-numeric: tabular-nums;
-        }
-
-        @media (max-width: 900px) {
-          .about-stats { grid-template-columns: repeat(2, 1fr); }
-          .about-stat:nth-child(3) { border-left: none; }
-          .about-stat:nth-child(n+3) { border-top: 1px solid var(--lx-line); }
-        }
-        @media (max-width: 520px) {
-          /* Stays on one line on phones, as on the live site. */
-          .about-statement { font-size: 26px; }
-          .about-statement--one { font-size: 5.5vw; }
-          .about-stat { padding: 24px 8px; gap: 10px; }
-          .about-stat dt { font-size: 10.5px; letter-spacing: 0.14em; }
-        }
-      `}} />
     </section>
   );
 }
 
+function AboutStyles() {
+  return (
+    <style dangerouslySetInnerHTML={{__html: `
+      .section-about .lx-head { margin-bottom: 0; }
 
+      /* The slogan band. The words sit on one even field of brand teal (#008A8C, white text 4.2:1); the photo
+         (TMASI logo on her headset and on the office wall) fills the right part and the teal fades into it, so
+         she sits in the middle of her part and the photo never bleaches the teal behind the slogan. */
+      .about-band {
+        position: relative; min-height: 340px; margin-top: clamp(28px, 3.2vw, 44px);
+        border-radius: 28px; overflow: hidden; background: #008A8C;
+        display: flex; align-items: center;
+      }
+      .about-band-photo { position: absolute; top: 0; bottom: 0; right: 0; left: 36%; }
+      .about-band-img { object-fit: cover; object-position: center 30%; }
+      .about-band-shade {
+        position: absolute; inset: 0;
+        background: linear-gradient(90deg, #007476 0%, #008587 22%, #008A8C 36%, rgba(0,138,140,0.72) 40%,
+          rgba(0,138,140,0.3) 45%, rgba(0,138,140,0.08) 49%, rgba(0,138,140,0) 52%);
+      }
+      .about-band-copy {
+        position: relative; z-index: 1; max-width: 62%; box-sizing: border-box; padding: 48px 64px;
+        display: flex; flex-direction: column; gap: 22px;
+      }
+      .about-band-signal { display: flex; align-items: center; gap: 14px; }
+      .about-ecg { width: 300px; height: 56px; flex: none; overflow: visible; }
+      .about-ecg-pulse { filter: drop-shadow(0 0 6px rgba(255,255,255,0.9)); }
+      .about-band-phone {
+        position: relative; width: 60px; height: 60px; flex: none; border-radius: 50%; background: #ffffff;
+        color: var(--tmasi-teal); display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 14px 30px -12px rgba(0,0,0,0.45);
+      }
+      /* The phone answers each beat with a soft ring, only while the band is on screen. */
+      .about-band-phone::after {
+        content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,0.9);
+        opacity: 0; pointer-events: none;
+      }
+      .is-beating .about-band-phone::after { animation: about-ring 2.4s cubic-bezier(0.22, 1, 0.36, 1) 2.6s infinite; }
+      @keyframes about-ring {
+        0%, 55% { transform: scale(1); opacity: 0; }
+        62% { opacity: 0.9; }
+        100% { transform: scale(1.7); opacity: 0; }
+      }
+      .about-slogan {
+        margin: 0; color: #ffffff; font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
+        font-size: clamp(48px, 5.4vw, 78px); line-height: 0.94; letter-spacing: 0.02em;
+        text-shadow: 0 2px 18px rgba(0,60,62,0.35);
+      }
+      .about-slogan span { display: block; }
+      .about-slogan--long { font-size: clamp(34px, 3.8vw, 54px); line-height: 1; }
 
+      /* The three short lines as icon columns. */
+      .about-facts {
+        list-style: none; margin: clamp(40px, 4.5vw, 56px) 0 0; padding: 0;
+        display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .about-facts li {
+        display: flex; flex-direction: column; align-items: center; gap: 18px;
+        padding: 8px clamp(20px, 2.6vw, 36px); text-align: center;
+      }
+      .about-facts li + li { border-left: 1px solid var(--lx-line); }
+      .about-fact-icon {
+        width: 60px; height: 60px; flex: none; border-radius: 50%; background: #E8F6F6; color: var(--tmasi-teal);
+        display: flex; align-items: center; justify-content: center;
+      }
+      .about-facts p { margin: 0; color: var(--lx-ink); font-weight: 600; font-size: clamp(16px, 1.3vw, 18px); line-height: 1.6; }
 
+      /* The paragraph and the numbers. Home: one compact panel (2026-09-30). About Us page: larger. */
+      .about-panel { margin-top: clamp(36px, 4vw, 48px); background: var(--lx-surface); }
+      .about-panel--compact {
+        padding: 30px 40px; border-radius: 22px;
+        display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px; align-items: center;
+      }
+      .about-panel--large { padding: 52px 64px 56px; border-radius: 28px; text-align: center; }
+      .about-body { margin: 0; color: var(--lx-body); font-size: 15.5px; line-height: 1.7; }
+      .about-panel--large .about-body { max-width: 760px; margin: 0 auto 40px; font-size: clamp(16px, 1.3vw, 18px); line-height: 1.75; }
+      .about-stats { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      /* Number on top, label under it (the label comes first for screen readers). Pinned to the top so the
+         four numbers share one line even when a label wraps to two. */
+      .about-stat {
+        display: flex; flex-direction: column-reverse; justify-content: flex-end; align-items: center; gap: 8px;
+        padding: 4px 12px; text-align: center;
+      }
+      .about-stat + .about-stat { border-left: 1px solid var(--lx-line); }
+      .about-stat dt { color: var(--lx-muted); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+      .about-stat-num {
+        margin: 0; line-height: 1; color: var(--tmasi-teal); font-family: var(--font-display);
+        font-size: 44px; letter-spacing: 0.01em; font-variant-numeric: tabular-nums;
+      }
+      /* The counting numbers render inside CountUp's own box; make it follow this panel exactly, so
+         "24/7" (plain text) and the counters share one line. */
+      .about-stat-num .metric-number { font: inherit; line-height: inherit; letter-spacing: inherit; color: inherit; margin: 0; }
+      .about-panel--large .about-stat { gap: 12px; }
+      .about-panel--large .about-stat-num { font-size: clamp(48px, 4.6vw, 64px); }
+      .about-panel--large .about-stat dt { font-size: 12px; letter-spacing: 0.18em; }
 
+      @media (max-width: 900px) {
+        .about-band { min-height: 330px; align-items: flex-end; border-radius: 24px; }
+        .about-band-photo { left: 0; }
+        .about-band-img { object-position: 72% 22%; }
+        .about-band-shade {
+          background: linear-gradient(180deg, rgba(0,138,140,0) 0%, rgba(0,138,140,0.35) 30%, rgba(0,133,135,0.88) 55%,
+            #007E80 72%, #007476 100%);
+        }
+        .about-band-copy { max-width: none; padding: 22px 22px 26px; gap: 14px; }
+        .about-ecg { width: 150px; height: 28px; }
+        .about-band-phone { width: 46px; height: 46px; }
+        .about-slogan { font-size: clamp(36px, 11.5vw, 46px); }
+        .about-slogan--long { font-size: clamp(26px, 7.4vw, 34px); }
 
+        .about-facts { grid-template-columns: 1fr; margin-top: 32px; }
+        .about-facts li {
+          flex-direction: row; align-items: flex-start; gap: 16px; padding: 18px 0; text-align: left;
+          border-top: 1px solid var(--lx-line);
+        }
+        .about-facts li + li { border-left: none; }
+        .about-fact-icon { width: 48px; height: 48px; }
+        .about-facts p { font-size: 16px; line-height: 1.55; }
 
-
-
-
+        .about-panel--compact, .about-panel--large {
+          display: block; padding: 20px 16px; border-radius: 20px; margin-top: 24px;
+        }
+        .about-body, .about-panel--large .about-body { text-align: center; font-size: 14.5px; line-height: 1.65; margin: 0 0 12px; }
+        .about-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .about-stat { padding: 12px 6px; gap: 6px; }
+        .about-stat:nth-child(3) { border-left: none; }
+        .about-stat:nth-child(n+3) { border-top: 1px solid var(--lx-line); }
+        .about-stat-num, .about-panel--large .about-stat-num { font-size: 34px; }
+        .about-stat dt, .about-panel--large .about-stat dt { font-size: 10.5px; letter-spacing: 0.12em; }
+        .about-panel--large .about-stat-num { font-size: 40px; }
+      }
+    `}} />
+  );
+}

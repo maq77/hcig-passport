@@ -8,10 +8,9 @@ import { useEffect, useState } from "react";
 import { ArrowRight, ChevronRight, X, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useSite } from "./site/SiteProvider";
-import { asset } from "@/lib/asset";
+import { asset, SERVICE_IMAGES } from "@/lib/asset";
 
 // The same photo for each group in every language (the live site's own images).
-const GROUP_IMAGES = ["/img/msa.jpg", "/img/emc.jpeg", "/img/tas.jpg", "/img/mtss.jpg", "/img/ia.jpg", "/img/as.jpg"];
 
 /** "One Call, Endless Support: TMASI Global Has You Covered." shown on two lines after its first colon. */
 function twoLines(t: string) {
@@ -50,7 +49,7 @@ export default function Services() {
   // Every group name, item title and item text is word for word from the live home in this language.
   const services: Service[] = live.home.services.groups.map((g, i) => ({
     id: i + 1,
-    img: asset(GROUP_IMAGES[i] || GROUP_IMAGES[0]),
+    img: asset(SERVICE_IMAGES[i] || SERVICE_IMAGES[0]),
     title: g.title,
     bullets: g.items as Bullet[],
     href: links.groups[i],
@@ -72,7 +71,7 @@ export default function Services() {
           {services.map((svc, idx) => (
             <Reveal key={svc.id} delay={0.1 * idx} className="package-card-wrapper">
               <button className="package-card group" onClick={() => setSelectedService(svc)}>
-                <div className="package-img-wrapper">
+                <div className="package-img-wrapper tq-wash">
                   <Image 
                     src={svc.img}
                     alt={svc.title}
@@ -108,7 +107,7 @@ export default function Services() {
               <X size={24} color="#0F205C" />
             </button>
             
-            <div className="modal-hero">
+            <div className="modal-hero tq-wash">
               <Image 
                 src={selectedService.img}
                 alt={selectedService.title}

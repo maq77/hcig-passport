@@ -59,7 +59,7 @@ export default function CoreValues({ content }: { content?: Values }) {
           width: 48px; height: 48px; border-radius: 50%;
           background: var(--tmasi-teal); color: #ffffff;
           margin-bottom: 24px;
-          font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif; 
+          font-family: var(--font-display); 
           font-size: 30px; font-variant-numeric: tabular-nums;
           line-height: 1; padding-top: 4px; /* offset for bignoodle */
         }

@@ -86,7 +86,7 @@ export default function QuoteModal({ open, onClose }: { open: boolean; onClose: 
         .qm-close:hover { background: #e2e8f0; }
         .qm-rule { display: block; width: 40px; height: 2px; background: var(--tmasi-teal); margin-bottom: 18px; }
         .qm-title {
-          margin: 0 0 12px; color: var(--lx-ink); font-family: var(--font-bignoodle), var(--font-montserrat), sans-serif;
+          margin: 0 0 12px; color: var(--lx-ink); font-family: var(--font-display);
           font-weight: 400; font-size: clamp(34px, 4vw, 46px); line-height: 1.02; letter-spacing: 0.02em; text-transform: uppercase;
         }
         .qm-sub { margin: 0 0 28px; font-size: 15px; line-height: 1.7; color: var(--lx-body); }

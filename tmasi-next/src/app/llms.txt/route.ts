@@ -24,7 +24,7 @@ export function GET() {
     `> ${home.description}`,
     "",
     "## Pages",
-    line("home"), line("about"), line("leader:0"), line("leader:1"), line("services"), line("contact"), line("blog"),
+    line("home"), line("about"), line("leader:0"), line("services"), line("contact"), line("blog"),
     "",
     "## Services",
     ...groups,
