@@ -5,6 +5,8 @@ import SectionHead from "./SectionHead";
 import CornerOrbs from "./CornerOrbs";
 import { MapPin, Phone, Mail } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import HubsMap from "./HubsMap";
 import { useSite } from "./site/SiteProvider";
 
 export default function WorldMap() {
@@ -13,6 +15,8 @@ export default function WorldMap() {
   // The footer gives no USA email; the live contacts page does (usa@tmasi.net).
   const contactEmails = live.contact.offices.map((o) => o.email[0] || "");
   const hubs = live.shell.offices.map((o, i) => ({ ...o, id: String(i), email: o.email || contactEmails[i], href: links.offices[i] }));
+  // The map pin and the office card light up together (hover, tap or keyboard focus on either).
+  const [active, setActive] = useState<number | null>(null);
 
   return (
     <section id="offices" className="lx-section lx-surface">
@@ -22,11 +26,16 @@ export default function WorldMap() {
           <SectionHead title={ui.hubsTitle} />
         </Reveal>
 
+        <Reveal delay={0.06}>
+          <HubsMap names={hubs.map((h) => h.name)} hrefs={hubs.map((h) => h.href || "")} active={active} setActive={setActive} />
+        </Reveal>
+
         {/* One panel, five offices side by side, divided by hairlines. */}
-        <Reveal delay={0.08}>
+        <Reveal delay={0.1}>
           <ul className="hubs-panel">
-            {hubs.map((hub) => (
-              <li key={hub.id} className="hub">
+            {hubs.map((hub, i) => (
+              <li key={hub.id} className={`hub${active === i ? " is-active" : ""}`}
+                onMouseEnter={() => setActive(i)} onMouseLeave={() => setActive(null)}>
                 <h3 className="hub-name">{hub.href ? <Link href={hub.href}>{hub.name}</Link> : hub.name}</h3>
                 <p className="hub-line hub-address"><MapPin size={16} aria-hidden="true" /> <span>{hub.address}</span></p>
                 <p className="hub-line"><Phone size={16} aria-hidden="true" /> <a href={`tel:${hub.tel}`}>{hub.phone}</a></p>
@@ -49,6 +58,9 @@ export default function WorldMap() {
           content: ""; position: absolute; top: -1px; left: clamp(18px, 1.7vw, 26px);
           width: 32px; height: 2px; background: var(--tmasi-teal);
         }
+        .hub { transition: background-color .25s ease; }
+        .hub.is-active { background: rgba(0,154,156,0.05); }
+        .hub.is-active .hub-name { color: var(--tmasi-teal); }
         .hub-name a { color: inherit; text-decoration: none; }
         .hub-name a:hover { color: var(--tmasi-teal); }
         .hub-name { margin: 0 0 16px; font-size: 16px; font-weight: 700; line-height: 1.35; color: var(--lx-ink); letter-spacing: -0.01em; }

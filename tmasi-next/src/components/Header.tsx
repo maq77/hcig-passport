@@ -87,7 +87,6 @@ export default function Header() {
               height={96}
               priority
               style={{ 
-                mixBlendMode: scrolled ? "multiply" : "normal", 
                 filter: scrolled ? "none" : "brightness(0) invert(1)", 
                 height: "auto", 
                 transition: "all 0.3s" 

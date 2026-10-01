@@ -108,6 +108,8 @@ export default function Hero() {
           letter-spacing: 0.015em; line-height: 0.96; font-size: clamp(52px, 6.1vw, 88px); margin-bottom: 26px;
         }
         #hero .hero-line { display: block; }
+        /* "Trusted" in teal without the glow (2026-10-01): the same soft shadow as the rest of the title. */
+        #hero .section-hero-heading .orange { text-shadow: inherit; }
         /* Desktop: the header grew to 112px at the top, so the hero moves down with it and the
            gap between header and title stays 64px. */
         @media (min-width: 992px) { #hero.section-hero { padding-top: 176px; } }
