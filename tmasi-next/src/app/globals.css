@@ -31,6 +31,12 @@
   opacity: 0.08;
 }
 
+/* ---- Page changes ----
+   A short fade-in of the page body when a visitor moves to another page, so it never cuts hard. */
+@keyframes page-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.page-in { animation: page-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@media (prefers-reduced-motion: reduce) { .page-in { animation: none; } }
+
 /* ---- Design Tokens ---- */
 :root {
   /* Brand Palette */

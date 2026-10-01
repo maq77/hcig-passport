@@ -64,7 +64,8 @@ export function SitePage({ lang, slug }: { lang: Lang; slug?: string[] }) {
       {/* What the page is, for search engines and AI answers (lib/seo.ts). */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdText(route) }} />
       <Header />
-      <main><Template route={route} /></main>
+      {/* Keyed by page, so a move to another page replays the short fade-in (globals.css, .page-in). */}
+      <main key={route.id} className="page-in"><Template route={route} /></main>
       <Footer />
     </SiteProvider>
   );

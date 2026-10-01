@@ -82,7 +82,8 @@ export default function RelaxBanner({ content }: { content?: Relax }) {
           /* The highlighted words in the bright teal the hero uses: the plain teal is too faint on the lighter photo. */
           #relax .relax-heading span span { color: #00D5D8 !important; }
           #relax .relax-shade {
-            background: radial-gradient(ellipse 90% 70% at 50% 45%, rgba(8,17,51,0.62) 0%, rgba(15,32,92,0.42) 60%, rgba(15,32,92,0.22) 100%);
+            /* Dark enough behind the words for readable text (title 3:1, paragraph 4.5:1), open at the edges. */
+            background: radial-gradient(ellipse 110% 62% at 50% 42%, rgba(8,17,51,0.74) 0%, rgba(8,17,51,0.62) 55%, rgba(15,32,92,0.3) 100%);
           }
         }
       `}} />

@@ -1,7 +1,6 @@
 "use client";
 
 import { Fragment } from "react";
-import Reveal from "./Reveal";
 import Image from "next/image";
 import { useSite } from "./site/SiteProvider";
 import { Segs, splitLines } from "./site/Segments";
@@ -51,7 +50,7 @@ export default function Hero() {
 
       <div className="hero-container" style={{ position: "relative", zIndex: 2 }}>
         <div className="hero-content">
-          <Reveal delay={0.1}>
+          <div className="hero-in">
             {/* The live title, word for word. English breaks by meaning on phones: each line is one idea. */}
             <h1 className="section-hero-heading" style={{ textShadow: "0 4px 20px rgba(0,0,0,0.5)" }}>
               {lines
@@ -62,15 +61,15 @@ export default function Hero() {
                   ))
                 : <Segs segs={h.title} accentClass="orange" accentStyle={ACCENT} />}
             </h1>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.2}>
+          <div className="hero-in hero-in-2">
             <p className="section-hero-description" style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
               {h.text}
             </p>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.3}>
+          <div className="hero-in hero-in-3">
             <div className="section-hero-action">
               <a
                 href="#quote"
@@ -83,12 +82,19 @@ export default function Hero() {
                 {h.ctaCall}
               </a>
             </div>
-          </Reveal>
+          </div>
         </div>
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
         .hero-mobile-bg { display: none; }
+        /* Entrance in plain CSS (2026-09-30): the first screen fades in the moment the page arrives, instead of
+           waiting for the page's JavaScript as the scroll reveals do. */
+        @keyframes hero-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+        #hero .hero-in { animation: hero-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
+        #hero .hero-in-2 { animation-delay: 0.14s; }
+        #hero .hero-in-3 { animation-delay: 0.23s; }
+        @media (prefers-reduced-motion: reduce) { #hero .hero-in { animation: none; } }
         /* The photo shows more: a lighter shade and a touch of brightness, the image file untouched. */
         #hero .hero-photo { filter: brightness(1.12) saturate(1.08); }
         #hero .hero-shade {

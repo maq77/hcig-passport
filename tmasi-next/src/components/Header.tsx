@@ -69,7 +69,7 @@ export default function Header() {
           left: 0,
           right: 0,
           zIndex: 100,
-          transition: "all 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+          transition: "background-color 0.35s ease, box-shadow 0.35s ease, padding 0.35s cubic-bezier(0.22, 1, 0.36, 1), backdrop-filter 0.35s ease",
           background: scrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
           backdropFilter: scrolled ? "blur(12px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
