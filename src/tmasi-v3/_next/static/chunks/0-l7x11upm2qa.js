@@ -278,19 +278,41 @@ Read more: https://nextjs.org/docs/messages/next-image-missing-loader`),"__NEXT_
           /* Clear air under the header, then title, paragraph and buttons in even steps. */
           /* Phones (2026-09-30): one screen tall, words from the top; the photo anchored at its bottom and a
              little larger, so the globe in the hand rises into view and the empty dark top is cut away. */
-          #hero.section-hero { align-items: flex-start; padding: 116px 0 28px; }
+          #hero.section-hero { align-items: stretch; padding: 96px 0 0; }
+          /* Phones (2026-10-01): title, paragraph and buttons are one group centred in the whole screen under the
+             96px header, with even steps that grow on taller phones, so no part of the screen is left empty. */
+          #hero .hero-content {
+            min-height: calc(100svh - 96px); box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: clamp(12px, 3svh, 32px) 0 calc(clamp(20px, 4.5svh, 44px) + env(safe-area-inset-bottom, 0px));
+          }
           #hero .hero-mobile-bg { transform: scale(1.12); transform-origin: center bottom; }
           #hero .hero-shade {
-            background: linear-gradient(to bottom, rgba(15,32,92,0.3) 0%, rgba(15,32,92,0.5) 40%, rgba(15,32,92,0.36) 60%, rgba(15,32,92,0.1) 80%, rgba(15,32,92,0) 100%);
+            /* Lighter photo (2026-10-01): brand blue over the dark top (TRUSTED stays 3.3:1), navy only where the
+               paragraph and buttons cross the bright globe (paragraph 5.2:1 or better on every phone size). */
+            background: linear-gradient(to bottom, rgba(0,122,181,0.4) 0%, rgba(0,122,181,0.3) 24%, rgba(15,32,92,0.56) 40%,
+              rgba(15,32,92,0.62) 72%, rgba(15,32,92,0.56) 84%, rgba(15,32,92,0.32) 100%);
           }
-          #hero .hero-photo { filter: brightness(1.22) saturate(1.1); object-position: center bottom !important; }
+          /* The old site's full navy layer (85 to 92% dark, globals .section-hero::before) hid the photo; on phones the
+             shade above does the work instead. */
+          #hero.section-hero::before { display: none; }
+          #hero .hero-photo { filter: brightness(1.12) saturate(1.08); object-position: center bottom !important; }
+          /* The outline button keeps a soft navy fill so its words read wherever the photo sits behind it. */
+          #hero .section-hero-btn2 { background: rgba(15,32,92,0.36); }
           #hero .section-hero-heading {
             /* The widest line is about 8 times the font size in Big Noodle, so each line stays whole. */
             font-size: clamp(32px, calc((100vw - 40px) / 8), 56px);
-            line-height: 0.98; margin: 0 0 22px;
+            line-height: 0.98; margin: 0 0 clamp(18px, 4.5svh, 44px);
           }
           #hero .hero-line { display: block; white-space: nowrap; }
-          #hero .section-hero-description { font-size: 15.5px; line-height: 1.65; margin: 0 0 28px; }
+          #hero .section-hero-description { font-size: 15.5px; line-height: 1.65; margin: 0 0 clamp(24px, 6svh, 56px); }
+        }
+        /* Short phones (under 700px tall): tighter steps and a slightly smaller paragraph, so the buttons stay on
+           the first screen. */
+        @media (max-width: 768px) and (max-height: 700px) {
+          #hero .hero-content { padding: 8px 0 16px; }
+          #hero .section-hero-heading { margin-bottom: 18px; }
+          #hero .section-hero-description { font-size: 14.5px; line-height: 1.6; margin-bottom: 24px; }
         }
       `}})]})}],32177)},82524,e=>{"use strict";var t=e.i(43476),i=e.i(57688),s=e.i(96199),n=e.i(70416),r=e.i(76592),a=e.i(93209),o=e.i(56420);let l={name:"arrow-down",size:24,node:[["path",{d:"M12 5v14",key:"s699le"}],["path",{d:"m19 12-7 7-7-7",key:"1idqje"}]]};l.node;let d=(0,o.default)(l),h={name:"arrow-up",size:24,node:[["path",{d:"m5 12 7-7 7 7",key:"hav0vg"}],["path",{d:"M12 19V5",key:"x0mq9r"}]]};h.node;let c=(0,o.default)(h);var u=e.i(71645);e.s(["default",0,function({content:e}){let{live:o,ui:l}=(0,r.useSite)(),h=e||o.home.mission,[p,m]=(0,u.useState)(!1);return(0,t.jsxs)("section",{id:"mission-vision",className:"lx-section lx-surface",children:[(0,t.jsxs)("div",{className:"lx-wrap",children:[(0,t.jsx)(s.default,{children:h.title&&(0,t.jsx)(n.default,{title:h.title})}),(0,t.jsx)("div",{className:"mv-grid",children:h.cards.map((e,n)=>(0,t.jsx)(s.default,{delay:.08*(n+1),children:(0,t.jsxs)("article",{className:"mv-card",children:[(0,t.jsxs)("div",{className:"mv-card-head",children:[(0,t.jsx)("span",{className:"lx-chip",children:(0,t.jsx)(i.default,{src:(0,a.asset)(e.icon),alt:"",width:30,height:30})}),(0,t.jsx)("h3",{className:"mv-title",children:e.title})]}),(0,t.jsx)("p",{id:`mv-text-${n}`,className:`mv-text${p?" is-open":""}`,children:e.text})]})},e.title))}),(0,t.jsx)("div",{className:"lx-more-row",children:(0,t.jsxs)("button",{type:"button",onClick:()=>m(!p),className:"lx-more","aria-expanded":p,"aria-controls":"mv-text-0 mv-text-1",children:[(0,t.jsx)("span",{children:p?l.showLess:l.showMore}),p?(0,t.jsx)(c,{size:18,"aria-hidden":"true"}):(0,t.jsx)(d,{size:18,"aria-hidden":"true"})]})})]}),(0,t.jsx)("style",{dangerouslySetInnerHTML:{__html:`
         .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 2.5vw, 32px); }

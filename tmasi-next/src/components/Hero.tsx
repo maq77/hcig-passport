@@ -126,19 +126,41 @@ export default function Hero() {
           /* Clear air under the header, then title, paragraph and buttons in even steps. */
           /* Phones (2026-09-30): one screen tall, words from the top; the photo anchored at its bottom and a
              little larger, so the globe in the hand rises into view and the empty dark top is cut away. */
-          #hero.section-hero { align-items: flex-start; padding: 116px 0 28px; }
+          #hero.section-hero { align-items: stretch; padding: 96px 0 0; }
+          /* Phones (2026-10-01): title, paragraph and buttons are one group centred in the whole screen under the
+             96px header, with even steps that grow on taller phones, so no part of the screen is left empty. */
+          #hero .hero-content {
+            min-height: calc(100svh - 96px); box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: center;
+            padding: clamp(12px, 3svh, 32px) 0 calc(clamp(20px, 4.5svh, 44px) + env(safe-area-inset-bottom, 0px));
+          }
           #hero .hero-mobile-bg { transform: scale(1.12); transform-origin: center bottom; }
           #hero .hero-shade {
-            background: linear-gradient(to bottom, rgba(15,32,92,0.3) 0%, rgba(15,32,92,0.5) 40%, rgba(15,32,92,0.36) 60%, rgba(15,32,92,0.1) 80%, rgba(15,32,92,0) 100%);
+            /* Lighter photo (2026-10-01): brand blue over the dark top (TRUSTED stays 3.3:1), navy only where the
+               paragraph and buttons cross the bright globe (paragraph 5.2:1 or better on every phone size). */
+            background: linear-gradient(to bottom, rgba(0,122,181,0.4) 0%, rgba(0,122,181,0.3) 24%, rgba(15,32,92,0.56) 40%,
+              rgba(15,32,92,0.62) 72%, rgba(15,32,92,0.56) 84%, rgba(15,32,92,0.32) 100%);
           }
-          #hero .hero-photo { filter: brightness(1.22) saturate(1.1); object-position: center bottom !important; }
+          /* The old site's full navy layer (85 to 92% dark, globals .section-hero::before) hid the photo; on phones the
+             shade above does the work instead. */
+          #hero.section-hero::before { display: none; }
+          #hero .hero-photo { filter: brightness(1.12) saturate(1.08); object-position: center bottom !important; }
+          /* The outline button keeps a soft navy fill so its words read wherever the photo sits behind it. */
+          #hero .section-hero-btn2 { background: rgba(15,32,92,0.36); }
           #hero .section-hero-heading {
             /* The widest line is about 8 times the font size in Big Noodle, so each line stays whole. */
             font-size: clamp(32px, calc((100vw - 40px) / 8), 56px);
-            line-height: 0.98; margin: 0 0 22px;
+            line-height: 0.98; margin: 0 0 clamp(18px, 4.5svh, 44px);
           }
           #hero .hero-line { display: block; white-space: nowrap; }
-          #hero .section-hero-description { font-size: 15.5px; line-height: 1.65; margin: 0 0 28px; }
+          #hero .section-hero-description { font-size: 15.5px; line-height: 1.65; margin: 0 0 clamp(24px, 6svh, 56px); }
+        }
+        /* Short phones (under 700px tall): tighter steps and a slightly smaller paragraph, so the buttons stay on
+           the first screen. */
+        @media (max-width: 768px) and (max-height: 700px) {
+          #hero .hero-content { padding: 8px 0 16px; }
+          #hero .section-hero-heading { margin-bottom: 18px; }
+          #hero .section-hero-description { font-size: 14.5px; line-height: 1.6; margin-bottom: 24px; }
         }
       `}} />
     </section>
