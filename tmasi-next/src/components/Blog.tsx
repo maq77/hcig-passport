@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "./Reveal";
+import SectionHead from "./SectionHead";
 import { useSite } from "./site/SiteProvider";
 import { asset } from "@/lib/asset";
 import { ArrowRight } from "lucide-react";
@@ -21,17 +22,8 @@ export default function Blog({ page = false }: { page?: boolean }) {
       <div className="lx-wrap">
         {/* On the blog page the page hero already carries the title. */}
         {!page && (
-        <Reveal>
-            <div className="news-head">
-              <div className="lx-head lx-head--left" style={{ marginBottom: 0 }}>
-                <h2 className="lx-title">{heading}</h2>
-              </div>
-              {!page && links.blog && (
-                <Link href={links.blog} className="news-all">
-                  {ui.viewAllNews} <ArrowRight size={16} aria-hidden="true" />
-                </Link>
-              )}
-            </div>
+          <Reveal>
+            <SectionHead title={heading} />
           </Reveal>
         )}
 
@@ -52,16 +44,17 @@ export default function Blog({ page = false }: { page?: boolean }) {
             </Reveal>
           ))}
         </div>
+
+        {!page && links.blog && (
+          <div className="lx-more-row">
+            <Link href={links.blog} className="lx-more">
+              {ui.viewAllNews} <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+        )}
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
-        .news-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: var(--lx-head-gap); }
-        .news-all {
-          display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
-          color: var(--lx-ink); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
-          border-bottom: 1px solid rgba(15,32,92,0.25); transition: color .2s ease, border-color .2s ease;
-        }
-        .news-all:hover { color: var(--tmasi-teal); border-color: var(--tmasi-teal); }
         .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(20px, 2.2vw, 28px); }
         .news-cell { display: flex; }
         .news-card {
@@ -69,7 +62,7 @@ export default function Blog({ page = false }: { page?: boolean }) {
           background: #ffffff; border: 1px solid var(--lx-line); border-radius: var(--lx-radius);
           transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s ease;
         }
-        .news-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -18px rgba(15,32,92,0.22); border-color: rgba(0,154,156,0.35); }
+        .news-card:hover { transform: translateY(-4px); box-shadow: var(--lx-lift); border-color: rgba(0,154,156,0.35); }
         .news-img { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--lx-surface); }
         .news-img img { transition: transform .6s var(--ease); }
         .news-card:hover .news-img img { transform: scale(1.04); }

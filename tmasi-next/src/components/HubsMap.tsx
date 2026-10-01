@@ -100,10 +100,9 @@ export default function HubsMap({ names, hrefs, active, setActive }: {
       <style dangerouslySetInnerHTML={{__html: `
         .hubs-maps { margin: 0 0 clamp(28px, 3.4vw, 44px); }
         .hubs-map {
-          position: relative; width: 100%; border-radius: 28px; overflow: hidden; background: #081133;
-          box-shadow: 0 30px 70px -40px rgba(8,17,51,0.8);
+          position: relative; width: 100%; border-radius: var(--lx-radius-lg); overflow: hidden; background: #081133;
         }
-        .hubs-map--phone { display: none; border-radius: 22px; }
+        .hubs-map--phone { display: none; }
         @media (max-width: 700px) { .hubs-map--desktop { display: none; } .hubs-map--phone { display: block; } }
         .hubs-map-img { object-fit: cover; opacity: 0; transition: opacity .6s ease; }
         .hubs-map-img.is-loaded { opacity: 1; }

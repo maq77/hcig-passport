@@ -66,7 +66,6 @@ export function AboutIntro({ statement, facts, body, size }: {
           <div className="about-band-photo">
             <Image src={asset("/img/about-band.webp")} alt="" fill sizes="(max-width: 900px) 100vw, 720px" className="about-band-img" />
           </div>
-          <div className="about-band-shade" aria-hidden="true" />
           <div className="about-band-copy">
             <Heartbeat />
             <p className={`about-slogan${long ? " about-slogan--long" : ""}`}>
@@ -82,7 +81,7 @@ export function AboutIntro({ statement, facts, body, size }: {
             const Icon = FACT_ICONS[i % FACT_ICONS.length];
             return (
               <li key={i}>
-                <span className="about-fact-icon" aria-hidden="true"><Icon size={26} /></span>
+                <span className="lx-chip" aria-hidden="true"><Icon size={26} /></span>
                 <p>{line}</p>
               </li>
             );
@@ -140,23 +139,17 @@ function AboutStyles() {
     <style dangerouslySetInnerHTML={{__html: `
       .section-about .lx-head { margin-bottom: 0; }
 
-      /* The slogan band. The words sit on one even field of brand teal (#008A8C, white text 4.2:1); the photo
-         (TMASI logo on her headset and on the office wall) fills the right part and the teal fades into it, so
-         she sits in the middle of her part and the photo never bleaches the teal behind the slogan. */
+      /* The slogan band (design rules 2026-10-01): the words on the one teal field, the photo shown clean in the
+         right half with a straight edge, no fade (white text on the field 4.5:1). */
       .about-band {
         position: relative; min-height: 340px; margin-top: clamp(28px, 3.2vw, 44px);
-        border-radius: 28px; overflow: hidden; background: #008A8C;
+        border-radius: var(--lx-radius-lg); overflow: hidden; background: var(--lx-field);
         display: flex; align-items: center;
       }
-      .about-band-photo { position: absolute; top: 0; bottom: 0; right: 0; left: 36%; }
+      .about-band-photo { position: absolute; top: 0; bottom: 0; right: 0; left: 50%; }
       .about-band-img { object-fit: cover; object-position: center 30%; }
-      .about-band-shade {
-        position: absolute; inset: 0;
-        background: linear-gradient(90deg, #007476 0%, #008587 22%, #008A8C 36%, rgba(0,138,140,0.72) 40%,
-          rgba(0,138,140,0.3) 45%, rgba(0,138,140,0.08) 49%, rgba(0,138,140,0) 52%);
-      }
       .about-band-copy {
-        position: relative; z-index: 1; max-width: 62%; box-sizing: border-box; padding: 48px 64px;
+        position: relative; z-index: 1; width: 50%; box-sizing: border-box; padding: 48px clamp(32px, 4.4vw, 64px);
         display: flex; flex-direction: column; gap: 22px;
       }
       .about-band-signal { display: flex; align-items: center; gap: 14px; }
@@ -165,7 +158,6 @@ function AboutStyles() {
       .about-band-phone {
         position: relative; width: 60px; height: 60px; flex: none; border-radius: 50%; background: #ffffff;
         color: var(--tmasi-teal); display: flex; align-items: center; justify-content: center;
-        box-shadow: 0 14px 30px -12px rgba(0,0,0,0.45);
       }
       /* The phone answers each beat with a soft ring, only while the band is on screen. */
       .about-band-phone::after {
@@ -180,8 +172,7 @@ function AboutStyles() {
       }
       .about-slogan {
         margin: 0; color: #ffffff; font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
-        font-size: clamp(48px, 5.4vw, 78px); line-height: 0.94; letter-spacing: 0.02em;
-        text-shadow: 0 2px 18px rgba(0,60,62,0.35);
+        font-size: clamp(44px, 5vw, 72px); line-height: 0.94; letter-spacing: 0.02em;
       }
       .about-slogan span { display: block; }
       .about-slogan--long { font-size: clamp(34px, 3.8vw, 54px); line-height: 1; }
@@ -196,19 +187,15 @@ function AboutStyles() {
         padding: 8px clamp(20px, 2.6vw, 36px); text-align: center;
       }
       .about-facts li + li { border-left: 1px solid var(--lx-line); }
-      .about-fact-icon {
-        width: 60px; height: 60px; flex: none; border-radius: 50%; background: #E8F6F6; color: var(--tmasi-teal);
-        display: flex; align-items: center; justify-content: center;
-      }
       .about-facts p { margin: 0; color: var(--lx-ink); font-weight: 600; font-size: clamp(16px, 1.3vw, 18px); line-height: 1.6; }
 
       /* The paragraph and the numbers. Home: one compact panel (2026-09-30). About Us page: larger. */
       .about-panel { margin-top: clamp(36px, 4vw, 48px); background: var(--lx-surface); }
       .about-panel--compact {
-        padding: 30px 40px; border-radius: 22px;
+        padding: 30px 40px; border-radius: var(--lx-radius);
         display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 40px; align-items: center;
       }
-      .about-panel--large { padding: 52px 64px 56px; border-radius: 28px; text-align: center; }
+      .about-panel--large { padding: 52px 64px 56px; border-radius: var(--lx-radius); text-align: center; }
       .about-body { margin: 0; color: var(--lx-body); font-size: 15.5px; line-height: 1.7; }
       .about-panel--large .about-body { max-width: 760px; margin: 0 auto 40px; font-size: clamp(16px, 1.3vw, 18px); line-height: 1.75; }
       .about-stats { margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -232,14 +219,11 @@ function AboutStyles() {
       .about-panel--large .about-stat dt { font-size: 12px; letter-spacing: 0.18em; }
 
       @media (max-width: 900px) {
-        .about-band { min-height: 330px; align-items: flex-end; border-radius: 24px; }
-        .about-band-photo { left: 0; }
+        /* Phones: the photo on top, the words on the teal field under it, a straight edge between. */
+        .about-band { min-height: 0; flex-direction: column; align-items: stretch; }
+        .about-band-photo { position: relative; left: auto; aspect-ratio: 16 / 10; }
         .about-band-img { object-position: 72% 22%; }
-        .about-band-shade {
-          background: linear-gradient(180deg, rgba(0,138,140,0) 0%, rgba(0,138,140,0.35) 30%, rgba(0,133,135,0.88) 55%,
-            #007E80 72%, #007476 100%);
-        }
-        .about-band-copy { max-width: none; padding: 22px 22px 26px; gap: 14px; }
+        .about-band-copy { width: auto; padding: 22px 22px 26px; gap: 14px; }
         .about-ecg { width: 150px; height: 28px; }
         .about-band-phone { width: 46px; height: 46px; }
         .about-slogan { font-size: clamp(36px, 11.5vw, 46px); }
@@ -251,11 +235,10 @@ function AboutStyles() {
           border-top: 1px solid var(--lx-line);
         }
         .about-facts li + li { border-left: none; }
-        .about-fact-icon { width: 48px; height: 48px; }
         .about-facts p { font-size: 16px; line-height: 1.55; }
 
         .about-panel--compact, .about-panel--large {
-          display: block; padding: 20px 16px; border-radius: 20px; margin-top: 24px;
+          display: block; padding: 20px 16px; margin-top: 24px;
         }
         .about-body, .about-panel--large .about-body { text-align: center; font-size: 14.5px; line-height: 1.65; margin: 0 0 12px; }
         .about-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }

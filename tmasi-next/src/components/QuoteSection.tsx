@@ -97,8 +97,7 @@ export default function QuoteSection() {
         .qs-toggle.is-open .qs-chevron { transform: rotate(180deg); }
         .qs-card {
           margin-top: clamp(28px, 3vw, 40px); background: #ffffff; border: 1px solid var(--lx-line);
-          border-radius: 20px; padding: clamp(24px, 3vw, 40px);
-          box-shadow: 0 24px 60px -36px rgba(15,32,92,0.28);
+          border-radius: var(--lx-radius); padding: clamp(24px, 3vw, 40px);
         }
         @media (max-width: 600px) { .qs-toggle { width: 100%; justify-content: center; } }
       `}} />

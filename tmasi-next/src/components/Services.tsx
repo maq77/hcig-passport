@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
-import CornerOrbs from "./CornerOrbs";
 import { useEffect, useState } from "react";
 import { ArrowRight, ChevronRight, X, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
@@ -61,8 +60,7 @@ export default function Services() {
 
   return (
     <section id="services" className="services-section lx-section lx-surface">
-      <CornerOrbs />
-      <div className="lx-wrap relative z-10">
+      <div className="lx-wrap">
         <Reveal>
           <SectionHead title={live.home.services.title} sub={twoLines(live.home.services.sub)} />
         </Reveal>
@@ -71,22 +69,21 @@ export default function Services() {
           {services.map((svc, idx) => (
             <Reveal key={svc.id} delay={0.1 * idx} className="package-card-wrapper">
               <button className="package-card group" onClick={() => setSelectedService(svc)}>
-                <div className="package-img-wrapper tq-wash">
-                  <Image 
+                <div className="package-img-wrapper">
+                  <Image
                     src={svc.img}
                     alt={svc.title}
                     fill
                     style={{ objectFit: "cover" }}
                     className="package-img"
                   />
-                  <div className="package-img-overlay" />
                 </div>
                 <div className="package-content">
                   <h3 className="package-title">{svc.title}</h3>
                   <ul className="package-desc">
                     {preview(svc).map((line) => <li key={line}>{line}</li>)}
                   </ul>
-                  
+
                   <div className="package-action">
                     <span className="view-details-btn">
                       {ui.viewDetails} <ChevronRight size={16} className="vd-icon" />
@@ -106,9 +103,9 @@ export default function Services() {
             <button className="modal-close" onClick={() => setSelectedService(null)} aria-label="Close modal">
               <X size={24} color="#0F205C" />
             </button>
-            
-            <div className="modal-hero tq-wash">
-              <Image 
+
+            <div className="modal-hero">
+              <Image
                 src={selectedService.img}
                 alt={selectedService.title}
                 fill
@@ -117,7 +114,7 @@ export default function Services() {
               <div className="modal-hero-overlay" />
               <h2 className="modal-hero-title headline-titling">{selectedService.title}</h2>
             </div>
-            
+
             <div className="modal-body">
               <ul className="modal-details-list">
                 {selectedService.bullets.map((bullet, i) => (
@@ -183,7 +180,7 @@ export default function Services() {
 
         .package-card:hover, .package-card:focus-visible {
           transform: translateY(-4px);
-          box-shadow: 0 18px 40px -18px rgba(15,32,92,0.22);
+          box-shadow: var(--lx-lift);
           border-color: rgba(0,154,156,0.35);
         }
 
@@ -199,14 +196,7 @@ export default function Services() {
         }
 
         .package-card:hover .package-img {
-          transform: scale(1.05) !important;
-        }
-
-        .package-img-overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to bottom, transparent 50%, rgba(15, 32, 92, 0.1) 100%);
-          z-index: 1;
+          transform: scale(1.04) !important;
         }
 
         .package-content {
@@ -222,7 +212,7 @@ export default function Services() {
 
         .package-title {
           font-family: var(--font-montserrat), sans-serif;
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 700;
           color: var(--lx-ink);
           margin: 0 0 10px 0;
@@ -263,19 +253,10 @@ export default function Services() {
           font-size: 14px;
           font-weight: 700;
           color: var(--tmasi-teal);
-          padding: 8px 16px;
-          background: rgba(0, 154, 156, 0.08);
-          border-radius: 99px;
-          transition: all 0.3s ease;
         }
 
         @media (max-width: 640px) {
-          .view-details-btn { font-size: 12px; padding: 6px 12px; gap: 4px; }
-        }
-
-        .package-card:hover .view-details-btn {
-          background: var(--tmasi-teal);
-          color: #ffffff;
+          .view-details-btn { font-size: 13px; gap: 4px; }
         }
 
         .vd-icon {

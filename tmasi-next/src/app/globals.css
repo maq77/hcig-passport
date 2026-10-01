@@ -20,16 +20,6 @@
 
 
 
-/* ---- Turquoise wash over the service photos ----
-   The original service photos had the brand turquoise edited into them. The remade photos are natural,
-   and the wash is this layer, kept very light at Mohamed's request (2026-09-30), tuned in one place. */
-.tq-wash { isolation: isolate; }
-.tq-wash::before, .tq-wash::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; }
-.tq-wash::before { background: #009A9C; mix-blend-mode: color; opacity: 0.1; }
-.tq-wash::after {
-  background: linear-gradient(120deg, rgba(0,154,156,0.95) 0%, rgba(0,154,156,0.35) 45%, rgba(0,154,156,0) 75%);
-  opacity: 0.08;
-}
 
 /* ---- Page changes ----
    A short fade-in of the page body when a visitor moves to another page, so it never cuts hard. */
@@ -1350,8 +1340,36 @@ html.js .hero-content > :nth-child(3) { animation-delay: 160ms; }
   --lx-muted: #64748B;
   --lx-line: #E4E9F0;
   --lx-surface: #F6F8FB;
-  --lx-radius: 16px;
+  --lx-radius: 16px;      /* cards, panels, photos in cards */
+  --lx-radius-lg: 24px;   /* the wide bands: About Us slogan band, hubs map */
+  --lx-field: #008486;    /* the one teal panel colour: white text on it reads at 4.5:1 */
+  --lx-chip: #E8F6F6;     /* the one icon circle */
+  --lx-teal-on-dark: #7FE0E1;  /* teal words and marks on dark photos and the map (3:1 or better) */
+  --lx-lift: 0 18px 40px -18px rgba(15,32,92,0.22);  /* the one shadow: clickable cards on hover */
 }
+
+/* ---- Design rules for the home (2026-10-01) ----
+   Two image treatments only:
+   1. Photo band: a full-width photo with white words on it (Hero, Relax & Enjoy). One navy shade
+      (#0F205C), darkest behind the words, the same brightness lift on both.
+   2. Clean photo: shown as photographed, never tinted, faded or shaded (service cards, news cards,
+      the About Us band photo). Rounded with the card or band it sits in.
+   Cards: white, one hairline border, 16px corners, flat. Only clickable cards move on hover (lift 4px).
+   Icons sit in one teal circle. Sections alternate white and light grey; no decorative shapes. */
+.lx-chip {
+  width: 56px; height: 56px; flex: none; border-radius: 50%; background: var(--lx-chip); color: var(--tmasi-teal);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+@media (max-width: 768px) { .lx-chip { width: 48px; height: 48px; } }
+/* The one secondary button: an outline pill (Show more, View all news). */
+.lx-more {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 26px;
+  background: transparent; border: 1px solid rgba(15,32,92,0.18); border-radius: 999px;
+  color: var(--lx-ink); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer; transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+.lx-more:hover, .lx-more:focus-visible { background: var(--lx-ink); border-color: var(--lx-ink); color: #ffffff; }
+.lx-more-row { display: flex; justify-content: center; margin-top: clamp(28px, 3vw, 40px); }
 
 .lx-section { padding-block: var(--lx-section); position: relative; }
 .lx-surface { background: var(--lx-surface); }

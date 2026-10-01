@@ -5,7 +5,6 @@ import Link from "next/link";
 import { ArrowRight, CheckCircle2, Mail, MapPin, Phone } from "lucide-react";
 import Reveal from "../Reveal";
 import SectionHead from "../SectionHead";
-import CornerOrbs from "../CornerOrbs";
 import RelaxBanner from "../RelaxBanner";
 import MissionVision from "../MissionVision";
 import QuoteSection from "../QuoteSection";
@@ -56,10 +55,9 @@ function ItemList({ items, columns = 2 }: { items: Item[]; columns?: 1 | 2 }) {
 // ---------------------------------------------------------------------------------------------- About
 
 export function AboutPage() {
-  const { live, links } = useSite();
+  const { live } = useSite();
   const a = live.about;
   const c = useCrumbs();
-  const leaders = live.leaders;
   return (
     <>
       <PageHero title={a.heading} crumbs={[c.home, { label: c.about.label }]} />
@@ -135,13 +133,12 @@ export function ServicesPage() {
     <>
       <PageHero title={s.heading} sub={s.sub} crumbs={[c.home, { label: c.services.label }]} />
       <section className="lx-section lx-surface">
-        <CornerOrbs />
-        <div className="lx-wrap relative z-10">
+        <div className="lx-wrap">
           <div className="ip-groups">
             {s.groups.map((g, i) => (
               <Reveal key={g.title} delay={0.05 * i} className="ip-group-cell">
                 <article className="ip-group">
-                  <div className="ip-group-img tq-wash">
+                  <div className="ip-group-img">
                     <Image src={asset(SERVICE_IMAGES[i])} alt="" fill sizes="(max-width: 700px) 100vw, 50vw" style={{ objectFit: "cover" }} />
                   </div>
                   <div className="ip-group-body">
@@ -200,7 +197,7 @@ export function GroupPage({ index }: { index: number }) {
           <div className="ip-others">
             {s.groups.map((o, i) => (i === index || !links.groups[i] ? null : (
               <Link key={o.title} href={links.groups[i]} className="ip-other">
-                <span className="ip-other-img tq-wash"><Image src={asset(SERVICE_IMAGES[i])} alt="" fill sizes="(max-width: 700px) 100vw, 25vw" style={{ objectFit: "cover" }} /></span>
+                <span className="ip-other-img"><Image src={asset(SERVICE_IMAGES[i])} alt="" fill sizes="(max-width: 700px) 100vw, 25vw" style={{ objectFit: "cover" }} /></span>
                 <span className="ip-other-title">{o.title}</span>
               </Link>
             )))}

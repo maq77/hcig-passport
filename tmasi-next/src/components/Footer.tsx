@@ -21,7 +21,7 @@ export default function Footer() {
   return (
     <footer id="footi" style={{ background: "#0F205C", color: "#ffffff", position: "relative", overflow: "hidden" }}>
       {/* Top CTA Banner in Footer */}
-      <div style={{ background: "linear-gradient(90deg, var(--tmasi-teal) 0%, #007AB5 100%)", padding: "60px 0" }}>
+      <div style={{ background: "var(--lx-field)", padding: "60px 0" }}>
         <div className="container" style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "30px" }}>
           <div>
             <h2 className="headline-titling" style={{ fontSize: "36px", marginBottom: "8px", color: "#ffffff" }}>{ui.partnerTitle}</h2>
@@ -43,7 +43,7 @@ export default function Footer() {
       {/* Main Footer Content */}
       <div className="container" style={{ padding: "80px 20px 40px", position: "relative", zIndex: 2 }}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "60px", marginBottom: "60px" }}>
-          
+
           {/* Brand Column */}
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ marginBottom: "24px" }}>
@@ -124,7 +124,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      
+
       {/* Hover Styles */}
       <style dangerouslySetInnerHTML={{__html: `
         .hover-bg-teal:hover { background: var(--tmasi-teal) !important; color: white !important; }
