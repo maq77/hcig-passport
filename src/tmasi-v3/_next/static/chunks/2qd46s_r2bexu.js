@@ -99,7 +99,8 @@ Read more: https://nextjs.org/docs/messages/next-image-missing-loader`),"__NEXT_
         .about-ecg { width: 150px; height: 28px; }
         .about-band-phone { width: 46px; height: 46px; }
         .about-slogan { font-size: clamp(36px, 11.5vw, 46px); }
-        .about-slogan--long { font-size: clamp(26px, 7.4vw, 34px); }
+        /* German, Polish, Spanish on phones: 38px (approved on the canvas 2026-10-04), three lines down to 360px wide. */
+        .about-slogan--long { font-size: clamp(30px, 10.6vw, 38px); line-height: 0.96; }
 
         .about-facts { grid-template-columns: 1fr; margin-top: 32px; }
         .about-facts li {
