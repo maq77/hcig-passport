@@ -635,6 +635,37 @@ const COMPANIES = [
           },
         ],
       },
+      {
+        slug: 'website-v4',
+        name: 'Website v4 home, a 3D global network',
+        status: 'planned',
+        updated: '2026-10-01',
+        summary: 'The home remade from scratch for partners: a 3D Earth where the five offices light up and connect. Every word kept.',
+        detail: [
+          'Spec approved 2026-10-01 after six question rounds. Home only, English only. v3 stays online as the fallback.',
+          'Desktop and phone each get their own design of the same idea. Phones run real 3D.',
+          'The globe look, its motion and the layouts are picked live on a design canvas before anything is built.',
+        ],
+        checklist: [
+          { text: 'Answer the spec questions', done: true, who: 'Mohamed' },
+          { text: 'Approve the spec', done: true, who: 'Mohamed' },
+          { text: 'Plan and tasks', done: true, who: 'Us' },
+          { text: 'Pick the hero on the design canvas', done: false, who: 'Mohamed' },
+          { text: 'Pick the rest of the page on the design canvas', done: false, who: 'Mohamed' },
+          { text: 'Make the Veo clips from our prompts', done: false, who: 'Mohamed' },
+          { text: 'Home preview on HCIG Work', done: false, who: 'Us' },
+        ],
+        stages: [
+          {
+            name: 'Plan',
+            items: [
+              { slug: 'spec', name: 'What v4 is, and every decision', kind: 'md', src: 'specs/009-tmasi-v4/spec.md', status: 'approved', note: 'Approved 1 Oct' },
+              { slug: 'plan', name: 'How v4 gets built', kind: 'md', src: 'specs/009-tmasi-v4/plan.md', status: 'draft', note: 'Plan, research and contracts' },
+              { slug: 'tasks', name: 'Every step, in order', kind: 'md', src: 'specs/009-tmasi-v4/tasks.md', status: 'draft', note: '73 tasks, canvas gates first' },
+            ],
+          },
+        ],
+      },
     ],
   },
   {

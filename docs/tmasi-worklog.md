@@ -131,3 +131,10 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - News posts show their main picture whole, as on the live site. The Istanbul ITIC poster was cut to a wide frame before. Each post shows its own first picture behind its title, softened so a poster's text does not read through.
 - Search and AI-answer setup for every v3 page (preview only, all still hidden from Google): the live site's own share picture (the TMASI logo card) on every page, and on news and leader pages their own photo, as on the live site. Every page now has its address on tmasi.net, its links to the same page in the other three languages, and a machine-readable description of TMASI (offices, phones, services, leaders, news). A sitemap, a robots file and an llms.txt page for AI assistants are generated on every build.
 - Descriptions that the live site left in the wrong language (German on Polish pages, English on Spanish posts and on the leader pages) now use the page's own words. The English news post about the Egypt agreement carried the About page's title on the live site; it now uses its own headline.
+
+## 2026-10-01
+
+### Website v4 (planning only, nothing built)
+- v4 started: a from-scratch remake of the home for partners (insurers, assistance companies, hotels, tour operators), with a 3D Earth in the hero where the five offices (Egypt, Germany, Spain, UAE, USA) light up and connect. Every word stays exactly as on v3.
+- Decided with Mohamed in six question rounds: home only, English only, v3 kept online as the fallback, desktop and phone each get their own design of the same idea with real 3D on phones, the globe's look and motion picked on a design canvas, new images, short video loops and one film, a 3D icon set, partner logos, both buttons equal.
+- Spec written and approved: `specs/009-tmasi-v4/spec.md`.
