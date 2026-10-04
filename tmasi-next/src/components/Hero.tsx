@@ -158,9 +158,9 @@ export default function Hero() {
         /* Short phones (under 700px tall): tighter steps and a slightly smaller paragraph, so the buttons stay on
            the first screen. */
         @media (max-width: 768px) and (max-height: 700px) {
-          #hero .hero-content { padding: 8px 0 16px; }
+          #hero .hero-content { padding: 20px 0 12px; }
           #hero .section-hero-heading { margin-bottom: 18px; }
-          #hero .section-hero-description { font-size: 14.5px; line-height: 1.6; margin-bottom: 24px; }
+          #hero .section-hero-description { font-size: 14.5px; line-height: 1.6; margin-bottom: 22px; }
         }
       `}} />
     </section>
