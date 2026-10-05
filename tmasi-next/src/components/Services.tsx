@@ -4,6 +4,7 @@ import Image from "next/image";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { ArrowRight, ChevronRight, X, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useSite } from "./site/SiteProvider";
@@ -96,8 +97,9 @@ export default function Services() {
         </div>
       </div>
 
-      {/* Premium Glassmorphism Modal */}
-      {selectedService && (
+      {/* The service window opens straight into <body> (like the quote form), so no section or page wrapper
+          can become its frame and push it off screen (bug fixed 2026-10-05). It only renders after a click. */}
+      {selectedService && createPortal(
         <div className="modal-backdrop" onClick={() => setSelectedService(null)}>
           <div className="modal-container" onClick={e => e.stopPropagation()}>
             <button className="modal-close" onClick={() => setSelectedService(null)} aria-label="Close modal">
@@ -135,7 +137,8 @@ export default function Services() {
               )}
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       <style dangerouslySetInnerHTML={{__html: `

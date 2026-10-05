@@ -64,7 +64,7 @@ export function AboutIntro({ statement, facts, body, size }: {
       <Reveal delay={0.06}>
         <div className="about-band">
           <div className="about-band-photo">
-            <Image src={asset("/img/about-band.webp")} alt="" fill sizes="(max-width: 900px) 100vw, 720px" className="about-band-img" />
+            <Image src={asset("/img/about-band-logo.webp")} alt="" fill sizes="(max-width: 900px) 100vw, 720px" className="about-band-img" />
           </div>
           <div className="about-band-copy">
             <Heartbeat />

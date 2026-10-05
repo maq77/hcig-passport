@@ -60,6 +60,8 @@ export default function RelaxBanner({ content }: { content?: Relax }) {
         .mobile-br { display: none; }
         /* Same lift as the hero photo. */
         #relax .relax-photo { filter: brightness(1.12) saturate(1.08); }
+        /* Desktop only (2026-10-05): the photo sits lower so her face shows above the title (1280 to 1920 wide). */
+        @media (min-width: 769px) { #relax .relax-photo { object-position: center 20% !important; } }
         .relax-shade {
           position: absolute; inset: 0; z-index: 1;
           background: linear-gradient(to right, rgba(15,32,92,0.36) 0%, rgba(15,32,92,0.7) 28%, rgba(15,32,92,0.7) 72%, rgba(15,32,92,0.36) 100%);

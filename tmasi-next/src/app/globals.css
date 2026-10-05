@@ -22,9 +22,11 @@
 
 
 /* ---- Page changes ----
-   A short fade-in of the page body when a visitor moves to another page, so it never cuts hard. */
+   A short fade-in of the page body when a visitor moves to another page, so it never cuts hard.
+   "backwards", not "both": once it ends nothing stays on <main>. A kept transform made <main> the frame of every
+   fixed window inside it, and the service window opened thousands of pixels off screen (fixed 2026-10-05). */
 @keyframes page-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.page-in { animation: page-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.page-in { animation: page-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
 @media (prefers-reduced-motion: reduce) { .page-in { animation: none; } }
 
 /* ---- Design Tokens ---- */
