@@ -129,7 +129,7 @@ export default function Footer() {
       <style dangerouslySetInnerHTML={{__html: `
         .hover-bg-teal:hover { background: var(--tmasi-teal) !important; color: white !important; }
         .hover-text-teal:hover { color: var(--tmasi-teal) !important; }
-        .hover-scale:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        @media (hover: hover) and (pointer: fine) { .hover-scale:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); } }
         .band-actions { display: flex; flex-wrap: wrap; gap: 14px; }
         .band-btn {
           display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 54px; padding: 0 30px;

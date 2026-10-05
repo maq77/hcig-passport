@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { useInView, useReducedMotion } from "framer-motion";
 import { Globe, HeartPulse, Phone, Users } from "lucide-react";
 import { useRef } from "react";
 import Reveal from "./Reveal";
@@ -24,30 +24,20 @@ function sloganLines(s: string) {
 }
 
 /** The heartbeat: the line draws in once, then a pulse runs along it into the phone, again and again, only
- *  while the band is on screen. Visitors who ask for less motion see the still line. */
+ *  while the band is on screen. Visitors who ask for less motion see the still line. Plain CSS since 2026-10-05
+ *  (stroke-dash animations on a path of length 1), so it costs no JavaScript per frame. */
 function Heartbeat() {
   const ref = useRef<HTMLDivElement>(null);
   const live = useInView(ref, { amount: 0.5 });
   const reduce = useReducedMotion();
   const beat = live && !reduce;
   return (
-    <div ref={ref} className={`about-band-signal${beat ? " is-beating" : ""}`} aria-hidden="true">
+    <div ref={ref} className={`about-band-signal${live ? " is-drawn" : ""}${beat ? " is-beating" : ""}`} aria-hidden="true">
       <svg className="about-ecg" viewBox="0 0 300 56" fill="none">
-        <motion.path
-          d={ECG} stroke="rgba(255,255,255,0.85)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
-          initial={reduce ? false : { pathLength: 0 }}
-          animate={live || reduce ? { pathLength: 1 } : undefined}
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-        />
-        {beat && (
-          <motion.path
-            d={ECG} stroke="#ffffff" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"
-            className="about-ecg-pulse"
-            initial={{ pathLength: 0.14, pathOffset: 0, opacity: 0 }}
-            animate={{ pathOffset: [0, 0.86], opacity: [0, 1, 1, 0] }}
-            transition={{ duration: 1.6, ease: "easeInOut", repeat: Infinity, repeatDelay: 0.8, delay: 1.2 }}
-          />
-        )}
+        <path d={ECG} pathLength={1} className="about-ecg-line" stroke="rgba(255,255,255,0.85)" strokeWidth="3"
+          strokeLinecap="round" strokeLinejoin="round" />
+        <path d={ECG} pathLength={1} className="about-ecg-pulse" stroke="#ffffff" strokeWidth="4"
+          strokeLinecap="round" strokeLinejoin="round" />
       </svg>
       <span className="about-band-phone"><Phone size={26} /></span>
     </div>
@@ -154,7 +144,17 @@ function AboutStyles() {
       }
       .about-band-signal { display: flex; align-items: center; gap: 14px; }
       .about-ecg { width: 300px; height: 56px; flex: none; overflow: visible; }
-      .about-ecg-pulse { filter: drop-shadow(0 0 6px rgba(255,255,255,0.9)); }
+      /* Draw-in once, then a short bright stretch runs along the line every 2.4s while the band is on screen. */
+      .about-ecg-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s cubic-bezier(0.22, 1, 0.36, 1); }
+      .is-drawn .about-ecg-line { stroke-dashoffset: 0; }
+      .about-ecg-pulse { stroke-dasharray: 0.14 0.86; stroke-dashoffset: 0; opacity: 0; filter: drop-shadow(0 0 6px rgba(255,255,255,0.9)); }
+      .is-beating .about-ecg-pulse { animation: ecg-move 2.4s 1.2s infinite, ecg-fade 2.4s 1.2s infinite; }
+      @keyframes ecg-move { 0% { stroke-dashoffset: 0; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); } 66.7%, 100% { stroke-dashoffset: -0.86; } }
+      @keyframes ecg-fade { 0% { opacity: 0; } 22%, 44% { opacity: 1; } 66.7%, 100% { opacity: 0; } }
+      @media (prefers-reduced-motion: reduce) {
+        .about-ecg-line { stroke-dashoffset: 0; transition: none; }
+        .about-ecg-pulse { display: none; }
+      }
       .about-band-phone {
         position: relative; width: 60px; height: 60px; flex: none; border-radius: 50%; background: #ffffff;
         color: var(--tmasi-teal); display: flex; align-items: center; justify-content: center;

@@ -1,64 +1,54 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useRef } from "react";
+
+// Scroll reveals in plain CSS (2026-10-05). One shared IntersectionObserver marks each block `data-in` the first
+// time it enters the view, and the browser runs the fade and rise itself on the compositor (globals.css,
+// "Scroll reveals"). The old framer-motion version moved every block frame by frame in JavaScript, which was most of
+// the scrolling work on slower phones. Visitors who ask for less motion get a short fade with no movement.
+
+type RevealType = "fade" | "rise" | "scale" | "slide-right";
 
 interface RevealProps {
   children: ReactNode;
   delay?: number;
   className?: string;
   style?: React.CSSProperties;
-  type?: "fade" | "rise" | "scale" | "slide-right";
+  type?: RevealType;
+}
+
+let shared: IntersectionObserver | null = null;
+function observer() {
+  if (!shared) {
+    shared = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          (e.target as HTMLElement).dataset.in = "";
+          shared!.unobserve(e.target);
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+  }
+  return shared;
 }
 
 export default function Reveal({ children, delay = 0, className = "", style, type = "rise" }: RevealProps) {
-  // Visitors who ask for less motion get the content in place, with no entrance movement.
-  const reduceMotion = useReducedMotion();
-  if (reduceMotion) {
-    return <div className={className} style={style}>{children}</div>;
-  }
+  const ref = useRef<HTMLDivElement>(null);
 
-  const getVariants = () => {
-    switch (type) {
-      case "fade":
-        return {
-          hidden: { opacity: 0 },
-          visible: { opacity: 1 },
-        };
-      case "scale":
-        return {
-          hidden: { opacity: 0, scale: 0.95 },
-          visible: { opacity: 1, scale: 1 },
-        };
-      case "slide-right":
-        return {
-          hidden: { opacity: 0, x: -30 },
-          visible: { opacity: 1, x: 0 },
-        };
-      case "rise":
-      default:
-        return {
-          hidden: { opacity: 0, y: 20 },
-          visible: { opacity: 1, y: 0 },
-        };
-    }
-  };
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = observer();
+    io.observe(el);
+    return () => io.unobserve(el);
+  }, []);
 
+  const css = delay ? ({ ...style, "--rv-delay": `${delay}s` } as React.CSSProperties) : style;
   return (
-    <motion.div
-      variants={getVariants()}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-      transition={{
-        duration: 0.7,
-        delay,
-        ease: [0.16, 1, 0.3, 1], // Spring-like ease out
-      }}
-      className={className}
-      style={style}
-    >
+    <div ref={ref} className={`reveal reveal--${type}${className ? ` ${className}` : ""}`} style={css}>
       {children}
-    </motion.div>
+    </div>
   );
 }

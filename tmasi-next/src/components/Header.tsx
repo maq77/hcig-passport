@@ -35,7 +35,7 @@ export default function Header() {
       setScrolled(y > 10);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
-    
+
     // Click outside to close lang dropdown
     const handleClickOutside = (event: MouseEvent) => {
       if (langRef.current && !langRef.current.contains(event.target as Node)) {
@@ -43,7 +43,7 @@ export default function Header() {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("mousedown", handleClickOutside);
@@ -61,7 +61,7 @@ export default function Header() {
 
   return (
     <>
-      <header 
+      <header
         className={`main-header${scrolled ? " is-scrolled" : ""}`}
         style={{
           position: "fixed",
@@ -69,16 +69,14 @@ export default function Header() {
           left: 0,
           right: 0,
           zIndex: 100,
-          transition: "background-color 0.35s ease, box-shadow 0.35s ease, padding 0.35s cubic-bezier(0.22, 1, 0.36, 1), backdrop-filter 0.35s ease",
-          background: scrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
-          boxShadow: scrolled ? "0 4px 30px rgba(0,0,0,0.06)" : "none",
-          padding: scrolled ? "12px 0" : "24px 0",
+          // The scroll change runs on the compositor (2026-10-05): the header slides up and its row slides back
+          // down by half, so it looks shorter without any layout work, and the glass background fades in as a
+          // layer (.main-header::before below). It used to animate padding, which re-laid it out every frame.
+          padding: "24px 0",
         }}
       >
         <div className="container" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 20px" }}>
-          
+
           <Link href={links.home} aria-label="TMASI Global Home" style={{ display: "flex", alignItems: "center", zIndex: 101 }}>
             <Image
               src={asset("/img/logo-header.png")}
@@ -86,10 +84,10 @@ export default function Header() {
               width={200}
               height={96}
               priority
-              style={{ 
-                filter: scrolled ? "none" : "brightness(0) invert(1)", 
-                height: "auto", 
-                transition: "all 0.3s" 
+              style={{
+                filter: scrolled ? "none" : "brightness(0) invert(1)",
+                height: "auto",
+                transition: "filter 0.4s var(--ease-out), transform 0.4s var(--ease-out)"
               }}
               className="logo-img"
             />
@@ -100,15 +98,15 @@ export default function Header() {
             <ul style={{ display: "flex", listStyle: "none", margin: 0, padding: 0, gap: "28px", alignItems: "center" }}>
               {NAV.map(item => (
                 <li key={item.name}>
-                  <Link 
-                    href={item.href} 
-                    style={{ 
-                      color: scrolled ? "#1e293b" : "#ffffff", 
-                      fontSize: "17px", 
-                      fontWeight: 700, 
-                      textDecoration: "none", 
-                      transition: "color 0.2s" 
-                    }} 
+                  <Link
+                    href={item.href}
+                    style={{
+                      color: scrolled ? "#1e293b" : "#ffffff",
+                      fontSize: "17px",
+                      fontWeight: 700,
+                      textDecoration: "none",
+                      transition: "color 0.3s var(--ease-out)"
+                    }}
                     className={scrolled ? "hover-text-teal" : "hover-text-white"}
                   >
                     {item.name}
@@ -125,7 +123,7 @@ export default function Header() {
 
             {/* Animated Language Dropdown (Desktop & Mobile Friendly) */}
             <div ref={langRef} style={{ position: "relative" }}>
-              <button 
+              <button
                 onClick={() => setLangDropdownOpen(!langDropdownOpen)}
                 style={{
                   display: "flex",
@@ -139,7 +137,7 @@ export default function Header() {
                   fontSize: "14px",
                   padding: "8px 14px",
                   borderRadius: "100px",
-                  transition: "all 0.2s",
+                  transition: "background-color 0.3s var(--ease-out), border-color 0.3s var(--ease-out), color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out)",
                   boxShadow: scrolled ? "none" : "0 4px 10px rgba(0,0,0,0.05)",
                   backdropFilter: scrolled ? "none" : "blur(4px)"
                 }}
@@ -148,19 +146,18 @@ export default function Header() {
               >
                 <Globe size={14} color={scrolled ? "var(--tmasi-teal)" : "#ffffff"} />
                 {activeLang}
-                <motion.div animate={{ rotate: langDropdownOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                  <ChevronDown size={14} />
-                </motion.div>
+                <ChevronDown size={14} style={{ transform: langDropdownOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s var(--ease-out)" }} />
               </button>
 
               <AnimatePresence>
                 {langDropdownOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                    // Grows from the button it belongs to; full transform strings so it runs on the compositor.
+                    initial={{ opacity: 0, transform: "translateY(-6px) scale(0.97)" }}
+                    animate={{ opacity: 1, transform: "translateY(0px) scale(1)", transition: { duration: 0.2, ease: [0.23, 1, 0.32, 1] } }}
+                    exit={{ opacity: 0, transform: "translateY(-6px) scale(0.97)", transition: { duration: 0.14, ease: [0.23, 1, 0.32, 1] } }}
                     style={{
+                      transformOrigin: "top right",
                       position: "absolute",
                       top: "calc(100% + 8px)",
                       right: 0,
@@ -208,10 +205,10 @@ export default function Header() {
               </AnimatePresence>
             </div>
 
-            <a 
+            <a
               href="https://wa.me/201206788566"
               target="_blank"
-              rel="noopener noreferrer" 
+              rel="noopener noreferrer"
               className="desktop-only cta-btn hover-scale"
               style={{
                 display: "flex",
@@ -225,7 +222,7 @@ export default function Header() {
                 fontSize: "14px",
                 textDecoration: "none",
                 letterSpacing: "0.5px",
-                transition: "transform 0.3s, background 0.3s"
+                transition: "transform 0.25s var(--ease-out), background-color 0.25s var(--ease-out)"
               }}
             >
               <MessageCircle size={14} aria-hidden="true" />
@@ -251,7 +248,7 @@ export default function Header() {
                 alignItems: "center",
                 gap: "5px",
                 boxShadow: scrolled ? "none" : "0 4px 10px rgba(0,0,0,0.05)",
-                transition: "all 0.3s"
+                transition: "background-color 0.3s var(--ease-out), border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out)"
               }}
             >
               <span style={{ display: "block", width: "20px", height: "2px", background: scrolled ? "#0F205C" : "#ffffff", transition: "0.3s" }}></span>
@@ -266,10 +263,10 @@ export default function Header() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            // The drawer slides in on the compositor (full transform strings), with the iOS drawer curve.
+            initial={{ transform: "translateX(100%)" }}
+            animate={{ transform: "translateX(0%)", transition: { duration: 0.45, ease: [0.32, 0.72, 0, 1] } }}
+            exit={{ transform: "translateX(100%)", transition: { duration: 0.3, ease: [0.32, 0.72, 0, 1] } }}
             style={{
               position: "fixed",
               top: 0,
@@ -298,10 +295,10 @@ export default function Header() {
             </div>
 
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "24px", flexGrow: 1 }}>
-              {NAV.map(item => (
-                <li key={item.name}>
-                  <Link 
-                    href={item.href} 
+              {NAV.map((item, i) => (
+                <li key={item.name} className="mm-item" style={{ "--i": i } as React.CSSProperties}>
+                  <Link
+                    href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
                     style={{ color: "#0F205C", fontSize: "22px", fontWeight: 800, textDecoration: "none", display: "block", paddingBottom: "12px", borderBottom: "1px solid #f1f5f9" }}
                   >
@@ -314,11 +311,11 @@ export default function Header() {
             <div style={{ display: "flex", justifyContent: "center", marginTop: "30px" }}>
               <SocialLinks tone="light" size={44} />
             </div>
-            
-            <a 
+
+            <a
               href="https://wa.me/201206788566"
               target="_blank"
-              rel="noopener noreferrer" 
+              rel="noopener noreferrer"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -341,14 +338,17 @@ export default function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-      
+
       {/* Global overrides for header layout */}
       <style dangerouslySetInnerHTML={{__html: `
         @media (min-width: 992px) {
           .mobile-only { display: none !important; }
           /* Bigger header on desktop [Mohamed, 2026-09-28]; phones keep their sizes. */
           .main-header .logo-img { max-height: none !important; height: 64px !important; width: auto !important; }
-          .main-header.is-scrolled .logo-img { height: 54px !important; }
+          /* Scrolled: the logo scales to 54px tall instead of jumping to a new height. */
+          .main-header .logo-img { transform-origin: left center; }
+          .main-header.is-scrolled .logo-img { transform: scale(0.844); }
+          .main-header { --hdr-t: 34px; }
           .main-header .cta-btn { padding: 13px 28px !important; }
           .main-header .lang-btn { padding: 10px 16px !important; }
         }
@@ -356,11 +356,39 @@ export default function Header() {
           .desktop-only { display: none !important; }
           .logo-img { width: 110px !important; height: auto !important; }
         }
-        .hover-bg-gray:hover { background: rgba(0,0,0,0.03) !important; }
+        /* The scroll change (2026-10-05). Shrink: the header moves up by --hdr-t and its row back down by half
+           (phone 24px: 96 to 72 tall; desktop 34px: 112 to 78). Glass: a layer that only fades; its blur switches
+           on at once when it appears and off only after it has faded out. */
+        .main-header { transition: transform 0.4s var(--ease-out); }
+        .main-header > .container { transition: transform 0.4s var(--ease-out); }
+        .main-header.is-scrolled { transform: translate3d(0, calc(-1 * var(--hdr-t, 24px)), 0); }
+        .main-header.is-scrolled > .container { transform: translate3d(0, calc(var(--hdr-t, 24px) / 2), 0); }
+        .main-header::before {
+          content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+          background: rgba(255, 255, 255, 0.95); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+          opacity: 0; -webkit-backdrop-filter: none; backdrop-filter: none;
+          transition: opacity 0.35s var(--ease-out), backdrop-filter 0s linear 0.35s, -webkit-backdrop-filter 0s linear 0.35s;
+        }
+        .main-header.is-scrolled::before {
+          opacity: 1; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+          transition: opacity 0.35s var(--ease-out);
+        }
+        /* Phone menu links rise in one after another as the drawer arrives. */
+        @keyframes mm-in { from { opacity: 0; transform: translate3d(0, 10px, 0); } to { opacity: 1; transform: none; } }
+        .mm-item { animation: mm-in 0.4s var(--ease-out) both; animation-delay: calc(120ms + var(--i, 0) * 40ms); }
+        @media (prefers-reduced-motion: reduce) {
+          .main-header, .main-header > .container, .main-header .logo-img { transition: none !important; }
+          .mm-item { animation: none; }
+        }
+        /* Hover only where there is a real pointer: a tap on a phone must not leave a button lifted. */
         .hover-text-teal:hover { color: var(--tmasi-teal) !important; }
-        .hover-scale:hover { transform: translateY(-2px); }
-        .cta-btn:hover { background: var(--tmasi-teal) !important; }
-        .lang-btn:hover { border-color: var(--tmasi-teal) !important; }
+        @media (hover: hover) and (pointer: fine) {
+          .hover-bg-gray:hover { background: rgba(0,0,0,0.03) !important; }
+          .hover-scale:hover { transform: translateY(-2px); }
+          .cta-btn:hover { background: var(--tmasi-teal) !important; }
+          .lang-btn:hover { border-color: var(--tmasi-teal) !important; }
+        }
+        .hover-scale:active { transform: scale(0.97); }
       `}} />
     </>
   );

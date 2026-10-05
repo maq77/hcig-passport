@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
-import { useRef, type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 // The guest's journey, drawn as icons only (no words): call, assessment, coordination, travel, home
 // (design 5, approved 2026-09-28). The teal line fills as the banner scrolls through the view, and each
@@ -15,9 +14,9 @@ const STEPS: ReactNode[] = [
   <g key="home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></g>,
 ];
 
-function Step({ icon, at, progress }: { icon: ReactNode; at: number; progress: MotionValue<number> }) {
-  // The lit layer fades in over a short stretch once the line reaches this step.
-  const lit = useTransform(progress, [Math.max(0, at - 0.04), at], [0, 1]);
+function Step({ icon, at }: { icon: ReactNode; at: number }) {
+  // The lit layer fades in over a short stretch once the line reaches this step (the stretch is passed to CSS).
+  const range = { "--a": Math.max(0, at - 0.04), "--b": at } as React.CSSProperties;
   const svg = (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       {icon}
@@ -26,35 +25,45 @@ function Step({ icon, at, progress }: { icon: ReactNode; at: number; progress: M
   return (
     <span className="jl-step">
       <span className="jl-dot jl-dot--base">{svg}</span>
-      <motion.span className="jl-dot jl-dot--lit" style={{ opacity: lit }}>{svg}</motion.span>
+      <span className="jl-dot jl-dot--lit" style={range}>{svg}</span>
     </span>
   );
 }
 
+// The line follows the scroll with a CSS scroll-driven animation (2026-10-05): the browser runs it on the
+// compositor, with no JavaScript per scroll frame. Same stretch as before: it starts when the line's top reaches
+// 92% of the screen height and is full at 38%. Browsers without scroll-driven animations show the finished line.
 export default function JourneyLine() {
-  const ref = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 92%", "start 38%"] });
-  const progress = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [0, 1]);
-
   return (
-    <div ref={ref} className="jl" aria-hidden="true">
+    <div className="jl" aria-hidden="true">
       <span className="jl-track" />
-      <motion.span className="jl-fill" style={{ scaleX: progress }} />
+      <span className="jl-fill" />
       <div className="jl-steps">
         {STEPS.map((icon, i) => (
-          <Step key={i} icon={icon} at={i / (STEPS.length - 1)} progress={progress} />
+          <Step key={i} icon={icon} at={i / (STEPS.length - 1)} />
         ))}
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
-        .jl { --jl-dot: 64px; position: relative; width: min(860px, 100%); margin: clamp(40px, 5vw, 56px) auto 0; }
+        .jl { --jl-dot: 64px; position: relative; width: min(860px, 100%); margin: clamp(40px, 5vw, 56px) auto 0;
+          view-timeline: --jl block; }
         .jl-track, .jl-fill {
           position: absolute; top: calc(var(--jl-dot) / 2 - 1px); height: 2px;
           left: calc(var(--jl-dot) / 2); right: calc(var(--jl-dot) / 2);
         }
         .jl-track { background: rgba(255,255,255,0.18); }
         .jl-fill { background: var(--tmasi-teal); transform-origin: left center; }
+        @keyframes jl-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        @keyframes jl-lit { from { opacity: 0; } to { opacity: 1; } }
+        @supports (animation-timeline: view()) {
+          @media (prefers-reduced-motion: no-preference) {
+            .jl-fill { animation: jl-fill linear both; animation-timeline: --jl; animation-range: cover 8vh cover 62vh; }
+            .jl-dot--lit {
+              animation: jl-lit linear both; animation-timeline: --jl;
+              animation-range: cover calc(8vh + 54vh * var(--a)) cover calc(8vh + 54vh * var(--b));
+            }
+          }
+        }
         .jl-steps { position: relative; display: flex; justify-content: space-between; }
         .jl-step { position: relative; width: var(--jl-dot); height: var(--jl-dot); flex-shrink: 0; }
         .jl-dot {

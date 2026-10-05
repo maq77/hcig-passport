@@ -29,7 +29,7 @@ export default function Blog({ page = false }: { page?: boolean }) {
 
         <div className="news-grid">
           {posts.map((post, i) => (
-            <Reveal key={post.id} delay={i * 0.08} className="news-cell">
+            <Reveal key={post.id} delay={0.06 * (i % 3)} className="news-cell">
               <Link href={post.href} className="news-card">
                 <div className="news-img">
                   <Image src={asset(post.image)} alt="" fill sizes="(max-width: 700px) 100vw, 33vw" style={{ objectFit: "cover" }} />
@@ -60,12 +60,16 @@ export default function Blog({ page = false }: { page?: boolean }) {
         .news-card {
           display: flex; flex-direction: column; width: 100%; overflow: hidden; text-decoration: none;
           background: #ffffff; border: 1px solid var(--lx-line); border-radius: var(--lx-radius);
-          transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s ease;
+          transition: transform .3s var(--ease-out), box-shadow .3s var(--ease-out), border-color .3s var(--ease-out);
         }
-        .news-card:hover { transform: translateY(-4px); box-shadow: var(--lx-lift); border-color: rgba(0,154,156,0.35); }
+        @media (hover: hover) and (pointer: fine) {
+          .news-card:hover { transform: translateY(-4px); box-shadow: var(--lx-lift); border-color: rgba(0,154,156,0.35); }
+          .news-card:hover .news-img img { transform: scale(1.04); }
+        }
+        .news-card:focus-visible { transform: translateY(-4px); box-shadow: var(--lx-lift); }
+        .news-card:active { transform: scale(0.98); transition-duration: 0.12s; }
         .news-img { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--lx-surface); }
-        .news-img img { transition: transform .6s var(--ease); }
-        .news-card:hover .news-img img { transform: scale(1.04); }
+        .news-img img { transition: transform .6s var(--ease-out), opacity .5s var(--ease-out) !important; }
         .news-body { display: flex; flex-direction: column; flex-grow: 1; padding: clamp(22px, 2vw, 28px); }
         .news-date { margin: 0 0 12px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tmasi-teal); }
         .news-title {

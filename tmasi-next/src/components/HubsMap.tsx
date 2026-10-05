@@ -144,8 +144,12 @@ export default function HubsMap({ names, hrefs, active, setActive }: {
         .hubs-pin-label--left { right: 34px; top: 50%; transform: translateY(-50%); }
         .hubs-pin-label--up { left: 50%; bottom: 34px; transform: translateX(-50%); }
         .hubs-pin-label--down-left { right: 28px; top: 30px; }
-        .hubs-pin:hover .hubs-pin-dot, .hubs-pin.is-active .hubs-pin-dot { transform: translate(-50%, -50%) scale(1.45); }
-        .hubs-pin:hover .hubs-pin-label, .hubs-pin.is-active .hubs-pin-label { background: rgba(0,154,156,0.85); border-color: #7FE0E1; }
+        .hubs-pin.is-active .hubs-pin-dot { transform: translate(-50%, -50%) scale(1.45); }
+        .hubs-pin.is-active .hubs-pin-label { background: rgba(0,154,156,0.85); border-color: #7FE0E1; }
+        @media (hover: hover) and (pointer: fine) {
+          .hubs-pin:hover .hubs-pin-dot { transform: translate(-50%, -50%) scale(1.45); }
+          .hubs-pin:hover .hubs-pin-label { background: rgba(0,154,156,0.85); border-color: #7FE0E1; }
+        }
         @media (max-width: 700px) {
           .hubs-pin-label { font-size: 13px; padding: 4px 9px; }
           .hubs-pin-label--right { left: 28px; } .hubs-pin-label--left { right: 28px; }

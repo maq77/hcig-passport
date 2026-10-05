@@ -33,6 +33,13 @@ type Service = {
 
 export default function Services() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  // The window plays a short exit before it unmounts (2026-10-05); it used to vanish at once.
+  const [closing, setClosing] = useState(false);
+  const close = () => {
+    if (closing) return;
+    setClosing(true);
+    window.setTimeout(() => { setSelectedService(null); setClosing(false); }, 180);
+  };
   const { live, ui, links } = useSite();
 
   // Disable body scroll when modal is open
@@ -68,7 +75,7 @@ export default function Services() {
 
         <div className="packages-grid">
           {services.map((svc, idx) => (
-            <Reveal key={svc.id} delay={0.1 * idx} className="package-card-wrapper">
+            <Reveal key={svc.id} delay={0.06 * (idx % 3)} className="package-card-wrapper">
               <button className="package-card group" onClick={() => setSelectedService(svc)}>
                 <div className="package-img-wrapper">
                   <Image
@@ -100,9 +107,9 @@ export default function Services() {
       {/* The service window opens straight into <body> (like the quote form), so no section or page wrapper
           can become its frame and push it off screen (bug fixed 2026-10-05). It only renders after a click. */}
       {selectedService && createPortal(
-        <div className="modal-backdrop" onClick={() => setSelectedService(null)}>
+        <div className={`modal-backdrop${closing ? " is-closing" : ""}`} onClick={close}>
           <div className="modal-container" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedService(null)} aria-label="Close modal">
+            <button className="modal-close" onClick={close} aria-label="Close modal">
               <X size={24} color="#0F205C" />
             </button>
 
@@ -176,16 +183,19 @@ export default function Services() {
           flex-direction: column;
           text-align: left;
           cursor: pointer;
-          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+          transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
           padding: 0;
           outline: none;
         }
 
-        .package-card:hover, .package-card:focus-visible {
-          transform: translateY(-4px);
-          box-shadow: var(--lx-lift);
-          border-color: rgba(0,154,156,0.35);
+        /* Lift only with a real pointer (a tap on a phone must not leave the card raised); keyboard focus too. */
+        @media (hover: hover) and (pointer: fine) {
+          .package-card:hover { transform: translateY(-4px); box-shadow: var(--lx-lift); border-color: rgba(0,154,156,0.35); }
+          .package-card:hover .package-img { transform: scale(1.04) !important; }
+          .package-card:hover .view-details-btn .vd-icon { transform: translateX(4px); }
         }
+        .package-card:focus-visible { transform: translateY(-4px); box-shadow: var(--lx-lift); border-color: rgba(0,154,156,0.35); }
+        .package-card:active { transform: scale(0.98); transition-duration: 0.12s; }
 
         .package-img-wrapper {
           position: relative;
@@ -195,11 +205,7 @@ export default function Services() {
         }
 
         .package-img {
-          transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        }
-
-        .package-card:hover .package-img {
-          transform: scale(1.04) !important;
+          transition: transform 0.6s var(--ease-out), opacity 0.5s var(--ease-out) !important;
         }
 
         .package-content {
@@ -263,11 +269,7 @@ export default function Services() {
         }
 
         .vd-icon {
-          transition: transform 0.3s ease;
-        }
-
-        .package-card:hover .vd-icon {
-          transform: translateX(4px);
+          transition: transform 0.3s var(--ease-out);
         }
 
         /* PREMIUM MODAL */
@@ -283,8 +285,13 @@ export default function Services() {
           justify-content: center;
           padding: 24px;
           opacity: 0;
-          animation: modalFadeIn 0.3s forwards;
+          animation: modalFadeIn 0.25s var(--ease-out) forwards;
         }
+        /* Exit: quicker than the entrance. */
+        .modal-backdrop.is-closing { animation: modalFadeOut 0.18s var(--ease-out) forwards; }
+        .modal-backdrop.is-closing .modal-container { animation: modalSlideOut 0.18s var(--ease-out) forwards; }
+        @keyframes modalFadeOut { from { opacity: 1; } to { opacity: 0; } }
+        @keyframes modalSlideOut { from { opacity: 1; transform: none; } to { opacity: 0; transform: scale(0.97) translateY(8px); } }
 
         @media (max-width: 640px) {
           .modal-backdrop {
@@ -308,7 +315,7 @@ export default function Services() {
           box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
           transform: scale(0.95) translateY(20px);
           opacity: 0;
-          animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+          animation: modalSlideUp 0.35s var(--ease-out) 0.04s forwards;
           display: flex;
           flex-direction: column;
         }

@@ -21,6 +21,26 @@
 
 
 
+/* ---- Scroll reveals (2026-10-05) ----
+   Each block fades and rises 20px the first time it enters the view (components/Reveal.tsx marks it data-in).
+   Only opacity and transform move, so the browser runs it on the compositor. Less motion: a short fade only. */
+.reveal { transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); transition-delay: var(--rv-delay, 0s); }
+.reveal:not([data-in]) { opacity: 0; }
+.reveal--rise:not([data-in]) { transform: translate3d(0, 20px, 0); }
+.reveal--scale:not([data-in]) { transform: scale(0.96); }
+.reveal--slide-right:not([data-in]) { transform: translate3d(-30px, 0, 0); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: opacity 0.3s ease; transition-delay: 0s; }
+  .reveal:not([data-in]) { transform: none; }
+}
+
+/* ---- Images fade in when they arrive (2026-10-05) ----
+   Only lazy images (everything below the first screen); the hero photo is never faded, it is the first paint.
+   components/SmoothScroll.tsx marks each image data-loaded and switches this on once the page's script runs. */
+html[data-imgfade] img[loading="lazy"] { transition: opacity 0.5s var(--ease-out); }
+html[data-imgfade] img[loading="lazy"]:not([data-loaded]) { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { html[data-imgfade] img[loading="lazy"] { transition: opacity 0.2s ease; } }
+
 /* ---- Page changes ----
    A short fade-in of the page body when a visitor moves to another page, so it never cuts hard.
    "backwards", not "both": once it ends nothing stays on <main>. A kept transform made <main> the frame of every
@@ -95,6 +115,9 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--hdr);
+  /* A window or the phone menu locks page scrolling; this keeps the scrollbar's room so the page does not
+     jump sideways when they open (2026-10-05). */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -275,7 +298,7 @@ input, textarea { caret-color: var(--tmasi-teal); }
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all var(--dur-fast) var(--ease);
+  transition: color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
 }
 .lang-pill:hover,
 .lang-pill.active {
