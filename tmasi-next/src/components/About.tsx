@@ -229,8 +229,9 @@ function AboutStyles() {
         .about-band-photo { position: relative; left: auto; aspect-ratio: 16 / 10; }
         .about-band-img { object-position: 72% 22%; }
         .about-band-copy { width: auto; padding: 22px 22px 26px; gap: 14px; }
-        .about-ecg { width: 150px; height: 28px; }
-        .about-band-phone { width: 46px; height: 46px; }
+        /* Scoped to the band, so the shared heartbeat styles (also loaded by Why Choose) cannot undo the phone size. */
+        .about-band .about-ecg { width: 150px; height: 28px; }
+        .about-band .about-band-phone { width: 46px; height: 46px; }
         .about-slogan { font-size: clamp(36px, 11.5vw, 46px); }
         /* German, Polish, Spanish on phones: 38px (approved on the canvas 2026-10-04), three lines down to 360px wide. */
         .about-slogan--long { font-size: clamp(30px, 10.6vw, 38px); line-height: 0.96; }

@@ -7,6 +7,7 @@ import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 import { useSite } from "./site/SiteProvider";
 import { Heartbeat, HEARTBEAT_CSS } from "./About";
+import ChipIcon from "./ChipIcon";
 import { asset } from "@/lib/asset";
 
 // Why Choose as a bento (approved on the design canvas 2026-10-06, an image made for each reason, so a visitor
@@ -53,7 +54,10 @@ export default function WhyChoose({ content }: { content?: Why }) {
           <div className="why-bento">
             <article className="why-big rv-item">
               <Heartbeat />
-              <h3 className="why-big-title">{w.items[0].title}</h3>
+              <div className="why-big-head">
+                <span className="lx-chip why-chip-dark"><ChipIcon src={w.items[0].icon} /></span>
+                <h3 className="why-big-title">{w.items[0].title}</h3>
+              </div>
               <p className="why-big-text">{w.items[0].text}</p>
               <div className="why-big-img"><Image src={img(0)} alt="" fill sizes="560px" /></div>
             </article>
@@ -61,6 +65,7 @@ export default function WhyChoose({ content }: { content?: Why }) {
               <article key={r.title} className={`why-tile rv-item${k === 2 ? " why-tile--teal" : ""}`} style={{ "--i": k + 1 } as React.CSSProperties}>
                 <div className="why-tile-img"><Image src={img(k + 1)} alt="" fill sizes="280px" /></div>
                 <div className="why-tile-body">
+                  <span className="lx-chip why-tile-chip"><ChipIcon src={r.icon} /></span>
                   <h3 className="why-tile-title">{r.title}</h3>
                   <p className="why-tile-text">{r.text}</p>
                 </div>
@@ -86,7 +91,7 @@ export default function WhyChoose({ content }: { content?: Why }) {
                   <li key={r.title} className={`why-row${on ? " is-on" : ""}`}>
                     <button type="button" className="why-row-btn" aria-expanded={on} aria-controls={`why-p-${i}`}
                       onClick={() => { setActive(i); setAuto(false); }}>
-                      <span className="why-thumb"><Image src={img(i)} alt="" fill sizes="48px" /></span>
+                      <span className={`lx-chip why-row-chip${on ? " why-chip-dark" : ""}`}><ChipIcon src={r.icon} size={24} /></span>
                       <span className="why-row-title">{r.title}</span>
                     </button>
                     <div id={`why-p-${i}`} className="why-row-body" hidden={!on}>
@@ -116,8 +121,9 @@ export default function WhyChoose({ content }: { content?: Why }) {
         .why-row.is-on { background: var(--lx-ink); border-color: var(--lx-ink); }
         .why-row-btn { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 64px; padding: 8px 14px;
           background: none; border: 0; text-align: left; cursor: pointer; font: inherit; }
-        .why-thumb { position: relative; width: 48px; height: 48px; flex: none; border-radius: 50%; overflow: hidden; background: var(--lx-surface); }
-        .why-thumb img { object-fit: cover; }
+        /* The original icons (2026-10-06, his ask): navy in the light circle, light teal on the navy row and tile. */
+        .why-row .why-row-chip { width: 44px; height: 44px; transition: background-color 0.35s var(--ease-out), color 0.35s var(--ease-out); }
+        .why-chip-dark { background: rgba(255,255,255,0.14); color: var(--lx-teal-on-dark); }
         .why-row-title { font-size: 15.5px; font-weight: 700; line-height: 1.3; color: var(--lx-ink); letter-spacing: -0.01em; }
         .why-row.is-on .why-row-title { color: #ffffff; }
         .why-row-body { padding: 0 16px 16px; }
@@ -139,14 +145,19 @@ export default function WhyChoose({ content }: { content?: Why }) {
           .why-big .about-band-signal { margin-bottom: 22px; }
           .why-big .about-ecg { width: 220px; height: 42px; }
           .why-big .about-band-phone { width: 52px; height: 52px; }
-          .why-big-title { margin: 0 0 10px; font-size: 28px; font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; color: #ffffff; }
+          .why-big-head { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+          .why-big-head .lx-chip { width: 52px; height: 52px; }
+          .why-big-title { margin: 0; font-size: 28px; font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; color: #ffffff; }
           .why-big-text { margin: 0; font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.88); }
           .why-big-img { position: relative; flex: 1; min-height: 240px; margin-top: 24px; border-radius: 12px; overflow: hidden; }
           .why-big-img img { object-fit: cover; }
           .why-tile { display: flex; flex-direction: column; overflow: hidden; background: #ffffff; border: 1px solid var(--lx-line); border-radius: var(--lx-radius); }
           .why-tile-img { position: relative; height: 150px; flex: none; background: var(--lx-surface); }
           .why-tile-img img { object-fit: cover; }
-          .why-tile-body { padding: 20px 22px 24px; }
+          .why-tile-body { position: relative; padding: 0 22px 24px; }
+          /* The icon sits on the edge between the picture and the text. */
+          .why-tile-chip { margin: -28px 0 12px; box-shadow: 0 0 0 4px #ffffff; }
+          .why-tile--teal .why-tile-chip { box-shadow: 0 0 0 4px var(--lx-field); }
           .why-tile-title { margin: 0 0 8px; font-size: 17px; font-weight: 700; line-height: 1.3; color: var(--lx-ink); letter-spacing: -0.01em; }
           .why-tile-text { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--lx-body); }
           .why-tile--teal { background: var(--lx-field); border-color: var(--lx-field); }
