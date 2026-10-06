@@ -33,6 +33,13 @@
   .reveal { transition: opacity 0.3s ease; transition-delay: 0s; }
   .reveal:not([data-in]) { transform: none; }
 }
+/* Tiles inside a revealed block rise in one after another, 60ms apart (set --i on each .rv-item). */
+.reveal .rv-item { transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); transition-delay: calc(var(--i, 0) * 60ms); }
+.reveal:not([data-in]) .rv-item { opacity: 0; transform: translate3d(0, 16px, 0); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal .rv-item { transition: opacity 0.3s ease; transition-delay: 0s; }
+  .reveal:not([data-in]) .rv-item { transform: none; }
+}
 
 /* ---- Images fade in when they arrive (2026-10-05) ----
    Only lazy images (everything below the first screen); the hero photo is never faded, it is the first paint.
@@ -81,7 +88,6 @@ html[data-imgfade] img[loading="lazy"]:not([data-loaded]) { opacity: 0; }
   /* Motion (spring physics feel) */
   --ease:          cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out:      cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-bounce:   cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-drawer:   cubic-bezier(0.32, 0.72, 0, 1);
   --dur-fast:      0.18s;
   --dur-base:      0.35s;
@@ -478,15 +484,6 @@ input, textarea { caret-color: var(--tmasi-teal); }
               box-shadow var(--dur-base) var(--ease),
               border-color var(--dur-base) var(--ease);
 }
-.metric-card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--tmasi-gradient-primary);
-  opacity: 0;
-  transition: opacity var(--dur-fast) var(--ease);
-}
 
 @media (hover: hover) and (pointer: fine) {
   .metric-card:hover {
@@ -589,16 +586,6 @@ input, textarea { caret-color: var(--tmasi-teal); }
               box-shadow var(--dur-base) var(--ease),
               border-color var(--dur-base) var(--ease);
 }
-.values-item::before {
-  content: "";
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--tmasi-gradient-primary);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.5s var(--ease-out);
-}
 
 @media (hover: hover) and (pointer: fine) {
   .values-item:hover {
@@ -671,16 +658,6 @@ input, textarea { caret-color: var(--tmasi-teal); }
   position: relative;
   overflow: hidden;
 }
-.about-card::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 4px;
-  height: 0;
-  background: var(--tmasi-gradient-primary);
-  border-radius: 0 0 4px 0;
-  transition: height 0.5s var(--ease-out);
-}
 
 @media (hover: hover) and (pointer: fine) {
   .about-card:hover {
@@ -750,15 +727,6 @@ input, textarea { caret-color: var(--tmasi-teal); }
   align-items: center;
   position: relative;
   overflow: hidden;
-}
-.section-why-item::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--tmasi-gradient-primary);
-  transform: scaleX(0);
-  transition: transform 0.45s var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {

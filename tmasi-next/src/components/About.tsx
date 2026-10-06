@@ -26,7 +26,7 @@ function sloganLines(s: string) {
 /** The heartbeat: the line draws in once, then a pulse runs along it into the phone, again and again, only
  *  while the band is on screen. Visitors who ask for less motion see the still line. Plain CSS since 2026-10-05
  *  (stroke-dash animations on a path of length 1), so it costs no JavaScript per frame. */
-function Heartbeat() {
+export function Heartbeat() {
   const ref = useRef<HTMLDivElement>(null);
   const live = useInView(ref, { amount: 0.5 });
   const reduce = useReducedMotion();
@@ -43,6 +43,38 @@ function Heartbeat() {
     </div>
   );
 }
+
+/** The heartbeat's styles, shared with the "One Call" tile of Why Choose (2026-10-06). */
+export const HEARTBEAT_CSS = `
+      .about-band-signal { display: flex; align-items: center; gap: 14px; }
+      .about-ecg { width: 300px; height: 56px; flex: none; overflow: visible; }
+      /* Draw-in once, then a short bright stretch runs along the line every 2.4s while the band is on screen. */
+      .about-ecg-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s cubic-bezier(0.22, 1, 0.36, 1); }
+      .is-drawn .about-ecg-line { stroke-dashoffset: 0; }
+      .about-ecg-pulse { stroke-dasharray: 0.14 0.86; stroke-dashoffset: 0; opacity: 0; filter: drop-shadow(0 0 6px rgba(255,255,255,0.9)); }
+      .is-beating .about-ecg-pulse { animation: ecg-move 2.4s 1.2s infinite, ecg-fade 2.4s 1.2s infinite; }
+      @keyframes ecg-move { 0% { stroke-dashoffset: 0; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); } 66.7%, 100% { stroke-dashoffset: -0.86; } }
+      @keyframes ecg-fade { 0% { opacity: 0; } 22%, 44% { opacity: 1; } 66.7%, 100% { opacity: 0; } }
+      @media (prefers-reduced-motion: reduce) {
+        .about-ecg-line { stroke-dashoffset: 0; transition: none; }
+        .about-ecg-pulse { display: none; }
+      }
+      .about-band-phone {
+        position: relative; width: 60px; height: 60px; flex: none; border-radius: 50%; background: #ffffff;
+        color: var(--tmasi-teal); display: flex; align-items: center; justify-content: center;
+      }
+      /* The phone answers each beat with a soft ring, only while the band is on screen. */
+      .about-band-phone::after {
+        content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,0.9);
+        opacity: 0; pointer-events: none;
+      }
+      .is-beating .about-band-phone::after { animation: about-ring 2.4s cubic-bezier(0.22, 1, 0.36, 1) 2.6s infinite; }
+      @keyframes about-ring {
+        0%, 55% { transform: scale(1); opacity: 0; }
+        62% { opacity: 0.9; }
+        100% { transform: scale(1.7); opacity: 0; }
+      }
+`;
 
 export function AboutIntro({ statement, facts, body, size }: {
   statement: string; facts: string[]; body: string; size: "compact" | "large";
@@ -142,34 +174,7 @@ function AboutStyles() {
         position: relative; z-index: 1; width: 50%; box-sizing: border-box; padding: 48px clamp(32px, 4.4vw, 64px);
         display: flex; flex-direction: column; gap: 22px;
       }
-      .about-band-signal { display: flex; align-items: center; gap: 14px; }
-      .about-ecg { width: 300px; height: 56px; flex: none; overflow: visible; }
-      /* Draw-in once, then a short bright stretch runs along the line every 2.4s while the band is on screen. */
-      .about-ecg-line { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s cubic-bezier(0.22, 1, 0.36, 1); }
-      .is-drawn .about-ecg-line { stroke-dashoffset: 0; }
-      .about-ecg-pulse { stroke-dasharray: 0.14 0.86; stroke-dashoffset: 0; opacity: 0; filter: drop-shadow(0 0 6px rgba(255,255,255,0.9)); }
-      .is-beating .about-ecg-pulse { animation: ecg-move 2.4s 1.2s infinite, ecg-fade 2.4s 1.2s infinite; }
-      @keyframes ecg-move { 0% { stroke-dashoffset: 0; animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1); } 66.7%, 100% { stroke-dashoffset: -0.86; } }
-      @keyframes ecg-fade { 0% { opacity: 0; } 22%, 44% { opacity: 1; } 66.7%, 100% { opacity: 0; } }
-      @media (prefers-reduced-motion: reduce) {
-        .about-ecg-line { stroke-dashoffset: 0; transition: none; }
-        .about-ecg-pulse { display: none; }
-      }
-      .about-band-phone {
-        position: relative; width: 60px; height: 60px; flex: none; border-radius: 50%; background: #ffffff;
-        color: var(--tmasi-teal); display: flex; align-items: center; justify-content: center;
-      }
-      /* The phone answers each beat with a soft ring, only while the band is on screen. */
-      .about-band-phone::after {
-        content: ""; position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(255,255,255,0.9);
-        opacity: 0; pointer-events: none;
-      }
-      .is-beating .about-band-phone::after { animation: about-ring 2.4s cubic-bezier(0.22, 1, 0.36, 1) 2.6s infinite; }
-      @keyframes about-ring {
-        0%, 55% { transform: scale(1); opacity: 0; }
-        62% { opacity: 0.9; }
-        100% { transform: scale(1.7); opacity: 0; }
-      }
+      ${HEARTBEAT_CSS}
       .about-slogan {
         margin: 0; color: #ffffff; font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
         font-size: clamp(44px, 5vw, 72px); line-height: 0.94; letter-spacing: 0.02em;
