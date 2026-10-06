@@ -10,10 +10,11 @@ import MissionVision from "../MissionVision";
 import QuoteSection from "../QuoteSection";
 import QuoteForm from "../QuoteForm";
 import { AboutIntro } from "../About";
+import ChipIcon from "../ChipIcon";
 import Blog from "../Blog";
 import PageHero, { type Crumb } from "../site/PageHero";
 import { useSite } from "../site/SiteProvider";
-import { asset, SERVICE_IMAGES } from "@/lib/asset";
+import { asset, SERVICE_FOCUS, SERVICE_IMAGES } from "@/lib/asset";
 import type { Block, PostCard } from "@/lib/site";
 
 // Inner pages of TMASI v3. Every word comes from the live tmasi.net page of the same language
@@ -139,7 +140,7 @@ export function ServicesPage() {
               <Reveal key={g.title} delay={0.05 * i} className="ip-group-cell">
                 <article className="ip-group">
                   <div className="ip-group-img">
-                    <Image src={asset(SERVICE_IMAGES[i])} alt="" fill sizes="(max-width: 700px) 100vw, 50vw" style={{ objectFit: "cover" }} />
+                    <Image src={asset(SERVICE_IMAGES[i])} alt="" fill sizes="(max-width: 700px) 100vw, 50vw" style={{ objectFit: "cover", objectPosition: SERVICE_FOCUS.wide[i] }} />
                   </div>
                   <div className="ip-group-body">
                     <h2 className="ip-group-title">{g.title}</h2>
@@ -161,7 +162,7 @@ export function ServicesPage() {
           <div className="ip-benefits">
             {s.benefits.items.map((b, i) => (
               <Reveal key={b.title} delay={0.04 * i} className="ip-benefit">
-                {b.icon && <Image src={asset(b.icon)} alt="" width={44} height={44} className="ip-benefit-ico" />}
+                {b.icon && <span className="lx-chip ip-benefit-ico"><ChipIcon src={b.icon} /></span>}
                 <h3 className="ip-benefit-title">{b.title}</h3>
                 <p className="ip-benefit-text">{b.text}</p>
               </Reveal>
@@ -184,7 +185,7 @@ export function GroupPage({ index }: { index: number }) {
   const img = SERVICE_IMAGES[index];
   return (
     <>
-      <PageHero title={g.title} image={img} crumbs={[c.home, c.services, { label: g.title }]} />
+      <PageHero title={g.title} image={img} imagePosition={SERVICE_FOCUS.wide[index]} crumbs={[c.home, c.services, { label: g.title }]} />
       <section className="lx-section lx-white">
         <div className="lx-wrap">
           <ItemList items={g.items as Item[]} columns={2} />
@@ -197,7 +198,7 @@ export function GroupPage({ index }: { index: number }) {
           <div className="ip-others">
             {s.groups.map((o, i) => (i === index || !links.groups[i] ? null : (
               <Link key={o.title} href={links.groups[i]} className="ip-other">
-                <span className="ip-other-img"><Image src={asset(SERVICE_IMAGES[i])} alt="" fill sizes="(max-width: 700px) 100vw, 25vw" style={{ objectFit: "cover" }} /></span>
+                <span className="ip-other-img"><Image src={asset(SERVICE_IMAGES[i])} alt="" fill sizes="(max-width: 700px) 100vw, 25vw" style={{ objectFit: "cover", objectPosition: SERVICE_FOCUS.card[i] }} /></span>
                 <span className="ip-other-title">{o.title}</span>
               </Link>
             )))}
@@ -463,7 +464,7 @@ function InnerStyles() {
       .ip-benefits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--lx-line); }
       .ip-benefit { padding: clamp(24px, 2.4vw, 34px) clamp(16px, 1.6vw, 22px); border-bottom: 1px solid var(--lx-line); }
       .ip-benefit:not(:nth-child(4n+1)) { border-left: 1px solid var(--lx-line); }
-      .ip-benefit-ico { display: block; margin-bottom: 18px; }
+      .ip-benefit-ico { display: flex; margin-bottom: 18px; }
       .ip-benefit-title { margin: 0 0 8px; font-size: 16px; font-weight: 700; color: var(--lx-ink); line-height: 1.35; }
       .ip-benefit-text { margin: 0; font-size: 14.5px; line-height: 1.7; color: var(--lx-body); }
 
@@ -494,7 +495,7 @@ function InnerStyles() {
       .ip-office-name a:hover { color: var(--tmasi-teal); }
       .ip-office-city { font-size: 14px; color: var(--lx-body); }
       .ip-office-line { display: flex; gap: 10px; align-items: flex-start; margin: 0 0 10px; font-size: 14.5px; line-height: 1.6; color: var(--lx-body); overflow-wrap: anywhere; }
-      .ip-office-line svg { flex-shrink: 0; margin-top: 3px; color: var(--tmasi-teal); }
+      .ip-office-line svg { flex-shrink: 0; margin-top: 3px; color: var(--lx-ink); }
       .ip-office-line a { color: var(--lx-body); text-decoration: none; }
       .ip-office-line a:hover { color: var(--tmasi-teal); }
 

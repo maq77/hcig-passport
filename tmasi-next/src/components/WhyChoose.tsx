@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 import { useSite } from "./site/SiteProvider";
-import { asset } from "@/lib/asset";
+import ChipIcon from "./ChipIcon";
 
 // Words are the live tmasi.net "Why Choose TMASI Global?" in each language, unchanged.
 type Why = { title: string; items: { title: string; text: string; icon: string }[] };
@@ -23,7 +22,7 @@ export default function WhyChoose({ content }: { content?: Why }) {
         <div className="why-row">
           {w.items.map((r, i) => (
             <Reveal key={r.title} delay={0.05 * i} className="why-cell">
-              <span className="lx-chip why-icon"><Image src={asset(r.icon)} alt="" width={30} height={30} /></span>
+              <span className="lx-chip why-icon"><ChipIcon src={r.icon} /></span>
               <div>
                 <h3 className="why-title">{r.title}</h3>
                 <p className="why-text">{r.text}</p>

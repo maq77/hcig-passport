@@ -11,13 +11,13 @@ export type Crumb = { label: string; href?: string };
 // an optional line under it, and a breadcrumb built from the live menu words.
 // soft: blurs the picture a little, for pictures with their own text (news posters) that would
 // otherwise read through the title.
-export default function PageHero({ title, sub, crumbs, image = "/img/glavbanner.jpg", eyebrow, soft = false }: {
-  title: string; sub?: string; crumbs: Crumb[]; image?: string; eyebrow?: string; soft?: boolean;
+export default function PageHero({ title, sub, crumbs, image = "/img/glavbanner.jpg", eyebrow, soft = false, imagePosition = "center" }: {
+  title: string; sub?: string; crumbs: Crumb[]; image?: string; eyebrow?: string; soft?: boolean; imagePosition?: string;
 }) {
   return (
     <section className="ph">
       <div className={`ph-bg${soft ? " ph-bg--soft" : ""}`} aria-hidden="true">
-        <Image src={asset(image)} alt="" fill priority sizes="100vw" style={{ objectFit: "cover", objectPosition: "center" }} />
+        <Image src={asset(image)} alt="" fill priority sizes="100vw" style={{ objectFit: "cover", objectPosition: imagePosition }} />
         <div className="ph-shade" />
       </div>
       <div className="lx-wrap ph-inner">

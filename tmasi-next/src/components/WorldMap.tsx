@@ -67,7 +67,7 @@ export default function WorldMap() {
           font-size: 14px; line-height: 1.55; color: var(--lx-body); overflow-wrap: anywhere;
         }
         .hub-line:last-child { margin-bottom: 0; }
-        .hub-line svg { flex-shrink: 0; margin-top: 2px; color: var(--tmasi-teal); }
+        .hub-line svg { flex-shrink: 0; margin-top: 2px; color: var(--lx-ink); }
         .hub-line a { color: var(--lx-body); text-decoration: none; transition: color .2s ease; }
         .hub-line a:hover { color: var(--tmasi-teal); }
 

@@ -1,10 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Reveal from "./Reveal";
 import SectionHead from "./SectionHead";
 import { useSite } from "./site/SiteProvider";
-import { asset } from "@/lib/asset";
+import ChipIcon from "./ChipIcon";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useState } from "react";
 
@@ -29,7 +28,7 @@ export default function MissionVision({ content }: { content?: Mission }) {
             <Reveal key={c.title} delay={0.08 * (i + 1)}>
               <article className="mv-card">
                 <div className="mv-card-head">
-                  <span className="lx-chip"><Image src={asset(c.icon)} alt="" width={30} height={30} /></span>
+                  <span className="lx-chip"><ChipIcon src={c.icon} /></span>
                   <h3 className="mv-title">{c.title}</h3>
                 </div>
                 <p id={`mv-text-${i}`} className={`mv-text${isExpanded ? " is-open" : ""}`}>{c.text}</p>
@@ -66,7 +65,6 @@ export default function MissionVision({ content }: { content?: Mission }) {
           display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden;
         }
         .mv-text.is-open { display: block; -webkit-line-clamp: unset; }
-
 
         @media (max-width: 768px) {
           .mv-grid { grid-template-columns: 1fr; }

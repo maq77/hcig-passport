@@ -144,7 +144,7 @@ export default function Header() {
                 className="lang-btn hover-shadow"
                 aria-label={ui.language}
               >
-                <Globe size={14} color={scrolled ? "var(--tmasi-teal)" : "#ffffff"} />
+                <Globe size={14} color={scrolled ? "var(--lx-ink)" : "#ffffff"} />
                 {activeLang}
                 <ChevronDown size={14} style={{ transform: langDropdownOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s var(--ease-out)" }} />
               </button>

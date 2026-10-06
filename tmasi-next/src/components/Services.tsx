@@ -8,7 +8,7 @@ import { createPortal } from "react-dom";
 import { ArrowRight, ChevronRight, X, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useSite } from "./site/SiteProvider";
-import { asset, SERVICE_IMAGES } from "@/lib/asset";
+import { asset, SERVICE_FOCUS, SERVICE_IMAGES } from "@/lib/asset";
 
 // The same photo for each group in every language (the live site's own images).
 
@@ -26,6 +26,9 @@ type Bullet = {
 type Service = {
   id: number;
   img: string;
+  /** Where the photo's subject sits in the card, and in the wide window crop. */
+  pos: string;
+  wide: string;
   title: string;
   bullets: Bullet[];
   href?: string;
@@ -57,6 +60,8 @@ export default function Services() {
   const services: Service[] = live.home.services.groups.map((g, i) => ({
     id: i + 1,
     img: asset(SERVICE_IMAGES[i] || SERVICE_IMAGES[0]),
+    pos: SERVICE_FOCUS.card[i] || "50% 50%",
+    wide: SERVICE_FOCUS.wide[i] || "50% 50%",
     title: g.title,
     bullets: g.items as Bullet[],
     href: links.groups[i],
@@ -82,7 +87,7 @@ export default function Services() {
                     src={svc.img}
                     alt={svc.title}
                     fill
-                    style={{ objectFit: "cover" }}
+                    style={{ objectFit: "cover", objectPosition: svc.pos }}
                     className="package-img"
                   />
                 </div>
@@ -118,7 +123,7 @@ export default function Services() {
                 src={selectedService.img}
                 alt={selectedService.title}
                 fill
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "cover", objectPosition: selectedService.wide }}
               />
               <div className="modal-hero-overlay" />
               <h2 className="modal-hero-title headline-titling">{selectedService.title}</h2>
@@ -204,7 +209,9 @@ export default function Services() {
           overflow: hidden;
         }
 
+        /* The hover zoom grows from the top edge, so it never trims a head. */
         .package-img {
+          transform-origin: 50% 0;
           transition: transform 0.6s var(--ease-out), opacity 0.5s var(--ease-out) !important;
         }
 
@@ -373,13 +380,13 @@ export default function Services() {
 
         .modal-hero {
           position: relative;
-          height: 250px;
+          height: 300px;
           width: 100%;
           flex-shrink: 0;
         }
 
         @media (max-width: 640px) {
-          .modal-hero { height: 180px; }
+          .modal-hero { height: 210px; }
         }
 
         .modal-hero-overlay {

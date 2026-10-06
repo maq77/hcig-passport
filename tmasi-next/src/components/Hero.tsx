@@ -3,19 +3,35 @@
 import { Fragment } from "react";
 import Image from "next/image";
 import { useSite } from "./site/SiteProvider";
-import { Segs, splitLines } from "./site/Segments";
+import { Segs, splitLines, type Seg } from "./site/Segments";
 import { asset } from "@/lib/asset";
 import type { Lang } from "@/content/ui";
 
 // Phone line breaks by meaning, per language (approved for English, 2026-09-28). Languages without an
 // entry let the title wrap on its own.
-const BREAKS: Partial<Record<Lang, string[]>> = { en: ["Partner in", "Travel,"] };
+const BREAKS: Partial<Record<Lang, string[]>> = { en: [" in", "Travel,"] };
 const ACCENT = { color: "var(--tmasi-teal)" };
+
+// The highlighted words of the title, per language (Mohamed, 2026-10-06: "Trusted partner emphasis, not only
+// trusted", in every language). Only the colour changes; the words stay the live title, word for word.
+const EMPHASIS: Record<Lang, string> = { en: "Trusted Partner", de: "Partner", pl: "partner", es: "Asistencia Médica" };
+
+function emphasize(segs: Seg[], phrase?: string): Seg[] {
+  const text = segs.map((s) => s.t).join("");
+  const i = phrase ? text.toLowerCase().indexOf(phrase.toLowerCase()) : -1;
+  if (!phrase || i < 0) return segs;
+  return [
+    { t: text.slice(0, i) },
+    { t: text.slice(i, i + phrase.length), accent: true },
+    { t: text.slice(i + phrase.length) },
+  ].filter((s) => s.t);
+}
 
 export default function Hero() {
   const { lang, live } = useSite();
   const h = live.home.hero;
-  const lines = BREAKS[lang] ? splitLines(h.title, BREAKS[lang]!) : null;
+  const title = emphasize(h.title, EMPHASIS[lang]);
+  const lines = BREAKS[lang] ? splitLines(title, BREAKS[lang]!) : null;
   return (
     <section className="section-hero" id="hero" style={{ position: "relative", overflow: "hidden" }}>
       {/* Background Images for Desktop and Mobile */}
@@ -59,7 +75,7 @@ export default function Hero() {
                       <span className="hero-line"><Segs segs={l} accentClass="orange" accentStyle={ACCENT} /></span>{" "}
                     </Fragment>
                   ))
-                : <Segs segs={h.title} accentClass="orange" accentStyle={ACCENT} />}
+                : <Segs segs={title} accentClass="orange" accentStyle={ACCENT} />}
             </h1>
           </div>
 

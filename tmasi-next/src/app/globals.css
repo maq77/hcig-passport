@@ -1381,9 +1381,17 @@ html.js .hero-content > :nth-child(3) { animation-delay: 160ms; }
       the About Us band photo). Rounded with the card or band it sits in.
    Cards: white, one hairline border, 16px corners, flat. Only clickable cards move on hover (lift 4px).
    Icons sit in one teal circle. Sections alternate white and light grey; no decorative shapes. */
+/* One icon colour (2026-10-06, Mohamed's pick): every icon and number on a light background is navy. Teal stays for
+   actions and accents (buttons, links, lines, highlighted words, list ticks). On dark backgrounds icons are the light
+   teal (--lx-teal-on-dark). */
 .lx-chip {
-  width: 56px; height: 56px; flex: none; border-radius: 50%; background: var(--lx-chip); color: var(--tmasi-teal);
+  width: 56px; height: 56px; flex: none; border-radius: 50%; background: var(--lx-chip); color: var(--lx-ink);
   display: inline-flex; align-items: center; justify-content: center;
+}
+.chip-icon {
+  display: block; flex: none; background-color: currentColor;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
 }
 @media (max-width: 768px) { .lx-chip { width: 48px; height: 48px; } }
 /* The one secondary button: an outline pill (Show more, View all news). */

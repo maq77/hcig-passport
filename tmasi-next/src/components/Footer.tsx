@@ -89,17 +89,17 @@ export default function Footer() {
             <h4 style={{ color: "#ffffff", fontSize: "18px", fontWeight: 700, marginBottom: "24px", letterSpacing: "1px", textTransform: "uppercase" }}>{live.shell.footerNav[3]}</h4>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "16px" }}>
               <li style={{ display: "flex", alignItems: "flex-start", gap: "12px" }}>
-                <MapPin size={20} color="var(--tmasi-teal)" style={{ flexShrink: 0, marginTop: "2px" }} />
+                <MapPin size={20} color="var(--lx-teal-on-dark)" style={{ flexShrink: 0, marginTop: "2px" }} />
                 <span style={{ color: "rgba(255,255,255,0.7)", fontSize: "14px", lineHeight: 1.6 }}>{egypt.name}<br/>{egypt.address}</span>
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <Phone size={20} color="var(--tmasi-teal)" style={{ flexShrink: 0 }} />
+                <Phone size={20} color="var(--lx-teal-on-dark)" style={{ flexShrink: 0 }} />
                 <a href={`tel:${egypt.tel}`} style={{ color: "rgba(255,255,255,0.7)", fontSize: "15px", textDecoration: "none", transition: "color 0.3s" }} className="hover-text-teal">
                   {egypt.phone}
                 </a>
               </li>
               <li style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <Mail size={20} color="var(--tmasi-teal)" style={{ flexShrink: 0 }} />
+                <Mail size={20} color="var(--lx-teal-on-dark)" style={{ flexShrink: 0 }} />
                 <a href={`mailto:${egypt.email}`} style={{ color: "rgba(255,255,255,0.7)", fontSize: "15px", textDecoration: "none", transition: "color 0.3s" }} className="hover-text-teal">
                   {egypt.email}
                 </a>
