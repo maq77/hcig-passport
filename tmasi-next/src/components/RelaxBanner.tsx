@@ -32,7 +32,7 @@ export default function RelaxBanner({ content }: { content?: Relax }) {
       <div className="container" style={{ position: "relative", zIndex: 2, padding: "0 20px" }}>
         <div style={{ textAlign: "center", maxWidth: "800px", margin: "0 auto" }}>
           <Reveal>
-            <h2 className="headline-titling relax-heading" style={{ position: "relative", isolation: "isolate", color: "#ffffff", fontSize: "clamp(30px, 6vw, 42px)", fontWeight: 800, marginBottom: "20px", letterSpacing: "1px", textShadow: "0 4px 20px rgba(0,0,0,0.5)", lineHeight: 1.2 }}>
+            <h2 className="headline-titling relax-heading" style={{ color: "#ffffff", fontSize: "clamp(30px, 6vw, 42px)", fontWeight: 800, marginBottom: "20px", letterSpacing: "1px", textShadow: "0 4px 20px rgba(0,0,0,0.5)", lineHeight: 1.2 }}>
               {r.title.map((seg, i) =>
                 seg.accent ? (
                   <span key={i}>
@@ -58,13 +58,8 @@ export default function RelaxBanner({ content }: { content?: Relax }) {
 
       <style dangerouslySetInnerHTML={{__html: `
         .mobile-br { display: none; }
-        /* The highlighted words are the hero's brand teal (2026-10-06, to match TRUSTED PARTNER). A soft oval of navy sits
-           right behind them, wherever they fall in each language, so they read at 3:1 or better; the faces stay clear. */
-        .relax-accent { position: relative; }
-        .relax-accent::before {
-          content: ""; position: absolute; inset: -55% -20%; z-index: -1; pointer-events: none;
-          background: radial-gradient(closest-side, rgba(8,17,51,0.9) 0%, rgba(8,17,51,0.82) 55%, rgba(8,17,51,0) 100%);
-        }
+        /* The highlighted words are the hero's brand teal (2026-10-06, to match TRUSTED PARTNER), with no shade behind
+           them (his call, 2026-10-06). */
         /* Same lift as the hero photo. */
         #relax .relax-photo { filter: brightness(1.12) saturate(1.08); }
         /* Desktop only (2026-10-05): the photo sits lower so her face shows above the title (1280 to 1920 wide). */
