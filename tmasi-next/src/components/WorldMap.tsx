@@ -25,7 +25,8 @@ export default function WorldMap() {
         </Reveal>
 
         <Reveal delay={0.06}>
-          <HubsMap names={hubs.map((h) => h.name)} hrefs={hubs.map((h) => h.href || "")} active={active} setActive={setActive} />
+          <HubsMap names={hubs.map((h) => h.name)} hrefs={hubs.map((h) => h.href || "")} active={active} setActive={setActive}
+            guests={ui.hubsGuests} care={ui.hubsCare} />
         </Reveal>
 
         {/* One panel, five offices side by side, divided by hairlines. */}

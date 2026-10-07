@@ -9,6 +9,9 @@ export type Ui = {
   langName: string;
   stats: [string, string, string, string];
   hubsTitle: string;
+  /** His two lines for the hubs map (approved 2026-10-07). */
+  hubsGuests: string;
+  hubsCare: string;
   quickLinks: string;
   viewDetails: string;
   viewAllNews: string;
@@ -38,6 +41,8 @@ export const UI: Record<Lang, Ui> = {
     langName: "English",
     stats: ["Cases Handled", "Medical Repatriations", "Operational Desk", "Global Hubs"],
     hubsTitle: "Global Operational Hubs",
+    hubsGuests: "Guests from anywhere",
+    hubsCare: "Medical care and a holiday, anywhere in the world",
     quickLinks: "Quick Links",
     viewDetails: "View Details",
     viewAllNews: "View All News",
@@ -65,6 +70,8 @@ export const UI: Record<Lang, Ui> = {
     langName: "Deutsch",
     stats: ["Betreute Fälle", "Medizinische Rückführungen", "Einsatzzentrale", "Globale Standorte"],
     hubsTitle: "Globale Einsatzzentralen",
+    hubsGuests: "Gäste von überall",
+    hubsCare: "Medizinische Versorgung und Urlaub, überall auf der Welt",
     quickLinks: "Schnellzugriff",
     viewDetails: "Details ansehen",
     viewAllNews: "Alle Neuigkeiten",
@@ -92,6 +99,8 @@ export const UI: Record<Lang, Ui> = {
     langName: "Polski",
     stats: ["Obsłużone sprawy", "Repatriacje medyczne", "Centrum operacyjne", "Globalne biura"],
     hubsTitle: "Globalne centra operacyjne",
+    hubsGuests: "Goście z całego świata",
+    hubsCare: "Opieka medyczna i wakacje, w dowolnym miejscu na świecie",
     quickLinks: "Szybkie linki",
     viewDetails: "Zobacz szczegóły",
     viewAllNews: "Wszystkie aktualności",
@@ -119,6 +128,8 @@ export const UI: Record<Lang, Ui> = {
     langName: "Español",
     stats: ["Casos atendidos", "Repatriaciones médicas", "Centro de operaciones", "Sedes globales"],
     hubsTitle: "Centros operativos globales",
+    hubsGuests: "Huéspedes de cualquier lugar",
+    hubsCare: "Atención médica y vacaciones, en cualquier lugar del mundo",
     quickLinks: "Enlaces rápidos",
     viewDetails: "Ver detalles",
     viewAllNews: "Ver todas las noticias",
