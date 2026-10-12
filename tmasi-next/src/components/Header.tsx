@@ -341,7 +341,9 @@ export default function Header() {
 
       {/* Global overrides for header layout */}
       <style dangerouslySetInnerHTML={{__html: `
-        @media (min-width: 992px) {
+        /* The full menu needs about 1,210px in Polish and Spanish (measured 2026-10-12); below 1240px the burger
+           menu, so iPads in portrait and the 1024px iPad Pro never get a crushed header. */
+        @media (min-width: 1240px) {
           .mobile-only { display: none !important; }
           /* Bigger header on desktop [Mohamed, 2026-09-28]; phones keep their sizes. */
           .main-header .logo-img { max-height: none !important; height: 64px !important; width: auto !important; }
@@ -352,7 +354,7 @@ export default function Header() {
           .main-header .cta-btn { padding: 13px 28px !important; }
           .main-header .lang-btn { padding: 10px 16px !important; }
         }
-        @media (max-width: 991px) {
+        @media (max-width: 1239px) {
           .desktop-only { display: none !important; }
           .logo-img { width: 110px !important; height: auto !important; }
         }

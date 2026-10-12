@@ -118,24 +118,41 @@ export default function Hero() {
           background: linear-gradient(to right, rgba(15,32,92,0.82) 0%, rgba(15,32,92,0.5) 42%, rgba(15,32,92,0.08) 78%);
         }
         /* Title in the brand headline face, Big Noodle (approved 2026-09-30). The widest English line is
-           7.5 times the font size, so 88px fits the 780px column. */
+           7.5 times the font size, so 88px fits the 780px column.
+           One size rule for every screen from 700px (2026-10-12, his ask "works with all sizes"): it grows with the
+           width (the widest line always fits inside the gutters) and with the height (short screens and phones turned
+           sideways stay readable), up to the 88px desktop size. iPad mini 85px, iPad Air and Pro 88px, iPad Pro
+           landscape 80px, 1440 desktop 88px as before. */
         #hero .section-hero-heading {
           font-family: var(--font-display); font-weight: 400; text-transform: uppercase;
-          letter-spacing: 0.015em; line-height: 0.96; font-size: clamp(52px, 6.1vw, 88px); margin-bottom: 26px;
+          letter-spacing: 0.015em; line-height: 0.96; margin-bottom: 26px;
+          font-size: clamp(36px, min(calc((100vw - 2 * var(--gutter)) / 8.2), 10.5vh), 88px);
+          font-size: clamp(36px, min(calc((100vw - 2 * var(--gutter)) / 8.2), 10.5svh), 88px);
         }
         #hero .hero-line { display: block; }
         /* "Trusted" in teal without the glow (2026-10-01): the same soft shadow as the rest of the title. */
         #hero .section-hero-heading .orange { text-shadow: inherit; }
         /* Desktop: the header grew to 112px at the top, so the hero moves down with it and the
            gap between header and title stays 64px. */
-        @media (min-width: 992px) { #hero.section-hero { padding-top: 176px; } }
+        @media (min-width: 1240px) { #hero.section-hero { padding-top: 176px; } }
         /* Exactly one screen tall (2026-09-30): desktop centres the words in the space under the 112px header. */
         #hero.section-hero { min-height: 100vh; min-height: 100svh; box-sizing: border-box; display: flex; align-items: center; }
         #hero .hero-container { width: 100%; }
-        @media (min-width: 992px) { #hero.section-hero { padding: 112px 0 32px; } }
+        @media (min-width: 1240px) { #hero.section-hero { padding: 112px 0 32px; } }
+        /* Tablets and short laptops (700 to 1239px) have the 96px header: the words centre in the space under it, and
+           the buttons sit side by side (the phone rule in globals made them full width up to 768px). */
+        @media (min-width: 700px) and (max-width: 1239px) { #hero.section-hero { padding: 96px 0 32px; } }
+        /* Phones turned sideways (short screens): the words start a clear step under the header. */
+        @media (min-width: 700px) and (max-height: 500px) { #hero.section-hero { padding: 112px 0 32px; align-items: flex-start; } }
+        @media (min-width: 700px) {
+          #hero .section-hero-action { flex-direction: row; gap: 14px; }
+          #hero .section-hero-btn, #hero .section-hero-btn2 { width: auto; }
+          #hero .section-hero-description { font-size: clamp(16px, 1.6vw, 17.5px); margin-bottom: 36px; }
+        }
 
-        /* Phones only. Desktop keeps its original hero untouched (Mohamed, 2026-09-28). */
-        @media (max-width: 768px) {
+        /* Phones only (under 700px; iPad mini at 768px now gets the tablet hero). Desktop keeps its original hero
+           untouched (Mohamed, 2026-09-28). */
+        @media (max-width: 699px) {
           .hero-desktop-bg { display: none; }
           .hero-mobile-bg { display: block; }
 
@@ -166,6 +183,8 @@ export default function Hero() {
           #hero .section-hero-heading {
             /* The widest line is about 8 times the font size in Big Noodle, so each line stays whole. */
             font-size: clamp(32px, calc((100vw - 40px) / 8), 56px);
+            /* Small phones turned sideways: the height limits it too (portrait phones are unchanged). */
+            font-size: clamp(32px, min(calc((100vw - 40px) / 8), 10.5svh), 56px);
             line-height: 0.98; margin: 0 0 clamp(18px, 4.5svh, 44px);
           }
           #hero .hero-line { display: block; white-space: nowrap; }
@@ -173,7 +192,7 @@ export default function Hero() {
         }
         /* Short phones (under 700px tall): tighter steps and a slightly smaller paragraph, so the buttons stay on
            the first screen. */
-        @media (max-width: 768px) and (max-height: 700px) {
+        @media (max-width: 699px) and (max-height: 700px) {
           #hero .hero-content { padding: 20px 0 12px; }
           #hero .section-hero-heading { margin-bottom: 18px; }
           #hero .section-hero-description { font-size: 14.5px; line-height: 1.6; margin-bottom: 22px; }
