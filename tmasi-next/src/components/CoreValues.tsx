@@ -123,16 +123,17 @@ export default function CoreValues({ content }: { content?: Values }) {
           .cv-tile--2 .cv-body { flex: 1; padding: 28px; }
           .cv-tile--2 .cv-num { font-size: 84px; }
           .cv-tile--2 .cv-title { margin-top: auto; padding-top: 14px; }
-          .cv-tile--3 { grid-column: 3; grid-row: 2; background: var(--lx-field); border-color: var(--lx-field); }
-          .cv-tile--4 { grid-column: 4; grid-row: 2; background: var(--lx-ink); border-color: var(--lx-ink); }
+          /* 03 and 04 white like 02 (his ask 2026-10-13); only 01, the photo tile, stays dark. */
+          .cv-tile--3 { grid-column: 3; grid-row: 2; }
+          .cv-tile--4 { grid-column: 4; grid-row: 2; }
           .cv-tile--3 .cv-img, .cv-tile--4 .cv-img { aspect-ratio: auto; height: 150px; flex: none; }
           .cv-tile--3 .cv-body, .cv-tile--4 .cv-body { padding: 20px 24px 24px; }
           .cv-tile--3 .cv-num, .cv-tile--4 .cv-num { font-size: 40px; }
           /* Words on the photo, teal and navy tiles are white; their numbers use the light teal. */
-          .cv-tile--1 .cv-title, .cv-tile--3 .cv-title, .cv-tile--4 .cv-title { color: #ffffff; }
-          .cv-tile--1 .cv-text, .cv-tile--3 .cv-text, .cv-tile--4 .cv-text { color: #ffffff; }
-          .cv-tile--1 .cv-num, .cv-tile--3 .cv-num, .cv-tile--4 .cv-num { -webkit-text-stroke-color: rgba(127,224,225,0.65); }
-          .cv-tile--1[data-lit] .cv-num, .cv-tile--3[data-lit] .cv-num, .cv-tile--4[data-lit] .cv-num { color: var(--lx-teal-on-dark); }
+          .cv-tile--1 .cv-title { color: #ffffff; }
+          .cv-tile--1 .cv-text { color: #ffffff; }
+          .cv-tile--1 .cv-num { -webkit-text-stroke-color: rgba(127,224,225,0.65); }
+          .cv-tile--1[data-lit] .cv-num { color: var(--lx-teal-on-dark); }
         }
         @media (prefers-reduced-motion: reduce) { .cv-num, .cv-dots i { transition: none; } }
       `}} />

@@ -62,7 +62,7 @@ export default function WhyChoose({ content }: { content?: Why }) {
               <div className="why-big-img"><Image src={img(0)} alt="" fill sizes="560px" /></div>
             </article>
             {w.items.slice(1).map((r, k) => (
-              <article key={r.title} className={`why-tile rv-item${k === 2 ? " why-tile--teal" : ""}`} style={{ "--i": k + 1 } as React.CSSProperties}>
+              <article key={r.title} className="why-tile rv-item" style={{ "--i": k + 1 } as React.CSSProperties}>
                 <div className="why-tile-img"><Image src={img(k + 1)} alt="" fill sizes="280px" /></div>
                 <div className="why-tile-body">
                   <span className="lx-chip why-tile-chip"><ChipIcon src={r.icon} /></span>
@@ -157,11 +157,8 @@ export default function WhyChoose({ content }: { content?: Why }) {
           .why-tile-body { position: relative; padding: 0 22px 24px; }
           /* The icon sits on the edge between the picture and the text. */
           .why-tile-chip { margin: -28px 0 12px; box-shadow: 0 0 0 4px #ffffff; }
-          .why-tile--teal .why-tile-chip { box-shadow: 0 0 0 4px var(--lx-field); }
           .why-tile-title { margin: 0 0 8px; font-size: 17px; font-weight: 700; line-height: 1.3; color: var(--lx-ink); letter-spacing: -0.01em; }
           .why-tile-text { margin: 0; font-size: 14.5px; line-height: 1.65; color: var(--lx-body); }
-          .why-tile--teal { background: var(--lx-field); border-color: var(--lx-field); }
-          .why-tile--teal .why-tile-title, .why-tile--teal .why-tile-text { color: #ffffff; }
         }
         @media (prefers-reduced-motion: reduce) { .why-stage-img, .why-row { transition: none; } }
       `}} />
