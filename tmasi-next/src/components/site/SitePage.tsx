@@ -9,6 +9,7 @@ import CoreValues from "@/components/CoreValues";
 import MissionVision from "@/components/MissionVision";
 import WhyChoose from "@/components/WhyChoose";
 import Services from "@/components/Services";
+import Trust from "@/components/Trust";
 import QuoteSection from "@/components/QuoteSection";
 import WorldMap from "@/components/WorldMap";
 import Blog from "@/components/Blog";
@@ -30,6 +31,7 @@ function HomePage() {
       <MissionVision />
       <WhyChoose />
       <Services />
+      <Trust />
       <QuoteSection />
       <WorldMap />
       <Blog />
