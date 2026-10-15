@@ -129,7 +129,7 @@ export function AboutIntro({ statement, facts, body, size }: {
             </div>
             <div className="about-stat">
               <dt>{ui.stats[3]}</dt>
-              <dd className="about-stat-num"><CountUp end={5} locale={lang} /></dd>
+              <dd className="about-stat-num"><CountUp end={6} locale={lang} /></dd>
             </div>
           </dl>
         </div>

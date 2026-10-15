@@ -6,7 +6,7 @@ import { useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { asset } from "@/lib/asset";
 import { MARITIME, type MaritimeView } from "@/lib/maritime-data";
-import { MARITIME_CARDS, MARITIME_KEY, MAP_THEME_WORDS } from "@/content/maritime";
+import { MARITIME_CARDS, MAP_THEME_WORDS } from "@/content/maritime";
 
 // The map band of Global Operational Hubs, round 3 design B (approved on the design canvas, 2026-10-07).
 // The whole world in the dark map style (desktop), and on phone the same map in a rounded frame centred on Europe
@@ -195,26 +195,6 @@ function ShipIcon({ w = 26 }: { w?: number }) {
   );
 }
 
-/** The key, the four rows of his image, words exact. */
-function MapKey({ className }: { className: string }) {
-  const rows = [
-    { icon: <PinIcon size={18} />, ...MARITIME_KEY.presence },
-    { icon: <CrossIcon size={20} />, ...MARITIME_KEY.medical },
-    { icon: <svg width="30" height="4" viewBox="0 0 30 4" aria-hidden="true"><path d="M1 2H29" stroke="currentColor" strokeWidth="1.6" strokeDasharray="4 5" fill="none" /></svg>, ...MARITIME_KEY.regional },
-    { icon: <ShipIcon w={28} />, ...MARITIME_KEY.maritime },
-  ];
-  return (
-    <ul className={className} lang="en">
-      {rows.map((r) => (
-        <li key={r.name} className="mm-key-row">
-          <span className="mm-key-icon">{r.icon}</span>
-          <span><span className="mm-key-name">{r.name}</span><span className="mm-key-sub">{r.sub}</span></span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 /** One office card, his image's words. */
 function OfficeCard({ i, active, setActive, className, style }: {
   i: number; active: number | null; setActive: (i: number | null) => void; className: string; style?: React.CSSProperties;
@@ -360,7 +340,6 @@ function Band({ view, kind, names, hrefs, active, setActive, fly, words, lightOn
           {HUB_KEYS.map((k, i) => (
             <OfficeCard key={k} i={i} active={active} setActive={setActive} className="mm-card mm-card--float" style={CARD_SPOT[k].style} />
           ))}
-          <MapKey className="mm-key mm-key--float" />
         </>
       )}
     </div>
@@ -418,7 +397,7 @@ export default function HubsMap({ names, hrefs, active, setActive, guests, care 
       <Band view={VIEWS.phone} kind="phone" names={names} hrefs={hrefs} active={active} setActive={setActive} fly={fly}
         lightOn={lightOn} theme={theme} />
 
-      {/* Below 1280px: the office cards in a swipe row riding over the map's bottom edge, then the key. */}
+      {/* Below 1280px: the office cards in a swipe row riding over the map's bottom edge. */}
       <div className="mm-under">
         <div ref={row} className="mm-row" onScroll={onRowScroll}>
           {HUB_KEYS.map((k, i) => <OfficeCard key={k} i={i} active={active} setActive={setActive} className="mm-card mm-card--row" />)}
@@ -427,7 +406,6 @@ export default function HubsMap({ names, hrefs, active, setActive, guests, care 
           {HUB_KEYS.map((k, i) => <span key={k} className={i === slide ? "is-on" : ""} />)}
         </div>
         <p className="hubs-words-phone"><strong>{guests}</strong><span>{care}</span></p>
-        <MapKey className="mm-key mm-key--grid" />
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
@@ -561,15 +539,15 @@ export default function HubsMap({ names, hrefs, active, setActive, guests, care 
           .mm-switch-row .mm-sw.is-on { background: #0F205C; color: #ffffff; }
         }
 
-        /* Office cards and the key: raised layers, a gold hairline on top like the pins. */
-        .mm-card, .mm-key {
+        /* Office cards: raised layers, a gold hairline on top like the pins. */
+        .mm-card {
           margin: 0; border-radius: 14px; background-color: rgba(10,22,58,0.92);
           background-image: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0) 48%);
           border: 1px solid rgba(127,224,225,0.34); color: #ffffff;
           box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), 0 1px 2px rgba(2,6,23,0.4), 0 10px 20px -6px rgba(2,6,23,0.55), 0 30px 56px -18px rgba(2,6,23,0.75);
           transition: transform .45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow .45s cubic-bezier(0.22, 1, 0.36, 1), border-color .25s ease;
         }
-        [data-theme="light"] .mm-card, [data-theme="light"] .mm-key, .mm-card--row, .mm-key--grid {
+        [data-theme="light"] .mm-card, .mm-card--row {
           background-color: #ffffff; background-image: linear-gradient(180deg, #ffffff, #F6F9FC); border: 1px solid rgba(15,32,92,0.08); color: #0F205C;
           box-shadow: inset 0 1px 0 #ffffff, 0 1px 2px rgba(15,32,92,0.1), 0 10px 22px -8px rgba(15,32,92,0.3), 0 34px 60px -20px rgba(15,32,92,0.48);
         }
@@ -584,13 +562,6 @@ export default function HubsMap({ names, hrefs, active, setActive, guests, care 
         @media (hover: hover) and (pointer: fine) {
           .mm-card--float:hover { transform: perspective(900px) translateY(-6px) rotateX(4deg); }
         }
-        .mm-key { list-style: none; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
-        .mm-key-row { display: flex; align-items: center; gap: 12px; }
-        .mm-key-icon { flex: 0 0 32px; height: 24px; display: flex; align-items: center; justify-content: center; }
-        .mm-key-name { display: block; font-size: 13px; font-weight: 700; line-height: 1.25; }
-        .mm-key-sub { display: block; font-size: 12px; font-weight: 500; line-height: 1.35; color: rgba(255,255,255,0.78); }
-        [data-theme="light"] .mm-key-sub, .mm-key--grid .mm-key-sub { color: #475569; }
-        .mm-key--grid .mm-key-icon { color: #0F205C; }
 
         /* Leader lines from each pin to its card, and the floating cards: only from 1280px. */
         .mm-leads { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 2; display: none; }
@@ -598,14 +569,12 @@ export default function HubsMap({ names, hrefs, active, setActive, guests, care 
         [data-theme="light"] .mm-lead { stroke: rgba(15,32,92,0.4); }
         .mm-lead-dot { position: absolute; width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%; background: rgba(255,255,255,0.85); z-index: 2; display: none; }
         [data-theme="light"] .mm-lead-dot { background: #0F205C; }
-        .mm-card--float, .mm-key--float { position: absolute; z-index: 4; display: none; }
-        .mm-key--float { left: -44px; bottom: -36px; width: 248px; }
+        .mm-card--float { position: absolute; z-index: 4; display: none; }
         @media (min-width: 1280px) {
           .hubs-maps { padding: 48px 0 40px; }
           .mm-switch-row { top: 66px; }
           .mm-leads, .mm-lead-dot { display: block; }
           .mm-card--float { display: block; }
-          .mm-key--float { display: flex; }
           .hubs-map--desktop .hubs-pin-label { display: none; }
           .hubs-words { left: -44px; top: -30px; max-width: none; background: rgba(10,22,58,0.92); border-color: rgba(127,224,225,0.34);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), 0 10px 20px -6px rgba(2,6,23,0.55), 0 30px 56px -18px rgba(2,6,23,0.75); }
@@ -627,10 +596,6 @@ export default function HubsMap({ names, hrefs, active, setActive, guests, care 
         .mm-dots { display: flex; justify-content: center; gap: 6px; margin-top: 4px; }
         .mm-dots span { width: 6px; height: 6px; border-radius: 3px; background: #CBD5E1; transition: width .3s ease, background-color .3s ease; }
         .mm-dots span.is-on { width: 18px; background: var(--tmasi-teal); }
-        .mm-key--grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 12px; margin-top: 20px; padding: 16px; }
-        .mm-key--grid .mm-key-row { align-items: flex-start; gap: 10px; }
-        .mm-key--grid .mm-key-icon { flex: 0 0 28px; }
-        @media (min-width: 701px) and (max-width: 1279px) { .mm-key--grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
         @media (max-width: 700px) {
           .hubs-words-phone { display: block; }

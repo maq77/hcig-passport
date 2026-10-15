@@ -13,11 +13,5 @@ export const MARITIME_CARDS: { key: HubKey; name: string; sub?: string; text: st
   { key: "USA", name: "USA", sub: "Florida", text: "Maritime / port support and international operations." },
 ];
 
-export const MARITIME_KEY = {
-  presence: { name: "Operational Presence", sub: "TMASI offices / key hubs" },
-  medical: { name: "Medical Network", sub: "Partner facilities and providers" },
-  regional: { name: "Regional Capability", sub: "Where applicable" },
-  maritime: { name: "Maritime Routes", sub: "Cruise, ports, yachts" },
-};
 
 export const MAP_THEME_WORDS = { group: "Map colours", dark: "Dark", light: "Light" };
