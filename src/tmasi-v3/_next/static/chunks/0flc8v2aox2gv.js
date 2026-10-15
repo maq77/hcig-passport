@@ -896,7 +896,8 @@ Read more: https://nextjs.org/docs/messages/next-image-missing-loader`),"__NEXT_
         .tr-mark { position: relative; display: inline-block; }
         .tr-swash { position: absolute; left: -2%; width: 106%; bottom: -12px; height: 17px; overflow: visible; }
         .tr-lead { margin: 36px auto 0; max-width: 54ch; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.6; font-weight: 500; color: var(--lx-ink); }
-        .tr-lead strong { color: var(--tmasi-teal); font-weight: 700; }
+        /* His ask (2026-10-15): "They need someone they can trust." on its own line, never split. */
+        .tr-lead strong { display: block; margin-top: 0.4em; white-space: nowrap; font-size: min(1em, 4.4vw); color: var(--tmasi-teal); font-weight: 700; }
         @media (max-width: 999px) {
           .tr-title { font-size: clamp(40px, 12.3vw, 60px); }
           .tr-l1, .tr-l2 { display: block; }
