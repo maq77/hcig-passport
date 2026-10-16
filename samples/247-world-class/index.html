@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>24/7 Urgent Care Clinic, Red Sea - Egypt</title>
+<meta name="description" content="24/7 Clinic provides travel medical services and urgent medical care for international guests in Egypt.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="aura.css">
+<style>
+  /* ---------- 24/7 Clinic brand on the aura layer ---------- */
+  :root {
+    --m: ../../247clinic-v4/public;
+    --aura-paper: #FBF9F6;
+    --aura-paper-2: #F3EFE9;
+    --aura-card: #FFFFFF;
+    --aura-ink: #141111;
+    --aura-soft: #46403C;
+    --aura-muted: #6B645E;
+    --aura-line: rgb(20 17 17 / 0.12);
+    --aura-accent: #C00000;          /* Classic Red, 6.2:1 on paper */
+    --aura-accent-ink: #FFFFFF;
+    --red-on-dark: #FF5A5F;          /* a light tint of the brand red for type on dark: 5.6:1 at the darkest point */
+    --wa: #0F7A3E;                   /* WhatsApp green, deep enough for white text (5.4:1) */
+    --wa-hover: #0B6332;
+    --aura-serif: "Calisto MT", "Cormorant Garamond", Georgia, serif;
+    --aura-sans: "Poppins", system-ui, sans-serif;
+    --radius: 22px;
+    --wrap: 1240px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  img, video { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .wrap { width: min(100% - 2 * var(--aura-gutter), var(--wrap)); margin-inline: auto; }
+  .aura-display, .aura-h2, .aura-h3 { font-weight: 400; letter-spacing: -0.015em; }
+  .aura-display em, .aura-h2 em { color: var(--aura-accent); font-weight: 400; }
+  .center { text-align: center; }
+  .center .aura-body { margin-inline: auto; }
+  .dot-label { display: inline-flex; align-items: center; gap: .6rem; }
+  .dot-label::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--aura-accent); }
+
+  /* ---------- Buttons ---------- */
+  .pill { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; min-height: 3rem; padding: 0 1.6rem;
+    border-radius: 999px; border: 1px solid transparent; font: 500 .9rem/1 var(--aura-sans); letter-spacing: .01em; text-decoration: none;
+    transition: background-color var(--aura-fast) var(--aura-ease), color var(--aura-fast) var(--aura-ease), border-color var(--aura-fast) var(--aura-ease), transform var(--aura-fast) var(--aura-ease); }
+  .pill:active { transform: scale(.98); }
+  .pill svg { width: 1.15rem; height: 1.15rem; flex: none; }
+  .pill-wa { background: var(--wa); color: #fff; }
+  .pill-wa:hover { background: var(--wa-hover); }
+  .pill-red { background: var(--aura-accent); color: #fff; }
+  .pill-red:hover { background: #9E0000; }
+  .pill-ghost { background: var(--aura-card); color: var(--aura-ink); border-color: var(--aura-line); }
+  .pill-ghost:hover { border-color: var(--aura-ink); }
+  .pill-light { background: #fff; color: var(--aura-ink); }
+  .pill-light:hover { background: var(--aura-paper-2); }
+  .pill .arrow { transition: transform 700ms var(--aura-ease); }
+  .pill:hover .arrow { transform: translateX(4px); }
+  .text-link { display: inline-flex; align-items: center; gap: .6rem; min-height: 2.75rem; font: 500 .9rem var(--aura-sans); color: var(--aura-ink);
+    text-decoration: none; background: linear-gradient(currentColor, currentColor) left 85% / 0% 1px no-repeat; transition: background-size 700ms var(--aura-ease); }
+  .text-link:hover, .text-link:focus-visible { background-size: 100% 1px; }
+  .text-link svg { width: 1rem; height: 1rem; transition: transform 700ms var(--aura-ease); }
+  .text-link:hover svg { transform: translateX(4px); }
+
+  /* ---------- Top bar and header ---------- */
+  .topbar { background: #141111; color: #F4F1EA; font-size: .8rem; }
+  .topbar .wrap { display: flex; justify-content: center; align-items: center; gap: .35rem 1.25rem; min-height: 2.5rem; padding-block: .55rem; flex-wrap: wrap; text-align: center; }
+  .topbar b { color: #F08080; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; font-size: .7rem; }
+  .topbar a { color: #F4F1EA; text-decoration: underline; text-underline-offset: 3px; }
+  header.site { position: sticky; top: 0; z-index: 40; background: rgb(251 249 246 / .9); border-bottom: 1px solid transparent; transition: border-color 400ms var(--aura-ease); }
+  @supports (backdrop-filter: blur(1px)) { header.site { background: rgb(251 249 246 / .72); backdrop-filter: blur(16px); } }
+  header.site.is-scrolled { border-bottom-color: var(--aura-line); }
+  header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; min-height: 4.75rem; }
+  .logo img { height: 46px; width: auto; }
+  nav.main ul { display: flex; gap: 1.75rem; list-style: none; margin: 0; padding: 0; }
+  nav.main a { position: relative; font-size: .875rem; color: var(--aura-ink); text-decoration: none; padding-block: .75rem; display: inline-block; }
+  nav.main a::after { content: ""; position: absolute; left: 0; right: 0; bottom: .45rem; height: 1px; background: var(--aura-accent);
+    transform: scaleX(0); transform-origin: right; transition: transform 700ms var(--aura-ease); }
+  nav.main a:hover::after, nav.main a:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+  .head-actions { display: flex; align-items: center; gap: .6rem; }
+  .icon-btn { display: inline-grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; border: 1px solid var(--aura-line); color: var(--aura-accent); text-decoration: none;
+    transition: border-color var(--aura-fast) var(--aura-ease), background-color var(--aura-fast) var(--aura-ease); }
+  .icon-btn:hover { border-color: var(--aura-accent); background: #fff; }
+  .icon-btn svg { width: 1.2rem; height: 1.2rem; }
+  .menu { display: none; position: relative; }
+  .menu summary { list-style: none; cursor: pointer; }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu ul { position: absolute; right: 0; top: calc(100% + .75rem); width: min(86vw, 20rem); list-style: none; margin: 0; padding: .75rem 1.5rem;
+    background: var(--aura-card); border: 1px solid var(--aura-line); border-radius: 18px; box-shadow: 0 30px 60px -30px rgb(0 0 0 / .35); }
+  .menu li a { display: block; padding: .85rem 0; border-bottom: 1px solid var(--aura-line); text-decoration: none; font-family: var(--aura-serif); font-size: 1.35rem; color: var(--aura-ink); }
+  .menu li:last-child a { border-bottom: 0; }
+  .only-phone { display: none; }
+  @media (max-width: 1100px) { nav.main { display: none; } .menu { display: block; } }
+  @media (max-width: 640px) {
+    .only-desk { display: none !important; } .only-phone { display: inline-flex; }
+    .logo img { height: 38px; } header.site .wrap { min-height: 4rem; gap: .75rem; }
+    .head-actions .pill { min-height: 2.75rem; padding: 0 1.1rem; font-size: .82rem; }
+    .icon-btn { width: 2.75rem; height: 2.75rem; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero { padding-top: clamp(4rem, 2rem + 6vw, 8.5rem); padding-bottom: 0; }
+  .proof { display: inline-flex; align-items: center; gap: .9rem; flex-wrap: wrap; justify-content: center; font-size: .82rem; color: var(--aura-muted); }
+  .proof img { height: 30px; width: auto; }
+  .proof .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--aura-muted); opacity: .6; }
+  @media (max-width: 640px) { .proof { flex-direction: column; gap: .45rem; } .proof .sep { display: none; } }
+  .hero h1 { margin: 1.6rem auto 0; font-size: clamp(2.7rem, 1.3rem + 5vw, 6rem); line-height: 1.04; max-width: 20ch; }
+  .hero h1 em { display: block; }
+  .hero .tags { display: flex; justify-content: center; flex-wrap: wrap; row-gap: .5rem; list-style: none; margin: 1.75rem 0 0; padding: 0; }
+  .hero .tags li { display: inline-flex; align-items: center; }
+  .hero .tags li + li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--aura-accent); margin: 0 .9rem; }
+  @media (max-width: 640px) { .hero .tags { flex-direction: column; align-items: center; } .hero .tags li + li::before { display: none; } }
+  .hero .lead { margin: 1.25rem auto 0; max-width: 46ch; font-size: clamp(1rem, .95rem + .3vw, 1.15rem); color: var(--aura-soft); }
+  .hero .actions { display: flex; justify-content: center; gap: .75rem; flex-wrap: wrap; margin-top: 2.25rem; }
+  .film { position: relative; margin-top: clamp(3rem, 2rem + 3vw, 4.5rem); border-radius: var(--radius); overflow: hidden; aspect-ratio: 16 / 7; background: #1b1414; }
+  .film video { width: 100%; height: 100%; object-fit: cover; }
+  .film::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 55%, rgb(20 17 17 / .45)); }
+  .film-ctrl { position: absolute; z-index: 2; right: 1.25rem; bottom: 1.25rem; display: inline-flex; align-items: center; gap: .55rem; min-height: 2.75rem; padding: 0 1.1rem;
+    border-radius: 999px; border: 1px solid rgb(255 255 255 / .35); background: rgb(20 17 17 / .35); color: #fff; font: 500 .78rem var(--aura-sans); cursor: pointer; }
+  .film-ctrl svg { width: .9rem; height: .9rem; }
+  .film-place { position: absolute; z-index: 2; left: 1.4rem; bottom: 1.4rem; color: #fff; font-size: .72rem; letter-spacing: .24em; text-transform: uppercase; }
+  @media (max-width: 640px) { .film { aspect-ratio: 4 / 5; border-radius: 18px; } }
+
+  /* ---------- Stats ---------- */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 3rem; }
+  .stat { padding: .5rem 2rem; border-left: 1px solid var(--aura-line); }
+  .stat:first-child { border-left: 0; padding-left: 0; }
+  .stat .n { font-family: var(--aura-serif); font-size: clamp(2.6rem, 2rem + 2vw, 3.75rem); line-height: 1; color: var(--aura-ink); font-variant-numeric: lining-nums tabular-nums; }
+  .stat .n span { color: var(--aura-accent); }
+  .stat p { margin: .6rem 0 0; font-size: .9rem; color: var(--aura-muted); }
+  @media (max-width: 640px) { .stat { padding: 0 .75rem; } .stat .n { font-size: 2.35rem; } .stat p { font-size: .78rem; } }
+
+  /* ---------- Accreditation card ---------- */
+  .acc-card { display: grid; grid-template-columns: 5fr 7fr; margin-top: 3.5rem; border-radius: var(--radius); overflow: hidden; background: var(--aura-paper-2); }
+  .acc-card figure { margin: 0; min-height: 30rem; }
+  .acc-card figure img { width: 100%; height: 100%; object-fit: cover; }
+  .acc-card .body { padding: clamp(2rem, 1.2rem + 3vw, 4rem); display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; }
+  .acc-card .uca { height: 64px; width: auto; align-self: flex-start; }
+  .checks { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem 1.5rem; list-style: none; margin: 0; padding: 0; }
+  .checks li { display: flex; gap: .65rem; align-items: center; font-size: .95rem; color: var(--aura-ink); }
+  .checks svg { width: 1.1rem; height: 1.1rem; color: var(--aura-accent); flex: none; }
+  @media (max-width: 860px) { .acc-card { grid-template-columns: 1fr; } .acc-card figure { min-height: 0; aspect-ratio: 4 / 3; } }
+  @media (max-width: 480px) { .checks { grid-template-columns: 1fr; } }
+
+  /* ---------- Three reasons ---------- */
+  .reasons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 3.5rem; }
+  .reason { padding-top: 1.75rem; border-top: 1px solid var(--aura-line); }
+  .ring { display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: 50%; border: 1px solid var(--aura-line); color: var(--aura-accent); background: var(--aura-card); }
+  .ring svg { width: 1.35rem; height: 1.35rem; }
+  .reason h3 { margin: 1.4rem 0 .6rem; }
+  .reason p { margin: 0; color: var(--aura-soft); font-size: .98rem; }
+  @media (max-width: 860px) { .reasons { grid-template-columns: 1fr; gap: 1.5rem; } }
+
+  /* ---------- Services ---------- */
+  .sec-head { display: flex; justify-content: space-between; align-items: end; gap: 2rem; flex-wrap: wrap; }
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 3.5rem; background: var(--aura-line); border: 1px solid var(--aura-line); border-radius: var(--radius); overflow: hidden; }
+  .svc { background: var(--aura-paper); padding: 2.25rem 2rem 2.5rem; display: flex; flex-direction: column; gap: 1rem; min-height: 17rem; transition: background-color 900ms var(--aura-ease); }
+  .svc:hover { background: var(--aura-card); }
+  .svc .top { display: flex; justify-content: space-between; align-items: center; }
+  .svc .top svg { width: 1.5rem; height: 1.5rem; color: var(--aura-accent); }
+  .svc h3 { margin-top: auto; }
+  .svc p { margin: 0; font-size: .95rem; color: var(--aura-soft); }
+  @media (max-width: 960px) { .services { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .services { grid-template-columns: 1fr; } .svc { min-height: 0; } .svc h3 { margin-top: .5rem; } }
+
+  /* ---------- Insurance band ---------- */
+  .band { background: var(--aura-paper-2); }
+  .split { display: grid; grid-template-columns: 6fr 5fr; gap: clamp(2.5rem, 1rem + 5vw, 6rem); align-items: center; }
+  .sub-serif { font-family: var(--aura-serif); font-size: clamp(1.35rem, 1.1rem + .8vw, 1.75rem); color: var(--aura-ink); margin: 1rem 0 0; }
+  .incl { margin-top: 2rem; padding: 1.75rem; background: var(--aura-card); border-radius: 18px; border: 1px solid var(--aura-line); }
+  .incl ul { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: .8rem; }
+  .incl li { display: flex; gap: .65rem; align-items: center; color: var(--aura-ink); }
+  .incl svg { width: 1.1rem; height: 1.1rem; color: var(--aura-accent); flex: none; }
+  .note { margin-top: 1rem; font-size: .82rem; color: var(--aura-muted); }
+  .split .photo { border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 5; }
+  .split .photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 1600ms var(--aura-ease); }
+  .split .photo:hover img { transform: scale(1.03); }
+  .partners { margin-top: clamp(3.5rem, 2rem + 4vw, 6rem); padding-top: 2.5rem; border-top: 1px solid var(--aura-line); }
+  .logos { display: flex; flex-wrap: wrap; align-items: center; gap: 2.25rem 3rem; margin-top: 1.75rem; }
+  .logos img { height: 34px; width: auto; max-width: 128px; object-fit: contain; }
+  .split-find { grid-template-columns: 5fr 6fr; }
+  @media (max-width: 860px) { .split, .split-find { grid-template-columns: 1fr; } .split .photo { aspect-ratio: 4 / 3; } }
+
+  /* ---------- How it works (dark) ---------- */
+  /* The brand's own red-to-black gradient, as quiet lighting from one corner */
+  .dark { position: relative; overflow: hidden; color: #F4F1EA; background: linear-gradient(155deg, #3B0A0A 0%, #1E1010 38%, #141111 70%); }
+  .dark .aura-h2 { color: #F4F1EA; }
+  .dark .aura-h2 em { color: var(--red-on-dark); }
+  .dark .aura-label { color: rgb(244 241 234 / .66); }
+  .steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin: 4rem 0 0; padding: 0; list-style: none; }
+  .steps li { padding-top: 1.75rem; border-top: 1px solid rgb(244 241 234 / .16); }
+  .steps .num { font-family: var(--aura-serif); font-size: 3.5rem; line-height: 1; color: var(--red-on-dark); }
+  .steps h3 { margin: 1.25rem 0 .6rem; color: #F4F1EA; font-size: 1.45rem; }
+  .steps p { margin: 0; color: rgb(244 241 234 / .78); font-size: .95rem; }
+  .steps li:first-child { border-top-color: var(--red-on-dark); }
+  @media (max-width: 960px) { .steps { grid-template-columns: 1fr 1fr; row-gap: 2.75rem; } }
+  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+
+  /* ---------- Find a clinic ---------- */
+  .places { list-style: none; margin: 2.25rem 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem; }
+  .places li a { display: flex; justify-content: space-between; align-items: center; padding: 1.05rem 0; border-bottom: 1px solid var(--aura-line);
+    font-family: var(--aura-serif); font-size: 1.45rem; color: var(--aura-ink); text-decoration: none; }
+  .places li a svg { width: 1rem; height: 1rem; color: var(--aura-muted); transition: transform 700ms var(--aura-ease), color var(--aura-fast); }
+  .places li a:hover svg { transform: translateX(4px); color: var(--aura-accent); }
+  .aerial { border-radius: var(--radius); overflow: hidden; aspect-ratio: 1 / 1; position: relative; }
+  .aerial img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 560px) { .places { grid-template-columns: 1fr; } }
+
+  /* ---------- Patients ---------- */
+  .gallery { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 1rem; margin-top: 3.5rem; align-items: end; }
+  .gallery figure { margin: 0; border-radius: 18px; overflow: hidden; aspect-ratio: 3 / 4; }
+  .gallery figure:nth-child(1) { aspect-ratio: 3 / 3.9; }
+  .gallery figure:nth-child(2) { aspect-ratio: 3 / 3.4; }
+  .gallery figure:nth-child(4) { aspect-ratio: 3 / 3.6; }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform 1600ms var(--aura-ease); }
+  .gallery figure:hover img { transform: scale(1.03); }
+  .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
+  .review { background: var(--aura-card); border: 1px solid var(--aura-line); border-radius: 18px; padding: 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; }
+  .review blockquote { margin: 0; font-family: var(--aura-serif); font-size: 1.3rem; line-height: 1.35; color: var(--aura-ink); }
+  .review .who { display: flex; align-items: center; gap: .7rem; margin-top: auto; font-size: .88rem; color: var(--aura-muted); }
+  .review .who img { width: 22px; height: 16px; border-radius: 2px; object-fit: cover; }
+  .review .who b { color: var(--aura-ink); font-weight: 500; }
+  @media (max-width: 960px) { .gallery { grid-template-columns: 1fr 1fr; } .reviews { grid-template-columns: 1fr; } }
+
+  /* ---------- FAQ ---------- */
+  .faq { max-width: 52rem; margin: 3rem auto 0; border-top: 1px solid var(--aura-line); }
+  .faq details { border-bottom: 1px solid var(--aura-line); }
+  .faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: 1.5rem 0;
+    font-family: var(--aura-serif); font-size: clamp(1.2rem, 1.05rem + .5vw, 1.45rem); color: var(--aura-ink); }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq .plus { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--aura-ink); color: #fff; flex: none; transition: transform 600ms var(--aura-ease), background-color var(--aura-fast); }
+  .faq .plus svg { width: .9rem; height: .9rem; }
+  .faq details[open] .plus { transform: rotate(45deg); background: var(--aura-accent); }
+  .faq details p { margin: 0 0 1.6rem; max-width: 60ch; color: var(--aura-soft); }
+
+  /* ---------- Final CTA ---------- */
+  .final { position: relative; overflow: hidden; color: #fff; text-align: center; padding-block: clamp(7rem, 5rem + 8vw, 12rem); background: #141111; }
+  .final img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .5; }
+  .final::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(20 17 17 / .2), rgb(20 17 17 / .7)); z-index: 1; }
+  .final .wrap { position: relative; z-index: 2; }
+  .final .aura-h2 { color: #fff; }
+  .final .aura-h2 em { color: #fff; }
+  .final p.lead { max-width: 44ch; margin: 1.25rem auto 0; color: rgb(255 255 255 / .86); }
+  .final .actions { display: flex; justify-content: center; gap: .75rem; flex-wrap: wrap; margin-top: 2.25rem; }
+
+  /* ---------- Footer ---------- */
+  footer.site { background: var(--aura-paper-2); padding-block: 4.5rem 2.5rem; font-size: .9rem; color: var(--aura-soft); }
+  .foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 3rem; }
+  .foot img.logo-f { height: 54px; width: auto; }
+  .foot .foot-h { margin: 0 0 1rem; font: 500 .7rem var(--aura-sans); letter-spacing: .24em; text-transform: uppercase; color: var(--aura-muted); }
+  .foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
+  .foot a { text-decoration: none; }
+  .foot a:hover { color: var(--aura-accent); }
+  .marks { display: flex; gap: 1.25rem; align-items: center; margin-top: 1.5rem; }
+  .marks img { height: 40px; width: auto; }
+  .legal { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--aura-line); font-size: .8rem; color: var(--aura-muted); }
+  @media (max-width: 860px) { .foot { grid-template-columns: 1fr; gap: 2rem; } }
+
+  /* ---------- Floating WhatsApp ---------- */
+  .wa-float { position: fixed; z-index: 50; right: 1.25rem; bottom: 1.25rem; display: inline-flex; align-items: center; gap: .65rem; min-height: 3.25rem; padding: 0 1.3rem 0 1rem;
+    border-radius: 999px; background: var(--wa); color: #fff; text-decoration: none; font: 500 .88rem var(--aura-sans); box-shadow: 0 14px 32px -14px rgb(0 0 0 / .35);
+    transition: background-color var(--aura-fast) var(--aura-ease); }
+  .wa-float:hover { background: var(--wa-hover); }
+  .wa-float svg { width: 1.4rem; height: 1.4rem; }
+  @media (max-width: 640px) { .wa-float { padding: 0; width: 3.5rem; height: 3.5rem; justify-content: center; } .wa-float span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } }
+
+  @media (max-width: 640px) { .aura-section { padding-block: 5.5rem; } }
+</style>
+</head>
+<body class="aura-body-root">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M2 12h20M15 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M5 3h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 7.1 7.1l1.4-2.3L21 15.5V19a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="m4 12.5 5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-lens" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"><circle vector-effect="non-scaling-stroke" cx="12" cy="12" r="9"/><path vector-effect="non-scaling-stroke" d="M12 1v22M1 12h22"/><circle vector-effect="non-scaling-stroke" cx="12" cy="12" r="2"/></g></symbol>
+  <symbol id="i-cross" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M2 12h4l2.5-6 4 12 3-9 2 3H22" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bandage" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"><rect vector-effect="non-scaling-stroke" x="2.5" y="8" width="19" height="8" rx="4" transform="rotate(-45 12 12)"/><path vector-effect="non-scaling-stroke" d="M10.5 10.5h.01M13.5 13.5h.01M13.5 10.5h.01M10.5 13.5h.01" stroke-linecap="round" stroke-width="2"/></g></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M9 3h6M10 3v6L4.5 18.5A2 2 0 0 0 6.2 21.5h11.6a2 2 0 0 0 1.7-3L14 9V3M7 15h10" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-drip" viewBox="0 0 24 24"><path vector-effect="non-scaling-stroke" d="M10 2h4M10.5 2v5L6 15.5A4 4 0 0 0 9.5 21h5a4 4 0 0 0 3.5-5.5L13.5 7V2M7.5 14h9" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-steth" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path vector-effect="non-scaling-stroke" d="M5 3v6a5 5 0 0 0 10 0V3M5 3h2M13 3h2M10 14v2a5 5 0 0 0 10 0v-2"/><circle vector-effect="non-scaling-stroke" cx="20" cy="12" r="2"/></g></symbol>
+  <symbol id="i-door" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"><path vector-effect="non-scaling-stroke" d="M4 21h16M6 21V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17"/><path vector-effect="non-scaling-stroke" d="M14.5 12h.01" stroke-linecap="round" stroke-width="2"/></g></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round"><path vector-effect="non-scaling-stroke" d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6l-8-3Z"/><path vector-effect="non-scaling-stroke" d="m9 12 2 2 4-4"/></g></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 4h3v16H7zM14 4h3v16h-3z" fill="currentColor"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4v16l13-8z" fill="currentColor"/></symbol>
+</svg>
+
+<a class="aura-sr-only" href="#main">Skip to content</a>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>WhatsApp Medical Support 24/7</span>
+    <a href="tel:+201222228247">Call +20 122 222 8247</a>
+  </div>
+</div>
+
+<header class="site" data-aura-scrolled="10">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="24/7 Clinic, home"><img src="../../247clinic-v4/public/logos/marks/247-logo.svg" alt="24/7 Clinic"></a>
+    <nav class="main" aria-label="Main">
+      <ul>
+        <li><a href="#services">Medical Services</a></li>
+        <li><a href="#insurance">Insurance &amp; Cashless Care</a></li>
+        <li><a href="#clinics">Find a Clinic</a></li>
+        <li><a href="#contact">For Hotels &amp; Partners</a></li>
+        <li><a href="#contact">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="head-actions">
+      <a class="icon-btn only-desk" href="tel:+201222228247" aria-label="Call +20 122 222 8247"><svg aria-hidden="true"><use href="#i-phone"/></svg></a>
+      <a class="pill pill-wa only-desk" data-aura-magnetic href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20medical%20assistance%20through%20the%2024%2F7%20Clinic%20website." target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp Us 24/7</a>
+      <a class="pill pill-wa only-phone" href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20medical%20assistance%20through%20the%2024%2F7%20Clinic%20website." target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Need a Doctor?</a>
+      <details class="menu">
+        <summary class="icon-btn" aria-label="Menu"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8h18M3 16h18" fill="none" stroke="currentColor" stroke-width="1.25" vector-effect="non-scaling-stroke"/></svg></summary>
+        <ul>
+          <li><a href="#services">Medical Services</a></li>
+          <li><a href="#insurance">Insurance &amp; Cashless Care</a></li>
+          <li><a href="#clinics">Find a Clinic</a></li>
+          <li><a href="#contact">For Hotels &amp; Partners</a></li>
+          <li><a href="#contact">About Us</a></li>
+          <li><a href="tel:+201222228247">Call +20 122 222 8247</a></li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section id="top" class="aura-section hero center">
+    <div class="wrap">
+      <p class="proof aura-rise">
+        <img src="../../247clinic-v4/public/logos/marks/uca.png" alt="Urgent Care Association">
+        <span>Accredited by the Urgent Care Association</span>
+        <span class="sep" aria-hidden="true"></span>
+        <span>Part of Healthcare International Group</span>
+      </p>
+      <h1 class="aura-display" aria-label="Urgent Medical Care Right Inside Your Hotel">
+        <span class="aura-line" aria-hidden="true"><span>Urgent Medical Care</span></span>
+        <span class="aura-line" aria-hidden="true"><span><em>Right Inside Your Hotel</em></span></span>
+      </h1>
+      <ul class="tags aura-rise" style="animation-delay:200ms">
+        <li class="aura-label">24/7 Medical Care</li>
+        <li class="aura-label">Cashless Insurance</li>
+        <li class="aura-label">Multilingual Support</li>
+      </ul>
+      <p class="lead aura-rise" style="animation-delay:300ms">On-site urgent care inside hotels and resorts across Egypt’s top tourist destinations. Fast care, without unnecessary hospital visits.</p>
+      <div class="actions aura-rise" style="animation-delay:400ms">
+        <a class="pill pill-wa" data-aura-magnetic href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20medical%20assistance%20through%20the%2024%2F7%20Clinic%20website." target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp Us 24/7</a>
+        <a class="pill pill-ghost" href="#clinics">Find Your Clinic <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+
+      <div class="film aura-rise" style="animation-delay:500ms">
+        <video id="film" autoplay muted loop playsinline preload="metadata" poster="../../247clinic-v4/public/slots/hero-desktop.webp">
+          <source src="../../247clinic-v4/public/media/hero.mp4" type="video/mp4">
+        </video>
+        <button class="film-ctrl" type="button" id="filmBtn" aria-pressed="false"><svg aria-hidden="true"><use href="#i-pause"/></svg><span>Pause</span></button>
+      </div>
+
+      <div class="stats" role="list">
+        <div class="stat" role="listitem" data-aura-reveal><div class="n">40<span>+</span></div><p>Years of Healthcare Experience</p></div>
+        <div class="stat" role="listitem" data-aura-reveal data-aura-delay="120"><div class="n">130<span>+</span></div><p>Hotel &amp; Resort Clinics</p></div>
+        <div class="stat" role="listitem" data-aura-reveal data-aura-delay="240"><div class="n">700<span>+</span></div><p>Staff</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accreditation -->
+  <section class="aura-section" aria-labelledby="acc-h">
+    <div class="wrap">
+      <div class="center" data-aura-reveal>
+        <p class="aura-label dot-label">Accreditation</p>
+        <h2 id="acc-h" class="aura-h2" style="margin-top:1rem">Internationally Accredited <em>Urgent Care</em></h2>
+      </div>
+      <div class="acc-card" data-aura-reveal>
+        <figure><img src="../../247clinic-v4/public/img/trusted-1.jpeg" alt="A 24/7 Clinic doctor with two guests at the clinic reception" loading="lazy"></figure>
+        <div class="body">
+          <img class="uca" src="../../247clinic-v4/public/logos/marks/uca.png" alt="Urgent Care Association" loading="lazy">
+          <p class="sub-serif" style="margin:0">The first international urgent care network outside the United States accredited by the Urgent Care Association.</p>
+          <ul class="checks">
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>International Standards</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Patient Safety</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Clinical Quality</li>
+            <li><svg aria-hidden="true"><use href="#i-check"/></svg>Operational Excellence</li>
+          </ul>
+          <a class="text-link" href="#contact">Learn About Our Accreditation <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why on-site -->
+  <section class="aura-section" style="padding-top:0" aria-labelledby="why-h">
+    <div class="wrap">
+      <div class="sec-head" data-aura-reveal>
+        <div>
+          <p class="aura-label dot-label">On-site care</p>
+          <h2 id="why-h" class="aura-h2" style="margin-top:1rem;max-width:16ch">Medical Care Without <em>Leaving Your Resort</em></h2>
+        </div>
+        <p class="aura-body" style="max-width:34ch;margin:0">Ill or injured on holiday? A hospital shouldn’t always be your first stop.</p>
+      </div>
+      <div class="reasons">
+        <div class="reason" data-aura-reveal><span class="ring"><svg aria-hidden="true"><use href="#i-door"/></svg></span><h3 class="aura-h3">Inside Your Resort</h3><p>No searching for an unfamiliar medical facility across the city. Care is already where you are staying.</p></div>
+        <div class="reason" data-aura-reveal data-aura-delay="120"><span class="ring"><svg aria-hidden="true"><use href="#i-cross"/></svg></span><h3 class="aura-h3">Treated On-Site</h3><p>Many urgent and primary care conditions are assessed and treated right here, with consultation, diagnostics and treatment close to your room.</p></div>
+        <div class="reason" data-aura-reveal data-aura-delay="240"><span class="ring"><svg aria-hidden="true"><use href="#i-out"/></svg></span><h3 class="aura-h3">Hospital Only When Needed</h3><p>If you need more, our team arranges the right hospital, ambulance or next medical step.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="aura-section" style="padding-top:0" aria-labelledby="svc-h">
+    <div class="wrap">
+      <div class="sec-head" data-aura-reveal>
+        <div>
+          <p class="aura-label dot-label">What we treat</p>
+          <h2 id="svc-h" class="aura-h2" style="margin-top:1rem">What We Can Treat <em>On-Site</em></h2>
+        </div>
+        <a class="pill pill-ghost" href="#contact">View All Medical Services <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="services" data-aura-reveal>
+        <article class="svc"><div class="top"><span class="aura-index">01</span><svg aria-hidden="true"><use href="#i-pulse"/></svg></div><h3 class="aura-h3">Urgent Medical Care</h3><p>Sudden illness, fever, infections, stomach and gut problems, dehydration, breathing problems and other urgent conditions.</p></article>
+        <article class="svc"><div class="top"><span class="aura-index">02</span><svg aria-hidden="true"><use href="#i-bandage"/></svg></div><h3 class="aura-h3">Injuries &amp; Minor Procedures</h3><p>Wounds, burns, sprains and minor trauma, with dressings, stitches and other minor procedures where clinically appropriate.</p></article>
+        <article class="svc"><div class="top"><span class="aura-index">03</span><svg aria-hidden="true"><use href="#i-flask"/></svg></div><h3 class="aura-h3">Diagnostics &amp; Laboratory Tests</h3><p>Medical assessment with laboratory tests and diagnostic services when required.</p></article>
+        <article class="svc"><div class="top"><span class="aura-index">04</span><svg aria-hidden="true"><use href="#i-drip"/></svg></div><h3 class="aura-h3">IV Therapy &amp; Medication</h3><p>Doctor-prescribed medication, injections and IV therapy when medically indicated.</p></article>
+        <article class="svc"><div class="top"><span class="aura-index">05</span><svg aria-hidden="true"><use href="#i-steth"/></svg></div><h3 class="aura-h3">Specialist Consultation</h3><p>Access to specialist physicians when further medical assessment is required.</p></article>
+        <article class="svc"><div class="top"><span class="aura-index">06</span><svg aria-hidden="true"><use href="#i-door"/></svg></div><h3 class="aura-h3">Hotel Room Doctor Visit</h3><p>When appropriate, a doctor comes directly to your hotel room.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Insurance -->
+  <section id="insurance" class="aura-section band" aria-labelledby="ins-h">
+    <div class="wrap">
+      <div class="split">
+        <div data-aura-reveal>
+          <p class="aura-label dot-label">Insurance &amp; cashless</p>
+          <h2 id="ins-h" class="aura-h2" style="margin-top:1rem">Travelling With <em>Medical Insurance?</em></h2>
+          <p class="sub-serif">We Can Coordinate Directly With Your Insurer</p>
+          <p class="aura-body" style="margin-top:1.25rem">We work with international travel insurers and assistance companies worldwide.</p>
+          <p class="aura-body">Where approved, treatment is cashless, so you may not need to pay the full cost upfront and claim it back later.</p>
+          <div class="incl">
+            <p class="aura-label" style="margin:0">How we help</p>
+            <ul>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Insurance verification</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Guarantee of Payment coordination</li>
+              <li><svg aria-hidden="true"><use href="#i-check"/></svg>Medical documentation</li>
+            </ul>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;align-items:center;margin-top:2rem">
+            <a class="pill pill-wa" href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20medical%20assistance%20and%20would%20like%20to%20check%20whether%20my%20travel%20insurance%20can%20be%20used%20for%20cashless%20treatment." target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Check Your Insurance on WhatsApp</a>
+            <a class="text-link" href="#contact">Learn About Insurance &amp; Cashless Care <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+          <p class="note">Cashless treatment may be available where approved by the insurer and subject to policy conditions.</p>
+        </div>
+        <figure class="photo" style="margin:0" data-aura-reveal data-aura-delay="150"><img src="../../247clinic-v4/public/img/new-medical-care.jpg" alt="24/7 Clinic staff treating a guest on the beach" loading="lazy"></figure>
+      </div>
+      <div class="partners" data-aura-reveal>
+        <p class="aura-label">Insurance &amp; Assistance Partners</p>
+        <div class="logos">
+          <img src="../../247clinic-v4/public/logos/insurers/allianz.svg" alt="Allianz" loading="lazy">
+          <img src="../../247clinic-v4/public/logos/insurers/axa.svg" alt="AXA" loading="lazy">
+          <img src="../../247clinic-v4/public/logos/insurers/europ-assistance.webp" alt="Europ Assistance" loading="lazy">
+          <img src="../../247clinic-v4/public/logos/insurers/international-sos.webp" alt="International SOS" loading="lazy">
+          <img src="../../247clinic-v4/public/logos/insurers/adac.svg" alt="ADAC" loading="lazy">
+          <img src="../../247clinic-v4/public/logos/insurers/generali.svg" alt="Generali" loading="lazy">
+          <img src="../../247clinic-v4/public/logos/insurers/ergo.svg" alt="ERGO" loading="lazy">
+          <img src="../../247clinic-v4/public/logos/insurers/hansemerkur.svg" alt="HanseMerkur" loading="lazy">
+          <img src="../../247clinic-v4/public/logos/insurers/bupa.svg" alt="Bupa" loading="lazy">
+          <img src="../../247clinic-v4/public/logos/insurers/uniqa.svg" alt="UNIQA" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="aura-section dark" aria-labelledby="how-h">
+    <div class="wrap" style="position:relative">
+      <div class="center" data-aura-reveal>
+        <p class="aura-label dot-label">How it works</p>
+        <h2 id="how-h" class="aura-h2" style="margin-top:1rem">Getting Medical Help Is <em>Simple</em></h2>
+      </div>
+      <ol class="steps">
+        <li data-aura-reveal><div class="num">01</div><h3 class="aura-h3">Message Us on WhatsApp</h3><p>Tell us your hotel and what happened.</p></li>
+        <li data-aura-reveal data-aura-delay="120"><div class="num">02</div><h3 class="aura-h3">We Find the Nearest Medical Option</h3><p>If your hotel has a 24/7 Clinic, we direct you there. If not, our coordination team finds the most appropriate medical option nearby.</p></li>
+        <li data-aura-reveal data-aura-delay="240"><div class="num">03</div><h3 class="aura-h3">We Check Your Insurance</h3><p>Send us your insurance details and, where applicable, we coordinate directly with your insurer.</p></li>
+        <li data-aura-reveal data-aura-delay="360"><div class="num">04</div><h3 class="aura-h3">Receive Medical Care</h3><p>Treatment on-site whenever clinically appropriate.</p></li>
+      </ol>
+      <div class="center" style="margin-top:3.5rem" data-aura-reveal>
+        <a class="pill pill-wa" data-aura-magnetic href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20medical%20assistance%20through%20the%2024%2F7%20Clinic%20website." target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Get Medical Help Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Find a clinic -->
+  <section id="clinics" class="aura-section" aria-labelledby="find-h">
+    <div class="wrap">
+      <div class="split split-find">
+        <div data-aura-reveal>
+          <p class="aura-label dot-label">Find a clinic</p>
+          <h2 id="find-h" class="aura-h2" style="margin-top:1rem">Find a 24/7 Clinic <em>Near You</em></h2>
+          <ul class="places">
+            <li><a href="#contact">Hurghada <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+            <li><a href="#contact">Sahl Hasheesh <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+            <li><a href="#contact">Soma Bay <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+            <li><a href="#contact">Makadi Bay <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+            <li><a href="#contact">Marsa Alam <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+            <li><a href="#contact">El Quseir <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+            <li><a href="#contact">North Coast <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+          </ul>
+          <a class="pill pill-ghost" style="margin-top:2.25rem" href="#contact">View All Clinics <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+        <figure class="aerial" style="margin:0" data-aura-reveal data-aura-delay="150">
+          <img src="../../247clinic-v4/public/img/resort-aerial-1200.webp" alt="Aerial view of a Red Sea resort and coral reef" loading="lazy">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Patients -->
+  <section class="aura-section band" aria-labelledby="pat-h">
+    <div class="wrap">
+      <div class="center" data-aura-reveal>
+        <p class="aura-label dot-label">Trusted by Patients</p>
+        <h2 id="pat-h" class="aura-h2" style="margin-top:1rem">What Our Patients <em>Say</em></h2>
+      </div>
+      <div class="gallery" data-aura-reveal>
+        <figure><img src="../../247clinic-v4/public/img/trusted-main.jpg" alt="A 24/7 Clinic doctor with a smiling young patient" loading="lazy"></figure>
+        <figure><img src="../../247clinic-v4/public/img/trusted-4.jpeg" alt="A guest with two 24/7 Clinic doctors" loading="lazy"></figure>
+        <figure><img src="../../247clinic-v4/public/img/trusted-5.jpeg" alt="Two guests with a 24/7 Clinic doctor at the clinic" loading="lazy"></figure>
+        <figure><img src="../../247clinic-v4/public/img/trusted-6.jpeg" alt="Guests with the 24/7 Clinic team" loading="lazy"></figure>
+      </div>
+      <div class="reviews">
+        <figure class="review" data-aura-reveal style="margin:0">
+          <blockquote lang="de">Sehr freundlicher und kompetenter Arzt. Sehr schnelle Hilfe ich fühlte mich in guten Händen.</blockquote>
+          <figcaption class="who"><img src="../../247clinic-v4/public/logos/marks/flag-de.svg" alt=""><b>Joerg Finger</b> · Germany</figcaption>
+        </figure>
+        <figure class="review" data-aura-reveal data-aura-delay="120" style="margin:0">
+          <blockquote lang="it">Molto professionale Disponibile e paziente Problema risolto in poche ore</blockquote>
+          <figcaption class="who"><img src="../../247clinic-v4/public/logos/marks/flag-it.svg" alt=""><b>Carla di Scanno</b> · Italy</figcaption>
+        </figure>
+        <figure class="review" data-aura-reveal data-aura-delay="240" style="margin:0">
+          <blockquote lang="de">Der Arzt war sehr nett und kompetent. Gute Unterstützung durch den Arzt.</blockquote>
+          <figcaption class="who"><img src="../../247clinic-v4/public/logos/marks/flag-ch.svg" alt=""><b>B Waltert</b> · Switzerland</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="aura-section" aria-labelledby="faq-h">
+    <div class="wrap">
+      <div class="center" data-aura-reveal>
+        <p class="aura-label dot-label">FAQ</p>
+        <h2 id="faq-h" class="aura-h2" style="margin-top:1rem">Frequently Asked <em>Questions</em></h2>
+        <p class="aura-body" style="margin-top:1rem">Quick answers before you message us.</p>
+      </div>
+      <div class="faq" data-aura-reveal>
+        <details><summary>Is there a 24/7 Clinic inside my hotel?<span class="plus"><svg aria-hidden="true"><use href="#i-plus"/></svg></span></summary><p>Use the Find a Clinic page or contact us on WhatsApp and send your hotel name.</p></details>
+        <details><summary>What should I send you on WhatsApp?<span class="plus"><svg aria-hidden="true"><use href="#i-plus"/></svg></span></summary><p>Please send your name, hotel, location, brief description of the medical problem and insurance information if available.</p></details>
+        <details><summary>Do I need to contact my insurance company first?<span class="plus"><svg aria-hidden="true"><use href="#i-plus"/></svg></span></summary><p>Not always. Send us your insurance details and our team can advise you on the next step.</p></details>
+        <details><summary>Can you arrange an ambulance?<span class="plus"><svg aria-hidden="true"><use href="#i-plus"/></svg></span></summary><p>Yes. If ambulance transport is medically necessary, our team can coordinate it.</p></details>
+        <details><summary>Can you provide documentation for my insurance?<span class="plus"><svg aria-hidden="true"><use href="#i-plus"/></svg></span></summary><p>Yes. Medical reports, invoices and other required documentation can be provided according to the case and insurer requirements.</p></details>
+        <details><summary>What if my hotel does not have a 24/7 Clinic?<span class="plus"><svg aria-hidden="true"><use href="#i-plus"/></svg></span></summary><p>Contact our coordination team on WhatsApp and we will advise you about the nearest available medical solution.</p></details>
+      </div>
+      <div class="center" style="margin-top:2rem"><a class="text-link" href="#contact">All FAQs <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+    </div>
+  </section>
+
+  <!-- Final call -->
+  <section class="final" aria-labelledby="final-h">
+    <img src="../../247clinic-v4/public/img/why-resort.webp" alt="" loading="lazy">
+    <div class="wrap" data-aura-reveal>
+      <h2 id="final-h" class="aura-h2">Feeling Unwell During <em>Your Holiday?</em></h2>
+      <p class="lead">Tell us where you are staying and what happened. Our medical coordination team is available 24/7.</p>
+      <div class="actions">
+        <a class="pill pill-wa" data-aura-magnetic href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20medical%20assistance%20through%20the%2024%2F7%20Clinic%20website." target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp Us Now</a>
+        <a class="pill pill-light" href="#clinics">Find Your Nearest Clinic <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact" class="site">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <img class="logo-f" src="../../247clinic-v4/public/logos/marks/247-logo.svg" alt="24/7 Clinic">
+        <p style="max-width:38ch;margin-top:1.25rem">24/7 Clinic provides travel medical services and urgent medical care for international guests in Egypt.</p>
+        <div class="marks">
+          <img src="../../247clinic-v4/public/logos/marks/uca.png" alt="Accredited by the Urgent Care Association">
+          <img src="../../247clinic-v4/public/logos/marks/hcig.png" alt="Part of Healthcare International Group">
+        </div>
+        <p style="margin-top:1rem;font-size:.82rem">Accredited by the Urgent Care Association<br>Part of Healthcare International Group</p>
+      </div>
+      <div>
+        <h2 class="foot-h">Navigation</h2>
+        <ul>
+          <li><a href="#services">Medical Services</a></li>
+          <li><a href="#insurance">Insurance &amp; Cashless Care</a></li>
+          <li><a href="#clinics">Find a Clinic</a></li>
+          <li><a href="#contact">For Hotels &amp; Partners</a></li>
+          <li><a href="#contact">About Us</a></li>
+          <li><a href="#contact">Beauty &amp; Wellness</a></li>
+          <li><a href="#contact">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="foot-h">Contact</h2>
+        <ul>
+          <li><a href="tel:+201222228247">+20 122 222 8247</a></li>
+          <li><a href="https://wa.me/201222228247" target="_blank" rel="noopener">WhatsApp Medical Support 24/7</a></li>
+          <li><a href="mailto:info@247clinic.net">info@247clinic.net</a></li>
+          <li>123 Hassan ElMaamoun St., Sixth Floor, Suite 604, Nasr City, Cairo</li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">© 2026 24/7 Clinic. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/201222228247?text=Hello%2C%20I%20need%20medical%20assistance%20through%20the%2024%2F7%20Clinic%20website." target="_blank" rel="noopener" aria-label="Need a Doctor? Chat on WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>Need a Doctor? Chat on WhatsApp</span></a>
+
+<script src="aura.js" defer></script>
+<script>
+  (() => {
+    const v = document.getElementById('film'), b = document.getElementById('filmBtn');
+    if (!v || !b) return;
+    const set = (playing) => {
+      b.setAttribute('aria-pressed', String(!playing));
+      b.innerHTML = playing ? '<svg aria-hidden="true"><use href="#i-pause"/></svg><span>Pause</span>' : '<svg aria-hidden="true"><use href="#i-play"/></svg><span>Play</span>';
+    };
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); set(false); }
+    b.addEventListener('click', () => { if (v.paused) { v.play(); set(true); } else { v.pause(); set(false); } });
+  })();
+</script>
+</body>
+</html>

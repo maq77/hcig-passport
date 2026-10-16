@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/components/pages/InnerPages.tsx"
+        ],
+        "createdAt": "2026-09-29T11:13:55.506Z",
+        "reason": "Claude decided: .ip-quote is a blockquote rule beside quotations in news posts (typographic quote marker), not a card side-tab; the file has no card with a side border"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/components/Trust.tsx"
+        ],
+        "createdAt": "2026-10-15T14:33:10.298Z",
+        "reason": "Closing line gradient is part of canvas board C, which the user picked and approved on 2026-10-15"
+      }
+    ]
+  }
+}

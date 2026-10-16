@@ -26,6 +26,24 @@
         ],
         "createdAt": "2026-09-23T11:34:17.444Z",
         "reason": "Claude: check.js is the site checker; line 147 is a regex that scans for <img> tags, not markup"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "samples/247-world-class/index.html"
+        ],
+        "createdAt": "2026-10-01T20:17:14.723Z",
+        "reason": "Claude, 2026-10-01: rendered screenshots at 1440 and 390 show 24px+ insets. Flagged boxes are full-bleed media (film, accreditation photo), hairline lists (FAQ, stats) and sections inset by the .wrap calc margins the static scan cannot see."
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "tmasi-next/src/components/Trust.tsx"
+        ],
+        "createdAt": "2026-10-15T14:35:16.578Z",
+        "reason": "Closing line gradient is part of canvas board C, which the user picked and approved on 2026-10-15"
       }
     ]
   }

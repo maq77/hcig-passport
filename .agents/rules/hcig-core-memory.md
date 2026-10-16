@@ -20,6 +20,7 @@ trigger: always_on
 - **Demos must read as live**: No markers, dotted underlines, or review tags on a live page under review. Open questions live in their own document.
 - **Work order**: Technical first, copy last. Invisible fixes go live immediately; visitor-facing copy waits for review.
 - **Act on clear defects without asking**: Obvious bugs get fixed immediately; new copy goes to Irina/user for review.
+- **TMASI, always first (Mohamed's order, 2026-10-04)**: before ANY TMASI task, read `~/.claude/skills/hcig/memory/tasks/tmasi-v5-vision.md` (his v5 idea in his exact words). The TMASI site shows one business: guests and patients who want a holiday and medical care at the same time, in luxurious hotels, with world-class healthcare.
 - **Always include ticket titles with ticket codes**: Never reference bare ticket IDs like T-015 or TASK-247-01 alone. Always attach the title or a brief explanation of what it is, e.g. T-015 (24/7 Clinic: Phase 2 inner pages), in chat, ticket descriptions, cross-references, and notes.
 
 ---

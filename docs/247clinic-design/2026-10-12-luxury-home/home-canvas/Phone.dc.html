@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>24/7 Clinic, home, phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&amp;family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:"Calisto MT";src:url("/_blob/29690a739e5aab634b0d25ad996166de") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Calisto MT";src:url("/_blob/765876b512c494dba59ce828bc1c2111") format("woff2");font-weight:700;font-display:swap}
+body{margin:0;background:#F7F2EC}
+a{color:inherit;text-decoration:none}a:hover{color:inherit}
+*{box-sizing:border-box}
+.rail{scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.pill{transition:transform .18s ease}
+.pill:active{transform:scale(.98)}
+@keyframes heroZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes paneA{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(-12px,16px,0) rotate(-1.4deg)}}
+@keyframes paneB{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(10px,-12px,0)}}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes ring{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.6);opacity:0}}
+@keyframes glow{0%{transform:scale(.6);opacity:.9}100%{transform:scale(3);opacity:0}}
+@keyframes sea{0%{background-position:0% 0%,100% 100%,50% 50%}100%{background-position:100% 60%,0% 40%,50% 50%}}
+@keyframes beam{0%,100%{opacity:.55}50%{opacity:1}}
+.h-vid{animation:heroZoom 2.6s cubic-bezier(.16,1,.3,1) both}
+.h1{animation:rise 1.3s cubic-bezier(.16,1,.3,1) .25s both}
+.h2{animation:rise 1.3s cubic-bezier(.16,1,.3,1) .45s both}
+.h3{animation:rise 1.3s cubic-bezier(.16,1,.3,1) .65s both}
+.h4{animation:fade 1.6s ease 1s both}
+.paneA{animation:paneA 18s cubic-bezier(.65,0,.35,1) infinite}
+.paneB{animation:paneB 22s cubic-bezier(.65,0,.35,1) infinite}
+.drift{animation:drift 60s linear infinite}
+.ring{animation:ring 2.4s cubic-bezier(.16,1,.3,1) infinite}
+.glow{animation:glow 2.8s cubic-bezier(.16,1,.3,1) infinite}
+.sea{animation:sea 26s ease-in-out infinite alternate}
+.beam{animation:beam 3.2s ease-in-out infinite}
+@supports (animation-timeline: view()){
+.rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+.px{animation:pxm linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+@keyframes pxm{from{transform:translateY(-6%) scale(1.12)}to{transform:translateY(6%) scale(1.12)}}
+}
+@media (prefers-reduced-motion: reduce){.h-vid,.h1,.h2,.h3,.h4,.paneA,.paneB,.drift,.ring,.glow,.sea,.beam,.rv,.px{animation:none !important}}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; background: #F7F2EC; color: #1A1414; font-family: Poppins, 'Segoe UI', system-ui, sans-serif; font-weight: 300; font-size: 16px; line-height: 1.65; overflow: hidden">
+
+<div style="height: 34px; background: #0F0B0B; color: rgba(255,255,255,.8); font-size: 12px; font-weight: 400; display: flex; align-items: center; justify-content: center; gap: 8px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #25D366"></span>24/7 Medical Care<span style="opacity: .4">·</span>Cashless Insurance</div>
+
+<section style="position: relative; height: 800px; overflow: hidden; background: #140E0E; color: #FFFFFF">
+<video class="h-vid" src="/_blob/243e93dccd44dde706ee7594c722e9e8" autoplay="" muted="" loop="" playsinline="" preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,11,11,.6) 0%, rgba(15,11,11,0) 20%, rgba(15,11,11,.1) 42%, rgba(15,11,11,.92) 84%)"></div>
+<div class="paneA" style="position: absolute; top: 110px; right: -50px; width: 250px; height: 330px; clip-path: polygon(100% 0, 100% 100%, 10% 44%); background: linear-gradient(155deg, rgba(226,6,19,.52), rgba(154,0,0,.22)); -webkit-backdrop-filter: blur(10px) saturate(1.25); backdrop-filter: blur(10px) saturate(1.25)"></div>
+<div class="paneB" style="position: absolute; top: 96px; right: -24px; width: 180px; height: 240px; clip-path: polygon(56% 0, 100% 0, 100% 76%); background: rgba(255,240,236,.13); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); border-top: 1px solid rgba(255,255,255,.35)"></div>
+<header style="position: absolute; top: 0; left: 0; right: 0; height: 76px; padding: 0 16px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; z-index: 5">
+<div style="display: flex; gap: 4px">
+<a href="https://wa.me/201222228247" aria-label="WhatsApp us 24/7" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #FFFFFF"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"></path></svg></a>
+<a href="tel:+201222228247" aria-label="Call +20 122 222 8247" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: #FFFFFF"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg></a>
+</div>
+<a href="#" aria-label="24/7 Clinic home" style="justify-self: center; display: flex"><img src="/_blob/f85799d05d6ad0d89ebdba4ad67c6cf9" alt="24/7 Clinic" style="height: 52px; width: auto; display: block"></a>
+<button type="button" onClick="{{ openMenu }}" aria-label="Open menu" style="justify-self: end; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; color: #FFFFFF; padding: 0; cursor: pointer"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M3 9h18M3 15h18"></path></svg></button>
+</header>
+<div style="position: absolute; left: 20px; right: 20px; bottom: 132px; display: flex; flex-direction: column; gap: 20px">
+<div class="h1" style="display: flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.86)"><span style="width: 32px; height: 1px; background: #E20613"></span>24/7 Medical Care</div>
+<h1 class="h2" style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.02; letter-spacing: -.02em">Urgent Medical Care<br><span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #FFD9D4">Right Inside Your Hotel</span></h1>
+<div class="h3" style="display: flex; flex-direction: column; gap: 10px">
+<a href="https://wa.me/201222228247" class="pill" style="height: 58px; padding: 0 8px 0 24px; display: flex; align-items: center; justify-content: space-between; background: #25D366; border-radius: 999px; color: #FFFFFF; font-size: 16px; font-weight: 500">WhatsApp Us 24/7<span style="width: 42px; height: 42px; border-radius: 50%; background: #128C3E; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px">
+<a href="#finder" class="pill" style="height: 54px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.6); border-radius: 999px; color: #FFFFFF; font-size: 15px; font-weight: 500">Find Your Clinic</a>
+<button type="button" onClick="{{ openFilm }}" aria-label="Watch video" style="position: relative; width: 54px; height: 54px; border-radius: 50%; border: 1px solid rgba(255,255,255,.6); background: rgba(255,255,255,.12); color: #FFFFFF; display: flex; align-items: center; justify-content: center; padding: 0; cursor: pointer"><span class="ring" style="position: absolute; inset: -6px; border: 1px solid rgba(255,255,255,.6); border-radius: 50%"></span><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="#FFFFFF"></path></svg></button>
+</div>
+</div>
+</div>
+<div class="h4" style="position: absolute; left: 0; right: 0; bottom: 0; border-top: 1px solid rgba(255,255,255,.2)">
+<nav aria-label="Destinations" class="rail" style="display: flex; gap: 26px; overflow-x: auto; padding: 18px 20px 10px">
+<sc-for list="{{ dests }}" as="d" hint-placeholder-count="6">
+<a href="#finder" onClick="{{ d.pick }}" style="flex: 0 0 auto; font-family: 'Calisto MT', Georgia, serif; font-size: 18px; color: #FFFFFF; display: flex; align-items: flex-start; gap: 4px">{{ d.name }}<sup style="font-family: Poppins, sans-serif; font-size: 10px; font-weight: 500; color: #FFB3B3; margin-top: 2px">{{ d.count }}</sup></a>
+</sc-for>
+</nav>
+<div style="padding: 6px 20px 18px; display: flex; align-items: center; gap: 10px; font-size: 10.5px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.84)"><span style="background: #FFFFFF; padding: 3px 6px; display: flex"><img src="/_blob/6797cb2a2fa89d53ab65d0de895916df" alt="Urgent Care Association" style="height: 20px; width: auto; display: block"></span>Accredited by the Urgent Care Association</div>
+</div>
+</section>
+
+<section style="position: relative; padding: 96px 20px 72px; text-align: center; overflow: hidden">
+<svg width="390" height="240" viewBox="0 0 390 240" fill="none" stroke="#1A1414" stroke-opacity=".06" stroke-width="1" aria-hidden="true" style="position: absolute; top: 0; left: 0; pointer-events: none"><path d="M-10 40C60 10 120 70 200 40S330 10 400 40"></path><path d="M-10 64C60 34 120 94 200 64S330 34 400 64"></path><path d="M-10 88C60 58 120 118 200 88S330 58 400 88"></path><path d="M-10 112C60 82 120 142 200 112S330 82 400 112"></path><path d="M-10 136C60 106 120 166 200 136S330 106 400 136"></path></svg>
+<div class="rv" style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 24px">
+<span style="width: 1px; height: 52px; background: linear-gradient(transparent, #C00000)"></span>
+<p style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.14">World class care in world class hotels, <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #C00000">while you have your vacation.</span></p>
+</div>
+<div class="rv" style="position: relative; margin-top: 56px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid rgba(26,20,20,.14); border-bottom: 1px solid rgba(26,20,20,.14)">
+<div style="padding: 24px 4px; display: flex; flex-direction: column; gap: 6px; align-items: center"><span style="font-family: 'Calisto MT', Georgia, serif; font-size: 44px; line-height: 1">40<span style="color: #C00000">+</span></span><span style="font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: #4D4543; line-height: 1.4">Years of Healthcare Experience</span></div>
+<div style="padding: 24px 4px; display: flex; flex-direction: column; gap: 6px; align-items: center; border-left: 1px solid rgba(26,20,20,.14); border-right: 1px solid rgba(26,20,20,.14)"><span style="font-family: 'Calisto MT', Georgia, serif; font-size: 44px; line-height: 1">130</span><span style="font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: #4D4543; line-height: 1.4">Hotel &amp; Resort Clinics</span></div>
+<div style="padding: 24px 4px; display: flex; flex-direction: column; gap: 6px; align-items: center"><span style="font-family: 'Calisto MT', Georgia, serif; font-size: 44px; line-height: 1">700</span><span style="font-size: 10px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: #4D4543; line-height: 1.4">Staff</span></div>
+</div>
+</section>
+
+<div style="padding: 0 0 80px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: center; justify-items: center; gap: 12px; padding: 0 20px">
+<img src="/_blob/777bd10a71fcc67ad376dc75f61ac126" alt="Hilton" style="height: 28px; width: auto; max-width: 100%; opacity: .8">
+<img src="/_blob/8c5fff5bd422d35f8acce7414f1857ed" alt="Jaz Hotels" style="height: 28px; width: auto; max-width: 100%; opacity: .8">
+<img src="/_blob/4c7239c64a2465e14ce3eddcf688fe19" alt="Long Beach Resort" style="height: 38px; width: auto; max-width: 100%; opacity: .8">
+<img src="/_blob/ab0a147ada07a6c25fe3b1913cbc4a54" alt="Radisson Blu" style="height: 18px; width: auto; max-width: 100%; opacity: .8">
+</div>
+<div style="overflow: hidden; white-space: nowrap; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)">
+<div class="drift" style="display: inline-flex; gap: 34px; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-size: 22px; color: #6E6461">
+<span>Steigenberger</span><span>Iberotel</span><span>Premier Le Rêve</span><span>Baron Palace</span><span>Pyramisa</span><span>Amwaj Beach Club</span><span>Caribbean World</span><span>Old Palace</span><span>Palm Royale</span><span>Reef Oasis</span><span>True Beach</span><span>Casa Mare</span>
+<span>Steigenberger</span><span>Iberotel</span><span>Premier Le Rêve</span><span>Baron Palace</span><span>Pyramisa</span><span>Amwaj Beach Club</span><span>Caribbean World</span><span>Old Palace</span><span>Palm Royale</span><span>Reef Oasis</span><span>True Beach</span><span>Casa Mare</span>
+</div>
+</div>
+</div>
+
+<section style="background: #EFE6DC; padding: 80px 20px">
+<div style="display: flex; flex-direction: column; gap: 22px">
+<div style="font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #9A0000; border-top: 1px solid rgba(26,20,20,.18); padding-top: 18px">On-Site Care</div>
+<h2 class="rv" style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.06">Medical Care <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #C00000">Without Leaving</span> Your Resort</h2>
+<p style="margin: 0; font-size: 16px; color: #4D4543">Ill or injured on holiday? A hospital shouldn’t always be your first stop.</p>
+<div style="position: relative; height: 420px; margin: 10px 0">
+<div style="position: absolute; top: 0; right: 0; width: 82%; height: 76%; overflow: hidden"><img class="px" src="/_blob/ea7059c7eba2f2fffe181b5dcab293b1" alt="A Red Sea resort pool lined with palms" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
+<div class="rv" style="position: absolute; left: 0; bottom: 0; width: 58%; height: 52%; overflow: hidden; border: 8px solid #EFE6DC"><img src="/_blob/fa34f1dc80fbb7a51c5e20a75534180f" alt="A 24/7 Clinic doctor walking beside a resort pool" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
+<div style="position: absolute; right: 0; bottom: 30px; width: 90px; height: 90px; background: #C00000; clip-path: polygon(100% 0, 100% 100%, 0 100%)"></div>
+</div>
+<ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+<li style="display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 6px; padding: 18px 0; border-top: 1px solid rgba(26,20,20,.14)"><span style="width: 36px; height: 36px; border: 1px solid rgba(154,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: 'Calisto MT', Georgia, serif; font-size: 14px; color: #9A0000">I</span><div><div style="font-family: 'Calisto MT', Georgia, serif; font-size: 21px; line-height: 1.2">Inside Your Resort</div><div style="font-size: 14.5px; color: #4D4543; margin-top: 4px">Care is already where you are staying.</div></div></li>
+<li style="display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 6px; padding: 18px 0; border-top: 1px solid rgba(26,20,20,.14)"><span style="width: 36px; height: 36px; border: 1px solid rgba(154,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: 'Calisto MT', Georgia, serif; font-size: 14px; color: #9A0000">II</span><div><div style="font-family: 'Calisto MT', Georgia, serif; font-size: 21px; line-height: 1.2">Treated On-Site</div><div style="font-size: 14.5px; color: #4D4543; margin-top: 4px">Consultation, diagnostics and treatment close to your room.</div></div></li>
+<li style="display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 6px; padding: 18px 0; border-top: 1px solid rgba(26,20,20,.14); border-bottom: 1px solid rgba(26,20,20,.14)"><span style="width: 36px; height: 36px; border: 1px solid rgba(154,0,0,.45); display: flex; align-items: center; justify-content: center; font-family: 'Calisto MT', Georgia, serif; font-size: 14px; color: #9A0000">III</span><div><div style="font-family: 'Calisto MT', Georgia, serif; font-size: 21px; line-height: 1.2">Hospital Only When Needed</div><div style="font-size: 14.5px; color: #4D4543; margin-top: 4px">Our team arranges the right hospital, ambulance or next medical step.</div></div></li>
+</ol>
+</div>
+</section>
+
+<section id="services" style="padding: 88px 0 72px">
+<div style="padding: 0 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #9A0000">What We Treat</div>
+<h2 class="rv" style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.02">What We Can Treat <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #C00000">On-Site</span></h2>
+</div>
+<div class="rail" style="display: flex; gap: 12px; overflow-x: auto; padding: 32px 20px 8px; scroll-snap-type: x mandatory">
+<sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+<a href="#" style="position: relative; flex: 0 0 300px; height: 470px; overflow: hidden; background: #1A1212; color: #FFFFFF; scroll-snap-align: start; display: block">
+<img src="{{ s.img }}" alt="{{ s.alt }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: {{ s.pos }}">
+<span style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,11,11,.4) 0%, rgba(15,11,11,0) 26%, rgba(15,11,11,.2) 48%, rgba(15,11,11,.92) 100%)"></span>
+<span style="position: absolute; top: 16px; left: 20px; font-family: 'Calisto MT', Georgia, serif; font-size: 56px; line-height: 1">{{ s.num }}</span>
+<span style="position: absolute; left: 20px; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px">
+<span style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{ s.tags }}" as="t" hint-placeholder-count="2"><span style="height: 24px; padding: 0 10px; border-radius: 999px; background: #FFFFFF; color: #9A0000; font-family: 'Calisto MT', Georgia, serif; font-size: 13px; display: flex; align-items: center">{{ t }}</span></sc-for></span>
+<span style="font-family: 'Calisto MT', Georgia, serif; font-size: 27px; line-height: 1.08">{{ s.title }}</span>
+<span style="font-size: 13.5px; line-height: 1.5; color: rgba(255,255,255,.86)">{{ s.text }}</span>
+</span>
+</a>
+</sc-for>
+</div>
+<div style="padding: 24px 20px 0"><a href="#" class="pill" style="height: 54px; padding: 0 8px 0 24px; display: flex; align-items: center; justify-content: space-between; background: #C00000; border-radius: 999px; color: #FFFFFF; font-size: 15px; font-weight: 500">View All Medical Services<span style="width: 40px; height: 40px; border-radius: 50%; background: #9A0000; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"></path></svg></span></a></div>
+</section>
+
+<section style="position: relative; height: 640px; overflow: hidden; background: #0F0B0B; color: #FFFFFF; display: flex; align-items: flex-end">
+<video src="/_blob/e990d521d5bf98f8ad1fd828d81e568c" autoplay="" muted="" loop="" playsinline="" preload="metadata" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></video>
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,11,11,.2) 0%, rgba(15,11,11,.92) 72%)"></div>
+<div class="rv" style="position: relative; padding: 0 20px 40px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #FFB3B3"><span style="width: 32px; height: 1px; background: #E20613"></span>Accreditation</div>
+<h2 style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 40px; line-height: 1.04">Internationally Accredited <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #FFD9D4">Urgent Care</span></h2>
+<p style="margin: 0; font-size: 15.5px; color: rgba(255,255,255,.84)">The first international urgent care network outside the United States accredited by the Urgent Care Association.</p>
+<div style="display: flex; align-items: center; gap: 10px; margin-top: 4px">
+<button type="button" onClick="{{ openFilm }}" class="pill" style="height: 54px; padding: 0 8px 0 22px; display: flex; align-items: center; gap: 14px; background: #FFFFFF; border: 0; border-radius: 999px; color: #1A1414; font-family: inherit; font-size: 15px; font-weight: 500; cursor: pointer">Watch video<span style="width: 40px; height: 40px; border-radius: 50%; background: #C00000; display: flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="#FFFFFF"></path></svg></span></button>
+<span style="background: #FFFFFF; padding: 5px 8px; display: flex"><img src="/_blob/6797cb2a2fa89d53ab65d0de895916df" alt="Urgent Care Association" style="height: 30px; width: auto; display: block"></span>
+<span style="background: #FFFFFF; padding: 5px 8px; display: flex"><img src="/_blob/f443b7b082428efc5c8d37e185242071" alt="Healthcare International Group" style="height: 30px; width: auto; display: block"></span>
+</div>
+</div>
+</section>
+
+<section style="padding: 80px 20px">
+<div style="display: flex; flex-direction: column; gap: 26px">
+<div style="font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #9A0000; border-top: 1px solid rgba(26,20,20,.18); padding-top: 18px">How It Works</div>
+<h2 class="rv" style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.06">Getting Medical Help <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #C00000">Is Simple</span></h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px">
+<sc-for list="{{ steps }}" as="p" hint-placeholder-count="4">
+<div class="rv" style="padding: 20px 0 22px; border-top: 1px solid #C00000; display: flex; flex-direction: column; gap: 8px">
+<span style="font-family: 'Calisto MT', Georgia, serif; font-size: 42px; line-height: 1; color: #C00000">{{ p.num }}</span>
+<span style="font-family: 'Calisto MT', Georgia, serif; font-size: 19px; line-height: 1.22">{{ p.title }}</span>
+<span style="font-size: 13.5px; line-height: 1.5; color: #4D4543">{{ p.text }}</span>
+</div>
+</sc-for>
+</div>
+<a href="https://wa.me/201222228247" class="pill" style="height: 56px; padding: 0 8px 0 24px; display: flex; align-items: center; justify-content: space-between; background: #25D366; border-radius: 999px; color: #FFFFFF; font-size: 15px; font-weight: 500">Get Medical Help Now<span style="width: 40px; height: 40px; border-radius: 50%; background: #128C3E; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+</div>
+</section>
+
+<section id="insurance" style="position: relative; background: #4A0B12; color: #FFFFFF; padding: 80px 20px; overflow: hidden">
+<div class="rv" style="position: relative; display: flex; flex-direction: column; gap: 18px">
+<div style="font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #FFB3B3">Insurance &amp; Cashless</div>
+<h2 style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.06">Travelling With <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #FFD9D4">Medical Insurance?</span></h2>
+<p style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-size: 20px; line-height: 1.35">We Can Coordinate Directly With Your Insurer</p>
+<p style="margin: 0; font-size: 15px; color: rgba(255,255,255,.8)">Where approved, treatment is cashless, so you may not need to pay the full cost upfront and claim it back later.</p>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 10px 0">
+<sc-for list="{{ insurers }}" as="i" hint-placeholder-count="12">
+<div style="height: 64px; background: #F7F2EC; display: flex; align-items: center; justify-content: center; padding: 10px 12px"><img src="{{ i.src }}" alt="{{ i.name }}" style="max-width: 100%; max-height: 28px; width: auto; display: block"></div>
+</sc-for>
+</div>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+<li style="padding: 12px 0; border-top: 1px solid rgba(255,255,255,.16); display: flex; align-items: center; gap: 12px; font-size: 14.5px"><span style="width: 6px; height: 6px; background: #FFB3B3"></span>Insurance verification</li>
+<li style="padding: 12px 0; border-top: 1px solid rgba(255,255,255,.16); display: flex; align-items: center; gap: 12px; font-size: 14.5px"><span style="width: 6px; height: 6px; background: #FFB3B3"></span>Guarantee of Payment coordination</li>
+<li style="padding: 12px 0; border-top: 1px solid rgba(255,255,255,.16); border-bottom: 1px solid rgba(255,255,255,.16); display: flex; align-items: center; gap: 12px; font-size: 14.5px"><span style="width: 6px; height: 6px; background: #FFB3B3"></span>Medical documentation</li>
+</ul>
+<a href="https://wa.me/201222228247" class="pill" style="height: 56px; padding: 0 8px 0 22px; display: flex; align-items: center; justify-content: space-between; background: #25D366; border-radius: 999px; color: #FFFFFF; font-size: 14.5px; font-weight: 500; margin-top: 8px">Check Your Insurance on WhatsApp<span style="width: 40px; height: 40px; border-radius: 50%; background: #128C3E; display: flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<a href="#" class="pill" style="height: 54px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.5); border-radius: 999px; color: #FFFFFF; font-size: 14.5px; font-weight: 500">Learn About Insurance &amp; Cashless Care</a>
+</div>
+</section>
+
+<section style="padding: 80px 0 64px">
+<div style="padding: 0 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #9A0000">Patient Stories</div>
+<h2 class="rv" style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.06">What Our <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #C00000">Patients Say</span></h2>
+</div>
+<div class="rail" style="display: flex; gap: 10px; overflow-x: auto; padding: 28px 20px 0; scroll-snap-type: x mandatory">
+<sc-for list="{{ stories }}" as="v" hint-placeholder-count="6">
+<div style="position: relative; flex: 0 0 210px; height: 360px; overflow: hidden; background: #1A1212; scroll-snap-align: start">
+<video src="{{ v.src }}" autoplay="" muted="" loop="" playsinline="" preload="metadata" style="width: 100%; height: 100%; object-fit: cover; display: block"></video>
+<span style="position: absolute; inset: 0; background: linear-gradient(180deg, transparent 58%, rgba(15,11,11,.85))"></span>
+<span style="position: absolute; left: 14px; right: 14px; bottom: 14px; display: flex; align-items: center; justify-content: space-between; color: #FFFFFF"><span style="font-family: 'Calisto MT', Georgia, serif; font-size: 20px">{{ v.label }}</span><span style="width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(255,255,255,.75); display: flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6.5v11l9-5.5z" fill="#FFFFFF"></path></svg></span></span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section id="finder" style="background: #0F0B0B; color: #FFFFFF; padding: 80px 20px">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div style="font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #FFB3B3">Find a Clinic</div>
+<h2 style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.06">Find a 24/7 Clinic <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #FFD9D4">Near You</span></h2>
+<div class="sea" style="position: relative; height: 520px; margin: 0 -20px; overflow: hidden; perspective: 1100px; background-color: #0B1416; background-image: radial-gradient(45% 35% at 30% 30%, rgba(40,130,140,.28), transparent 70%), radial-gradient(40% 30% at 70% 75%, rgba(20,90,110,.3), transparent 70%), radial-gradient(120% 90% at 60% 40%, #10262A 0%, #091012 70%); background-size: 160% 160%, 160% 160%, 100% 100%">
+<div style="position: absolute; left: 50%; top: 50%; width: 224px; height: 406px; margin: -203px 0 0 -128px; transform-style: preserve-3d; transform: {{ planeTransform }}; transition: transform 1.6s cubic-bezier(.16,1,.3,1)">
+<svg viewBox="100 100 900 1634" preserveAspectRatio="none" width="224" height="406" aria-hidden="true" style="position: absolute; inset: 0; overflow: visible; -webkit-mask-image: radial-gradient(ellipse 78% 62% at 46% 52%, #000 58%, transparent 100%); mask-image: radial-gradient(ellipse 78% 62% at 46% 52%, #000 58%, transparent 100%)"><defs><linearGradient id="landm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3B2D29"></stop><stop offset="1" stop-color="#241A18"></stop></linearGradient><pattern id="contourm" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(28)"><path d="M0 11h22" stroke="#FFD9D4" stroke-opacity=".07" stroke-width="2"></path></pattern></defs><path d="M0,0 L56,0 L128,93 L206,186 L217,260 L250,322 L256,353 L267,402 L300,421 L278,440 L272,495 L322,619 L400,774 L461,898 L539,1053 L644,1207 L722,1393 L800,1536 L844,1641 L906,1734 L0,1734 Z" fill="url(#landm)"></path><path d="M0,0 L56,0 L128,93 L206,186 L217,260 L250,322 L256,353 L267,402 L300,421 L278,440 L272,495 L322,619 L400,774 L461,898 L539,1053 L644,1207 L722,1393 L800,1536 L844,1641 L906,1734 L0,1734 Z" fill="url(#contourm)"></path><path d="M56,0 L128,93 L206,186 L217,260 L250,322 L256,353 L267,402 L300,421 L278,440 L272,495 L322,619 L400,774 L461,898 L539,1053 L644,1207 L722,1393 L800,1536 L844,1641 L906,1734" fill="none" stroke="#FFD9D4" stroke-opacity=".75" stroke-width="6"></path><g aria-hidden="true"><path d="M100 300H1000M100 600H1000M100 900H1000M100 1200H1000M100 1500H1000" stroke="#FFFFFF" stroke-opacity=".06" stroke-width="2" stroke-dasharray="6 14"></path><text x="640" y="900" fill="#FFD9D4" fill-opacity=".6" font-family="Cormorant Garamond, Georgia, serif" font-style="italic" font-size="120" transform="rotate(-62 640 900)">Red Sea</text><text x="120" y="1180" fill="#FFFFFF" fill-opacity=".22" font-family="Poppins, sans-serif" font-size="44" letter-spacing="26" transform="rotate(-62 120 1180)">EGYPT</text></g></svg>
+<sc-for list="{{ pins }}" as="p" hint-placeholder-count="20">
+<span style="{{ p.style }}"><span class="beam" style="{{ p.beam }}"></span><sc-if value="{{ p.hot }}" hint-placeholder-val="{{ true }}"><span class="glow" style="position: absolute; inset: 0; border-radius: 50%; background: rgba(226,6,19,.6)"></span></sc-if></span>
+</sc-for>
+<sc-for list="{{ towns }}" as="w" hint-placeholder-count="5">
+<span style="{{ w.style }}"><span style="display: block; transform: rotateZ(22deg) rotateX(-58deg); transform-origin: left bottom; white-space: nowrap; font-family: 'Calisto MT', Georgia, serif; font-size: 14px; color: #FFFFFF; text-shadow: 0 2px 10px rgba(0,0,0,.8)">{{ w.name }}</span></span>
+</sc-for>
+</div>
+<div style="position: absolute; left: 20px; bottom: 16px; right: 20px; display: flex; justify-content: space-between; font-size: 10.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: rgba(255,217,212,.75)"><span>Red Sea, Egypt</span><span>{{ regionName }}</span></div>
+</div>
+<div class="rail" style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -20px; padding: 0 20px">
+<sc-for list="{{ regions }}" as="r" hint-placeholder-count="7">
+<button type="button" onClick="{{ r.pick }}" style="flex: 0 0 auto; height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid {{ r.border }}; background: {{ r.bg }}; color: {{ r.fg }}; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px">{{ r.name }}<span style="font-family: 'Calisto MT', Georgia, serif; opacity: .75">{{ r.count }}</span></button>
+</sc-for>
+</div>
+<sc-if value="{{ hasList }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column">
+<sc-for list="{{ listed }}" as="h" hint-placeholder-count="4">
+<div style="min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid rgba(255,255,255,.12); padding: 6px 0">
+<span style="font-family: 'Calisto MT', Georgia, serif; font-size: 18px; line-height: 1.25">{{ h }}</span>
+<a href="https://wa.me/201222228247" aria-label="WhatsApp this clinic" style="flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; background: #25D366; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"></path></svg></a>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</section>
+
+<section style="padding: 80px 0 64px">
+<div style="padding: 0 20px; display: flex; justify-content: space-between; align-items: flex-end">
+<h2 class="rv" style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.06">Our <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #C00000">Blog</span></h2>
+<a href="#" style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: #9A0000; padding: 12px 0">All Articles</a>
+</div>
+<div class="rail" style="display: flex; gap: 12px; overflow-x: auto; padding: 24px 20px 0; scroll-snap-type: x mandatory">
+<sc-for list="{{ posts }}" as="b" hint-placeholder-count="2">
+<a href="#" style="flex: 0 0 300px; background: #FFFFFF; border: 1px solid rgba(26,20,20,.08); scroll-snap-align: start; display: flex; flex-direction: column">
+<span style="height: 200px; overflow: hidden; display: block"><img src="{{ b.img }}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></span>
+<span style="padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<span style="display: flex; align-items: baseline; gap: 8px; color: #9A0000"><span style="font-family: 'Calisto MT', Georgia, serif; font-size: 34px; line-height: 1">{{ b.day }}</span><span style="font-size: 11px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase">{{ b.month }}</span></span>
+<span style="font-family: 'Calisto MT', Georgia, serif; font-size: 21px; line-height: 1.22">{{ b.title }}</span>
+<span style="font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: #9A0000">Read More</span>
+</span>
+</a>
+</sc-for>
+</div>
+</section>
+
+<section style="background: #EFE6DC; padding: 80px 20px">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div style="font-size: 11px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #9A0000; border-top: 1px solid rgba(26,20,20,.18); padding-top: 18px">FAQ</div>
+<h2 class="rv" style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 38px; line-height: 1.06">Frequently Asked <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #C00000">Questions</span></h2>
+<p style="margin: 0; color: #4D4543">Quick answers before you message us.</p>
+<div style="display: flex; flex-direction: column; margin-top: 8px">
+<sc-for list="{{ faqs }}" as="f" hint-placeholder-count="3">
+<div style="border-top: 1px solid rgba(26,20,20,.16)">
+<button type="button" onClick="{{ f.pick }}" style="width: 100%; min-height: 68px; display: flex; align-items: center; gap: 14px; background: transparent; border: 0; padding: 14px 0; text-align: left; font-family: 'Calisto MT', Georgia, serif; font-size: 20px; line-height: 1.28; color: #1A1414; cursor: pointer"><span style="flex: 1">{{ f.q }}</span><span style="width: 40px; height: 40px; flex: 0 0 auto; border-radius: 50%; border: 1px solid rgba(154,0,0,.4); color: #9A0000; display: flex; align-items: center; justify-content: center; font-family: Poppins, sans-serif; font-size: 18px; font-weight: 300">{{ f.sign }}</span></button>
+<sc-if value="{{ f.on }}" hint-placeholder-val="{{ false }}"><p style="margin: 0 0 18px; font-size: 15px; color: #4D4543">{{ f.a }}</p></sc-if>
+</div>
+</sc-for>
+<div style="border-top: 1px solid rgba(26,20,20,.16)"></div>
+</div>
+<a href="#" style="align-self: flex-start; font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: #9A0000; padding: 10px 0">All FAQs</a>
+</div>
+</section>
+
+<section style="position: relative; height: 600px; overflow: hidden; display: flex; align-items: flex-end; background: #140E0E; color: #FFFFFF">
+<img class="px" src="/_blob/844e1def5ec33147f57aa9d6e60046f0" alt="A guest on a Red Sea beach messaging on her phone" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 38% center">
+<div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,11,11,.1) 0%, rgba(15,11,11,.9) 70%)"></div>
+<div class="rv" style="position: relative; padding: 0 20px 36px; display: flex; flex-direction: column; gap: 16px; width: 100%">
+<h2 style="margin: 0; font-family: 'Calisto MT', Georgia, serif; font-weight: 400; font-size: 44px; line-height: 1">Feeling Unwell <span style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 500; color: #FFD9D4">During Your Holiday?</span></h2>
+<p style="margin: 0; font-size: 15px; color: rgba(255,255,255,.86)">Tell us where you are staying and what happened. Our medical coordination team is available 24/7.</p>
+<a href="https://wa.me/201222228247" class="pill" style="height: 58px; padding: 0 8px 0 24px; display: flex; align-items: center; justify-content: space-between; background: #25D366; border-radius: 999px; color: #FFFFFF; font-size: 16px; font-weight: 500">WhatsApp Us 24/7<span style="width: 42px; height: 42px; border-radius: 50%; background: #128C3E; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<a href="tel:+201222228247" class="pill" style="height: 56px; display: flex; align-items: center; justify-content: center; gap: 10px; background: #C00000; border-radius: 999px; color: #FFFFFF; font-size: 15.5px; font-weight: 500"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>+20 122 222 8247</a>
+</div>
+</section>
+
+<footer style="background: #0F0B0B; color: rgba(255,255,255,.78); padding: 64px 20px 96px; font-size: 14px">
+<div style="display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<img src="/_blob/f55e80adf09a372444bce99fa9e2a91d" alt="24/7 Clinic, Travel Medical Services" style="width: 132px; height: auto">
+<p style="margin: 0">24/7 Clinic provides travel medical services and urgent medical care for international guests in Egypt.</p>
+<div style="display: flex; flex-direction: column; gap: 6px; font-size: 12.5px"><span>Accredited by the Urgent Care Association</span><span>Part of Healthcare International Group</span></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px">
+<nav aria-label="Footer menu" style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 10.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: #FFB3B3; margin-bottom: 4px">Menu</span><a href="#">Home</a><a href="#">Medical Services</a><a href="#">Insurance &amp; Cashless Care</a><a href="#finder">Find a Clinic</a><a href="#">For Hotels &amp; Partners</a><a href="#">About Us</a><a href="#">Contact</a></nav>
+<nav aria-label="Destinations" style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 10.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: #FFB3B3; margin-bottom: 4px">Destinations</span><a href="#finder">Hurghada</a><a href="#finder">Sahl Hasheesh</a><a href="#finder">Soma Bay</a><a href="#finder">Marsa Alam</a><a href="#finder">El Quseir</a><a href="#finder">North Coast</a></nav>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 10.5px; font-weight: 500; letter-spacing: .24em; text-transform: uppercase; color: #FFB3B3; margin-bottom: 4px">Contact</span><a href="tel:+201222228247" style="font-family: 'Calisto MT', Georgia, serif; font-size: 22px; color: #FFFFFF">+20 122 222 8247</a><a href="mailto:info@247clinic.net">info@247clinic.net</a><span>123 Hassan ElMaamoun St., Sixth Floor, Suite 604, Nasr City, Cairo</span></div>
+<div style="padding-top: 20px; border-top: 1px solid rgba(255,255,255,.12); display: flex; flex-direction: column; gap: 10px; font-size: 12px; color: rgba(255,255,255,.6)"><span style="display: flex; gap: 18px"><a href="#">Beauty &amp; Wellness</a><a href="#">Blog</a><a href="#">FAQ</a></span><span>© 2026 24/7 Clinic. All Rights Reserved.</span></div>
+</div>
+</footer>
+
+<div style="position: sticky; bottom: 0; z-index: 30; display: grid; grid-template-columns: minmax(0, 1fr) 58px; gap: 8px; padding: 10px 12px; background: rgba(15,11,11,.9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,255,255,.12)">
+<a href="https://wa.me/201222228247" style="height: 52px; border-radius: 999px; background: #25D366; color: #FFFFFF; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 15px; font-weight: 500"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.2.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"></path></svg>WhatsApp Us 24/7</a>
+<a href="tel:+201222228247" aria-label="Call +20 122 222 8247" style="height: 52px; border-radius: 999px; background: #C00000; color: #FFFFFF; display: flex; align-items: center; justify-content: center"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg></a>
+</div>
+
+<sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+<div role="dialog" aria-label="Menu" style="position: absolute; top: 0; left: 0; right: 0; z-index: 60; min-height: 844px; background: #0F0B0B; color: #FFFFFF; display: flex; flex-direction: column; padding: 0 20px 32px">
+<div style="height: 76px; display: flex; align-items: center; justify-content: space-between">
+<img src="/_blob/f85799d05d6ad0d89ebdba4ad67c6cf9" alt="24/7 Clinic" style="height: 50px; width: auto">
+<button type="button" onClick="{{ closeMenu }}" aria-label="Close menu" style="width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,.4); background: transparent; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+</div>
+<nav aria-label="Main" style="display: flex; flex-direction: column; margin-top: 20px">
+<a href="#" onClick="{{ closeMenu }}" style="min-height: 58px; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,.12); font-family: 'Calisto MT', Georgia, serif; font-size: 28px">Home</a>
+<a href="#services" onClick="{{ closeMenu }}" style="min-height: 58px; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,.12); font-family: 'Calisto MT', Georgia, serif; font-size: 28px">Medical Services</a>
+<a href="#insurance" onClick="{{ closeMenu }}" style="min-height: 58px; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,.12); font-family: 'Calisto MT', Georgia, serif; font-size: 28px">Insurance &amp; Cashless Care</a>
+<a href="#finder" onClick="{{ closeMenu }}" style="min-height: 58px; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,.12); font-family: 'Calisto MT', Georgia, serif; font-size: 28px">Find a Clinic</a>
+<a href="#" onClick="{{ closeMenu }}" style="min-height: 58px; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,.12); font-family: 'Calisto MT', Georgia, serif; font-size: 28px">For Hotels &amp; Partners</a>
+<a href="#" onClick="{{ closeMenu }}" style="min-height: 58px; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,.12); font-family: 'Calisto MT', Georgia, serif; font-size: 28px">About Us</a>
+<a href="#" onClick="{{ closeMenu }}" style="min-height: 58px; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,.12); font-family: 'Calisto MT', Georgia, serif; font-size: 28px">Contact</a>
+</nav>
+<div style="margin-top: 28px; display: flex; flex-direction: column; gap: 10px">
+<a href="https://wa.me/201222228247" style="height: 54px; border-radius: 999px; background: #25D366; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 500">WhatsApp Us 24/7</a>
+<a href="tel:+201222228247" style="height: 54px; border-radius: 999px; background: #C00000; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 500">+20 122 222 8247</a>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ filmOpen }}" hint-placeholder-val="{{ false }}">
+<div role="dialog" aria-label="24/7 Clinic film" style="position: absolute; top: 0; left: 0; right: 0; z-index: 70; height: 844px; background: rgba(15,11,11,.96); display: flex; align-items: center; justify-content: center; padding: 20px">
+<button type="button" onClick="{{ closeFilm }}" aria-label="Close video" style="position: absolute; top: 20px; right: 20px; width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(255,255,255,.4); background: transparent; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+<video src="/_blob/d5e24cc96b7a6ca3657560ee7505db14" controls="" autoplay="" playsinline="" style="width: 100%; background: #000; display: block"></video>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":10670}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var st = this.state || {};
+    var self = this;
+    var faq = st.faq == null ? 0 : st.faq;
+    var region = st.region || 'all';
+    var SV = [
+      ['Urgent Medical Care', 'Sudden illness, fever, infections, stomach and gut problems, dehydration, breathing problems and other urgent conditions.', '/_blob/ce42559737052b3275cb1aadb8017f20', ['Fever', 'Infections', 'Dehydration'], 'center 30%'],
+      ['Injuries & Minor Procedures', 'Wounds, burns, sprains and minor trauma, with dressings, stitches and other minor procedures where clinically appropriate.', '/_blob/c940a9671235529220a2bba39f52eb32', ['Wounds', 'Burns', 'Stitches'], '60% center'],
+      ['Diagnostics & Laboratory Tests', 'Medical assessment with laboratory tests and diagnostic services when required.', '/_blob/80601b240cfb3d445b9b670751ac79d5', ['Assessment', 'Lab Tests'], 'center 30%'],
+      ['IV Therapy & Medication', 'Doctor-prescribed medication, injections and IV therapy when medically indicated.', '/_blob/217c291213bb398fc1cfdc0d14d6de44', ['IV Therapy', 'Injections'], 'center 30%'],
+      ['Specialist Consultation', 'Access to specialist physicians when further medical assessment is required.', '/_blob/ce64b6db4564c846a6e15fbe09c21382', ['Specialists'], 'center 25%'],
+      ['Hotel Room Doctor Visit', 'When appropriate, a doctor comes directly to your hotel room.', '/_blob/c606e144ec46e6c0fa1c9410be10a61d', ['In Your Room'], '70% center']
+    ];
+    var services = SV.map(function (s, i) { return { num: '0' + (i + 1), title: s[0], text: s[1], img: s[2], tags: s[3], pos: s[4], alt: s[0] + ' at a 24/7 Clinic' }; });
+    var steps = [
+      { num: '1', title: 'Message Us on WhatsApp', text: 'Tell us your hotel and what happened.' },
+      { num: '2', title: 'We Find the Nearest Medical Option', text: 'Your hotel’s 24/7 Clinic, or the most appropriate option nearby.' },
+      { num: '3', title: 'We Check Your Insurance', text: 'Where applicable, we coordinate directly with your insurer.' },
+      { num: '4', title: 'Receive Medical Care', text: 'Treatment on-site whenever clinically appropriate.' }
+    ];
+    var insurers = [
+      ['Allianz', '/_blob/b4f053dc393f9ee5b39fc0791a4f3c11'], ['AXA', '/_blob/f12bc1478998d27c90712b3247f777ef'], ['ADAC', '/_blob/7c90c5b11a0120e6f7153d8294a28a54'],
+      ['Bupa', '/_blob/496fbb4606e68bd66a19d92174be31ab'], ['ERGO', '/_blob/bb232953fba1ce36dd6d4c01c54fb72a'], ['Generali', '/_blob/f0ee4ca24125ecf81a97688448832ff6'],
+      ['Europ Assistance', '/_blob/ab1dd768d3d8428298ea10131d8a5cb6'], ['International SOS', '/_blob/21bdcb4037fa2d1d4b118015803d4869'], ['MetLife', '/_blob/890a9c9b27e2bff916ffd6a2e1be59e2'],
+      ['HanseMerkur', '/_blob/97de7024855355da5e099fe5ecc63c50'], ['SIGNAL IDUNA', '/_blob/aeeaff5fe879a925bcb4087214a4d118'], ['UNIQA', '/_blob/82716fc6991e3eeb9e15f5341f7273f3']
+    ].map(function (x) { return { name: x[0], src: x[1] }; });
+    var stories = [
+      { src: '/_blob/b4d9ecd5cfcf3fb25c6fcd81781aa7c7', label: 'Scotland' },
+      { src: '/_blob/467c68d4ce5e868efdd901d1d784de0d', label: 'Italy' },
+      { src: '/_blob/ff9e45b032e6c80968f404c76b7ce23f', label: 'Poland' },
+      { src: '/_blob/7b3aa2e353277f5d5f4ff7d6556e1fef', label: 'Romania' },
+      { src: '/_blob/4033a53e587328ee150757160f0baa15', label: 'Guest story' },
+      { src: '/_blob/4a8f2e5713dce5776398130686cc98a2', label: 'Guest story' }
+    ];
+    var posts = [
+      { img: '/_blob/55e3169dfd8faa291eb1205a338e4db7', day: '22', month: 'Nov 2023', title: 'Fast & Reliable Medical Services in the Red Sea' },
+      { img: '/_blob/1f5e6991447d43c3e3e7ad892f6ad820', day: '15', month: 'Nov 2023', title: 'Unveiling the Best 24/7 Clinics for Travelers' }
+    ];
+    var FQ = [
+      ['Is there a 24/7 Clinic inside my hotel?', 'Use the Find a Clinic page or contact us on WhatsApp and send your hotel name.'],
+      ['What should I send you on WhatsApp?', 'Please send your name, hotel, location, brief description of the medical problem and insurance information if available.'],
+      ['Do I need to contact my insurance company first?', 'Not always. Send us your insurance details and our team can advise you on the next step.']
+    ];
+    var faqs = FQ.map(function (f, i) { return { q: f[0], a: f[1], on: i === faq, sign: i === faq ? '−' : '+', pick: function () { self.setState({ faq: i === faq ? -1 : i }); } }; });
+    var HOTELS = {
+      'hurghada': ['Long Beach Resort', 'Hilton Hurghada Plaza', 'Jaz Crystal Resort', 'Jaz Samaya Resort', 'Jaz Dar El Madina Resort'],
+      'sahl-hasheesh': ['Premier Le Rêve Hotel & Spa', 'Baron Palace Sahl Hasheesh', 'Old Palace Resort Sahl Hasheesh', 'Pyramisa Beach Resort Sahl Hasheesh'],
+      'soma-bay': ['Steigenberger Resort Ras Soma', 'Amwaj Beach Club', 'Caribbean World Resort', 'Palm Royale Resort Soma Bay'],
+      'el-quseir': ['Radisson Blu El Quseir'],
+      'marsa-alam': ['Jaz Lamaya Resort', 'Jaz Solaya Resort', 'Jaz Maraya Resort', 'Steigenberger Alaya Marsa Alam', 'Steigenberger Coraya Beach', 'Jaz Elite Riviera', 'Iberotel Costa Mares', 'Jaz Amara Resort', 'Casa Mare Resort', 'True Beach Resort', 'Reef Oasis Resort'],
+      'north-coast': ['Jaz Almaza Beach', 'Jaz Almazino', 'Jaz Tamerina', 'Jaz Oriental Resort', 'Jaz Oriental Club']
+    };
+    var RG = [['all', 'All', 30], ['hurghada', 'Hurghada', 5], ['sahl-hasheesh', 'Sahl Hasheesh', 4], ['soma-bay', 'Soma Bay', 4], ['el-quseir', 'El Quseir', 1], ['marsa-alam', 'Marsa Alam', 11], ['north-coast', 'North Coast', 5]];
+    var FOCUS = { 'all': [50, 50, 1], 'hurghada': [13, 9, 2.3], 'sahl-hasheesh': [16, 13.5, 2.6], 'soma-bay': [20, 21, 2.4], 'el-quseir': [39, 47, 2], 'marsa-alam': [66, 74, 1.7], 'north-coast': [50, 50, 1] };
+    var regionName = '';
+    var regions = RG.map(function (r) { var on = r[0] === region; if (on && r[0] !== 'all') regionName = r[1]; return { name: r[1], count: r[2], bg: on ? '#FFFFFF' : 'transparent', fg: on ? '#0F0B0B' : '#FFFFFF', border: on ? '#FFFFFF' : 'rgba(255,255,255,.3)', pick: function () { self.setState({ region: r[0] }); } }; });
+    var dests = RG.slice(1).map(function (r) { return { name: r[1], count: r[2], pick: function () { self.setState({ region: r[0] }); } }; });
+    var f = FOCUS[region];
+    var planeTransform = 'rotateX(58deg) rotateZ(-22deg) scale(' + f[2] + ') translate(' + (50 - f[0]) + '%, ' + (50 - f[1]) + '%)';
+    var PN = [[12.3,5.0,'hurghada'],[14.1,11.6,'hurghada'],[16.7,12.9,'sahl-hasheesh'],[15.9,12.9,'sahl-hasheesh'],[15.7,13.6,'sahl-hasheesh'],[15.9,13.8,'sahl-hasheesh'],[20.4,19.9,'soma-bay'],[19.2,21.1,'soma-bay'],[19.7,20.9,'soma-bay'],[19.4,21.8,'soma-bay'],[38.8,47.1,'el-quseir'],[60.4,67.7,'marsa-alam'],[60.2,67.8,'marsa-alam'],[60.0,67.6,'marsa-alam'],[62.9,71.1,'marsa-alam'],[63.1,70.9,'marsa-alam'],[62.7,71.3,'marsa-alam'],[65.2,73.9,'marsa-alam'],[82.3,93.5,'marsa-alam'],[83.6,95.2,'marsa-alam']];
+    var pins = PN.map(function (p) {
+      var hot = region === 'all' || region === p[2];
+      var sz = hot ? 8 : 5;
+      return {
+        hot: hot,
+        style: 'position:absolute;left:' + p[0] + '%;top:' + p[1] + '%;width:' + sz + 'px;height:' + sz + 'px;margin:-' + sz / 2 + 'px 0 0 -' + sz / 2 + 'px;border-radius:50%;transform-style:preserve-3d;background:' + (hot ? '#E20613' : '#5A4444') + ';box-shadow:' + (hot ? '0 0 12px 3px rgba(226,6,19,.75)' : 'none') + ';transition:all .6s cubic-bezier(.16,1,.3,1)',
+        beam: 'position:absolute;left:50%;bottom:50%;width:2px;margin-left:-1px;height:' + (hot ? 64 : 0) + 'px;transform-origin:bottom center;transform:rotateX(-90deg);background:linear-gradient(to top,rgba(226,6,19,.95),rgba(255,180,180,0));transition:height .8s cubic-bezier(.16,1,.3,1)'
+      };
+    });
+    var TW = [['Hurghada', 12, 6], ['Sahl Hasheesh', 17, 13.5], ['Soma Bay', 21, 21], ['El Quseir', 40, 47.5], ['Marsa Alam', 65, 70]];
+    var towns = TW.map(function (t) { return { name: t[0], style: 'position:absolute;left:calc(' + t[1] + '% + 12px);top:' + t[2] + '%;transform-style:preserve-3d' }; });
+    var listed = region === 'all' ? [] : HOTELS[region];
+    return {
+      services: services, steps: steps, insurers: insurers, stories: stories, posts: posts, faqs: faqs,
+      regions: regions, dests: dests, regionName: regionName, planeTransform: planeTransform, pins: pins, towns: towns,
+      listed: listed, hasList: listed.length > 0,
+      menuOpen: !!st.menu, filmOpen: !!st.film,
+      openMenu: function () { self.setState({ menu: true }); },
+      closeMenu: function () { self.setState({ menu: false }); },
+      openFilm: function () { self.setState({ film: true }); },
+      closeFilm: function () { self.setState({ film: false }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

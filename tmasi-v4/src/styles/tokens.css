@@ -1,0 +1,22 @@
+/* TMASI v4 brand tokens (spec 009 FR-019). Source: TMASI brand guideline slides 12 and 13, and the v3
+   design rules in tmasi-next/src/app/globals.css. Teal dominant, white and black; medium blue and
+   indigo sparingly. */
+:root {
+  --t-teal: #009a9c;          /* brand teal, dominant */
+  --t-teal-field: #008486;    /* teal field behind white words (white 4.5:1) */
+  --t-teal-on-dark: #7fe0e1;  /* teal used on dark grounds (brand teal is too dark there) */
+  --t-blue: #007ab5;          /* medium blue, sparingly */
+  --t-indigo: #0f205c;        /* indigo, sparingly */
+  --t-black: #000000;
+  --t-ink: #0b1220;           /* near-black for dark bands */
+  --t-white: #ffffff;
+  --t-grey-50: #f6f8f9;
+  --t-grey-200: #e3e8eb;
+  --t-grey-600: #4b5563;
+
+  --t-radius-card: 16px;
+  --t-radius-band: 24px;
+
+  --t-font-display: var(--font-bignoodle), var(--font-bebas), var(--font-montserrat), sans-serif;
+  --t-font-text: var(--font-montserrat), system-ui, sans-serif;
+}

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>24/7 luxury references, desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&amp;family=DM+Sans:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F1EB}
+a{color:#9A0000;text-decoration:none}a:hover{color:#5E0C1A}
+</style>
+</helmet>
+<div style="width: 1440px; box-sizing: border-box; background: #F6F1EB; color: #1A1414; font-family: 'DM Sans', 'Segoe UI', sans-serif; padding: 96px 96px 112px; display: flex; flex-direction: column; gap: 72px">
+
+<header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; border-bottom: 1px solid rgba(26,20,20,.14); padding-bottom: 40px">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="font-size: 12px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #9A0000">24/7 Clinic · Desktop references</div>
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 76px; line-height: 1; letter-spacing: -.01em">World class care, <span style="font-style: italic; color: #9A0000">in world class hotels.</span></h1>
+</div>
+<div style="font-size: 13px; line-height: 1.7; color: #4D4543; text-align: right; white-space: nowrap">Verified in a real browser<br>12 October 2026</div>
+</header>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px 48px">
+<sc-for list="{{ refs }}" as="r" hint-placeholder-count="10">
+<article style="display: flex; flex-direction: column; gap: 18px">
+<div style="height: 392px; overflow: hidden; background: #E9E1D8; border: 1px solid rgba(26,20,20,.08)">
+<img src="{{ r.img }}" alt="{{ r.alt }}" style="width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block">
+</div>
+<div style="display: flex; gap: 20px; align-items: flex-start">
+<span style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 40px; line-height: .9; color: #9A0000; min-width: 48px">{{ r.num }}</span>
+<div style="display: flex; flex-direction: column; gap: 6px; flex: 1">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px">
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 28px; line-height: 1.1">{{ r.name }}</h2>
+<a href="{{ r.url }}" style="font-size: 13px; font-weight: 500; white-space: nowrap">Open site</a>
+</div>
+<div style="font-size: 11.5px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: #6E6461">{{ r.meta }}</div>
+<p style="margin: 4px 0 0; font-size: 15.5px; line-height: 1.55; color: #2E2626">{{ r.take }}</p>
+</div>
+</div>
+</article>
+</sc-for>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var R = [
+      ['/_blob/c54d6aa018bc8950c89afd1a8d060e1d', 'Maravilla', 'Framer template · $99 · 2026', 'A giant serif wordmark across the hero photo, roman and italic letters mixed, small tags and a Book pill.', 'https://maravilla.framer.website/'],
+      ['/_blob/e0493acfd58781d906f771dcecc5e4c0', 'Maravilla, the cards', 'Framer template · $99 · 2026', 'Numbered dark photo cards with small tags. Six of these would carry the six 24/7 services.', 'https://maravilla.framer.website/'],
+      ['/_blob/3bcd67818cf72f2f0284f37b36937e3c', 'Maravilla, the story', 'Framer template · $99 · 2026', 'Deep red serif on cream with an italic turn, and a red pill with a round arrow. Red as luxury, not alarm.', 'https://maravilla.framer.website/'],
+      ['/_blob/aa59009af38127ba165cde8c174025a6', 'Rosewood', 'Live site · Rosewood AMAALA, Red Sea', 'The calm resort header: spaced wordmark on its own row, small serif links, one boxed Reserve.', 'https://www.rosewoodhotels.com/'],
+      ['/_blob/1bcadf28042fe36d4ae2d4fad2584e9a', 'Bvlgari Hotels & Resorts', 'Live site', 'Every destination listed on the hero as the menu. For 24/7: Hurghada, Sahl Hasheesh, Soma Bay, El Quseir, Marsa Alam, North Coast.', 'https://www.bulgarihotels.com/'],
+      ['/_blob/8fb4c250a6814ba2d5359dee586c2b03', 'Pulso Hotel', 'Awwwards Honorable Mention · Nov 2025', 'An editorial grid: a tiny caps label in the left column, the content right, hairline rules, calm colour bands.', 'https://www.pulsohotel.com/en'],
+      ['/_blob/baf951b894fca796bce06e1171bf10b4', 'Urban Jürgensen', 'Awwwards Site of the Day · Oct 2025', 'A wine-red paper band holding real photographs. A way to show the clinics and the team with warmth.', 'https://urbanjurgensen.com/'],
+      ['/_blob/d5150c2eeef0b9b7db5a298bc3f50b3a', 'Château Margaux', 'Live site', 'One true proof line at the foot of the hero. For 24/7: the Urgent Care Association accreditation.', 'https://www.chateau-margaux.com/'],
+      ['/_blob/591188dec13d0d24b6773ccecd9f8cd6', 'The Chedi El Gouna', 'Live site · Red Sea, Egypt', 'A neighbour on the same coast: cream header, gold Book box, aerial beach film.', 'https://www.chedielgouna.com/'],
+      ['/_blob/6d8961655ed3aa05d089fdeeba4d6f27', 'Six Senses', 'Live site', 'A quiet serif sentence over film in place of a slogan, with Book now and Play full video.', 'https://www.sixsenses.com/']
+    ];
+    var refs = R.map(function (r, i) { return { img: r[0], alt: r[1] + ' website', name: r[1], meta: r[2], take: r[3], url: r[4], num: (i < 9 ? '0' : '') + (i + 1) }; });
+    return { refs: refs };
+  }
+}
+</script>
+</body>
+</html>

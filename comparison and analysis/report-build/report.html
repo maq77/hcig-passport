@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ambulance Fleet Selection · HCIG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tq:#12C0C6; --tq-ink:#0A7F84; --tq-deep:#0E9AA0; --tq-soft:#ECFAFA; --tq-5:#D0F2F4;
+  --ink:#000; --ink2:#565759; --ink3:#636465; --line:#DDDDDE; --soft:#F1F2F2; --g4:#BBBCBD;
+  --warn:#B4660C; --warn-soft:#FFF4E5; --bad:#C92F3A;
+}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff}
+body{font-family:'Inter',system-ui,Arial,sans-serif;color:var(--ink);font-size:9.4pt;line-height:1.45;
+  font-variant-numeric:tabular-nums;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;page-break-after:always;padding:20mm 16mm 18mm}
+.page:last-child{page-break-after:auto}
+/* running header and footer */
+.hdr{position:absolute;top:8mm;left:16mm;right:16mm;display:flex;justify-content:space-between;align-items:center;
+  font-size:7pt;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;border-bottom:.5pt solid var(--line);padding-bottom:2.2mm}
+.hdr img{height:6.5mm}
+.hdr .brand{display:flex;align-items:center;gap:2.4mm;font-size:6.6pt;letter-spacing:.2em;color:var(--ink);font-weight:600}
+.hdr .sec{font-weight:600;color:var(--ink2)}
+.ftr{position:absolute;bottom:7mm;left:16mm;right:16mm;display:flex;justify-content:space-between;font-size:7pt;color:var(--ink3)}
+.ftr b{color:var(--ink);font-weight:700}
+/* type */
+.kicker{display:flex;align-items:baseline;gap:4mm;margin-bottom:3mm}
+.kicker .num{font-size:30pt;font-weight:900;color:var(--tq);line-height:1;letter-spacing:-.03em}
+.kicker .lab{font-size:7.5pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+h1{font-size:22pt;font-weight:900;letter-spacing:-.025em;line-height:1.08;margin-bottom:2.5mm}
+h2{font-size:12pt;font-weight:800;letter-spacing:-.01em;margin:5mm 0 2mm}
+h3{font-size:9.6pt;font-weight:700;margin:0 0 1.2mm;display:flex;align-items:center;flex-wrap:wrap}
+.lead{font-size:10.6pt;color:var(--ink2);max-width:160mm;margin-bottom:4mm;line-height:1.45}
+p{margin-bottom:2mm}
+.small{font-size:7.8pt;color:var(--ink2)}
+.muted{color:var(--ink3)}
+.tq{color:var(--tq-ink)}
+sup.s{font-size:6pt;color:var(--tq-ink);font-weight:700;margin-left:.3mm}
+.rule{height:1.2mm;width:18mm;background:var(--tq);margin:0 0 4mm}
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:8pt}
+th,td{text-align:left;vertical-align:top;padding:1.6mm 2mm;border-bottom:.5pt solid var(--line)}
+thead th{font-size:7pt;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);font-weight:700;border-bottom:1pt solid var(--ink);padding-top:0}
+tbody th{font-weight:600;color:var(--ink);width:30mm}
+td.num,th.num{text-align:right;white-space:nowrap}
+tr.win td,tr.win th{background:var(--tq-soft)}
+col.win{background:var(--tq-soft)}
+.tag{display:inline-block;font-size:6.6pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.6mm 1.8mm;border-radius:1mm;white-space:nowrap}
+.tag.pick{background:var(--tq);color:#fff}
+.tag.pick2{background:var(--ink);color:#fff}
+.tag.no{background:var(--soft);color:var(--ink2)}
+.tag.warn{background:var(--warn-soft);color:var(--warn)}
+/* letter badge */
+.lt{display:inline-flex;align-items:center;justify-content:center;width:5.2mm;height:5.2mm;border-radius:50%;
+  font-size:7.4pt;font-weight:800;background:var(--ink);color:#fff;margin-right:1.5mm;vertical-align:-1.2mm}
+.lt.w{background:var(--tq)}
+/* boxes */
+.box{border:.5pt solid var(--line);border-radius:2.5mm;padding:4mm}
+.box.tqb{border-color:var(--tq);background:var(--tq-soft)}
+.box.dark{background:#0d0e0f;border:none;color:#fff}
+.box.warnb{border-color:#F0C48A;background:var(--warn-soft)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm}
+ul.clean{list-style:none}
+ul.clean li{position:relative;padding-left:4mm;margin-bottom:1.4mm}
+ul.clean li:before{content:"";position:absolute;left:0;top:1.7mm;width:1.6mm;height:1.6mm;background:var(--tq);border-radius:.3mm}
+ul.minus li:before{background:var(--g4)}
+ol.steps{list-style:none;counter-reset:s}
+ol.steps li{counter-increment:s;position:relative;padding-left:8mm;margin-bottom:2.2mm}
+ol.steps li:before{content:counter(s);position:absolute;left:0;top:-.2mm;width:5.2mm;height:5.2mm;border-radius:50%;background:var(--tq);color:#fff;
+  font-weight:800;font-size:7.4pt;display:flex;align-items:center;justify-content:center}
+.stat{font-size:20pt;font-weight:900;letter-spacing:-.03em;line-height:1}
+.stat small{font-size:9pt;font-weight:600;color:var(--ink2);letter-spacing:0}
+.statlab{font-size:7.2pt;color:var(--ink2);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-top:1.5mm}
+.dots{letter-spacing:.6mm;color:var(--tq);font-size:9pt;white-space:nowrap}
+.dots i{color:var(--line);font-style:normal}
+
+/* COVER */
+.cover{padding:0;background:#fff}
+.cover .top{padding:18mm 16mm 0}
+.cover .logo{height:30mm}
+.cover .eyebrow{margin-top:20mm;font-size:8pt;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--tq-ink)}
+.cover h1{font-size:40pt;line-height:1.02;letter-spacing:-.035em;margin-top:4mm;max-width:170mm}
+.cover .sub{font-size:12.5pt;color:var(--ink2);margin-top:5mm;max-width:150mm;line-height:1.4}
+.cover .stage{position:absolute;left:0;right:0;top:142mm;height:110mm;background:linear-gradient(180deg,#fff 0%,var(--soft) 55%,#e7e8e8 100%)}
+.cover .lineup{position:absolute;left:8mm;right:8mm;bottom:12mm;height:96mm}
+.cover .lineup img{position:absolute;bottom:0;filter:drop-shadow(0 6mm 5mm rgba(0,0,0,.18))}
+.cover .band{position:absolute;left:0;right:0;bottom:0;height:45mm;background:#0d0e0f;color:#fff;padding:9mm 16mm;display:flex;justify-content:space-between;align-items:flex-end}
+.cover .band .k{font-size:7pt;letter-spacing:.16em;text-transform:uppercase;color:#9a9b9c;font-weight:600}
+.cover .band .v{font-size:10.5pt;font-weight:600;margin-top:1.2mm}
+.cover .band .bar{position:absolute;top:0;left:0;height:1.4mm;width:100%;background:var(--tq)}
+
+/* option cards */
+.card{border:.5pt solid var(--line);border-radius:3mm;overflow:hidden;display:flex;flex-direction:column}
+.card .ph{height:40mm;background:linear-gradient(180deg,#fff,var(--soft));display:flex;align-items:flex-end;justify-content:center;padding:2mm 4mm 0}
+.card .ph img{max-height:37mm;max-width:100%;object-fit:contain;filter:drop-shadow(0 2mm 2mm rgba(0,0,0,.15))}
+.card .bd{padding:3.2mm 4mm 4mm}
+.card .ttl{font-size:10pt;font-weight:800;margin-bottom:.6mm;display:flex;align-items:center}
+.card .role{font-size:7.8pt;color:var(--ink2);margin-bottom:2mm}
+.card dl{display:grid;grid-template-columns:24mm 1fr;gap:.8mm 2mm;font-size:7.8pt}
+.card dt{color:var(--ink3)}
+.card dd{font-weight:600}
+.card.win{border-color:var(--tq);box-shadow:0 0 0 .6pt var(--tq)}
+
+/* spec table */
+.spec th{width:27mm}
+.spec td{width:37mm}
+.spec thead th{vertical-align:bottom}
+
+/* charts */
+.chart text{font-family:'Inter',Arial,sans-serif}
+.profile{display:grid;grid-template-columns:62mm 1fr;gap:5mm;margin-bottom:6mm;padding-bottom:6mm;border-bottom:.5pt solid var(--line)}
+.profile:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.profile .pics img{width:100%;border-radius:2mm;display:block}
+.profile .pics .hero{height:34mm;object-fit:contain;background:linear-gradient(180deg,#fff,var(--soft));margin-bottom:2mm;padding:1mm}
+.profile .pics .int{height:44mm;object-fit:cover}
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-top:2.5mm}
+.qa{margin-bottom:3.6mm;padding-bottom:3.4mm;border-bottom:.5pt solid var(--line)}
+.qa:last-child{border-bottom:none}
+.qa .q{font-weight:800;font-size:9.6pt;margin-bottom:1mm;display:flex;gap:2mm}
+.qa .q span{color:var(--tq-ink)}
+.qa .a{color:#1d1e1f;padding-left:6.4mm}
+.src{font-size:6.9pt;line-height:1.38;columns:2;column-gap:7mm}
+.src li{break-inside:avoid;margin-bottom:1.1mm;padding-left:6mm;text-indent:-6mm;list-style:none}
+.src b{color:var(--tq-ink)}
+.quote{border-left:1.2mm solid var(--tq);padding:1mm 0 1mm 3mm;margin:1.5mm 0;font-size:8.4pt}
+.quote .who{display:block;font-size:6.8pt;color:var(--ink3);margin-top:.6mm}
+</style>
+</head>
+<body>
+
+<!-- ============ 1 COVER ============ -->
+<section class="page cover">
+  <div class="top">
+    <img class="logo" src="img/hcig-logo.png" alt="Healthcare International Group">
+    <div class="eyebrow">Fleet decision report · Ambulances</div>
+    <h1>Four WAS ambulances.<br>The best two for HCIG.</h1>
+    <div class="sub">Full comparison of four WAS 300 ambulances on quality, price, running risk and fit for the Red Sea. With a scored recommendation of the best two for value.</div>
+  </div>
+  <div class="stage">
+    <div class="lineup">
+      <img src="img/hero-A.png" style="left:0;height:52mm;bottom:24mm;opacity:.95">
+      <img src="img/hero-C.png" style="right:0;height:50mm;bottom:24mm;opacity:.95">
+      <img src="img/hero-B.png" style="left:22mm;height:62mm;bottom:2mm">
+      <img src="img/hero-D.png" style="right:20mm;height:64mm;bottom:0">
+    </div>
+  </div>
+  <div class="band">
+    <div class="bar"></div>
+    <div><div class="k">Prepared for</div><div class="v">The CEO · Healthcare International Group</div></div>
+    <div><div class="k">Date</div><div class="v">14 October 2026</div></div>
+    <div><div class="k">Status</div><div class="v">Confidential · For decision</div></div>
+  </div>
+</section>
+
+<!-- ============ 2 EXECUTIVE SUMMARY ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Executive summary</span></div>
+  <div class="kicker"><span class="num">01</span><span class="lab">The decision</span></div>
+  <h1 style="font-size:19pt">Buy the Allrounder and the Hot&#8209;Country&nbsp;Sprinter.</h1>
+  <p class="lead">Two vehicles, two jobs. One full emergency ambulance for critical patients and long transfers. One light, low cost ambulance for daily transfers between hotels, airport, clinics and hospital.</p>
+
+  <div class="grid2" style="margin-bottom:4mm">
+    <div class="box tqb">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2mm"><span class="tag pick">Pick 1 · Score 8.2 / 10</span><span class="small">Est. €150k to €190k</span></div>
+      <h3 style="font-size:10.5pt"><span class="lt w">D</span>RTW Allrounder · Sprinter 4.1 t</h3>
+      <ul class="clean small" style="color:#1d1e1f;margin-top:2mm">
+        <li>Built to EN 1789. Full emergency ambulance (RTW).<sup class="s">4</sup></li>
+        <li>Inorganic, sealed interior for extreme heat. Compressor fridge.<sup class="s">4</sup></li>
+        <li>Air conditioning can also run on 230 V shore power while parked.<sup class="s">4</sup></li>
+        <li>Stable mechanical stretcher table, Stem MEC 300 + Stollenwerk.<sup class="s">4</sup></li>
+      </ul>
+    </div>
+    <div class="box" style="border-color:#000">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2mm"><span class="tag pick2">Pick 2 · Score 8.0 / 10</span><span class="small">Est. €80k to €105k</span></div>
+      <h3 style="font-size:10.5pt"><span class="lt">B</span>ALS/BLS Hot&#8209;Country · Sprinter 315</h3>
+      <ul class="clean small" style="color:#1d1e1f;margin-top:2mm">
+        <li>Lowest price of the four. Designed for hot countries.<sup class="s">2</sup></li>
+        <li>Heavy duty AC, solar roof fan, heat proof materials.<sup class="s">2,5</sup></li>
+        <li>Full ALS/BLS kit listed: defibrillator, monitor, suction.<sup class="s">2</sup></li>
+        <li>Now listed at 3.88 t, 4x2 or 4x4.<sup class="s">5</sup></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid3" style="margin-bottom:2mm">
+    <div class="box"><div class="stat">€230k<small> to €295k</small></div><div class="statlab">Both vehicles, ex works, estimate</div></div>
+    <div class="box"><div class="stat">+18.5%<small> in Egypt</small></div><div class="statlab">14% VAT + levies. 0% customs on EU origin<sup class="s">17</sup></div></div>
+    <div class="box"><div class="stat">1,000<small> WAS 300</small></div><div class="statlab">Already run by Egypt's Ambulance Organisation<sup class="s">7</sup></div></div>
+  </div>
+
+  <h2>Why these two</h2>
+  <table>
+    <tbody>
+      <tr><th>Quality</th><td>D is the strongest emergency ambulance for its price. B covers basic and advanced life support at the lowest cost.</td></tr>
+      <tr><th>Price</th><td>Together they cost only about 20% more than one Dutch spec MAN ambulance (C, est. €190k to €240k).</td></tr>
+      <tr><th>Service in Egypt</th><td>Both run on Mercedes Sprinter. Mercedes-Benz Egypt has a workshop in Hurghada.<sup class="s">19</sup> MAN's Egypt agent started in March 2026, for trucks and buses.<sup class="s">20</sup></td></tr>
+      <tr><th>Proven here</th><td>WAS delivered about 4,500 ambulance vehicles to Egypt's Health Ministry by 2021.<sup class="s">8</sup> WAS has a sales partner in Cairo.<sup class="s">6</sup></td></tr>
+    </tbody>
+  </table>
+
+  <h2>Not recommended</h2>
+  <table>
+    <tbody>
+      <tr><th><span class="lt">A</span>4x4 Civil Protection</th><td>Score 6.2. Built for German disaster units: two patients, off road. Heavy at 5.38 t and costs more than B with less clinical fit out. Only worth it for desert tracks and rough roads.</td></tr>
+      <tr><th><span class="lt">C</span>MAN TGE</th><td>Score 5.8. Best stretcher system, but highest price, Dutch spec, and no proven van service network in Egypt.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box warnb" style="margin-top:3.5mm;padding:3mm 4mm"><b>Before ordering.</b> The datasheets carry no prices. All prices here are estimates from public sources. Two points must be fixed in the WAS quotation: an engine and emission level that runs on Egyptian diesel, and the stretcher option for B. See page 13.</div>
+
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>2</b> / 14</span></div>
+</section>
+
+<!-- ============ 3 AT A GLANCE ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">The four options</span></div>
+  <div class="kicker"><span class="num">02</span><span class="lab">At a glance</span></div>
+  <h1>Four WAS 300 ambulances, three base vehicles.</h1>
+  <p class="lead">All four are WAS 300 panel van ambulances. Three sit on the Mercedes-Benz Sprinter, one on the MAN TGE. They differ in role, weight, stretcher system and price.</p>
+
+  <div class="grid2" style="gap:5mm">
+    <div class="card">
+      <div class="ph"><img src="img/hero-A.png" alt=""></div>
+      <div class="bd">
+        <div class="ttl"><span class="lt">A</span>KTW Type B Civil Protection 4x4</div>
+        <div class="role">Patient transport ambulance for German civil protection units.<sup class="s">1</sup></div>
+        <dl>
+          <dt>Base</dt><dd>Sprinter 519 CDI, all wheel drive</dd>
+          <dt>Power · weight</dt><dd>190 PS · 5,380 kg</dd>
+          <dt>Patients</dt><dd>Up to 2 lying</dd>
+          <dt>Stretcher</dt><dd>Electro hydraulic table + 2nd stretcher</dd>
+          <dt>Est. price</dt><dd>€115k to €140k</dd>
+          <dt>Verdict</dt><dd><span class="tag no">Niche · desert only</span></dd>
+        </dl>
+      </div>
+    </div>
+    <div class="card win">
+      <div class="ph"><img src="img/hero-B.png" alt=""></div>
+      <div class="bd">
+        <div class="ttl"><span class="lt w">B</span>ALS/BLS Hot&#8209;Country</div>
+        <div class="role">Export ambulance for hard climates and target countries.<sup class="s">2</sup></div>
+        <dl>
+          <dt>Base</dt><dd>Sprinter 315 CDI, 4x2 (4x4 listed)</dd>
+          <dt>Power · weight</dt><dd>150 PS · 3,500 kg (now 3,880 kg)</dd>
+          <dt>Patients</dt><dd>1 lying</dd>
+          <dt>Stretcher</dt><dd>Ferno F2 roll in + loading ramp</dd>
+          <dt>Est. price</dt><dd>€80k to €105k</dd>
+          <dt>Verdict</dt><dd><span class="tag pick2">Pick 2 · best value</span></dd>
+        </dl>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ph"><img src="img/hero-C.png" alt=""></div>
+      <div class="bd">
+        <div class="ttl"><span class="lt">C</span>RTW 4.25 t on MAN TGE</div>
+        <div class="role">Dutch spec emergency ambulance with powered loading.<sup class="s">3</sup></div>
+        <dl>
+          <dt>Base</dt><dd>MAN TGE 3.180 L3H3, 4x2</dd>
+          <dt>Power · weight</dt><dd>180 PS (stated) · 4,250 kg</dd>
+          <dt>Patients</dt><dd>1 lying</dd>
+          <dt>Stretcher</dt><dd>Stryker Power-LOAD, powered</dd>
+          <dt>Est. price</dt><dd>€190k to €240k</dd>
+          <dt>Verdict</dt><dd><span class="tag no">Too costly · weak service</span></dd>
+        </dl>
+      </div>
+    </div>
+    <div class="card win">
+      <div class="ph"><img src="img/hero-D.png" alt=""></div>
+      <div class="bd">
+        <div class="ttl"><span class="lt w">D</span>RTW Allrounder 4.1 t</div>
+        <div class="role">Emergency ambulance for city and rural service, EN 1789.<sup class="s">4</sup></div>
+        <dl>
+          <dt>Base</dt><dd>Sprinter diesel, variants</dd>
+          <dt>Power · weight</dt><dd>To choose · 4,100 kg</dd>
+          <dt>Patients</dt><dd>1 lying</dd>
+          <dt>Stretcher</dt><dd>Stem MEC 300 table + Stollenwerk</dd>
+          <dt>Est. price</dt><dd>€150k to €190k</dd>
+          <dt>Verdict</dt><dd><span class="tag pick">Pick 1 · best overall</span></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>3</b> / 14</span></div>
+</section>
+
+<!-- ============ 4 SPEC TABLE ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Specification comparison</span></div>
+  <div class="kicker"><span class="num">03</span><span class="lab">Side by side</span></div>
+  <h1>What each vehicle carries.</h1>
+  <p class="lead" style="margin-bottom:3mm">From the four WAS datasheets<sup class="s">1-4</sup> and the WAS website.<sup class="s">5</sup> "Not stated" means the datasheet is silent. Ask WAS.</p>
+  <table class="spec" style="font-size:7.4pt">
+    <colgroup><col><col><col class="win"><col><col class="win"></colgroup>
+    <thead><tr><th></th><th><span class="lt">A</span>KTW 4x4</th><th><span class="lt w">B</span>Hot&#8209;Country</th><th><span class="lt">C</span>MAN TGE</th><th><span class="lt w">D</span>Allrounder</th></tr></thead>
+    <tbody>
+      <tr><th>Datasheet date</th><td>01.2024</td><td>05.2020</td><td>08.2024</td><td>04.2022</td></tr>
+      <tr><th>Role</th><td>Patient transport, Type B, civil protection</td><td>Emergency ALS/BLS, hot countries</td><td>Emergency ambulance (RTW)</td><td>Emergency ambulance (RTW), city and rural</td></tr>
+      <tr><th>Base vehicle</th><td>Sprinter 519 CDI AWD</td><td>Sprinter 315 CDI panel van</td><td>MAN TGE 3.180 L3H3</td><td>Sprinter diesel, variants</td></tr>
+      <tr><th>Drive</th><td>4x4 + rough road chassis</td><td>4x2 (website: 4x2 or 4x4)</td><td>4x2</td><td>Not stated</td></tr>
+      <tr><th>Engine</th><td>140 kW / 190 PS</td><td>110 kW / 150 PS</td><td>137 kW / 180 PS stated*</td><td>To choose</td></tr>
+      <tr><th>Gearbox</th><td>Automatic</td><td>Not stated</td><td>8 speed automatic</td><td>Automatic or manual</td></tr>
+      <tr><th>Gross weight</th><td>5,380 kg</td><td>3,500 kg (website 3,880 kg)</td><td>4,250 kg</td><td>4,100 kg</td></tr>
+      <tr><th>Wheelbase</th><td>3,665 mm</td><td>3,665 mm</td><td>3,640 mm</td><td>3,665 mm</td></tr>
+      <tr><th>EN 1789</th><td>Type B (KTW Typ B)</td><td>Not stated</td><td>Not stated</td><td>Built to EN 1789</td></tr>
+      <tr><th>Patients</th><td>2 lying, or 1 lying + 1 seated</td><td>1 lying</td><td>1 lying</td><td>1 lying</td></tr>
+      <tr><th>Stretcher system</th><td>WAS Hydropuls Comfort 2 electro hydraulic table, 2nd stretcher on wall</td><td>Ferno F2 roll in stretcher, folding ramp, reinforced platform</td><td>Stryker Power-LOAD powered loading</td><td>Stem MEC 300 mechanical table, Stollenwerk 3006/4002</td></tr>
+      <tr><th>Crew seats (rear)</th><td>1 folding swivel seat + partition seat</td><td>2 folding seats + doctor seat</td><td>1 sliding seat + partition seat</td><td>2 folding swivel seats + doctor seat with child belt and Isofix</td></tr>
+      <tr><th>Oxygen</th><td>2 × 11 l + 2 × 2 l, 3 outlets</td><td>2 × 10 l, 2 outlets</td><td>2 × 10 l, automatic switchover</td><td>Outlet, cylinders in external locker</td></tr>
+      <tr><th>Climate</th><td>Engine AC, 9 kW cooling</td><td>Heavy duty AC cab and rear, extra heat exchanger, solar roof fan</td><td>Heat exchanger, automatic climate, electric fan heater</td><td>Heavy duty AC possible, engine or 230 V shore power</td></tr>
+      <tr><th>Interior</th><td>Sealed joints, easy to disinfect</td><td>Heat proof materials, sealed, gapless furniture</td><td>Smooth surfaces, closed cabinets</td><td>Inorganic materials, sealed, gapless furniture</td></tr>
+      <tr><th>Electrics</th><td>CAN central electrics, DIN earthing, isolating transformer</td><td>Central panel, 3 × 230 V, 3 × 12 V</td><td>CAN bus, 230 V inverter, touch display, rear camera</td><td>Central panel, 230 V and 12 V</td></tr>
+      <tr><th>Storage</th><td>Large external locker, full height pharmacy cabinet</td><td>3 part wall cabinet, vacuum mattress cabinet</td><td>External locker, ceiling high cabinets for Lucas 3</td><td>Large external locker, compressor fridge, thermobox</td></tr>
+      <tr><th>Medical kit in text</th><td>Mounting points only</td><td>Defibrillator, monitor, suction, nebuliser, ventilator prep, splints</td><td>Not listed. Storage for ECG unit and Lucas 3</td><td>Not listed. Rails for devices, reimplantation box space</td></tr>
+      <tr><th>Special</th><td>Aluminium underbody guard, branch deflectors</td><td>270° rear doors</td><td>Dutch spec: C2000 radio, SOVAM livery</td><td>Child restraint, roof hatch</td></tr>
+    </tbody>
+  </table>
+  <p class="small" style="margin-top:2mm">* 137 kW equals 186 PS, not 180 PS. Market listings show the TGE 3.180 at 130 kW / 177 PS. The file named "MAN-TGL" describes a MAN TGE van, not a MAN TGL truck. EN 1789 classes: A1 and A2 patient transport, B emergency ambulance, C mobile intensive care unit.<sup class="s">14</sup> Germany uses a Type B body for A as a civil protection transport vehicle. Every datasheet states the equipment is an example and can be changed.</p>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>4</b> / 14</span></div>
+</section>
+
+<!-- ============ 5 PRICE & VALUE ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Price and value</span></div>
+  <div class="kicker"><span class="num">04</span><span class="lab">What it costs</span></div>
+  <h1>B costs less than half of C.</h1>
+  <p class="lead">WAS does not publish prices. Each band is built from public tenders, government orders and base vehicle price lists, for the vehicle with a standard medical kit. Treat them as planning numbers until WAS quotes.</p>
+
+  <svg class="chart" viewBox="0 0 178 62" width="178mm" height="62mm" style="display:block;margin-bottom:3mm">
+    <!-- axis 0..260k mapped to x 34..174 (140mm) => 1k = 0.5385 -->
+    <g font-size="2.5" fill="#636465">
+      <line x1="34" y1="54" x2="174" y2="54" stroke="#BBBCBD" stroke-width=".25"/>
+      <g text-anchor="middle">
+        <text x="34" y="58">€0</text><text x="60.9" y="58">€50k</text><text x="87.8" y="58">€100k</text><text x="114.8" y="58">€150k</text><text x="141.7" y="58">€200k</text><text x="168.6" y="58">€250k</text>
+      </g>
+      <g stroke="#F1F2F2" stroke-width=".25"><line x1="60.9" y1="4" x2="60.9" y2="54"/><line x1="87.8" y1="4" x2="87.8" y2="54"/><line x1="114.8" y1="4" x2="114.8" y2="54"/><line x1="141.7" y1="4" x2="141.7" y2="54"/><line x1="168.6" y1="4" x2="168.6" y2="54"/></g>
+    </g>
+    <g font-size="3" font-weight="700">
+      <!-- B 80-105 -->
+      <text x="0" y="10.2" fill="#000">B · Hot-Country</text>
+      <rect x="77.1" y="6.5" width="13.5" height="5" rx="1" fill="#000"/>
+      <text x="92.6" y="10.2" font-weight="500" font-size="2.7" fill="#565759">€80k to €105k</text>
+      <!-- A 115-140 -->
+      <text x="0" y="22.2" fill="#000">A · KTW 4x4</text>
+      <rect x="95.9" y="18.5" width="13.5" height="5" rx="1" fill="#BBBCBD"/>
+      <text x="111.4" y="22.2" font-weight="500" font-size="2.7" fill="#565759">€115k to €140k</text>
+      <!-- D 150-190 -->
+      <text x="0" y="34.2" fill="#000">D · Allrounder</text>
+      <rect x="114.8" y="30.5" width="21.5" height="5" rx="1" fill="#12C0C6"/>
+      <text x="138.3" y="34.2" font-weight="500" font-size="2.7" fill="#565759">€150k to €190k</text>
+      <!-- C 200-250 -->
+      <text x="0" y="46.2" fill="#000">C · MAN TGE</text>
+      <rect x="136.3" y="42.5" width="26.9" height="5" rx="1" fill="#BBBCBD"/>
+      <text x="136.3" y="41.4" font-weight="500" font-size="2.7" fill="#565759">€190k to €240k</text>
+    </g>
+  </svg>
+
+  <table style="font-size:7.6pt">
+    <thead><tr><th style="width:24mm">Vehicle</th><th class="num" style="width:26mm">Estimate, ex works</th><th>Evidence behind the band</th></tr></thead>
+    <tbody>
+      <tr><th><span class="lt">A</span>KTW 4x4</th><td class="num">€115k to €140k</td><td>Germany's federal civil protection agency buys this vehicle at about €137,000 each. 180 units, over €24M.<sup class="s">10,11</sup> A similar state order: €174,000 per KTW Type B incl. radio.<sup class="s">12</sup></td></tr>
+      <tr class="win"><th><span class="lt w">B</span>Hot&#8209;Country</th><td class="num">€80k to €105k</td><td>Egypt's Health Ministry ordered 1,000 WAS ambulances + 500 mobile clinics for €110M in 2021, an average of €73k across mixed vehicles, not a price per ambulance.<sup class="s">8</sup> The base Sprinter 316 CDI van listed at €39k to €43k net in 2020. Prices have risen since.<sup class="s">15</sup> A single order costs more than bulk. A stretcher table, 3.88 t or 4x4 each add cost.</td></tr>
+      <tr><th><span class="lt">C</span>MAN TGE</th><td class="num">€190k to €240k</td><td>German emergency ambulances cost about €270k each in 2025, incl. 19% VAT and medical kit, often on larger box bodies.<sup class="s">13</sup> C is a panel van, so it sits below that. Base TGE 3.180 van about €49.6k net.<sup class="s">16</sup> Powered loading and Dutch radio add cost.</td></tr>
+      <tr class="win"><th><span class="lt w">D</span>Allrounder</th><td class="num">€150k to €190k</td><td>Full emergency fit out like C, but a mechanical stretcher table and simpler electrics. Priced between A and C. This band carries the most uncertainty. Confirm with WAS.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>What the two picks cost in Egypt</h2>
+  <div class="grid2">
+    <table style="font-size:7.8pt">
+      <thead><tr><th>Pair</th><th class="num">Ex works</th><th class="num">Landed*</th></tr></thead>
+      <tbody>
+        <tr class="win"><th>D + B (recommended)</th><td class="num">€230k to €295k</td><td class="num">€273k to €350k</td></tr>
+        <tr><th>D + D</th><td class="num">€300k to €380k</td><td class="num">€356k to €450k</td></tr>
+        <tr><th>B + B</th><td class="num">€160k to €210k</td><td class="num">€190k to €249k</td></tr>
+        <tr><th>C + D</th><td class="num">€340k to €430k</td><td class="num">€403k to €510k</td></tr>
+      </tbody>
+    </table>
+    <div class="small">
+      <p>* Landed adds about 18.5%: 14% VAT plus smaller levies. Customs duty on vehicles shipped from the EU has been zero since January 2019 under the EU Egypt Association Agreement.<sup class="s">17</sup> An EUR.1 origin certificate is needed.</p>
+      <p>Not included: sea freight from Antwerp (WAS ships Egypt orders from there<sup class="s">7</sup>), local medical devices if bought in Egypt, registration and the yearly ambulance licence.<sup class="s">24</sup></p>
+    </div>
+  </div>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>5</b> / 14</span></div>
+</section>
+
+<!-- ============ 6 SCORING ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Scoring</span></div>
+  <div class="kicker"><span class="num">05</span><span class="lab">How we scored</span></div>
+  <h1>Seven criteria, weighted for HCIG.</h1>
+  <p class="lead">Each vehicle scored 1 to 10 per criterion. Weights reflect a private group serving tourists on the Red Sea: clinical quality first, then price, then what keeps the vehicle on the road in Egypt.</p>
+
+  <table style="font-size:7.8pt">
+    <thead><tr><th style="width:44mm">Criterion</th><th class="num" style="width:14mm">Weight</th><th class="num"><span class="lt">A</span></th><th class="num"><span class="lt w">B</span></th><th class="num"><span class="lt">C</span></th><th class="num"><span class="lt w">D</span></th><th style="width:58mm">Main reason</th></tr></thead>
+    <tbody>
+      <tr><th>Clinical capability</th><td class="num">25%</td><td class="num">5</td><td class="num">6</td><td class="num">9</td><td class="num">9</td><td>C and D are full emergency ambulances. A is a transport vehicle.</td></tr>
+      <tr><th>Purchase price</th><td class="num">20%</td><td class="num">6</td><td class="num">10</td><td class="num">3</td><td class="num">7</td><td>B is the lowest band. C the highest.</td></tr>
+      <tr><th>Heat and fuel fit</th><td class="num">15%</td><td class="num">6</td><td class="num">9</td><td class="num">5</td><td class="num">8</td><td>B and D are built for hot countries. D assumes the heavy duty AC option is ordered.</td></tr>
+      <tr><th>Service and parts in Egypt</th><td class="num">15%</td><td class="num">8</td><td class="num">10</td><td class="num">3</td><td class="num">9</td><td>Sprinter workshop in Hurghada. A needs 4x4 parts. MAN van service unproven.</td></tr>
+      <tr><th>Running cost and reliability risk</th><td class="num">10%</td><td class="num">5</td><td class="num">9</td><td class="num">5</td><td class="num">8</td><td>A is heavy with 4x4 electronics. B is light and simple.</td></tr>
+      <tr><th>Patient and crew handling</th><td class="num">10%</td><td class="num">7</td><td class="num">4</td><td class="num">10</td><td class="num">8</td><td>Powered loading on C. Manual ramp on B.</td></tr>
+      <tr><th>Versatility and terrain</th><td class="num">5%</td><td class="num">9</td><td class="num">6</td><td class="num">5</td><td class="num">7</td><td>A goes off road and takes 2 patients.</td></tr>
+      <tr style="border-top:1pt solid #000"><th>Weighted score</th><td class="num">100%</td><td class="num"><b>6.2</b></td><td class="num"><b>8.0</b></td><td class="num"><b>5.8</b></td><td class="num"><b>8.2</b></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid2" style="margin-top:6mm;align-items:start">
+    <div>
+      <h3>Weighted score, out of 10</h3>
+      <svg class="chart" viewBox="0 0 84 46" width="84mm" height="46mm">
+        <g font-size="2.8" font-weight="600">
+          <text x="0" y="6">D · Allrounder</text><rect x="26" y="2.5" width="47.3" height="4.6" rx="1" fill="#12C0C6"/><text x="75" y="6" font-weight="800">8.2</text>
+          <text x="0" y="17">B · Hot-Country</text><rect x="26" y="13.5" width="46.4" height="4.6" rx="1" fill="#000"/><text x="74" y="17" font-weight="800">8.0</text>
+          <text x="0" y="28">A · KTW 4x4</text><rect x="26" y="24.5" width="35.8" height="4.6" rx="1" fill="#BBBCBD"/><text x="63.4" y="28" font-weight="800">6.2</text>
+          <text x="0" y="39">C · MAN TGE</text><rect x="26" y="35.5" width="33.6" height="4.6" rx="1" fill="#BBBCBD"/><text x="61.3" y="39" font-weight="800">5.8</text>
+        </g>
+        <line x1="26" y1="0" x2="26" y2="42" stroke="#000" stroke-width=".3"/>
+      </svg>
+    </div>
+    <div>
+      <h3>Value index: quality per €100k</h3>
+      <svg class="chart" viewBox="0 0 84 46" width="84mm" height="46mm">
+        <g font-size="2.8" font-weight="600">
+          <text x="0" y="6">B · Hot-Country</text><rect x="26" y="2.5" width="47" height="4.6" rx="1" fill="#000"/><text x="74.5" y="6" font-weight="800">8.0</text>
+          <text x="0" y="17">D · Allrounder</text><rect x="26" y="13.5" width="29.4" height="4.6" rx="1" fill="#12C0C6"/><text x="57.2" y="17" font-weight="800">5.0</text>
+          <text x="0" y="28">A · KTW 4x4</text><rect x="26" y="24.5" width="28.8" height="4.6" rx="1" fill="#BBBCBD"/><text x="56.6" y="28" font-weight="800">4.9</text>
+          <text x="0" y="39">C · MAN TGE</text><rect x="26" y="35.5" width="17.6" height="4.6" rx="1" fill="#BBBCBD"/><text x="45.4" y="39" font-weight="800">3.0</text>
+        </g>
+        <line x1="26" y1="0" x2="26" y2="42" stroke="#000" stroke-width=".3"/>
+      </svg>
+      <p class="small">Score without the price criterion, divided by the middle of each price band, so price is not counted twice. B gives the most ambulance per euro. D edges A and is a full emergency ambulance.</p>
+    </div>
+  </div>
+  <div class="box" style="margin-top:3mm"><b>Does the result hold if weights change?</b> D stays in the top two in every test. Clinical 35%, price 10%: D 8.4, B 7.6, C 6.4, A 6.1. Price 30%: B 8.5, D 8.0, A 6.2, C 5.2. Price and Egypt service ignored completely: D 8.3, C 7.4, B 6.8, A 5.9. C only passes B when cost and service do not count.</div>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>6</b> / 14</span></div>
+</section>
+
+<!-- ============ 7 USE CASES ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Best by use case</span></div>
+  <div class="kicker"><span class="num">06</span><span class="lab">Which job, which vehicle</span></div>
+  <h1>The right vehicle for each job.</h1>
+  <p class="lead">The use is not fixed yet. This page shows the best vehicle for each likely job, then the best overall pair.</p>
+
+  <table style="font-size:7.9pt">
+    <thead><tr><th style="width:40mm">Job</th><th class="num">A</th><th class="num">B</th><th class="num">C</th><th class="num">D</th><th style="width:22mm">Best</th><th style="width:52mm">Why</th></tr></thead>
+    <tbody>
+      <tr><th>Emergency calls from hotels and roads (ALS)</th><td class="num dots">●●<i>●●</i></td><td class="num dots">●●●<i>●</i></td><td class="num dots">●●●●</td><td class="num dots">●●●●</td><td><span class="lt w">D</span></td><td>Full emergency ambulance. Clinical level like C, with mechanical instead of powered loading, a lower price and local service.</td></tr>
+      <tr><th>Stable transfers: hotel, airport, clinic, hospital</th><td class="num dots">●●<i>●●</i></td><td class="num dots">●●●●</td><td class="num dots">●●<i>●●</i></td><td class="num dots">●●●<i>●</i></td><td><span class="lt w">B</span></td><td>Light, agile, lowest cost per trip. Enough kit for basic and advanced life support.</td></tr>
+      <tr><th>Long transfers on highways, e.g. to Cairo</th><td class="num dots">●●●<i>●</i></td><td class="num dots">●●<i>●●</i></td><td class="num dots">●●●<i>●</i></td><td class="num dots">●●●●</td><td><span class="lt w">D</span></td><td>Fridge for drugs, heat proof interior, crew comfort, 230 V AC option during stops.</td></tr>
+      <tr><th>Desert tracks, safari camps, rough roads</th><td class="num dots">●●●●</td><td class="num dots">●●<i>●●</i></td><td class="num dots">●<i>●●●</i></td><td class="num dots">●<i>●●●</i></td><td><span class="lt">A</span></td><td>Only factory 4x4 with rough road chassis and underbody guard. WAS also lists B as 4x4: get a price.<sup class="s">5</sup></td></tr>
+      <tr><th>Two patients at once, mass casualty</th><td class="num dots">●●●●</td><td class="num dots">●<i>●●●</i></td><td class="num dots">●<i>●●●</i></td><td class="num dots">●<i>●●●</i></td><td><span class="lt">A</span></td><td>The only one with two stretcher positions.</td></tr>
+      <tr><th>Image with European guests</th><td class="num dots">●●<i>●●</i></td><td class="num dots">●●<i>●●</i></td><td class="num dots">●●●●</td><td class="num dots">●●●<i>●</i></td><td><span class="lt">C</span></td><td>Powered loading is the most modern look. D is close, B uses a manual ramp.</td></tr>
+      <tr class="win"><th>Overall value</th><td class="num dots">●●<i>●●</i></td><td class="num dots">●●●●</td><td class="num dots">●<i>●●●</i></td><td class="num dots">●●●●</td><td><span class="lt w">D</span><span class="lt w">B</span></td><td>Highest scores. Same chassis, so one service plan, one parts stock.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>If HCIG needs a different pair</h2>
+  <div class="grid3">
+    <div class="box tqb"><h3>Standard case</h3><p class="small" style="color:#1d1e1f">Emergency plus transfers on paved roads.</p><div class="stat" style="font-size:15pt"><span class="lt w">D</span><span class="lt w">B</span></div><p class="small" style="margin-top:2mm">Recommended. Est. €230k to €295k.</p></div>
+    <div class="box"><h3>Desert work is a must</h3><p class="small" style="color:#1d1e1f">Regular calls to camps, safaris, sand tracks.</p><div class="stat" style="font-size:15pt"><span class="lt w">D</span><span class="lt">B</span><small> 4x4</small></div><p class="small" style="margin-top:2mm">Price B with 4x4 before choosing A. A only if two patients off road is a real need.</p></div>
+    <div class="box"><h3>Emergency only</h3><p class="small" style="color:#1d1e1f">Both vehicles respond to critical calls.</p><div class="stat" style="font-size:15pt"><span class="lt w">D</span><span class="lt w">D</span></div><p class="small" style="margin-top:2mm">Est. €300k to €380k. One spec, one training.</p></div>
+  </div>
+  <p class="small" style="margin-top:4mm">● = fit for the job, four dots best. Ratings use the datasheet equipment, the scoring on page 6 and the Egypt findings on page 9.</p>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>7</b> / 14</span></div>
+</section>
+
+<!-- ============ 8 REAL USERS ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Real world feedback</span></div>
+  <div class="kicker"><span class="num">07</span><span class="lab">What crews and owners say</span></div>
+  <h1>What users praise and what they suffer.</h1>
+  <p class="lead">From paramedic and owner forums. These are individual reports, not fleet statistics. Quotes are translated from German.</p>
+
+  <h2 style="margin-top:2mm">Stretcher systems: the biggest daily difference</h2>
+  <div class="grid3">
+    <div class="box"><h3>Ferno (on B)</h3>
+      <div class="quote">"Much too wobbly and unstable."<span class="who">Paramedic, BOS-Fahrzeuge forum<sup class="s">25</sup></span></div>
+      <div class="quote">"Very unergonomic operation."<span class="who">Paramedic, same thread<sup class="s">25</sup></span></div>
+      <p class="small">Newer Ferno models are rated better. Ask WAS to price a Stollenwerk or table option for B.</p></div>
+    <div class="box tqb"><h3>Stollenwerk (on D)</h3>
+      <div class="quote">"The best compromise of price and performance."<span class="who">Paramedic, BOS-Fahrzeuge forum<sup class="s">25</sup></span></div>
+      <div class="quote">"Reliable and relatively robust."<span class="who">Paramedic, Hamburg fire brigade<sup class="s">25</sup></span></div>
+      <p class="small">Weak points: small front wheels, latch can be fussy.</p></div>
+    <div class="box"><h3>Stryker (on C)</h3>
+      <div class="quote">"Makes a much more stable impression."<span class="who">Paramedic, BOS-Fahrzeuge forum<sup class="s">25</sup></span></div>
+      <div class="quote">"Nice, but also quite overpriced."<span class="who">Paramedic, same thread<sup class="s">25</sup></span></div>
+      <p class="small">Heavier to carry. Stryker reports fewer injuries with powered loading in a Danish review; this is a manufacturer claim.<sup class="s">30</sup></p></div>
+  </div>
+
+  <h2>Base vehicles</h2>
+  <table style="font-size:7.8pt">
+    <thead><tr><th style="width:34mm">Platform</th><th>What users praise</th><th>What users suffer</th></tr></thead>
+    <tbody>
+      <tr><th>Mercedes Sprinter (B, D)</th><td>Powertrain called very reliable. One Australian owner driver reports 450,000 km with regular service and no trouble.<sup class="s">29</sup></td><td>The AdBlue (DEF) emissions system is the most common complaint. Sensor faults can start a no start countdown.<sup class="s">29</sup> Extra ambulance electronics make faults harder to diagnose.<sup class="s">29</sup></td></tr>
+      <tr><th>Sprinter 4x4 (A)</th><td>Chosen by Germany's civil protection agency for 180 vehicles.<sup class="s">10,11</sup></td><td>Owner reports: "Low range" fault from lost communication with the transfer case, which also switched off cruise control (2024).<sup class="s">26</sup> A failed 4x4 switch on a 2021 van, replaced under warranty.<sup class="s">27</sup></td></tr>
+      <tr><th>MAN TGE / VW Crafter (C)</th><td>On the EGR coolers, one owner adds: "Apart from that, they run."<sup class="s">28</sup> The newer coolers are said to be better.<sup class="s">28</sup></td><td>EGR cooler leaking coolant on a 2018 Crafter after 50,000 km, part not in stock.<sup class="s">28</sup> TGE owners report coolers leaking inside, and a second battery charging fault that stopped one van.<sup class="s">28</sup></td></tr>
+    </tbody>
+  </table>
+
+  <h2>WAS as a builder</h2>
+  <div class="grid2">
+    <ul class="clean small" style="color:#1d1e1f">
+      <li>Well over 35,000 vehicles built. More than 450 staff in Emsbüren, 800 worldwide.<sup class="s">9</sup></li>
+      <li>About 1,700 vehicles a year and €130M revenue in 2020.<sup class="s">8</sup></li>
+      <li>Completed 1,000 WAS 300 ambulances for Egypt's Ambulance Organisation in February 2026.<sup class="s">7</sup></li>
+    </ul>
+    <ul class="clean minus small" style="color:#1d1e1f">
+      <li>No independent crew reviews of WAS build quality were found. Public praise comes from WAS itself.</li>
+      <li>In 2021 the base vehicle supplier was 160 chassis behind on the Egypt order.<sup class="s">8</sup> Delivery time depends on Mercedes chassis supply.</li>
+    </ul>
+  </div>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>8</b> / 14</span></div>
+</section>
+
+<!-- ============ 9 EGYPT FIT ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Fit for Egypt</span></div>
+  <div class="kicker"><span class="num">08</span><span class="lab">Operating on the Red Sea</span></div>
+  <h1>Five facts that decide the fit.</h1>
+  <p class="lead">A good ambulance in Germany can be a poor one in Hurghada. These five points weigh as much as the specification.</p>
+
+  <table style="font-size:7.9pt">
+    <thead><tr><th style="width:30mm">Topic</th><th>Finding</th><th style="width:40mm">Effect on the choice</th></tr></thead>
+    <tbody>
+      <tr><th>1 · Service network</th><td>Mercedes-Benz Egypt runs its own import, a central parts warehouse, and authorised workshops in Cairo, Giza, Alexandria and Hurghada.<sup class="s">19</sup> MAN appointed a new Egypt agent on 1 March 2026, announced for trucks and buses.<sup class="s">20</sup> Egypt's Health Ministry signed for 2,510 Mercedes based ambulances and mobile clinics in 2021.<sup class="s">18</sup></td><td>Strong for A, B, D. Weak for C until MAN confirms van service and parts near the Red Sea.</td></tr>
+      <tr><th>2 · WAS in Egypt</th><td>WAS has an Egypt sales partner in Nasr City, Cairo.<sup class="s">6</sup> It delivered about 4,500 ambulance vehicles to the Health Ministry over 13 years<sup class="s">8</sup> and 1,000 WAS 300 to the Ambulance Organisation.<sup class="s">7</sup></td><td>Regulators and crews in Egypt know the WAS 300. Confirm that the Cairo partner stocks conversion parts for private buyers.</td></tr>
+      <tr><th>3 · Diesel quality</th><td>Euro 6 engines need diesel with 10 ppm sulfur or less.<sup class="s">22</sup> Egyptian standards allow up to 10,000 ppm, and local diesel exceeds 5,000 ppm.<sup class="s">21</sup> One refinery near Cairo makes Euro 5 grade diesel for Cairo.<sup class="s">22</sup> AdBlue is made in Egypt (MOPCO, 20,000 t a year unit).<sup class="s">23</sup></td><td>The order must state an engine and emission level suited to Egyptian fuel. This applies to all four.</td></tr>
+      <tr><th>4 · Import cost</th><td>Zero customs duty on vehicles shipped from the EU since January 2019. About 18.5% remains: 14% VAT plus smaller levies.<sup class="s">17</sup></td><td>Same for all four. Ask a customs broker to confirm the ambulance tariff line.</td></tr>
+      <tr><th>5 · Licensing</th><td>Private ambulances need a technical conformity certificate from the Egyptian Ambulance Organisation and a yearly renewal. In 2020 fees were EGP 5,000 for an intensive care ambulance and EGP 3,000 for a standard one. Hospitals must train their crews.<sup class="s">24</sup></td><td>Check current rules before ordering. The WAS 300 family is known to the Ambulance Organisation.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>The heat</h2>
+  <div class="grid4">
+    <div class="box"><h3><span class="lt">A</span>Good</h3><p class="small">Engine driven AC with 9 kW cooling. No hot country interior stated.</p></div>
+    <div class="box tqb"><h3><span class="lt w">B</span>Best</h3><p class="small">Built for very hot countries. Heat proof materials, constant airflow, solar roof fan.</p></div>
+    <div class="box"><h3><span class="lt">C</span>Weak</h3><p class="small">European climate pack. No hot country features stated.</p></div>
+    <div class="box tqb"><h3><span class="lt w">D</span>Strong</h3><p class="small">Inorganic interior, constant airflow. Heavy duty AC on engine or 230 V shore power.</p></div>
+  </div>
+  <p class="small" style="margin-top:3mm">Sources: WAS datasheets<sup class="s">1-4</sup> and WAS product pages.<sup class="s">5</sup></p>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>9</b> / 14</span></div>
+</section>
+
+<!-- ============ 10 PROFILES A B ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Vehicle profiles</span></div>
+  <div class="kicker"><span class="num">09</span><span class="lab">Each vehicle in detail · A and B</span></div>
+
+  <div class="profile">
+    <div class="pics"><img class="hero" src="img/hero-A.png" alt=""><img class="int" src="img/int-A.jpg" alt=""></div>
+    <div>
+      <h1 style="font-size:16pt;display:flex;align-items:center"><span class="lt" style="width:7mm;height:7mm;font-size:9pt">A</span>KTW Type B Civil Protection 4x4</h1>
+      <p class="small">Sprinter 519 CDI AWD · 190 PS · automatic · 5,380 kg · score 6.2 · est. €115k to €140k</p>
+      <p style="margin-top:2mm">Designed for German disaster units: patient transport after major incidents, where normal ambulances cannot pass. Germany's federal civil protection agency bought 180 of this type.<sup class="s">10,11</sup></p>
+      <div class="pc">
+        <div><h3 class="tq">Strengths</h3><ul class="clean small" style="color:#1d1e1f">
+          <li>Only 4x4 of the four, with rough road chassis and aluminium underbody guard.</li>
+          <li>Two stretcher positions.</li>
+          <li>Electro hydraulic stretcher table with height adjustment and side shift.</li>
+          <li>Strong 9 kW air conditioning.</li></ul></div>
+        <div><h3>Weaknesses</h3><ul class="clean minus small" style="color:#1d1e1f">
+          <li>Transport ambulance. Medical kit only prepared, not fitted.</li>
+          <li>Heaviest at 5.38 t: more fuel, tyre and brake wear.</li>
+          <li>Civil protection details HCIG does not need.</li>
+          <li>Owner reports of 4x4 electronic faults.<sup class="s">26,27</sup></li></ul></div>
+      </div>
+      <div class="box" style="margin-top:2mm;padding:3mm"><b>Verdict.</b> Buy only if desert track rescue with two patients is a real, regular need.</div>
+    </div>
+  </div>
+
+  <div class="profile">
+    <div class="pics"><img class="hero" src="img/hero-B.png" alt=""><img class="int" src="img/int-B.jpg" alt=""></div>
+    <div>
+      <h1 style="font-size:16pt;display:flex;align-items:center"><span class="lt w" style="width:7mm;height:7mm;font-size:9pt">B</span>ALS/BLS Hot&#8209;Country</h1>
+      <p class="small">Sprinter 315 CDI · 150 PS · 3,500 kg (now 3,880 kg) · score 8.0 · est. €80k to €105k</p>
+      <p style="margin-top:2mm">WAS's export ambulance for hard climates. The interior is "especially designed for very hot countries".<sup class="s">2</sup> The datasheet lists a full emergency kit.</p>
+      <div class="pc">
+        <div><h3 class="tq">Strengths</h3><ul class="clean small" style="color:#1d1e1f">
+          <li>Lowest price and best value index (8.0).</li>
+          <li>Heat proof materials, constant airflow, heavy duty AC, solar fan.</li>
+          <li>Defibrillator, monitor, suction, nebuliser, vacuum splints listed.</li>
+          <li>Light, so easy in towns and resort roads. 4x4 now listed.<sup class="s">5</sup></li></ul></div>
+        <div><h3>Weaknesses</h3><ul class="clean minus small" style="color:#1d1e1f">
+          <li>Manual Ferno roll in stretcher on a ramp. Crews rate it unstable.<sup class="s">25</sup></li>
+          <li>Datasheet from 2020. Some items may have changed.</li>
+          <li>At 3.5 t the payload is tight. Order the 3.88 t version.</li>
+          <li>Smallest engine of the four.</li></ul></div>
+      </div>
+      <div class="box tqb" style="margin-top:2mm;padding:3mm"><b>Verdict.</b> Pick 2. Order at 3.88 t and ask WAS to price a better stretcher system.</div>
+    </div>
+  </div>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>10</b> / 14</span></div>
+</section>
+
+<!-- ============ 11 PROFILES C D ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Vehicle profiles</span></div>
+  <div class="kicker"><span class="num">09</span><span class="lab">Each vehicle in detail · C and D</span></div>
+
+  <div class="profile">
+    <div class="pics"><img class="hero" src="img/hero-C.png" alt=""><img class="int" src="img/int-C.jpg" alt=""></div>
+    <div>
+      <h1 style="font-size:16pt;display:flex;align-items:center"><span class="lt" style="width:7mm;height:7mm;font-size:9pt">C</span>RTW 4.25 t on MAN TGE</h1>
+      <p class="small">MAN TGE 3.180 L3H3 · 8 speed automatic · 4,250 kg · score 5.8 · est. €190k to €240k</p>
+      <p style="margin-top:2mm">A Dutch specification emergency ambulance: C2000 radio, SOVAM livery, patient data on the MAN display.<sup class="s">3</sup> The most modern cabin of the four.</p>
+      <div class="pc">
+        <div><h3 class="tq">Strengths</h3><ul class="clean small" style="color:#1d1e1f">
+          <li>Stryker Power-LOAD: the stretcher loads itself.</li>
+          <li>Car like cockpit, leather comfort seats, second display.</li>
+          <li>Automatic oxygen switchover, interior camera.</li>
+          <li>Storage built for Lucas 3 chest compression device.</li></ul></div>
+        <div><h3>Weaknesses</h3><ul class="clean minus small" style="color:#1d1e1f">
+          <li>Highest price. Value index 3.0, the lowest.</li>
+          <li>MAN Egypt agent only since March 2026, for trucks and buses.<sup class="s">20</sup></li>
+          <li>Dutch radio and livery must be removed or changed.</li>
+          <li>Engine data in the datasheet does not match (see page 4).</li></ul></div>
+      </div>
+      <div class="box" style="margin-top:2mm;padding:3mm"><b>Verdict.</b> Excellent in the Netherlands. Too expensive and too far from service for HCIG today.</div>
+    </div>
+  </div>
+
+  <div class="profile">
+    <div class="pics"><img class="hero" src="img/hero-D.png" alt=""><img class="int" src="img/int-D.jpg" alt=""></div>
+    <div>
+      <h1 style="font-size:16pt;display:flex;align-items:center"><span class="lt w" style="width:7mm;height:7mm;font-size:9pt">D</span>RTW Allrounder 4.1 t</h1>
+      <p class="small">Mercedes Sprinter diesel · automatic or manual · 4,100 kg · score 8.2 · est. €150k to €190k</p>
+      <p style="margin-top:2mm">An emergency ambulance for city and rural service, built to EN 1789.<sup class="s">4</sup> WAS designed it for hard operating conditions and different climates.</p>
+      <div class="pc">
+        <div><h3 class="tq">Strengths</h3><ul class="clean small" style="color:#1d1e1f">
+          <li>Full emergency layout at a mid price.</li>
+          <li>Inorganic, sealed interior. Compressor fridge and thermobox.</li>
+          <li>AC can run on 230 V shore power while parked.</li>
+          <li>Stem MEC 300 table and Stollenwerk stretcher, rated well by crews.<sup class="s">25</sup></li>
+          <li>Doctor seat with child belt and Isofix: fit for families.</li></ul></div>
+        <div><h3>Weaknesses</h3><ul class="clean minus small" style="color:#1d1e1f">
+          <li>Engine and gearbox left open. Must be specified.</li>
+          <li>Heavy duty AC listed as "possible": make it part of the order. Its heat score assumes this.</li>
+          <li>Mechanical, not powered, stretcher loading.</li>
+          <li>Widest price band. Needs a firm quote.</li></ul></div>
+      </div>
+      <div class="box tqb" style="margin-top:2mm;padding:3mm"><b>Verdict.</b> Pick 1. The best balance of clinical quality, heat fit, service and price.</div>
+    </div>
+  </div>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>11</b> / 14</span></div>
+</section>
+
+<!-- ============ 12 CEO Q&A ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Questions and answers</span></div>
+  <div class="kicker"><span class="num">10</span><span class="lab">What the CEO will ask</span></div>
+  <h1>Ten questions, short answers.</h1>
+  <div style="margin-top:4mm">
+    <div class="qa"><div class="q"><span>1</span>Which two do we buy?</div><div class="a">D, the Allrounder, as the emergency ambulance. B, the Hot&#8209;Country Sprinter, for transfers. Scores 8.2 and 8.0, the top two. Also ask WAS to quote two D units: once B gets a stretcher table and 3.88 t, the price gap narrows.</div></div>
+    <div class="qa"><div class="q"><span>2</span>What will they cost us in total?</div><div class="a">About €230k to €295k ex works. About €273k to €350k landed in Egypt, before freight and licensing. Firm numbers need a WAS quote.</div></div>
+    <div class="qa"><div class="q"><span>3</span>Why not two of the cheapest?</div><div class="a">B has a manual ramp stretcher and a smaller layout. A critical tourist patient needs a full emergency ambulance. One D covers that. B covers the high volume of simple transfers.</div></div>
+    <div class="qa"><div class="q"><span>4</span>Why not the MAN with the best stretcher?</div><div class="a">It is the most expensive by far, built to Dutch rules, and MAN's van service in Egypt is not proven. A breakdown far from Cairo could stop it for days.</div></div>
+    <div class="qa"><div class="q"><span>5</span>Do we need 4x4?</div><div class="a">Only for desert tracks and safari calls. If yes, price B with 4x4 first. A is heavier and costs more for less clinical fit out. No van of this size works on soft beach sand.</div></div>
+    <div class="qa"><div class="q"><span>6</span>Can we service them in Hurghada?</div><div class="a">The base van, yes: Mercedes-Benz Egypt has an authorised workshop in Hurghada. The ambulance conversion (control panel, roof AC, stretcher table) is WAS work. Require wiring diagrams, diagnostic access and a spare parts kit with delivery.</div></div>
+    <div class="qa"><div class="q"><span>7</span>Will a European engine survive Egyptian diesel?</div><div class="a">Not as a standard Euro 6 engine. The quote must state an engine and emission level made for Egyptian fuel. On a two vehicle order WAS may use stock European chassis, so ask how the 2026 Egypt batch was built, or source an Egypt spec chassis locally.</div></div>
+    <div class="qa"><div class="q"><span>8</span>How long until delivery?</div><div class="a">Not published. It depends on Mercedes chassis supply. WAS reported chassis delays in 2021. Ask for a delivery date and a late delivery penalty in the contract.</div></div>
+    <div class="qa"><div class="q"><span>9</span>What licence do we need to run them?</div><div class="a">A technical conformity certificate from the Egyptian Ambulance Organisation, renewed yearly, and trained crews. Check the current fee and rules before delivery.</div></div>
+    <div class="qa"><div class="q"><span>10</span>What are they worth later?</div><div class="a">Sprinter ambulances keep a resale market. Used WAS Sprinter ambulances from 2012 and 2013 still list at €10,900 to €13,800.<sup class="s">32</sup></div></div>
+  </div>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>12</b> / 14</span></div>
+</section>
+
+<!-- ============ 13 RISKS & NEXT STEPS ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Risks and next steps</span></div>
+  <div class="kicker"><span class="num">11</span><span class="lab">How to buy safely</span></div>
+  <h1>Seven risks, each with a control.</h1>
+  <table style="font-size:7.9pt;margin-top:3mm">
+    <thead><tr><th style="width:40mm">Risk</th><th class="num" style="width:16mm">Level</th><th>Control</th></tr></thead>
+    <tbody>
+      <tr><th>Engine damage from high sulfur diesel</th><td class="num"><span class="tag warn">High</span></td><td>Write the engine and emission level for Egyptian fuel into the order. Get WAS and Mercedes to confirm warranty under Egyptian fuel.</td></tr>
+      <tr><th>Prices above the estimates</th><td class="num"><span class="tag warn">Medium</span></td><td>Request itemised quotes for D and B, with options priced one by one. Compare with the WAS Egypt partner's local offer.</td></tr>
+      <tr><th>Late chassis delivery</th><td class="num"><span class="tag warn">Medium</span></td><td>Fixed delivery date and penalty clause. Ask if WAS holds Sprinter chassis in stock.</td></tr>
+      <tr><th>Licensing delay on arrival</th><td class="num"><span class="tag warn">Medium</span></td><td>Send the final specification to the Egyptian Ambulance Organisation for pre-check before ordering.</td></tr>
+      <tr><th>Import rules for medical devices</th><td class="num"><span class="tag warn">Medium</span></td><td>Ask a customs broker whether to ship devices fitted or buy approved devices in Egypt.</td></tr>
+      <tr><th>Conversion repairs far from Cairo</th><td class="num"><span class="tag warn">Medium</span></td><td>WAS to supply wiring diagrams, diagnostic access and a spare parts kit: control module, relays, stretcher latches, AC parts.</td></tr>
+      <tr><th>Crew injury on B's manual ramp</th><td class="num"><span class="tag no">Low</span></td><td>Price a better stretcher system for B, and train crews on loading.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>What to put in the request for quotation</h2>
+  <div class="grid2">
+    <div class="box tqb"><h3><span class="lt w">D</span>Allrounder 4.1 t</h3><ul class="clean small" style="color:#1d1e1f">
+      <li>Sprinter with automatic gearbox. Engine and emission level for Egyptian diesel.</li>
+      <li>Heavy duty AC, engine driven and 230 V shore power, as standard in the order.</li>
+      <li>Stem MEC 300 table, Stollenwerk stretcher, compressor fridge.</li>
+      <li>Medical device list and price, fitted or not fitted.</li>
+      <li>HCIG livery, English and Arabic labels.</li></ul></div>
+    <div class="box"><h3><span class="lt">B</span>Hot&#8209;Country 3.88 t</h3><ul class="clean small" style="color:#1d1e1f">
+      <li>3.88 t chassis. Price for 4x4 as an option. Price the same order as a second D.</li>
+      <li>Engine and emission level for Egyptian diesel.</li>
+      <li>Price for a stretcher table instead of the Ferno ramp.</li>
+      <li>Current version of the 2020 datasheet.</li>
+      <li>Same livery and labels as D.</li></ul></div>
+  </div>
+  <h2>Next steps</h2>
+  <ol class="steps small" style="color:#1d1e1f;display:grid;grid-template-columns:1fr 1fr;column-gap:8mm">
+    <li>Approve the D + B direction.</li>
+    <li>Send the request for quotation to WAS and its Cairo partner.</li>
+    <li>Confirm the ambulance tariff line and VAT with a customs broker.</li>
+    <li>Confirm licence rules with the Egyptian Ambulance Organisation.</li>
+    <li>Confirm Sprinter van service at the Hurghada Mercedes workshop.</li>
+    <li>Ask for warranty, conversion spare parts kit, wiring diagrams, crew training and delivery date.</li>
+    <li>Compare quotes against this report, then order.</li>
+  </ol>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>13</b> / 14</span></div>
+</section>
+
+<!-- ============ 14 SOURCES ============ -->
+<section class="page">
+  <div class="hdr"><span class="brand"><img src="img/hcig-mark.png" alt="">Healthcare International Group</span><span class="sec">Sources and method</span></div>
+  <div class="kicker"><span class="num">12</span><span class="lab">Evidence</span></div>
+  <h1 style="font-size:17pt">Sources, method and data notes.</h1>
+  <div class="grid2" style="margin:3mm 0 4mm;gap:5mm">
+    <div class="small" style="color:#1d1e1f"><h3>Method</h3>
+      <p>Specifications come from the four WAS datasheets and the live WAS website. Prices, Egypt facts and user feedback come from public sources, each checked at the source. Research and this report were cross checked by a second, independent AI research model. Its corrections were checked before use. Claims that could not be confirmed were left out.</p>
+      <p>Scores are a judgement on the evidence, weighted for HCIG. Prices are estimates until WAS quotes.</p></div>
+    <div class="small" style="color:#1d1e1f"><h3>Data notes</h3>
+      <ul class="clean small" style="color:#1d1e1f">
+      <li>The file "Datenblatt_WAS-300_RTW_MAN-TGL" describes a MAN TGE van.</li>
+      <li>B: datasheet says 3,500 kg and 4x2. WAS product page now says 3,880 kg, 4x2 or 4x4.</li>
+      <li>C: 137 kW is 186 PS, not 180 PS. Listings show 130 kW / 177 PS.</li>
+      <li>D: engine and gearbox are open in the datasheet.</li>
+      <li>EUR ranges exclude Egyptian VAT unless stated.</li></ul></div>
+  </div>
+  <ol class="src">
+    <li><b>1</b> WAS datasheet, WAS 300 KTW Typ B Zivilschutz, 01.2024 (supplied PDF).</li>
+    <li><b>2</b> WAS datasheet, WAS 300 ALS/BLS, Sprinter 315 CDI, 05.2020 (supplied PDF).</li>
+    <li><b>3</b> WAS datasheet, WAS 300 RTW 4.25 t, MAN TGE, 08.2024 (supplied PDF).</li>
+    <li><b>4</b> WAS datasheet, WAS 300 RTW Allrounder, Sprinter, 04.2022 (supplied PDF).</li>
+    <li><b>5</b> WAS website, WAS 300 panel van product pages. was-vehicles.com, accessed 14 Oct 2026.</li>
+    <li><b>6</b> WAS website, WAS Sales in Egypt. was-vehicles.com/en/about-us/eg, accessed 14 Oct 2026.</li>
+    <li><b>7</b> WAS news, The last WAS 300 RTW for Egypt, 18 Feb 2026.</li>
+    <li><b>8</b> Gesundheitsregion EUREGIO, WAS receives €110M orders from Egypt, 12 Oct 2021.</li>
+    <li><b>9</b> WAS website, About us. was-vehicles.com/en/about-us, accessed 14 Oct 2026.</li>
+    <li><b>10</b> BBK (German Federal Office of Civil Protection), 100th KTW Typ B handed over, 23 Feb 2024.</li>
+    <li><b>11</b> Wiesentbote, New civil protection vehicle in Coburg district, 12 Apr 2024.</li>
+    <li><b>12</b> Ministry of Interior Saxony-Anhalt, press release 117/2024, 1 Oct 2024.</li>
+    <li><b>13</b> S+K Verlag, Landkreis Mittelsachsen buys 14 new RTW, Oct 2025.</li>
+    <li><b>14</b> Wikipedia, CEN 1789 (ambulance classes A1, A2, B, C), accessed 14 Oct 2026.</li>
+    <li><b>15</b> Mercedes-Benz Sprinter price list 03/2020, dealer edition (schade.de).</li>
+    <li><b>16</b> MAN TGE 3.180 new van dealer listing, MAN Truck &amp; Bus Deutschland on mobile.de, Oct 2026.</li>
+    <li><b>17</b> Ahram Online, Zero tariffs on imported European cars in place, Jan 2019.</li>
+    <li><b>18</b> Ahram Online, Egypt signs contract with Mercedes to buy 2,500 ambulances and mobile clinics, Sep 2021.</li>
+    <li><b>19</b> Automotive Logistics, Mercedes-Benz plans production in Egypt.</li>
+    <li><b>20</b> Al Mal News, GASI appointed MAN agent for trucks and buses in Egypt, 1 Mar 2026. Also MarkLines.</li>
+    <li><b>21</b> EIPR, Health and environmental necessity of desulfurization of diesel fuel in Egypt, 2023.</li>
+    <li><b>22</b> ICCT, Case study: the Egyptian Refining Company project in Cairo, 2016.</li>
+    <li><b>23</b> Amwal Al Ghad, MOPCO AdBlue production unit, 20,000 t a year.</li>
+    <li><b>24</b> Youm7, Health Ministry rules for licensing private ambulances, 29 Jul 2020.</li>
+    <li><b>25</b> BOS-Fahrzeuge.info forum, Stretchers: which type has which advantages.</li>
+    <li><b>26</b> Sprinter-Forum.de, 907 4x4 fault: communication with transfer case, May 2024.</li>
+    <li><b>27</b> Sprinter-Forum.de, VS30 4x4 switch defective.</li>
+    <li><b>28</b> T6Forum, Crafter/MAN EGR problems. Fabucar, MAN TGE bus owner experiences.</li>
+    <li><b>29</b> Engine Patrol, Sprinter problems. Class B Forum and ProductReview.com.au owner reviews. JustAnswer, Sprinter ambulance case.</li>
+    <li><b>30</b> Stryker, Power-LOAD EU product page, Danish retrospective review (manufacturer claim).</li>
+    <li><b>31</b> Stryker, Power-LOAD brochure, injury reduction claims (manufacturer).</li>
+    <li><b>32</b> Autoline, used Mercedes-Benz Sprinter ambulances with WAS bodies, listings Oct 2026.</li>
+  </ol>
+  <div class="ftr"><span>HCIG · Ambulance fleet selection · Confidential</span><span><b>14</b> / 14</span></div>
+</section>
+
+</body>
+</html>

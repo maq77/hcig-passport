@@ -6,6 +6,19 @@ so the report and email at the end are complete and exact.
 How entries are written: one line per change, the page or URL, what it was before and
 after, and how it was checked. Words on the site are never changed unless Mohamed says so.
 
+## 2026-10-16
+
+### v3 live on tmasi.net
+- tmasi.net now runs v3 in English, German, Polish and Spanish (76 pages), at Mohamed's go. Checked after the switch: every sitemap page answers 200, every old address 301s once to its new page, www and http go to https://tmasi.net, missing pages show the 404 page.
+- Old addresses redirected: news posts `/blog/news1-6.php` (and `/es/blog/`), the root `/news1-4.php` copies, the doctor pages in all four languages (to About in that language), and the old unlinked `.php` pages to their nearest page.
+- Analytics carried over from the old site: Google Tag Manager GTM-PN6F2FFK, Google tags G-905JHCMETP and GT-MJKDN68P (now loaded once, the old site loaded it twice), Yandex Metrica 110788743.
+- Kept working where they were: the partnerships page `part.php`, `send.php` (the quote form now posts to it and reads its reply), the presentation files and the Google verification file.
+- Old site moved whole into a private folder on the server (`old-site-2026-10-16`, outside public_html). Rollback is one prepared step (`tmasi-live/golive-2026-10-16/rollback.sftp`). Old `.htaccess` kept as `htaccess.live`.
+- New on the home: the trust section "BEYOND ASSISTANCE. BUILT ON TRUST." with ten real case photos (consent confirmed by Mohamed).
+- Fixed after the live check: Polish page-data files answered 500 (the host ran any ".pl." file name as a Perl script), and the router quick-checks (HEAD) failed on a compressed answer. Both fixed in `.htaccess`; Polish files now 200.
+- Fixed: Yandex Metrica did not start (its script id clashed with the ym function); all pages re-uploaded with the fix.
+- Still open: Search Console access (from Pulse) to watch the moved news pages.
+
 ## 2026-09-26
 
 ### Set up
@@ -132,9 +145,32 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 - Search and AI-answer setup for every v3 page (preview only, all still hidden from Google): the live site's own share picture (the TMASI logo card) on every page, and on news and leader pages their own photo, as on the live site. Every page now has its address on tmasi.net, its links to the same page in the other three languages, and a machine-readable description of TMASI (offices, phones, services, leaders, news). A sitemap, a robots file and an llms.txt page for AI assistants are generated on every build.
 - Descriptions that the live site left in the wrong language (German on Polish pages, English on Spanish posts and on the leader pages) now use the page's own words. The English news post about the Egypt agreement carried the About page's title on the live site; it now uses its own headline.
 
+## 2026-09-29
+
+### Fixed on the live site
+- Spanish home (https://tmasi.net/es/), "Elite Medical Concierge Services" card: a stray web address shown as text before the card title was removed. The card now has the same line break as the English, German and Polish pages. Server copy of the old file kept under `~/backups/2026-09-29-es-stray-address/`. Checked live: the text is gone, the card title sits under the photo like the other cards. Before and after screenshots taken.
+
+### Security clean-up
+- Server security clean-up started on Mohamed's order. Details are kept privately (not in this public log) and were shared with Mohamed. Nothing was deleted except empty folders; everything else removed from the website was moved to a private folder on the server and can be put back.
+- 2026-09-30: clean-up finished and the site protected (browser security headers, no downloads of backup, log or hidden files, no scripts allowed in the image, style and script folders). Every page, picture, style and script checked afterwards: all load. Details kept privately.
+
 ## 2026-10-01
 
 ### Website v4 (planning only, nothing built)
 - v4 started: a from-scratch remake of the home for partners (insurers, assistance companies, hotels, tour operators), with a 3D Earth in the hero where the five offices (Egypt, Germany, Spain, UAE, USA) light up and connect. Every word stays exactly as on v3.
 - Decided with Mohamed in six question rounds: home only, English only, v3 kept online as the fallback, desktop and phone each get their own design of the same idea with real 3D on phones, the globe's look and motion picked on a design canvas, new images, short video loops and one film, a 3D icon set, partner logos, both buttons equal.
 - Spec written and approved: `specs/009-tmasi-v4/spec.md`.
+
+## 2026-10-04
+
+### Website v4 (preview work only, nothing on the live site)
+- New app `tmasi-v4/` set up next to v3. Its words come only from the v3 English text through a word check that fails the build on any sentence that is not TMASI's own.
+- 3D globe built: TMASI's five offices (Hurghada, Munich, Barcelona, Dubai, Florida) placed from the site's own addresses, checked on OpenStreetMap. Arcs leave Egypt one by one. Aircraft modelled on the plane in the TMASI logo fly each route.
+- Hero design board for Mohamed's picks: four globe looks, three motions, three desktop layouts, the phone design with real 3D, light and dark, two headline fonts.
+
+## 2026-10-07
+
+### Website v6 (decision and spec only, nothing built, nothing online)
+- On Mohamed's order all v4 and v5 design work stopped ("be real, not animated", "not childish") and everything was reviewed again: the v4 spec and code, the v5 plan, his films and images, every photo the site holds.
+- Decided with Mohamed: v6 is the one final site. It starts from v3's pages and words, at its own new preview address `/tmasi/v6`, with v3 untouched. Its message is his: medical + tourism + vacation = medical tourism, shown with real photos and his three films. No 3D globe. The hero is one full-width film; the hubs map planes fly in once, then rest; no group mention for now; the word "accredited" is not used.
+- Decision doc: "TMASI v6: The Final Website". Spec written for his approval: `specs/010-tmasi-v6/spec.md`. v4 (`specs/009-tmasi-v4`) closes on that approval.

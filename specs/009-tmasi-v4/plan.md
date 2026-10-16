@@ -17,7 +17,7 @@ served on HCIG Work at `/tmasi/v4` next to the untouched v3, and pushed only on 
 
 **Language/Version**: TypeScript 5, React 19.2, Next.js 16.3 static export (same stack as v3 `tmasi-next/`)
 
-**Primary Dependencies**: three 0.186 (hand-built scene, loaded after first paint), framer-motion 13 for DOM motion (as v3), Tailwind 4, lucide-react. No React Three Fiber, no globe.gl, no Lenis, no GSAP (see research R1, R17)
+**Primary Dependencies**: three 0.186 (hand-built scene, loaded after first paint), CSS transitions with a small IntersectionObserver helper for DOM motion (framer-motion only if a picked motion needs it; it costs about 40 KB), Tailwind 4, lucide-react. No React Three Fiber, no globe.gl, no Lenis, no GSAP (see research R1, R17)
 
 **Storage**: None. Content is a generated JSON file; media are static files
 
@@ -31,7 +31,7 @@ served on HCIG Work at `/tmasi/v4` next to the untouched v3, and pushed only on 
 
 **Constraints**: words exactly as v3 (FR-001); native scroll (FR-022); reduced motion and no-3D stills (FR-011, FR-021); weight budget below; preview noindex and v3 untouched (FR-023); push gate; never a still taken from a video; no em or en dashes in any text we write
 
-**Weight budget (FR-022b)**: first load without 3D or video: JS at or under 180 KB gzip, page at or under 1.5 MB phone and 2.5 MB desktop. 3D chunk (three plus scene plus land data) at or under 190 KB gzip, fetched after first paint. Hero still at or under 120 KB. Section images at or under 200 KB desktop and 120 KB phone (AVIF with WebP fallback). Each 3D icon at or under 25 KB at 2x. Each silent loop at or under 1.5 MB desktop and 1.0 MB phone, fetched only when near the screen. The film loads only on Watch (1080p at or under 14 MB, 720p at or under 7 MB)
+**Weight budget (FR-022b)**: first load without 3D or video: JS at or under 220 KB gzip (Next 16 and React 19 alone measured 169 KB on 2026-10-04; v3's home loads 261 KB), page at or under 1.5 MB phone and 2.5 MB desktop. 3D chunk (three plus scene plus land data) at or under 190 KB gzip, fetched after first paint. Hero still at or under 120 KB. Section images at or under 200 KB desktop and 120 KB phone (AVIF with WebP fallback). Each 3D icon at or under 25 KB at 2x. Each silent loop at or under 1.5 MB desktop and 1.0 MB phone, fetched only when near the screen. The film loads only on Watch (1080p at or under 14 MB, 720p at or under 7 MB)
 
 **Scale/Scope**: 1 page, 13 sections, 5 offices, 6 service groups, about 16 icons, 1 or 2 loops, 1 film, about 8 to 10 images, 4 partner logos
 

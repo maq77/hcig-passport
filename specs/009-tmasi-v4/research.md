@@ -171,9 +171,10 @@ records the payload, never to TMASI's inbox.
 
 ## R17. DOM motion
 
-**Decision**: framer-motion (already the v3 choice) for reveals and the film viewer; scene motion
-lives in the three.js loop; native scroll with IntersectionObserver. No GSAP or Lenis (weight, and
-he rejected scroll hijacking).
+**Decision**: CSS transitions driven by a small IntersectionObserver helper for reveals and the film
+viewer; framer-motion only if a motion he picks on the canvas needs it (it adds about 40 KB gzip, and the
+Next 16 plus React 19 baseline is already 169 KB [measured 2026-10-04]). Scene motion lives in the
+three.js loop; native scroll. No GSAP or Lenis (weight, and he rejected scroll hijacking).
 
 ## R18. References for the canvas
 

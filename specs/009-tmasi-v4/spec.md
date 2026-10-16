@@ -4,7 +4,8 @@
 
 **Created**: 2026-10-01
 
-**Status**: approved
+**Status**: closed, replaced by v6 (`specs/010-tmasi-v6`) on 2026-10-07, at Mohamed's order. Kept as a record; not to be built.
+**Was**: approved
 **Approved**: 2026-10-01 by Mohamed. **Amended** the same day after a Gemini review checked by Claude: six service groups (not five), USA office address and pin, partner band buttons, reachability, screen readers, words-first loading, weight budget, cookie consent noted for go-live. His approval: he answered the spec draft with "Yes, but wait i will continue later", then "continue", and asked for the plan to be made as complete as possible.
 
 **Input**: User description (2026-10-01, close to his words): TMASI v4 "refactored and re made", "from scratch", "professionally". Hero: "a global and internation network earth that has our network germany and egypt and usa and spain and uae on it", 3D, with "good meaningful animations". "complete new materials images and videos and 3d designs". Inspiration from themes, real 3D components and 3D websites. Audience "mainly b2b"; show "we are international and global and one of the sharks". Texts stay exactly as the content writer wrote them, word for word, section by section. Everything else may be remade. Later the same day: "desktop gets a design and phone gets compatible design, same idea but diffrent representation ... i mean 3d support on phone".

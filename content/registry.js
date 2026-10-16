@@ -604,21 +604,22 @@ const COMPANIES = [
       {
         slug: 'website-v3',
         name: 'Website v3, rebuilt from scratch',
-        status: 'draft',
-        updated: '2026-09-28',
-        summary: 'A new tmasi.net: the same words in a new design, found by search and AI, in seven languages.',
+        status: 'live',
+        updated: '2026-10-16',
+        summary: 'The new tmasi.net is live: the same words in a new design, in English, German, Polish and Spanish.',
         detail: [
-          'Spec approved 2026-09-26. The home is built and on HCIG Work, every word checked against the live site.',
-          'Partners first, the dark world map as the hero on light pages, a page per service and per office, seven languages.',
-          'Every word kept exactly as on the live site. Design slots mark where Reham, the graphic designer, adds cards and images.',
+          'Live on tmasi.net since 2026-10-16, in English, German, Polish and Spanish (76 pages). French, Italian and Czech come next.',
+          'Every old .php address redirects in one step to its new page. Google Analytics, Tag Manager and Yandex Metrica carried over.',
+          'The old site is kept whole in a private folder on the server, so a rollback is one step.',
         ],
         checklist: [
           { text: 'Answer the open decisions', done: true, who: 'Mohamed' },
           { text: 'Approve the spec', done: true, who: 'Mohamed' },
-          { text: 'Home preview on HCIG Work', done: true, who: 'Us' },
-          { text: 'Space and luxury pass on the home', done: false, who: 'Us' },
-          { text: 'Review the home', done: false, who: 'Mohamed' },
-          { text: 'Plan the other pages and languages', done: false, who: 'Us' },
+          { text: 'Build every page in four languages', done: true, who: 'Us' },
+          { text: 'Trust section on the home', done: true, who: 'Us' },
+          { text: 'Go live on tmasi.net', done: true, who: 'Us' },
+          { text: 'Search Console access to watch the moved pages', done: false, who: 'Pulse' },
+          { text: 'French, Italian and Czech', done: false, who: 'Us' },
         ],
         stages: [
           {
@@ -630,7 +631,8 @@ const COMPANIES = [
           {
             name: 'Preview',
             items: [
-              { slug: 'home', name: 'Homepage v3', kind: 'link', href: 'https://hcig-passport.vercel.app/tmasi/v3', status: 'draft', note: 'Real content restored 28 Sep. Space and luxury pass next' },
+              { slug: 'live', name: 'tmasi.net, live', kind: 'link', href: 'https://tmasi.net/', status: 'live', note: 'Live since 16 Oct' },
+              { slug: 'home', name: 'Homepage v3 preview', kind: 'link', href: 'https://hcig-passport.vercel.app/tmasi/v3', status: 'live', note: 'Same site, not indexed' },
             ],
           },
         ],

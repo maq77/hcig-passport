@@ -1,0 +1,4 @@
+{
+  "_about": "Grammar, punctuation, spacing and capital fixes that keep the same words and meaning (spec FR-004). Each entry: source sentence, fixed sentence, reason, date. The word check accepts a fixed sentence only when it is listed here. Log each one in docs/tmasi-worklog.md too.",
+  "edits": []
+}

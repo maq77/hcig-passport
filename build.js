@@ -546,6 +546,13 @@ if (fs.existsSync(TMASI_V3_SRC)) {
   fs.cpSync(TMASI_V3_SRC, path.join(OUT, 'tmasi', 'v3'), { recursive: true });
 }
 
+/* TMASI Global v4 home (spec 009): the 3D global-network remake in tmasi-v4, synced into
+   src/tmasi-v4 by its `npm run sync`, served at /tmasi/v4 next to v3. Noindex, like v3. */
+const TMASI_V4_SRC = path.join(__dirname, 'src', 'tmasi-v4');
+if (fs.existsSync(TMASI_V4_SRC)) {
+  fs.cpSync(TMASI_V4_SRC, path.join(OUT, 'tmasi', 'v4'), { recursive: true });
+}
+
 /* ---- shared shell files ------------------------------------------------ */
 
 write('studio.css', fs.readFileSync(path.join(CONTENT, 'theme.css'), 'utf8'));

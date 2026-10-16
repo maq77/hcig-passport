@@ -1,0 +1,37 @@
+{
+  "name": "tmasi-v4",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TMASI v4 home: the 3D global-network remake (spec 009). Static export served by HCIG Work at /tmasi/v4.",
+  "scripts": {
+    "content": "node scripts/pull-content.mjs",
+    "land": "node scripts/build-land.mjs",
+    "dev": "next dev -H 127.0.0.1 -p 4620",
+    "build": "node scripts/pull-content.mjs && next build && node scripts/flatten-prefetch.mjs && node scripts/check-words.mjs && node scripts/check-weight.mjs",
+    "check:words": "node scripts/check-words.mjs",
+    "check:weight": "node scripts/check-weight.mjs",
+    "sync": "node scripts/sync-preview.mjs",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "lucide-react": "^1.48.0",
+    "next": "16.3.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.186.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.6",
+    "tailwindcss": "^4",
+    "topojson-client": "^3.1.0",
+    "typescript": "^5",
+    "world-atlas": "^2.0.2"
+  }
+}

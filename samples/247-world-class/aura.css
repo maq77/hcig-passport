@@ -1,0 +1,268 @@
+/* ==========================================================================
+   world-class-aura · aura.css
+   Framework-free aura layer: tokens, type, space, hairlines, motion, glass.
+   Pair with aura.js for reveals, magnetic pull and tilt.
+   Override any --aura-* token on :root (or a section) to carry the brand.
+   ========================================================================== */
+
+:root {
+  /* Ivory (light) */
+  --aura-paper: #FBF9F6;
+  --aura-paper-2: #F3EFE9;
+  --aura-card: #FFFFFF;
+  --aura-ink: #1C1A17;          /* 16.5:1 on paper */
+  --aura-soft: #45403A;         /* body, 9.8:1 */
+  --aura-muted: #6B645C;        /* labels, 5.5:1 */
+  --aura-line: rgb(28 26 23 / 0.12);
+  --aura-accent: #7A5C30;       /* replace with the brand colour */
+  --aura-accent-ink: #FFFFFF;   /* text that sits on the accent: check 4.5:1 */
+
+  /* Noir (dark sections) */
+  --aura-noir: #0B0B0A;
+  --aura-noir-2: #141412;
+  --aura-pearl: #F4F1EA;
+  --aura-champagne: #C9A96E;
+
+  /* Type */
+  --aura-serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --aura-sans: "Jost", "Helvetica Neue", system-ui, sans-serif;
+
+  /* Motion: respond instantly, settle slowly */
+  --aura-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --aura-ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --aura-ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --aura-fast: 180ms;
+  --aura-base: 400ms;
+  --aura-slow: 900ms;
+  --aura-grand: 1400ms;
+
+  /* Space */
+  --aura-gutter: clamp(1.5rem, 1rem + 3vw, 5rem);
+  --aura-section: clamp(6rem, 4rem + 8vw, 11rem);
+}
+
+/* A section can switch to the dark palette */
+.aura-noir {
+  --aura-paper: var(--aura-noir);
+  --aura-paper-2: var(--aura-noir-2);
+  --aura-card: #1A1A18;
+  --aura-ink: var(--aura-pearl);
+  --aura-soft: rgb(244 241 234 / 0.78);   /* 10.6:1 */
+  --aura-muted: rgb(244 241 234 / 0.62);  /* 7.0:1 */
+  --aura-line: rgb(244 241 234 / 0.10);
+  --aura-accent: var(--aura-champagne);
+  --aura-accent-ink: var(--aura-noir);
+  background: var(--aura-paper);
+  color: var(--aura-ink);
+}
+
+/* ---------- Base ---------- */
+.aura-body-root {
+  background: var(--aura-paper);
+  color: var(--aura-soft);
+  font-family: var(--aura-sans);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- Type ---------- */
+.aura-display {
+  font-family: var(--aura-serif);
+  font-weight: 300;
+  font-size: clamp(3rem, 2rem + 5vw, 7.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--aura-ink);
+  text-wrap: balance;
+  margin: 0;
+}
+.aura-h2 {
+  font-family: var(--aura-serif);
+  font-weight: 300;
+  font-size: clamp(2.25rem, 1.6rem + 2.6vw, 4.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--aura-ink);
+  text-wrap: balance;
+  margin: 0;
+}
+.aura-h3 {
+  font-family: var(--aura-serif);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
+  line-height: 1.2;
+  color: var(--aura-ink);
+  margin: 0;
+}
+.aura-display em, .aura-h2 em { font-style: italic; font-weight: 300; color: var(--aura-soft); }
+.aura-label {
+  font-family: var(--aura-sans);
+  font-size: 0.6875rem;            /* 11px */
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--aura-muted);
+  margin: 0;
+}
+.aura-body { max-width: 60ch; color: var(--aura-soft); text-wrap: pretty; }
+.aura-spec {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--aura-muted);
+}
+.aura-index { font-size: 0.6875rem; font-variant-numeric: tabular-nums; letter-spacing: 0.2em; color: var(--aura-muted); }
+
+/* ---------- Space and layout ---------- */
+.aura-section { padding-block: var(--aura-section); padding-inline: var(--aura-gutter); }
+.aura-stack > * + * { margin-top: 2.5rem; }
+.aura-stack-lg > * + * { margin-top: clamp(4rem, 3rem + 3vw, 6rem); }
+.aura-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1.5rem, 1rem + 2vw, 5rem);
+  row-gap: 4rem;
+}
+.aura-grid > * { grid-column: 1 / -1; }
+@media (min-width: 1024px) {
+  .aura-col-7 { grid-column: span 7; }
+  .aura-col-6 { grid-column: span 6; }
+  .aura-col-5 { grid-column: span 5; }
+  .aura-col-4-end { grid-column: 9 / span 4; }
+  .aura-sticky { position: sticky; top: 8rem; align-self: start; }
+}
+.aura-rule { border: 0; border-top: 1px solid var(--aura-line); margin: 0; }
+.aura-list { list-style: none; margin: 0; padding: 0; }
+.aura-list > li { padding-block: 2rem; border-top: 1px solid var(--aura-line); }
+.aura-list > li:last-child { border-bottom: 1px solid var(--aura-line); }
+
+/* ---------- Media ---------- */
+.aura-frame { position: relative; overflow: hidden; background: var(--aura-paper-2); }
+.aura-frame img, .aura-frame video { display: block; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1600ms var(--aura-ease); }
+.aura-frame::after { content: ""; position: absolute; inset: 1.25rem; border: 1px solid rgb(255 255 255 / 0.4);
+  pointer-events: none; transition: inset 1200ms var(--aura-ease); }
+.aura-frame:hover img, .aura-frame:hover video { transform: scale(1.03); }
+.aura-frame:hover::after { inset: 0.75rem; }
+
+/* ---------- Actions ---------- */
+.aura-link {
+  position: relative; display: inline-flex; align-items: center; gap: 1.5rem;
+  min-height: 2.75rem; padding-block: 0.75rem;
+  font-family: var(--aura-sans); font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--aura-ink); text-decoration: none;
+  background: linear-gradient(var(--aura-ink), var(--aura-ink)) left bottom / 0% 1px no-repeat,
+              linear-gradient(var(--aura-line), var(--aura-line)) left bottom / 100% 1px no-repeat;
+  transition: background-size 900ms var(--aura-ease);
+}
+.aura-link:hover, .aura-link:focus-visible { background-size: 100% 1px, 100% 1px; }
+.aura-link .aura-icon { transition: transform 900ms var(--aura-ease); }
+.aura-link:hover .aura-icon { transform: translateX(0.5rem); }
+
+.aura-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 1rem;
+  min-height: 3rem; padding: 0 2rem; border: 1px solid var(--aura-ink);
+  background: var(--aura-ink); color: var(--aura-paper);
+  font-family: var(--aura-sans); font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; cursor: pointer;
+  transition: background-color var(--aura-fast) var(--aura-ease), color var(--aura-fast) var(--aura-ease),
+              transform var(--aura-fast) var(--aura-ease);
+}
+.aura-button:hover { background: transparent; color: var(--aura-ink); }
+.aura-button:active { transform: scale(0.98); }
+.aura-button--line { background: transparent; color: var(--aura-ink); }
+.aura-button--line:hover { background: var(--aura-ink); color: var(--aura-paper); }
+.aura-button--accent { background: var(--aura-accent); border-color: var(--aura-accent); color: var(--aura-accent-ink); }
+
+.aura-icon { width: 1rem; height: 1rem; flex: none; }
+
+/* ---------- Forms ---------- */
+.aura-field { display: grid; gap: 0.5rem; }
+.aura-field label { font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; color: var(--aura-muted); }
+.aura-field input, .aura-field select, .aura-field textarea {
+  font: inherit; color: var(--aura-ink); background: transparent;
+  border: 0; border-bottom: 1px solid var(--aura-line); border-radius: 0;
+  padding: 0.75rem 0; outline: none; transition: border-color 300ms var(--aura-ease);
+}
+.aura-field input:focus, .aura-field select:focus, .aura-field textarea:focus { border-bottom-color: var(--aura-ink); }
+
+/* ---------- Atmosphere ---------- */
+.aura-grain {
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.aura-glow {
+  position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none;
+  animation: aura-drift 24s var(--aura-ease-inout) infinite alternate;
+}
+.aura-glass {
+  position: relative; overflow: hidden; border-radius: 2rem;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background: rgb(20 20 18 / 0.9);
+  box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.5);
+}
+@supports (backdrop-filter: blur(1px)) {
+  .aura-glass { background: rgb(255 255 255 / 0.04); backdrop-filter: blur(40px); }
+}
+[data-aura-tilt] {
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 500ms var(--aura-ease);
+}
+[data-aura-tilt]::before {
+  content: ""; position: absolute; inset: -1px; pointer-events: none; z-index: 0;
+  opacity: var(--glow, 0); transition: opacity 700ms var(--aura-ease);
+  background: radial-gradient(520px circle at var(--x, 50%) var(--y, 50%), rgb(255 255 255 / 0.12), transparent 45%);
+}
+[data-aura-tilt] > * { position: relative; z-index: 1; }
+[data-aura-magnetic] { display: inline-block; will-change: transform; }
+
+/* ---------- Motion ---------- */
+.aura-line { display: block; overflow: hidden; padding-bottom: 0.08em; }
+.aura-line > span { display: block; animation: aura-line-up var(--aura-grand) var(--aura-ease) both; }
+.aura-line:nth-child(2) > span { animation-delay: 120ms; }
+.aura-line:nth-child(3) > span { animation-delay: 240ms; }
+.aura-rise { animation: aura-rise var(--aura-slow) var(--aura-ease) both; }
+
+/* Reveal: hidden only after aura.js marks the page ready, so content never
+   disappears without JavaScript. */
+.aura-ready [data-aura-reveal] {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity var(--aura-slow) var(--aura-ease), transform var(--aura-slow) var(--aura-ease);
+  transition-delay: var(--aura-delay, 0ms);
+}
+.aura-ready [data-aura-reveal].is-shown { opacity: 1; transform: none; }
+
+@keyframes aura-line-up { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes aura-rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes aura-drift { from { transform: translate3d(-4%, -2%, 0) scale(1); } to { transform: translate3d(6%, 4%, 0) scale(1.08); } }
+@keyframes aura-hint { 0% { transform: translateY(0); opacity: 0; } 30% { opacity: 1; } 80% { transform: translateY(10px); opacity: 0; } 100% { opacity: 0; } }
+
+/* ---------- Focus ---------- */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 6px;
+  border-radius: 2px;
+}
+
+/* ---------- The still version ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .aura-line > span, .aura-rise { animation: none !important; transform: none !important; opacity: 1 !important; }
+  .aura-ready [data-aura-reveal] { opacity: 1 !important; transform: none !important; }
+  [data-aura-tilt] { transform: none !important; }
+}
+
+/* ---------- Utilities ---------- */
+.aura-sr-only {
+  position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}

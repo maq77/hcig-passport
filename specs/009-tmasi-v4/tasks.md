@@ -48,7 +48,7 @@ v3 (`tmasi-next/`, `src/tmasi-v3/`) is read, never edited.
 - [ ] T009 Write `tmasi-v4/scripts/check-words.mjs`: read `out/index.html`, collect visible text nodes plus `alt`, `aria-label`, `title`; normalise only spacing, curly versus straight quotes and the `·` separator; fail on any foreign sentence and on any missing source sentence (read-more text included); accept a fixed sentence only when `approved-edits.json` lists it; print the section key per failure (Claude)
 - [ ] T010 [P] Write `tmasi-v4/src/content/offices.ts` with the five offices of `data-model.md` ("exactly five offices; no other pin may be drawn"; footer words kept, Germany keeps the footer version; USA adds usa@tmasi.net); check each lat, lng on OpenStreetMap against the contact page address and note the check in the file header (Claude)
 - [ ] T011 [P] Write `tmasi-v4/scripts/build-land.mjs`: Natural Earth 110m land from `world-atlas` to Fibonacci-sphere land points, quantised to two 16-bit values per point, written to `tmasi-v4/public/globe/land-desktop.bin` (about 12,000 points) and `land-phone.bin` (about 6,000), each at or under 40 KB (Claude)
-- [ ] T012 [P] Write `tmasi-v4/scripts/check-weight.mjs` failing the build when any file in `out/` breaks the budgets of `contracts/media-contract.md` and plan.md (first-load JS at or under 180 KB gzip, 3D chunk at or under 190 KB gzip) (agy)
+- [ ] T012 [P] Write `tmasi-v4/scripts/check-weight.mjs` failing the build when any file in `out/` breaks the budgets of `contracts/media-contract.md` and plan.md (first-load JS at or under 220 KB gzip, corrected 2026-10-04 after measuring the Next 16 baseline at 169 KB; 3D chunk at or under 190 KB gzip) (agy)
 
 ### Globe engine (shared by the canvas and the site)
 

@@ -1,0 +1,745 @@
+FLEET DECISION REPORT · AMBULANCES
+
+Four WAS ambulances.
+The best two for HCIG.
+
+Full comparison of four WAS 300 ambulances on quality, price, running
+risk and fit for the Red Sea. With a scored recommendation of the best
+two for value.
+
+PREPARED FOR                              DATE             STATUS
+
+The CEO · Healthcare International Group  14 October 2026  Confidential · For decision
+HEALTHCARE INTERNATIONAL GROUP                                                               EXECUTIVE SUMMARY
+
+01 THE DECISION
+
+Buy the Allrounder and the HotCountry Sprinter.
+
+Two vehicles, two jobs. One full emergency ambulance for critical patients and long
+transfers. One light, low cost ambulance for daily transfers between hotels, airport, clinics
+and hospital.
+
+PICK 1 · SCORE 8.2 / 10                          Est. 150k to 190k  PICK 2 · SCORE 8.0 / 10  Est. 80k to 105k
+
+D RTW Allrounder · Sprinter 4.1 t                                   B ALS/BLS HotCountry · Sprinter 315
+
+Built to EN 1789. Full emergency ambulance (RTW).4                  Lowest price of the four. Designed for hot countries.2
+                                                                    Heavy duty AC, solar roof fan, heat proof materials.2,5
+Inorganic, sealed interior for extreme heat. Compressor             Full ALS/BLS kit listed: defibrillator, monitor, suction.2
+fridge. 4                                                           Now 3.88 t, and offered as 4x2 or 4x4.5
+
+Air conditioning can also run on 230 V shore power
+while parked.4
+
+Stable mechanical stretcher table, Stem MEC 300 +
+Stollenwerk. 4
+
+230k to 295k                                     +18.5% in Egypt               1,000 WAS 300
+
+BOTH VEHICLES, EX WORKS,                         14% VAT + LEVIES. 0% CUSTOMS  ALREADY RUN BY EGYPT'S
+                                                 ON EU ORIGIN17                AMBULANCE ORGANISATION 7
+ESTIMATE
+
+Why these two
+
+Quality           D is the strongest emergency ambulance for its price. B covers basic and advanced life support at the
+Price             lowest cost.
+Service in Egypt
+                  Together they cost about the same as one Dutch spec MAN ambulance (C, est. 200k to 250k).
+Proven here
+                  Both run on Mercedes Sprinter. Mercedes-Benz Egypt has a workshop in Hurghada.19 MAN's Egypt agent
+                  started in March 2026, for trucks and buses.20
+
+                  WAS delivered about 4,500 ambulance vehicles to Egypt's Health Ministry by 2021.8 WAS has a sales
+                  partner in Cairo.6
+
+Not recommended
+
+ A 4x4 Civil      Score 6.1. Built for German disaster units: two patients, off road. Heavy at 5.38 t and costs more than B with
+Protection        less clinical kit. Only worth it for desert or beach rescue.
+
+C MAN TGE         Score 5.8. Best stretcher system, but highest price, Dutch spec, and no proven van service network in
+                  Egypt.
+
+Before ordering. The datasheets carry no prices. All prices here are estimates from public sources. Two
+points must be fixed in the WAS quotation: an engine and emission level that runs on Egyptian diesel, and
+the stretcher option for B. See page 13.
+
+HCIG · Ambulance fleet selection · Confidential                                                                                 2 / 14
+HEALTHCARE INTERNATIONAL GROUP                                           THE FOUR OPTIONS
+
+02 AT A GLANCE
+
+Four WAS 300 ambulances, three base
+vehicles.
+
+All four are WAS 300 panel van ambulances. Three sit on the Mercedes-Benz Sprinter,
+one on the MAN TGE. They differ in role, weight, stretcher system and price.
+
+ A KTW Type B Civil Protection 4x4                        B ALS/BLS HotCountry
+
+Patient transport ambulance for German civil protection  Export ambulance for hard climates and target countries.2
+units. 1
+                                                         Base            Sprinter 315 CDI, 4x2 (4x4 offered)
+Base            Sprinter 519 CDI, all wheel drive        Power · weight  150 PS · 3,500 kg (now 3,880 kg)
+Power · weight  190 PS · 5,380 kg                        Patients        1 lying
+Patients        Up to 2 lying                            Stretcher       Ferno F2 roll in + loading ramp
+Stretcher       Electro hydraulic table + 2nd stretcher  Est. price      80k to 105k
+Est. price      115k to 140k                             Verdict
+Verdict                                                                   PICK 2 · BEST VALUE
+                 NICHE · DESERT ONLY
+
+ C RTW 4.25 t on MAN TGE                                  D RTW Allrounder 4.1 t
+
+Dutch spec emergency ambulance with powered loading.3    Emergency ambulance for city and rural service, EN 1789.4
+
+Base            MAN TGE 3.180 L3H3, 4x2                  Base            Sprinter diesel, variants
+Power · weight  180 PS (stated) · 4,250 kg               Power · weight  To choose · 4,100 kg
+Patients        1 lying                                  Patients        1 lying
+Stretcher       Stryker Power-LOAD, powered              Stretcher       Stem MEC 300 table + Stollenwerk
+Est. price      200k to 250k                             Est. price      150k to 190k
+Verdict                                                  Verdict
+                 TOO COSTLY · WEAK SERVICE                                PICK 1 · BEST OVERALL
+
+HCIG · Ambulance fleet selection · Confidential                                                               3 / 14
+HEALTHCARE INTERNATIONAL GROUP                                                                          SPECIFICATION COMPARISON
+
+03 SIDE BY SIDE
+
+What each vehicle carries.
+
+From the four WAS datasheets1-4 and the WAS website.5 "Not stated" means the datasheet
+is silent. Ask WAS.
+
+                   A KTW 4X4                     B HOTCOUNTRY               C MAN TGE                   D ALLROUNDER
+
+Datasheet date     01.2024                       05.2020                    08.2024                     04.2022
+Role
+                   Patient transport, Type B,    Emergency ALS/BLS, hot     Emergency ambulance         Emergency ambulance
+Base vehicle       civil protection              countries                  (RTW)                       (RTW), city and rural
+Drive
+                   Sprinter 519 CDI AWD          Sprinter 315 CDI panel van MAN TGE 3.180 L3H3          Sprinter diesel, variants
+
+                   4x4 + rough road chassis      4x2 (website: 4x2 or 4x4) 4x2                          Not stated
+
+Engine             140 kW / 190 PS               110 kW / 150 PS            137 kW / 180 PS stated*     To choose
+Gearbox            Automatic                                                8 speed automatic           Automatic or manual
+Gross weight       5,380 kg                      Not stated                 4,250 kg                    4,100 kg
+
+Wheelbase          3,665 mm                      3,500 kg (website 3,880    3,640 mm                    3,665 mm
+                                                 kg)
+
+                                                 3,665 mm
+
+EN 1789            Type B (KTW Typ B)            Not stated                 Not stated                  Built to EN 1789
+Patients                                         1 lying                    1 lying                     1 lying
+                   2 lying, or 1 lying + 1
+                   seated
+
+Stretcher system   WAS Hydropuls Comfort 2 Ferno F2 roll in stretcher,      Stryker Power-LOAD          Stem MEC 300 mechanical
+Crew seats (rear)                                                           powered loading             table, Stollenwerk
+Oxygen             electro hydraulic table, 2nd folding ramp, reinforced                                3006/4002
+Climate
+Interior           stretcher on wall             platform
+
+                   1 folding swivel seat +       2 folding seats + doctor   1 sliding seat + partition  2 folding swivel seats +
+                   partition seat                seat                       seat
+                                                                                                        doctor seat with child belt
+                                                                                                        and Isofix
+
+                   2 × 11 l + 2 × 2 l, 3 outlets 2 × 10 l, 2 outlets        2 × 10 l, automatic         Outlet, cylinders in external
+                                                                            switchover                  locker
+
+                   Engine AC, 9 kW cooling       Heavy duty AC cab and      Heat exchanger, automatic Heavy duty AC possible,
+
+                                                 rear, extra heat exchanger, climate, electric fan heater engine or 230 V shore
+
+                                                 solar roof fan                                         power
+
+                   Sealed joints, easy to        Heat proof materials,      Smooth surfaces, closed     Inorganic materials, sealed,
+                   disinfect                     sealed, gapless furniture  cabinets                    gapless furniture
+
+Electrics          CAN central electrics, DIN    Central panel, 3 × 230 V, 3 CAN bus, 230 V inverter,   Central panel, 230 V and
+                   earthing, isolating                                                                  12 V
+                   transformer                   × 12 V                     touch display, rear camera
+
+Storage            Large external locker, full   3 part wall cabinet,       External locker, ceiling    Large external locker,
+                   height pharmacy cabinet       vacuum mattress cabinet    high cabinets for Lucas 3   compressor fridge,
+                                                                                                        thermobox
+
+Medical kit listed Mounting points only          Defibrillator, monitor,    Not listed                  Not listed
+                                                 suction, nebuliser,
+Special            Aluminium underbody           ventilator prep, splints   Dutch spec: C2000 radio, Child restraint, roof hatch
+                   guard, branch deflectors                                 SOVAM livery
+                                                 270° rear doors
+
+* 137 kW equals 186 PS, not 180 PS. Market listings show the TGE 3.180 at 130 kW / 177 PS. The file named "MAN-TGL" describes a
+
+MAN TGE van, not a MAN TGL truck. EN 1789 classes: A1 and A2 patient transport, B emergency ambulance, C mobile intensive care
+unit. 14
+
+HCIG · Ambulance fleet selection · Confidential                                                                                  4 / 14
+      HEALTHCARE INTERNATIONAL GROUP                                               PRICE AND VALUE
+
+04 WHAT IT COSTS
+
+B costs less than half of C.
+
+WAS does not publish prices. Each band below is built from public tenders, government
+orders and base vehicle price lists. Treat them as planning numbers until WAS quotes.
+
+B · Hot-Country                                                80k to 105k
+
+A · KTW 4x4                                                    115k to 140k
+
+D · Allrounder                                                               150k to 190k
+C · MAN TGE                                                                    200k to 250k
+
+                 0                               50k  100k     150k          200k            250k
+
+VEHICLE          ESTIMATE, EX WORKS EVIDENCE BEHIND THE BAND
+ A KTW 4x4
+ B HotCountry           115k to 140k Germany's federal civil protection agency buys this vehicle at about 137,000 each.
+ C MAN TGE                                    180 units, over 24M.10,11 A similar state order: 174,000 per KTW Type B incl.
+ D Allrounder                                 radio. 12
+
+                          80k to 105k Egypt's Health Ministry ordered 1,000 WAS ambulances + 500 mobile clinics for
+                                              110M in 2021. That is 73k per vehicle on a bulk order.8 Base Sprinter 316 CDI van
+                                              listed at 39k to 43k net in 2020.15 A single order costs more than bulk.
+
+                        200k to 250k German emergency ambulances (RTW Type C) cost 260k to 300k in 2024 and
+                                              2025, incl. 19% VAT and medical kit.13 That is about 220k to 250k net. Base TGE
+                                              3.180 van about 49.6k net.16 Powered loading adds cost.
+
+                        150k to 190k Full emergency fit out like C, but a mechanical stretcher table and simpler electrics.
+                                              Priced between A and C. This band carries the most uncertainty. Confirm with WAS.
+
+What the two picks cost in Egypt
+
+PAIR                EX WORKS                          LANDED*  * Landed adds about 18.5%: 14% VAT plus smaller levies.
+                                                               Customs duty on vehicles shipped from the EU has been zero
+D+B              230k to 295k 273k to 350k                     since January 2019 under the EU Egypt Association
+(recommended)                                                  Agreement.17 An EUR.1 origin certificate is needed.
+
+D+D              300k to 380k 356k to 450k                     Not included: sea freight from Antwerp (WAS ships Egypt orders
+                                                               from there7), local medical devices if bought in Egypt, registration
+B+B              160k to 210k 190k to 249k                     and the yearly ambulance licence.24
+
+C+D              350k to 440k 415k to 521k
+
+HCIG · Ambulance fleet selection · Confidential                                              5 / 14
+      HEALTHCARE INTERNATIONAL GROUP                                                                                    SCORING
+
+05 HOW WE SCORED
+
+Seven criteria, weighted for HCIG.
+
+Each vehicle scored 1 to 10 per criterion. Weights reflect a private group serving tourists
+on the Red Sea: clinical quality first, then price, then what keeps the vehicle on the road in
+Egypt.
+
+CRITERION                     WEIGHT                  A          B     C               D MAIN REASON
+
+Clinical capability           25%                        5          6     9             9 C and D are full emergency ambulances.
+
+                                                                                             A is a transport vehicle.
+
+Purchase price                20%                        6       10       3             7 B is the lowest band. C the highest.
+
+Heat and fuel fit             15%                        6          9     5             8 B and D are built for hot countries. C is a
+
+                                                                                             Dutch spec vehicle.
+
+Service and parts in Egypt    15%                        7       10       3             9 Sprinter workshop in Hurghada. MAN van
+
+                                                                                             service unproven.
+
+Running cost and reliability  10%                        5          9     5             8 A is heavy with 4x4 electronics. B is light
+
+risk                                                                                         and simple.
+
+Patient and crew handling     10%                        7          4  10               8 Powered loading on C. Manual ramp on
+                                                                                            B.
+
+Versatility and terrain       5%                         9          6     5             7 A goes off road and takes 2 patients.
+
+Weighted score                100%                    6.1        8.0   5.8              8.2
+
+Weighted score, out of 10                                              Value index: score per 100k
+
+D · Allrounder                                              8.2        B · Hot-Country                                  8.6
+
+B · Hot-Country                                             8.0        D · Allrounder                           4.8
+
+A · KTW 4x4                                      6.1                   A · KTW 4x4                              4.8
+
+C · MAN TGE                                      5.8                   C · MAN TGE           2.6
+
+                                                                       Weighted score divided by the middle of each price band. B gives
+                                                                       the most ambulance per euro. D and A tie, but D is a full
+                                                                       emergency ambulance and A is not.
+
+Does the result hold if weights change? D stays in the top two in every test. Clinical 35%, price 10%: D
+8.4, B 7.6, C 6.4, A 6.0. Price 30%: B 8.5, D 8.0, A 6.1, C 5.2. Price and Egypt service ignored completely: D
+8.3, C 7.4, B 6.8, A 5.9. C only passes B when cost and service do not count.
+
+HCIG · Ambulance fleet selection · Confidential                                                                                  6 / 14
+HEALTHCARE INTERNATIONAL GROUP                                                           BEST BY USE CASE
+
+06 WHICH JOB, WHICH VEHICLE
+
+The right vehicle for each job.
+
+The use is not fixed yet. This page shows the best vehicle for each likely job, then the best
+overall pair.
+
+JOB                               A                     B         C         D BEST       WHY
+                                                                      D
+Emergency calls from                                                                     Full emergency ambulance. Same
+hotels and roads (ALS)                                                                   capability as C at a lower price and
+                                                                                         with local service.
+
+Stable transfers: hotel,       B                                                         Light, agile, lowest cost per trip.
+airport, clinic, hospital                                                                Enough kit for basic and advanced
+                                                                                         life support.
+
+Long transfers on              D                                                         Fridge for drugs, heat proof interior,
+highways, e.g. to Cairo        A                                                         crew comfort, 230 V AC option
+                               A                                                         during stops.
+Desert, safari camps,          C
+beach access                   D B                                                       Only factory 4x4 with rough road
+                                                                                         chassis and underbody guard. B can
+Two patients at once,                                                                    be ordered 4x4 for less.5
+mass casualty
+Image with European                                                                      The only one with two stretcher
+guests                                                                                   positions.
+
+Overall value                                                                            Powered loading is the most modern
+                                                                                         look. D is close, B uses a manual
+                                                                                         ramp.
+
+                                                                                         Highest scores. Same chassis, so
+                                                                                         one service plan, one parts stock.
+
+If HCIG needs a different pair
+
+Standard case                                    Desert work is a must                   Emergency only
+
+Emergency plus transfers on paved                Regular calls to camps, safaris, sand   Both vehicles respond to critical
+roads.                                           tracks.                                 calls.
+
+ DB                                               D B 4x4                                 DD
+
+Recommended. Est. 230k to                        Order B with the 4x4 option before      Est. 300k to 380k. One spec, one
+295k.                                            choosing A. A only if two patients off  training.
+                                                 road is a real need.
+
+ = fit for the job, four dots best. Ratings use the datasheet equipment, the scoring on page 6 and the Egypt findings on page 9.
+
+HCIG · Ambulance fleet selection · Confidential                                                                                   7 / 14
+HEALTHCARE INTERNATIONAL GROUP                                                         REAL WORLD FEEDBACK
+
+07 WHAT CREWS AND OWNERS SAY
+
+What users praise and what they suffer.
+
+From paramedic and owner forums. These are individual reports, not fleet statistics.
+Quotes are translated from German.
+
+Stretcher systems: the biggest daily difference
+
+Ferno (on B)                                     Stollenwerk (on D)                    Stryker (on C)
+
+   "Much too wobbly and                             "The best compromise of price         "Makes a much more stable
+   unstable."                                       and performance."                     impression."
+
+   Paramedic, BOS-Fahrzeuge forum25                 Paramedic, BOS-Fahrzeuge forum25      Paramedic, BOS-Fahrzeuge forum25
+
+   "Very unergonomic operation."                    "Reliable and relatively robust."     "Nice, but also quite
+                                                                                          overpriced."
+   Paramedic, same thread25                         Paramedic, Hamburg fire brigade25
+                                                                                          Paramedic, same thread25
+Newer Ferno models are rated                     Weak points: small front wheels,
+better. Ask WAS to price a                       latch can be fussy.                   Heavier to carry. Stryker reports
+Stollenwerk or table option for B.                                                     fewer injuries with powered loading
+                                                                                       in a Danish review; this is a
+                                                                                       manufacturer claim.30
+
+Base vehicles          WHAT USERS PRAISE                          WHAT USERS SUFFER
+
+ PLATFORM
+
+Mercedes Sprinter (B,  Powertrain called very reliable. One       The AdBlue (DEF) emissions system is the most common
+D)                                                                complaint. Sensor faults can start a no start countdown.29
+                       Australian owner driver reports 450,000
+                       km with regular service and no trouble.29  Extra ambulance electronics make faults harder to diagnose.29
+
+Sprinter 4x4 (A)       Chosen by Germany's civil protection       Owner reports: "Low range" fault from lost communication with
+                       agency for 180 vehicles.10,11              the transfer case, which also switched off cruise control
+                                                                  (2024).26 A failed 4x4 switch on a 2021 van, replaced under
+                                                                  warranty. 27
+
+MAN TGE / VW           On the EGR coolers, one owner adds:        EGR cooler leaking coolant on a 2018 Crafter after 50,000 km,
+Crafter (C)
+                       "Apart from that, they run."28 The newer   part not in stock.28 TGE owners report coolers leaking inside,
+                       coolers are said to be better.28           and a second battery charging fault that stopped one van.28
+
+WAS as a builder                                                  No independent crew reviews of WAS build quality were found.
+                                                                  Public praise comes from WAS itself.
+   Well over 35,000 vehicles built. More than 450 staff in
+   Emsbüren, 800 worldwide.9                                      In 2021 the base vehicle supplier was 160 chassis behind on
+   About 1,700 vehicles a year and 130M revenue in 2020.8         the Egypt order.8 Delivery time depends on Mercedes chassis
+                                                                  supply.
+   Completed 1,000 WAS 300 ambulances for Egypt's
+   Ambulance Organisation in February 2026.7
+
+HCIG · Ambulance fleet selection · Confidential                                        8 / 14
+HEALTHCARE INTERNATIONAL GROUP                                                                     FIT FOR EGYPT
+
+08 OPERATING ON THE RED SEA
+
+Five facts that decide the fit.
+
+A good ambulance in Germany can be a poor one in Hurghada. These five points weigh as
+much as the specification.
+
+TOPIC               FINDING                                                                        EFFECT ON THE CHOICE
+
+1 · Service         Mercedes-Benz Egypt runs its own import, a central parts warehouse, and        Strong for A, B, D. Weak for
+network             authorised workshops in Cairo, Giza, Alexandria and Hurghada.19 MAN            C until MAN confirms van
+                                                                                                   service and parts near the
+2 · WAS in Egypt    appointed a new Egypt agent on 1 March 2026, announced for trucks and
+3 · Diesel quality  buses.20 Egypt's Health Ministry signed for 2,510 Mercedes based               Red Sea.
+                    ambulances and mobile clinics in 2021.18
+4 · Import cost
+5 · Licensing       WAS has an Egypt sales partner in Nasr City, Cairo.6 It delivered about 4,500  Parts and know how for the
+                    ambulance vehicles to the Health Ministry over 13 years8 and 1,000 WAS 300     WAS 300 interior already
+                                                                                                   exist in Egypt.
+                    to the Ambulance Organisation.7
+
+                    Euro 6 engines need diesel with 10 ppm sulfur or less.22 Egyptian standards    The order must state an
+                                                                                                   engine and emission level
+                    allow up to 10,000 ppm, and local diesel exceeds 5,000 ppm.21 One refinery
+                                                                                                   suited to Egyptian fuel.
+                    near Cairo makes Euro 5 grade diesel for Cairo.22 AdBlue is made in Egypt      This applies to all four.
+                    (MOPCO, 20,000 t a year unit).23
+
+                    Zero customs duty on vehicles shipped from the EU since January 2019.          Same for all four. Ask a
+                    About 18.5% remains: 14% VAT plus smaller levies.17                            customs broker to confirm
+
+                                                                                                   the ambulance tariff line.
+
+                    Private ambulances need a technical conformity certificate from the Egyptian   Check current rules before
+                    Ambulance Organisation and a yearly renewal. In 2020 fees were EGP 5,000       ordering. The WAS 300
+
+                    for an intensive care ambulance and EGP 3,000 for a standard one. Hospitals    family is known to the
+                    must train their crews.24                                                      Ambulance Organisation.
+
+The heat
+
+ A Good                       B Best                    C Weak                                      D Strong
+
+Engine driven AC with 9      Built for very hot        European climate pack.                      Inorganic interior,
+kW cooling. No hot           countries. Heat proof     No hot country features                     constant airflow. Heavy
+country interior stated.     materials, constant       stated.                                     duty AC on engine or 230
+                             airflow, solar roof fan.                                              V shore power.
+
+Sources: WAS datasheets1-4 and WAS product pages.5
+
+HCIG · Ambulance fleet selection · Confidential                                                    9 / 14
+HEALTHCARE INTERNATIONAL GROUP                                                               VEHICLE PROFILES
+
+09 EACH VEHICLE IN DETAIL · A AND B
+
+                                                 A KTW Type B Civil Protection 4x4
+
+                                                 Sprinter 519 CDI AWD · 190 PS · automatic · 5,380 kg · score 6.1 · est. 115k to
+                                                 140k
+
+                                                 Designed for German disaster units: patient transport after major
+                                                 incidents, where normal ambulances cannot pass. Germany's federal
+                                                 civil protection agency bought 180 of this type.10,11
+
+                                                 Strengths                                   Weaknesses
+
+                                                    Only 4x4 of the four, with rough road       Transport ambulance. Medical kit only
+                                                    chassis and aluminium underbody             prepared, not fitted.
+                                                    guard.
+                                                                                                Heaviest at 5.38 t: more fuel, heavier
+                                                    Two stretcher positions.                    licence class in many countries.
+
+                                                    Electro hydraulic stretcher table with      Civil protection details HCIG does not
+                                                    height adjustment and side shift.           need.
+
+                                                    Strong 9 kW air conditioning.               Owner reports of 4x4 electronic
+                                                                                                faults. 26,27
+
+                                                 Verdict. Buy only if desert or beach rescue with two patients is a
+                                                 real, regular need.
+
+                                                 B ALS/BLS HotCountry
+
+                                                 Sprinter 315 CDI · 150 PS · 3,500 kg (now 3,880 kg) · score 8.0 · est. 80k to 105k
+
+                                                 WAS's export ambulance for hard climates. The interior is "especially
+                                                 designed for very hot countries".2 The datasheet lists a full emergency
+                                                 kit.
+
+                                                 Strengths                                   Weaknesses
+
+                                                    Lowest price and best value index           Manual Ferno roll in stretcher on a
+                                                    (8.6).                                      ramp. Crews rate it unstable.25
+
+                                                    Heat proof materials, constant airflow,     Datasheet from 2020. Some items
+                                                    heavy duty AC, solar fan.                   may have changed.
+
+                                                    Defibrillator, monitor, suction,            At 3.5 t the payload is tight. Order the
+                                                    nebuliser, vacuum splints listed.           3.88 t version.
+
+                                                    Light, so easy in towns and resort          Smallest engine of the four.
+                                                    roads. 4x4 now offered.5
+
+                                                 Verdict. Pick 2. Order at 3.88 t and ask WAS to price a better
+                                                 stretcher system.
+
+HCIG · Ambulance fleet selection · Confidential                                                                  10 / 14
+HEALTHCARE INTERNATIONAL GROUP                                                               VEHICLE PROFILES
+
+09 EACH VEHICLE IN DETAIL · C AND D
+
+                                                 C RTW 4.25 t on MAN TGE
+
+                                                 MAN TGE 3.180 L3H3 · 8 speed automatic · 4,250 kg · score 5.8 · est. 200k to
+                                                 250k
+
+                                                 A Dutch specification emergency ambulance: C2000 radio, SOVAM
+                                                 livery, patient data on the MAN display.3 The most modern cabin of the
+                                                 four.
+
+                                                 Strengths                                   Weaknesses
+
+                                                    Stryker Power-LOAD: the stretcher           Highest price. Value index 2.6, the
+                                                    loads itself.                               lowest.
+
+                                                    Car like cockpit, leather comfort           MAN Egypt agent only since March
+                                                    seats, second display.                      2026, for trucks and buses.20
+
+                                                    Automatic oxygen switchover, interior       Dutch radio and livery must be
+                                                    camera.                                     removed or changed.
+
+                                                    Storage built for Lucas 3 chest             Engine data in the datasheet does not
+                                                    compression device.                         match (see page 4).
+
+                                                 Verdict. Excellent in the Netherlands. Too expensive and too far
+                                                 from service for HCIG today.
+
+                                                 D RTW Allrounder 4.1 t
+
+                                                 Mercedes Sprinter diesel · automatic or manual · 4,100 kg · score 8.2 · est. 150k to
+                                                 190k
+
+                                                 An emergency ambulance for city and rural service, built to EN 1789.4
+                                                 WAS designed it for hard operating conditions and different climates.
+
+                                                 Strengths                                   Weaknesses
+
+                                                    Full emergency layout at a mid price.       Engine and gearbox left open. Must
+                                                                                                be specified.
+                                                    Inorganic, sealed interior. Compressor
+                                                    fridge and thermobox.                       Heavy duty AC listed as "possible":
+                                                                                                make it part of the order.
+                                                    AC can run on 230 V shore power
+                                                    while parked.                               Mechanical, not powered, stretcher
+                                                                                                loading.
+                                                    Stem MEC 300 table and Stollenwerk
+                                                    stretcher, rated well by crews.25           Widest price band. Needs a firm
+                                                                                                quote.
+                                                    Doctor seat with child belt and Isofix:
+                                                    fit for families.
+
+                                                 Verdict. Pick 1. The best balance of clinical quality, heat fit,
+                                                 service and price.
+
+HCIG · Ambulance fleet selection · Confidential                                                                    11 / 14
+HEALTHCARE INTERNATIONAL GROUP                   QUESTIONS AND ANSWERS
+
+10 WHAT THE CEO WILL ASK
+
+Ten questions, short answers.
+
+1 Which two do we buy?
+
+    D, the Allrounder, as the emergency ambulance. B, the HotCountry Sprinter, for transfers. Combined score
+    8.2 and 8.0, the top two.
+
+2 What will they cost us in total?
+
+    About 230k to 295k ex works. About 273k to 350k landed in Egypt, before freight and licensing. Firm
+    numbers need a WAS quote.
+
+3 Why not two of the cheapest?
+
+    B has a manual ramp stretcher and a smaller layout. A critical tourist patient needs a full emergency
+    ambulance. One D covers that. B covers the high volume of simple transfers.
+
+4 Why not the MAN with the best stretcher?
+
+    It is the most expensive by far, built to Dutch rules, and MAN's van service in Egypt is not proven. A
+    breakdown far from Cairo could stop it for days.
+
+5 Do we need 4x4?
+
+    Only for desert, safari or beach calls. If yes, order B with the 4x4 option first. A is heavier and costs more for
+    less clinical kit.
+
+6 Can we service them in Hurghada?
+
+    Yes for the Sprinter models. Mercedes-Benz Egypt has an authorised workshop in Hurghada. WAS has a
+    sales partner in Cairo. Confirm the Hurghada site takes Sprinter vans.
+
+7 Will a European engine survive Egyptian diesel?
+
+    Not as a standard Euro 6 engine. The quote must state an engine and emission level made for Egyptian fuel.
+    WAS has built 1,000 for Egypt and knows this market.
+
+8 How long until delivery?
+
+    Not published. It depends on Mercedes chassis supply. WAS reported chassis delays in 2021. Ask for a
+    delivery date and a late delivery penalty in the contract.
+
+9 What licence do we need to run them?
+
+    A technical conformity certificate from the Egyptian Ambulance Organisation, renewed yearly, and trained
+    crews. Check the current fee and rules before delivery.
+
+10 What are they worth later?
+
+    Sprinter ambulances keep a resale market. Used WAS Sprinter ambulances from 2012 and 2013 still list at
+    10,900 to 13,800.32
+
+HCIG · Ambulance fleet selection · Confidential                                                             12 / 14
+      HEALTHCARE INTERNATIONAL GROUP                                                                RISKS AND NEXT STEPS
+
+11 HOW TO BUY SAFELY
+
+Six risks, each with a control.
+
+RISK                        LEVEL CONTROL
+
+Engine damage from high     HIGH Write the engine and emission level for Egyptian fuel into the order. Get WAS and
+sulfur diesel                         Mercedes to confirm warranty under Egyptian fuel.
+
+Prices above the            MEDIUM Request itemised quotes for D and B, with options priced one by one. Compare with the
+estimates                                WAS Egypt partner's local offer.
+
+Late chassis delivery       MEDIUM Fixed delivery date and penalty clause. Ask if WAS holds Sprinter chassis in stock.
+
+Licensing delay on arrival  MEDIUM Send the final specification to the Egyptian Ambulance Organisation for pre-check
+                                         before ordering.
+
+Import rules for medical    MEDIUM Ask a customs broker whether to ship devices fitted or buy approved devices in Egypt.
+devices
+
+Crew injury on B's manual   LOW Price a better stretcher system for B, and train crews on loading.
+ramp
+
+What to put in the request for quotation
+
+D Allrounder 4.1 t                                           B HotCountry 3.88 t
+
+ Sprinter with automatic gearbox. Engine and emission         3.88 t chassis. Price for 4x4 as an option.
+ level for Egyptian diesel.                                   Engine and emission level for Egyptian diesel.
+                                                              Price for a stretcher table instead of the Ferno ramp.
+ Heavy duty AC, engine driven and 230 V shore power,          Current version of the 2020 datasheet.
+ as standard in the order.                                    Same livery and labels as D.
+
+ Stem MEC 300 table, Stollenwerk stretcher, compressor
+ fridge.
+
+ Medical device list and price, fitted or not fitted.
+
+ HCIG livery, English and Arabic labels.
+
+Next steps                                                   2 Send the request for quotation to WAS and its Cairo
+                                                                  partner.
+ 1 Approve the D + B direction.
+                                                             4 Confirm licence rules with the Egyptian Ambulance
+ 3 Confirm the ambulance tariff line and VAT with a customs       Organisation.
+      broker.
+                                                             6 Ask for warranty, spare parts kit, crew training and delivery
+ 5 Confirm Sprinter van service at the Hurghada Mercedes          date.
+      workshop.
+
+ 7 Compare quotes against this report, then order.
+
+HCIG · Ambulance fleet selection · Confidential                                                                         13 / 14
+HEALTHCARE INTERNATIONAL GROUP                                           SOURCES AND METHOD
+
+12 EVIDENCE
+
+Sources, method and data notes.
+
+Method                                                                   Data notes
+
+Specifications come from the four WAS datasheets and the live               The file "Datenblatt_WAS-300_RTW_MAN-TGL" describes a
+WAS website. Prices, Egypt facts and user feedback come from                MAN TGE van.
+public sources, each checked at the source. Research was cross
+checked by a second, independent AI research model. Claims that             B: datasheet says 3,500 kg and 4x2. WAS website now says
+could not be confirmed were left out.                                       3,880 kg, 4x2 or 4x4.
+
+Scores are a judgement on the evidence, weighted for HCIG.                  C: 137 kW is 186 PS, not 180 PS. Listings show 130 kW / 177
+Prices are estimates until WAS quotes.                                      PS.
+
+                                                                            D: engine and gearbox are open in the datasheet.
+
+                                                                            EUR ranges exclude Egyptian VAT unless stated.
+
+1 WAS datasheet, WAS 300 KTW Typ B Zivilschutz, 01.2024 (supplied        17 Ahram Online, Zero tariffs on imported European cars in place, Jan
+     PDF).                                                                    2019.
+
+2 WAS datasheet, WAS 300 ALS/BLS, Sprinter 315 CDI, 05.2020              18 Ahram Online, Egypt signs contract with Mercedes to buy 2,500
+     (supplied PDF).                                                          ambulances and mobile clinics, Sep 2021.
+
+3 WAS datasheet, WAS 300 RTW 4.25 t, MAN TGE, 08.2024 (supplied          19 Automotive Logistics, Mercedes-Benz plans production in Egypt.
+     PDF).
+                                                                         20 Al Mal News, GASI appointed MAN agent for trucks and buses in Egypt,
+4 WAS datasheet, WAS 300 RTW Allrounder, Sprinter, 04.2022 (supplied          1 Mar 2026. Also MarkLines.
+     PDF).
+                                                                         21 EIPR, Health and environmental necessity of desulfurization of diesel
+5 WAS website, WAS 300 panel van product pages. was-vehicles.com,             fuel in Egypt, 2023.
+     accessed 14 Oct 2026.
+                                                                         22 ICCT, Case study: the Egyptian Refining Company project in Cairo,
+6 WAS website, WAS Sales in Egypt. was-vehicles.com/en/about-us/eg,           2016.
+     accessed 14 Oct 2026.
+                                                                         23 Amwal Al Ghad, MOPCO AdBlue production unit, 20,000 t a year.
+7 WAS news, The last WAS 300 RTW for Egypt, 18 Feb 2026.
+                                                                         24 Youm7, Health Ministry rules for licensing private ambulances, 29 Jul
+8 Gesundheitsregion EUREGIO, WAS receives 110M orders from Egypt,             2020.
+     12 Oct 2021.
+                                                                         25 BOS-Fahrzeuge.info forum, Stretchers: which type has which
+9 WAS website, About us. was-vehicles.com/en/about-us, accessed 14            advantages.
+     Oct 2026.
+                                                                         26 Sprinter-Forum.de, 907 4x4 fault: communication with transfer case,
+10 BBK (German Federal Office of Civil Protection), 100th KTW Typ B           May 2024.
+     handed over, 23 Feb 2024.
+                                                                         27 Sprinter-Forum.de, VS30 4x4 switch defective.
+11 Wiesentbote, New civil protection vehicle in Coburg district, 12 Apr
+     2024.                                                               28 T6Forum, Crafter/MAN EGR problems. Fabucar, MAN TGE bus owner
+                                                                              experiences.
+12 Ministry of Interior Saxony-Anhalt, press release 117/2024, 1 Oct
+     2024.                                                               29 Engine Patrol, Sprinter problems. Class B Forum and
+                                                                              ProductReview.com.au owner reviews. JustAnswer, Sprinter
+13 S+K Verlag, Landkreis Mittelsachsen buys 14 new RTW, Oct 2025.             ambulance case.
+14 Wikipedia, CEN 1789 (ambulance classes A1, A2, B, C), accessed 14
+                                                                         30 Stryker, Power-LOAD EU product page, Danish retrospective review
+     Oct 2026.                                                                (manufacturer claim).
+
+15 Mercedes-Benz Sprinter price list 03/2020, dealer edition             31 Stryker, Power-LOAD brochure, injury reduction claims
+     (schade.de).                                                             (manufacturer).
+
+16 MAN TGE 3.180 new van dealer listing, MAN Truck & Bus Deutschland     32 Autoline, used Mercedes-Benz Sprinter ambulances with WAS bodies,
+     on mobile.de, Oct 2026.                                                  listings Oct 2026.
+
+HCIG · Ambulance fleet selection · Confidential                          14 / 14
+

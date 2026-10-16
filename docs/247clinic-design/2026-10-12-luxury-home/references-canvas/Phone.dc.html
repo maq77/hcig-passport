@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>24/7 luxury references, phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&amp;family=DM+Sans:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F1EB}
+a{color:#9A0000;text-decoration:none}a:hover{color:#5E0C1A}
+</style>
+</helmet>
+<div style="width: 1880px; height: 1960px; box-sizing: border-box; background: #F6F1EB; color: #1A1414; font-family: 'DM Sans', 'Segoe UI', sans-serif; padding: 80px 96px; display: flex; flex-direction: column; gap: 48px">
+
+<header style="display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid rgba(26,20,20,.14); padding-bottom: 32px">
+<div style="font-size: 12px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: #9A0000">24/7 Clinic · Phone references</div>
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 400; font-size: 60px; line-height: 1">The phone, <span style="font-style: italic; color: #9A0000">designed on its own.</span></h1>
+</header>
+
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px">
+<sc-for list="{{ refs }}" as="r" hint-placeholder-count="4">
+<article style="display: flex; flex-direction: column; gap: 16px">
+<div style="height: 1400px; overflow: hidden; background: #E9E1D8; border: 1px solid rgba(26,20,20,.1); border-radius: 28px">
+<img src="{{ r.img }}" alt="{{ r.alt }}" style="width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block">
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 26px; line-height: 1.1">{{ r.name }}</h2>
+<p style="margin: 0; font-size: 14.5px; line-height: 1.5; color: #2E2626">{{ r.take }}</p>
+</div>
+</article>
+</sc-for>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1880,"height":1960}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var R = [
+      ['/_blob/5c74d6016cb7a04fd5f190c5af51d8d9', 'Maravilla, opening', 'Book button in the header, the wordmark across the film, then the red serif story.'],
+      ['/_blob/29cc6163519de95f190e0bc024104987', 'Maravilla, services', 'Full-width numbered photo cards with tags, one per screen.'],
+      ['/_blob/d8a3a51f534ce4fd1f96f6a59dd14fa8', 'Pulso Hotel', 'Centred spaced wordmark on the photo, booking kept within reach.'],
+      ['/_blob/3f6182dd672edfbb056393a64007b233', 'Kaskady', 'Calm centred serif over water, menu and booking in the top bar.']
+    ];
+    return { refs: R.map(function (r) { return { img: r[0], name: r[1], alt: r[1] + ' on a phone', take: r[2] }; }) };
+  }
+}
+</script>
+</body>
+</html>
