@@ -15,7 +15,7 @@ execSync("npx next build", { cwd: root, env, stdio: "inherit" });
 execSync("node scripts/flatten-prefetch.mjs", { cwd: root, env, stdio: "inherit" });
 
 const from = join(root, "out");
-const to = join(root, "..", "tmasi-live", "v3-live-build");
+const to = join(root, "..", "tmasi-live", process.env.LIVE_OUT || "v3-live-build");
 if (!existsSync(join(from, "index.html"))) throw new Error("No out/index.html after the live build.");
 rmSync(to, { recursive: true, force: true });
 cpSync(from, to, { recursive: true });
