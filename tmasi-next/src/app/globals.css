@@ -319,7 +319,7 @@ input, textarea { caret-color: var(--tmasi-teal); }
 .section-hero {
   position: relative;
   padding: clamp(100px, 14vw, 160px) 0 clamp(80px, 12vw, 140px) 0;
-  background-image: url('/tmasi/v3/img/glavbanner.jpg');
+  /* The hero photo is the <img> in Hero.tsx (a fixed /tmasi/v3 CSS path 404s on tmasi.net). */
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -515,7 +515,6 @@ input, textarea { caret-color: var(--tmasi-teal); }
    -------------------------------------------------------------------------- */
 .map {
   background-color: var(--tmasi-indigo-deep);
-  background-image: url('/tmasi/v3/img/map.jpg');
   padding: var(--section) 0;
   position: relative;
   background-size: cover;

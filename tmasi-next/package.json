@@ -7,7 +7,8 @@
     "build": "next build && node scripts/flatten-prefetch.mjs",
     "start": "next start",
     "lint": "eslint",
-    "sync": "node scripts/sync-preview.mjs"
+    "sync": "node scripts/sync-preview.mjs",
+    "build:live": "node scripts/build-live.mjs"
   },
   "dependencies": {
     "framer-motion": "^13.4.4",
