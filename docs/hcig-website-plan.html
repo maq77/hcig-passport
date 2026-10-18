@@ -49,8 +49,6 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 /* Masthead */
 .mast { border-bottom: 1px solid var(--line); }
 .mast .wrap { padding-block: 56px 40px; display: grid; gap: 22px; }
-.eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
-.eyebrow .rule { width: 40px; height: 1px; background: var(--accent); display: inline-block; }
 h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.3rem, 1.4rem + 4vw, 4.6rem); line-height: 1.04; letter-spacing: -.02em; margin: 0; text-wrap: balance; max-width: 18ch; }
 h1 em { font-style: italic; color: var(--accent-ink); }
 .lede { font-size: clamp(1.02rem, .95rem + .3vw, 1.18rem); color: var(--ink-2); max-width: 62ch; margin: 0; }
@@ -58,27 +56,27 @@ h1 em { font-style: italic; color: var(--accent-ink); }
 .fact { flex: 1 1 160px; padding: 16px 20px 4px 0; min-width: 0; }
 .fact b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums lining-nums; }
 .fact span { font-size: 12.5px; color: var(--ink-2); letter-spacing: .02em; }
-.status { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); padding: 6px 12px; border-radius: 999px; width: fit-content; }
-.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.meta { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-2); margin: 0; }
+.meta .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); flex: none; }
 
 /* Body grid */
 .layout { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 56px; padding-block: 48px 80px; }
 .toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-size: 13.5px; }
 .toc p { font-size: 11px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 12px; }
-.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; border-left: 1px solid var(--line); }
-.toc a { display: block; padding: 4px 0 4px 14px; color: var(--ink-2); text-decoration: none; margin-left: -1px; border-left: 1px solid transparent; }
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.toc a { display: block; padding: 4px 0 4px 14px; color: var(--ink-2); text-decoration: none; border-left: 1px solid var(--line); }
 .toc a:hover { color: var(--ink); border-left-color: var(--accent); }
 main { min-width: 0; }
 section { padding-block: 8px 44px; border-bottom: 1px solid var(--line); margin-bottom: 44px; scroll-margin-top: 24px; }
 section:last-child { border-bottom: 0; }
 h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 1.3rem + 1.5vw, 2.4rem); line-height: 1.12; letter-spacing: -.015em; margin: 0 0 6px; text-wrap: balance; }
-.kicker { font-size: 11.5px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 10px; }
+.kicker { font-size: 14px; font-weight: 600; letter-spacing: .01em; color: var(--accent-ink); margin: 0 0 8px; }
 .note { color: var(--ink-2); max-width: var(--measure); margin: 0 0 22px; }
 h3 { font-size: 1rem; font-weight: 700; letter-spacing: -.005em; margin: 28px 0 8px; }
 p { max-width: var(--measure); }
 
 /* Tables */
-.tbl { overflow-x: auto; margin: 0 0 8px; border-top: 1px solid var(--ink); }
+.tbl { overflow-x: auto; margin: 0 0 8px; border-top: 1px solid var(--ink); padding-top: 4px; }
 table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
 th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); padding: 12px 14px 10px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
 td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -86,10 +84,10 @@ td:first-child { font-weight: 600; }
 td.plain { font-weight: 400; }
 .tbl.wide table { min-width: 760px; }
 .muted { color: var(--ink-2); }
-code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: .86em; background: var(--band); padding: 1px 5px; border-radius: 4px; }
+code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: .86em; background: var(--band); padding: 2px 6px; border-radius: 4px; }
 
 /* Chips */
-.chip { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+.chip { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
 .chip.crit { color: var(--crit); background: color-mix(in srgb, var(--crit) 12%, transparent); }
 .chip.high { color: var(--high); background: color-mix(in srgb, var(--high) 14%, transparent); }
 .chip.med { color: var(--med); background: color-mix(in srgb, var(--med) 13%, transparent); }
@@ -112,7 +110,7 @@ code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; 
 .quote cite { font-style: normal; font-size: 12.5px; color: var(--ink-2); letter-spacing: .04em; }
 .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin: 6px 0 10px; }
 .opt { background: var(--bg); padding: 18px 18px 20px; min-width: 0; display: grid; gap: 6px; align-content: start; }
-.opt .tag { font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.opt .tag { font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
 .opt b { font-family: var(--font-display); font-weight: 500; font-size: 1.22rem; line-height: 1.2; }
 .opt span { font-size: 14px; color: var(--ink-2); }
 .opt.lean { background: var(--accent-soft); }
@@ -121,7 +119,7 @@ code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; 
 .sw { display: grid; gap: 6px; font-size: 12px; color: var(--ink-2); width: 112px; }
 .sw i { display: block; height: 52px; border-radius: 3px; border: 1px solid var(--line); }
 .callout { border: 1px solid var(--line); border-left: 2px solid var(--accent); padding: 14px 18px; margin: 18px 0; background: var(--band); max-width: 78ch; }
-.callout b.lab { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-strong); display: block; margin-bottom: 4px; }
+.callout b.lab { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-strong); display: block; margin-bottom: 4px; }
 .callout.crit { border-left-color: var(--crit); }
 .callout.crit b.lab { color: var(--crit); }
 .src { font-size: 12.5px; color: var(--ink-2); }
@@ -132,7 +130,7 @@ code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; 
 .gantt svg { display: block; min-width: 760px; width: 100%; height: auto; }
 .g-label { font: 500 12.5px var(--font-body); fill: var(--ink); }
 .g-sub { font: 400 11px var(--font-body); fill: var(--ink-2); }
-.g-tick { font: 500 10.5px var(--font-body); fill: var(--ink-2); letter-spacing: .06em; }
+.g-tick { font: 500 11px var(--font-body); fill: var(--ink-2); letter-spacing: .06em; }
 .g-grid { stroke: var(--line); stroke-width: 1; }
 .g-bar { fill: var(--accent); }
 .g-bar.soft { fill: color-mix(in srgb, var(--accent) 45%, transparent); }
@@ -160,10 +158,9 @@ footer.end .wrap { padding-block: 28px 48px; font-size: 12.5px; color: var(--ink
 
 <header class="mast">
   <div class="wrap">
-    <div class="eyebrow"><span>Healthcare International Group</span><span class="rule" aria-hidden="true"></span><span>Spec 012 · 18 October 2026</span></div>
     <h1>healthcareig.com, <em>rebuilt from zero.</em></h1>
     <p class="lede">B2B first, with the group hub beside it. Luxury, premium and elite in feel. Every word the site has today kept. Seven languages. Built to rank, to be named by AI tools, and to bring partner enquiries Irina can count.</p>
-    <span class="status">Approved by Mohamed · 18 October 2026</span>
+    <p class="meta"><span class="dot" aria-hidden="true"></span>Healthcare International Group · Spec 012 · Approved by Mohamed, 18 October 2026</p>
     <div class="facts" role="list">
       <div class="fact" role="listitem"><b>45</b><span>pages per language, plus 15 news posts</span></div>
       <div class="fact" role="listitem"><b>7</b><span>languages: EN, DE, PL, FR, IT, ES, CS</span></div>

@@ -44,6 +44,15 @@
         ],
         "createdAt": "2026-10-15T14:35:16.578Z",
         "reason": "Closing line gradient is part of canvas board C, which the user picked and approved on 2026-10-15"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "docs/hcig-website-plan.html"
+        ],
+        "createdAt": "2026-10-18T13:52:16.906Z",
+        "reason": "Claude, 2026-10-18: static scan pairs dark-theme text tokens with the light ground; measured in a real browser, 776 text elements in light and 776 in dark, 0 below WCAG AA"
       }
     ]
   }
