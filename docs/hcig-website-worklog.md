@@ -33,3 +33,7 @@ The final report and the email are written from this file.
 | New finding: page language | All pages | Every page declares `lang="en"`, German pages included. The German About page has an English title | Raw HTML |
 | New finding: script errors | All pages, plus home | `i18n.js` throws `seoData is not defined` on every page; the home's language switcher throws a second error | Browser console |
 | Live copy on HCIG Work | https://hcig-passport.vercel.app/hcig-live/ | 25 pages copied by `scripts/mirror-hcig-live.mjs`: tracking removed, noindex on every page, forms do not send, Helma and the stylesheet copied in. `check.js` treats it as a mirror, like the 24/7 one | Helma loads, 41 of 41 images load, no gtag or ym, root `npm test` passes |
+| Technical plan | `specs/012-hcig-website/` | plan, research R1 to R24, data model, six contracts, quickstart | Constitution gates all pass |
+| Task list | `specs/012-hcig-website/tasks.md` | 106 tasks in his nine phases: 16 decisions for him or Irina, 15 Gemini tasks, 18 parallel | Format check, sequential IDs, no dashes |
+| Hive tickets | Dashboard | T-044 to T-052 (one per phase, Opus, linked by dependencies); T-053 logos dispatched to Gemini | hive_status |
+| SSH key | `~/.ssh/hcig_rsa` | Made for him to import in cPanel; Phase 0 waits on it | Key file exists |
