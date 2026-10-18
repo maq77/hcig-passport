@@ -501,6 +501,7 @@ const COMPANIES = [
             items: [
               { slug: 'plan', name: 'The full plan', kind: 'html', src: 'docs/hcig-website-plan.html', status: 'approved', note: 'Findings, decisions, site map, look, search, keywords, trust, marketing, phases' },
               { slug: 'spec', name: 'The spec, approved', kind: 'md', src: 'specs/012-hcig-website/spec.md', status: 'approved', note: 'Approved by Mohamed on 2026-10-18' },
+              { slug: 'technical-plan', name: 'How it is built', kind: 'md', src: 'specs/012-hcig-website/plan.md', status: 'draft', note: 'Stack, host, phases, checks. Research, contracts and quickstart sit next to it in specs/012-hcig-website' },
               { slug: 'worklog', name: 'Work log', kind: 'md', src: 'docs/hcig-website-worklog.md', status: 'draft', note: 'Every step from day one' },
             ],
           },
