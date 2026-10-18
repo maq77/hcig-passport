@@ -58,6 +58,11 @@ __pycache__/
 
 # TMASI working material: news drafts and photos from Mohamed (kept local).
 tmasi material/
+
+# healthcareig.com rebuild: live-site mirror and collected assets (192 MB, kept local).
+# Licensed Helma font files must never be committed either (repo is public).
+hcig-v3/material/
+hcig-v3/fonts-licensed/
 tmasi sponsor/
 
 # TMASI live-site mirror and backups (may hold server secrets; repo is public).

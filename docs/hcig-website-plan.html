@@ -1,0 +1,736 @@
+<meta charset="utf-8">
+<title>HCIG Website Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..500&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a quiet institutional plan. Sticky contents rail on wide screens, one reading column, tables break out wide.
+   Brand: HCIG guideline. White and soft gray ground, black ink, dim gray, turquoise only for lines, marks and fills. */
+:root {
+  --bg: #FFFFFF;
+  --band: #F4F5F5;
+  --ink: #0D1112;
+  --ink-2: #565759;
+  --ink-3: #6F7072;
+  --line: #DDDDDE;
+  --accent: #12C0C6;
+  --accent-ink: #0A7F84;
+  --accent-soft: #E7F8F9;
+  --accent-strong: #075F63;
+  --crit: #B42318;
+  --high: #8A5A00;
+  --med: #355F8C;
+  --ok: #17663F;
+  --font-display: "Bodoni Moda", "Didot", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --wrap: 1180px;
+  --measure: 68ch;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0B0E0F; --band: #12171A; --ink: #EEF1F1; --ink-2: #A9ADAF; --ink-3: #8D9294; --line: #273035;
+    --accent: #12C0C6; --accent-ink: #5FD8DC; --accent-soft: #0F2A2C; --accent-strong: #8BE6E9;
+    --crit: #FF8A7A; --high: #E9B45A; --med: #8DB8E8; --ok: #6CCF97; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0B0E0F; --band: #12171A; --ink: #EEF1F1; --ink-2: #A9ADAF; --ink-3: #8D9294; --line: #273035;
+  --accent: #12C0C6; --accent-ink: #5FD8DC; --accent-soft: #0F2A2C; --accent-strong: #8BE6E9;
+  --crit: #FF8A7A; --high: #E9B45A; --med: #8DB8E8; --ok: #6CCF97; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+a { color: var(--accent-ink); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+.wrap { max-width: var(--wrap); margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* Masthead */
+.mast { border-bottom: 1px solid var(--line); }
+.mast .wrap { padding-block: 56px 40px; display: grid; gap: 22px; }
+.eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.eyebrow .rule { width: 40px; height: 1px; background: var(--accent); display: inline-block; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2.3rem, 1.4rem + 4vw, 4.6rem); line-height: 1.04; letter-spacing: -.02em; margin: 0; text-wrap: balance; max-width: 18ch; }
+h1 em { font-style: italic; color: var(--accent-ink); }
+.lede { font-size: clamp(1.02rem, .95rem + .3vw, 1.18rem); color: var(--ink-2); max-width: 62ch; margin: 0; }
+.facts { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--line); margin-top: 8px; }
+.fact { flex: 1 1 160px; padding: 16px 20px 4px 0; min-width: 0; }
+.fact b { display: block; font-family: var(--font-display); font-weight: 400; font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums lining-nums; }
+.fact span { font-size: 12.5px; color: var(--ink-2); letter-spacing: .02em; }
+.status { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); padding: 6px 12px; border-radius: 999px; width: fit-content; }
+.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+/* Body grid */
+.layout { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 56px; padding-block: 48px 80px; }
+.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-size: 13.5px; }
+.toc p { font-size: 11px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 12px; }
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; border-left: 1px solid var(--line); }
+.toc a { display: block; padding: 4px 0 4px 14px; color: var(--ink-2); text-decoration: none; margin-left: -1px; border-left: 1px solid transparent; }
+.toc a:hover { color: var(--ink); border-left-color: var(--accent); }
+main { min-width: 0; }
+section { padding-block: 8px 44px; border-bottom: 1px solid var(--line); margin-bottom: 44px; scroll-margin-top: 24px; }
+section:last-child { border-bottom: 0; }
+h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.7rem, 1.3rem + 1.5vw, 2.4rem); line-height: 1.12; letter-spacing: -.015em; margin: 0 0 6px; text-wrap: balance; }
+.kicker { font-size: 11.5px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 10px; }
+.note { color: var(--ink-2); max-width: var(--measure); margin: 0 0 22px; }
+h3 { font-size: 1rem; font-weight: 700; letter-spacing: -.005em; margin: 28px 0 8px; }
+p { max-width: var(--measure); }
+
+/* Tables */
+.tbl { overflow-x: auto; margin: 0 0 8px; border-top: 1px solid var(--ink); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); padding: 12px 14px 10px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+td { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+td:first-child { font-weight: 600; }
+td.plain { font-weight: 400; }
+.tbl.wide table { min-width: 760px; }
+.muted { color: var(--ink-2); }
+code { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: .86em; background: var(--band); padding: 1px 5px; border-radius: 4px; }
+
+/* Chips */
+.chip { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+.chip.crit { color: var(--crit); background: color-mix(in srgb, var(--crit) 12%, transparent); }
+.chip.high { color: var(--high); background: color-mix(in srgb, var(--high) 14%, transparent); }
+.chip.med { color: var(--med); background: color-mix(in srgb, var(--med) 13%, transparent); }
+.chip.ok { color: var(--ok); background: color-mix(in srgb, var(--ok) 13%, transparent); }
+.chip.opus { color: var(--accent-strong); background: var(--accent-soft); }
+.chip.gem { color: var(--ink-2); background: var(--band); border: 1px solid var(--line); }
+
+/* Lists and grids */
+.pairs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0 40px; border-top: 1px solid var(--ink); }
+.pair { padding: 16px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.pair b { display: block; font-size: 15px; margin-bottom: 2px; }
+.pair span { color: var(--ink-2); font-size: 14.5px; }
+.ticks { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.ticks li { padding: 12px 0 12px 30px; border-bottom: 1px solid var(--line); position: relative; max-width: none; }
+.ticks li::before { content: ""; position: absolute; left: 4px; top: 21px; width: 14px; height: 1px; background: var(--accent); }
+.ticks li b { font-weight: 600; }
+.ticks li span { color: var(--ink-2); }
+.quote { border-left: 1px solid var(--accent); padding: 4px 0 4px 22px; margin: 26px 0; max-width: 60ch; }
+.quote p { font-family: var(--font-display); font-size: clamp(1.25rem, 1.05rem + .8vw, 1.6rem); line-height: 1.3; margin: 0 0 8px; font-style: italic; }
+.quote cite { font-style: normal; font-size: 12.5px; color: var(--ink-2); letter-spacing: .04em; }
+.options { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); margin: 6px 0 10px; }
+.opt { background: var(--bg); padding: 18px 18px 20px; min-width: 0; display: grid; gap: 6px; align-content: start; }
+.opt .tag { font-size: 10.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+.opt b { font-family: var(--font-display); font-weight: 500; font-size: 1.22rem; line-height: 1.2; }
+.opt span { font-size: 14px; color: var(--ink-2); }
+.opt.lean { background: var(--accent-soft); }
+.opt.lean .tag { color: var(--accent-strong); }
+.swatches { display: flex; flex-wrap: wrap; gap: 14px; margin: 10px 0 6px; }
+.sw { display: grid; gap: 6px; font-size: 12px; color: var(--ink-2); width: 112px; }
+.sw i { display: block; height: 52px; border-radius: 3px; border: 1px solid var(--line); }
+.callout { border: 1px solid var(--line); border-left: 2px solid var(--accent); padding: 14px 18px; margin: 18px 0; background: var(--band); max-width: 78ch; }
+.callout b.lab { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-strong); display: block; margin-bottom: 4px; }
+.callout.crit { border-left-color: var(--crit); }
+.callout.crit b.lab { color: var(--crit); }
+.src { font-size: 12.5px; color: var(--ink-2); }
+.src a { word-break: break-word; }
+
+/* Timeline */
+.gantt { overflow-x: auto; border-top: 1px solid var(--ink); padding-top: 12px; margin-bottom: 8px; }
+.gantt svg { display: block; min-width: 760px; width: 100%; height: auto; }
+.g-label { font: 500 12.5px var(--font-body); fill: var(--ink); }
+.g-sub { font: 400 11px var(--font-body); fill: var(--ink-2); }
+.g-tick { font: 500 10.5px var(--font-body); fill: var(--ink-2); letter-spacing: .06em; }
+.g-grid { stroke: var(--line); stroke-width: 1; }
+.g-bar { fill: var(--accent); }
+.g-bar.soft { fill: color-mix(in srgb, var(--accent) 45%, transparent); }
+.g-gate { fill: var(--bg); stroke: var(--ink); stroke-width: 1.4; }
+.g-live { stroke: var(--accent-ink); stroke-width: 1.2; stroke-dasharray: 3 4; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 12.5px; color: var(--ink-2); margin: 6px 0 22px; }
+.legend i { display: inline-block; width: 18px; height: 8px; border-radius: 2px; background: var(--accent); margin-right: 6px; vertical-align: 1px; }
+.legend i.soft { background: color-mix(in srgb, var(--accent) 45%, transparent); }
+.legend i.gate { width: 9px; height: 9px; transform: rotate(45deg); background: var(--bg); border: 1.4px solid var(--ink); border-radius: 1px; }
+
+footer.end { border-top: 1px solid var(--line); }
+footer.end .wrap { padding-block: 28px 48px; font-size: 12.5px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+@media (max-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: 32px 64px; }
+  .toc { position: static; }
+  .toc ol { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border-left: 0; gap: 0 16px; }
+  .toc a { padding-left: 0; border-left: 0; border-bottom: 1px solid var(--line); padding-block: 8px; }
+  .mast .wrap { padding-block: 40px 28px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .toc a { transition: color .18s ease, border-color .18s ease; }
+}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="eyebrow"><span>Healthcare International Group</span><span class="rule" aria-hidden="true"></span><span>Spec 012 · 18 October 2026</span></div>
+    <h1>healthcareig.com, <em>rebuilt from zero.</em></h1>
+    <p class="lede">B2B first, with the group hub beside it. Luxury, premium and elite in feel. Every word the site has today kept. Seven languages. Built to rank, to be named by AI tools, and to bring partner enquiries Irina can count.</p>
+    <span class="status">Waiting for your approval</span>
+    <div class="facts" role="list">
+      <div class="fact" role="listitem"><b>45</b><span>pages per language, plus 15 news posts</span></div>
+      <div class="fact" role="listitem"><b>7</b><span>languages: EN, DE, PL, FR, IT, ES, CS</span></div>
+      <div class="fact" role="listitem"><b>Week 10</b><span>English live, if every gate passes on time</span></div>
+      <div class="fact" role="listitem"><b>Week 15</b><span>all seven languages live</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="toc" aria-label="Contents">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#building">What we are building</a></li>
+      <li><a href="#found">The live site today</a></li>
+      <li><a href="#decided">What you decided</a></li>
+      <li><a href="#market">Who we compete with</a></li>
+      <li><a href="#sitemap">The new site</a></li>
+      <li><a href="#look">The look</a></li>
+      <li><a href="#search">Search, AI and speed</a></li>
+      <li><a href="#keywords">B2B keywords</a></li>
+      <li><a href="#trust">Trust and partnerships</a></li>
+      <li><a href="#marketing">Marketing and ads</a></li>
+      <li><a href="#tracking">Tracking and consent</a></li>
+      <li><a href="#extras">Things you did not ask for</a></li>
+      <li><a href="#phases">Phases</a></li>
+      <li><a href="#team">Who does what</a></li>
+      <li><a href="#inputs">What I need from you</a></li>
+      <li><a href="#risks">Risks</a></li>
+      <li><a href="#flags">Wording flagged once</a></li>
+      <li><a href="#success">How we know it worked</a></li>
+      <li><a href="#next">Next step</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <section id="building">
+      <p class="kicker">The idea</p>
+      <h2>What we are building</h2>
+      <p class="note">The group's front door, for the people who send HCIG patients and sign contracts with it.</p>
+      <div class="quote">
+        <p>We don't just provide healthcare we manage it.</p>
+        <cite>The site's own line, kept as written. The new design makes it the thesis.</cite>
+      </div>
+      <div class="pairs">
+        <div class="pair"><b>B2B first</b><span>Insurers, assistance companies, hotels, cruise lines, tour operators, embassies, corporates, providers.</span></div>
+        <div class="pair"><b>The group hub beside it</b><span>Eight brands, the board, the press room, the network.</span></div>
+        <div class="pair"><b>Luxury, premium, elite</b><span>Calm space, editorial serif, hairline icons, slow motion. No emojis.</span></div>
+        <div class="pair"><b>Their words stay</b><span>Every existing sentence kept. New copy only with your yes, then Irina's.</span></div>
+        <div class="pair"><b>Proof everywhere</b><span>GHA and DMWV partnerships, 23 insurer logos, events, testimonials, hotels.</span></div>
+        <div class="pair"><b>Counted results</b><span>Every enquiry, kit download and signup lands in the inbox and on the dashboard.</span></div>
+      </div>
+    </section>
+
+    <section id="found">
+      <p class="kicker">Checked on 18 October 2026</p>
+      <h2>The live site today</h2>
+      <p class="note">Each line was verified with a live request. The phase column says when it gets fixed.</p>
+      <div class="tbl wide">
+        <table>
+          <thead><tr><th>Level</th><th>Finding</th><th>Evidence</th><th>Fixed in</th></tr></thead>
+          <tbody>
+            <tr><td><span class="chip crit">Critical</span></td><td class="plain"><b>Partner emails may fail authentication.</b> Mail runs on Microsoft 365, but SPF authorises GoDaddy only. No DKIM, no DMARC.</td><td class="plain muted">SPF <code>include:secureserver.net -all</code>, MX on outlook.com</td><td class="plain">Phase 0, after a test email</td></tr>
+            <tr><td><span class="chip crit">Critical</span></td><td class="plain"><b>End-of-life server software.</b> PHP 7.1.33, unsupported since 2019, runs the pages and the contact form.</td><td class="plain muted">Server header</td><td class="plain">Phase 0 check, rebuild removes it</td></tr>
+            <tr><td><span class="chip crit">Critical</span></td><td class="plain"><b>Empty canonical</b> on the English and German homes.</td><td class="plain muted"><code>href=""</code></td><td class="plain">Phase 0</td></tr>
+            <tr><td><span class="chip high">High</span></td><td class="plain"><b>German home has no title.</b></td><td class="plain muted">Empty <code>&lt;title&gt;</code> on /de/</td><td class="plain">Phase 0</td></tr>
+            <tr><td><span class="chip high">High</span></td><td class="plain"><b>Duplicate copies at old addresses.</b> services.php, blog.php, kontakty.php, index.php and /news1.php all answer 200.</td><td class="plain muted">Live requests</td><td class="plain">Phase 0, one redirect each</td></tr>
+            <tr><td><span class="chip high">High</span></td><td class="plain"><b>Share tags point at dead pages.</b> about.php and partners.php return 404.</td><td class="plain muted"><code>og:url</code> on 5 pages</td><td class="plain">Phase 0</td></tr>
+            <tr><td><span class="chip high">High</span></td><td class="plain"><b>19 broken images,</b> all four share images among them.</td><td class="plain muted">Asset pull, 224 checked</td><td class="plain">Phase 0 for share images, rebuild for the rest</td></tr>
+            <tr><td><span class="chip high">High</span></td><td class="plain"><b>No GA4.</b> Only the Google Ads tag, loaded twice on the home.</td><td class="plain muted">Page source</td><td class="plain">Phase 0</td></tr>
+            <tr><td><span class="chip high">High</span></td><td class="plain"><b>Session recording without consent.</b> Two Yandex Metrika counters with Webvisor, no cookie banner, EU visitors.</td><td class="plain muted">Counters 110788507 and 110788548</td><td class="plain">Phase 0, banner wording to you first</td></tr>
+            <tr><td><span class="chip med">Medium</span></td><td class="plain"><b>No language links</b> between English and German.</td><td class="plain muted">No hreflang</td><td class="plain">Phase 0</td></tr>
+            <tr><td><span class="chip med">Medium</span></td><td class="plain"><b>Structured data contradicts itself.</b> Five "Offer" items on the partner page, "EducationalOrganization" on services.</td><td class="plain muted">JSON-LD</td><td class="plain">Phase 0</td></tr>
+            <tr><td><span class="chip med">Medium</span></td><td class="plain"><b>Heavy testimonial videos.</b> Three phone films, up to 85 MB each.</td><td class="plain muted">112 MB in total</td><td class="plain">Phase 0, same look, a fraction of the weight</td></tr>
+            <tr><td><span class="chip med">Medium</span></td><td class="plain"><b>News hides behind numbers</b> (news1.php to news15.php) and is missing from the sitemap.</td><td class="plain muted">Sitemap holds 9 URLs</td><td class="plain">Phase 0 sitemap, rebuild addresses</td></tr>
+            <tr><td><span class="chip med">Medium</span></td><td class="plain"><b>Contact and blog pages have no H1.</b> No favicon. No llms.txt.</td><td class="plain muted">404 on favicon.ico and llms.txt</td><td class="plain">Rebuild, favicon in Phase 0</td></tr>
+            <tr><td><span class="chip ok">Fine</span></td><td class="plain"><b>HTTPS and www redirects work.</b> http and www both 301 to https://healthcareig.com/.</td><td class="plain muted">Live requests</td><td class="plain">Keep</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="src">Speed was not measured today: the free PageSpeed quota was used up. The before numbers are taken in Phase 0. Material saved: 25 pages, 207 images, 3 videos, in <code>hcig-v3/material/live-site/</code>.</p>
+    </section>
+
+    <section id="decided">
+      <p class="kicker">Six question rounds, 18 October 2026</p>
+      <h2>What you decided</h2>
+      <p class="note">These are fixed. The spec carries the same list.</p>
+      <div class="tbl wide">
+        <table>
+          <thead><tr><th>Topic</th><th>Decision</th></tr></thead>
+          <tbody>
+            <tr><td>Audience</td><td class="plain">B2B first, plus the group corporate hub</td></tr>
+            <tr><td>Words</td><td class="plain">Every existing sentence kept. New pages get new copy, you then Irina approve</td></tr>
+            <tr><td>Size</td><td class="plain">Full B2B site, about 45 pages per language</td></tr>
+            <tr><td>Languages</td><td class="plain">EN, DE, PL, FR, IT, ES, CS. English first, the rest after. Old German pages stay until replaced</td></tr>
+            <tr><td>Translation</td><td class="plain">Claude translates, Gemini cross-checks</td></tr>
+            <tr><td>Feel</td><td class="plain">Luxury, premium, elite. No emojis. Hairline SVG icons</td></tr>
+            <tr><td>Brand</td><td class="plain">Guideline colours, fonts and logo. You get the Helma files</td></tr>
+            <tr><td>Canvas</td><td class="plain">Three directions side by side, desktop first, then phone</td></tr>
+            <tr><td>Hero</td><td class="plain">All hero options plus one 3D concept. I recommend one for B2B</td></tr>
+            <tr><td>Visuals</td><td class="plain">All real material collected. Gemini images and video anywhere they look best</td></tr>
+            <tr><td>Proof</td><td class="plain">Trust page plus a proof band on key pages (your idea)</td></tr>
+            <tr><td>CEO quote</td><td class="plain">On home and leadership, word for word</td></tr>
+            <tr><td>End of home</td><td class="plain">"Partner with us" band and a minimal newsletter field (your idea)</td></tr>
+            <tr><td>Partner kit</td><td class="plain">One PDF per partner type, behind a short form</td></tr>
+            <tr><td>Chat</td><td class="plain">JotForm AI stays</td></tr>
+            <tr><td>B2B focus</td><td class="plain">All partner types in year one</td></tr>
+            <tr><td>Brands</td><td class="plain">A page for each of the eight</td></tr>
+            <tr><td>Hub extras</td><td class="plain">Leadership, press room and media kit</td></tr>
+            <tr><td>Live site now</td><td class="plain">Invisible fixes and tracking before the rebuild</td></tr>
+            <tr><td>Ads</td><td class="plain">Google Search and LinkedIn after launch. I propose the budget after research</td></tr>
+            <tr><td>Marketing</td><td class="plain">LinkedIn plan, newsletter, event pages with QR, directories and PR. Switched on when needed</td></tr>
+            <tr><td>Deadline</td><td class="plain">None. Quality first</td></tr>
+            <tr><td>Approval</td><td class="plain">You, then Irina, then live</td></tr>
+            <tr><td>Who works</td><td class="plain">Opus plans and builds what matters most. Gemini only in implementation</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="market">
+      <p class="kicker">First scan, the full study is in Phase 1</p>
+      <h2>Who we compete with</h2>
+      <p class="note">B2B buyers compare HCIG with Egyptian assistance companies, not with hospitals. Their claims below are their own.</p>
+      <div class="tbl wide">
+        <table>
+          <thead><tr><th>Company</th><th>What they say they do</th><th>Base</th><th>Seen in</th></tr></thead>
+          <tbody>
+            <tr><td>CONNEX Assistance</td><td class="plain">Medical and technical assistance. Offices in Egypt, UAE, Saudi Arabia. Says it serves 300+ insurers and assistance companies</td><td class="plain">Cairo</td><td class="plain"><a href="https://servicedirectory.itij.com/?p=2588">ITIJ directory</a></td></tr>
+            <tr><td>Egypt In-Touch Assistance</td><td class="plain">Medical and non-medical assistance across Egypt and the Middle East. ISO 9001</td><td class="plain">Hurghada</td><td class="plain"><a href="https://ipmimagazine.com/medical-health-insurance/en/insurance-industry-executive-interviews/item/1608-egypt-in-touch-assistance">IPMI Magazine</a></td></tr>
+            <tr><td>The Integrated Clinic Company</td><td class="plain">Hotel and resort clinics on the Red Sea and South Sinai since 2001. Own ambulances</td><td class="plain">Hurghada</td><td class="plain"><a href="https://www.ampliz.com/company/the-integrated-clinic-company/90250649">Company profile</a></td></tr>
+            <tr><td>Egypt Global Assistance</td><td class="plain">Medevac centre at Cairo airport</td><td class="plain">Cairo</td><td class="plain"><a href="https://www.itij.com/latest/long-read/introducing-cairo-medevac-center">ITIJ</a></td></tr>
+            <tr><td>Egypt Assistance (Remed)</td><td class="plain">Assistance with alarm centres in Istanbul, Antalya, Cairo, Moscow</td><td class="plain">Cairo</td><td class="plain"><a href="https://www.itij.com/latest/long-read/successful-emergency-response-following-bus-accident">ITIJ</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>HCIG's edge, in its own words</h3>
+      <ul class="ticks">
+        <li><b>One group owns the whole chain.</b> <span>Hotel clinics, hospitals, case management, evacuation, claims. Nobody above shows all five.</span></li>
+        <li><b>Official Partner of GHA and DMWV.</b> <span>GHA's own site already announced the partnership (<a href="https://www.globalhealthcareaccreditation.com/news/new-gha-hcig-partnership-aims-to-elevate-egypt-as-a-premier-medical-and-wellness-travel-destination">GHA news</a>).</span></li>
+        <li><b>Seen where insurers meet.</b> <span>ITIC Global, ITIC MEA, ITB Berlin, Uniglobal, Africa Health ExCon, all in its own news.</span></li>
+      </ul>
+      <div class="callout"><b class="lab">Where insurers look</b>The ITIJ service directory, ITIC events, assistance network partner lists and trade press. Phase 8 puts HCIG in each of them.</div>
+    </section>
+
+    <section id="sitemap">
+      <p class="kicker">Draft, fixed after keyword research</p>
+      <h2>The new site</h2>
+      <p class="note">One page, one job, one main keyword per language. Every address that exists today stays or redirects once.</p>
+      <div class="tbl wide">
+        <table>
+          <thead><tr><th>Section</th><th>Pages</th><th>Address</th><th>Words</th></tr></thead>
+          <tbody>
+            <tr><td>Home</td><td class="plain">1</td><td class="plain"><code>/</code></td><td class="plain">Existing, plus CEO quote, partner band, newsletter field</td></tr>
+            <tr><td>About</td><td class="plain">About, Leadership</td><td class="plain"><code>/about/</code>, <code>/about/leadership/</code></td><td class="plain">Existing, board from the About page</td></tr>
+            <tr><td>Services</td><td class="plain">Hub and about 10 service pages</td><td class="plain"><code>/services/&lt;service&gt;/</code></td><td class="plain">Existing service lines, new detail approved first</td></tr>
+            <tr><td>Partners</td><td class="plain">Hub, 6 partner types, kit</td><td class="plain"><code>/partner/&lt;type&gt;/</code></td><td class="plain">Existing "Who We Work With" and "What We Enable", new detail</td></tr>
+            <tr><td>Group</td><td class="plain">Hub and 8 brands</td><td class="plain"><code>/group/&lt;brand&gt;/</code></td><td class="plain">Existing lines, facts from each brand's site or from you</td></tr>
+            <tr><td>Network</td><td class="plain">1</td><td class="plain"><code>/network/</code></td><td class="plain">Existing "Global Presence &amp; Network", places from group sites</td></tr>
+            <tr><td>Trust and Standards</td><td class="plain">1</td><td class="plain"><code>/trust/</code></td><td class="plain">Existing proof, each item with its source</td></tr>
+            <tr><td>Press room</td><td class="plain">1, with media kit</td><td class="plain"><code>/press/</code></td><td class="plain">New: boilerplate, logos, fact sheet, press contact</td></tr>
+            <tr><td>News</td><td class="plain">Index, 15 posts, keyword articles</td><td class="plain"><code>/blog/&lt;slug&gt;/</code></td><td class="plain">Existing, word for word. Articles may be AI-written</td></tr>
+            <tr><td>Events</td><td class="plain">Index and one page per event</td><td class="plain"><code>/events/&lt;event&gt;/</code></td><td class="plain">New, per event, with QR</td></tr>
+            <tr><td>Contact</td><td class="plain">1</td><td class="plain"><code>/contacts/</code></td><td class="plain">Existing</td></tr>
+            <tr><td>Legal</td><td class="plain">Privacy, cookies, legal notice</td><td class="plain"><code>/privacy/</code> and others</td><td class="plain">New, needs your legal details</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>The six partner types, as the site names them</h3>
+      <div class="pairs">
+        <div class="pair"><b>Insurance &amp; Assistance Companies</b><span>Case management, approvals, claims, evacuation</span></div>
+        <div class="pair"><b>Hotels, Resorts &amp; Cruise Lines</b><span>On-site clinics, emergency response, guest safety</span></div>
+        <div class="pair"><b>Tour Operators &amp; Travel Agencies</b><span>Medical support across the traveller's journey</span></div>
+        <div class="pair"><b>Embassies &amp; Government Institutions</b><span>Support for missions, staff and delegations</span></div>
+        <div class="pair"><b>Healthcare Providers</b><span>Patient flow, referrals, accreditation and training</span></div>
+        <div class="pair"><b>Corporate Clients &amp; International Organizations</b><span>Cross-border healthcare for companies</span></div>
+      </div>
+    </section>
+
+    <section id="look">
+      <p class="kicker">Canvas first, code second</p>
+      <h2>The look</h2>
+      <p class="note">Everything below goes on the design canvas, desktop first, then phone. You pick before anything is built.</p>
+      <h3>The brand, exactly</h3>
+      <div class="swatches" role="list">
+        <div class="sw" role="listitem"><i style="background:#12C0C6"></i>Turquoise #12C0C6<br>lines, marks, fills</div>
+        <div class="sw" role="listitem"><i style="background:#0A7F84"></i>Turquoise ink #0A7F84<br>text and links</div>
+        <div class="sw" role="listitem"><i style="background:#000000"></i>Black #000000<br>ink, noir ground</div>
+        <div class="sw" role="listitem"><i style="background:#565759"></i>Dim gray #565759<br>second text</div>
+        <div class="sw" role="listitem"><i style="background:#F1F2F2"></i>Soft gray #F1F2F2<br>quiet bands</div>
+        <div class="sw" role="listitem"><i style="background:#FFFFFF"></i>White #FFFFFF<br>ground</div>
+      </div>
+      <p class="src">Helma for headlines once you send the files, Inter for text. White text on turquoise fails contrast (2.2:1), so turquoise carries lines and fills and dark text sits on it.</p>
+      <h3>Three directions</h3>
+      <div class="options">
+        <div class="opt"><span class="tag">Direction A</span><b>Ivory editorial</b><span>White and soft gray grounds, large serif headlines, turquoise hairlines, wide calm space. A private bank's annual report.</span></div>
+        <div class="opt"><span class="tag">Direction B</span><b>Noir and turquoise</b><span>Brand black ground, white serif, one soft turquoise glow, films behind glass. A members' club.</span></div>
+        <div class="opt"><span class="tag">Direction C</span><b>Hybrid</b><span>Dark hero, dark network map and partner band. Light editorial rooms between them.</span></div>
+      </div>
+      <h3>Five hero options</h3>
+      <div class="options">
+        <div class="opt lean"><span class="tag">Current lean</span><b>Cinematic film</b><span>A slow film of the managed journey behind the headline. Real group footage and Veo shots. Watch film opens it with sound.</span></div>
+        <div class="opt"><span class="tag">Option</span><b>Network map</b><span>Where the group operates and where its partners send patients from, drawn in fine lines.</span></div>
+        <div class="opt"><span class="tag">Option</span><b>Editorial photo</b><span>One large still that settles slowly. Quietest and fastest.</span></div>
+        <div class="opt lean"><span class="tag">Current lean, second section</span><b>The system, drawn</b><span>The six steps of "How Our System Works" drawn in hairlines as the visitor arrives. Explains the model in seconds.</span></div>
+        <div class="opt"><span class="tag">The 3D concept</span><b>The ecosystem</b><span>The eight brands as glass nodes around the HCIG core, joined by turquoise lines, turning slowly. Phones get a lighter real 3D.</span></div>
+      </div>
+      <p class="src">Why the lean: a buyer first feels the quality (film), then understands the model (the system). I confirm or change the recommendation once all five are side by side.</p>
+      <h3>Sections every direction carries</h3>
+      <ul class="ticks">
+        <li><b>Proof band</b> <span>GHA and DMWV, the numbers 40+, 600K+, 350+, 135+.</span></li>
+        <li><b>Insurer logos</b> <span>All 23 in their own colours, two rows, pausing on hover.</span></li>
+        <li><b>The CEO quote</b> <span>An editorial serif moment with his real photo.</span></li>
+        <li><b>Eight brands</b> <span>Each in its own block, in its own colours.</span></li>
+        <li><b>Partner-type chooser</b> <span>Six doors, one per buyer.</span></li>
+        <li><b>Partner with us, then newsletter</b> <span>The last band on the home. One email field, one button.</span></li>
+        <li><b>Footer</b> <span>Both offices, partner desk, seven languages, "Powered by Pulse Marketing".</span></li>
+      </ul>
+    </section>
+
+    <section id="search">
+      <p class="kicker">SEO, GEO, AEO and PageSpeed</p>
+      <h2>Search, AI and speed</h2>
+      <p class="note">Built in from the first page. Never added at the end.</p>
+      <h3>Technical search</h3>
+      <ul class="ticks">
+        <li><b>On every page</b> <span>One H1, unique title and description, canonical, hreflang for seven languages plus x-default, share image per language, breadcrumbs, semantic navigation.</span></li>
+        <li><b>Structured data as one graph</b> <span>HCIG as the parent organisation, the eight brands as sub-organisations with their own sites, the board as people, services, news articles, events, FAQs where approved.</span></li>
+        <li><b>Addresses</b> <span>A sitemap per language, a redirect map for every old address, a designed 404.</span></li>
+        <li><b>Engines</b> <span>Search Console, plus Bing Webmaster Tools and IndexNow. Bing feeds ChatGPT search and Copilot.</span></li>
+      </ul>
+      <h3>Being named by AI tools</h3>
+      <ul class="ticks">
+        <li><b>Baseline first</b> <span>30 fixed prompts in ChatGPT, Perplexity, Gemini and Copilot, plus Google AI Overviews checks. Re-run every month.</span></li>
+        <li><b>Answer blocks</b> <span>Key pages open with two short sentences that answer the buyer's question. New copy, approved first.</span></li>
+        <li><b>A fact sheet AI tools can quote</b> <span>Name, brands, board, addresses, partnerships, numbers. Plus llms.txt.</span></li>
+        <li><b>One truth everywhere</b> <span>Same name spelling, same board titles on the site, LinkedIn, Crunchbase, Wikidata, directories and the group sites.</span></li>
+      </ul>
+      <h3>Speed budget</h3>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Measure</th><th>Target on a phone</th></tr></thead>
+          <tbody>
+            <tr><td>PageSpeed performance</td><td class="plain">90 or more on every template</td></tr>
+            <tr><td>Main content visible</td><td class="plain">2.5 s or less</td></tr>
+            <tr><td>Layout shift</td><td class="plain">Under 0.1</td></tr>
+            <tr><td>Tap response</td><td class="plain">Under 200 ms</td></tr>
+            <tr><td>Hero film</td><td class="plain">Starts after the page is ready, designed poster, a lighter cut for phones</td></tr>
+            <tr><td>JotForm agent</td><td class="plain">Loads after the first view, never before</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="keywords">
+      <p class="kicker">Seeds only, before research</p>
+      <h2>B2B keywords</h2>
+      <p class="note">Phase 1 turns these seeds into a map: one main keyword per page per language, with real volumes.</p>
+      <div class="tbl wide">
+        <table>
+          <thead><tr><th>Partner type</th><th>English seeds</th><th>German seeds</th><th>Polish seeds</th></tr></thead>
+          <tbody>
+            <tr><td>Insurers and assistance</td><td class="plain">medical assistance provider Egypt · direct billing hospitals Egypt · medical case management Egypt · medical repatriation from Egypt</td><td class="plain">Assistance Partner Ägypten · Direktabrechnung Krankenhaus Ägypten · Rücktransport aus Ägypten</td><td class="plain">usługi assistance Egipt · transport medyczny z Egiptu</td></tr>
+            <tr><td>Hotels, resorts, cruises</td><td class="plain">hotel medical services Egypt · on-site clinic for hotels · resort doctor Red Sea</td><td class="plain">Hotelarzt Ägypten · medizinische Versorgung Hotel Ägypten</td><td class="plain">lekarz w hotelu Egipt</td></tr>
+            <tr><td>Tour operators</td><td class="plain">medical support for tour operators Egypt · duty of care travellers Egypt</td><td class="plain">medizinische Betreuung Reisegruppen Ägypten</td><td class="plain">opieka medyczna dla biur podróży Egipt</td></tr>
+            <tr><td>Corporates</td><td class="plain">corporate healthcare Egypt · remote site medical services Egypt</td><td class="plain">Betriebsmedizin Ägypten</td><td class="plain">opieka medyczna dla firm Egipt</td></tr>
+            <tr><td>Embassies</td><td class="plain">medical support for embassies Egypt</td><td class="plain">medizinische Betreuung Botschaft Ägypten</td><td class="plain">opieka medyczna ambasada Egipt</td></tr>
+            <tr><td>Providers</td><td class="plain">GHA accreditation Egypt · hospital accreditation consulting Egypt</td><td class="plain">Akkreditierung Krankenhaus Ägypten</td><td class="plain">akredytacja szpitala Egipt</td></tr>
+            <tr><td>Medical tourism</td><td class="plain">medical tourism company Egypt · medical tourism facilitator Egypt</td><td class="plain">Medizintourismus Ägypten</td><td class="plain">turystyka medyczna Egipt</td></tr>
+            <tr><td>Brand</td><td class="plain">Healthcare International Group · HCIG Egypt · Dr. Amr Abbass · each brand name</td><td class="plain">same</td><td class="plain">same</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Method</h3>
+      <ul class="ticks">
+        <li><b>Keyword Planner</b> <span>Through the HCIG Google Ads account, now available. Real ranges per country.</span></li>
+        <li><b>Autocomplete and People Also Ask</b> <span>In all seven languages, per source market.</span></li>
+        <li><b>Live results</b> <span>Who ranks, read in the browser. Your free Semrush account for spot checks.</span></li>
+        <li><b>Search Console</b> <span>Replaces estimates once data exists. The map is reviewed 8 weeks after launch.</span></li>
+      </ul>
+    </section>
+
+    <section id="trust">
+      <p class="kicker">Your idea, built on real items only</p>
+      <h2>Trust and partnerships</h2>
+      <p class="note">B2B buyers check proof before they write. Every item below already exists, and each one names its source.</p>
+      <div class="pairs">
+        <div class="pair"><b>Official partnerships</b><span>"Official Partner" of GHA and DMWV, exact wording, never "accredited by".</span></div>
+        <div class="pair"><b>Accreditation</b><span>24/7 Clinic's UCA accreditation, credited to 24/7 Clinic, source named.</span></div>
+        <div class="pair"><b>Trusted by</b><span>The 23 insurer logos, under the site's own heading.</span></div>
+        <div class="pair"><b>Patients</b><span>The three testimonial videos, played as video.</span></div>
+        <div class="pair"><b>Seen at</b><span>ITIC, ITB Berlin, Uniglobal, Africa Health ExCon, from the news.</span></div>
+        <div class="pair"><b>Hotel partners</b><span>Only hotels the group sites already name.</span></div>
+      </div>
+      <h3>Off-site, in order</h3>
+      <ul class="ticks">
+        <li><b>Profiles</b> <span>LinkedIn company page aligned, Crunchbase, Wikidata, Google Business Profile for the Cairo office.</span></li>
+        <li><b>Directories</b> <span>ITIJ service directory, assistance and medical travel directories, GHA and DMWV partner listings.</span></li>
+        <li><b>Links from partners</b> <span>Ask GHA, DMWV, UCA and named hotels to link to HCIG.</span></li>
+        <li><b>Press</b> <span>A short release after every event and partnership, sent to trade press.</span></li>
+        <li><b>Group sites</b> <span>A quiet link back to HCIG from each brand site, with each site's yes.</span></li>
+      </ul>
+    </section>
+
+    <section id="marketing">
+      <p class="kicker">Planned now, switched on when needed</p>
+      <h2>Marketing and ads</h2>
+      <p class="note">Four tracks and two ad channels. Nothing paid starts before tracking is proven.</p>
+      <div class="pairs">
+        <div class="pair"><b>LinkedIn content</b><span>Two company posts and one CEO post a week. Events, partnerships, the system, brand news.</span></div>
+        <div class="pair"><b>Partner newsletter</b><span>Monthly, confirmed signups only, split by partner type.</span></div>
+        <div class="pair"><b>Event pages with QR</b><span>One per trade show. Every scan counted. Booth follow-up within 48 hours.</span></div>
+        <div class="pair"><b>Directories and PR</b><span>Listings and releases that also feed AI tools.</span></div>
+      </div>
+      <h3>Google Search, after launch</h3>
+      <ul class="ticks">
+        <li><b>One campaign per partner type</b> <span>Plus brand protection. Exact and phrase match only.</span></li>
+        <li><b>Strict negatives</b> <span>Jobs, salaries, courses, symptoms, free. Patients go to the brand sites.</span></li>
+        <li><b>Landing</b> <span>The matching partner page, in the searcher's language.</span></li>
+      </ul>
+      <h3>LinkedIn, after launch</h3>
+      <ul class="ticks">
+        <li><b>Who</b> <span>Assistance coordinators, medical directors and claims managers at insurers. Hotel general managers. Tour operator quality and safety managers.</span></li>
+        <li><b>What</b> <span>The partner kit as a document ad, then retargeting of site visitors.</span></li>
+        <li><b>Where</b> <span>The source markets of the seven languages, plus the UK and the Nordics.</span></li>
+      </ul>
+      <div class="callout"><b class="lab">Budget</b>A costed proposal for you and Irina once Keyword Planner prices and LinkedIn audience sizes are in. Nothing is spent before.</div>
+      <h3>The monthly report to Irina</h3>
+      <p>Enquiries, kit downloads, newsletter signups, organic B2B clicks, AI mentions, speed scores. Each one by language and source, before and after.</p>
+    </section>
+
+    <section id="tracking">
+      <p class="kicker">Measured from Phase 0</p>
+      <h2>Tracking and consent</h2>
+      <p class="note">GA4, Search Console, Google Ads, the LinkedIn tag and our own first-party counting. Tags that need consent wait for it.</p>
+      <div class="tbl wide">
+        <table>
+          <thead><tr><th>Action</th><th>Where</th><th>Counted in</th></tr></thead>
+          <tbody>
+            <tr><td>Partner enquiry</td><td class="plain">Contact and partner forms</td><td class="plain">GA4 conversion, Google Ads, LinkedIn, our dashboard, partner@ inbox</td></tr>
+            <tr><td>Kit download</td><td class="plain">Partner kit form</td><td class="plain">Same as above</td></tr>
+            <tr><td>Newsletter signup</td><td class="plain">Home band, footer</td><td class="plain">GA4, our dashboard, newsletter tool</td></tr>
+            <tr><td>Phone and email taps</td><td class="plain">Header, contact, footer</td><td class="plain">GA4, our dashboard</td></tr>
+            <tr><td>Chat opened</td><td class="plain">JotForm agent</td><td class="plain">GA4</td></tr>
+            <tr><td>Film and testimonial plays</td><td class="plain">Hero, trust page</td><td class="plain">GA4</td></tr>
+            <tr><td>QR scan</td><td class="plain">Event pages</td><td class="plain">GA4, our dashboard</td></tr>
+            <tr><td>Visit to a brand site</td><td class="plain">Brand pages</td><td class="plain">GA4. Shows what HCIG sends to each brand</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><b class="lab">Consent</b>A light, quiet banner wired to Google Consent Mode v2. Yandex session recording, GA4, Ads and LinkedIn load only after a yes. The site works fully on a no.</div>
+    </section>
+
+    <section id="extras">
+      <p class="kicker">Needed, even though nobody asked</p>
+      <h2>Things you did not ask for</h2>
+      <p class="note">Most of these are invisible. Each one protects a partner's first impression or keeps the site legal.</p>
+      <ul class="ticks">
+        <li><b>Email that lands.</b> <span>SPF, DKIM and DMARC for Microsoft 365, tested before and after.</span></li>
+        <li><b>Cookie consent.</b> <span>Required for EU visitors with these tags.</span></li>
+        <li><b>Privacy, cookie and legal notice pages.</b> <span>German readers expect a legal notice.</span></li>
+        <li><b>Supported server software.</b> <span>For the form handler. The new site itself is static.</span></li>
+        <li><b>Security headers.</b> <span>Strict HTTPS and the usual protections.</span></li>
+        <li><b>Bing Webmaster Tools and IndexNow.</b> <span>For ChatGPT search and Copilot.</span></li>
+        <li><b>Favicon and app icons.</b> <span>The favicon is missing today.</span></li>
+        <li><b>A share image for every page and language.</b> <span>All four are broken today.</span></li>
+        <li><b>A watchdog.</b> <span>An alert when a page, form or tag breaks.</span></li>
+        <li><b>Backup and a 15-minute rollback.</b> <span>Before every upload.</span></li>
+        <li><b>One spelling, one board list.</b> <span>"Healthcare", not "Health Care". Titles agreed once.</span></li>
+        <li><b>A reply promise for partner enquiries.</b> <span>For example one working day. Needs your yes.</span></li>
+        <li><b>Brand assets for the press.</b> <span>Logos and a boilerplate, so partners and journalists quote HCIG correctly.</span></li>
+        <li><b>Accessibility to WCAG 2.2 AA.</b> <span>Keyboard, contrast, captions, reduced motion.</span></li>
+        <li><b>Later, not now.</b> <span>A partner portal for insurers to follow their cases, case studies, careers, a chat assistant of our own.</span></li>
+      </ul>
+    </section>
+
+    <section id="phases">
+      <p class="kicker">Weeks counted from your yes to the spec</p>
+      <h2>Phases</h2>
+      <p class="note">Quality first. Each gate is yours, then Irina's. The home is locked before inner pages start.</p>
+      <div class="gantt" role="img" aria-label="Timeline of nine phases from week 0 to week 16. English goes live in week 10, all seven languages by week 15, growth work continues after.">
+        <svg viewBox="0 0 940 410" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g>
+            <line class="g-grid" x1="260" y1="28" x2="260" y2="384"/>
+            <line class="g-grid" x1="340" y1="28" x2="340" y2="384"/>
+            <line class="g-grid" x1="420" y1="28" x2="420" y2="384"/>
+            <line class="g-grid" x1="500" y1="28" x2="500" y2="384"/>
+            <line class="g-grid" x1="580" y1="28" x2="580" y2="384"/>
+            <line class="g-grid" x1="660" y1="28" x2="660" y2="384"/>
+            <line class="g-grid" x1="740" y1="28" x2="740" y2="384"/>
+            <line class="g-grid" x1="820" y1="28" x2="820" y2="384"/>
+            <line class="g-grid" x1="900" y1="28" x2="900" y2="384"/>
+            <text class="g-tick" x="260" y="18" text-anchor="middle">W0</text>
+            <text class="g-tick" x="340" y="18" text-anchor="middle">W2</text>
+            <text class="g-tick" x="420" y="18" text-anchor="middle">W4</text>
+            <text class="g-tick" x="500" y="18" text-anchor="middle">W6</text>
+            <text class="g-tick" x="580" y="18" text-anchor="middle">W8</text>
+            <text class="g-tick" x="660" y="18" text-anchor="middle">W10</text>
+            <text class="g-tick" x="740" y="18" text-anchor="middle">W12</text>
+            <text class="g-tick" x="820" y="18" text-anchor="middle">W14</text>
+            <text class="g-tick" x="900" y="18" text-anchor="middle">W16</text>
+            <line class="g-live" x1="660" y1="28" x2="660" y2="384"/>
+            <text class="g-sub" x="666" y="398">English live</text>
+          </g>
+          <g>
+            <text class="g-label" x="0" y="52">0 · Live fixes and baseline</text>
+            <rect class="g-bar" x="260" y="40" width="40" height="16" rx="3"/>
+            <text class="g-label" x="0" y="91">1 · Research and fact base</text>
+            <rect class="g-bar" x="260" y="79" width="80" height="16" rx="3"/>
+            <rect class="g-gate" x="333" y="80" width="14" height="14" transform="rotate(45 340 87)"/>
+            <text class="g-label" x="0" y="130">2 · Design system and canvas</text>
+            <rect class="g-bar" x="300" y="118" width="120" height="16" rx="3"/>
+            <rect class="g-gate" x="353" y="119" width="14" height="14" transform="rotate(45 360 126)"/>
+            <rect class="g-gate" x="413" y="119" width="14" height="14" transform="rotate(45 420 126)"/>
+            <text class="g-label" x="0" y="169">3 · Home build and review</text>
+            <rect class="g-bar" x="420" y="157" width="80" height="16" rx="3"/>
+            <rect class="g-gate" x="493" y="158" width="14" height="14" transform="rotate(45 500 165)"/>
+            <text class="g-label" x="0" y="208">4 · Inner pages, forms, kit</text>
+            <rect class="g-bar" x="500" y="196" width="120" height="16" rx="3"/>
+            <text class="g-label" x="0" y="247">5 · Quality and approval</text>
+            <rect class="g-bar" x="620" y="235" width="40" height="16" rx="3"/>
+            <rect class="g-gate" x="653" y="236" width="14" height="14" transform="rotate(45 660 243)"/>
+            <text class="g-label" x="0" y="286">6 · English go-live</text>
+            <rect class="g-bar" x="660" y="274" width="20" height="16" rx="3"/>
+            <text class="g-label" x="0" y="325">7 · Six languages, German first</text>
+            <rect class="g-bar" x="660" y="313" width="80" height="16" rx="3"/>
+            <rect class="g-bar soft" x="740" y="313" width="120" height="16" rx="3"/>
+            <text class="g-label" x="0" y="364">8 · Growth: listings, content, ads</text>
+            <rect class="g-bar soft" x="660" y="352" width="250" height="16" rx="3"/>
+            <path d="M910 352 L928 360 L910 368 Z" class="g-bar soft"/>
+          </g>
+        </svg>
+      </div>
+      <div class="legend"><span><i></i>Work</span><span><i class="soft"></i>Second wave or ongoing</span><span><i class="gate"></i>Your decision or Irina's</span></div>
+      <div class="tbl wide">
+        <table>
+          <thead><tr><th>Phase</th><th>Weeks</th><th>What happens</th><th>Gate</th><th>Lead</th></tr></thead>
+          <tbody>
+            <tr><td>0 · Live fixes and baseline</td><td class="plain">0 to 1</td><td class="plain">Server backup. Canonicals, German title, share tags and images, hreflang, structured data, old-address redirects, sitemap, favicon, lighter testimonial films. GA4, Search Console, Ads conversions, consent. Email test, then SPF, DKIM, DMARC. Speed and AI baselines</td><td class="plain">Your access. Banner wording</td><td class="plain"><span class="chip opus">Opus</span></td></tr>
+            <tr><td>1 · Research and fact base</td><td class="plain">0 to 2</td><td class="plain">Business, B2B buyers, keyword map in seven languages, competitors and AI baseline, system analysis, fact sheet, site map, partners and logos. All assets collected and sorted</td><td class="plain">You confirm the fact sheet and site map</td><td class="plain"><span class="chip opus">Opus</span> <span class="chip gem">Gemini: asset sorting</span></td></tr>
+            <tr><td>2 · Design system and canvas</td><td class="plain">1 to 4</td><td class="plain">Luxury layer on the HCIG brand. Three directions, five heroes, desktop then phone. Then the full home in the chosen direction, then the page templates. Generated film and images</td><td class="plain">Your pick. Your yes to the full home</td><td class="plain"><span class="chip opus">Opus</span> <span class="chip gem">Gemini: images, video</span></td></tr>
+            <tr><td>3 · Home build and review</td><td class="plain">4 to 6</td><td class="plain">The approved home, built and shown on HCIG Work. Review rounds, desktop then phone</td><td class="plain">Home locked</td><td class="plain"><span class="chip opus">Opus</span></td></tr>
+            <tr><td>4 · Inner pages, forms, kit</td><td class="plain">6 to 9</td><td class="plain">Templates and key pages by Opus. Brand pages, news migration, legal and event pages by Gemini on approved templates. Forms, leads, newsletter, partner kit PDFs. New copy review pack</td><td class="plain">You, then Irina, on new copy</td><td class="plain"><span class="chip opus">Opus</span> <span class="chip gem">Gemini: medium and low pages</span></td></tr>
+            <tr><td>5 · Quality and approval</td><td class="plain">9 to 10</td><td class="plain">Structured data, speed, accessibility, links, forms, consent, claims. Screenshot sweep at phone and desktop width</td><td class="plain">Irina approves</td><td class="plain"><span class="chip opus">Opus</span> <span class="chip gem">Gemini: sweeps, review</span></td></tr>
+            <tr><td>6 · English go-live</td><td class="plain">10</td><td class="plain">Backup, upload, redirects, rendered-head check on every template, sitemaps, 14-day watch</td><td class="plain">Your word</td><td class="plain"><span class="chip opus">Opus</span></td></tr>
+            <tr><td>7 · Six languages</td><td class="plain">10 to 15</td><td class="plain">German first, replacing the old German pages at the same addresses. Then Polish, French, Italian, Spanish, Czech. News last</td><td class="plain">Your word per wave</td><td class="plain"><span class="chip opus">Opus</span> <span class="chip gem">Gemini: cross-check</span></td></tr>
+            <tr><td>8 · Growth</td><td class="plain">10 onward</td><td class="plain">Profiles and directories, LinkedIn plan, newsletter, event pages, keyword articles, ads once tracking is proven, monthly AI re-run and report</td><td class="plain">Irina on budget</td><td class="plain"><span class="chip opus">Opus</span> <span class="chip gem">Gemini: drafts</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="team">
+      <p class="kicker">As you set it today</p>
+      <h2>Who does what</h2>
+      <p class="note">Opus thinks, decides and builds what matters. Gemini works only in implementation, and Opus reads every diff before it lands.</p>
+      <div class="tbl wide">
+        <table>
+          <thead><tr><th>Who</th><th>Does</th><th>Never does</th></tr></thead>
+          <tbody>
+            <tr><td>Opus (Claude)</td><td class="plain">Strategy, spec, plan, keyword map, site map, design canvas, the home, templates, partner and trust pages, structured data, redirects, tracking, consent, forms, compliance, translation, go-live, final review</td><td class="plain">Ship anything without your yes</td></tr>
+            <tr><td>Gemini (agy-delegate)</td><td class="plain">Second-opinion reviews, brand pages, news migration, legal and event pages on approved templates, alt text and meta first drafts, translation cross-check, image and video generation, asset sorting, screenshot sweeps, LinkedIn and listing drafts</td><td class="plain">Plan, decide, touch live systems, DNS, redirects, structured data, tracking, claims</td></tr>
+            <tr><td>You</td><td class="plain">Approvals, access, the inputs list, the Helma files, board photos</td><td class="plain"></td></tr>
+            <tr><td>Irina</td><td class="plain">Approves new copy, the site and the ads budget</td><td class="plain"></td></tr>
+            <tr><td>Reham</td><td class="plain">Optional graphics: kit covers, share images. Generated ones ship if she is busy</td><td class="plain"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><b class="lab">Effort</b>I cannot change my own effort level. Switch it in the model menu (<code>/model</code>): max while we plan, high once we build.</div>
+    </section>
+
+    <section id="inputs">
+      <p class="kicker">Blocking items first</p>
+      <h2>What I need from you</h2>
+      <p class="note">Items 1 to 4 unblock Phase 0 and the canvas. The rest can follow.</p>
+      <div class="tbl wide">
+        <table>
+          <thead><tr><th>#</th><th>What</th><th>Unblocks</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="plain">cPanel, FTP or SSH for healthcareig.com</td><td class="plain">Phase 0, go-live</td></tr>
+            <tr><td>2</td><td class="plain">GA4, Search Console, Google Ads and LinkedIn access for our account</td><td class="plain">Tracking, keyword prices, LinkedIn tag</td></tr>
+            <tr><td>3</td><td class="plain">DNS access at GoDaddy, or who holds it</td><td class="plain">Email fix</td></tr>
+            <tr><td>4</td><td class="plain">Helma web font files and the HCIG logo as a vector</td><td class="plain">The canvas at full brand quality</td></tr>
+            <tr><td>5</td><td class="plain">The current board list and real photos</td><td class="plain">Leadership page</td></tr>
+            <tr><td>6</td><td class="plain">A few facts each for MedOne, One Medical Center, One Medical Spa, UCA MENA, Shakankiry</td><td class="plain">Their brand pages</td></tr>
+            <tr><td>7</td><td class="plain">A yes that the three testimonial videos have patient consent</td><td class="plain">Trust page</td></tr>
+            <tr><td>8</td><td class="plain">A newsletter tool account you open yourself (free tier)</td><td class="plain">Newsletter, kit emails</td></tr>
+            <tr><td>9</td><td class="plain">Legal name, registration and privacy contact</td><td class="plain">Legal pages</td></tr>
+            <tr><td>10</td><td class="plain">The 2026 to 2027 event calendar</td><td class="plain">Event pages and QR</td></tr>
+            <tr><td>11</td><td class="plain">A word to Pulse Marketing that the site is being rebuilt</td><td class="plain">Good relations, footer credit stays</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="risks">
+      <p class="kicker">And what we do about each</p>
+      <h2>Risks</h2>
+      <div class="tbl wide">
+        <table>
+          <thead><tr><th>Risk</th><th>What we do</th></tr></thead>
+          <tbody>
+            <tr><td>Rankings drop at cutover</td><td class="plain">Every old address mapped, one redirect each, rendered heads checked, 14-day Search Console watch, rollback ready</td></tr>
+            <tr><td>Languages wait after the English launch</td><td class="plain">The old German pages stay live. The other five never existed, so nothing is lost</td></tr>
+            <tr><td>Generated visuals read as fake to a partner who visits</td><td class="plain">Leaders, events and logos stay real. AI-made people are never shown as named staff, patients or testimonials</td></tr>
+            <tr><td>A claim a partner cannot verify</td><td class="plain">Fact sheet with a source per line. Flagged wording goes to Irina</td></tr>
+            <tr><td>Helma files are late</td><td class="plain">A close stand-in. The swap is one setting</td></tr>
+            <tr><td>Translation tone with insurers</td><td class="plain">A fixed term list per language, Gemini cross-check, Opus review</td></tr>
+            <tr><td>The email fix touches DNS</td><td class="plain">Test first, record the old values, start DMARC in monitor mode</td></tr>
+            <tr><td>400 pages is a lot</td><td class="plain">Templates, home locked first, Gemini for medium and low pages, Opus review on every diff</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="flags">
+      <p class="kicker">Kept as written, flagged once</p>
+      <h2>Wording flagged once</h2>
+      <p class="note">Their words stay. These are listed so Irina can decide, nothing more.</p>
+      <ul class="ticks">
+        <li><b>"100% Of All Recognized Insurance Companies"</b> <span>(services) and "100% Trusted by Global Insurance &amp; Assistance Networks" (home). An insurer cannot verify a 100% claim.</span></li>
+        <li><b>Board titles disagree.</b> <span>About says Dr. Amr Abbass is Group Vice Chairman and Group CEO. GHA's news says "chairman and CEO". A hidden block on the services page lists Dr. Ahmed Safwat as Group COO.</span></li>
+        <li><b>The name is spelled two ways.</b> <span>"Health Care International Group" in four meta descriptions, "Healthcare International Group" everywhere else.</span></li>
+        <li><b>"Medical Tourism Experts in egypt"</b> <span>in the contact page title. A capital letter is an allowed fix.</span></li>
+      </ul>
+    </section>
+
+    <section id="success">
+      <p class="kicker">Measured, not felt</p>
+      <h2>How we know it worked</h2>
+      <div class="tbl wide">
+        <table>
+          <thead><tr><th>Measure</th><th>Target</th></tr></thead>
+          <tbody>
+            <tr><td>Speed on a phone</td><td class="plain">90+ performance, 100 SEO, 95+ accessibility on every template</td></tr>
+            <tr><td>Broken images and links</td><td class="plain">0 at launch (19 today)</td></tr>
+            <tr><td>Old addresses</td><td class="plain">100% answer or redirect once. 0 new 404s in 14 days</td></tr>
+            <tr><td>Their words</td><td class="plain">100% of existing sentences present, checked by machine</td></tr>
+            <tr><td>Five-person test</td><td class="plain">4 of 5 say what HCIG does and how to reach the partner desk after 60 seconds</td></tr>
+            <tr><td>Leads</td><td class="plain">10 of 10 test leads in inbox and dashboard within 5 minutes</td></tr>
+            <tr><td>AI tools</td><td class="plain">Within 90 days: named for brand prompts by all four, and in 5 of 20 B2B prompts</td></tr>
+            <tr><td>Search</td><td class="plain">Within 6 months: impressions for 50+ keywords from the B2B map</td></tr>
+            <tr><td>Languages</td><td class="plain">All seven live within 6 weeks of the English launch</td></tr>
+            <tr><td>Enquiries</td><td class="plain">Reported monthly. Target set with Irina after 4 weeks of data</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="next">
+      <p class="kicker">Your move</p>
+      <h2>Next step</h2>
+      <ul class="ticks">
+        <li><b>1. You approve the spec</b> <span>or tell me what to change. File: <code>specs/012-hcig-website/spec.md</code>.</span></li>
+        <li><b>2. I write the technical plan and the task list</b> <span>and open the Hive tickets under epic 012-hcig-website.</span></li>
+        <li><b>3. You send items 1 to 4</b> <span>and Phase 0 starts on the live site.</span></li>
+        <li><b>4. The canvas</b> <span>three directions and five heroes, desktop first, then phone.</span></li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<footer class="end">
+  <div class="wrap">
+    <span>HCIG Website Plan · Spec 012 · 18 October 2026</span>
+    <span>Every finding verified on the live site the same day. Competitor claims are their own.</span>
+  </div>
+</footer>

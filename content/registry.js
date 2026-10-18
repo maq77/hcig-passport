@@ -475,6 +475,38 @@ const COMPANIES = [
     where: 'Cairo, Egypt and Clearwater, Florida',
     projects: [
       {
+        slug: 'group-website',
+        name: 'healthcareig.com, rebuilt from zero',
+        status: 'draft',
+        updated: '2026-10-18',
+        summary: 'The group site rebuilt for B2B partners and the group hub. Luxury feel, seven languages, built to rank and to be named by AI tools.',
+        detail: [
+          'Planned 2026-10-18 after six question rounds. 24 decisions are in the spec.',
+          'B2B first: insurers, assistance companies, hotels, cruise lines, tour operators, embassies, corporates, providers. The eight brands, the board and the press room beside it.',
+          'Every existing sentence kept. New pages get new copy, approved by Mohamed, then Irina.',
+          'English launches first, then German, Polish, French, Italian, Spanish and Czech. The old German pages stay live until replaced.',
+          'Live site checked the same day: empty canonical, empty German title, 19 broken images, no GA4, old .php duplicates, PHP 7.1, and email authentication that does not cover Microsoft 365.',
+          'Next: Mohamed approves the spec, then invisible fixes and tracking go live on today’s site, and the design canvas starts.',
+        ],
+        checklist: [
+          { text: 'Approve the spec', done: false, who: 'Mohamed' },
+          { text: 'Send hosting, Google, LinkedIn and DNS access', done: false, who: 'Mohamed' },
+          { text: 'Send the Helma font files and the logo as a vector', done: false, who: 'Mohamed' },
+          { text: 'Invisible fixes and tracking on the live site', done: false, who: 'Us' },
+          { text: 'Design canvas: three directions, five heroes', done: false, who: 'Us' },
+        ],
+        stages: [
+          {
+            name: 'Plan',
+            items: [
+              { slug: 'plan', name: 'The full plan', kind: 'html', src: 'docs/hcig-website-plan.html', status: 'draft', note: 'Findings, decisions, site map, look, search, keywords, trust, marketing, phases' },
+              { slug: 'spec', name: 'The spec, for approval', kind: 'md', src: 'specs/012-hcig-website/spec.md', status: 'draft', note: 'The approval document' },
+              { slug: 'worklog', name: 'Work log', kind: 'md', src: 'docs/hcig-website-worklog.md', status: 'draft', note: 'Every step from day one' },
+            ],
+          },
+        ],
+      },
+      {
         slug: 'passport',
         name: 'HCIG Passport',
         status: 'review',
