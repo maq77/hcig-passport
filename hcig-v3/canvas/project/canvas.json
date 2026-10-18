@@ -1,0 +1,97 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-18T14:30:00Z"
+  },
+  "title": "HCIG Website Directions",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 12180,
+      "title": "A · Desktop",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "IvoryPhone.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 390,
+      "h": 16520,
+      "title": "A · Phone",
+      "is_interactive": true
+    },
+    "Noir.dc.html": {
+      "x": 2110,
+      "y": 0,
+      "w": 1440,
+      "h": 12840,
+      "title": "B · Desktop",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "NoirPhone.dc.html": {
+      "x": 3630,
+      "y": 0,
+      "w": 390,
+      "h": 16600,
+      "title": "B · Phone",
+      "is_interactive": true
+    },
+    "Hybrid.dc.html": {
+      "x": 4220,
+      "y": 0,
+      "w": 1440,
+      "h": 12040,
+      "title": "C · Desktop",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "HybridPhone.dc.html": {
+      "x": 5740,
+      "y": 0,
+      "w": 390,
+      "h": 16180,
+      "title": "C · Phone",
+      "is_interactive": true
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "IvoryPhone.dc.html",
+    "Noir.dc.html",
+    "NoirPhone.dc.html",
+    "Hybrid.dc.html",
+    "HybridPhone.dc.html"
+  ],
+  "notes": {
+    "dirA": {
+      "x": 0,
+      "y": -300,
+      "text": "A · Ivory editorial",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "dirB": {
+      "x": 2110,
+      "y": -300,
+      "text": "B · Noir and turquoise",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "dirC": {
+      "x": 4220,
+      "y": -300,
+      "text": "C · Hybrid",
+      "kind": "title1",
+      "maxW": 1910
+    }
+  },
+  "designSystems": []
+}

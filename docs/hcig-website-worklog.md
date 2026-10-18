@@ -37,3 +37,8 @@ The final report and the email are written from this file.
 | Task list | `specs/012-hcig-website/tasks.md` | 106 tasks in his nine phases: 16 decisions for him or Irina, 15 Gemini tasks, 18 parallel | Format check, sequential IDs, no dashes |
 | Hive tickets | Dashboard | T-044 to T-052 (one per phase, Opus, linked by dependencies); T-053 logos dispatched to Gemini | hive_status |
 | SSH key | `~/.ssh/hcig_rsa` | Made for him to import in cPanel; Phase 0 waits on it | Key file exists |
+| Canvas 1 published | https://claude.ai/artifact/6gfCsDPJtkS9g6QSYe5xoJ | Three directions (A Ivory editorial, B Noir and turquoise, C Hybrid), each a complete home page on desktop plus a phone board; working menu, language menu, accordion, tabs, films that play in place, newsletter field | Local render of all three at 1440 and 390 px: no overflow, no broken images, Helma active, no script errors |
+| Logos from the guideline | Canvas assets | Horizontal lockup, vertical lockup and HC mark cut from the guideline artwork in black and white (the guideline's own colour variations); nothing redrawn | Visual check on light and dark |
+| DMWV logo kept off | Canvas | The DMWV file says "CERTIFIED"; HCIG is an Official Partner, so DMWV appears by name only | Compliance rule |
+| Testimonial films re-encoded | Canvas assets | 112 MB to 19.8 MB as video (H.264, faststart), never stills; posters are designed tiles | ffmpeg, file sizes |
+| Words on the canvas | `hcig-v3/canvas/content.mjs` | Every sentence from the live site; six new labels proposed (newsletter label, email field, Subscribe, thank-you line, "All posts", the Health Hub caption) and one punctuation fix ("We don't just provide healthcare. We manage it.") | Generator holds them apart, marked NEW |
