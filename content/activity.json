@@ -1,5 +1,13 @@
 [
   {
+    "date": "2026-10-18",
+    "subject": "healthcareig.com rebuild: spec 012 (draft), full plan page, work log, HCIG Work entry"
+  },
+  {
+    "date": "2026-10-16",
+    "subject": "Update the site (122 files)"
+  },
+  {
     "date": "2026-10-16",
     "subject": "TMASI v3 live build: analytics script ids that do not block ym/gtag, LIVE_OUT for the build folder"
   },

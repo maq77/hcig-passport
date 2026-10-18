@@ -24,3 +24,5 @@ The final report and the email are written from this file.
 | Spec written | `specs/012-hcig-website/spec.md` | Status draft, 12 user stories, 37 requirements, 11 success criteria | Quality checklist, all pass |
 | Plan published | https://claude.ai/artifact/NzDdZTiMURNdjybx28CPVx | Private page, source `docs/hcig-website-plan.html` | Rendered at 400 px (no overflow) and 1280 px |
 | Plan contrast fixed | Plan page chips and labels | Turquoise on tint 4.4:1 to 6.8:1. Green chip 4.45:1 to 5.9:1 | Computed ratios |
+| Spec approved | `specs/012-hcig-website/spec.md` | Status approved, by Mohamed ("Approved, go") | His answer |
+| HCIG Work updated | Registry `hcig/group-website` | Spec and plan marked approved, pushed with his yes | `npm run publish` checks |

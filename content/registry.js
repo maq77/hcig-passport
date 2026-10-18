@@ -486,10 +486,10 @@ const COMPANIES = [
           'Every existing sentence kept. New pages get new copy, approved by Mohamed, then Irina.',
           'English launches first, then German, Polish, French, Italian, Spanish and Czech. The old German pages stay live until replaced.',
           'Live site checked the same day: empty canonical, empty German title, 19 broken images, no GA4, old .php duplicates, PHP 7.1, and email authentication that does not cover Microsoft 365.',
-          'Next: Mohamed approves the spec, then invisible fixes and tracking go live on today’s site, and the design canvas starts.',
+          'Spec approved by Mohamed on 2026-10-18. Next: the technical plan and tasks, invisible fixes and tracking on today’s site once access arrives, and the design canvas.',
         ],
         checklist: [
-          { text: 'Approve the spec', done: false, who: 'Mohamed' },
+          { text: 'Approve the spec', done: true, who: 'Mohamed' },
           { text: 'Send hosting, Google, LinkedIn and DNS access', done: false, who: 'Mohamed' },
           { text: 'Send the Helma font files and the logo as a vector', done: false, who: 'Mohamed' },
           { text: 'Invisible fixes and tracking on the live site', done: false, who: 'Us' },
@@ -499,8 +499,8 @@ const COMPANIES = [
           {
             name: 'Plan',
             items: [
-              { slug: 'plan', name: 'The full plan', kind: 'html', src: 'docs/hcig-website-plan.html', status: 'draft', note: 'Findings, decisions, site map, look, search, keywords, trust, marketing, phases' },
-              { slug: 'spec', name: 'The spec, for approval', kind: 'md', src: 'specs/012-hcig-website/spec.md', status: 'draft', note: 'The approval document' },
+              { slug: 'plan', name: 'The full plan', kind: 'html', src: 'docs/hcig-website-plan.html', status: 'approved', note: 'Findings, decisions, site map, look, search, keywords, trust, marketing, phases' },
+              { slug: 'spec', name: 'The spec, approved', kind: 'md', src: 'specs/012-hcig-website/spec.md', status: 'approved', note: 'Approved by Mohamed on 2026-10-18' },
               { slug: 'worklog', name: 'Work log', kind: 'md', src: 'docs/hcig-website-worklog.md', status: 'draft', note: 'Every step from day one' },
             ],
           },

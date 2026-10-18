@@ -4,7 +4,9 @@
 
 **Created**: 2026-10-18
 
-**Status**: draft
+**Status**: approved
+
+**Approved**: 2026-10-18 by Mohamed ("Approved, go"), with the push to HCIG Work the same minute.
 
 **Plan page**: "HCIG Website Plan", https://claude.ai/artifact/NzDdZTiMURNdjybx28CPVx (private), source `docs/hcig-website-plan.html`
 
