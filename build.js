@@ -553,6 +553,14 @@ if (fs.existsSync(TMASI_V4_SRC)) {
   fs.cpSync(TMASI_V4_SRC, path.join(OUT, 'tmasi', 'v4'), { recursive: true });
 }
 
+/* healthcareig.com as it is live (spec 012): a copy made by scripts/mirror-hcig-live.mjs into
+   src/hcig-live, served at /hcig-live. Changes to the live site are previewed here before they
+   reach the real host. Every page is noindex, tracking tags are removed and forms do not send. */
+const HCIG_LIVE_SRC = path.join(__dirname, 'src', 'hcig-live');
+if (fs.existsSync(HCIG_LIVE_SRC)) {
+  fs.cpSync(HCIG_LIVE_SRC, path.join(OUT, 'hcig-live'), { recursive: true });
+}
+
 /* ---- shared shell files ------------------------------------------------ */
 
 write('studio.css', fs.readFileSync(path.join(CONTENT, 'theme.css'), 'utf8'));

@@ -66,8 +66,11 @@ const files = walk(DIST);
    docs/247clinic-site-audit.md rather than blocking our build. Everything we
    write into that mirror is still checked, because the edits are made by
    scripts/build-247-site.py and reviewed there. */
-const MIRROR = path.join('247clinic', 'website-preview');
-const htmlFiles = files.filter((f) => f.endsWith('.html') && !f.includes(MIRROR));
+/* healthcareig.com is mirrored the same way at /hcig-live (spec 012): their live markup with its
+   defects, so fixes can be previewed before they reach the real site. The defects are listed in
+   docs/hcig-website-plan.html and fixed on the live site in Phase 0, then the mirror is refreshed. */
+const MIRRORS = [path.join('247clinic', 'website-preview'), path.sep + 'hcig-live' + path.sep];
+const htmlFiles = files.filter((f) => f.endsWith('.html') && !MIRRORS.some((m) => f.includes(m)));
 const rel = (abs) => abs.slice(DIST.length).replace(/\\/g, '/');
 
 /* Production also honours the redirects in vercel.json, so the checker has to

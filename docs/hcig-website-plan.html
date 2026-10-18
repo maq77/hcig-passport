@@ -229,8 +229,9 @@ footer.end .wrap { padding-block: 28px 48px; font-size: 12.5px; color: var(--ink
           <tbody>
             <tr><td><span class="chip crit">Critical</span></td><td class="plain"><b>Partner emails may fail authentication.</b> Mail runs on Microsoft 365, but SPF authorises GoDaddy only. No DKIM, no DMARC.</td><td class="plain muted">SPF <code>include:secureserver.net -all</code>, MX on outlook.com</td><td class="plain">Phase 0, after a test email</td></tr>
             <tr><td><span class="chip crit">Critical</span></td><td class="plain"><b>End-of-life server software.</b> PHP 7.1.33, unsupported since 2019, runs the pages and the contact form.</td><td class="plain muted">Server header</td><td class="plain">Phase 0 check, rebuild removes it</td></tr>
-            <tr><td><span class="chip crit">Critical</span></td><td class="plain"><b>Empty canonical</b> on the English and German homes.</td><td class="plain muted"><code>href=""</code></td><td class="plain">Phase 0</td></tr>
-            <tr><td><span class="chip high">High</span></td><td class="plain"><b>German home has no title.</b></td><td class="plain muted">Empty <code>&lt;title&gt;</code> on /de/</td><td class="plain">Phase 0</td></tr>
+            <tr><td><span class="chip crit">Critical</span></td><td class="plain"><b>No working canonical.</b> Empty on the English and German homes, absent on the other 8 pages.</td><td class="plain muted"><code>href=""</code></td><td class="plain">Phase 0</td></tr>
+            <tr><td><span class="chip high">High</span></td><td class="plain"><b>German pages say they are English.</b> Every page declares <code>lang="en"</code>, and the German About page carries an English title.</td><td class="plain muted">Page source</td><td class="plain">Phase 0</td></tr>
+            <tr><td><span class="chip high">High</span></td><td class="plain"><b>The language script crashes on every page.</b> It stops on <code>seoData is not defined</code> before it can set the title, canonical or language. The home's language switcher throws a second error.</td><td class="plain muted">Browser console on the live site</td><td class="plain">Phase 0</td></tr>
             <tr><td><span class="chip high">High</span></td><td class="plain"><b>Duplicate copies at old addresses.</b> services.php, blog.php, kontakty.php, index.php and /news1.php all answer 200.</td><td class="plain muted">Live requests</td><td class="plain">Phase 0, one redirect each</td></tr>
             <tr><td><span class="chip high">High</span></td><td class="plain"><b>Share tags point at dead pages.</b> about.php and partners.php return 404.</td><td class="plain muted"><code>og:url</code> on 5 pages</td><td class="plain">Phase 0</td></tr>
             <tr><td><span class="chip high">High</span></td><td class="plain"><b>19 broken images,</b> all four share images among them.</td><td class="plain muted">Asset pull, 224 checked</td><td class="plain">Phase 0 for share images, rebuild for the rest</td></tr>
@@ -241,6 +242,7 @@ footer.end .wrap { padding-block: 28px 48px; font-size: 12.5px; color: var(--ink
             <tr><td><span class="chip med">Medium</span></td><td class="plain"><b>Heavy testimonial videos.</b> Three phone films, up to 85 MB each.</td><td class="plain muted">112 MB in total</td><td class="plain">Phase 0, same look, a fraction of the weight</td></tr>
             <tr><td><span class="chip med">Medium</span></td><td class="plain"><b>News hides behind numbers</b> (news1.php to news15.php) and is missing from the sitemap.</td><td class="plain muted">Sitemap holds 9 URLs</td><td class="plain">Phase 0 sitemap, rebuild addresses</td></tr>
             <tr><td><span class="chip med">Medium</span></td><td class="plain"><b>Contact and blog pages have no H1.</b> No favicon. No llms.txt.</td><td class="plain muted">404 on favicon.ico and llms.txt</td><td class="plain">Rebuild, favicon in Phase 0</td></tr>
+            <tr><td><span class="chip ok">Fine</span></td><td class="plain"><b>The Helma font is already on the server.</b> <code>/fonts/Helma.woff2</code> and <code>.woff</code>, uploaded October 2025. Only the licence needs confirming.</td><td class="plain muted">Live requests</td><td class="plain">Use it</td></tr>
             <tr><td><span class="chip ok">Fine</span></td><td class="plain"><b>HTTPS and www redirects work.</b> http and www both 301 to https://healthcareig.com/.</td><td class="plain muted">Live requests</td><td class="plain">Keep</td></tr>
           </tbody>
         </table>
@@ -262,7 +264,7 @@ footer.end .wrap { padding-block: 28px 48px; font-size: 12.5px; color: var(--ink
             <tr><td>Languages</td><td class="plain">EN, DE, PL, FR, IT, ES, CS. English first, the rest after. Old German pages stay until replaced</td></tr>
             <tr><td>Translation</td><td class="plain">Claude translates, Gemini cross-checks</td></tr>
             <tr><td>Feel</td><td class="plain">Luxury, premium, elite. No emojis. Hairline SVG icons</td></tr>
-            <tr><td>Brand</td><td class="plain">Guideline colours, fonts and logo. You get the Helma files</td></tr>
+            <tr><td>Brand</td><td class="plain">Guideline colours, fonts and logo. Helma is already on the live server; you confirm its licence</td></tr>
             <tr><td>Canvas</td><td class="plain">Three directions side by side, desktop first, then phone</td></tr>
             <tr><td>Hero</td><td class="plain">All hero options plus one 3D concept. I recommend one for B2B</td></tr>
             <tr><td>Visuals</td><td class="plain">All real material collected. Gemini images and video anywhere they look best</td></tr>
@@ -357,7 +359,7 @@ footer.end .wrap { padding-block: 28px 48px; font-size: 12.5px; color: var(--ink
         <div class="sw" role="listitem"><i style="background:#F1F2F2"></i>Soft gray #F1F2F2<br>quiet bands</div>
         <div class="sw" role="listitem"><i style="background:#FFFFFF"></i>White #FFFFFF<br>ground</div>
       </div>
-      <p class="src">Helma for headlines once you send the files, Inter for text. White text on turquoise fails contrast (2.2:1), so turquoise carries lines and fills and dark text sits on it.</p>
+      <p class="src">Helma for headlines (already on the live server, licence to confirm), Inter for text. White text on turquoise fails contrast (2.2:1), so turquoise carries lines and fills and dark text sits on it.</p>
       <h3>Three directions</h3>
       <div class="options">
         <div class="opt"><span class="tag">Direction A</span><b>Ivory editorial</b><span>White and soft gray grounds, large serif headlines, turquoise hairlines, wide calm space. A private bank's annual report.</span></div>
@@ -603,7 +605,7 @@ footer.end .wrap { padding-block: 28px 48px; font-size: 12.5px; color: var(--ink
         <table>
           <thead><tr><th>Phase</th><th>Weeks</th><th>What happens</th><th>Gate</th><th>Lead</th></tr></thead>
           <tbody>
-            <tr><td>0 · Live fixes and baseline</td><td class="plain">0 to 1</td><td class="plain">Server backup. Canonicals, German title, share tags and images, hreflang, structured data, old-address redirects, sitemap, favicon, lighter testimonial films. GA4, Search Console, Ads conversions, consent. Email test, then SPF, DKIM, DMARC. Speed and AI baselines</td><td class="plain">Your access. Banner wording</td><td class="plain"><span class="chip opus">Opus</span></td></tr>
+            <tr><td>0 · Live fixes and baseline</td><td class="plain">0 to 1</td><td class="plain">Server backup. Canonicals, language tags, share tags and images, hreflang, structured data, old-address redirects, sitemap, favicon, lighter testimonial films. GA4, Search Console, Ads conversions, consent. Email test, then SPF, DKIM, DMARC. Speed and AI baselines</td><td class="plain">Your access. Banner wording</td><td class="plain"><span class="chip opus">Opus</span></td></tr>
             <tr><td>1 · Research and fact base</td><td class="plain">0 to 2</td><td class="plain">Business, B2B buyers, keyword map in seven languages, competitors and AI baseline, system analysis, fact sheet, site map, partners and logos. All assets collected and sorted</td><td class="plain">You confirm the fact sheet and site map</td><td class="plain"><span class="chip opus">Opus</span> <span class="chip gem">Gemini: asset sorting</span></td></tr>
             <tr><td>2 · Design system and canvas</td><td class="plain">1 to 4</td><td class="plain">Luxury layer on the HCIG brand. Three directions, five heroes, desktop then phone. Then the full home in the chosen direction, then the page templates. Generated film and images</td><td class="plain">Your pick. Your yes to the full home</td><td class="plain"><span class="chip opus">Opus</span> <span class="chip gem">Gemini: images, video</span></td></tr>
             <tr><td>3 · Home build and review</td><td class="plain">4 to 6</td><td class="plain">The approved home, built and shown on HCIG Work. Review rounds, desktop then phone</td><td class="plain">Home locked</td><td class="plain"><span class="chip opus">Opus</span></td></tr>
@@ -627,7 +629,7 @@ footer.end .wrap { padding-block: 28px 48px; font-size: 12.5px; color: var(--ink
           <tbody>
             <tr><td>Opus (Claude)</td><td class="plain">Strategy, spec, plan, keyword map, site map, design canvas, the home, templates, partner and trust pages, structured data, redirects, tracking, consent, forms, compliance, translation, go-live, final review</td><td class="plain">Ship anything without your yes</td></tr>
             <tr><td>Gemini (agy-delegate)</td><td class="plain">Second-opinion reviews, brand pages, news migration, legal and event pages on approved templates, alt text and meta first drafts, translation cross-check, image and video generation, asset sorting, screenshot sweeps, LinkedIn and listing drafts</td><td class="plain">Plan, decide, touch live systems, DNS, redirects, structured data, tracking, claims</td></tr>
-            <tr><td>You</td><td class="plain">Approvals, access, the inputs list, the Helma files, board photos</td><td class="plain"></td></tr>
+            <tr><td>You</td><td class="plain">Approvals, access, the inputs list, the Helma licence, board photos</td><td class="plain"></td></tr>
             <tr><td>Irina</td><td class="plain">Approves new copy, the site and the ads budget</td><td class="plain"></td></tr>
             <tr><td>Reham</td><td class="plain">Optional graphics: kit covers, share images. Generated ones ship if she is busy</td><td class="plain"></td></tr>
           </tbody>
@@ -647,9 +649,9 @@ footer.end .wrap { padding-block: 28px 48px; font-size: 12.5px; color: var(--ink
             <tr><td>1</td><td class="plain">cPanel, FTP or SSH for healthcareig.com</td><td class="plain">Phase 0, go-live</td></tr>
             <tr><td>2</td><td class="plain">GA4, Search Console, Google Ads and LinkedIn access for our account</td><td class="plain">Tracking, keyword prices, LinkedIn tag</td></tr>
             <tr><td>3</td><td class="plain">DNS access at GoDaddy, or who holds it</td><td class="plain">Email fix</td></tr>
-            <tr><td>4</td><td class="plain">Helma web font files and the HCIG logo as a vector</td><td class="plain">The canvas at full brand quality</td></tr>
+            <tr><td>4</td><td class="plain">Who bought Helma and whether its licence covers the web (the files are already on the server), and the HCIG logo as a vector</td><td class="plain">The canvas at full brand quality</td></tr>
             <tr><td>5</td><td class="plain">The current board list and real photos</td><td class="plain">Leadership page</td></tr>
-            <tr><td>6</td><td class="plain">A few facts each for MedOne, One Medical Center, One Medical Spa, UCA MENA, Shakankiry</td><td class="plain">Their brand pages</td></tr>
+            <tr><td>6</td><td class="plain">A few facts for MedOne Group, the only brand without a website. The other seven pages use their own sites</td><td class="plain">Their brand pages</td></tr>
             <tr><td>7</td><td class="plain">A yes that the three testimonial videos have patient consent</td><td class="plain">Trust page</td></tr>
             <tr><td>8</td><td class="plain">A newsletter tool account you open yourself (free tier)</td><td class="plain">Newsletter, kit emails</td></tr>
             <tr><td>9</td><td class="plain">Legal name, registration and privacy contact</td><td class="plain">Legal pages</td></tr>
@@ -671,7 +673,7 @@ footer.end .wrap { padding-block: 28px 48px; font-size: 12.5px; color: var(--ink
             <tr><td>Languages wait after the English launch</td><td class="plain">The old German pages stay live. The other five never existed, so nothing is lost</td></tr>
             <tr><td>Generated visuals read as fake to a partner who visits</td><td class="plain">Leaders, events and logos stay real. AI-made people are never shown as named staff, patients or testimonials</td></tr>
             <tr><td>A claim a partner cannot verify</td><td class="plain">Fact sheet with a source per line. Flagged wording goes to Irina</td></tr>
-            <tr><td>Helma files are late</td><td class="plain">A close stand-in. The swap is one setting</td></tr>
+            <tr><td>The Helma licence does not cover the web</td><td class="plain">A close stand-in until a licence is bought. The swap is one setting</td></tr>
             <tr><td>Translation tone with insurers</td><td class="plain">A fixed term list per language, Gemini cross-check, Opus review</td></tr>
             <tr><td>The email fix touches DNS</td><td class="plain">Test first, record the old values, start DMARC in monitor mode</td></tr>
             <tr><td>400 pages is a lot</td><td class="plain">Templates, home locked first, Gemini for medium and low pages, Opus review on every diff</td></tr>

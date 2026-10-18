@@ -26,7 +26,7 @@ healthcareig.com is the group's front door. Insurers, assistance companies, hote
 embassies, corporates and healthcare providers judge HCIG by it, and it is the home of the eight group brands.
 
 Today it does not do that job. Verified on 2026-10-18: it runs on PHP 7.1.33 (end of life since 2019), the home and the
-German home carry an empty canonical, the German home has an empty title, there is no hreflang, no GA4, 19 images are
+German home carry an empty canonical, every page declares English (German pages included), the site's language script crashes on every page, there is no hreflang, no GA4, 19 images are
 broken (all four share images among them), old `.php` addresses serve duplicate copies while the share tags point at
 addresses that return 404, a session-recording counter runs with no consent banner, and the domain's email
 authentication does not cover the mail system the domain actually uses. The design does not look like a group that is
@@ -46,7 +46,7 @@ B2B terms those buyers use, be named by AI tools, and turn visits into partner c
 | Languages | **EN, DE, PL, FR, IT, ES, CS.** English launches first; the other six follow. The current German pages stay live until the new German pages replace them, so no German address ever goes missing |
 | Translation | Claude translates, Gemini cross-checks. No native review step |
 | Feel | **Luxury, premium, elite.** No emojis anywhere on this site. Every icon is a hairline SVG |
-| Brand | **The HCIG guideline wins**: colours, Helma and Inter, logo rules. He gets the licensed Helma web files; a close stand-in serves until they arrive |
+| Brand | **The HCIG guideline wins**: colours, Helma and Inter, logo rules. Helma is already on the live server (`/fonts/Helma.woff2`, verified 2026-10-18); he confirms the licence covers the web. A close stand-in serves until then |
 | Canvas | **Three directions side by side**, desktop first then phone: Ivory editorial, Noir and turquoise, Hybrid. Built strictly on the guideline. He picks or mixes |
 | Hero | **Every hero option on the canvas** (film, network map, editorial photo, system drawing) **plus one 3D concept**. Claude recommends the one that best suits B2B |
 | Visuals | Every real material, logo and image from the live site and the group sites is collected. **Gemini images and video may be used anywhere, where they look best** |
@@ -183,7 +183,7 @@ Search Console shows no new 404 from an old address in the first 14 days.
 ### User Story 6 - The live site improves now, before the rebuild (Priority: P1)
 
 Before any redesign, invisible fixes and tracking go live on today's site after a server backup: canonical tags, the
-German title, share tags and share images, language links between English and German, a clean structured-data block,
+page language tags, share tags and share images, language links between English and German, a clean structured-data block,
 GA4, Search Console and conversion tracking. What visitors read does not change.
 
 **Why this priority**: he chose it, it stops losses today, and it records the before numbers for Irina and the CEO.
@@ -299,7 +299,7 @@ An event page with a tracked QR code, a campaign landing page and a newsletter i
 
 ### Edge Cases
 
-- The Helma files never arrive: the stand-in serif stays, and swapping it later changes one setting.
+- The Helma licence does not cover the web: the stand-in serif stays, and swapping it later changes one setting.
 - An insurer or hotel asks for its logo to be removed: it comes off the site the same day.
 - A patient in need of care lands on the B2B site: a quiet but clear route to 24/7 Clinic and MedPark, in wording he approves.
 - A visitor declines cookies: everything works; first-party counting still records leads without personal data.
@@ -456,13 +456,13 @@ An event page with a tracked QR code, a campaign landing page and a newsletter i
 
 | # | What | Why |
 |---|---|---|
-| 1 | Helma web font files (woff2) and the licence | Brand headline face |
+| 1 | Who bought Helma, and whether its licence covers the web (the files are already on the live server) | Brand headline face |
 | 2 | HCIG logo as vector (SVG, AI or EPS) | Sharp logo at every size |
 | 3 | cPanel, FTP or SSH access for healthcareig.com | Phase 0 and go-live |
 | 4 | GA4, Search Console, Google Ads and LinkedIn access for our account or service account | Tracking, ads, LinkedIn tag |
 | 5 | DNS access (GoDaddy) or the person who holds it | Email authentication fix |
 | 6 | The current board list with real photos | Leadership page (sources disagree on titles) |
-| 7 | A few facts per brand without a website: MedOne, One Medical Center, One Medical Spa, UCA MENA, Shakankiry | Their pages |
+| 7 | A few facts for MedOne Group, the only brand without a website (the other seven link their own sites, verified 2026-10-18) | Its page |
 | 8 | Consent confirmation for the three testimonial videos | They stay on the site |
 | 9 | A newsletter tool account he opens himself (free tier) | Newsletter and kit emails |
 | 10 | Legal name, registration and privacy contact | Privacy, cookie and legal notice pages |
