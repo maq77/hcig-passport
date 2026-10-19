@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>HCIG group film, soundtrack</title></head>
+<body>
+<script>
+// The soundtrack, written in code (Prompt Motion method): 30 s at 120 BPM, rendered offline to WAV.
+// A soft deep pulse on every beat, air on the off-beats, a warm pad that changes every bar, a riser into the last
+// full bar (22 to 24 s), and a low hit on each scene change (2, 8, 15, 24, 28 s). Calm and premium, never loud.
+window.renderWav = async function () {
+  const SR = 48000, DUR = 30, BEAT = 0.5;
+  const ac = new OfflineAudioContext(2, SR * DUR, SR);
+  const master = ac.createGain(); master.gain.value = 0.9;
+  const comp = ac.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 3;
+  master.connect(comp); comp.connect(ac.destination);
+  const noiseBuf = (() => { const b = ac.createBuffer(1, SR * 2, SR), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; return b; })();
+  function kick(t, g = 0.55) {
+    const o = ac.createOscillator(), v = ac.createGain(); o.type = "sine";
+    o.frequency.setValueAtTime(120, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.22);
+    v.gain.setValueAtTime(0.0001, t); v.gain.exponentialRampToValueAtTime(g, t + 0.006); v.gain.exponentialRampToValueAtTime(0.0001, t + 0.42);
+    o.connect(v); v.connect(master); o.start(t); o.stop(t + 0.45);
+  }
+  function air(t, g = 0.05) {
+    const s = ac.createBufferSource(); s.buffer = noiseBuf; const f = ac.createBiquadFilter(); f.type = "highpass"; f.frequency.value = 7500;
+    const v = ac.createGain(); v.gain.setValueAtTime(g, t); v.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
+    s.connect(f); f.connect(v); v.connect(master); s.start(t, Math.random()); s.stop(t + 0.08);
+  }
+  function hit(t, g = 0.6) {
+    const o = ac.createOscillator(), v = ac.createGain(); o.type = "sine"; o.frequency.setValueAtTime(70, t); o.frequency.exponentialRampToValueAtTime(38, t + 1.4);
+    v.gain.setValueAtTime(0.0001, t); v.gain.exponentialRampToValueAtTime(g, t + 0.01); v.gain.exponentialRampToValueAtTime(0.0001, t + 1.8);
+    o.connect(v); v.connect(master); o.start(t); o.stop(t + 1.9);
+    const s = ac.createBufferSource(); s.buffer = noiseBuf; const f = ac.createBiquadFilter(); f.type = "bandpass"; f.frequency.value = 900; f.Q.value = 0.7;
+    const w = ac.createGain(); w.gain.setValueAtTime(0.18, t); w.gain.exponentialRampToValueAtTime(0.0001, t + 0.9);
+    s.connect(f); f.connect(w); w.connect(master); s.start(t); s.stop(t + 1);
+  }
+  function pad(t, len, notes, g = 0.05) {
+    const f = ac.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 2200; f.connect(master);
+    for (const n of notes) for (const det of [-6, 6]) {
+      const o = ac.createOscillator(), v = ac.createGain(); o.type = "triangle"; o.frequency.value = 440 * Math.pow(2, (n - 69) / 12); o.detune.value = det;
+      v.gain.setValueAtTime(0.0001, t); v.gain.linearRampToValueAtTime(g / notes.length, t + 0.6); v.gain.setValueAtTime(g / notes.length, t + len - 0.5); v.gain.linearRampToValueAtTime(0.0001, t + len);
+      o.connect(v); v.connect(f); o.start(t); o.stop(t + len + 0.05);
+    }
+  }
+  // the music: Cmaj9, Am9, Fmaj7(#11), G6/9, one bar (2 s) each, from the first scene change
+  const chords = [[48, 55, 64, 71, 74], [45, 52, 60, 67, 71], [41, 48, 57, 64, 71], [43, 50, 59, 64, 69]];
+  for (let bar = 1; bar < 14; bar++) pad(bar * 2, 2.1, chords[(bar - 1) % 4], bar >= 12 ? 0.07 : 0.05);
+  pad(28, 2, [48, 55, 64, 71, 76], 0.06);
+  // the pulse: from 2 s, a kick on every beat; air on the off-beats from 8 s
+  for (let b = 4; b < 56; b++) kick(b * BEAT, b >= 48 ? 0.7 : 0.5);
+  for (let b = 16; b < 56; b++) air(b * BEAT + 0.25, b >= 48 ? 0.07 : 0.045);
+  // the opening: a single soft tone as the point appears
+  { const o = ac.createOscillator(), v = ac.createGain(); o.type = "sine"; o.frequency.value = 880; v.gain.setValueAtTime(0.0001, 0.3); v.gain.exponentialRampToValueAtTime(0.08, 0.35); v.gain.exponentialRampToValueAtTime(0.0001, 1.9); o.connect(v); v.connect(master); o.start(0.3); o.stop(2); }
+  // the riser into the last full bar
+  { const s = ac.createBufferSource(); s.buffer = noiseBuf; s.loop = true; const f = ac.createBiquadFilter(); f.type = "bandpass"; f.Q.value = 1.4;
+    f.frequency.setValueAtTime(300, 22); f.frequency.exponentialRampToValueAtTime(6500, 24);
+    const v = ac.createGain(); v.gain.setValueAtTime(0.0001, 22); v.gain.exponentialRampToValueAtTime(0.22, 23.95); v.gain.linearRampToValueAtTime(0.0001, 24.05);
+    s.connect(f); f.connect(v); v.connect(master); s.start(22); s.stop(24.1); }
+  for (const t of [2, 8, 15, 24, 28]) hit(t, t === 24 ? 0.75 : 0.55);
+  const buf = await ac.startRendering();
+  // 16-bit PCM WAV, base64
+  const ch = [buf.getChannelData(0), buf.getChannelData(1)], n = buf.length, bytes = new ArrayBuffer(44 + n * 4), dv = new DataView(bytes);
+  const str = (o, s) => { for (let i = 0; i < s.length; i++) dv.setUint8(o + i, s.charCodeAt(i)); };
+  str(0, "RIFF"); dv.setUint32(4, 36 + n * 4, true); str(8, "WAVE"); str(12, "fmt "); dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 2, true);
+  dv.setUint32(24, SR, true); dv.setUint32(28, SR * 4, true); dv.setUint16(32, 4, true); dv.setUint16(34, 16, true); str(36, "data"); dv.setUint32(40, n * 4, true);
+  for (let i = 0, o = 44; i < n; i++) for (let c = 0; c < 2; c++, o += 2) dv.setInt16(o, Math.max(-1, Math.min(1, ch[c][i])) * 32767, true);
+  let bin = ""; const u8 = new Uint8Array(bytes); for (let i = 0; i < u8.length; i += 0x8000) bin += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000));
+  return btoa(bin);
+};
+</script>
+</body>
+</html>

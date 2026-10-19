@@ -7,7 +7,7 @@
   "title": "HCIG v3 Hero",
   "launch": {
     "view": "canvas",
-    "page": "brand"
+    "page": "four"
   },
   "pages": [
     {

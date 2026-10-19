@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HCIG group film: One mark, one group, one world</title>
+<!--
+  HCIG group motion film (2026-10-19). Brief: hcig-v3/motion/BRIEF.md. Prompt Motion method: every pixel is a pure
+  function of time inside window.seek(t); no CSS animation, no timers, no state carried between frames.
+  30 s at 120 BPM (a beat every 0.5 s). Real logos only (transparent cuts in hcig-v3/motion/logos/), recoloured as one
+  set: white on night, ink on day; the HC mark is the one turquoise accent. Transparent background.
+  URL: film.html?theme=dark|light&w=1920&h=1080
+-->
+<style>
+html,body{margin:0;background:transparent}
+canvas{display:block}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const Q = new URLSearchParams(location.search);
+const W = +(Q.get("w") || 1920), H = +(Q.get("h") || 1080), THEME = Q.get("theme") || "dark";
+const PORTRAIT = H > W;
+const cv = document.getElementById("c"); cv.width = W; cv.height = H;
+const g = cv.getContext("2d");
+const K = Math.min(W, H) / 1080;                        // scale unit: 1 at 1080p
+const CX = W / 2, CY = H / 2;
+const TURQ = THEME === "light" ? "#0A7F84" : "#12C0C6";
+const INK = THEME === "light" ? "#0B0B0C" : "#FFFFFF";
+const LINE = THEME === "light" ? "rgba(10,127,132," : "rgba(18,192,198,";
+const BEAT = 0.5, DUR = 30;
+
+// ---------- easing, all pure functions of time ----------
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lerp = (a, b, k) => a + (b - a) * k;
+const seg = (t, a, b) => clamp((t - a) / (b - a));                    // 0..1 inside [a, b]
+const expoOut = (k) => (k >= 1 ? 1 : 1 - Math.pow(2, -10 * k));
+const expoInOut = (k) => (k <= 0 ? 0 : k >= 1 ? 1 : k < 0.5 ? Math.pow(2, 20 * k - 10) / 2 : (2 - Math.pow(2, -20 * k + 10)) / 2);
+const spring = (k, w = 9) => (k <= 0 ? 0 : 1 - Math.exp(-w * k) * (1 + w * k));   // critically damped, no bounce
+const sineInOut = (k) => -(Math.cos(Math.PI * k) - 1) / 2;
+
+// ---------- assets ----------
+const BRANDS = ["247", "medpark", "medone", "tmasi", "onemedical", "onespa", "scmg", "uca"];   // a patient's path
+const IMG = {};
+const load = (k, src) => new Promise((res) => { const i = new Image(); i.onload = () => { IMG[k] = i; res(); }; i.onerror = () => { console.error("missing", src); res(); }; i.src = src; });
+let GLOBE = null;
+// recolour a white logo to the theme ink, once
+function tint(img, color) {
+  const c = document.createElement("canvas"); c.width = img.naturalWidth || img.width; c.height = img.naturalHeight || img.height;
+  const x = c.getContext("2d"); x.drawImage(img, 0, 0, c.width, c.height); x.globalCompositeOperation = "source-in"; x.fillStyle = color; x.fillRect(0, 0, c.width, c.height); return c;
+}
+window.ready = (async () => {
+  const L = "/motion/logos/";
+  await Promise.all([
+    ...BRANDS.filter((b) => b !== "247").map((b) => load(b, L + b + "-white.png")),
+    load("247", L + "247-white.svg"),
+    load("mark", "/material/canvas-assets/img/mark-white.png"),
+    load("lockup", "/material/canvas-assets/img/logo-h-white.png"),
+    fetch("/motion/globe.json").then((r) => r.json()).then((j) => (GLOBE = j)),
+  ]);
+  for (const k of [...BRANDS, "mark", "lockup"]) {
+    if (!IMG[k]) continue;
+    if (k === "247") { const c = document.createElement("canvas"); c.width = 900; c.height = Math.round(900 * IMG[k].height / IMG[k].width) || 870; c.getContext("2d").drawImage(IMG[k], 0, 0, c.width, c.height); IMG[k] = c; }
+    IMG[k] = tint(IMG[k], k === "mark" || k === "lockup" ? INK : INK);
+  }
+  // land dots as unit vectors
+  GLOBE.v = GLOBE.dots.map(([la, lo]) => { const a = la * Math.PI / 180, b = lo * Math.PI / 180; return [Math.cos(a) * Math.sin(b), -Math.sin(a), Math.cos(a) * Math.cos(b)]; });
+  GLOBE.pv = {}; for (const [k, p] of Object.entries(GLOBE.pins)) { const a = p.latlon[0] * Math.PI / 180, b = p.latlon[1] * Math.PI / 180; GLOBE.pv[k] = [Math.cos(a) * Math.sin(b), -Math.sin(a), Math.cos(a) * Math.cos(b)]; }
+  return true;
+})();
+
+// ---------- drawing helpers ----------
+const F = 1900 * K;                                          // camera focal length
+const proj = (x, y, z) => { const s = F / (F + z); return [CX + x * s, CY + y * s, s]; };
+function logo(k, x, y, h, alpha = 1, scale = 1) {
+  const im = IMG[k]; if (!im || alpha <= 0 || scale <= 0) return;
+  const hh = h * scale, ww = hh * im.width / im.height;
+  g.globalAlpha = alpha; g.drawImage(im, x - ww / 2, y - hh / 2, ww, hh); g.globalAlpha = 1;
+}
+const LOGO_H = { "247": 140, medpark: 118, medone: 120, tmasi: 96, onemedical: 70, onespa: 72, scmg: 140, uca: 140 };   // optical sizes at 1080p
+function dot(x, y, r, color, a = 1) { g.globalAlpha = a; g.fillStyle = color; g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); g.globalAlpha = 1; }
+function line(pts, w, color, a = 1, from = 0, to = 1) {
+  if (pts.length < 2 || to <= from) return;
+  const n = pts.length - 1, i0 = Math.floor(from * n), i1 = Math.ceil(to * n);
+  g.globalAlpha = a; g.strokeStyle = color; g.lineWidth = w; g.lineCap = "round"; g.lineJoin = "round"; g.beginPath();
+  for (let i = i0; i <= i1; i++) { const p = pts[Math.min(i, n)]; i === i0 ? g.moveTo(p[0], p[1]) : g.lineTo(p[0], p[1]); }
+  g.stroke(); g.globalAlpha = 1;
+}
+const quad = (a, b, lift, n = 60) => { const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2 - lift; const o = []; for (let i = 0; i <= n; i++) { const s = i / n, m = 1 - s; o.push([m * m * a[0] + 2 * m * s * mx + s * s * b[0], m * m * a[1] + 2 * m * s * my + s * s * b[1]]); } return o; };
+const at = (pts, u) => { const n = pts.length - 1, f = clamp(u) * n, i = Math.min(Math.floor(f), n - 1), r = f - i; return [lerp(pts[i][0], pts[i + 1][0], r), lerp(pts[i][1], pts[i + 1][1], r)]; };
+
+// ---------- the geometry of each act ----------
+const N = BRANDS.length;
+const RING_R = (PORTRAIT ? 400 : 640) * K, TILT = 22 * Math.PI / 180;
+function ringPoint(a) { const x = RING_R * Math.cos(a), z = RING_R * Math.sin(a); return [x, -z * Math.sin(TILT), z * Math.cos(TILT)]; }
+const spinAt = (t) => (t < 3.6 ? 0 : (t - 3.6) * 0.21);    // radians: a slow turn
+const slotA = (i) => -Math.PI / 2 + i * (2 * Math.PI / N);
+// the ribbon: one calm S across the frame (a tall S on phone)
+const RIB = []; for (let i = 0; i <= 240; i++) { const u = i / 240;
+  if (!PORTRAIT) RIB.push([lerp(250 * K, W - 250 * K, u), CY + 165 * K * Math.sin(u * Math.PI * 2.2 - 0.6)]);
+  else RIB.push([CX + 230 * K * Math.sin(u * Math.PI * 2.2 - 0.6), lerp(260 * K, H - 260 * K, u)]); }
+const ribU = (i) => (i + 1.25) / (N + 1);
+function ribbonAt(t, u) { // the ribbon undulates once it is laid
+  const p = at(RIB, u), wv = 18 * K * Math.sin(u * 9 - t * 2.6) * seg(t, 10.5, 12);
+  return PORTRAIT ? [p[0] + wv, p[1]] : [p[0], p[1] + wv];
+}
+// the globe
+const G_R = (PORTRAIT ? 330 : 340) * K, G_CX = CX, G_CY = PORTRAIT ? CY - 120 * K : CY + 10 * K;
+function rot(v, lon, lat) { // rotate a unit vector: around Y by -lon, then around X by -lat (view centre at lon, lat)
+  const b = -lon * Math.PI / 180, a = -lat * Math.PI / 180;
+  let [x, y, z] = v; [x, z] = [x * Math.cos(b) + z * Math.sin(b), -x * Math.sin(b) + z * Math.cos(b)];
+  [y, z] = [y * Math.cos(a) - z * Math.sin(a), y * Math.sin(a) + z * Math.cos(a)]; return [x, y, z];
+}
+const globeLon = (t) => GLOBE.lon0 + 150 * (1 - expoInOut(seg(t, 15.2, 18.6)));
+function gproj(v, t, r) { const [x, y, z] = rot(v, globeLon(t), GLOBE.lat0); const s = F / (F - z * r); return [G_CX + x * r * s, G_CY + y * r * s, z]; }
+// where each brand rests by the globe: Florida on the left, Egypt on the right, TMASI by its offices
+const PIN_OF = { "247": "hurghada", medpark: "hurghada", medone: "hurghada", tmasi: "munich", onemedical: "clearwater", onespa: "clearwater", scmg: "hurghada", uca: "hurghada" };
+function restPos(b) {
+  if (PORTRAIT) { const i = BRANDS.indexOf(b); return [CX + (i % 2 ? 200 : -200) * K, G_CY + G_R + 150 * K + Math.floor(i / 2) * 150 * K]; }
+  const S = { onemedical: [-640, -70], onespa: [-640, 70], tmasi: [560, -250], "247": [560, -100], medpark: [760, -100], medone: [560, 50], scmg: [760, 50], uca: [660, 200] }[b];
+  return [CX + S[0] * K, CY + S[1] * K];
+}
+
+// ---------- the frame ----------
+function camera(t) {
+  let s = 1;
+  s *= lerp(0.94, 1.05, sineInOut(seg(t, 2.0, 8.0)));          // constellation: push in
+  s *= lerp(1, 1 / 1.05, expoInOut(seg(t, 8.0, 9.6)));          // pull back as the orbit unrolls
+  s *= lerp(1, 1.03, sineInOut(seg(t, 10.2, 15.0)));            // the ribbon: a breath in
+  s *= lerp(1, 0.93 / 1.03, expoInOut(seg(t, 15.0, 16.6)));     // out to the globe
+  s *= lerp(1, 1.08 / 0.93, sineInOut(seg(t, 16.6, 24.0)));     // a slow push on the globe
+  s *= lerp(1, 1 / 1.08, expoInOut(seg(t, 25.6, 27.6)));        // back to the title
+  const px = (PORTRAIT ? 0 : -40 * K) * Math.sin(Math.PI * seg(t, 10.2, 15.0));
+  return [s, px, 0];
+}
+window.seek = function (t) {
+  t = ((t % DUR) + DUR) % DUR;
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  g.clearRect(0, 0, W, H);
+  const [cs, cpx, cpy] = camera(t);
+  g.setTransform(cs, 0, 0, cs, CX * (1 - cs) + cpx, CY * (1 - cs) + cpy);
+  const beat = (t / BEAT) % 1;
+  const pulseBeat = Math.pow(1 - beat, 3);                  // a short flash on every beat
+
+  // ===== Act 1 · Hook (0 to 2 s): one point draws the HC mark =====
+  const markIn = expoOut(seg(t, 0.5, 1.9));
+  const markOut = expoInOut(seg(t, 14.6, 15.4));            // the mark hands over to the globe
+  // mark size and place across the film
+  let mScale = lerp(0.0, 1, markIn);                         // 0 -> full
+  let mX = CX, mY = CY, mH = 300 * K;
+  // act 2: the mark settles to the orbit's centre, smaller
+  const toRing = expoInOut(seg(t, 2.0, 2.8)); mH = lerp(300 * K, 170 * K, toRing);
+  // act 3: it travels to the start of the ribbon
+  const toRib = expoInOut(seg(t, 8.0, 10.0)); const rib0 = ribbonAt(t, 0);
+  mX = lerp(CX, rib0[0] - (PORTRAIT ? 0 : 20 * K), toRib); mY = lerp(CY, rib0[1] - (PORTRAIT ? 30 * K : 0), toRib); mH = lerp(mH, 120 * K, toRib);
+  // act 4: it lands on Hurghada as a small seal
+  const hPin = GLOBE ? gproj(GLOBE.pv.hurghada, t, G_R) : [CX, CY];
+  const toPin = expoInOut(seg(t, 18.4, 19.6));
+  mX = lerp(mX, hPin[0], toPin); mY = lerp(mY, hPin[1] - 54 * K, toPin); mH = lerp(mH, 74 * K, toPin);
+  // act 5: back to the centre, large
+  const home = expoInOut(seg(t, 26.0, 27.6));
+  mX = lerp(mX, CX, home); mY = lerp(mY, CY, home); mH = lerp(mH, 280 * K, home);
+  // then it slides into the place of the mark inside the full logo
+  const LK = IMG.lockup, LH = (PORTRAIT ? 150 : 230) * K, LW = LK ? LH * LK.width / LK.height : 0;
+  const toLock = expoInOut(seg(t, 27.4, 28.1));
+  mX = lerp(mX, CX - LW / 2 + LW * 0.155, toLock); mY = lerp(mY, CY, toLock); mH = lerp(mH, LH * 0.98, toLock);
+
+  // the opening point (also the last frame, so the loop closes)
+  const pointA = 1 - seg(t, 0.5, 0.9) + seg(t, 29.55, 29.95);
+  if (pointA > 0) dot(CX, CY, 6 * K, TURQ, clamp(pointA));
+
+  // ===== Act 2 · Constellation (2 to 8 s) =====
+  const ringOn = seg(t, 2.0, 2.6) * (1 - seg(t, 9.0, 10.0));
+  const toRibbon = expoInOut(seg(t, 8.0, 10.2));
+  const toGlobe = expoInOut(seg(t, 15.0, 16.8));
+  // orbit line (morphs into the ribbon)
+  if (t >= 2.0 && t < 16.8) {
+    const pts = [];
+    for (let i = 0; i <= 200; i++) {
+      const u = i / 200, a = slotA(0) + u * Math.PI * 2 + spinAt(t);
+      const r = ringPoint(a), p = proj(r[0], r[1], r[2]);
+      const q = ribbonAt(t, u);
+      let x = lerp(p[0], q[0], toRibbon), y = lerp(p[1], q[1], toRibbon);
+      if (toGlobe > 0 && GLOBE) { // the ribbon wraps onto the globe's equator
+        const v = [Math.sin(u * Math.PI * 2), 0, Math.cos(u * Math.PI * 2)], e = gproj(v, t, G_R * 1.0);
+        x = lerp(x, e[0], toGlobe); y = lerp(y, e[1], toGlobe);
+      }
+      pts.push([x, y]);
+    }
+    const drawn = expoOut(seg(t, 2.0, 3.2));
+    const fade = 1 - seg(t, 16.0, 16.8);
+    line(pts, lerp(1.6, 2.8, toRibbon) * K, LINE + (lerp(0.55, 0.85, toRibbon) * fade) + ")", 1, 0, drawn);
+    // the ribbon's travelling light, on the beat
+    if (t > 10.2 && t < 15.2) {
+      const head = (t - 10.2) / 2.5 % 1;
+      line(pts, 6 * K, TURQ, 1, Math.max(0, head - 0.06), head);
+      dot(at(pts, head)[0], at(pts, head)[1], 7 * K, TURQ, 1);
+    }
+  }
+  // spokes and the brands
+  const brandPos = {};
+  BRANDS.forEach((b, i) => {
+    // orbit position (3D)
+    const a = slotA(i) + spinAt(t), r = ringPoint(a), p = proj(r[0], r[1], r[2]);
+    // the flight from the mark: 2.0 to 3.0 s, staggered by a quarter beat
+    const fly = expoOut(seg(t, 2.0 + i * 0.125, 3.0 + i * 0.125));
+    const ctl = [lerp(CX, p[0], 0.5), lerp(CY, p[1], 0.5) - 140 * K];
+    const fx = (1 - fly) * (1 - fly) * CX + 2 * (1 - fly) * fly * ctl[0] + fly * fly * p[0];
+    const fy = (1 - fly) * (1 - fly) * CY + 2 * (1 - fly) * fly * ctl[1] + fly * fly * p[1];
+    let x = fx, y = fy, s = p[2], depth = clamp(0.62 + 0.38 * (1 - (r[2] / RING_R + 1) / 2));
+    // ribbon
+    // on the ribbon the brands alternate above and below the line, each tied to it by a fine tick
+    const q0 = ribbonAt(t, ribU(i)), side = i % 2 ? 1 : -1, off = (PORTRAIT ? 150 : 118) * K * side;
+    const q = PORTRAIT ? [q0[0] + off, q0[1]] : [q0[0], q0[1] + off];
+    x = lerp(x, q[0], toRibbon); y = lerp(y, q[1], toRibbon);
+    const tick = toRibbon * (1 - expoInOut(seg(t, 15.0, 15.8)));
+    if (tick > 0.02) { const e = PORTRAIT ? [q0[0] + off * 0.42, q0[1]] : [q0[0], q0[1] + off * 0.42]; line([q0, [lerp(q0[0], e[0], tick), lerp(q0[1], e[1], tick)]], 1.2 * K, LINE + "0.7)", 1); dot(q0[0], q0[1], 3.5 * K, TURQ, tick); } s = lerp(s, 1, toRibbon); depth = lerp(depth, 1, toRibbon);
+    // globe: each brand flies to rest by its place
+    const toRest = expoInOut(seg(t, 17.2 + i * 0.125, 18.6 + i * 0.125));
+    const rp = restPos(b); x = lerp(x, rp[0], toRest); y = lerp(y, rp[1], toRest);
+    // climax: pulled into Hurghada
+    const pull = expoInOut(seg(t, 24.6 + i * 0.125, 26.0 + i * 0.125));
+    x = lerp(x, hPin[0], pull); y = lerp(y, hPin[1], pull);
+    brandPos[b] = [x, y, s, depth, pull, toRest];
+    // spoke to the mark (constellation only)
+    if (ringOn > 0 && fly >= 1) line([[CX, CY], [x, y]], 1 * K, LINE + (0.35 * ringOn) + ")", 1);
+  });
+  // pulses along the spokes, into the mark, one per beat
+  if (t > 4.0 && t < 8.6) {
+    const i = Math.floor((t - 4.0) / BEAT) % N, k = ((t - 4.0) / BEAT) % 1, P = brandPos[BRANDS[i]];
+    const x = lerp(P[0], CX, expoInOut(k)), y = lerp(P[1], CY, expoInOut(k)); dot(x, y, 4 * K, TURQ, 1 - k * 0.3);
+  }
+  // draw brands back to front (depth)
+  const order = BRANDS.map((b) => [b, brandPos[b]]).sort((A, B2) => A[1][3] - B2[1][3]);
+  const drawBrand = (b, P) => {
+    const open = spring(seg(t, 2.8 + BRANDS.indexOf(b) * 0.125, 3.6 + BRANDS.indexOf(b) * 0.125));
+    const gone = P[4]; if (open <= 0 || gone >= 1) return;
+    // the point that opens into the logo
+    if (open < 1) dot(P[0], P[1], lerp(5, 1, open) * K, TURQ, 1 - open);
+    // in the ribbon, each brand lifts on its beat in turn (one per beat, a travelling wave of attention)
+    let lift = 1; if (t > 10.2 && t < 15.0) { const k = ((t - 10.2) / BEAT) % N, d = Math.abs(k - BRANDS.indexOf(b)); lift = 1 + 0.12 * Math.max(0, 1 - d) ; }
+    logo(b, P[0], P[1] - (lift - 1) * 120 * K, LOGO_H[b] * K * (PORTRAIT ? 0.82 : 1), P[3] * (1 - gone), open * P[2] * lerp(1, 0.2, gone) * lift);
+  };
+
+  // ===== Act 4 · Globe (15 to 24 s) =====
+  let gScale = 1 - expoInOut(seg(t, 26.0, 27.6));          // act 5: the globe collapses into the mark
+  if (GLOBE && t > 15.0 && t < 27.8) {
+    const appear = seg(t, 15.6, 18.0), R = G_R * gScale;
+    const n = GLOBE.v.length;
+    for (let j = 0; j < n; j++) {
+      if (j / n > appear) continue;
+      const q = gproj(GLOBE.v[j], t, R); if (q[2] < 0.02) continue;
+      dot(q[0], q[1], 2.5 * K, INK, (THEME === "light" ? 0.55 : 0.78) * (0.3 + 0.7 * q[2]) * clamp(appear * 2));
+    }
+    // the planet's edge, a hairline
+    g.strokeStyle = LINE + (0.35 * clamp(appear * 2)) + ")"; g.lineWidth = 1.2 * K; g.beginPath(); g.arc(G_CX, G_CY, R * 1.01, 0, Math.PI * 2); g.stroke();
+    // pins
+    const pinA = seg(t, 18.0, 18.6) * gScale;
+    for (const k of Object.keys(GLOBE.pv)) { const q = gproj(GLOBE.pv[k], t, R); if (q[2] > 0) { dot(q[0], q[1], 6 * K, TURQ, pinA); dot(q[0], q[1], (6 + 16 * (1 - beat)) * K, TURQ, pinA * 0.25 * pulseBeat); } }
+    // arcs from Hurghada, then pulses into Hurghada on the beat
+    const H0 = gproj(GLOBE.pv.hurghada, t, R);
+    ["clearwater", "barcelona", "munich", "dubai"].forEach((k, i) => {
+      const q = gproj(GLOBE.pv[k], t, R), d = Math.hypot(q[0] - H0[0], q[1] - H0[1]);
+      const arc = quad(q, H0, d * 0.3);
+      const dr = expoOut(seg(t, 19.0 + i * 0.25, 20.2 + i * 0.25)) * gScale;
+      line(arc, 1.6 * K, LINE + "0.8)", 1, 1 - dr, 1);
+      if (t > 20.5) { // one pulse per beat on each arc; all fire together in the last bar
+        const climax = t > 24 ? 1 : 0, k2 = climax ? beat : (((t - 20.5) / BEAT + i * 0.5) % 2) / 2;
+        const u = expoInOut(k2); line(arc, 3.6 * K, TURQ, 0.95 * gScale, Math.max(0, u - 0.08), u);
+      }
+    });
+    // leader lines from each brand to its pin
+    BRANDS.forEach((b) => { const P = brandPos[b]; if (P[5] < 1 || P[4] > 0) return; const q = gproj(GLOBE.pv[PIN_OF[b]], t, R);
+      const lead = expoOut(seg(t, 19.0, 19.8)); line([[P[0], P[1]], [lerp(P[0], q[0], lead), lerp(P[1], q[1], lead)]], 1 * K, LINE + "0.45)", 1); });
+  }
+  // brands and the mark, painted in depth order
+  const back = order.filter((o) => o[1][3] < 0.8 && t < 10), front = order.filter((o) => !(o[1][3] < 0.8 && t < 10));
+  back.forEach(([b, P]) => drawBrand(b, P));
+  // ===== The mark =====
+  const endT = seg(t, 28.0, 29.0), endOut = expoInOut(seg(t, 29.3, 29.75));
+  if (t < 28.4 || endT < 1) {
+    const mA = markIn * (t < 28.1 ? 1 : 0);
+    const im = IMG.mark; if (im && mA > 0) {
+      // drawn on with a sweep (hook), a clip that grows from the left of the mark
+      const hh = mH * mScale, ww = hh * im.width / im.height, sweep = expoOut(seg(t, 0.6, 1.9));
+      g.save(); g.beginPath(); g.rect(mX - ww / 2, mY - hh / 2, ww * sweep, hh); g.clip();
+      g.globalAlpha = mA; g.drawImage(im, mX - ww / 2, mY - hh / 2, ww, hh); g.globalAlpha = 1; g.restore();
+      // a fine ring answers each pulse in the constellation
+      if (t > 4 && t < 8.6) { g.strokeStyle = TURQ; g.globalAlpha = 0.5 * pulseBeat; g.lineWidth = 1.2 * K; g.beginPath(); g.arc(mX, mY, hh * (0.62 + 0.12 * (1 - beat)), 0, Math.PI * 2); g.stroke(); g.globalAlpha = 1; }
+    }
+  }
+  front.forEach(([b, P]) => drawBrand(b, P));
+  // ===== Act 6 · End title (28 to 30 s): the full HCIG logo, then back to one point =====
+  if (t >= 28.1) {
+    const im = IMG.lockup; if (im) {
+      const reveal = lerp(0.31, 1, expoOut(seg(t, 28.1, 28.9))), hh = (PORTRAIT ? 150 : 230) * K * lerp(1, 0.02, endOut), ww = hh * im.width / im.height;
+      g.save(); g.beginPath(); g.rect(CX - ww / 2, CY - hh / 2, ww * reveal, hh); g.clip(); g.globalAlpha = 1 - endOut * 0.8; g.drawImage(im, CX - ww / 2, CY - hh / 2, ww, hh); g.restore(); g.globalAlpha = 1;
+      // a hairline under the title, drawn on the beat
+      const hl = expoOut(seg(t, 28.5, 29.0)) * (1 - endOut); if (hl > 0) line([[CX - ww * 0.3 * hl, CY + hh * 0.72], [CX + ww * 0.3 * hl, CY + hh * 0.72]], 1.4 * K, TURQ, 1);
+    }
+  }
+};
+</script>
+</body>
+</html>
