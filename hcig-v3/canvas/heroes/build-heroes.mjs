@@ -145,7 +145,7 @@ const BASE = `
 
 // ---------- the twelve heroes ----------
 const H = [];
-const PH = { C: 936, G: 940, I: 944 }; // phone board heights measured at 390 px; the rest fit 844
+const PH = { B: 900, C: 936, G: 940, I: 944 }; // phone board heights measured at 390 px; the rest fit 844
 const shadeDiv = (bg) => `<div class="shade" style="background:${bg};opacity:{{shade}}"></div>`;
 
 // A · Red Sea Panorama: copy on the left, the partner banner as a floating glass card
@@ -303,12 +303,18 @@ ${header("dark")}
 @container hero (max-width:900px){.l-b{clip-path:polygon(0 30%,100% 22%,100% 52%,0 60%);animation:none}.l-bg:after{background:linear-gradient(180deg,rgba(5,8,11,.3) 0%,rgba(5,8,11,.78) 26%,rgba(5,8,11,.92) 60%,rgba(5,8,11,.97) 100%);opacity:1}.l-body{gap:20px;padding-bottom:28px}}` });
 
 // ---------- logic ----------
-const logic = (shadeDefault) => `class Component extends DCLogic {
+const logic = (shadeDefault, themed) => `class Component extends DCLogic {
   renderVals() {
     const s = this.state || {};
     const set = (o) => this.setState(o);
-    const motion = this.props.motion ?? true;
-    return {
+    const motion = this.props.motion ?? true;${themed ? `
+    const theme = s.theme || this.props.theme || 'dark';` : ""}
+    return {${themed ? `
+      themeCls: theme === 'light' ? 'light' : 'dark',
+      swCls: s.theme ? 'sw' : '',
+      themeLabel: theme === 'light' ? 'Switch to night' : 'Switch to day',
+      themePressed: theme === 'light' ? 'true' : 'false',
+      toggleTheme: () => set({ theme: theme === 'light' ? 'dark' : 'light', menu: false, lang: false }),` : ""}
       shade: this.props.shade ?? ${shadeDefault},
       stillCls: motion ? '' : 'still',
       menuOpen: !!s.menu, menuShut: !s.menu, menuExp: s.menu ? 'true' : 'false',
@@ -319,7 +325,7 @@ const logic = (shadeDefault) => `class Component extends DCLogic {
 }`;
 
 function write(h) {
-  const props = { shade: { editor: "range", min: 0, max: 1, step: 0.05, default: h.shade, section: "Hero" }, motion: { editor: "boolean", default: true, section: "Hero" }, $preview: { width: 1440, height: 900 } };
+  const props = { ...(h.themed ? { theme: { editor: "enum", options: ["dark", "light"], default: "dark", section: "Hero" } } : {}), shade: { editor: "range", min: 0, max: 1, step: 0.05, default: h.shade, section: "Hero" }, motion: { editor: "boolean", default: true, section: "Hero" }, $preview: { width: 1440, height: 900 } };
   const ink = h.theme === "dark" ? "#F4F5F5" : "#0B0B0C";
   const html = `<!doctype html>
 <html lang="en">
@@ -339,12 +345,12 @@ ${BASE}
 ${h.css}
 </style>
 </helmet>
-<section class="hero ${h.theme === "dark" ? "dark" : ""} {{stillCls}}" style="font-family:'Inter',system-ui,sans-serif;color:${ink}"><div class="in ${h.inCls || ""}">
+<section class="hero ${h.themed ? "{{themeCls}} {{swCls}}" : h.theme === "dark" ? "dark" : ""} {{stillCls}}" style="font-family:'Inter',system-ui,sans-serif;color:${h.themed ? "var(--ink)" : ink}"><div class="in ${h.inCls || ""}">
 ${h.body}
 </div></section>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='${JSON.stringify(props)}'>
-${logic(h.shade)}
+${logic(h.shade, h.themed)}
 </script>
 </body>
 </html>
@@ -374,138 +380,99 @@ class Component extends DCLogic {
 `;
   writeFileSync(join(OUT, `${h.file}Phone.dc.html`), phone);
 }
-H.forEach(write);
 
-// ---------- B, his pick (2026-10-19): a light and dark switch, the background turns from night to day ----------
+// ---------- B, his pick (2026-10-19): the original B, now with night and day ----------
 // "i want to add light and dark togller buttone ... make background change theme too, instead of night make it like
-// Day, like we have on tmasi on maritime and globe network hub". B1 keeps the Earth photo (night, plus a Gemini day
-// edit of the same view); B2 is the TMASI map recipe in HCIG colours (render_network_map.py). Second button added
-// (his yes): "Become a Partner".
-const ROUTES = JSON.parse(readFileSync(join(HERE, "routes.json"), "utf8"));
-const curve = ([x1, y1], [x2, y2], lift = 0.22) => `M${x1} ${y1} Q ${((x1 + x2) / 2).toFixed(1)} ${(Math.min(y1, y2) - Math.abs(x2 - x1) * lift).toFixed(1)} ${x2} ${y2}`;
-const PAIRS = [
-  { id: "B1", name: "Earth, night and day", phx: 1040, pht: -200,
-    dark: { img: "g-earth-network", hub: [1205, 640], from: [[560, 210], [640, 168], [722, 240], [800, 192], [884, 330], [700, 330]] },
-    light: { img: "g-earth-day", hub: [1185, 648], from: [[586, 226], [664, 186], [744, 258], [822, 206], [904, 348], [722, 346]] },
-    shadeD: "radial-gradient(75% 90% at 18% 50%,rgba(3,6,10,.94),rgba(3,6,10,.2) 70%)",
-    shadeL: "linear-gradient(90deg,rgba(255,255,255,.94) 0%,rgba(255,255,255,.72) 38%,rgba(255,255,255,0) 64%)" },
-  { id: "B2", name: "Network map, night and day", phx: 975, pht: -90,
-    dark: { img: "map-dark", hub: ROUTES.hub, paths: ROUTES.routes.map((r) => r.d), from: ROUTES.routes.map((r) => r.city) },
-    light: { img: "map-light", hub: ROUTES.hub, paths: ROUTES.routes.map((r) => r.d), from: ROUTES.routes.map((r) => r.city) },
-    shadeD: "linear-gradient(90deg,rgba(3,6,8,.92) 0%,rgba(3,6,8,.6) 40%,rgba(3,6,8,0) 60%)",
-    shadeL: "linear-gradient(90deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.62) 40%,rgba(255,255,255,0) 60%)" },
-];
+// Day", then "work on original B ... lets make light version of it, and make like smooth transisiontioning from night
+// to light, like smooth and easy motion and keyframes and graphics". Hero B stays as it was (photo, routes, layout,
+// phone). Added: the sun and moon switch, the day photo (his Gemini, an edit of the night photo that keeps its flows),
+// a sunrise sweep from the east (the Red Sea side) with a light band and a sun flare, routes that draw again as the
+// light changes, and "Become a Partner" beside "Talk to our team" (his yes).
 P.sun = '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/>';
 P.moon = '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>';
+const DAY_IMG = "g-earth-day2";
 
-function routeSvg(t, cls) {
-  const paths = t.paths || t.from.map((f) => curve(f, t.hub));
-  return `<svg class="rt ${cls}" viewBox="0 0 1440 900" aria-hidden="true">${paths.map((d, i) => `<path class="rt-line" pathLength="1" d="${d}" style="animation-delay:${600 + i * 180}ms"/><circle class="rt-dot" r="3.2" style="offset-path:path('${d}');animation-delay:${2400 + i * 520}ms"/>`).join("")}${t.from.map(([x, y]) => `<circle class="rt-city" cx="${x}" cy="${y}" r="3"/>`).join("")}<circle class="rt-hub" cx="${t.hub[0]}" cy="${t.hub[1]}" r="6"/><circle class="rt-ping" cx="${t.hub[0]}" cy="${t.hub[1]}" r="6" style="transform-origin:${t.hub[0]}px ${t.hub[1]}px"/></svg>`;
-}
-
-function pairHeader() {
-  const logos = (cls, d, l) => `<img class="${cls} th-d" src="${u(d)}" alt="Healthcare International Group"><img class="${cls} th-l" src="${u(l)}" alt="Healthcare International Group">`;
+function themedHeader() {
+  const logos = (cls, d, l) => `<span class="lg ${cls}-box"><img class="${cls} th-d" src="${u(d)}" alt="Healthcare International Group"><img class="${cls} th-l" src="${u(l)}" alt="" aria-hidden="true"></span>`;
   return header("dark")
     .replace(/<img class="hd-full"[^>]*><img class="hd-mark"[^>]*>/, logos("hd-full", "logo-h-white", "logo-h-black") + logos("hd-mark", "mark-white", "mark-black"))
-    .replace('<div class="lang">', `<button type="button" class="theme-btn" onClick="{{toggleTheme}}" aria-label="{{themeLabel}}">${ic("sun", 19).replace("<svg", '<svg class="i-sun"')}${ic("moon", 18).replace("<svg", '<svg class="i-moon"')}</button><div class="lang">`);
+    .replace('<div class="lang">', `<button type="button" class="theme-btn" onClick="{{toggleTheme}}" aria-label="{{themeLabel}}" aria-pressed="{{themePressed}}"><span class="ti ti-sun">${ic("sun", 19)}</span><span class="ti ti-moon">${ic("moon", 18)}</span></button><div class="lang">`);
 }
 
-const PAIR_CSS = `
+// Night and day. Times: the sweep 2.4 s, words and logo change at its middle, routes draw again behind it.
+const THEME_CSS = `
+.hero{--sweep:2.4s;--sweep-ease:cubic-bezier(.45,.05,.35,1);transition:background-color 1.3s var(--sweep-ease) .9s}
 .hero.light{--ink:#0B0B0C;--ink2:#3F4042;--muted:#565759;--line:rgba(11,11,12,.16);--acc-text:#087276;background:#FFFFFF}
-.hero{transition:background-color .9s,color .9s}
-.th-d,.th-l{transition:opacity 1.1s var(--ease)}
-.hero:not(.light) .bg .th-l,.hero:not(.light) .shades .th-l,.hero.light .bg .th-d,.hero.light .shades .th-d{opacity:0}
-.hero:not(.light) .hd-full.th-l,.hero.light .hd-full.th-d,.hero:not(.light) .hd-mark.th-l,.hero.light .hd-mark.th-d{display:none}
-.hero:not(.light) .i-moon,.hero.light .i-sun{display:none}
-.theme-btn{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s,transform .5s var(--ease)}
-.theme-btn:hover{border-color:var(--accent);background:rgba(18,192,198,.1)}.theme-btn:active{transform:rotate(40deg)}
-.stage{position:absolute;top:0;left:50%;height:100%;aspect-ratio:16/10;min-width:100%;translate:-50% 0;animation:kb 28s ease-out both}
-.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:none}
+.h1,.sub,.lead,.seals p,.hd-nav a,.btn2,.lang-btn,.theme-btn,.menu-btn,.soc a{transition:color 1s var(--sweep-ease) 1s,border-color 1s var(--sweep-ease) 1s,background-color .3s}
+.h1 .acc{transition:color 1s var(--sweep-ease) 1s}
+/* the day photo is revealed by a soft terminator that travels from the east (right) to the west */
+@property --dawn{syntax:'<percentage>';inherits:false;initial-value:-12%}
+.bg .th-l{position:absolute;inset:0;--dawn:-12%;-webkit-mask-image:linear-gradient(-72deg,#000 calc(var(--dawn) - 10%),transparent calc(var(--dawn) + 10%));mask-image:linear-gradient(-72deg,#000 calc(var(--dawn) - 10%),transparent calc(var(--dawn) + 10%));transition:--dawn var(--sweep) var(--sweep-ease)}
+.hero.light .bg .th-l{--dawn:122%}
+.shades .th-d,.shades .th-l{transition:opacity 1.3s var(--sweep-ease) .9s}
+.hero:not(.light) .shades .th-l,.hero.light .shades .th-d{opacity:0}
+/* logos and the mark crossfade in place */
+.lg{position:relative;display:block}.lg .th-l{position:absolute;left:0;top:0}
+.lg img{transition:opacity .9s var(--sweep-ease) 1s}
+.hero:not(.light) .lg .th-l,.hero.light .lg .th-d{opacity:0}
+.hero .hd-mark-box{display:none}
+/* the light band riding the terminator, and the sun flare over the Red Sea */
+.fx{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.band{position:absolute;top:-20%;bottom:-20%;left:0;width:46%;opacity:0;transform:translateX(230%) skewX(-18deg);background:linear-gradient(90deg,transparent,rgba(255,252,240,.0) 10%,rgba(255,250,235,.55) 45%,rgba(160,240,242,.35) 60%,transparent);filter:blur(18px);mix-blend-mode:screen}
+.flare{position:absolute;left:66%;top:44%;width:520px;height:520px;margin:-260px 0 0 -260px;border-radius:50%;opacity:0;transform:scale(.2);background:radial-gradient(closest-side,rgba(255,255,250,.95),rgba(255,244,214,.55) 22%,rgba(120,230,234,.25) 48%,transparent 72%);mix-blend-mode:screen}
+.sw.light .band{animation:dawn var(--sweep) var(--sweep-ease) both}
+.sw.dark .band{animation:dusk var(--sweep) var(--sweep-ease) both;background:linear-gradient(90deg,transparent,rgba(10,40,70,.0) 10%,rgba(6,22,40,.6) 45%,rgba(18,192,198,.28) 60%,transparent);mix-blend-mode:normal}
+.sw.light .flare{animation:flare 2.6s var(--sweep-ease) .2s both}
+@keyframes dawn{0%{opacity:0;transform:translateX(230%) skewX(-18deg)}12%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translateX(-120%) skewX(-18deg)}}
+@keyframes dusk{0%{opacity:0;transform:translateX(-120%) skewX(-18deg)}12%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translateX(230%) skewX(-18deg)}}
+@keyframes flare{0%{opacity:0;transform:scale(.2)}35%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.6)}}
+/* routes take the day colours and draw again as the light changes */
+.b-routes path,.b-hub,.b-ping{transition:stroke 1.2s var(--sweep-ease) .5s,fill 1.2s var(--sweep-ease) .5s,filter 1.2s}
+.hero.light .b-routes path{stroke:#0A7F84;filter:drop-shadow(0 0 5px rgba(18,192,198,.65))}
+.hero.light .b-hub{fill:#087276}.hero.light .b-ping{stroke:#0A7F84}
+.sw.light .b-routes path{animation:redrawL 2.6s var(--ease) both}.sw.dark .b-routes path{animation:redrawD 2.6s var(--ease) both}
+@keyframes redrawL{0%,25%{stroke-dashoffset:900}100%{stroke-dashoffset:0}}
+@keyframes redrawD{0%,25%{stroke-dashoffset:900}100%{stroke-dashoffset:0}}
+/* the switch: the sun sets and the moon rises inside the button */
+.theme-btn{position:relative;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;overflow:hidden}
+.theme-btn:hover{border-color:var(--accent);background:rgba(18,192,198,.1)}
+.ti{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .9s var(--sweep-ease),opacity .6s}
+.hero:not(.light) .ti-moon{transform:translateY(120%) rotate(-60deg);opacity:0}
+.hero.light .ti-sun{transform:translateY(-120%) rotate(90deg);opacity:0}
+.ti-sun svg{transition:transform 1.2s var(--sweep-ease)}.hero:not(.light) .ti-sun svg{transform:rotate(0)}.theme-btn:hover .ti-sun svg{transform:rotate(45deg)}
 .shades,.shades>div{position:absolute;inset:0;pointer-events:none}.shades{z-index:1}
-.rt{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.rt-line{fill:none;stroke:#12C0C6;stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 0 5px rgba(18,192,198,.9));animation:draw 2.8s var(--ease) forwards}
-.rt.th-l .rt-line{stroke:#0A7F84;filter:drop-shadow(0 0 4px rgba(18,192,198,.55))}
-.rt-dot{fill:#E9FDFD;offset-distance:0%;opacity:0;filter:drop-shadow(0 0 6px #12C0C6);animation:travel 3.6s ease-in-out infinite}
-.rt.th-l .rt-dot{fill:#087276}
-.rt-city{fill:#12C0C6;opacity:.85}.rt.th-l .rt-city{fill:#0A7F84}
-.rt-hub{fill:#12C0C6;filter:drop-shadow(0 0 10px #12C0C6)}.rt.th-l .rt-hub{fill:#087276}
-.rt-ping{fill:none;stroke:#12C0C6;stroke-width:2;animation:ping 2.4s ease-out infinite}
-@keyframes travel{0%{offset-distance:0%;opacity:0}12%{opacity:1}88%{opacity:1}100%{offset-distance:100%;opacity:0}}
-.pair-body{justify-content:center;gap:36px}.pair-copy{max-width:690px}
 .ctas{display:flex;flex-wrap:wrap;gap:12px}
-.btn2{white-space:nowrap;display:inline-flex;align-items:center;min-height:56px;padding:0 28px;border-radius:999px;border:1px solid var(--line);color:var(--ink);font:500 15px/1 var(--sans);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:border-color .2s,background .2s}
+.btn2{white-space:nowrap;display:inline-flex;align-items:center;min-height:56px;padding:0 28px;border-radius:999px;border:1px solid var(--line);color:var(--ink);font:500 15px/1 var(--sans);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .btn2:hover{border-color:var(--accent);background:rgba(18,192,198,.1)}
-.pair-seals{padding-top:24px;border-top:1px solid var(--line)}
-.still .rt-line{stroke-dashoffset:0}.still .rt-dot{display:none}
-@media (prefers-reduced-motion:reduce){.hero .rt-line{stroke-dashoffset:0}.hero .rt-dot{display:none}}
+.still .band,.still .flare{display:none}
+.still .bg .th-l{transition:none}
+@media (prefers-reduced-motion:reduce){.hero .band,.hero .flare{display:none}.hero .bg .th-l{transition:none}}
 @container hero (max-width:900px){
-  .hero .hd-mark{display:block}
-  .hd-tools{gap:8px}
-  .bg{bottom:auto;height:470px}
-  .stage{height:720px;top:var(--pht);left:var(--phl);translate:none}
-  .hero.pair .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,8,10,.35) 0%,rgba(7,8,10,0) 22%,rgba(7,8,10,0) 50%,#07080A 100%);transition:opacity 1.1s}
-  .hero.pair.light .bg:after{background:linear-gradient(180deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 22%,rgba(255,255,255,0) 50%,#FFFFFF 100%)}
-  .shades{display:none}
-  .pair-body{justify-content:flex-start;padding-top:300px;gap:26px}
+  .hero .hd-full-box{display:none}.hero .hd-mark-box{display:block}.hd-tools{gap:8px}
+  .hero.light .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,.8) 26%,rgba(255,255,255,.93) 60%,rgba(255,255,255,.97) 100%);transition:opacity 1.2s}
+  .flare{left:80%;top:30%;width:340px;height:340px;margin:-170px 0 0 -170px}
   .ctas{flex-direction:column}.ctas .btn,.btn2{width:100%;justify-content:center;min-height:52px}
 }`;
 
-function writePair(p) {
-  const stageVar = `--phl:${-Math.round(p.phx * 0.8 - 195)}px;--pht:${p.pht}px`; // phone stage is 0.8 of the board: centre x=phx in view
-  const body = `
-<div class="bg"><div class="stage" style="${stageVar}"><img class="th-d" src="${u(p.dark.img)}" alt=""><img class="th-l" src="${u(p.light.img)}" alt="">${routeSvg(p.dark, "th-d")}${routeSvg(p.light, "th-l")}</div></div>
-<div class="shades"><div class="th-d"><div style="position:absolute;inset:0;background:${p.shadeD};opacity:{{shade}}"></div></div><div class="th-l"><div style="position:absolute;inset:0;background:${p.shadeL};opacity:{{shade}}"></div></div></div>
-${pairHeader()}
-<div class="body pair-body"><div class="stack pair-copy">${h1([4, 5, 6, 7, 8])}${sub()}${lead()}<div class="f" style="--d:1150ms"><div class="ctas"><a href="#" class="btn">${esc(W.talk)}${ic("arrow", 18)}</a><a href="#" class="btn2">Become a Partner</a></div></div></div>${seals("pair-seals", 1400)}</div>`;
-  const props = { theme: { editor: "enum", options: ["dark", "light"], default: "dark", section: "Hero" }, shade: { editor: "range", min: 0, max: 1, step: 0.05, default: 0.85, section: "Hero" }, motion: { editor: "boolean", default: true, section: "Hero" }, $preview: { width: 1440, height: 900 } };
-  const html = `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>HCIG v3 Hero ${p.id}, ${esc(p.name)}</title>
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<helmet>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Bodoni+Moda:opsz,wght@6..96,400&amp;display=swap">
-<style>
-@font-face{font-family:'Helma';src:url('${u("helma")}') format('woff2');font-weight:400;font-style:normal;font-display:swap}
-body{margin:0}
-${BASE}
-${PAIR_CSS}
-</style>
-</helmet>
-<section class="hero pair {{themeCls}} {{stillCls}}" style="font-family:'Inter',system-ui,sans-serif;color:var(--ink)"><div class="in">
-${body}
-</div></section>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props='${JSON.stringify(props)}'>
-class Component extends DCLogic {
-  renderVals() {
-    const s = this.state || {};
-    const set = (o) => this.setState(o);
-    const theme = s.theme || this.props.theme || 'dark';
-    const motion = this.props.motion ?? true;
-    return {
-      shade: this.props.shade ?? 0.85,
-      themeCls: theme === 'light' ? 'light' : 'dark',
-      themeLabel: theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme',
-      toggleTheme: () => set({ theme: theme === 'light' ? 'dark' : 'light' }),
-      stillCls: motion ? '' : 'still',
-      menuOpen: !!s.menu, menuShut: !s.menu, menuExp: s.menu ? 'true' : 'false',
-      toggleMenu: () => set({ menu: !s.menu, lang: false }), closeMenu: () => set({ menu: false }),
-      langOpen: !!s.lang, langExp: s.lang ? 'true' : 'false', toggleLang: () => set({ lang: !s.lang })
-    };
-  }
+// Rebuild hero B in place: same photo, routes, shade and layout, now with both themes.
+{
+  const b = H.find((h) => h.id === "B");
+  const was = b.body;
+  b.themed = true;
+  b.body = b.body
+    .replace(`<div class="bg"><img src="${u("g-earth-network")}" alt=""></div>`, `<div class="bg"><img class="th-d" src="${u("g-earth-network")}" alt=""><img class="th-l" src="${u(DAY_IMG)}" alt=""></div>`)
+    .replace(shadeDiv("radial-gradient(70% 85% at 22% 50%,rgba(3,6,10,.94),rgba(3,6,10,.15) 72%)"), `<div class="shades"><div class="th-d"><div style="position:absolute;inset:0;background:radial-gradient(70% 85% at 22% 50%,rgba(3,6,10,.94),rgba(3,6,10,.15) 72%);opacity:{{shade}}"></div></div><div class="th-l"><div style="position:absolute;inset:0;background:radial-gradient(70% 85% at 22% 50%,rgba(255,255,255,.95),rgba(255,255,255,.2) 72%);opacity:{{shade}}"></div></div></div><div class="fx" aria-hidden="true"><div class="band"></div><div class="flare"></div></div>`)
+    .replace(header("dark"), themedHeader())
+    .replace(`<a href="#" class="btn">${esc(W.talk)}${ic("arrow", 18)}</a></div>`, `<div class="ctas"><a href="#" class="btn">${esc(W.talk)}${ic("arrow", 18)}</a><a href="#" class="btn2">Become a Partner</a></div></div>`);
+  for (const k of ["theme-btn", "btn2", u(DAY_IMG), "shades", "class=\"fx\""]) if (!b.body.includes(k)) throw new Error("hero B rebuild missed " + k);
+  if (b.body === was) throw new Error("hero B unchanged");
+  b.css += THEME_CSS;
 }
-</script>
-</body>
-</html>
-`;
-  writeFileSync(join(OUT, `Hero${p.id}.dc.html`), html);
-  // Wrappers: the light desktop, and the phone in both themes, mount the same hero with a starting theme.
-  const wrap = (file, title, w, h, theme, bg) => writeFileSync(join(OUT, file), `<!doctype html>
+
+H.forEach(write);
+
+// Light boards: the same hero B mounted with theme="light", desktop and phone.
+const wrap = (file, title, w, h, theme, bg) => writeFileSync(join(OUT, file), `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -516,7 +483,7 @@ class Component extends DCLogic {
 <x-dc>
 <helmet><style>body{margin:0}</style></helmet>
 <div style="width:${w}px;min-height:${h}px;background:${bg};font-family:'Inter',system-ui,sans-serif;color:${theme === "light" ? "#0B0B0C" : "#F4F5F5"}">
-<dc-import name="Hero${p.id}" theme="${theme}" hint-size="${w}px,${h}px"></dc-import>
+<dc-import name="HeroB" theme="${theme}" hint-size="${w}px,${h}px"></dc-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":${w},"height":${h}}}'>
@@ -527,34 +494,28 @@ class Component extends DCLogic {
 </body>
 </html>
 `);
-  wrap(`Hero${p.id}Light.dc.html`, `HCIG v3 Hero ${p.id}, light`, 1440, 900, "light", "#FFFFFF");
-  wrap(`Hero${p.id}Phone.dc.html`, `HCIG v3 Hero ${p.id}, phone dark`, 390, PPH, "dark", "#07080A");
-  wrap(`Hero${p.id}PhoneLight.dc.html`, `HCIG v3 Hero ${p.id}, phone light`, 390, PPH, "light", "#FFFFFF");
-}
-const PPH = 1060; // phone pair board height, measured at 390 px
-PAIRS.forEach(writePair);
+wrap("HeroBNight.dc.html", "HCIG v3 Hero B, night", 1440, 900, "dark", "#07080A");
+wrap("HeroBLight.dc.html", "HCIG v3 Hero B, day", 1440, 900, "light", "#FFFFFF");
+wrap("HeroBPhoneLight.dc.html", "HCIG v3 Hero B, phone, day", 390, PH.B, "light", "#FFFFFF");
 
-// ---------- canvas index: page 1 is B light and dark, page 2 the twelve heroes ----------
+// ---------- canvas index: page 1 is B night and day, page 2 the twelve heroes ----------
 const boards = {}, order = [], notes = {};
-PAIRS.forEach((p, i) => {
-  const y = i * 1400, f = `Hero${p.id}`;
-  boards[`${f}.dc.html`] = { x: 0, y, w: 1440, h: 900, title: `${p.id} · dark (switch works)`, is_interactive: true, page: "b" };
-  boards[`${f}Light.dc.html`] = { x: 1520, y, w: 1440, h: 900, title: `${p.id} · light`, is_interactive: true, page: "b" };
-  boards[`${f}Phone.dc.html`] = { x: 3040, y, w: 390, h: PPH, title: `${p.id} · phone dark`, is_interactive: true, page: "b" };
-  boards[`${f}PhoneLight.dc.html`] = { x: 3510, y, w: 390, h: PPH, title: `${p.id} · phone light`, is_interactive: true, page: "b" };
-  notes["pair" + p.id] = { x: 0, y: y - 250, text: `${p.id} · ${p.name}`, kind: "title1", maxW: 3900, page: "b" };
-  order.push(`${f}.dc.html`, `${f}Light.dc.html`, `${f}Phone.dc.html`, `${f}PhoneLight.dc.html`);
-});
-notes.pairNote = { x: 4040, y: 0, w: 440, maxH: 800, size: "m", fill: "yellow", page: "b", text: "B, light and dark\n\n1. The sun and moon button in the header switches the theme on every board. The background crossfades from night to day.\n2. B1 keeps the Earth photo. Its day version is a Gemini edit of the same view.\n3. B2 is the map recipe of the TMASI maritime map, in HCIG colours: pale land and turquoise sea by day, glowing coasts and city lights by night. Egypt is shaded.\n4. Routes start in the seven site language markets: London, Paris, Madrid, Berlin, Warsaw, Prague, Milan. Say if you want other cities.\n5. Become a Partner added beside Talk to our team (your yes).\n6. Tweaks: Theme (starting theme), Shade, Motion." };
+boards["HeroBNight.dc.html"] = { x: 0, y: 0, w: 1440, h: 900, title: "B · night (press the sun)", is_interactive: true, page: "b" };
+boards["HeroBLight.dc.html"] = { x: 1520, y: 0, w: 1440, h: 900, title: "B · day (press the moon)", is_interactive: true, page: "b" };
+boards["HeroBPhone.dc.html"] = { x: 3040, y: 0, w: 390, h: PH.B, title: "B · phone night", is_interactive: true, page: "b" };
+boards["HeroBPhoneLight.dc.html"] = { x: 3510, y: 0, w: 390, h: PH.B, title: "B · phone day", is_interactive: true, page: "b" };
+order.push("HeroBNight.dc.html", "HeroBLight.dc.html", "HeroBPhone.dc.html", "HeroBPhoneLight.dc.html");
+notes.titleB = { x: 0, y: -250, text: "B · Night Network, night and day", kind: "title1", maxW: 3900, page: "b" };
+notes.noteB = { x: 4040, y: 0, w: 440, maxH: 800, size: "m", fill: "yellow", page: "b", text: "B, night and day\n\n1. Press the sun (or the moon) in the header, on any board. Best seen in Play.\n2. The day comes in from the east, over the Red Sea: a soft light line sweeps across the Earth with a sun flare, the words and logo turn dark, the routes draw again in deep turquoise. The night goes back the same way.\n3. The day photo is a Gemini edit of the night photo, so the flows stay where they were.\n4. Become a Partner added beside Talk to our team (your yes).\n5. Tweaks: Theme (starting look), Shade, Motion." };
 const pitchY = 1300, colX = [0, 2240];
 H.forEach((h, i) => {
   const col = i < 6 ? 0 : 1, row = i % 6;
   const x = colX[col], y = row * pitchY;
   boards[`${h.file}.dc.html`] = { x, y, w: 1440, h: 900, title: `Hero ${h.id} · ${h.name}`, is_interactive: true, page: "twelve" };
-  boards[`${h.file}Phone.dc.html`] = { x: x + 1520, y, w: 390, h: PH[h.id] || 844, title: `Hero ${h.id} · phone`, is_interactive: true, page: "twelve" };
+  if (h.id !== "B") boards[`${h.file}Phone.dc.html`] = { x: x + 1520, y, w: 390, h: PH[h.id] || 844, title: `Hero ${h.id} · phone`, is_interactive: true, page: "twelve" };
   notes["row" + h.id] = { x, y: y - 250, text: `${h.id} · ${h.name}`, kind: "title1", maxW: 1910, page: "twelve" };
-  order.push(`${h.file}.dc.html`, `${h.file}Phone.dc.html`);
+  order.push(`${h.file}.dc.html`); if (h.id !== "B") order.push(`${h.file}Phone.dc.html`);
 });
-notes.open = { x: 4400, y: 0, w: 440, maxH: 760, size: "m", fill: "yellow", page: "twelve", text: "Open items\n\n1. Every word on these heroes is the live hero's own: the partner line, the headline, the second line, the lead and Talk to our team. Nothing added.\n2. Photos made with Gemini: Red Sea, Earth at night, lounge, boardroom, jet, pool, coordination room, clinic suite, marble, blue hour. His own photos: MedPark Health Hub, MedPark Hospital, the event booth, the delegation visit.\n3. DMWV and GHA marks as on the live banner, on white plates.\n4. Logo at its 120 px minimum height on desktop, HC mark alone on phone.\n5. Tweaks on each desktop board: Shade (photo darkness) and Motion.\n6. A second button, Become a Partner (his words, lower on the home), could join Talk to our team. Say if you want it." };
-writeFileSync(join(OUT, "canvas.json"), JSON.stringify({ v: 3, createdOnFiles: { v: 1, at: "2026-10-19T11:00:00Z" }, title: "HCIG v3 Hero", launch: { view: "canvas", page: "b" }, pages: [{ id: "b", name: "B, light and dark" }, { id: "twelve", name: "All twelve heroes" }], boards, order, notes, designSystems: [] }, null, 2));
-console.log(`wrote ${H.length} heroes x 2 boards + canvas.json`);
+notes.open = { x: 4400, y: 0, w: 440, maxH: 760, size: "m", fill: "yellow", page: "twelve", text: "Open items\n\n1. Every word on these heroes is the live hero's own: the partner line, the headline, the second line, the lead and Talk to our team. Nothing added.\n2. Photos made with Gemini: Red Sea, Earth at night, lounge, boardroom, jet, pool, coordination room, clinic suite, marble, blue hour. His own photos: MedPark Health Hub, MedPark Hospital, the event booth, the delegation visit.\n3. DMWV and GHA marks as on the live banner, on white plates.\n4. Logo at its 120 px minimum height on desktop, HC mark alone on phone.\n5. Tweaks on each desktop board: Shade (photo darkness) and Motion.\n6. B, his pick, is on the first page with night and day." };
+writeFileSync(join(OUT, "canvas.json"), JSON.stringify({ v: 3, createdOnFiles: { v: 1, at: "2026-10-19T11:00:00Z" }, title: "HCIG v3 Hero", launch: { view: "canvas", page: "b" }, pages: [{ id: "b", name: "B, night and day" }, { id: "twelve", name: "All twelve heroes" }], boards, order, notes, designSystems: [] }, null, 2));
+console.log(`wrote ${H.length} heroes x 2 boards, B day boards, canvas.json`);

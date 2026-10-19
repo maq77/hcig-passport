@@ -1,5 +1,5 @@
 // Local render check for the hero boards: each .dc.html becomes a plain page with local assets.
-// B1 and B2 are written twice, dark and light. Run: node hcig-v3/canvas/heroes/preview.mjs,
+// Hero B is written twice, night and day. Run: node hcig-v3/canvas/heroes/preview.mjs,
 // serve hcig-v3/ and open /canvas/heroes/preview/HeroA.html
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -15,7 +15,7 @@ for (const [name, url] of Object.entries(B)) local[url] = "/material/hero-assets
 
 const jobs = [];
 for (const f of readdirSync(join(HERE, "project")).filter((f) => /^Hero([A-Z]|B\d)\.dc\.html$/.test(f))) {
-  if (/B\d/.test(f)) jobs.push([f, "dark", f.replace(".dc", "")], [f, "light", f.replace(".dc.html", "Light.html")]);
+  if (f === "HeroB.dc.html") jobs.push([f, "dark", f.replace(".dc", "")], [f, "light", f.replace(".dc.html", "Light.html")]);
   else jobs.push([f, "", f.replace(".dc", "")]);
 }
 for (const [f, theme, outName] of jobs) {

@@ -497,7 +497,7 @@ const COMPANIES = [
           { text: 'Invisible fixes and tracking on the live site', done: false, who: 'Us' },
           { text: 'Design canvas: the v3 hero, twelve options', done: true, who: 'Us' },
           { text: 'Pick the v3 hero on the canvas (B, 19 October)', done: true, who: 'Mohamed' },
-          { text: 'Choose B1 (Earth photo) or B2 (network map), light and dark', done: false, who: 'Mohamed' },
+          { text: 'Review B night and day on the canvas (press the sun)', done: false, who: 'Mohamed' },
         ],
         stages: [
           {
@@ -514,7 +514,7 @@ const COMPANIES = [
             name: 'Design',
             note: 'Every look is chosen on a canvas before anything is built.',
             items: [
-              { slug: 'hero-v3', name: 'v3 hero: B in light and dark, plus all twelve', kind: 'link', href: 'https://claude.ai/artifact/7qpdZsdWL3TwVNyrB6NzTm', status: 'review', note: 'Private canvas. He picked B; it now has a light and dark switch, Earth photo (B1) or network map (B2)' },
+              { slug: 'hero-v3', name: 'v3 hero: B night and day, plus all twelve', kind: 'link', href: 'https://claude.ai/artifact/7qpdZsdWL3TwVNyrB6NzTm', status: 'review', note: 'Private canvas. He picked B; a sun and moon switch turns the Earth from night to day with a sunrise sweep' },
             ],
           },
           {
