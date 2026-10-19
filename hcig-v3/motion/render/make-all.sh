@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Render and encode the HCIG group film. Frames: 60 fps x 3 subframes, blended with tmix for motion blur.
 set -e
-R="C:/Users/maqmo/AppData/Local/Temp/claude/D--Healthcare-international-group/1dda97a7-9b53-498c-91a0-4f342513676e/scratchpad/render"
+R="$(cd "$(dirname "$0")" && pwd)"   # run from hcig-v3/motion/render after: npm i playwright-core@1.56.1
 OUT="D:/Healthcare international group/hcig-v3/material/motion-film"
 mkdir -p "$OUT"; cd "$R"
 node audio.mjs "$OUT/hcig-group-film.wav"
