@@ -103,8 +103,8 @@ body{margin:0}
 .o-wm{position:absolute;z-index:1;left:2%;top:34%;width:380px;opacity:.07;pointer-events:none;animation:wm 2.4s var(--ease) .3s both}
 .o-wm .lg img{width:100%}
 @keyframes wm{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:.07;transform:none}}
-.hero{--fx-x:70%;--fx-y:28%}
-@container hero (max-width:900px){.o-banner{gap:12px;padding:12px 0 16px}.o-cred{font-size:13px}.o-tag{font-size:12px}.o-copy{padding:26px 0 0;gap:16px}.o-kicker{font-size:17px}.o-h1{font-size:28px;line-height:1.2}.o-wm{width:200px;top:40%;left:-6%}}
+.hero{--fx-x:70%;--fx-y:28%;--pb-h:370px;--pb-pad:226px;--pb-pos:84% 18%}
+@container hero (max-width:900px){.o-body{gap:0}.o-copy{order:1;margin:0;padding:0;gap:16px}.o-banner{order:2;margin-top:28px;padding:20px 0 0;border-bottom:0;border-top:1px solid var(--line);align-items:flex-start;gap:12px}.o-cred{font-size:13px;line-height:1.45}.o-tag{font-size:12px}.o-kicker{font-size:17px;line-height:1.4}.o-h1{font-size:26px;line-height:1.2}.o-wm{display:none}.o-safe{justify-content:center}}
 .hero{--sweep:2.4s;--sweep-ease:cubic-bezier(.45,.05,.35,1);transition:background-color 1.3s var(--sweep-ease) .9s}
 .hero.light{--ink:#0B0B0C;--ink2:#3F4042;--muted:#565759;--line:rgba(11,11,12,.16);--acc-text:#087276;background:#FFFFFF}
 .h1,.sub,.lead,.seals p,.hd-nav a,.btn2,.lang-btn,.theme-btn,.menu-btn,.soc a,.o-cred,.o-tag,.o-kicker{transition:color 1s var(--sweep-ease) 1s,border-color 1s var(--sweep-ease) 1s,background-color .3s}
@@ -145,11 +145,28 @@ body{margin:0}
 .still .band,.still .flare{display:none}
 .still .bg .th-l{transition:none}
 @media (prefers-reduced-motion:reduce){.hero .band,.hero .flare{display:none}.hero .bg .th-l{transition:none}}
+/* phone first: the photo becomes a band at the top that melts into the page, the words sit under it */
+.hero.dark{--pb-top:rgba(7,8,10,.6);--pb-end:#07080A}.hero.light{--pb-top:rgba(255,255,255,.75);--pb-end:#FFFFFF}
 @container hero (max-width:900px){
   .hero .hd-full-box{display:none}.hero .hd-mark-box{display:block}.hd-tools{gap:8px}
-  .hero.light .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,.8) 26%,rgba(255,255,255,.93) 60%,rgba(255,255,255,.97) 100%)}
-  .flare{left:80%;top:30%;width:340px;height:340px;margin:-170px 0 0 -170px}
-  .ctas{flex-direction:column}.ctas .btn,.btn2{width:100%;justify-content:center;min-height:52px}
+  .hero .bg{bottom:auto;height:var(--pb-h,400px)}
+  .hero .bg img{object-position:var(--pb-pos,50% 50%)!important}
+  .hero .bg:after,.hero.light .bg:after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,var(--pb-top) 0%,transparent 24%,transparent 48%,var(--pb-end) 97%);transition:background 1.2s var(--sweep-ease) .8s}
+  .hero .shades{display:none}
+  .hero .body{padding-top:var(--pb-pad,260px)}
+  .hero.light .drawer{background:#FFFFFF;color:#0B0B0C;box-shadow:0 30px 40px -30px rgba(0,0,0,.25)}
+  .hero.light .drawer li a{border-bottom-color:rgba(11,11,12,.1)}.hero.light .drawer-langs a,.hero.light .drawer-soc a{border-color:rgba(11,11,12,.16)}
+  .flare{left:72%;top:22%;width:300px;height:300px;margin:-150px 0 0 -150px}
+  .h1{font-size:34px;line-height:1.12}
+  .ctas{flex-direction:column;gap:10px}.ctas .btn,.btn2{width:100%;justify-content:center;min-height:52px}
+  .seals{padding-top:20px}
+}
+/* small phones (360 px): a shorter band and a smaller headline keep the buttons on the first screen */
+@container hero (max-width:370px){
+  .hero .bg{height:calc(var(--pb-h,400px) - 50px)}
+  .hero .body{padding-top:calc(var(--pb-pad,260px) - 56px)}
+  .hero .h1{font-size:31px}.hero .o-h1{font-size:24px}
+  .hero .lead{font-size:15.5px}
 }
 </style>
 </helmet>

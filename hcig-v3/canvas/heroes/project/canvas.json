@@ -42,7 +42,7 @@
       "x": 3040,
       "y": 0,
       "w": 390,
-      "h": 900,
+      "h": 1000,
       "title": "B · phone night",
       "is_interactive": true,
       "page": "four"
@@ -51,7 +51,7 @@
       "x": 3510,
       "y": 0,
       "w": 390,
-      "h": 900,
+      "h": 1000,
       "title": "B · phone day",
       "is_interactive": true,
       "page": "four"
@@ -78,7 +78,7 @@
       "x": 3040,
       "y": 1500,
       "w": 390,
-      "h": 900,
+      "h": 1070,
       "title": "D · phone night",
       "is_interactive": true,
       "page": "four"
@@ -87,7 +87,7 @@
       "x": 3510,
       "y": 1500,
       "w": 390,
-      "h": 900,
+      "h": 1070,
       "title": "D · phone day",
       "is_interactive": true,
       "page": "four"
@@ -150,7 +150,7 @@
       "x": 3040,
       "y": 4500,
       "w": 390,
-      "h": 900,
+      "h": 1200,
       "title": "O · phone night",
       "is_interactive": true,
       "page": "four"
@@ -159,7 +159,7 @@
       "x": 3510,
       "y": 4500,
       "w": 390,
-      "h": 900,
+      "h": 1200,
       "title": "O · phone day",
       "is_interactive": true,
       "page": "four"
@@ -195,7 +195,7 @@
       "x": 1520,
       "y": 1300,
       "w": 390,
-      "h": 900,
+      "h": 1000,
       "title": "Hero B · phone",
       "is_interactive": true,
       "page": "twelve"
@@ -231,7 +231,7 @@
       "x": 1520,
       "y": 3900,
       "w": 390,
-      "h": 900,
+      "h": 1070,
       "title": "Hero D · phone",
       "is_interactive": true,
       "page": "twelve"
@@ -393,7 +393,7 @@
       "x": 1520,
       "y": 7800,
       "w": 390,
-      "h": 900,
+      "h": 1200,
       "title": "Hero O · phone",
       "is_interactive": true,
       "page": "twelve"
@@ -484,7 +484,7 @@
       "size": "m",
       "fill": "yellow",
       "page": "four",
-      "text": "Four heroes, night and day\n\n1. Press the sun or the moon in the header of any board (best in Play). Day comes in from the east with a soft light line and a sun flare; words and logo change halfway.\n2. B: the drawn routes are gone. Light now runs along the flows that are in the photo itself, toward Egypt.\n3. D and J: the same photos by day (made in your Gemini). J's HC mark turns from white to black.\n4. O is today's healthcareig.com hero, polished: the same order (partner banner, the doctors, the turquoise line, the lead as the headline, Talk to our team), with the real logo and mark, seals on plates, motion, night and day. Day is its starting look, as on the live site.\n5. Fonts: Helma at the weight the live site shows it, Inter for text. Turquoise #12C0C6.\n6. Become a Partner sits beside Talk to our team on all four."
+      "text": "Four heroes, night and day\n\n1. Press the sun or the moon in the header of any board (best in Play). Day comes in from the east with a soft light line and a sun flare; words and logo change halfway.\n2. B: the drawn routes are gone. Light now runs along the flows that are in the photo itself, toward Egypt.\n3. D and J: the same photos by day (made in your Gemini). J's HC mark turns from white to black.\n4. O is today's healthcareig.com hero, polished: the same order (partner banner, the doctors, the turquoise line, the lead as the headline, Talk to our team), with the real logo and mark, seals on plates, motion, night and day. Day is its starting look, as on the live site.\n5. Fonts: Helma at the weight the live site shows it, Inter for text. Turquoise #12C0C6.\n6. Become a Partner sits beside Talk to our team on all four.\n7. Phones rebuilt phone-first: the photo is a band at the top that melts into the page, the words below it, both buttons on the first screen down to 360 px wide."
     },
     "rowA": {
       "x": 0,

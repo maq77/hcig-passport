@@ -446,11 +446,28 @@ const THEME_CSS = `
 .still .band,.still .flare{display:none}
 .still .bg .th-l{transition:none}
 @media (prefers-reduced-motion:reduce){.hero .band,.hero .flare{display:none}.hero .bg .th-l{transition:none}}
+/* phone first: the photo becomes a band at the top that melts into the page, the words sit under it */
+.hero.dark{--pb-top:rgba(7,8,10,.6);--pb-end:#07080A}.hero.light{--pb-top:rgba(255,255,255,.75);--pb-end:#FFFFFF}
 @container hero (max-width:900px){
   .hero .hd-full-box{display:none}.hero .hd-mark-box{display:block}.hd-tools{gap:8px}
-  .hero.light .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.3) 0%,rgba(255,255,255,.8) 26%,rgba(255,255,255,.93) 60%,rgba(255,255,255,.97) 100%)}
-  .flare{left:80%;top:30%;width:340px;height:340px;margin:-170px 0 0 -170px}
-  .ctas{flex-direction:column}.ctas .btn,.btn2{width:100%;justify-content:center;min-height:52px}
+  .hero .bg{bottom:auto;height:var(--pb-h,400px)}
+  .hero .bg img{object-position:var(--pb-pos,50% 50%)!important}
+  .hero .bg:after,.hero.light .bg:after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,var(--pb-top) 0%,transparent 24%,transparent 48%,var(--pb-end) 97%);transition:background 1.2s var(--sweep-ease) .8s}
+  .hero .shades{display:none}
+  .hero .body{padding-top:var(--pb-pad,260px)}
+  .hero.light .drawer{background:#FFFFFF;color:#0B0B0C;box-shadow:0 30px 40px -30px rgba(0,0,0,.25)}
+  .hero.light .drawer li a{border-bottom-color:rgba(11,11,12,.1)}.hero.light .drawer-langs a,.hero.light .drawer-soc a{border-color:rgba(11,11,12,.16)}
+  .flare{left:72%;top:22%;width:300px;height:300px;margin:-150px 0 0 -150px}
+  .h1{font-size:34px;line-height:1.12}
+  .ctas{flex-direction:column;gap:10px}.ctas .btn,.btn2{width:100%;justify-content:center;min-height:52px}
+  .seals{padding-top:20px}
+}
+/* small phones (360 px): a shorter band and a smaller headline keep the buttons on the first screen */
+@container hero (max-width:370px){
+  .hero .bg{height:calc(var(--pb-h,400px) - 50px)}
+  .hero .body{padding-top:calc(var(--pb-pad,260px) - 56px)}
+  .hero .h1{font-size:31px}.hero .o-h1{font-size:24px}
+  .hero .lead{font-size:15.5px}
 }`;
 
 // Turn a hero into its night and day version. The photo, shade, layout and words stay as they are.
@@ -479,6 +496,8 @@ themify("B", {
   edit: (b) => b.replace(/<svg class="b-routes"[\s\S]*?<\/svg>\n?/, ""),
   css: `
 .stage{position:absolute;top:0;left:50%;height:100%;aspect-ratio:1376/768;min-width:100%;translate:-50% 0;animation:kb 28s ease-out both}
+.hero{--pb-h:400px;--pb-pad:244px}
+@container hero (max-width:900px){.stage{height:430px;top:-40px;left:calc(76% - 560px);min-width:0;translate:none}.hub{width:10px;height:10px;margin:-5px 0 0 -5px}}
 .stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:none}
 .flow{position:absolute;inset:0;pointer-events:none;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;transition:opacity 1.2s var(--sweep-ease) .8s}
 .fl-n{-webkit-mask-image:url('${u("flows-night")}');mask-image:url('${u("flows-night")}');mix-blend-mode:screen}
@@ -502,7 +521,7 @@ themify("B", {
 themify("D", {
   day: "g-boardroom-day",
   lightShade: "linear-gradient(90deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.78) 45%,rgba(255,255,255,.08) 82%)",
-  css: `.d-plaque p{transition:color 1s var(--sweep-ease) 1s}.hero.light .d-plaque p{color:var(--ink2)}.hero.light .d-rule{background:rgba(11,11,12,.16)}.hero{--fx-x:72%;--fx-y:30%}`,
+  css: `.hero{--pb-h:370px;--pb-pad:244px;--pb-pos:60% 50%}.d-plaque p{transition:color 1s var(--sweep-ease) 1s}.hero.light .d-plaque p{color:var(--ink2)}.hero.light .d-rule{background:rgba(11,11,12,.16)}.hero{--fx-x:72%;--fx-y:30%}`,
 });
 
 // J · Marble Noir: white marble by day, the HC mark turns from white to black.
@@ -510,7 +529,7 @@ themify("J", {
   day: "g-marble-white",
   lightShade: "radial-gradient(60% 70% at 50% 45%,rgba(255,255,255,.5),rgba(255,255,255,.94))",
   edit: (b) => b.replace(`<img src="${u("mark-white")}" alt="">`, swap("", "mark-white", "mark-black", "")),
-  css: `.hero{--fx-x:78%;--fx-y:40%}@container hero (max-width:900px){.j-body>.f{width:100%}}`,
+  css: `.hero{--fx-x:78%;--fx-y:40%}@container hero (max-width:900px){.j-body>.f:not(.j-mark){width:100%}.hero .bg{height:auto;bottom:0}.hero .bg:after,.hero.light .bg:after{display:none}.hero .shades{display:block}.hero .body{padding-top:28px}.j-mark{width:64px}.j-body{gap:14px}}`,
 });
 
 // O · The original, polished: the live hero kept as it is built (the partner banner on top, the cover photo of the
@@ -536,9 +555,9 @@ ${header("dark")}
 .o-wm{position:absolute;z-index:1;left:2%;top:34%;width:380px;opacity:.07;pointer-events:none;animation:wm 2.4s var(--ease) .3s both}
 .o-wm .lg img{width:100%}
 @keyframes wm{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:.07;transform:none}}
-.hero{--fx-x:70%;--fx-y:28%}
-@container hero (max-width:900px){.o-banner{gap:12px;padding:12px 0 16px}.o-cred{font-size:13px}.o-tag{font-size:12px}.o-copy{padding:26px 0 0;gap:16px}.o-kicker{font-size:17px}.o-h1{font-size:28px;line-height:1.2}.o-wm{width:200px;top:40%;left:-6%}}` });
-PH.O = 900;
+.hero{--fx-x:70%;--fx-y:28%;--pb-h:370px;--pb-pad:226px;--pb-pos:84% 18%}
+@container hero (max-width:900px){.o-body{gap:0}.o-copy{order:1;margin:0;padding:0;gap:16px}.o-banner{order:2;margin-top:28px;padding:20px 0 0;border-bottom:0;border-top:1px solid var(--line);align-items:flex-start;gap:12px}.o-cred{font-size:13px;line-height:1.45}.o-tag{font-size:12px}.o-kicker{font-size:17px;line-height:1.4}.o-h1{font-size:26px;line-height:1.2}.o-wm{display:none}.o-safe{justify-content:center}}` });
+PH.O = 1200;
 themify("O", {
   day: "o-cover-day",
   themeDefault: "light",
@@ -573,7 +592,7 @@ class Component extends DCLogic {
 </html>
 `);
 const FOUR = [["B", "Night Network"], ["D", "Boardroom"], ["J", "Marble Noir"], ["O", "The original, polished"]];
-const PHT = { B: 900, D: 900, J: 900, O: 900 }; // phone board heights, measured at 390 px
+const PHT = { B: 1000, D: 1070, J: 900, O: 1200 }; // phone board heights, measured at 390 px
 for (const [id] of FOUR) {
   wrap(`Hero${id}`, `Hero${id}Night.dc.html`, `HCIG v3 Hero ${id}, night`, 1440, 900, "dark");
   wrap(`Hero${id}`, `Hero${id}Day.dc.html`, `HCIG v3 Hero ${id}, day`, 1440, 900, "light");
@@ -592,7 +611,7 @@ FOUR.forEach(([id, name], i) => {
   notes["four" + id] = { x: 0, y: y - 250, text: `${id} · ${name}`, kind: "title1", maxW: 3900, page: "four" };
   order.push(`${f}Night.dc.html`, `${f}Day.dc.html`, `${f}PhoneNight.dc.html`, `${f}PhoneDay.dc.html`);
 });
-notes.fourNote = { x: 4040, y: 0, w: 460, maxH: 900, size: "m", fill: "yellow", page: "four", text: "Four heroes, night and day\n\n1. Press the sun or the moon in the header of any board (best in Play). Day comes in from the east with a soft light line and a sun flare; words and logo change halfway.\n2. B: the drawn routes are gone. Light now runs along the flows that are in the photo itself, toward Egypt.\n3. D and J: the same photos by day (made in your Gemini). J's HC mark turns from white to black.\n4. O is today's healthcareig.com hero, polished: the same order (partner banner, the doctors, the turquoise line, the lead as the headline, Talk to our team), with the real logo and mark, seals on plates, motion, night and day. Day is its starting look, as on the live site.\n5. Fonts: Helma at the weight the live site shows it, Inter for text. Turquoise #12C0C6.\n6. Become a Partner sits beside Talk to our team on all four." };
+notes.fourNote = { x: 4040, y: 0, w: 460, maxH: 900, size: "m", fill: "yellow", page: "four", text: "Four heroes, night and day\n\n1. Press the sun or the moon in the header of any board (best in Play). Day comes in from the east with a soft light line and a sun flare; words and logo change halfway.\n2. B: the drawn routes are gone. Light now runs along the flows that are in the photo itself, toward Egypt.\n3. D and J: the same photos by day (made in your Gemini). J's HC mark turns from white to black.\n4. O is today's healthcareig.com hero, polished: the same order (partner banner, the doctors, the turquoise line, the lead as the headline, Talk to our team), with the real logo and mark, seals on plates, motion, night and day. Day is its starting look, as on the live site.\n5. Fonts: Helma at the weight the live site shows it, Inter for text. Turquoise #12C0C6.\n6. Become a Partner sits beside Talk to our team on all four.\n7. Phones rebuilt phone-first: the photo is a band at the top that melts into the page, the words below it, both buttons on the first screen down to 360 px wide." };
 const pitchY = 1300, colX = [0, 2240];
 H.forEach((h, i) => {
   if (h.id === "O") {
