@@ -18,8 +18,12 @@ for (const f of readdirSync(join(HERE, "project")).filter((f) => /^Hero([A-Z]|B\
   if (readFileSync(join(HERE, "project", f), "utf8").includes("{{themeCls}}")) jobs.push([f, "dark", f.replace(".dc", "")], [f, "light", f.replace(".dc.html", "Light.html")]);
   else jobs.push([f, "", f.replace(".dc", "")]);
 }
-for (const [f, theme, outName] of jobs) {
+// Brand-in-the-picture options of B and D: A, B, C as named in the hero's mark tweak.
+const MK = { "HeroB.dc.html": { A: "beacon", B: "network", C: "watermark" }, "HeroD.dc.html": { A: "glass-logo", B: "glass-mark", C: "watermark" } };
+for (const f of Object.keys(MK)) for (const mk of ["A", "B", "C"]) jobs.push([f, "dark", f.replace(".dc.html", "-" + mk + ".html"), mk], [f, "light", f.replace(".dc.html", "-" + mk + "Light.html"), mk]);
+for (const [f, theme, outName, mk] of jobs) {
   let s = readFileSync(join(HERE, "project", f), "utf8");
+  if (mk) s = s.replace(/<sc-if value="\{\{mk(\w+)\}\}" hint-placeholder-val="\{\{ (?:true|false) \}\}">([\s\S]*?)<\/sc-if>/g, (m, k, inner) => (k === mk || (k === "Plain" && mk === "C") ? inner : "")).replace(/\{\{mkCls\}\}/g, "mk-" + MK[f][mk]);
   const shade = /"shade":\{[^}]*"default":([\d.]+)/.exec(s)[1];
   const helmet = /<helmet>([\s\S]*?)<\/helmet>/.exec(s)[1];
   s = s.replace(/<helmet>[\s\S]*?<\/helmet>/, "").replace('<script src="./support.js"></script>', helmet);

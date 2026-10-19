@@ -7,9 +7,13 @@
   "title": "HCIG v3 Hero",
   "launch": {
     "view": "canvas",
-    "page": "four"
+    "page": "brand"
   },
   "pages": [
+    {
+      "id": "brand",
+      "name": "HCIG in the picture, B and D"
+    },
     {
       "id": "four",
       "name": "Four heroes, night and day"
@@ -397,6 +401,168 @@
       "title": "Hero O · phone",
       "is_interactive": true,
       "page": "twelve"
+    },
+    "HeroB-beacon-Night.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "B · beacon · night",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroB-beacon-Day.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "B · beacon · day",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroB-beacon-Phone.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 390,
+      "h": 1000,
+      "title": "B · beacon · phone",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroB-network-Night.dc.html": {
+      "x": 0,
+      "y": 1500,
+      "w": 1440,
+      "h": 900,
+      "title": "B · network · night",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroB-network-Day.dc.html": {
+      "x": 1520,
+      "y": 1500,
+      "w": 1440,
+      "h": 900,
+      "title": "B · network · day",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroB-network-Phone.dc.html": {
+      "x": 3040,
+      "y": 1500,
+      "w": 390,
+      "h": 1000,
+      "title": "B · network · phone",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroB-watermark-Night.dc.html": {
+      "x": 0,
+      "y": 3000,
+      "w": 1440,
+      "h": 900,
+      "title": "B · watermark · night",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroB-watermark-Day.dc.html": {
+      "x": 1520,
+      "y": 3000,
+      "w": 1440,
+      "h": 900,
+      "title": "B · watermark · day",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroB-watermark-Phone.dc.html": {
+      "x": 3040,
+      "y": 3000,
+      "w": 390,
+      "h": 1000,
+      "title": "B · watermark · phone",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroD-glass-logo-Night.dc.html": {
+      "x": 0,
+      "y": 4500,
+      "w": 1440,
+      "h": 900,
+      "title": "D · glass logo · night",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroD-glass-logo-Day.dc.html": {
+      "x": 1520,
+      "y": 4500,
+      "w": 1440,
+      "h": 900,
+      "title": "D · glass logo · day",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroD-glass-logo-Phone.dc.html": {
+      "x": 3040,
+      "y": 4500,
+      "w": 390,
+      "h": 1070,
+      "title": "D · glass logo · phone",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroD-glass-mark-Night.dc.html": {
+      "x": 0,
+      "y": 6000,
+      "w": 1440,
+      "h": 900,
+      "title": "D · glass mark · night",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroD-glass-mark-Day.dc.html": {
+      "x": 1520,
+      "y": 6000,
+      "w": 1440,
+      "h": 900,
+      "title": "D · glass mark · day",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroD-glass-mark-Phone.dc.html": {
+      "x": 3040,
+      "y": 6000,
+      "w": 390,
+      "h": 1070,
+      "title": "D · glass mark · phone",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroD-watermark-Night.dc.html": {
+      "x": 0,
+      "y": 7500,
+      "w": 1440,
+      "h": 900,
+      "title": "D · watermark · night",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroD-watermark-Day.dc.html": {
+      "x": 1520,
+      "y": 7500,
+      "w": 1440,
+      "h": 900,
+      "title": "D · watermark · day",
+      "is_interactive": true,
+      "page": "brand"
+    },
+    "HeroD-watermark-Phone.dc.html": {
+      "x": 3040,
+      "y": 7500,
+      "w": 390,
+      "h": 1070,
+      "title": "D · watermark · phone",
+      "is_interactive": true,
+      "page": "brand"
     }
   },
   "order": [
@@ -441,7 +607,25 @@
     "HeroL.dc.html",
     "HeroLPhone.dc.html",
     "HeroO.dc.html",
-    "HeroOPhone.dc.html"
+    "HeroOPhone.dc.html",
+    "HeroB-beacon-Night.dc.html",
+    "HeroB-beacon-Day.dc.html",
+    "HeroB-beacon-Phone.dc.html",
+    "HeroB-network-Night.dc.html",
+    "HeroB-network-Day.dc.html",
+    "HeroB-network-Phone.dc.html",
+    "HeroB-watermark-Night.dc.html",
+    "HeroB-watermark-Day.dc.html",
+    "HeroB-watermark-Phone.dc.html",
+    "HeroD-glass-logo-Night.dc.html",
+    "HeroD-glass-logo-Day.dc.html",
+    "HeroD-glass-logo-Phone.dc.html",
+    "HeroD-glass-mark-Night.dc.html",
+    "HeroD-glass-mark-Day.dc.html",
+    "HeroD-glass-mark-Phone.dc.html",
+    "HeroD-watermark-Night.dc.html",
+    "HeroD-watermark-Day.dc.html",
+    "HeroD-watermark-Phone.dc.html"
   ],
   "notes": {
     "fourB": {
@@ -599,6 +783,64 @@
       "fill": "yellow",
       "page": "twelve",
       "text": "The twelve heroes as first shown, kept for reference. His pick: B, D, J and the original, on the first page with night and day."
+    },
+    "brand0": {
+      "x": 0,
+      "y": -250,
+      "text": "B · 1 The HC mark as a beacon where the flows meet over Egypt",
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand"
+    },
+    "brand1": {
+      "x": 0,
+      "y": 1250,
+      "text": "B · 2 The HC mark drawn as a network of points on the Earth",
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand"
+    },
+    "brand2": {
+      "x": 0,
+      "y": 2750,
+      "text": "B · 3 A large faint HC mark in space, like the original",
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand"
+    },
+    "brand3": {
+      "x": 0,
+      "y": 4250,
+      "text": "D · 1 The HCIG logo etched into the boardroom glass",
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand"
+    },
+    "brand4": {
+      "x": 0,
+      "y": 5750,
+      "text": "D · 2 The HC mark etched into the boardroom glass",
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand"
+    },
+    "brand5": {
+      "x": 0,
+      "y": 7250,
+      "text": "D · 3 A large faint HC mark over the window",
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand"
+    },
+    "brandNote": {
+      "x": 3560,
+      "y": 0,
+      "w": 460,
+      "maxH": 900,
+      "size": "m",
+      "fill": "yellow",
+      "page": "brand",
+      "text": "HCIG in the picture, B and D\n\nYour ask: show who we are in the image itself, like the original and J.\n\nB 1 Beacon: the HC mark sits where the flows meet, over Egypt, and pulses.\nB 2 Network: the HC mark drawn as points and links on the Earth, drawing itself in.\nB 3 Watermark: a large faint HC mark in space, like the original.\n\nD 1 The full HCIG logo etched into the boardroom window.\nD 2 The HC mark alone, etched larger in the window.\nD 3 A large faint HC mark over the window.\n\nReal logo files only, never redrawn. Each works by night and by day (press the sun). Pick one per hero, or say mix."
     }
   },
   "designSystems": []

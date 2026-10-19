@@ -159,12 +159,18 @@ body{margin:0}
   .hero .h1{font-size:31px}.hero .o-h1{font-size:24px}
   .hero .lead{font-size:15.5px}
 }.hero{--pb-h:370px;--pb-pad:244px;--pb-pos:60% 50%}.d-plaque p{transition:color 1s var(--sweep-ease) 1s}.hero.light .d-plaque p{color:var(--ink2)}.hero.light .d-rule{background:rgba(11,11,12,.16)}.hero{--fx-x:72%;--fx-y:30%}
+.wm{position:absolute;z-index:1;pointer-events:none;opacity:0.1;animation:wmIn 2.4s var(--ease) .3s both}
+.wm .lg img{width:100%}
+@keyframes wmIn{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:0.1;transform:none}}
+.still .wm{animation:none;opacity:0.1}
+.d-wm{left:58%;top:16%;width:380px}
+@container hero (max-width:900px){.d-wm{width:200px;left:auto;right:-20px;top:90px}}
 </style>
 </helmet>
-<section class="hero {{themeCls}} {{swCls}} {{stillCls}}" style="font-family:'Inter',system-ui,sans-serif;color:var(--ink)"><div class="in ">
+<section class="hero {{themeCls}} {{swCls}} {{mkCls}} {{stillCls}}" style="font-family:'Inter',system-ui,sans-serif;color:var(--ink)"><div class="in ">
 
-<div class="bg"><img class="th-d" src="/_blob/6c497e7d0b1fda5e737f51bdbe2269b9" alt="" style="object-position:72% 50%"><img class="th-l" src="/_blob/cf763a6b374efce9692042d8e6808605" alt="" style="object-position:72% 50%"></div>
-<div class="shades"><div class="th-d"><div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,9,.96) 0%,rgba(5,7,9,.72) 45%,rgba(5,7,9,.1) 82%);opacity:{{shade}}"></div></div><div class="th-l"><div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.78) 45%,rgba(255,255,255,.08) 82%);opacity:{{shade}}"></div></div></div><div class="fx" aria-hidden="true"><div class="band"></div><div class="flare"></div></div>
+<div class="bg"><sc-if value="{{mkPlain}}" hint-placeholder-val="{{ true }}"><img class="th-d" src="/_blob/6c497e7d0b1fda5e737f51bdbe2269b9" alt="" style="object-position:72% 50%"><img class="th-l" src="/_blob/cf763a6b374efce9692042d8e6808605" alt="" style="object-position:72% 50%"></sc-if><sc-if value="{{mkA}}" hint-placeholder-val="{{ false }}"><img class="th-d" src="/_blob/ec45f78cd6b5dd93912b54b072940d4f" alt="" style="object-position:72% 50%"><img class="th-l" src="/_blob/f52b87ecf243c53027709a8aaff0c758" alt="" style="object-position:72% 50%"></sc-if><sc-if value="{{mkB}}" hint-placeholder-val="{{ false }}"><img class="th-d" src="/_blob/c03d46e8875828b062db8db5b5c64f65" alt="" style="object-position:72% 50%"><img class="th-l" src="/_blob/4c93c7702b02d0e1c5d968e18d33298b" alt="" style="object-position:72% 50%"></sc-if></div>
+<div class="shades"><div class="th-d"><div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,9,.96) 0%,rgba(5,7,9,.72) 45%,rgba(5,7,9,.1) 82%);opacity:{{shade}}"></div></div><div class="th-l"><div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.78) 45%,rgba(255,255,255,.08) 82%);opacity:{{shade}}"></div></div></div><sc-if value="{{mkC}}" hint-placeholder-val="{{ false }}"><div class="wm d-wm" aria-hidden="true"><span class="lg "><img class="th-d" src="/_blob/97c1ceb12c54d32b9732aeb847770d58" alt=""><img class="th-l" src="/_blob/74db4fb34a8709d3eafa585f1c410606" alt="" aria-hidden="true"></span></div></sc-if><div class="fx" aria-hidden="true"><div class="band"></div><div class="flare"></div></div>
 <header class="hd"><a href="#" class="hd-logo" aria-label="Healthcare International Group, home"><span class="lg hd-full-box"><img class="hd-full th-d" src="/_blob/f16f3eb2c93ce07e93eb6a30d18eb569" alt="Healthcare International Group"><img class="hd-full th-l" src="/_blob/5d4ba8711d00d1a19405ac62d790fd1e" alt="" aria-hidden="true"></span><span class="lg hd-mark-box"><img class="hd-mark th-d" src="/_blob/97c1ceb12c54d32b9732aeb847770d58" alt="Healthcare International Group"><img class="hd-mark th-l" src="/_blob/74db4fb34a8709d3eafa585f1c410606" alt="" aria-hidden="true"></span></a>
 <nav class="hd-nav" aria-label="Main"><ul><li><a href="#" aria-current="page">Home</a></li><li><a href="#">About Us</a></li><li><a href="#">Services</a></li><li><a href="#">For Partners</a></li><li><a href="#">Contact</a></li><li><a href="#">Blog</a></li></ul></nav>
 <div class="hd-tools"><div class="soc"><a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 3.5h-2a4 4 0 0 0-4 4v3h-2.5v3.5H8.5v6.5H12v-6.5h2.6l.6-3.5H12V8a1 1 0 0 1 1-1h2.5z"/></svg></a><a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5"/><path d="M8 10.5v6M8 7.6v.1M11.5 16.5v-6M11.5 13c0-1.6 1-2.6 2.4-2.6s2.1 1 2.1 2.6v3.5"/></svg></a><a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17 7v.1"/></svg></a></div>
@@ -176,7 +182,7 @@ body{margin:0}
 <div class="d-plaque glass f" style="--d:1400ms"><div class="plates"><span class="plate"><img src="/_blob/0c1f05766b47dc3ac6178043f6dea268" alt="German Medical Wellness Association (DMWV)"></span><span class="plate plate-w"><img src="/_blob/a8c6d0a456e64da63f18bb952c63b573" alt="Global Healthcare Accreditation (GHA)"></span></div><span class="d-rule"></span><p>Healthcare International Group (HCIG) is the Official Partner of Global Healthcare Accreditation™ (GHA) and the German Medical Wellness Association (DMWV) in Egypt</p></div></div>
 </div></section>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Hero"},"shade":{"editor":"range","min":0,"max":1,"step":0.05,"default":0.85,"section":"Hero"},"motion":{"editor":"boolean","default":true,"section":"Hero"},"$preview":{"width":1440,"height":900}}'>
+<script type="text/x-dc" data-dc-script data-props='{"mark":{"editor":"enum","options":["none","glass logo","glass mark","watermark"],"default":"none","section":"Brand"},"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Hero"},"shade":{"editor":"range","min":0,"max":1,"step":0.05,"default":0.85,"section":"Hero"},"motion":{"editor":"boolean","default":true,"section":"Hero"},"$preview":{"width":1440,"height":900}}'>
 class Component extends DCLogic {
   renderVals() {
     const s = this.state || {};
@@ -184,6 +190,9 @@ class Component extends DCLogic {
     const motion = this.props.motion ?? true;
     const theme = s.theme || this.props.theme || 'dark';
     return {
+      mkNone: (this.props.mark || 'none') === 'none', mkPlain: ['none', 'watermark'].includes(this.props.mark || 'none'),
+      mkA: this.props.mark === 'glass logo', mkB: this.props.mark === 'glass mark', mkC: this.props.mark === 'watermark',
+      mkCls: 'mk-' + String(this.props.mark || 'none').replace(/ /g, '-'),
       themeCls: theme === 'light' ? 'light' : 'dark',
       swCls: s.theme ? 'sw' : '',
       themeLabel: theme === 'light' ? 'Switch to night' : 'Switch to day',

@@ -303,13 +303,16 @@ ${header("dark")}
 @container hero (max-width:900px){.l-b{clip-path:polygon(0 30%,100% 22%,100% 52%,0 60%);animation:none}.l-bg:after{background:linear-gradient(180deg,rgba(5,8,11,.3) 0%,rgba(5,8,11,.78) 26%,rgba(5,8,11,.92) 60%,rgba(5,8,11,.97) 100%);opacity:1}.l-body{gap:20px;padding-bottom:28px}}` });
 
 // ---------- logic ----------
-const logic = (shadeDefault, themed, themeDefault = "dark") => `class Component extends DCLogic {
+const logic = (shadeDefault, themed, themeDefault = "dark", marks = null) => `class Component extends DCLogic {
   renderVals() {
     const s = this.state || {};
     const set = (o) => this.setState(o);
     const motion = this.props.motion ?? true;${themed ? `
     const theme = s.theme || this.props.theme || '${themeDefault}';` : ""}
-    return {${themed ? `
+    return {${marks ? `
+      mkNone: (this.props.mark || 'none') === 'none', mkPlain: ['none', '${marks[2]}'].includes(this.props.mark || 'none'),
+      mkA: this.props.mark === '${marks[0]}', mkB: this.props.mark === '${marks[1]}', mkC: this.props.mark === '${marks[2]}',
+      mkCls: 'mk-' + String(this.props.mark || 'none').replace(/ /g, '-'),` : ""}${themed ? `
       themeCls: theme === 'light' ? 'light' : 'dark',
       swCls: s.theme ? 'sw' : '',
       themeLabel: theme === 'light' ? 'Switch to night' : 'Switch to day',
@@ -325,7 +328,7 @@ const logic = (shadeDefault, themed, themeDefault = "dark") => `class Component 
 }`;
 
 function write(h) {
-  const props = { ...(h.themed ? { theme: { editor: "enum", options: ["dark", "light"], default: h.themeDefault || "dark", section: "Hero" } } : {}), shade: { editor: "range", min: 0, max: 1, step: 0.05, default: h.shade, section: "Hero" }, motion: { editor: "boolean", default: true, section: "Hero" }, $preview: { width: 1440, height: 900 } };
+  const props = { ...(h.marks ? { mark: { editor: "enum", options: ["none", ...h.marks], default: "none", section: "Brand" } } : {}), ...(h.themed ? { theme: { editor: "enum", options: ["dark", "light"], default: h.themeDefault || "dark", section: "Hero" } } : {}), shade: { editor: "range", min: 0, max: 1, step: 0.05, default: h.shade, section: "Hero" }, motion: { editor: "boolean", default: true, section: "Hero" }, $preview: { width: 1440, height: 900 } };
   const ink = h.theme === "dark" ? "#F4F5F5" : "#0B0B0C";
   const html = `<!doctype html>
 <html lang="en">
@@ -345,12 +348,12 @@ ${BASE}
 ${h.css}
 </style>
 </helmet>
-<section class="hero ${h.themed ? "{{themeCls}} {{swCls}}" : h.theme === "dark" ? "dark" : ""} {{stillCls}}" style="font-family:'Inter',system-ui,sans-serif;color:${h.themed ? "var(--ink)" : ink}"><div class="in ${h.inCls || ""}">
+<section class="hero ${h.themed ? "{{themeCls}} {{swCls}}" : h.theme === "dark" ? "dark" : ""}${h.marks ? " {{mkCls}}" : ""} {{stillCls}}" style="font-family:'Inter',system-ui,sans-serif;color:${h.themed ? "var(--ink)" : ink}"><div class="in ${h.inCls || ""}">
 ${h.body}
 </div></section>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='${JSON.stringify(props)}'>
-${logic(h.shade, h.themed, h.themeDefault)}
+${logic(h.shade, h.themed, h.themeDefault, h.marks)}
 </script>
 </body>
 </html>
@@ -566,10 +569,66 @@ themify("O", {
     .replace(`<div class="o-wm" aria-hidden="true"><img src="${u("mark-white")}" alt=""></div>`, `<div class="o-wm" aria-hidden="true">${swap("", "mark-white", "mark-black", "")}</div>`),
 });
 
+// ---------- Brand in the picture, B and D (2026-10-19) ----------
+// His words: "on B and D, the image/hero, i want to add like trademark/icon/logo/smth of hcig on the image itself or
+// the hero somewhere, like on original/J ... for someone who enters the page knows what is the reason of it ... we can
+// enhance or update images to burn logo inside it to make it feel more premium and graphic designed". Real logo files
+// only, never redrawn (etched into the D photos by etch.py, drawn as points from mark-network.json for B). Three
+// options each, chosen with the Brand tweak (mark); "none" is the start, so the four-heroes page keeps its look.
+const NET = JSON.parse(readFileSync(join(HERE, "mark-network.json"), "utf8"));
+const netSvg = `<svg class="net" viewBox="0 0 ${NET.w} ${NET.h}" aria-hidden="true">${NET.lines.map(([i, j], k) => `<line pathLength="1" x1="${NET.dots[i][0]}" y1="${NET.dots[i][1]}" x2="${NET.dots[j][0]}" y2="${NET.dots[j][1]}" style="--k:${k % 48}"/>`).join("")}${NET.dots.map(([x, y], k) => `<circle cx="${x}" cy="${y}" r="3.4" style="--k:${k % 56}"/>`).join("")}</svg>`;
+const bc = (cls, left, top) => `<span class="beacon ${cls}" style="left:${left};top:${top}"><span class="lg"><img class="th-d" src="${u("mark-white")}" alt=""><img class="th-l" src="${u("mark-black")}" alt=""></span></span>`;
+const WM_CSS = (op) => `
+.wm{position:absolute;z-index:1;pointer-events:none;opacity:${op};animation:wmIn 2.4s var(--ease) .3s both}
+.wm .lg img{width:100%}
+@keyframes wmIn{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:${op};transform:none}}
+.still .wm{animation:none;opacity:${op}}`;
+{
+  const b = H.find((h) => h.id === "B");
+  b.marks = ["beacon", "network", "watermark"];
+  const hubs = `<span class="hub hub-d" style="left:75.4%;top:59.9%"></span>`;
+  if (!b.body.includes(hubs)) throw new Error("B hubs");
+  b.body = b.body.replace(hubs, hubs + `<sc-if value="{{mkA}}" hint-placeholder-val="{{ false }}">${bc("bc-n", "73.8%", "61.2%")}${bc("bc-d", "75.4%", "59.9%")}</sc-if><sc-if value="{{mkB}}" hint-placeholder-val="{{ false }}"><div class="netbox">${netSvg}</div></sc-if>`);
+  b.body = b.body.replace('<div class="fx" aria-hidden="true">', `<sc-if value="{{mkC}}" hint-placeholder-val="{{ false }}"><div class="wm b-wm" aria-hidden="true">${swap("", "mark-white", "mark-black", "")}</div></sc-if><div class="fx" aria-hidden="true">`);
+  b.css += WM_CSS(0.13) + `
+/* B · beacon: the HC mark where the flows meet over Egypt */
+.mk-beacon .hub{opacity:0!important}
+.beacon{position:absolute;z-index:2;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(4,16,20,.9),rgba(4,16,20,.62));border:1px solid rgba(18,192,198,.85);box-shadow:0 0 0 6px rgba(18,192,198,.12),0 0 40px 8px rgba(18,192,198,.45);transition:opacity 1.2s var(--sweep-ease) .8s,background 1.2s;animation:beaconIn 1.4s var(--ease) 1.6s both}
+.beacon .lg{width:52px}.stage .beacon .lg img{position:relative;inset:auto;width:100%;height:auto;object-fit:contain;-webkit-mask-image:none;mask-image:none}.stage .beacon .lg .th-l{position:absolute;left:0;top:0}
+.beacon:after{content:"";position:absolute;inset:-2px;border-radius:50%;border:1.5px solid #12C0C6;animation:ping 2.6s ease-out 3s infinite}
+.hero.light .beacon{background:radial-gradient(circle,rgba(255,255,255,.96),rgba(255,255,255,.8));border-color:rgba(10,127,132,.8);box-shadow:0 0 0 6px rgba(18,192,198,.14),0 0 36px 6px rgba(10,127,132,.35)}
+.hero:not(.light) .bc-d,.hero.light .bc-n{opacity:0}
+@keyframes beaconIn{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+/* B · network: the HC mark drawn as points and links, set on the Earth */
+.netbox{position:absolute;left:83%;top:36%;width:19%;transform:translate(-50%,-50%);pointer-events:none}
+.net{display:block;width:100%;height:auto;overflow:visible}
+.net line{stroke:rgba(18,192,198,.85);stroke-width:1.6;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.4s var(--ease) both;animation-delay:calc(1.4s + var(--k) * 30ms)}
+.net circle{fill:#E9FFFF;filter:drop-shadow(0 0 3px #12C0C6);opacity:0;animation:dotIn .6s ease-out both,twinkle 3.2s ease-in-out infinite;animation-delay:calc(1.2s + var(--k) * 28ms),calc(3s + var(--k) * 90ms)}
+.hero.light .net line{stroke:rgba(8,90,95,.85)}.hero.light .net circle{fill:#065E62;filter:drop-shadow(0 0 3px rgba(255,255,255,1))}
+@keyframes dotIn{to{opacity:1}}@keyframes twinkle{0%,100%{opacity:1}50%{opacity:.45}}
+/* B · watermark: a large faint mark in the dark of space, like the original */
+.b-wm{left:3%;top:30%;width:420px}
+.still .beacon,.still .net circle{animation:none;opacity:1}.still .net line{animation:none;stroke-dashoffset:0}
+@media (prefers-reduced-motion:reduce){.hero .beacon,.hero .net circle{animation:none;opacity:1}.hero .net line{animation:none;stroke-dashoffset:0}}
+@container hero (max-width:900px){.beacon{width:56px;height:56px;margin:-28px 0 0 -28px}.beacon .lg{width:34px}.netbox{left:52%;top:50%;width:24%}.b-wm{width:220px;left:auto;right:-30px;top:120px}}`;
+}
+{
+  const d = H.find((h) => h.id === "D");
+  d.marks = ["glass logo", "glass mark", "watermark"];
+  const st = ' style="object-position:72% 50%"';
+  const plain = `<img class="th-d" src="${u("g-boardroom-sea")}" alt=""${st}><img class="th-l" src="${u("g-boardroom-day")}" alt=""${st}>`;
+  if (!d.body.includes(plain)) throw new Error("D bg");
+  d.body = d.body.replace(plain, `<sc-if value="{{mkPlain}}" hint-placeholder-val="{{ true }}">${plain}</sc-if><sc-if value="{{mkA}}" hint-placeholder-val="{{ false }}">${pair("d-glass-logo-night", "d-glass-logo-day", st)}</sc-if><sc-if value="{{mkB}}" hint-placeholder-val="{{ false }}">${pair("d-glass-mark-night", "d-glass-mark-day", st)}</sc-if>`);
+  d.body = d.body.replace('<div class="fx" aria-hidden="true">', `<sc-if value="{{mkC}}" hint-placeholder-val="{{ false }}"><div class="wm d-wm" aria-hidden="true">${swap("", "mark-white", "mark-black", "")}</div></sc-if><div class="fx" aria-hidden="true">`);
+  d.css += WM_CSS(0.1) + `
+.d-wm{left:58%;top:16%;width:380px}
+@container hero (max-width:900px){.d-wm{width:200px;left:auto;right:-20px;top:90px}}`;
+}
+
 H.forEach(write);
 
 // Night and day boards for the four: each mounts the hero with its starting theme.
-const wrap = (hero, file, title, w, h, theme) => writeFileSync(join(OUT, file), `<!doctype html>
+const wrap = (hero, file, title, w, h, theme, extra = "") => writeFileSync(join(OUT, file), `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -580,7 +639,7 @@ const wrap = (hero, file, title, w, h, theme) => writeFileSync(join(OUT, file), 
 <x-dc>
 <helmet><style>body{margin:0}</style></helmet>
 <div style="width:${w}px;min-height:${h}px;background:${theme === "light" ? "#FFFFFF" : "#07080A"};font-family:'Inter',system-ui,sans-serif;color:${theme === "light" ? "#0B0B0C" : "#F4F5F5"}">
-<dc-import name="${hero}" theme="${theme}" hint-size="${w}px,${h}px"></dc-import>
+<dc-import name="${hero}" theme="${theme}"${extra} hint-size="${w}px,${h}px"></dc-import>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":${w},"height":${h}}}'>
@@ -592,12 +651,22 @@ class Component extends DCLogic {
 </html>
 `);
 const FOUR = [["B", "Night Network"], ["D", "Boardroom"], ["J", "Marble Noir"], ["O", "The original, polished"]];
+// Brand in the picture: each option of B and D as night, day and phone boards (his choice, 2026-10-19).
+const BRAND = [["B", "beacon", "B · 1 The HC mark as a beacon where the flows meet over Egypt"], ["B", "network", "B · 2 The HC mark drawn as a network of points on the Earth"], ["B", "watermark", "B · 3 A large faint HC mark in space, like the original"], ["D", "glass logo", "D · 1 The HCIG logo etched into the boardroom glass"], ["D", "glass mark", "D · 2 The HC mark etched into the boardroom glass"], ["D", "watermark", "D · 3 A large faint HC mark over the window"]];
+const slug = (m) => m.replace(/ /g, "-");
 const PHT = { B: 1000, D: 1070, J: 900, O: 1200 }; // phone board heights, measured at 390 px
 for (const [id] of FOUR) {
   wrap(`Hero${id}`, `Hero${id}Night.dc.html`, `HCIG v3 Hero ${id}, night`, 1440, 900, "dark");
   wrap(`Hero${id}`, `Hero${id}Day.dc.html`, `HCIG v3 Hero ${id}, day`, 1440, 900, "light");
   wrap(`Hero${id}`, `Hero${id}PhoneNight.dc.html`, `HCIG v3 Hero ${id}, phone, night`, 390, PHT[id], "dark");
   wrap(`Hero${id}`, `Hero${id}PhoneDay.dc.html`, `HCIG v3 Hero ${id}, phone, day`, 390, PHT[id], "light");
+}
+
+for (const [id, m] of BRAND) {
+  const e = ` mark="${m}"`, f = `Hero${id}-${slug(m)}`;
+  wrap(`Hero${id}`, `${f}-Night.dc.html`, `HCIG v3 Hero ${id}, ${m}, night`, 1440, 900, "dark", e);
+  wrap(`Hero${id}`, `${f}-Day.dc.html`, `HCIG v3 Hero ${id}, ${m}, day`, 1440, 900, "light", e);
+  wrap(`Hero${id}`, `${f}-Phone.dc.html`, `HCIG v3 Hero ${id}, ${m}, phone`, 390, PHT[id], "dark", e);
 }
 
 // ---------- canvas index: page 1 the four heroes, night and day; page 2 all twelve as first shown ----------
@@ -629,5 +698,14 @@ H.forEach((h, i) => {
   order.push(`${h.file}.dc.html`, `${h.file}Phone.dc.html`);
 });
 notes.open = { x: 4400, y: 0, w: 440, maxH: 760, size: "m", fill: "yellow", page: "twelve", text: "The twelve heroes as first shown, kept for reference. His pick: B, D, J and the original, on the first page with night and day." };
-writeFileSync(join(OUT, "canvas.json"), JSON.stringify({ v: 3, createdOnFiles: { v: 1, at: "2026-10-19T11:00:00Z" }, title: "HCIG v3 Hero", launch: { view: "canvas", page: "four" }, pages: [{ id: "four", name: "Four heroes, night and day" }, { id: "twelve", name: "All twelve heroes" }], boards, order, notes, designSystems: [] }, null, 2));
+BRAND.forEach(([id, m, label], i) => {
+  const y = i * 1500, f = `Hero${id}-${slug(m)}`;
+  boards[`${f}-Night.dc.html`] = { x: 0, y, w: 1440, h: 900, title: `${id} · ${m} · night`, is_interactive: true, page: "brand" };
+  boards[`${f}-Day.dc.html`] = { x: 1520, y, w: 1440, h: 900, title: `${id} · ${m} · day`, is_interactive: true, page: "brand" };
+  boards[`${f}-Phone.dc.html`] = { x: 3040, y, w: 390, h: PHT[id], title: `${id} · ${m} · phone`, is_interactive: true, page: "brand" };
+  notes["brand" + i] = { x: 0, y: y - 250, text: label, kind: "title1", maxW: 3430, page: "brand" };
+  order.push(`${f}-Night.dc.html`, `${f}-Day.dc.html`, `${f}-Phone.dc.html`);
+});
+notes.brandNote = { x: 3560, y: 0, w: 460, maxH: 900, size: "m", fill: "yellow", page: "brand", text: "HCIG in the picture, B and D\n\nYour ask: show who we are in the image itself, like the original and J.\n\nB 1 Beacon: the HC mark sits where the flows meet, over Egypt, and pulses.\nB 2 Network: the HC mark drawn as points and links on the Earth, drawing itself in.\nB 3 Watermark: a large faint HC mark in space, like the original.\n\nD 1 The full HCIG logo etched into the boardroom window.\nD 2 The HC mark alone, etched larger in the window.\nD 3 A large faint HC mark over the window.\n\nReal logo files only, never redrawn. Each works by night and by day (press the sun). Pick one per hero, or say mix." };
+writeFileSync(join(OUT, "canvas.json"), JSON.stringify({ v: 3, createdOnFiles: { v: 1, at: "2026-10-19T11:00:00Z" }, title: "HCIG v3 Hero", launch: { view: "canvas", page: "brand" }, pages: [{ id: "brand", name: "HCIG in the picture, B and D" }, { id: "four", name: "Four heroes, night and day" }, { id: "twelve", name: "All twelve heroes" }], boards, order, notes, designSystems: [] }, null, 2));
 console.log(`wrote ${H.length} heroes, night and day boards for ${FOUR.length}, canvas.json`);
