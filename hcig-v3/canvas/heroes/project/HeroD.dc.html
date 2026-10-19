@@ -182,7 +182,7 @@ body{margin:0}
 <div class="d-plaque glass f" style="--d:1400ms"><div class="plates"><span class="plate"><img src="/_blob/0c1f05766b47dc3ac6178043f6dea268" alt="German Medical Wellness Association (DMWV)"></span><span class="plate plate-w"><img src="/_blob/a8c6d0a456e64da63f18bb952c63b573" alt="Global Healthcare Accreditation (GHA)"></span></div><span class="d-rule"></span><p>Healthcare International Group (HCIG) is the Official Partner of Global Healthcare Accreditation™ (GHA) and the German Medical Wellness Association (DMWV) in Egypt</p></div></div>
 </div></section>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"mark":{"editor":"enum","options":["none","glass logo","glass mark","watermark"],"default":"none","section":"Brand"},"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Hero"},"shade":{"editor":"range","min":0,"max":1,"step":0.05,"default":0.85,"section":"Hero"},"motion":{"editor":"boolean","default":true,"section":"Hero"},"$preview":{"width":1440,"height":900}}'>
+<script type="text/x-dc" data-dc-script data-props='{"mark":{"editor":"enum","options":["none","glass logo","glass mark","watermark"],"default":"glass mark","section":"Brand"},"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Hero"},"shade":{"editor":"range","min":0,"max":1,"step":0.05,"default":0.85,"section":"Hero"},"motion":{"editor":"boolean","default":true,"section":"Hero"},"$preview":{"width":1440,"height":900}}'>
 class Component extends DCLogic {
   renderVals() {
     const s = this.state || {};
@@ -190,9 +190,9 @@ class Component extends DCLogic {
     const motion = this.props.motion ?? true;
     const theme = s.theme || this.props.theme || 'dark';
     return {
-      mkNone: (this.props.mark || 'none') === 'none', mkPlain: ['none', 'watermark'].includes(this.props.mark || 'none'),
-      mkA: this.props.mark === 'glass logo', mkB: this.props.mark === 'glass mark', mkC: this.props.mark === 'watermark',
-      mkCls: 'mk-' + String(this.props.mark || 'none').replace(/ /g, '-'),
+      mkNone: (this.props.mark || 'glass mark') === 'none', mkPlain: ['none', 'watermark'].includes(this.props.mark || 'glass mark'),
+      mkA: (this.props.mark || 'glass mark') === 'glass logo', mkB: (this.props.mark || 'glass mark') === 'glass mark', mkC: (this.props.mark || 'glass mark') === 'watermark',
+      mkCls: 'mk-' + String(this.props.mark || 'glass mark').replace(/ /g, '-'),
       themeCls: theme === 'light' ? 'light' : 'dark',
       swCls: s.theme ? 'sw' : '',
       themeLabel: theme === 'light' ? 'Switch to night' : 'Switch to day',

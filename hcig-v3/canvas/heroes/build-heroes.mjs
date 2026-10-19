@@ -303,16 +303,16 @@ ${header("dark")}
 @container hero (max-width:900px){.l-b{clip-path:polygon(0 30%,100% 22%,100% 52%,0 60%);animation:none}.l-bg:after{background:linear-gradient(180deg,rgba(5,8,11,.3) 0%,rgba(5,8,11,.78) 26%,rgba(5,8,11,.92) 60%,rgba(5,8,11,.97) 100%);opacity:1}.l-body{gap:20px;padding-bottom:28px}}` });
 
 // ---------- logic ----------
-const logic = (shadeDefault, themed, themeDefault = "dark", marks = null) => `class Component extends DCLogic {
+const logic = (shadeDefault, themed, themeDefault = "dark", marks = null, markDefault = "none") => `class Component extends DCLogic {
   renderVals() {
     const s = this.state || {};
     const set = (o) => this.setState(o);
     const motion = this.props.motion ?? true;${themed ? `
     const theme = s.theme || this.props.theme || '${themeDefault}';` : ""}
     return {${marks ? `
-      mkNone: (this.props.mark || 'none') === 'none', mkPlain: ['none', '${marks[2]}'].includes(this.props.mark || 'none'),
-      mkA: this.props.mark === '${marks[0]}', mkB: this.props.mark === '${marks[1]}', mkC: this.props.mark === '${marks[2]}',
-      mkCls: 'mk-' + String(this.props.mark || 'none').replace(/ /g, '-'),` : ""}${themed ? `
+      mkNone: (this.props.mark || '${markDefault}') === 'none', mkPlain: ['none', '${marks[2]}'].includes(this.props.mark || '${markDefault}'),
+      mkA: (this.props.mark || '${markDefault}') === '${marks[0]}', mkB: (this.props.mark || '${markDefault}') === '${marks[1]}', mkC: (this.props.mark || '${markDefault}') === '${marks[2]}',
+      mkCls: 'mk-' + String(this.props.mark || '${markDefault}').replace(/ /g, '-'),` : ""}${themed ? `
       themeCls: theme === 'light' ? 'light' : 'dark',
       swCls: s.theme ? 'sw' : '',
       themeLabel: theme === 'light' ? 'Switch to night' : 'Switch to day',
@@ -328,7 +328,7 @@ const logic = (shadeDefault, themed, themeDefault = "dark", marks = null) => `cl
 }`;
 
 function write(h) {
-  const props = { ...(h.marks ? { mark: { editor: "enum", options: ["none", ...h.marks], default: "none", section: "Brand" } } : {}), ...(h.themed ? { theme: { editor: "enum", options: ["dark", "light"], default: h.themeDefault || "dark", section: "Hero" } } : {}), shade: { editor: "range", min: 0, max: 1, step: 0.05, default: h.shade, section: "Hero" }, motion: { editor: "boolean", default: true, section: "Hero" }, $preview: { width: 1440, height: 900 } };
+  const props = { ...(h.marks ? { mark: { editor: "enum", options: ["none", ...h.marks], default: h.markDefault || "none", section: "Brand" } } : {}), ...(h.themed ? { theme: { editor: "enum", options: ["dark", "light"], default: h.themeDefault || "dark", section: "Hero" } } : {}), shade: { editor: "range", min: 0, max: 1, step: 0.05, default: h.shade, section: "Hero" }, motion: { editor: "boolean", default: true, section: "Hero" }, $preview: { width: 1440, height: 900 } };
   const ink = h.theme === "dark" ? "#F4F5F5" : "#0B0B0C";
   const html = `<!doctype html>
 <html lang="en">
@@ -353,7 +353,7 @@ ${h.body}
 </div></section>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='${JSON.stringify(props)}'>
-${logic(h.shade, h.themed, h.themeDefault, h.marks)}
+${logic(h.shade, h.themed, h.themeDefault, h.marks, h.markDefault)}
 </script>
 </body>
 </html>
@@ -586,6 +586,7 @@ const WM_CSS = (op) => `
 {
   const b = H.find((h) => h.id === "B");
   b.marks = ["beacon", "network", "watermark"];
+  b.markDefault = "watermark"; // his pick, 2026-10-19
   const hubs = `<span class="hub hub-d" style="left:75.4%;top:59.9%"></span>`;
   if (!b.body.includes(hubs)) throw new Error("B hubs");
   b.body = b.body.replace(hubs, hubs + `<sc-if value="{{mkA}}" hint-placeholder-val="{{ false }}">${bc("bc-n", "73.8%", "61.2%")}${bc("bc-d", "75.4%", "59.9%")}</sc-if><sc-if value="{{mkB}}" hint-placeholder-val="{{ false }}"><div class="netbox">${netSvg}</div></sc-if>`);
@@ -615,6 +616,7 @@ const WM_CSS = (op) => `
 {
   const d = H.find((h) => h.id === "D");
   d.marks = ["glass logo", "glass mark", "watermark"];
+  d.markDefault = "glass mark"; // his pick, 2026-10-19
   const st = ' style="object-position:72% 50%"';
   const plain = `<img class="th-d" src="${u("g-boardroom-sea")}" alt=""${st}><img class="th-l" src="${u("g-boardroom-day")}" alt=""${st}>`;
   if (!d.body.includes(plain)) throw new Error("D bg");
@@ -680,7 +682,7 @@ FOUR.forEach(([id, name], i) => {
   notes["four" + id] = { x: 0, y: y - 250, text: `${id} · ${name}`, kind: "title1", maxW: 3900, page: "four" };
   order.push(`${f}Night.dc.html`, `${f}Day.dc.html`, `${f}PhoneNight.dc.html`, `${f}PhoneDay.dc.html`);
 });
-notes.fourNote = { x: 4040, y: 0, w: 460, maxH: 900, size: "m", fill: "yellow", page: "four", text: "Four heroes, night and day\n\n1. Press the sun or the moon in the header of any board (best in Play). Day comes in from the east with a soft light line and a sun flare; words and logo change halfway.\n2. B: the drawn routes are gone. Light now runs along the flows that are in the photo itself, toward Egypt.\n3. D and J: the same photos by day (made in your Gemini). J's HC mark turns from white to black.\n4. O is today's healthcareig.com hero, polished: the same order (partner banner, the doctors, the turquoise line, the lead as the headline, Talk to our team), with the real logo and mark, seals on plates, motion, night and day. Day is its starting look, as on the live site.\n5. Fonts: Helma at the weight the live site shows it, Inter for text. Turquoise #12C0C6.\n6. Become a Partner sits beside Talk to our team on all four.\n7. Phones rebuilt phone-first: the photo is a band at the top that melts into the page, the words below it, both buttons on the first screen down to 360 px wide." };
+notes.fourNote = { x: 4040, y: 0, w: 460, maxH: 900, size: "m", fill: "yellow", page: "four", text: "Four heroes, night and day\n\n1. Press the sun or the moon in the header of any board (best in Play). Day comes in from the east with a soft light line and a sun flare; words and logo change halfway.\n2. B: the drawn routes are gone. Light now runs along the flows that are in the photo itself, toward Egypt.\n3. D and J: the same photos by day (made in your Gemini). J's HC mark turns from white to black.\n4. O is today's healthcareig.com hero, polished: the same order (partner banner, the doctors, the turquoise line, the lead as the headline, Talk to our team), with the real logo and mark, seals on plates, motion, night and day. Day is its starting look, as on the live site.\n5. Fonts: Helma at the weight the live site shows it, Inter for text. Turquoise #12C0C6.\n6. Become a Partner sits beside Talk to our team on all four.\n7. Phones rebuilt phone-first: the photo is a band at the top that melts into the page, the words below it, both buttons on the first screen down to 360 px wide.\n8. HCIG in the picture (your picks): B the large faint HC mark in space, D the HC mark etched in the boardroom glass. The other options stay on the first page." };
 const pitchY = 1300, colX = [0, 2240];
 H.forEach((h, i) => {
   if (h.id === "O") {
