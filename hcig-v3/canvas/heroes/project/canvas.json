@@ -6,17 +6,100 @@
   },
   "title": "HCIG v3 Hero",
   "launch": {
-    "view": "canvas"
+    "view": "canvas",
+    "page": "b"
   },
-  "pages": [],
+  "pages": [
+    {
+      "id": "b",
+      "name": "B, light and dark"
+    },
+    {
+      "id": "twelve",
+      "name": "All twelve heroes"
+    }
+  ],
   "boards": {
+    "HeroB1.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "B1 · dark (switch works)",
+      "is_interactive": true,
+      "page": "b"
+    },
+    "HeroB1Light.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "B1 · light",
+      "is_interactive": true,
+      "page": "b"
+    },
+    "HeroB1Phone.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 390,
+      "h": 1060,
+      "title": "B1 · phone dark",
+      "is_interactive": true,
+      "page": "b"
+    },
+    "HeroB1PhoneLight.dc.html": {
+      "x": 3510,
+      "y": 0,
+      "w": 390,
+      "h": 1060,
+      "title": "B1 · phone light",
+      "is_interactive": true,
+      "page": "b"
+    },
+    "HeroB2.dc.html": {
+      "x": 0,
+      "y": 1400,
+      "w": 1440,
+      "h": 900,
+      "title": "B2 · dark (switch works)",
+      "is_interactive": true,
+      "page": "b"
+    },
+    "HeroB2Light.dc.html": {
+      "x": 1520,
+      "y": 1400,
+      "w": 1440,
+      "h": 900,
+      "title": "B2 · light",
+      "is_interactive": true,
+      "page": "b"
+    },
+    "HeroB2Phone.dc.html": {
+      "x": 3040,
+      "y": 1400,
+      "w": 390,
+      "h": 1060,
+      "title": "B2 · phone dark",
+      "is_interactive": true,
+      "page": "b"
+    },
+    "HeroB2PhoneLight.dc.html": {
+      "x": 3510,
+      "y": 1400,
+      "w": 390,
+      "h": 1060,
+      "title": "B2 · phone light",
+      "is_interactive": true,
+      "page": "b"
+    },
     "HeroA.dc.html": {
       "x": 0,
       "y": 0,
       "w": 1440,
       "h": 900,
       "title": "Hero A · Red Sea Panorama",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroAPhone.dc.html": {
       "x": 1520,
@@ -24,7 +107,8 @@
       "w": 390,
       "h": 844,
       "title": "Hero A · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroB.dc.html": {
       "x": 0,
@@ -32,7 +116,8 @@
       "w": 1440,
       "h": 900,
       "title": "Hero B · Night Network",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroBPhone.dc.html": {
       "x": 1520,
@@ -40,7 +125,8 @@
       "w": 390,
       "h": 844,
       "title": "Hero B · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroC.dc.html": {
       "x": 0,
@@ -48,7 +134,8 @@
       "w": 1440,
       "h": 900,
       "title": "Hero C · Private Lounge",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroCPhone.dc.html": {
       "x": 1520,
@@ -56,7 +143,8 @@
       "w": 390,
       "h": 936,
       "title": "Hero C · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroD.dc.html": {
       "x": 0,
@@ -64,7 +152,8 @@
       "w": 1440,
       "h": 900,
       "title": "Hero D · Boardroom",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroDPhone.dc.html": {
       "x": 1520,
@@ -72,7 +161,8 @@
       "w": 390,
       "h": 844,
       "title": "Hero D · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroE.dc.html": {
       "x": 0,
@@ -80,7 +170,8 @@
       "w": 1440,
       "h": 900,
       "title": "Hero E · Medical Jet",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroEPhone.dc.html": {
       "x": 1520,
@@ -88,7 +179,8 @@
       "w": 390,
       "h": 844,
       "title": "Hero E · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroF.dc.html": {
       "x": 0,
@@ -96,7 +188,8 @@
       "w": 1440,
       "h": 900,
       "title": "Hero F · Infinity Pool",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroFPhone.dc.html": {
       "x": 1520,
@@ -104,7 +197,8 @@
       "w": 390,
       "h": 844,
       "title": "Hero F · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroG.dc.html": {
       "x": 2240,
@@ -112,7 +206,8 @@
       "w": 1440,
       "h": 900,
       "title": "Hero G · Real Proof Mosaic",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroGPhone.dc.html": {
       "x": 3760,
@@ -120,7 +215,8 @@
       "w": 390,
       "h": 940,
       "title": "Hero G · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroH.dc.html": {
       "x": 2240,
@@ -128,7 +224,8 @@
       "w": 1440,
       "h": 900,
       "title": "Hero H · Coordination Centre",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroHPhone.dc.html": {
       "x": 3760,
@@ -136,7 +233,8 @@
       "w": 390,
       "h": 844,
       "title": "Hero H · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroI.dc.html": {
       "x": 2240,
@@ -144,7 +242,8 @@
       "w": 1440,
       "h": 900,
       "title": "Hero I · Clinic Suite",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroIPhone.dc.html": {
       "x": 3760,
@@ -152,7 +251,8 @@
       "w": 390,
       "h": 944,
       "title": "Hero I · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroJ.dc.html": {
       "x": 2240,
@@ -160,7 +260,8 @@
       "w": 1440,
       "h": 900,
       "title": "Hero J · Marble Noir",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroJPhone.dc.html": {
       "x": 3760,
@@ -168,7 +269,8 @@
       "w": 390,
       "h": 844,
       "title": "Hero J · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroK.dc.html": {
       "x": 2240,
@@ -176,7 +278,8 @@
       "w": 1440,
       "h": 900,
       "title": "Hero K · Blue Hour",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroKPhone.dc.html": {
       "x": 3760,
@@ -184,7 +287,8 @@
       "w": 390,
       "h": 844,
       "title": "Hero K · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroL.dc.html": {
       "x": 2240,
@@ -192,7 +296,8 @@
       "w": 1440,
       "h": 900,
       "title": "Hero L · Two Worlds",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     },
     "HeroLPhone.dc.html": {
       "x": 3760,
@@ -200,10 +305,19 @@
       "w": 390,
       "h": 844,
       "title": "Hero L · phone",
-      "is_interactive": true
+      "is_interactive": true,
+      "page": "twelve"
     }
   },
   "order": [
+    "HeroB1.dc.html",
+    "HeroB1Light.dc.html",
+    "HeroB1Phone.dc.html",
+    "HeroB1PhoneLight.dc.html",
+    "HeroB2.dc.html",
+    "HeroB2Light.dc.html",
+    "HeroB2Phone.dc.html",
+    "HeroB2PhoneLight.dc.html",
     "HeroA.dc.html",
     "HeroAPhone.dc.html",
     "HeroB.dc.html",
@@ -230,89 +344,127 @@
     "HeroLPhone.dc.html"
   ],
   "notes": {
+    "pairB1": {
+      "x": 0,
+      "y": -250,
+      "text": "B1 · Earth, night and day",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "b"
+    },
+    "pairB2": {
+      "x": 0,
+      "y": 1150,
+      "text": "B2 · Network map, night and day",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "b"
+    },
+    "pairNote": {
+      "x": 4040,
+      "y": 0,
+      "w": 440,
+      "maxH": 800,
+      "size": "m",
+      "fill": "yellow",
+      "page": "b",
+      "text": "B, light and dark\n\n1. The sun and moon button in the header switches the theme on every board. The background crossfades from night to day.\n2. B1 keeps the Earth photo. Its day version is a Gemini edit of the same view.\n3. B2 is the map recipe of the TMASI maritime map, in HCIG colours: pale land and turquoise sea by day, glowing coasts and city lights by night. Egypt is shaded.\n4. Routes start in the seven site language markets: London, Paris, Madrid, Berlin, Warsaw, Prague, Milan. Say if you want other cities.\n5. Become a Partner added beside Talk to our team (your yes).\n6. Tweaks: Theme (starting theme), Shade, Motion."
+    },
     "rowA": {
       "x": 0,
       "y": -250,
       "text": "A · Red Sea Panorama",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "rowB": {
       "x": 0,
       "y": 1050,
       "text": "B · Night Network",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "rowC": {
       "x": 0,
       "y": 2350,
       "text": "C · Private Lounge",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "rowD": {
       "x": 0,
       "y": 3650,
       "text": "D · Boardroom",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "rowE": {
       "x": 0,
       "y": 4950,
       "text": "E · Medical Jet",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "rowF": {
       "x": 0,
       "y": 6250,
       "text": "F · Infinity Pool",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "rowG": {
       "x": 2240,
       "y": -250,
       "text": "G · Real Proof Mosaic",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "rowH": {
       "x": 2240,
       "y": 1050,
       "text": "H · Coordination Centre",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "rowI": {
       "x": 2240,
       "y": 2350,
       "text": "I · Clinic Suite",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "rowJ": {
       "x": 2240,
       "y": 3650,
       "text": "J · Marble Noir",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "rowK": {
       "x": 2240,
       "y": 4950,
       "text": "K · Blue Hour",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "rowL": {
       "x": 2240,
       "y": 6250,
       "text": "L · Two Worlds",
       "kind": "title1",
-      "maxW": 1910
+      "maxW": 1910,
+      "page": "twelve"
     },
     "open": {
       "x": 4400,
@@ -321,6 +473,7 @@
       "maxH": 760,
       "size": "m",
       "fill": "yellow",
+      "page": "twelve",
       "text": "Open items\n\n1. Every word on these heroes is the live hero's own: the partner line, the headline, the second line, the lead and Talk to our team. Nothing added.\n2. Photos made with Gemini: Red Sea, Earth at night, lounge, boardroom, jet, pool, coordination room, clinic suite, marble, blue hour. His own photos: MedPark Health Hub, MedPark Hospital, the event booth, the delegation visit.\n3. DMWV and GHA marks as on the live banner, on white plates.\n4. Logo at its 120 px minimum height on desktop, HC mark alone on phone.\n5. Tweaks on each desktop board: Shade (photo darkness) and Motion.\n6. A second button, Become a Partner (his words, lower on the home), could join Talk to our team. Say if you want it."
     }
   },
