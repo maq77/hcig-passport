@@ -478,7 +478,7 @@ const COMPANIES = [
         slug: 'group-website',
         name: 'healthcareig.com, rebuilt from zero',
         status: 'draft',
-        updated: '2026-10-18',
+        updated: '2026-10-19',
         summary: 'The group site rebuilt for B2B partners and the group hub. Luxury feel, seven languages, built to rank and to be named by AI tools.',
         detail: [
           'Planned 2026-10-18 after six question rounds. 24 decisions are in the spec.',
@@ -486,14 +486,17 @@ const COMPANIES = [
           'Every existing sentence kept. New pages get new copy, approved by Mohamed, then Irina.',
           'English launches first, then German, Polish, French, Italian, Spanish and Czech. The old German pages stay live until replaced.',
           'Live site checked the same day: no working canonical, German pages marked as English, a language script that crashes, 19 broken images, no GA4, old .php duplicates, PHP 7.1, and email authentication that does not cover Microsoft 365.',
-          'Spec approved by Mohamed on 2026-10-18. Next: the technical plan and tasks, invisible fixes and tracking on today’s site once access arrives, and the design canvas.',
+          'Spec approved by Mohamed on 2026-10-18. Technical plan and 106 tasks written the same day.',
+          'Design, section by section, hero first. v3 is a photo hero, v4 a video hero, v5 a scroll-driven film from Earth to the Red Sea. The first canvas of three plain directions was turned down as too minimal.',
+          'v3 hero canvas, 2026-10-19: twelve options, desktop and phone, the live hero words only, the DMWV and GHA marks as on the live banner, ten new photos made with Gemini and four of the group’s own.',
         ],
         checklist: [
           { text: 'Approve the spec', done: true, who: 'Mohamed' },
           { text: 'Send hosting, Google, LinkedIn and DNS access', done: false, who: 'Mohamed' },
           { text: 'Confirm the Helma licence (the files are already on the server) and send the logo as a vector', done: false, who: 'Mohamed' },
           { text: 'Invisible fixes and tracking on the live site', done: false, who: 'Us' },
-          { text: 'Design canvas: three directions, five heroes', done: false, who: 'Us' },
+          { text: 'Design canvas: the v3 hero, twelve options', done: true, who: 'Us' },
+          { text: 'Pick the v3 hero on the canvas', done: false, who: 'Mohamed' },
         ],
         stages: [
           {
@@ -504,6 +507,13 @@ const COMPANIES = [
               { slug: 'technical-plan', name: 'How it is built', kind: 'md', src: 'specs/012-hcig-website/plan.md', status: 'draft', note: 'Stack, host, phases, checks. Research, contracts and quickstart sit next to it in specs/012-hcig-website' },
               { slug: 'tasks', name: 'Every task, in order', kind: 'md', src: 'specs/012-hcig-website/tasks.md', status: 'draft', note: '106 tasks in nine phases, each with its owner: Opus, Gemini, or a decision for Mohamed or Irina' },
               { slug: 'worklog', name: 'Work log', kind: 'md', src: 'docs/hcig-website-worklog.md', status: 'draft', note: 'Every step from day one' },
+            ],
+          },
+          {
+            name: 'Design',
+            note: 'Every look is chosen on a canvas before anything is built.',
+            items: [
+              { slug: 'hero-v3', name: 'v3 hero, twelve options', kind: 'link', href: 'https://claude.ai/artifact/7qpdZsdWL3TwVNyrB6NzTm', status: 'review', note: 'Private canvas. Desktop and phone for each option, the live hero words only' },
             ],
           },
           {

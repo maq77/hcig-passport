@@ -1,0 +1,328 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-19T11:00:00Z"
+  },
+  "title": "HCIG v3 Hero",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "HeroA.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero A · Red Sea Panorama",
+      "is_interactive": true
+    },
+    "HeroAPhone.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Hero A · phone",
+      "is_interactive": true
+    },
+    "HeroB.dc.html": {
+      "x": 0,
+      "y": 1300,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero B · Night Network",
+      "is_interactive": true
+    },
+    "HeroBPhone.dc.html": {
+      "x": 1520,
+      "y": 1300,
+      "w": 390,
+      "h": 844,
+      "title": "Hero B · phone",
+      "is_interactive": true
+    },
+    "HeroC.dc.html": {
+      "x": 0,
+      "y": 2600,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero C · Private Lounge",
+      "is_interactive": true
+    },
+    "HeroCPhone.dc.html": {
+      "x": 1520,
+      "y": 2600,
+      "w": 390,
+      "h": 936,
+      "title": "Hero C · phone",
+      "is_interactive": true
+    },
+    "HeroD.dc.html": {
+      "x": 0,
+      "y": 3900,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero D · Boardroom",
+      "is_interactive": true
+    },
+    "HeroDPhone.dc.html": {
+      "x": 1520,
+      "y": 3900,
+      "w": 390,
+      "h": 844,
+      "title": "Hero D · phone",
+      "is_interactive": true
+    },
+    "HeroE.dc.html": {
+      "x": 0,
+      "y": 5200,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero E · Medical Jet",
+      "is_interactive": true
+    },
+    "HeroEPhone.dc.html": {
+      "x": 1520,
+      "y": 5200,
+      "w": 390,
+      "h": 844,
+      "title": "Hero E · phone",
+      "is_interactive": true
+    },
+    "HeroF.dc.html": {
+      "x": 0,
+      "y": 6500,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero F · Infinity Pool",
+      "is_interactive": true
+    },
+    "HeroFPhone.dc.html": {
+      "x": 1520,
+      "y": 6500,
+      "w": 390,
+      "h": 844,
+      "title": "Hero F · phone",
+      "is_interactive": true
+    },
+    "HeroG.dc.html": {
+      "x": 2240,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero G · Real Proof Mosaic",
+      "is_interactive": true
+    },
+    "HeroGPhone.dc.html": {
+      "x": 3760,
+      "y": 0,
+      "w": 390,
+      "h": 940,
+      "title": "Hero G · phone",
+      "is_interactive": true
+    },
+    "HeroH.dc.html": {
+      "x": 2240,
+      "y": 1300,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero H · Coordination Centre",
+      "is_interactive": true
+    },
+    "HeroHPhone.dc.html": {
+      "x": 3760,
+      "y": 1300,
+      "w": 390,
+      "h": 844,
+      "title": "Hero H · phone",
+      "is_interactive": true
+    },
+    "HeroI.dc.html": {
+      "x": 2240,
+      "y": 2600,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero I · Clinic Suite",
+      "is_interactive": true
+    },
+    "HeroIPhone.dc.html": {
+      "x": 3760,
+      "y": 2600,
+      "w": 390,
+      "h": 944,
+      "title": "Hero I · phone",
+      "is_interactive": true
+    },
+    "HeroJ.dc.html": {
+      "x": 2240,
+      "y": 3900,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero J · Marble Noir",
+      "is_interactive": true
+    },
+    "HeroJPhone.dc.html": {
+      "x": 3760,
+      "y": 3900,
+      "w": 390,
+      "h": 844,
+      "title": "Hero J · phone",
+      "is_interactive": true
+    },
+    "HeroK.dc.html": {
+      "x": 2240,
+      "y": 5200,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero K · Blue Hour",
+      "is_interactive": true
+    },
+    "HeroKPhone.dc.html": {
+      "x": 3760,
+      "y": 5200,
+      "w": 390,
+      "h": 844,
+      "title": "Hero K · phone",
+      "is_interactive": true
+    },
+    "HeroL.dc.html": {
+      "x": 2240,
+      "y": 6500,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero L · Two Worlds",
+      "is_interactive": true
+    },
+    "HeroLPhone.dc.html": {
+      "x": 3760,
+      "y": 6500,
+      "w": 390,
+      "h": 844,
+      "title": "Hero L · phone",
+      "is_interactive": true
+    }
+  },
+  "order": [
+    "HeroA.dc.html",
+    "HeroAPhone.dc.html",
+    "HeroB.dc.html",
+    "HeroBPhone.dc.html",
+    "HeroC.dc.html",
+    "HeroCPhone.dc.html",
+    "HeroD.dc.html",
+    "HeroDPhone.dc.html",
+    "HeroE.dc.html",
+    "HeroEPhone.dc.html",
+    "HeroF.dc.html",
+    "HeroFPhone.dc.html",
+    "HeroG.dc.html",
+    "HeroGPhone.dc.html",
+    "HeroH.dc.html",
+    "HeroHPhone.dc.html",
+    "HeroI.dc.html",
+    "HeroIPhone.dc.html",
+    "HeroJ.dc.html",
+    "HeroJPhone.dc.html",
+    "HeroK.dc.html",
+    "HeroKPhone.dc.html",
+    "HeroL.dc.html",
+    "HeroLPhone.dc.html"
+  ],
+  "notes": {
+    "rowA": {
+      "x": 0,
+      "y": -250,
+      "text": "A · Red Sea Panorama",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "rowB": {
+      "x": 0,
+      "y": 1050,
+      "text": "B · Night Network",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "rowC": {
+      "x": 0,
+      "y": 2350,
+      "text": "C · Private Lounge",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "rowD": {
+      "x": 0,
+      "y": 3650,
+      "text": "D · Boardroom",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "rowE": {
+      "x": 0,
+      "y": 4950,
+      "text": "E · Medical Jet",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "rowF": {
+      "x": 0,
+      "y": 6250,
+      "text": "F · Infinity Pool",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "rowG": {
+      "x": 2240,
+      "y": -250,
+      "text": "G · Real Proof Mosaic",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "rowH": {
+      "x": 2240,
+      "y": 1050,
+      "text": "H · Coordination Centre",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "rowI": {
+      "x": 2240,
+      "y": 2350,
+      "text": "I · Clinic Suite",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "rowJ": {
+      "x": 2240,
+      "y": 3650,
+      "text": "J · Marble Noir",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "rowK": {
+      "x": 2240,
+      "y": 4950,
+      "text": "K · Blue Hour",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "rowL": {
+      "x": 2240,
+      "y": 6250,
+      "text": "L · Two Worlds",
+      "kind": "title1",
+      "maxW": 1910
+    },
+    "open": {
+      "x": 4400,
+      "y": 0,
+      "w": 440,
+      "maxH": 760,
+      "size": "m",
+      "fill": "yellow",
+      "text": "Open items\n\n1. Every word on these heroes is the live hero's own: the partner line, the headline, the second line, the lead and Talk to our team. Nothing added.\n2. Photos made with Gemini: Red Sea, Earth at night, lounge, boardroom, jet, pool, coordination room, clinic suite, marble, blue hour. His own photos: MedPark Health Hub, MedPark Hospital, the event booth, the delegation visit.\n3. DMWV and GHA marks as on the live banner, on white plates.\n4. Logo at its 120 px minimum height on desktop, HC mark alone on phone.\n5. Tweaks on each desktop board: Shade (photo darkness) and Motion.\n6. A second button, Become a Partner (his words, lower on the home), could join Talk to our team. Say if you want it."
+    }
+  },
+  "designSystems": []
+}
