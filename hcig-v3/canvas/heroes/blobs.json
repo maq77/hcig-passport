@@ -42,5 +42,17 @@
   "brand-onespa": "/_blob/732bad19a8b4759fb45a771bfc53e194",
   "brand-scmg": "/_blob/c104d8dffeb9f3ccd89f1305379131da",
   "brand-tmasi": "/_blob/f1ac8d9fe9d45dd55d645ebaed709a0f",
-  "brand-uca": "/_blob/1e0d99b411607e4b9b217e8f42245f7d"
+  "brand-uca": "/_blob/1e0d99b411607e4b9b217e8f42245f7d",
+  "film-loop-night": "/_blob/28958e8a64efdf59d9f3cf595dceb9fd",
+  "film-loop-day": "/_blob/9e77f06ff148c2f91046efad8a723674",
+  "film-loop-poster-dark": "/_blob/1cbf0a6691b89070c0ad34a3da044b0e",
+  "film-loop-poster-light": "/_blob/4025248c2bd7458dfbb7a6b59cc1787d",
+  "film-full-night": "/_blob/fedaff98312847af14ec5e53c62d4246",
+  "film-full-day": "/_blob/8d695c1b0846a5af1bcd3b71f4927069",
+  "film-full-phone-night": "/_blob/fb28085f31513f1b671e8efc7432bdb2",
+  "film-poster-dark-1920x1080": "/_blob/4da4533226cafe58b151cf47b36badba",
+  "film-poster-light-1920x1080": "/_blob/7cb1c3850b9af02e938c878b315c7819",
+  "film-poster-dark-1080x1920": "/_blob/43065f0fefbf79fe8013f45345f3a093",
+  "film-poster-light-1080x1920": "/_blob/a2adcc0d9b0cda65aed1597d5611ebda",
+  "film-full-phone-day": "/_blob/788e97fffaed95ef4fa54981bfa136f0"
 }

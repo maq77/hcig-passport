@@ -7,9 +7,13 @@
   "title": "HCIG v3 Hero",
   "launch": {
     "view": "canvas",
-    "page": "four"
+    "page": "brand"
   },
   "pages": [
+    {
+      "id": "film",
+      "name": "Group film (new)"
+    },
     {
       "id": "brand",
       "name": "HCIG in the picture, B and D"
@@ -563,6 +567,78 @@
       "title": "D · watermark · phone",
       "is_interactive": true,
       "page": "brand"
+    },
+    "HeroBFilm.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "B with the film · night (press the sun)",
+      "is_interactive": true,
+      "page": "film"
+    },
+    "HeroBFilmDay.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "B with the film · day (press the moon)",
+      "is_interactive": true,
+      "page": "film"
+    },
+    "HeroBFilmPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 390,
+      "h": 1070,
+      "title": "B with the film · phone night",
+      "is_interactive": true,
+      "page": "film"
+    },
+    "HeroBFilmPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 0,
+      "w": 390,
+      "h": 1070,
+      "title": "B with the film · phone day",
+      "is_interactive": true,
+      "page": "film"
+    },
+    "GroupFilm.dc.html": {
+      "x": 0,
+      "y": 1440,
+      "w": 1440,
+      "h": 1210,
+      "title": "Group section · night",
+      "is_interactive": true,
+      "page": "film"
+    },
+    "GroupFilmDay.dc.html": {
+      "x": 1520,
+      "y": 1440,
+      "w": 1440,
+      "h": 1210,
+      "title": "Group section · day",
+      "is_interactive": true,
+      "page": "film"
+    },
+    "GroupFilmPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 1440,
+      "w": 390,
+      "h": 1330,
+      "title": "Group section · phone night",
+      "is_interactive": true,
+      "page": "film"
+    },
+    "GroupFilmPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 1440,
+      "w": 390,
+      "h": 1330,
+      "title": "Group section · phone day",
+      "is_interactive": true,
+      "page": "film"
     }
   },
   "order": [
@@ -625,7 +701,15 @@
     "HeroD-glass-mark-Phone.dc.html",
     "HeroD-watermark-Night.dc.html",
     "HeroD-watermark-Day.dc.html",
-    "HeroD-watermark-Phone.dc.html"
+    "HeroD-watermark-Phone.dc.html",
+    "HeroBFilm.dc.html",
+    "HeroBFilmDay.dc.html",
+    "HeroBFilmPhoneNight.dc.html",
+    "HeroBFilmPhoneDay.dc.html",
+    "GroupFilm.dc.html",
+    "GroupFilmDay.dc.html",
+    "GroupFilmPhoneNight.dc.html",
+    "GroupFilmPhoneDay.dc.html"
   ],
   "notes": {
     "fourB": {
@@ -841,6 +925,32 @@
       "fill": "yellow",
       "page": "brand",
       "text": "HCIG in the picture, B and D\n\nYour ask: show who we are in the image itself, like the original and J.\n\nB 1 Beacon: the HC mark sits where the flows meet, over Egypt, and pulses.\nB 2 Network: the HC mark drawn as points and links on the Earth, drawing itself in.\nB 3 Watermark: a large faint HC mark in space, like the original.\n\nD 1 The full HCIG logo etched into the boardroom window.\nD 2 The HC mark alone, etched larger in the window.\nD 3 A large faint HC mark over the window.\n\nReal logo files only, never redrawn. Each works by night and by day (press the sun). Pick one per hero, or say mix."
+    },
+    "filmHero": {
+      "x": 0,
+      "y": -250,
+      "text": "Hero B with the group film, looping in the picture",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "film"
+    },
+    "filmGroup": {
+      "x": 0,
+      "y": 1190,
+      "text": "Group section: the full film, with sound",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "film"
+    },
+    "filmNote": {
+      "x": 4040,
+      "y": 0,
+      "w": 460,
+      "maxH": 900,
+      "size": "m",
+      "fill": "yellow",
+      "page": "film",
+      "text": "The group film, new boards\n\n1. Hero B with the film: a copy of B where the 30 second film loops in the picture, on the right where the flows meet. B and its watermark stay on the other pages as they were.\n2. Group section: the full film, with a sound button, and the eight brands under it. On phones the tall cut fills the width.\n\nPress Play on a board to see the film move. Nothing on the other pages was changed."
     }
   },
   "designSystems": []

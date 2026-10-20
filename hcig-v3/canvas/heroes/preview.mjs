@@ -14,7 +14,7 @@ const local = {};
 for (const [name, url] of Object.entries(B)) local[url] = "/material/hero-assets/" + files.find((f) => f.replace(/\.[^.]+$/, "") === name);
 
 const jobs = [];
-for (const f of readdirSync(join(HERE, "project")).filter((f) => /^Hero([A-Z]|B\d)\.dc\.html$/.test(f))) {
+for (const f of readdirSync(join(HERE, "project")).filter((f) => /^(Hero([A-Z]|B\d|BFilm)|GroupFilm)\.dc\.html$/.test(f))) {
   if (readFileSync(join(HERE, "project", f), "utf8").includes("{{themeCls}}")) jobs.push([f, "dark", f.replace(".dc", "")], [f, "light", f.replace(".dc.html", "Light.html")]);
   else jobs.push([f, "", f.replace(".dc", "")]);
 }
@@ -23,6 +23,8 @@ const MK = { "HeroB.dc.html": { A: "beacon", B: "network", C: "watermark" }, "He
 for (const f of Object.keys(MK)) for (const mk of ["A", "B", "C"]) jobs.push([f, "dark", f.replace(".dc.html", "-" + mk + ".html"), mk], [f, "light", f.replace(".dc.html", "-" + mk + "Light.html"), mk]);
 for (const [f, theme, outName, mk] of jobs) {
   let s = readFileSync(join(HERE, "project", f), "utf8");
+  // the film boards: the night or day video by theme, and autoplay where the canvas starts it from code
+  s = s.replace(/<sc-if value="\{\{is(Dark|Light)\}\}" hint-placeholder-val="\{\{ (?:true|false) \}\}">([\s\S]*?)<\/sc-if>/g, (m, k, inner) => ((k === "Light") === (theme === "light") ? inner : "")).replace(/ muted=""/g, ' muted="" autoplay=""');
   if (mk) s = s.replace(/<sc-if value="\{\{mk(\w+)\}\}" hint-placeholder-val="\{\{ (?:true|false) \}\}">([\s\S]*?)<\/sc-if>/g, (m, k, inner) => (k === mk || (k === "Plain" && mk === "C") ? inner : "")).replace(/\{\{mkCls\}\}/g, "mk-" + MK[f][mk]);
   const shade = (/"shade":\{[^}]*"default":([\d.]+)/.exec(s) || [0, "1"])[1];
   const helmet = /<helmet>([\s\S]*?)<\/helmet>/.exec(s)[1];
