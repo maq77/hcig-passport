@@ -6,16 +6,20 @@ OUT="D:/Healthcare international group/hcig-v3/material/motion-film"
 mkdir -p "$OUT"; cd "$R"
 node audio.mjs "$OUT/hcig-group-film.wav"
 BLUR="tmix=frames=3:weights='1 1 1',select='not(mod(n\,3))',setpts=N/60/TB"
-for V in "dark 1920 1080 16x9" "light 1920 1080 16x9" "dark 1080 1920 9x16"; do
+# variants as arguments, each "theme width height tag"; none given = all three
+[ $# -gt 0 ] && LIST=("$@") || LIST=("dark 1920 1080 16x9" "light 1920 1080 16x9" "dark 1080 1920 9x16")
+for V in "${LIST[@]}"; do
   set -- $V; THEME=$1; W=$2; H=$3; TAG=$4
   F="frames-$THEME-$TAG"; rm -rf "$F"
   node render.mjs full "$THEME" "$W" "$H" "$F"
   BASE="$OUT/hcig-group-film-$TAG-$THEME"
   BG=$([ "$THEME" = dark ] && echo "0x07080A" || echo "0xFFFFFF")
   # 1 web: transparent WebM (VP9 with alpha), no sound, for the page
-  ffmpeg -y -loglevel error -framerate 180 -i "$F/%05d.png" -vf "$BLUR,format=yuva420p" -c:v libvpx-vp9 -pix_fmt yuva420p -b:v 0 -crf 32 -row-mt 1 -auto-alt-ref 0 "$BASE-alpha.webm"
+  ffmpeg -y -loglevel error -framerate 180 -i "$F/%05d.png" -vf "$BLUR,format=yuva420p" -c:v libvpx-vp9 -pix_fmt yuva420p -b:v 0 -crf 32 -row-mt 1 -auto-alt-ref 0 -r 60 "$BASE-alpha.webm"
+  # 1b web, light: 1280 wide, smaller, still transparent (for the page if a video is used there)
+  ffmpeg -y -loglevel error -c:v libvpx-vp9 -i "$BASE-alpha.webm" -vf "scale=1280:-2" -c:v libvpx-vp9 -pix_fmt yuva420p -b:v 0 -crf 40 -row-mt 1 -auto-alt-ref 0 -an -r 60 "$BASE-alpha-web.webm"
   # 2 editors: ProRes 4444 with alpha and sound
-  ffmpeg -y -loglevel error -framerate 180 -i "$F/%05d.png" -i "$OUT/hcig-group-film.wav" -vf "$BLUR" -c:v prores_ks -profile:v 4444 -pix_fmt yuva444p10le -c:a pcm_s16le -shortest "$BASE-alpha.mov"
+  ffmpeg -y -loglevel error -framerate 180 -i "$F/%05d.png" -i "$OUT/hcig-group-film.wav" -vf "$BLUR" -c:v prores_ks -profile:v 4444 -pix_fmt yuva444p10le -c:a pcm_s16le -r 60 -shortest "$BASE-alpha.mov"
   # 3 social and review: MP4 on the night or day background, with sound
   ffmpeg -y -loglevel error -f lavfi -i "color=c=$BG:s=${W}x${H}:r=60:d=30" -framerate 180 -i "$F/%05d.png" -i "$OUT/hcig-group-film.wav" -filter_complex "[1:v]$BLUR[fg];[0:v][fg]overlay=format=auto,format=yuv420p" -c:v libx264 -preset slow -crf 18 -c:a aac -b:a 192k -movflags +faststart -shortest "$BASE.mp4"
   rm -rf "$F"
