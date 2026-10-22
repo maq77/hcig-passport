@@ -64,12 +64,12 @@ const cue = () => `<a href="#" class="cue" aria-label="Scroll down"><span class=
 
 // ---------- base CSS ----------
 const BASE = `
-.hero{--accent:#12C0C6;--ink:#0B0B0C;--ink2:#3F4042;--muted:#565759;--paper:#FFFFFF;--line:#D6D7D8;--acc-text:#087276;--serif:'Helma','Bodoni Moda',Didot,Georgia,serif;--sans:'Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;--gutter:clamp(20px,5cqi,80px);--ease:cubic-bezier(.16,1,.3,1);
+.hero{--accent:#12C0C6;--ink:#000000;--ink2:#565759;--muted:#565759;--paper:#FFFFFF;--line:#DDDDDF;--acc-text:#000000;--serif:'Helma','Bodoni Moda',Didot,Georgia,serif;--sans:'Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;--gutter:clamp(20px,5cqi,80px);--ease:cubic-bezier(.16,1,.3,1);
   container-type:inline-size;container-name:hero;font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;font-synthesis:none;background:var(--paper);color:var(--ink)}
 .in{position:relative;overflow:hidden;font-size:17px;min-height:900px;display:flex;flex-direction:column}
 .hero *{box-sizing:border-box}.hero img{display:block;max-width:100%}.hero a{color:inherit;text-decoration:none}
 .hero a:focus-visible,.hero button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
-.dark{--ink:#F4F5F5;--ink2:#DADCDE;--muted:#C2C5C8;--line:rgba(255,255,255,.22);--acc-text:#12C0C6;background:#07080A}
+.dark{--ink:#FFFFFF;--ink2:#DDDDDF;--muted:#BBBCBE;--line:#333333;--acc-text:#12C0C6;background:#000000}
 /* header: the horizontal logo at its 120 px minimum height */
 .hd{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px var(--gutter)}
 .hd-full{height:120px;width:auto}.hero .hd-mark{display:none;height:46px;width:auto}
@@ -80,12 +80,12 @@ const BASE = `
 .soc{display:flex;gap:2px}.soc a{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:var(--ink2);transition:color .2s,background .2s}.soc a:hover{color:var(--accent);background:rgba(18,192,198,.1)}
 .lang{position:relative}
 .lang-btn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;background:transparent;border:1px solid var(--line);border-radius:999px;color:var(--ink);font:500 14px/1 var(--sans);cursor:pointer}
-.lang-menu{position:absolute;right:0;top:52px;min-width:180px;list-style:none;margin:0;padding:8px;background:#fff;color:#0B0B0C;border-radius:14px;box-shadow:0 30px 60px -24px rgba(0,0,0,.4)}
-.lang-menu a{display:block;padding:10px 12px;border-radius:8px;font-size:15px}.lang-menu a:hover{background:#F1F2F2}
+.lang-menu{position:absolute;right:0;top:52px;min-width:180px;list-style:none;margin:0;padding:8px;background:#FFFFFF;color:#000000;border-radius:14px;box-shadow:0 30px 60px -24px rgba(0,0,0,.4)}
+.lang-menu a{display:block;padding:10px 12px;border-radius:8px;font-size:15px}.lang-menu a:hover{background:#D0F2F4}
 .menu-btn{display:none;width:48px;height:48px;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);border-radius:999px;color:var(--ink);cursor:pointer}
 .drawer{display:none}
 /* button */
-.btn{white-space:nowrap;display:inline-flex;align-items:center;gap:12px;min-height:56px;padding:0 30px;border-radius:999px;background:var(--accent);color:#04191A;font:600 15px/1 var(--sans);border:1px solid var(--accent);position:relative;overflow:hidden;cursor:pointer;transition:transform .25s var(--ease),box-shadow .35s}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;gap:12px;min-height:56px;padding:0 30px;border-radius:999px;background:var(--accent);color:#000000;font:600 15px/1 var(--sans);border:1px solid var(--accent);position:relative;overflow:hidden;cursor:pointer;transition:transform .25s var(--ease),box-shadow .35s}
 .btn:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease)}
 .btn:hover{transform:translateY(-1px);box-shadow:0 16px 36px -14px rgba(18,192,198,.8)}.btn:hover:after{transform:translateX(120%)}
 .btn-sm{min-height:44px;padding:0 20px;font-size:14px}
@@ -94,6 +94,10 @@ const BASE = `
 .h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
 .h1 .w>span{display:inline-block;transform:translateY(105%);animation:rise 1.1s var(--ease) forwards;animation-delay:calc(var(--i) * 70ms + 250ms)}
 .h1 .acc{color:var(--acc-text)}
+/* day: the accent words are Black with a brand Turquoise line under them; the line bridges the spaces between them */
+.hero .h1 .w.acc{background:linear-gradient(#12C0C6,#12C0C6) no-repeat 0 calc(100% - .02em)/0% .09em;padding-right:.27em;margin-right:-.27em}
+.hero .h1 .w.acc:last-child{padding-right:0;margin-right:0}
+.hero.light .h1 .w.acc{background-size:100% .09em}
 .sub{margin:0;font-size:20px;line-height:1.45;font-weight:500;color:var(--ink);max-width:40ch}
 .lead{margin:0;font-size:17px;line-height:1.65;color:var(--ink2);max-width:58ch}
 .f{opacity:0;transform:translateY(18px);animation:fadeup 1s var(--ease) forwards;animation-delay:var(--d,0ms)}
@@ -133,13 +137,13 @@ const BASE = `
 @container hero (max-width:1180px){.hd-nav ul{gap:18px}.hd-tools .btn{display:none}}
 @container hero (max-width:900px){
   .hd{padding:14px var(--gutter)}.hero .hd-full,.hd-nav,.hd-tools .btn,.hd-tools .lang{display:none}.hero .hd-mark{display:block}
-  .dark .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,8,11,.3) 0%,rgba(5,8,11,.78) 26%,rgba(5,8,11,.92) 60%,rgba(5,8,11,.97) 100%)}.menu-btn{display:inline-flex}
-  .drawer{display:block;position:absolute;left:0;right:0;top:100%;padding:8px var(--gutter) 24px;background:#07080A;color:#F4F5F5;z-index:20}
+  .dark .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.3) 0%,rgba(0,0,0,.78) 26%,rgba(0,0,0,.92) 60%,rgba(0,0,0,.97) 100%)}.menu-btn{display:inline-flex}
+  .drawer{display:block;position:absolute;left:0;right:0;top:100%;padding:8px var(--gutter) 24px;background:#000000;color:#FFFFFF;z-index:20}
   .drawer ul{list-style:none;margin:0 0 18px;padding:0}.drawer li a{display:flex;justify-content:space-between;align-items:center;min-height:52px;font:400 24px/1.2 var(--serif);border-bottom:1px solid rgba(255,255,255,.14)}
   .drawer-langs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}.drawer-langs a{min-height:40px;display:inline-flex;align-items:center;padding:0 12px;border:1px solid rgba(255,255,255,.22);border-radius:999px;font-size:14px}
   .drawer-soc{display:flex;gap:6px;margin-bottom:18px}.drawer-soc a{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.22);border-radius:50%}
   .in{min-height:844px;font-size:16px}.h1{font-size:34px;line-height:1.12}.sub{font-size:17px}.lead{font-size:16px}
-  .seals{gap:12px;align-items:flex-start}.plates{gap:8px}.plate{width:48px;height:48px;border-radius:11px;padding:5px}.plate-w{width:70px}.seals p{font-size:12px}
+  .seals{gap:12px;align-items:flex-start}.plates{gap:8px}.plate{width:48px;height:48px;border-radius:11px;padding:5px}.plate-w{width:70px}.seals p{font-size:13px}
   .btn{min-height:52px;width:100%;justify-content:center}.body{padding-bottom:28px}.stack{gap:16px}.cue{display:none}
 }`;
 
@@ -157,14 +161,14 @@ ${header("dark")}
 <div class="a-card glass f" style="--d:1350ms"><div class="plates">${plates()}</div><p>${esc(W.credential)}</p></div></div>${cue()}`,
   css: `.a-body{justify-content:center;padding-bottom:80px}.a-copy{max-width:720px}
 .a-card{position:absolute;right:var(--gutter);bottom:90px;width:330px;padding:24px;display:grid;gap:16px;animation:fadeup 1s var(--ease) forwards,floaty 7s ease-in-out 2.4s infinite}
-.a-card p{margin:0;font-size:13.5px;line-height:1.55;color:#DADCDE}
+.a-card p{margin:0;font-size:13.5px;line-height:1.55;color:#DDDDDF}
 @container hero (max-width:900px){.a-body{justify-content:flex-start;padding-top:12px}.a-card{position:static;width:auto;margin-top:26px;padding:18px}.a-card .plate{width:52px;height:52px}.a-card .plate-w{width:76px}}` });
 
 // B · Night Network: Earth at night, routes draw into the Red Sea
 const routes = [["M300 250 Q 640 120 1010 470", 0], ["M180 330 Q 600 230 1010 470", 200], ["M420 180 Q 760 160 1010 470", 400], ["M520 300 Q 800 300 1010 470", 600], ["M250 420 Q 640 360 1010 470", 800], ["M1010 470 Q 1160 300 1330 320", 1000]];
 H.push({ id: "B", file: "HeroB", name: "Night Network", theme: "dark", shade: 0.6, body: `
 <div class="bg"><img src="${u("g-earth-network")}" alt=""></div>
-${shadeDiv("radial-gradient(70% 85% at 22% 50%,rgba(3,6,10,.94),rgba(3,6,10,.15) 72%)")}
+${shadeDiv("radial-gradient(70% 85% at 22% 50%,rgba(0,0,0,.94),rgba(0,0,0,.15) 72%)")}
 <svg class="b-routes" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${routes.map(([d, t]) => `<path d="${d}" style="animation-delay:${t + 600}ms"/>`).join("")}<circle cx="1010" cy="470" r="6" class="b-hub"/><circle cx="1010" cy="470" r="6" class="b-ping"/></svg>
 ${header("dark")}
 <div class="body b-body"><div class="stack b-copy">${copy([4, 5, 6, 7, 8])}</div>${seals("b-seals", 1400)}</div>`,
@@ -201,7 +205,7 @@ ${header("dark")}
   css: `.d-body{justify-content:space-between;gap:28px;padding-top:0;padding-bottom:36px}.d-copy .stack,.d-copy{gap:18px}.d-copy{max-width:700px;margin-top:auto}
 .d-plaque{display:flex;align-items:center;gap:24px;padding:18px 26px;border-radius:20px;position:relative;overflow:hidden}
 .d-plaque:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 35%,rgba(255,255,255,.12) 50%,transparent 65%);animation:sheen 9s ease-in-out 2.5s infinite}
-.d-rule{width:1px;align-self:stretch;background:rgba(255,255,255,.25)}.d-plaque p{margin:0;font-size:15px;line-height:1.5;color:#DADCDE;max-width:820px}
+.d-rule{width:1px;align-self:stretch;background:rgba(255,255,255,.25)}.d-plaque p{margin:0;font-size:15px;line-height:1.5;color:#DDDDDF;max-width:820px}
 @container hero (max-width:900px){.d-copy{margin-top:8px}.d-plaque{flex-direction:column;align-items:flex-start;gap:14px;padding:16px}.d-rule{display:none}.d-plaque p{font-size:12.5px}}` });
 
 // E · Medical Jet: the live order, partner banner first, headline below, bottom-anchored
@@ -212,7 +216,7 @@ ${header("dark")}
 <div class="body e-body">${seals("e-seals", 200)}<div class="e-grid"><div>${h1([7, 8], "e-h1")}</div><div class="stack">${sub()}${lead()}${cta()}</div></div></div>`,
   css: `.e-body{justify-content:space-between;padding-top:6px}
 .e-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:56px;align-items:end}.e-h1{font-size:66px}
-@container hero (max-width:900px){.e-in .bg:after{background:linear-gradient(180deg,rgba(5,8,11,.6) 0%,rgba(5,8,11,.15) 30%,rgba(5,8,11,.88) 52%,rgba(5,8,11,.97) 100%)}.e-body{justify-content:flex-start;gap:24px}.e-grid{grid-template-columns:minmax(0,1fr);gap:18px;margin-top:auto}.e-h1{font-size:36px}}` });
+@container hero (max-width:900px){.e-in .bg:after{background:linear-gradient(180deg,rgba(0,0,0,.6) 0%,rgba(0,0,0,.15) 30%,rgba(0,0,0,.88) 52%,rgba(0,0,0,.97) 100%)}.e-body{justify-content:flex-start;gap:24px}.e-grid{grid-template-columns:minmax(0,1fr);gap:18px;margin-top:auto}.e-h1{font-size:36px}}` });
 
 // F · Infinity Pool: centred, partner banner above the headline as on the live site
 H.push({ id: "F", file: "HeroF", name: "Infinity Pool", theme: "dark", shade: 0.6, body: `
@@ -241,7 +245,7 @@ ${header("light")}
 .g-t img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}.g-t:hover img{transform:scale(1.06)}
 .g-t1{grid-column:1/3;grid-row:1/3;animation-delay:300ms}.g-t2{grid-column:3;grid-row:1;animation-delay:450ms}.g-t3{grid-column:3;grid-row:2/4;animation-delay:600ms}
 .g-t4{grid-column:1;grid-row:3;animation-delay:750ms}.g-t5{grid-column:2;grid-row:3;animation-delay:900ms}
-.g-seal{background:#F1F2F2;display:flex;align-items:center;justify-content:center;gap:10px}.g-seal .plate{box-shadow:none}
+.g-seal{background:#FFFFFF;display:flex;align-items:center;justify-content:center;gap:10px}.g-seal .plate{box-shadow:none}
 @container hero (max-width:900px){.g-body{grid-template-columns:minmax(0,1fr);gap:22px}.g-h1{font-size:34px}.g-grid{order:-1;grid-template-rows:96px 96px 96px;gap:8px}.g-t{border-radius:14px}.g-seal{gap:6px}.g-seal .plate{width:40px;height:40px;padding:4px}.g-seal .plate-w{width:54px}}` });
 
 // H · Coordination Centre: the second line set large in a glass panel
@@ -254,7 +258,7 @@ ${header("dark")}
   css: `.h-body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:56px;align-items:center}
 .h-panel{padding:34px;display:grid;gap:20px;justify-items:start;animation:fadeup 1s var(--ease) forwards,floaty 8s ease-in-out 2.4s infinite}
 .h-line{width:56px;height:2px;background:#12C0C6;transform-origin:left;animation:grow 1.4s var(--ease) 1.4s both}
-.h-sub{margin:0;font-family:var(--serif);font-size:32px;line-height:1.2;color:#F4F5F5}.h-lead{margin:0;font-size:16px;line-height:1.65;color:#DADCDE}
+.h-sub{margin:0;font-family:var(--serif);font-size:32px;line-height:1.2;color:#FFFFFF}.h-lead{margin:0;font-size:16px;line-height:1.65;color:#DDDDDF}
 @container hero (max-width:900px){.h-body{grid-template-columns:minmax(0,1fr);gap:22px}.h-panel{padding:20px;gap:14px}.h-sub{font-size:22px}}` });
 
 // I · Clinic Suite: light split, photo in a tall card, seals pinned to it
@@ -300,7 +304,7 @@ ${header("dark")}
 .l-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(101deg,transparent 51.6%,#12C0C6 51.7%,transparent 51.95%);opacity:.9}
 .l-body{justify-content:flex-end;gap:28px;padding-bottom:56px}.l-body>.seals{order:2}.l-copy{max-width:900px}
 @keyframes wipe{from{clip-path:polygon(100% 0,100% 0,100% 100%,100% 100%)}to{clip-path:polygon(60% 0,100% 0,100% 100%,44% 100%)}}
-@container hero (max-width:900px){.l-b{clip-path:polygon(0 30%,100% 22%,100% 52%,0 60%);animation:none}.l-bg:after{background:linear-gradient(180deg,rgba(5,8,11,.3) 0%,rgba(5,8,11,.78) 26%,rgba(5,8,11,.92) 60%,rgba(5,8,11,.97) 100%);opacity:1}.l-body{gap:20px;padding-bottom:28px}}` });
+@container hero (max-width:900px){.l-b{clip-path:polygon(0 30%,100% 22%,100% 52%,0 60%);animation:none}.l-bg:after{background:linear-gradient(180deg,rgba(0,0,0,.3) 0%,rgba(0,0,0,.78) 26%,rgba(0,0,0,.92) 60%,rgba(0,0,0,.97) 100%);opacity:1}.l-body{gap:20px;padding-bottom:28px}}` });
 
 // ---------- logic ----------
 const logic = (shadeDefault, themed, themeDefault = "dark", marks = null, markDefault = "none") => `class Component extends DCLogic {
@@ -329,7 +333,7 @@ const logic = (shadeDefault, themed, themeDefault = "dark", marks = null, markDe
 
 function write(h) {
   const props = { ...(h.marks ? { mark: { editor: "enum", options: ["none", ...h.marks], default: h.markDefault || "none", section: "Brand" } } : {}), ...(h.themed ? { theme: { editor: "enum", options: ["dark", "light"], default: h.themeDefault || "dark", section: "Hero" } } : {}), shade: { editor: "range", min: 0, max: 1, step: 0.05, default: h.shade, section: "Hero" }, motion: { editor: "boolean", default: true, section: "Hero" }, $preview: { width: 1440, height: 900 } };
-  const ink = h.theme === "dark" ? "#F4F5F5" : "#0B0B0C";
+  const ink = h.theme === "dark" ? "#FFFFFF" : "#000000";
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -369,7 +373,7 @@ ${logic(h.shade, h.themed, h.themeDefault, h.marks, h.markDefault)}
 <body>
 <x-dc>
 <helmet><style>body{margin:0}</style></helmet>
-<div style="width:390px;min-height:844px;background:${h.theme === "dark" ? "#07080A" : "#FFFFFF"};font-family:'Inter',system-ui,sans-serif;color:${ink}">
+<div style="width:390px;min-height:844px;background:${h.theme === "dark" ? "#000000" : "#FFFFFF"};font-family:'Inter',system-ui,sans-serif;color:${ink}">
 <dc-import name="${h.file}" hint-size="390px,844px"></dc-import>
 </div>
 </x-dc>
@@ -410,9 +414,9 @@ const shadesFx = (dark, light) => `<div class="shades"><div class="th-d"><div st
 // Night and day, shared by the four. The sweep 2.4 s; words and logo change at its middle.
 const THEME_CSS = `
 .hero{--sweep:2.4s;--sweep-ease:cubic-bezier(.45,.05,.35,1);transition:background-color 1.3s var(--sweep-ease) .9s}
-.hero.light{--ink:#0B0B0C;--ink2:#3F4042;--muted:#565759;--line:rgba(11,11,12,.16);--acc-text:#087276;background:#FFFFFF}
+.hero.light{--ink:#000000;--ink2:#565759;--muted:#565759;--line:#DDDDDF;--acc-text:#000000;background:#FFFFFF}
 .h1,.sub,.lead,.seals p,.hd-nav a,.btn2,.lang-btn,.theme-btn,.menu-btn,.soc a,.o-cred,.o-tag,.o-kicker{transition:color 1s var(--sweep-ease) 1s,border-color 1s var(--sweep-ease) 1s,background-color .3s}
-.h1 .acc{transition:color 1s var(--sweep-ease) 1s}
+.h1 .acc{transition:color 1s var(--sweep-ease) 1s,background-size .9s var(--sweep-ease) 1.3s}
 /* the day photo is revealed by a soft terminator travelling from the east (right) to the west */
 @property --dawn{syntax:'<percentage>';inherits:false;initial-value:-12%}
 .bg .th-l{position:absolute;inset:0;--dawn:-12%;-webkit-mask-image:linear-gradient(-72deg,#000 calc(var(--dawn) - 10%),transparent calc(var(--dawn) + 10%));mask-image:linear-gradient(-72deg,#000 calc(var(--dawn) - 10%),transparent calc(var(--dawn) + 10%));transition:--dawn var(--sweep) var(--sweep-ease)}
@@ -450,26 +454,31 @@ const THEME_CSS = `
 .still .bg .th-l{transition:none}
 @media (prefers-reduced-motion:reduce){.hero .band,.hero .flare{display:none}.hero .bg .th-l{transition:none}}
 /* phone first: the photo becomes a band at the top that melts into the page, the words sit under it */
-.hero.dark{--pb-top:rgba(7,8,10,.6);--pb-end:#07080A}.hero.light{--pb-top:rgba(255,255,255,.75);--pb-end:#FFFFFF}
+.hero.dark{--pb-top:rgba(0,0,0,.6);--pb-end:#000000}.hero.light{--pb-top:rgba(255,255,255,.75);--pb-end:#FFFFFF}
 @container hero (max-width:900px){
   .hero .hd-full-box{display:none}.hero .hd-mark-box{display:block}.hd-tools{gap:8px}
   .hero .bg{bottom:auto;height:var(--pb-h,400px)}
   .hero .bg img{object-position:var(--pb-pos,50% 50%)!important}
-  .hero .bg:after,.hero.light .bg:after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,var(--pb-top) 0%,transparent 24%,transparent 48%,var(--pb-end) 97%);transition:background 1.2s var(--sweep-ease) .8s}
+  .hero .bg:before,.hero .bg:after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;transition:opacity 1.3s var(--sweep-ease) .9s}
+  .hero .bg:after{background:linear-gradient(180deg,rgba(0,0,0,.6) 0%,transparent 24%,transparent 48%,#000000 97%)}
+  .hero .bg:before{background:linear-gradient(180deg,rgba(255,255,255,.75) 0%,transparent 24%,transparent 48%,#FFFFFF 97%);opacity:0}
+  .hero.light .bg:before{opacity:1}.hero.light .bg:after{opacity:0}
   .hero .shades{display:none}
   .hero .body{padding-top:var(--pb-pad,260px)}
-  .hero.light .drawer{background:#FFFFFF;color:#0B0B0C;box-shadow:0 30px 40px -30px rgba(0,0,0,.25)}
-  .hero.light .drawer li a{border-bottom-color:rgba(11,11,12,.1)}.hero.light .drawer-langs a,.hero.light .drawer-soc a{border-color:rgba(11,11,12,.16)}
-  .flare{left:72%;top:22%;width:300px;height:300px;margin:-150px 0 0 -150px}
+  .hero.light .drawer{background:#FFFFFF;color:#000000;box-shadow:0 30px 40px -30px rgba(0,0,0,.25)}
+  .hero.light .drawer li a{border-bottom-color:#DDDDDF}.hero.light .drawer-langs a,.hero.light .drawer-soc a{border-color:#DDDDDF}
+  .flare{left:72%;top:10%;width:240px;height:240px;margin:-120px 0 0 -120px}
+  .fx{opacity:.6}
   .h1{font-size:34px;line-height:1.12}
   .ctas{flex-direction:column;gap:10px}.ctas .btn,.btn2{width:100%;justify-content:center;min-height:52px}
   .seals{padding-top:20px}
+  .hero .o-h1{font-size:26px;line-height:1.2}
 }
 /* small phones (360 px): a shorter band and a smaller headline keep the buttons on the first screen */
 @container hero (max-width:370px){
   .hero .bg{height:calc(var(--pb-h,400px) - 50px)}
   .hero .body{padding-top:calc(var(--pb-pad,260px) - 56px)}
-  .hero .h1{font-size:31px}.hero .o-h1{font-size:24px}
+  .hero .h1{font-size:31px}.hero .o-h1{font-size:23px}
   .hero .lead{font-size:15.5px}
 }`;
 
@@ -524,7 +533,7 @@ themify("B", {
 themify("D", {
   day: "g-boardroom-day",
   lightShade: "linear-gradient(90deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.78) 45%,rgba(255,255,255,.08) 82%)",
-  css: `.hero{--pb-h:370px;--pb-pad:244px;--pb-pos:60% 50%}.d-plaque p{transition:color 1s var(--sweep-ease) 1s}.hero.light .d-plaque p{color:var(--ink2)}.hero.light .d-rule{background:rgba(11,11,12,.16)}.hero{--fx-x:72%;--fx-y:30%}`,
+  css: `.hero{--pb-h:370px;--pb-pad:244px;--pb-pos:60% 50%}.d-plaque p{transition:color 1s var(--sweep-ease) 1s}.hero.light .d-plaque p{color:var(--ink2)}.hero.light .d-rule{background:#DDDDDF}.hero{--fx-x:72%;--fx-y:30%}`,
 });
 
 // J · Marble Noir: white marble by day, the HC mark turns from white to black.
@@ -532,7 +541,7 @@ themify("J", {
   day: "g-marble-white",
   lightShade: "radial-gradient(60% 70% at 50% 45%,rgba(255,255,255,.5),rgba(255,255,255,.94))",
   edit: (b) => b.replace(`<img src="${u("mark-white")}" alt="">`, swap("", "mark-white", "mark-black", "")),
-  css: `.hero{--fx-x:78%;--fx-y:40%}@container hero (max-width:900px){.j-body>.f:not(.j-mark){width:100%}.hero .bg{height:auto;bottom:0}.hero .bg:after,.hero.light .bg:after{display:none}.hero .shades{display:block}.hero .body{padding-top:28px}.j-mark{width:64px}.j-body{gap:14px}}`,
+  css: `.hero{--fx-x:78%;--fx-y:40%}@container hero (max-width:900px){.j-body>.f:not(.j-mark){width:100%}.hero .bg{height:auto;bottom:0}.hero .bg:before,.hero .bg:after{display:none}.hero .shades{display:block}.hero .body{padding-top:28px}.j-mark{width:64px}.j-body{gap:14px}}`,
 });
 
 // O · The original, polished: the live hero kept as it is built (the partner banner on top, the cover photo of the
@@ -551,7 +560,7 @@ ${header("dark")}
 .o-cred{margin:0;font-size:16px;line-height:1.5;font-weight:600;color:var(--ink)}.o-tag{margin:4px 0 0;font-size:14px;color:var(--muted)}
 .o-copy{margin:auto 0;max-width:720px;gap:20px;padding:40px 0}
 .o-kicker{margin:0;font-size:22px;line-height:1.45;font-weight:500;color:var(--accent);max-width:34ch}
-.hero.light .o-kicker{color:#0A7F84}
+.hero.light .o-kicker{color:#000000;text-decoration:underline;text-decoration-color:#12C0C6;text-decoration-thickness:2px;text-underline-offset:6px}
 .o-h1{font-size:46px;line-height:1.16}
 .o-h1 .w>span{animation-delay:calc(var(--i) * 45ms + 500ms)}
 .o-safe{display:flex;align-items:center;gap:8px;margin:0;font-size:13px;color:var(--muted)}.o-safe svg{color:var(--accent)}
@@ -560,7 +569,7 @@ ${header("dark")}
 @keyframes wm{from{opacity:0;transform:translateY(24px) scale(.96)}to{opacity:.07;transform:none}}
 .hero{--fx-x:70%;--fx-y:28%;--pb-h:370px;--pb-pad:226px;--pb-pos:84% 18%}
 @container hero (max-width:900px){.o-body{gap:0}.o-copy{order:1;margin:0;padding:0;gap:16px}.o-banner{order:2;margin-top:28px;padding:20px 0 0;border-bottom:0;border-top:1px solid var(--line);align-items:flex-start;gap:12px}.o-cred{font-size:13px;line-height:1.45}.o-tag{font-size:12px}.o-kicker{font-size:17px;line-height:1.4}.o-h1{font-size:26px;line-height:1.2}.o-wm{display:none}.o-safe{justify-content:center}}` });
-PH.O = 1200;
+PH.O = 990;
 themify("O", {
   day: "o-cover-day",
   themeDefault: "light",
@@ -605,7 +614,7 @@ const WM_CSS = (op) => `
 .net{display:block;width:100%;height:auto;overflow:visible}
 .net line{stroke:rgba(18,192,198,.85);stroke-width:1.6;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.4s var(--ease) both;animation-delay:calc(1.4s + var(--k) * 30ms)}
 .net circle{fill:#E9FFFF;filter:drop-shadow(0 0 3px #12C0C6);opacity:0;animation:dotIn .6s ease-out both,twinkle 3.2s ease-in-out infinite;animation-delay:calc(1.2s + var(--k) * 28ms),calc(3s + var(--k) * 90ms)}
-.hero.light .net line{stroke:rgba(8,90,95,.85)}.hero.light .net circle{fill:#065E62;filter:drop-shadow(0 0 3px rgba(255,255,255,1))}
+.hero.light .net line{stroke:rgba(86,87,89,.85)}.hero.light .net circle{fill:#000000;filter:drop-shadow(0 0 3px rgba(255,255,255,1))}
 @keyframes dotIn{to{opacity:1}}@keyframes twinkle{0%,100%{opacity:1}50%{opacity:.45}}
 /* B · watermark: a large faint mark in the dark of space, like the original */
 .b-wm{left:3%;top:30%;width:420px}
@@ -640,7 +649,7 @@ const wrap = (hero, file, title, w, h, theme, extra = "") => writeFileSync(join(
 <body>
 <x-dc>
 <helmet><style>body{margin:0}</style></helmet>
-<div style="width:${w}px;min-height:${h}px;background:${theme === "light" ? "#FFFFFF" : "#07080A"};font-family:'Inter',system-ui,sans-serif;color:${theme === "light" ? "#0B0B0C" : "#F4F5F5"}">
+<div style="width:${w}px;min-height:${h}px;background:${theme === "light" ? "#FFFFFF" : "#000000"};font-family:'Inter',system-ui,sans-serif;color:${theme === "light" ? "#000000" : "#FFFFFF"}">
 <dc-import name="${hero}" theme="${theme}"${extra} hint-size="${w}px,${h}px"></dc-import>
 </div>
 </x-dc>
@@ -656,7 +665,7 @@ const FOUR = [["B", "Night Network"], ["D", "Boardroom"], ["J", "Marble Noir"], 
 // Brand in the picture: each option of B and D as night, day and phone boards (his choice, 2026-10-19).
 const BRAND = [["B", "beacon", "B · 1 The HC mark as a beacon where the flows meet over Egypt"], ["B", "network", "B · 2 The HC mark drawn as a network of points on the Earth"], ["B", "watermark", "B · 3 A large faint HC mark in space, like the original"], ["D", "glass logo", "D · 1 The HCIG logo etched into the boardroom glass"], ["D", "glass mark", "D · 2 The HC mark etched into the boardroom glass"], ["D", "watermark", "D · 3 A large faint HC mark over the window"]];
 const slug = (m) => m.replace(/ /g, "-");
-const PHT = { B: 1000, D: 1070, J: 900, O: 1200 }; // phone board heights, measured at 390 px
+const PHT = { B: 1000, D: 1050, J: 860, O: 990 }; // phone board heights, measured at 390 px
 for (const [id] of FOUR) {
   wrap(`Hero${id}`, `Hero${id}Night.dc.html`, `HCIG v3 Hero ${id}, night`, 1440, 900, "dark");
   wrap(`Hero${id}`, `Hero${id}Day.dc.html`, `HCIG v3 Hero ${id}, day`, 1440, 900, "light");

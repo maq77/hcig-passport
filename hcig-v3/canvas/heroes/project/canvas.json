@@ -1,572 +1,159 @@
 {
   "v": 3,
-  "createdOnFiles": {
-    "v": 1,
-    "at": "2026-10-19T11:00:00Z"
-  },
-  "title": "HCIG v3 Hero",
-  "launch": {
-    "view": "canvas",
-    "page": "brand"
-  },
-  "pages": [
-    {
-      "id": "film",
-      "name": "Group film (new)"
-    },
-    {
-      "id": "brand",
-      "name": "HCIG in the picture, B and D"
-    },
-    {
-      "id": "four",
-      "name": "Four heroes, night and day"
-    },
-    {
-      "id": "twelve",
-      "name": "All twelve heroes"
-    }
-  ],
+  "attachments": {},
   "boards": {
-    "HeroBNight.dc.html": {
+    "GroupFilm.dc.html": {
       "x": 0,
-      "y": 0,
+      "y": 1420,
       "w": 1440,
-      "h": 900,
-      "title": "B · night (press the sun)",
+      "h": 1225,
+      "title": "Group section · night",
       "is_interactive": true,
-      "page": "four"
+      "page": "film"
     },
-    "HeroBDay.dc.html": {
+    "GroupFilmDay.dc.html": {
       "x": 1520,
-      "y": 0,
+      "y": 1420,
       "w": 1440,
-      "h": 900,
-      "title": "B · day (press the moon)",
+      "h": 1225,
+      "title": "Group section · day",
       "is_interactive": true,
-      "page": "four"
+      "page": "film"
     },
-    "HeroBPhoneNight.dc.html": {
-      "x": 3040,
-      "y": 0,
-      "w": 390,
-      "h": 1000,
-      "title": "B · phone night",
-      "is_interactive": true,
-      "page": "four"
-    },
-    "HeroBPhoneDay.dc.html": {
+    "GroupFilmPhoneDay.dc.html": {
       "x": 3510,
-      "y": 0,
+      "y": 1420,
       "w": 390,
-      "h": 1000,
-      "title": "B · phone day",
+      "h": 1240,
+      "title": "Group section · phone day",
       "is_interactive": true,
-      "page": "four"
+      "page": "film"
     },
-    "HeroDNight.dc.html": {
-      "x": 0,
-      "y": 1500,
-      "w": 1440,
-      "h": 900,
-      "title": "D · night (press the sun)",
-      "is_interactive": true,
-      "page": "four"
-    },
-    "HeroDDay.dc.html": {
-      "x": 1520,
-      "y": 1500,
-      "w": 1440,
-      "h": 900,
-      "title": "D · day (press the moon)",
-      "is_interactive": true,
-      "page": "four"
-    },
-    "HeroDPhoneNight.dc.html": {
+    "GroupFilmPhoneNight.dc.html": {
       "x": 3040,
-      "y": 1500,
+      "y": 1420,
       "w": 390,
-      "h": 1070,
-      "title": "D · phone night",
+      "h": 1240,
+      "title": "Group section · phone night",
       "is_interactive": true,
-      "page": "four"
-    },
-    "HeroDPhoneDay.dc.html": {
-      "x": 3510,
-      "y": 1500,
-      "w": 390,
-      "h": 1070,
-      "title": "D · phone day",
-      "is_interactive": true,
-      "page": "four"
-    },
-    "HeroJNight.dc.html": {
-      "x": 0,
-      "y": 3000,
-      "w": 1440,
-      "h": 900,
-      "title": "J · night (press the sun)",
-      "is_interactive": true,
-      "page": "four"
-    },
-    "HeroJDay.dc.html": {
-      "x": 1520,
-      "y": 3000,
-      "w": 1440,
-      "h": 900,
-      "title": "J · day (press the moon)",
-      "is_interactive": true,
-      "page": "four"
-    },
-    "HeroJPhoneNight.dc.html": {
-      "x": 3040,
-      "y": 3000,
-      "w": 390,
-      "h": 900,
-      "title": "J · phone night",
-      "is_interactive": true,
-      "page": "four"
-    },
-    "HeroJPhoneDay.dc.html": {
-      "x": 3510,
-      "y": 3000,
-      "w": 390,
-      "h": 900,
-      "title": "J · phone day",
-      "is_interactive": true,
-      "page": "four"
-    },
-    "HeroONight.dc.html": {
-      "x": 0,
-      "y": 4500,
-      "w": 1440,
-      "h": 900,
-      "title": "O · night (press the sun)",
-      "is_interactive": true,
-      "page": "four"
-    },
-    "HeroODay.dc.html": {
-      "x": 1520,
-      "y": 4500,
-      "w": 1440,
-      "h": 900,
-      "title": "O · day (press the moon)",
-      "is_interactive": true,
-      "page": "four"
-    },
-    "HeroOPhoneNight.dc.html": {
-      "x": 3040,
-      "y": 4500,
-      "w": 390,
-      "h": 1200,
-      "title": "O · phone night",
-      "is_interactive": true,
-      "page": "four"
-    },
-    "HeroOPhoneDay.dc.html": {
-      "x": 3510,
-      "y": 4500,
-      "w": 390,
-      "h": 1200,
-      "title": "O · phone day",
-      "is_interactive": true,
-      "page": "four"
+      "page": "film"
     },
     "HeroA.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 1440,
       "h": 900,
-      "title": "Hero A · Red Sea Panorama",
       "is_interactive": true,
-      "page": "twelve"
+      "page": "twelve",
+      "title": "Hero A · Red Sea Panorama",
+      "w": 1440,
+      "x": 0,
+      "y": 0
     },
     "HeroAPhone.dc.html": {
-      "x": 1520,
-      "y": 0,
-      "w": 390,
       "h": 844,
+      "is_interactive": true,
+      "page": "twelve",
       "title": "Hero A · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroB.dc.html": {
-      "x": 0,
-      "y": 1300,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero B · Night Network",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroBPhone.dc.html": {
+      "w": 390,
       "x": 1520,
-      "y": 1300,
-      "w": 390,
-      "h": 1000,
-      "title": "Hero B · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroC.dc.html": {
-      "x": 0,
-      "y": 2600,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero C · Private Lounge",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroCPhone.dc.html": {
-      "x": 1520,
-      "y": 2600,
-      "w": 390,
-      "h": 936,
-      "title": "Hero C · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroD.dc.html": {
-      "x": 0,
-      "y": 3900,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero D · Boardroom",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroDPhone.dc.html": {
-      "x": 1520,
-      "y": 3900,
-      "w": 390,
-      "h": 1070,
-      "title": "Hero D · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroE.dc.html": {
-      "x": 0,
-      "y": 5200,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero E · Medical Jet",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroEPhone.dc.html": {
-      "x": 1520,
-      "y": 5200,
-      "w": 390,
-      "h": 844,
-      "title": "Hero E · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroF.dc.html": {
-      "x": 0,
-      "y": 6500,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero F · Infinity Pool",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroFPhone.dc.html": {
-      "x": 1520,
-      "y": 6500,
-      "w": 390,
-      "h": 844,
-      "title": "Hero F · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroG.dc.html": {
-      "x": 2240,
-      "y": 0,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero G · Real Proof Mosaic",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroGPhone.dc.html": {
-      "x": 3760,
-      "y": 0,
-      "w": 390,
-      "h": 940,
-      "title": "Hero G · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroH.dc.html": {
-      "x": 2240,
-      "y": 1300,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero H · Coordination Centre",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroHPhone.dc.html": {
-      "x": 3760,
-      "y": 1300,
-      "w": 390,
-      "h": 844,
-      "title": "Hero H · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroI.dc.html": {
-      "x": 2240,
-      "y": 2600,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero I · Clinic Suite",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroIPhone.dc.html": {
-      "x": 3760,
-      "y": 2600,
-      "w": 390,
-      "h": 944,
-      "title": "Hero I · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroJ.dc.html": {
-      "x": 2240,
-      "y": 3900,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero J · Marble Noir",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroJPhone.dc.html": {
-      "x": 3760,
-      "y": 3900,
-      "w": 390,
-      "h": 900,
-      "title": "Hero J · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroK.dc.html": {
-      "x": 2240,
-      "y": 5200,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero K · Blue Hour",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroKPhone.dc.html": {
-      "x": 3760,
-      "y": 5200,
-      "w": 390,
-      "h": 844,
-      "title": "Hero K · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroL.dc.html": {
-      "x": 2240,
-      "y": 6500,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero L · Two Worlds",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroLPhone.dc.html": {
-      "x": 3760,
-      "y": 6500,
-      "w": 390,
-      "h": 844,
-      "title": "Hero L · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroO.dc.html": {
-      "x": 0,
-      "y": 7800,
-      "w": 1440,
-      "h": 900,
-      "title": "Hero O · the original, polished",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroOPhone.dc.html": {
-      "x": 1520,
-      "y": 7800,
-      "w": 390,
-      "h": 1200,
-      "title": "Hero O · phone",
-      "is_interactive": true,
-      "page": "twelve"
-    },
-    "HeroB-beacon-Night.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 1440,
-      "h": 900,
-      "title": "B · beacon · night",
-      "is_interactive": true,
-      "page": "brand"
+      "y": 0
     },
     "HeroB-beacon-Day.dc.html": {
-      "x": 1520,
-      "y": 0,
-      "w": 1440,
       "h": 900,
-      "title": "B · beacon · day",
       "is_interactive": true,
-      "page": "brand"
+      "page": "brand",
+      "title": "B · beacon · day",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "HeroB-beacon-Night.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "B · beacon · night",
+      "w": 1440,
+      "x": 0,
+      "y": 0
     },
     "HeroB-beacon-Phone.dc.html": {
-      "x": 3040,
-      "y": 0,
-      "w": 390,
       "h": 1000,
+      "is_interactive": true,
+      "page": "brand",
       "title": "B · beacon · phone",
-      "is_interactive": true,
-      "page": "brand"
-    },
-    "HeroB-network-Night.dc.html": {
-      "x": 0,
-      "y": 1500,
-      "w": 1440,
-      "h": 900,
-      "title": "B · network · night",
-      "is_interactive": true,
-      "page": "brand"
+      "w": 390,
+      "x": 3040,
+      "y": 0
     },
     "HeroB-network-Day.dc.html": {
-      "x": 1520,
-      "y": 1500,
-      "w": 1440,
       "h": 900,
-      "title": "B · network · day",
       "is_interactive": true,
-      "page": "brand"
+      "page": "brand",
+      "title": "B · network · day",
+      "w": 1440,
+      "x": 1520,
+      "y": 1500
+    },
+    "HeroB-network-Night.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "B · network · night",
+      "w": 1440,
+      "x": 0,
+      "y": 1500
     },
     "HeroB-network-Phone.dc.html": {
-      "x": 3040,
-      "y": 1500,
-      "w": 390,
       "h": 1000,
+      "is_interactive": true,
+      "page": "brand",
       "title": "B · network · phone",
-      "is_interactive": true,
-      "page": "brand"
-    },
-    "HeroB-watermark-Night.dc.html": {
-      "x": 0,
-      "y": 3000,
-      "w": 1440,
-      "h": 900,
-      "title": "B · watermark · night",
-      "is_interactive": true,
-      "page": "brand"
+      "w": 390,
+      "x": 3040,
+      "y": 1500
     },
     "HeroB-watermark-Day.dc.html": {
-      "x": 1520,
-      "y": 3000,
-      "w": 1440,
       "h": 900,
-      "title": "B · watermark · day",
       "is_interactive": true,
-      "page": "brand"
+      "page": "brand",
+      "title": "B · watermark · day",
+      "w": 1440,
+      "x": 1520,
+      "y": 3000
+    },
+    "HeroB-watermark-Night.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "B · watermark · night",
+      "w": 1440,
+      "x": 0,
+      "y": 3000
     },
     "HeroB-watermark-Phone.dc.html": {
-      "x": 3040,
-      "y": 3000,
-      "w": 390,
       "h": 1000,
+      "is_interactive": true,
+      "page": "brand",
       "title": "B · watermark · phone",
-      "is_interactive": true,
-      "page": "brand"
-    },
-    "HeroD-glass-logo-Night.dc.html": {
-      "x": 0,
-      "y": 4500,
-      "w": 1440,
-      "h": 900,
-      "title": "D · glass logo · night",
-      "is_interactive": true,
-      "page": "brand"
-    },
-    "HeroD-glass-logo-Day.dc.html": {
-      "x": 1520,
-      "y": 4500,
-      "w": 1440,
-      "h": 900,
-      "title": "D · glass logo · day",
-      "is_interactive": true,
-      "page": "brand"
-    },
-    "HeroD-glass-logo-Phone.dc.html": {
-      "x": 3040,
-      "y": 4500,
       "w": 390,
-      "h": 1070,
-      "title": "D · glass logo · phone",
-      "is_interactive": true,
-      "page": "brand"
-    },
-    "HeroD-glass-mark-Night.dc.html": {
-      "x": 0,
-      "y": 6000,
-      "w": 1440,
-      "h": 900,
-      "title": "D · glass mark · night",
-      "is_interactive": true,
-      "page": "brand"
-    },
-    "HeroD-glass-mark-Day.dc.html": {
-      "x": 1520,
-      "y": 6000,
-      "w": 1440,
-      "h": 900,
-      "title": "D · glass mark · day",
-      "is_interactive": true,
-      "page": "brand"
-    },
-    "HeroD-glass-mark-Phone.dc.html": {
       "x": 3040,
-      "y": 6000,
-      "w": 390,
-      "h": 1070,
-      "title": "D · glass mark · phone",
-      "is_interactive": true,
-      "page": "brand"
+      "y": 3000
     },
-    "HeroD-watermark-Night.dc.html": {
+    "HeroB.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero B · Night Network",
+      "w": 1440,
       "x": 0,
-      "y": 7500,
-      "w": 1440,
-      "h": 900,
-      "title": "D · watermark · night",
-      "is_interactive": true,
-      "page": "brand"
+      "y": 1300
     },
-    "HeroD-watermark-Day.dc.html": {
+    "HeroBDay.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "four",
+      "title": "B · day (press the moon)",
+      "w": 1440,
       "x": 1520,
-      "y": 7500,
-      "w": 1440,
-      "h": 900,
-      "title": "D · watermark · day",
-      "is_interactive": true,
-      "page": "brand"
-    },
-    "HeroD-watermark-Phone.dc.html": {
-      "x": 3040,
-      "y": 7500,
-      "w": 390,
-      "h": 1070,
-      "title": "D · watermark · phone",
-      "is_interactive": true,
-      "page": "brand"
+      "y": 0
     },
     "HeroBFilm.dc.html": {
       "x": 0,
@@ -586,78 +173,774 @@
       "is_interactive": true,
       "page": "film"
     },
-    "HeroBFilmPhoneNight.dc.html": {
-      "x": 3040,
-      "y": 0,
-      "w": 390,
-      "h": 1070,
-      "title": "B with the film · phone night",
-      "is_interactive": true,
-      "page": "film"
-    },
     "HeroBFilmPhoneDay.dc.html": {
       "x": 3510,
       "y": 0,
       "w": 390,
-      "h": 1070,
+      "h": 1050,
       "title": "B with the film · phone day",
       "is_interactive": true,
       "page": "film"
     },
-    "GroupFilm.dc.html": {
-      "x": 0,
-      "y": 1440,
-      "w": 1440,
-      "h": 1210,
-      "title": "Group section · night",
-      "is_interactive": true,
-      "page": "film"
-    },
-    "GroupFilmDay.dc.html": {
-      "x": 1520,
-      "y": 1440,
-      "w": 1440,
-      "h": 1210,
-      "title": "Group section · day",
-      "is_interactive": true,
-      "page": "film"
-    },
-    "GroupFilmPhoneNight.dc.html": {
+    "HeroBFilmPhoneNight.dc.html": {
       "x": 3040,
-      "y": 1440,
+      "y": 0,
       "w": 390,
-      "h": 1330,
-      "title": "Group section · phone night",
+      "h": 1050,
+      "title": "B with the film · phone night",
       "is_interactive": true,
       "page": "film"
     },
-    "GroupFilmPhoneDay.dc.html": {
-      "x": 3510,
-      "y": 1440,
-      "w": 390,
-      "h": 1330,
-      "title": "Group section · phone day",
+    "HeroBNight.dc.html": {
+      "h": 900,
       "is_interactive": true,
+      "page": "four",
+      "title": "B · night (press the sun)",
+      "w": 1440,
+      "x": 0,
+      "y": 50
+    },
+    "HeroBPhone.dc.html": {
+      "h": 1000,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero B · phone",
+      "w": 390,
+      "x": 1520,
+      "y": 1300
+    },
+    "HeroBPhoneDay.dc.html": {
+      "h": 1000,
+      "is_interactive": true,
+      "page": "four",
+      "title": "B · phone day",
+      "w": 390,
+      "x": 3510,
+      "y": 0
+    },
+    "HeroBPhoneNight.dc.html": {
+      "h": 1000,
+      "is_interactive": true,
+      "page": "four",
+      "title": "B · phone night",
+      "w": 390,
+      "x": 3040,
+      "y": 0
+    },
+    "HeroC.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero C · Private Lounge",
+      "w": 1440,
+      "x": 0,
+      "y": 2600
+    },
+    "HeroCPhone.dc.html": {
+      "h": 936,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero C · phone",
+      "w": 390,
+      "x": 1520,
+      "y": 2600
+    },
+    "HeroD-glass-logo-Day.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "D · glass logo · day",
+      "w": 1440,
+      "x": 1520,
+      "y": 4500
+    },
+    "HeroD-glass-logo-Night.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "D · glass logo · night",
+      "w": 1440,
+      "x": 0,
+      "y": 4500
+    },
+    "HeroD-glass-logo-Phone.dc.html": {
+      "h": 1050,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "D · glass logo · phone",
+      "w": 390,
+      "x": 3040,
+      "y": 4500
+    },
+    "HeroD-glass-mark-Day.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "D · glass mark · day",
+      "w": 1440,
+      "x": 1520,
+      "y": 6000
+    },
+    "HeroD-glass-mark-Night.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "D · glass mark · night",
+      "w": 1440,
+      "x": 0,
+      "y": 6000
+    },
+    "HeroD-glass-mark-Phone.dc.html": {
+      "h": 1050,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "D · glass mark · phone",
+      "w": 390,
+      "x": 3040,
+      "y": 6000
+    },
+    "HeroD-watermark-Day.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "D · watermark · day",
+      "w": 1440,
+      "x": 1520,
+      "y": 7500
+    },
+    "HeroD-watermark-Night.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "D · watermark · night",
+      "w": 1440,
+      "x": 0,
+      "y": 7500
+    },
+    "HeroD-watermark-Phone.dc.html": {
+      "h": 1050,
+      "is_interactive": true,
+      "page": "brand",
+      "title": "D · watermark · phone",
+      "w": 390,
+      "x": 3040,
+      "y": 7500
+    },
+    "HeroD.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero D · Boardroom",
+      "w": 1440,
+      "x": 0,
+      "y": 3900
+    },
+    "HeroDDay.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "four",
+      "title": "D · day (press the moon)",
+      "w": 1440,
+      "x": 1520,
+      "y": 1500
+    },
+    "HeroDNight.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "four",
+      "title": "D · night (press the sun)",
+      "w": 1440,
+      "x": 0,
+      "y": 1500
+    },
+    "HeroDPhone.dc.html": {
+      "h": 1050,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero D · phone",
+      "w": 390,
+      "x": 1520,
+      "y": 3900
+    },
+    "HeroDPhoneDay.dc.html": {
+      "h": 1050,
+      "is_interactive": true,
+      "page": "four",
+      "title": "D · phone day",
+      "w": 390,
+      "x": 3510,
+      "y": 1500
+    },
+    "HeroDPhoneNight.dc.html": {
+      "h": 1050,
+      "is_interactive": true,
+      "page": "four",
+      "title": "D · phone night",
+      "w": 390,
+      "x": 3040,
+      "y": 1500
+    },
+    "HeroE.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero E · Medical Jet",
+      "w": 1440,
+      "x": 0,
+      "y": 5200
+    },
+    "HeroEPhone.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero E · phone",
+      "w": 390,
+      "x": 1520,
+      "y": 5200
+    },
+    "HeroF.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero F · Infinity Pool",
+      "w": 1440,
+      "x": 0,
+      "y": 6500
+    },
+    "HeroFPhone.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero F · phone",
+      "w": 390,
+      "x": 1520,
+      "y": 6500
+    },
+    "HeroG.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero G · Real Proof Mosaic",
+      "w": 1440,
+      "x": 2240,
+      "y": 0
+    },
+    "HeroGPhone.dc.html": {
+      "h": 940,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero G · phone",
+      "w": 390,
+      "x": 3760,
+      "y": 0
+    },
+    "HeroH.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero H · Coordination Centre",
+      "w": 1440,
+      "x": 2240,
+      "y": 1300
+    },
+    "HeroHPhone.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero H · phone",
+      "w": 390,
+      "x": 3760,
+      "y": 1300
+    },
+    "HeroI.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero I · Clinic Suite",
+      "w": 1440,
+      "x": 2240,
+      "y": 2600
+    },
+    "HeroIPhone.dc.html": {
+      "h": 944,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero I · phone",
+      "w": 390,
+      "x": 3760,
+      "y": 2600
+    },
+    "HeroJ.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero J · Marble Noir",
+      "w": 1440,
+      "x": 2240,
+      "y": 3900
+    },
+    "HeroJDay.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "four",
+      "title": "J · day (press the moon)",
+      "w": 1440,
+      "x": 1520,
+      "y": 3000
+    },
+    "HeroJNight.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "four",
+      "title": "J · night (press the sun)",
+      "w": 1440,
+      "x": 0,
+      "y": 3000
+    },
+    "HeroJPhone.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero J · phone",
+      "w": 390,
+      "x": 3760,
+      "y": 3900
+    },
+    "HeroJPhoneDay.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "four",
+      "title": "J · phone day",
+      "w": 390,
+      "x": 3510,
+      "y": 3000
+    },
+    "HeroJPhoneNight.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "four",
+      "title": "J · phone night",
+      "w": 390,
+      "x": 3040,
+      "y": 3000
+    },
+    "HeroK.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero K · Blue Hour",
+      "w": 1440,
+      "x": 2240,
+      "y": 5200
+    },
+    "HeroKPhone.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero K · phone",
+      "w": 390,
+      "x": 3760,
+      "y": 5200
+    },
+    "HeroL.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero L · Two Worlds",
+      "w": 1440,
+      "x": 2240,
+      "y": 6500
+    },
+    "HeroLPhone.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero L · phone",
+      "w": 390,
+      "x": 3760,
+      "y": 6500
+    },
+    "HeroO.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero O · the original, polished",
+      "w": 1440,
+      "x": 0,
+      "y": 7800
+    },
+    "HeroODay.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "four",
+      "title": "O · day (press the moon)",
+      "w": 1440,
+      "x": 1520,
+      "y": 4500
+    },
+    "HeroONight.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "four",
+      "title": "O · night (press the sun)",
+      "w": 1440,
+      "x": 0,
+      "y": 4500
+    },
+    "HeroOPhone.dc.html": {
+      "h": 990,
+      "is_interactive": true,
+      "page": "twelve",
+      "title": "Hero O · phone",
+      "w": 390,
+      "x": 1520,
+      "y": 7800
+    },
+    "HeroOPhoneDay.dc.html": {
+      "h": 990,
+      "is_interactive": true,
+      "page": "four",
+      "title": "O · phone day",
+      "w": 390,
+      "x": 3510,
+      "y": 4500
+    },
+    "HeroOPhoneNight.dc.html": {
+      "h": 990,
+      "is_interactive": true,
+      "page": "four",
+      "title": "O · phone night",
+      "w": 390,
+      "x": 3040,
+      "y": 4500
+    },
+    "FinalNight.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 2125,
+      "title": "Final · night (press the sun: the whole page turns to day)",
+      "is_interactive": true,
+      "page": "final"
+    },
+    "FinalDay.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 2125,
+      "title": "Final · day (press the moon)",
+      "is_interactive": true,
+      "page": "final"
+    },
+    "FinalPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 390,
+      "h": 2290,
+      "title": "Final · phone night",
+      "is_interactive": true,
+      "page": "final"
+    },
+    "FinalPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 0,
+      "w": 390,
+      "h": 2290,
+      "title": "Final · phone day",
+      "is_interactive": true,
+      "page": "final"
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-19T11:00:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas",
+    "page": "final"
+  },
+  "notes": {
+    "brand0": {
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand",
+      "text": "B · 1 The HC mark as a beacon where the flows meet over Egypt",
+      "w": 240,
+      "x": 0,
+      "y": -250
+    },
+    "brand1": {
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand",
+      "text": "B · 2 The HC mark drawn as a network of points on the Earth",
+      "w": 240,
+      "x": 0,
+      "y": 1250
+    },
+    "brand2": {
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand",
+      "text": "B · 3 A large faint HC mark in space, like the original",
+      "w": 240,
+      "x": 0,
+      "y": 2750
+    },
+    "brand3": {
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand",
+      "text": "D · 1 The HCIG logo etched into the boardroom glass",
+      "w": 240,
+      "x": 0,
+      "y": 4250
+    },
+    "brand4": {
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand",
+      "text": "D · 2 The HC mark etched into the boardroom glass",
+      "w": 240,
+      "x": 0,
+      "y": 5750
+    },
+    "brand5": {
+      "kind": "title1",
+      "maxW": 3430,
+      "page": "brand",
+      "text": "D · 3 A large faint HC mark over the window",
+      "w": 240,
+      "x": 0,
+      "y": 7250
+    },
+    "brandNote": {
+      "maxH": 900,
+      "page": "brand",
+      "size": 24,
+      "text": "HCIG in the picture, B and D\n\nYour ask: show who we are in the image itself, like the original and J.\n\nB 1 Beacon: the HC mark sits where the flows meet, over Egypt, and pulses.\nB 2 Network: the HC mark drawn as points and links on the Earth, drawing itself in.\nB 3 Watermark: a large faint HC mark in space, like the original.\n\nD 1 The full HCIG logo etched into the boardroom window.\nD 2 The HC mark alone, etched larger in the window.\nD 3 A large faint HC mark over the window.\n\nReal logo files only, never redrawn. Each works by night and by day (press the sun). Pick one per hero, or say mix.",
+      "w": 460,
+      "x": 3560,
+      "y": 0
+    },
+    "filmGroup": {
+      "x": 0,
+      "y": 1170,
+      "text": "Group section: the full film, with sound",
+      "kind": "title1",
+      "maxW": 3900,
       "page": "film"
+    },
+    "filmHero": {
+      "x": 0,
+      "y": -250,
+      "text": "Hero B with the group film, looping in the picture",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "film"
+    },
+    "filmNote": {
+      "x": 4040,
+      "y": 0,
+      "w": 460,
+      "maxH": 900,
+      "size": "m",
+      "fill": "yellow",
+      "page": "film",
+      "text": "The group film, new boards\n\n1. Hero B with the film: a copy of B where the 30 second film loops in the picture, on the right where the flows meet. B and its watermark stay on the other pages as they were.\n2. Group section: the full film, with a sound button, and the eight brands under it. On phones the tall cut fills the width.\n\nPress Play on a board to see the film move. Nothing on the other pages was changed."
+    },
+    "fourB": {
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "four",
+      "text": "B · Night Network",
+      "w": 240,
+      "x": 0,
+      "y": -250
+    },
+    "fourD": {
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "four",
+      "text": "D · Boardroom",
+      "w": 240,
+      "x": 0,
+      "y": 1250
+    },
+    "fourJ": {
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "four",
+      "text": "J · Marble Noir",
+      "w": 240,
+      "x": 0,
+      "y": 2750
+    },
+    "fourNote": {
+      "maxH": 900,
+      "page": "four",
+      "size": 24,
+      "text": "Four heroes, night and day\n\n1. Press the sun or the moon in the header of any board (best in Play). Day comes in from the east with a soft light line and a sun flare; words and logo change halfway.\n2. B: the drawn routes are gone. Light now runs along the flows that are in the photo itself, toward Egypt.\n3. D and J: the same photos by day (made in your Gemini). J's HC mark turns from white to black.\n4. O is today's healthcareig.com hero, polished: the same order (partner banner, the doctors, the turquoise line, the lead as the headline, Talk to our team), with the real logo and mark, seals on plates, motion, night and day. Day is its starting look, as on the live site.\n5. Fonts: Helma at the weight the live site shows it, Inter for text. Turquoise #12C0C6.\n6. Become a Partner sits beside Talk to our team on all four.\n7. Phones rebuilt phone-first: the photo is a band at the top that melts into the page, the words below it, both buttons on the first screen down to 360 px wide.\n8. HCIG in the picture (your picks): B the large faint HC mark in space, D the HC mark etched in the boardroom glass. The other options stay on the first page.",
+      "w": 460,
+      "x": 4040,
+      "y": 0
+    },
+    "fourO": {
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "four",
+      "text": "O · The original, polished",
+      "w": 240,
+      "x": 0,
+      "y": 4250
+    },
+    "open": {
+      "maxH": 760,
+      "page": "twelve",
+      "size": 24,
+      "text": "The twelve heroes as first shown, kept for reference. His pick: B, D, J and the original, on the first page with night and day.",
+      "w": 440,
+      "x": 4400,
+      "y": 0
+    },
+    "rowA": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "A · Red Sea Panorama",
+      "w": 240,
+      "x": 0,
+      "y": -250
+    },
+    "rowB": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "B · Night Network",
+      "w": 240,
+      "x": 0,
+      "y": 1050
+    },
+    "rowC": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "C · Private Lounge",
+      "w": 240,
+      "x": 0,
+      "y": 2350
+    },
+    "rowD": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "D · Boardroom",
+      "w": 240,
+      "x": 0,
+      "y": 3650
+    },
+    "rowE": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "E · Medical Jet",
+      "w": 240,
+      "x": 0,
+      "y": 4950
+    },
+    "rowF": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "F · Infinity Pool",
+      "w": 240,
+      "x": 0,
+      "y": 6250
+    },
+    "rowG": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "G · Real Proof Mosaic",
+      "w": 240,
+      "x": 2240,
+      "y": -250
+    },
+    "rowH": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "H · Coordination Centre",
+      "w": 240,
+      "x": 2240,
+      "y": 1050
+    },
+    "rowI": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "I · Clinic Suite",
+      "w": 240,
+      "x": 2240,
+      "y": 2350
+    },
+    "rowJ": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "J · Marble Noir",
+      "w": 240,
+      "x": 2240,
+      "y": 3650
+    },
+    "rowK": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "K · Blue Hour",
+      "w": 240,
+      "x": 2240,
+      "y": 4950
+    },
+    "rowL": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "L · Two Worlds",
+      "w": 240,
+      "x": 2240,
+      "y": 6250
+    },
+    "rowO": {
+      "kind": "title1",
+      "maxW": 1910,
+      "page": "twelve",
+      "text": "O · The original, polished",
+      "w": 240,
+      "x": 0,
+      "y": 7550
+    },
+    "finalTitle": {
+      "x": 0,
+      "y": -250,
+      "text": "Final: hero B with the group film, then the group section",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final"
+    },
+    "finalNote": {
+      "x": 4040,
+      "y": 0,
+      "w": 460,
+      "maxH": 1100,
+      "size": "m",
+      "fill": "yellow",
+      "page": "final",
+      "text": "The final page, my picks\n\n1. Hero: B, the Earth at night with the light flows. The group film plays in the picture where the flows meet, so HCIG and its eight brands are in the image itself.\n2. Below it: the group section, the full 30 second film with a sound button and the eight brands.\n3. One switch: the sun or the moon in the header turns the whole page, hero and section together.\n4. Brand colours only: Black, Dim Gray, Turquoise, White. At night the accent words are Turquoise; by day they are Black with a Turquoise line.\n5. Phones first: the photo strip melts into the page with no seam when you switch.\n\nThe four heroes, the film boards and the twelve stay on their pages."
     }
   },
   "order": [
-    "HeroBNight.dc.html",
-    "HeroBDay.dc.html",
-    "HeroBPhoneNight.dc.html",
-    "HeroBPhoneDay.dc.html",
-    "HeroDNight.dc.html",
-    "HeroDDay.dc.html",
-    "HeroDPhoneNight.dc.html",
-    "HeroDPhoneDay.dc.html",
-    "HeroJNight.dc.html",
-    "HeroJDay.dc.html",
-    "HeroJPhoneNight.dc.html",
-    "HeroJPhoneDay.dc.html",
-    "HeroONight.dc.html",
-    "HeroODay.dc.html",
-    "HeroOPhoneNight.dc.html",
-    "HeroOPhoneDay.dc.html",
     "HeroA.dc.html",
     "HeroAPhone.dc.html",
     "HeroB.dc.html",
@@ -709,249 +992,49 @@
     "GroupFilm.dc.html",
     "GroupFilmDay.dc.html",
     "GroupFilmPhoneNight.dc.html",
-    "GroupFilmPhoneDay.dc.html"
+    "GroupFilmPhoneDay.dc.html",
+    "HeroBNight.dc.html",
+    "HeroBDay.dc.html",
+    "HeroBPhoneNight.dc.html",
+    "HeroBPhoneDay.dc.html",
+    "HeroDNight.dc.html",
+    "HeroDDay.dc.html",
+    "HeroDPhoneNight.dc.html",
+    "HeroDPhoneDay.dc.html",
+    "HeroJNight.dc.html",
+    "HeroJDay.dc.html",
+    "HeroJPhoneNight.dc.html",
+    "HeroJPhoneDay.dc.html",
+    "HeroONight.dc.html",
+    "HeroODay.dc.html",
+    "HeroOPhoneNight.dc.html",
+    "HeroOPhoneDay.dc.html",
+    "FinalNight.dc.html",
+    "FinalDay.dc.html",
+    "FinalPhoneNight.dc.html",
+    "FinalPhoneDay.dc.html"
   ],
-  "notes": {
-    "fourB": {
-      "x": 0,
-      "y": -250,
-      "text": "B · Night Network",
-      "kind": "title1",
-      "maxW": 3900,
-      "page": "four"
+  "pages": [
+    {
+      "id": "final",
+      "name": "Final: hero and group film"
     },
-    "fourD": {
-      "x": 0,
-      "y": 1250,
-      "text": "D · Boardroom",
-      "kind": "title1",
-      "maxW": 3900,
-      "page": "four"
+    {
+      "id": "film",
+      "name": "Group film (new)"
     },
-    "fourJ": {
-      "x": 0,
-      "y": 2750,
-      "text": "J · Marble Noir",
-      "kind": "title1",
-      "maxW": 3900,
-      "page": "four"
+    {
+      "id": "brand",
+      "name": "HCIG in the picture, B and D"
     },
-    "fourO": {
-      "x": 0,
-      "y": 4250,
-      "text": "O · The original, polished",
-      "kind": "title1",
-      "maxW": 3900,
-      "page": "four"
+    {
+      "id": "four",
+      "name": "Four heroes, night and day"
     },
-    "fourNote": {
-      "x": 4040,
-      "y": 0,
-      "w": 460,
-      "maxH": 900,
-      "size": "m",
-      "fill": "yellow",
-      "page": "four",
-      "text": "Four heroes, night and day\n\n1. Press the sun or the moon in the header of any board (best in Play). Day comes in from the east with a soft light line and a sun flare; words and logo change halfway.\n2. B: the drawn routes are gone. Light now runs along the flows that are in the photo itself, toward Egypt.\n3. D and J: the same photos by day (made in your Gemini). J's HC mark turns from white to black.\n4. O is today's healthcareig.com hero, polished: the same order (partner banner, the doctors, the turquoise line, the lead as the headline, Talk to our team), with the real logo and mark, seals on plates, motion, night and day. Day is its starting look, as on the live site.\n5. Fonts: Helma at the weight the live site shows it, Inter for text. Turquoise #12C0C6.\n6. Become a Partner sits beside Talk to our team on all four.\n7. Phones rebuilt phone-first: the photo is a band at the top that melts into the page, the words below it, both buttons on the first screen down to 360 px wide.\n8. HCIG in the picture (your picks): B the large faint HC mark in space, D the HC mark etched in the boardroom glass. The other options stay on the first page."
-    },
-    "rowA": {
-      "x": 0,
-      "y": -250,
-      "text": "A · Red Sea Panorama",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowB": {
-      "x": 0,
-      "y": 1050,
-      "text": "B · Night Network",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowC": {
-      "x": 0,
-      "y": 2350,
-      "text": "C · Private Lounge",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowD": {
-      "x": 0,
-      "y": 3650,
-      "text": "D · Boardroom",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowE": {
-      "x": 0,
-      "y": 4950,
-      "text": "E · Medical Jet",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowF": {
-      "x": 0,
-      "y": 6250,
-      "text": "F · Infinity Pool",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowG": {
-      "x": 2240,
-      "y": -250,
-      "text": "G · Real Proof Mosaic",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowH": {
-      "x": 2240,
-      "y": 1050,
-      "text": "H · Coordination Centre",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowI": {
-      "x": 2240,
-      "y": 2350,
-      "text": "I · Clinic Suite",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowJ": {
-      "x": 2240,
-      "y": 3650,
-      "text": "J · Marble Noir",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowK": {
-      "x": 2240,
-      "y": 4950,
-      "text": "K · Blue Hour",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowL": {
-      "x": 2240,
-      "y": 6250,
-      "text": "L · Two Worlds",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "rowO": {
-      "x": 0,
-      "y": 7550,
-      "text": "O · The original, polished",
-      "kind": "title1",
-      "maxW": 1910,
-      "page": "twelve"
-    },
-    "open": {
-      "x": 4400,
-      "y": 0,
-      "w": 440,
-      "maxH": 760,
-      "size": "m",
-      "fill": "yellow",
-      "page": "twelve",
-      "text": "The twelve heroes as first shown, kept for reference. His pick: B, D, J and the original, on the first page with night and day."
-    },
-    "brand0": {
-      "x": 0,
-      "y": -250,
-      "text": "B · 1 The HC mark as a beacon where the flows meet over Egypt",
-      "kind": "title1",
-      "maxW": 3430,
-      "page": "brand"
-    },
-    "brand1": {
-      "x": 0,
-      "y": 1250,
-      "text": "B · 2 The HC mark drawn as a network of points on the Earth",
-      "kind": "title1",
-      "maxW": 3430,
-      "page": "brand"
-    },
-    "brand2": {
-      "x": 0,
-      "y": 2750,
-      "text": "B · 3 A large faint HC mark in space, like the original",
-      "kind": "title1",
-      "maxW": 3430,
-      "page": "brand"
-    },
-    "brand3": {
-      "x": 0,
-      "y": 4250,
-      "text": "D · 1 The HCIG logo etched into the boardroom glass",
-      "kind": "title1",
-      "maxW": 3430,
-      "page": "brand"
-    },
-    "brand4": {
-      "x": 0,
-      "y": 5750,
-      "text": "D · 2 The HC mark etched into the boardroom glass",
-      "kind": "title1",
-      "maxW": 3430,
-      "page": "brand"
-    },
-    "brand5": {
-      "x": 0,
-      "y": 7250,
-      "text": "D · 3 A large faint HC mark over the window",
-      "kind": "title1",
-      "maxW": 3430,
-      "page": "brand"
-    },
-    "brandNote": {
-      "x": 3560,
-      "y": 0,
-      "w": 460,
-      "maxH": 900,
-      "size": "m",
-      "fill": "yellow",
-      "page": "brand",
-      "text": "HCIG in the picture, B and D\n\nYour ask: show who we are in the image itself, like the original and J.\n\nB 1 Beacon: the HC mark sits where the flows meet, over Egypt, and pulses.\nB 2 Network: the HC mark drawn as points and links on the Earth, drawing itself in.\nB 3 Watermark: a large faint HC mark in space, like the original.\n\nD 1 The full HCIG logo etched into the boardroom window.\nD 2 The HC mark alone, etched larger in the window.\nD 3 A large faint HC mark over the window.\n\nReal logo files only, never redrawn. Each works by night and by day (press the sun). Pick one per hero, or say mix."
-    },
-    "filmHero": {
-      "x": 0,
-      "y": -250,
-      "text": "Hero B with the group film, looping in the picture",
-      "kind": "title1",
-      "maxW": 3900,
-      "page": "film"
-    },
-    "filmGroup": {
-      "x": 0,
-      "y": 1190,
-      "text": "Group section: the full film, with sound",
-      "kind": "title1",
-      "maxW": 3900,
-      "page": "film"
-    },
-    "filmNote": {
-      "x": 4040,
-      "y": 0,
-      "w": 460,
-      "maxH": 900,
-      "size": "m",
-      "fill": "yellow",
-      "page": "film",
-      "text": "The group film, new boards\n\n1. Hero B with the film: a copy of B where the 30 second film loops in the picture, on the right where the flows meet. B and its watermark stay on the other pages as they were.\n2. Group section: the full film, with a sound button, and the eight brands under it. On phones the tall cut fills the width.\n\nPress Play on a board to see the film move. Nothing on the other pages was changed."
+    {
+      "id": "twelve",
+      "name": "All twelve heroes"
     }
-  },
-  "designSystems": []
+  ],
+  "title": "HCIG v3 Hero"
 }
