@@ -7,6 +7,8 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { about } from "./about.part.mjs";
+import { mission } from "./mission.part.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT = join(HERE, "..", "heroes", "project");
@@ -77,88 +79,16 @@ ${vals}
 </html>
 `;
 
-// ---------- 3 · About: "the record, then the proof" ----------
-const tick = () => `<span class="ab-tick" aria-hidden="true">✔</span>`;
-const aboutCss = `${TOKENS("ab", "ab")}
-.ab-in{max-width:1440px;margin:0 auto;padding:136px var(--gutter) 120px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-areas:"copy media" "stats stats";column-gap:clamp(40px,6cqi,104px);row-gap:88px}
-.ab-copy{grid-area:copy;display:flex;flex-direction:column;gap:22px;max-width:660px}
-.ab-h{margin:0 0 6px;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:58px;line-height:1.05;letter-spacing:-.01em;text-wrap:balance}
-.ab-lead{margin:0;font-size:22px;line-height:1.45;font-weight:600;color:var(--ink);text-wrap:pretty}
-.ab-p{margin:0;font-size:17px;line-height:1.72;color:var(--ink2);text-wrap:pretty;transition:color 1s var(--sweep-ease) 1s}
-.ab-list{list-style:none;margin:2px 0 4px;padding:0;display:grid;gap:14px}
-.ab-list li{display:flex;gap:14px;align-items:flex-start;font-size:17px;line-height:1.5;font-weight:500;color:var(--ink)}
-/* the live site's tick: a Turquoise check mark, popping in after its line */
-.ab-tick{flex:none;width:22px;font-size:17px;line-height:1.5;color:var(--accent);text-align:center}
-.ab.arm .ab-tick{opacity:0;transform:scale(.4)}
-.ab.in .ab-tick{opacity:1;transform:none;transition:opacity .5s var(--ease) .35s,transform .7s cubic-bezier(.34,1.56,.64,1) .35s}
-.ab-say{margin:10px 0 0;padding-top:26px;border-top:1px solid var(--line);font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:34px;line-height:1.2;letter-spacing:-.005em;transition:border-color 1s var(--sweep-ease) 1s}
-.ab-say .acc{color:var(--accent)}
-/* the photo: a collage on a white ground, so at night it sits in a light frame like a print */
-.ab-media{grid-area:media;align-self:start;margin-top:8px}
-.ab-frame{position:relative;aspect-ratio:4/5;border-radius:26px;overflow:hidden;background:#FFFFFF;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 50px 120px -50px rgba(18,192,198,.55);transition:box-shadow 1.3s var(--sweep-ease) .9s,clip-path 1.5s var(--ease)}
-.ab.light .ab-frame{box-shadow:0 0 0 1px #DDDDDF,0 40px 90px -60px rgba(0,0,0,.35)}
-.ab-par{position:absolute;inset:-5% 0;will-change:transform}
-.ab-par img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.8s var(--ease)}
-.ab.arm .ab-frame{clip-path:inset(14% 0 0 0 round 26px)}.ab.in .ab-frame{clip-path:inset(0 0 0 0 round 26px)}
-.ab.arm .ab-par img{transform:scale(1.08)}.ab.in .ab-par img{transform:none}
-@supports (animation-timeline:view()){.ab-par{animation:abPar linear both;animation-timeline:view();animation-range:cover}@keyframes abPar{from{transform:translateY(-4%)}to{transform:translateY(4%)}}}
-/* the proof: three numbers under a line that draws */
-.ab-stats{grid-area:stats;position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);transition:border-color 1s var(--sweep-ease) 1s}
-.ab-stats:before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:var(--accent);transform-origin:left;transform:scaleX(.18)}
-.ab.arm .ab-stats:before{transform:scaleX(0)}.ab.in .ab-stats:before{transform:scaleX(.18);transition:transform 1.4s var(--ease) .2s}
-.ab-stat{display:flex;flex-direction:column;gap:12px;padding:40px 32px 0 0;min-width:0}
-.ab-stat+.ab-stat{padding-left:40px;border-left:1px solid var(--line);transition:border-color 1s var(--sweep-ease) 1s}
-.ab-num{font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:96px;line-height:.95;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
-.ab-num .plus{color:var(--accent)}
-.ab-lab{font-size:13px;line-height:1.4;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);transition:color 1s var(--sweep-ease) 1s}
-/* phone first */
-@container ab (max-width:820px){
-  .ab-in{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "stats" "media";padding:76px var(--gutter) 72px;row-gap:48px}
-  .ab-h{font-size:34px;line-height:1.1}
-  .ab-lead{font-size:19px}
-  .ab-p,.ab-list li{font-size:16px}
-  .ab-say{font-size:26px;padding-top:20px}
-  /* phone: the three numbers stack, each big number with its label beside it */
-  .ab-stats{grid-template-columns:minmax(0,1fr)}
-  .ab-stat{flex-direction:row;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}
-  .ab-stat+.ab-stat{padding-left:0;border-left:0;border-top:1px solid var(--line)}
-  .ab-num{font-size:52px}
-  .ab-num{flex:none}.ab-lab{font-size:12px;letter-spacing:.1em;text-align:right;min-width:0}
-  .ab-media{margin-top:0}
-}
-@container ab (max-width:370px){.ab-num{font-size:46px}.ab-h{font-size:31px}}
-${REVEAL("ab")}
-@media (prefers-reduced-motion:reduce){.ab-tick{opacity:1!important;transform:none!important}.ab-frame{clip-path:none!important}.ab-par{animation:none!important}.ab-stats:before{transform:scaleX(.18)!important}}`;
-const aboutBody = `<section class="ab {{cls}}" ref="{{rootRef}}" aria-labelledby="ab-h"><div class="ab-in">
-<div class="ab-copy">
-<h2 class="ab-h rv" id="ab-h">Healthcare International Group</h2>
-<p class="ab-lead rv" style="--d:80">With over 40 years of experience, Healthcare International Group (HCIG) is built to manage the full patient journey across international healthcare markets.</p>
-<p class="ab-p rv" style="--d:160">Rather than operating as a traditional healthcare provider, HCIG brings structure to a system that is often fragmented connecting urgent care, hospital treatment, and international medical coordination within one clear model.</p>
-<p class="ab-p rv" style="--d:220">Our ecosystem spans on-site medical services in hotels and resorts, advanced hospital care, and direct coordination with insurance and assistance partners.</p>
-<p class="ab-p rv" style="--d:280">This approach allows us to ensure:</p>
-<ul class="ab-list">
-<li class="rv" style="--d:340">${tick(340)}<span>faster access to care</span></li>
-<li class="rv" style="--d:440">${tick(440)}<span>clear responsibility across the case</span></li>
-<li class="rv" style="--d:540">${tick(540)}<span>seamless patient management from first contact to resolution</span></li>
-</ul>
-<p class="ab-p rv" style="--d:620">Operating across multiple markets, HCIG supports international patients, insurers, and global partners with structured, reliable, and scalable healthcare solutions.</p>
-<p class="ab-say rv" style="--d:700">We don’t just provide healthcare <span class="acc">we manage it.</span></p>
-</div>
-<figure class="ab-media rv" style="--d:200;margin-left:0;margin-right:0;margin-bottom:0"><div class="ab-frame"><div class="ab-par"><img src="${B["about"]}" alt="HCIG medical tourism in Egypt"></div></div></figure>
-<div class="ab-stats" role="list">
-<div class="ab-stat rv" role="listitem" style="--d:120"><span class="ab-num">{{n1}}<span class="plus">+</span></span><span class="ab-lab">Years of Experience</span></div>
-<div class="ab-stat rv" role="listitem" style="--d:220"><span class="ab-num">{{n2}}<span class="plus">+</span></span><span class="ab-lab">Patients Served</span></div>
-<div class="ab-stat rv" role="listitem" style="--d:320"><span class="ab-num">{{n3}}<span class="plus">+</span></span><span class="ab-lab">Medical Professionals</span></div>
-</div>
-</div></section>`;
-const aboutVals = `    const p = s.p === undefined ? 1 : s.p;
-    return {
-      rootRef,
-      cls: theme + (s.arm ? ' arm' : '') + (s.inv ? ' in' : ''),
-      n1: String(Math.round(40 * p)), n2: Math.round(600 * p) + 'K', n3: String(Math.round(350 * p)),
-    };`;
-writeFileSync(join(OUT, "Sec03About.dc.html"), page("HCIG home, 3 About", aboutCss, aboutBody,
-  { theme: { editor: "enum", options: ["dark", "light"], default: "dark", section: "Section" }, $preview: { width: 1440, height: 1350 } }, aboutVals));
+// rows of the page, in the live order; heights measured at 1440 and 390 (see the work log)
+const H = { hero: 900, heroPh: { B: 1000, D: 1050, J: 860, O: 990, BFilm: 1050 }, about: 1610, aboutPh: 1750, group: 1225, groupPh: 1290, mission: 1300, missionPh: 1380 };
+
+// ---------- 3 · About (about.part.mjs) ----------
+const AB = about({ B, TOKENS, REVEAL });
+const MV = mission({ B, TOKENS, REVEAL });
+writeFileSync(join(OUT, "Sec05Mission.dc.html"), page("HCIG home, 5 Mission and vision", MV.css, MV.body,
+  { theme: { editor: "enum", options: ["dark", "light"], default: "dark", section: "Section" }, $preview: { width: 1440, height: H.mission } }, MV.vals));
+writeFileSync(join(OUT, "Sec03About.dc.html"), page("HCIG home, 3 About", AB.css, AB.body,
+  { theme: { editor: "enum", options: ["dark", "light"], default: "dark", section: "Section" }, $preview: { width: 1440, height: H.about } }, AB.vals));
 
 // ---------- wrappers ----------
 const wrap = (comp, file, title, w, h, theme, extra = "") => writeFileSync(join(OUT, file), `<!doctype html>
@@ -185,7 +115,6 @@ class Component extends DCLogic {
 `);
 
 // rows of the page, in the live order; heights measured at 1440 and 390 (see the work log)
-const H = { hero: 900, heroPh: { B: 1000, D: 1050, J: 860, O: 990, BFilm: 1050 }, about: 1350, aboutPh: 1980, group: 1225, groupPh: 1240 };
 const rows = [];
 const HEROES = [["B", "HeroB", "Hero B · Night Network"], ["D", "HeroD", "Hero D · Boardroom"], ["J", "HeroJ", "Hero J · Marble Noir"], ["O", "HeroO", "Hero O · the original, polished"], ["BFilm", "HeroBFilm", "Hero B with the group film"]];
 for (const [id, comp, label] of HEROES) {
@@ -194,7 +123,7 @@ for (const [id, comp, label] of HEROES) {
   wrap(comp, `${f}Day.dc.html`, `HCIG home, ${label}, day`, 1440, H.hero, "light");
   wrap(comp, `${f}PhoneNight.dc.html`, `HCIG home, ${label}, phone, night`, 390, H.heroPh[id], "dark");
   wrap(comp, `${f}PhoneDay.dc.html`, `HCIG home, ${label}, phone, day`, 390, H.heroPh[id], "light");
-  rows.push({ title: `2 · ${label} (hero not chosen yet)`, short: `2 ${label.replace("Hero ", "Hero ")}`, f, h: H.hero, ph: H.heroPh[id] });
+  rows.push({ title: id === "BFilm" ? `2 · ${label} (his pick)` : `2 · ${label} (other option, kept)`, short: `2 ${label.replace("Hero ", "Hero ")}`, f, h: H.hero, ph: H.heroPh[id] });
 }
 wrap("Sec03About", "Home3AboutNight.dc.html", "HCIG home, 3 About, night", 1440, H.about, "dark");
 wrap("Sec03About", "Home3AboutDay.dc.html", "HCIG home, 3 About, day", 1440, H.about, "light");
@@ -205,7 +134,12 @@ wrap("GroupFilm", "Home4GroupNight.dc.html", "HCIG home, 4 group, night", 1440, 
 wrap("GroupFilm", "Home4GroupDay.dc.html", "HCIG home, 4 group, day", 1440, H.group, "light");
 wrap("GroupFilm", "Home4GroupPhoneNight.dc.html", "HCIG home, 4 group, phone, night", 390, H.groupPh, "dark");
 wrap("GroupFilm", "Home4GroupPhoneDay.dc.html", "HCIG home, 4 group, phone, day", 390, H.groupPh, "light");
-rows.push({ title: "4 · Our Premises and Facilities: the group film (next: the 8 brand cards and the live heading)", short: "4 Our Premises and Facilities", f: "Home4Group", h: H.group, ph: H.groupPh });
+rows.push({ title: "4 · Our Premises and Facilities (approved; hover a company to see its logo)", short: "4 Our Premises and Facilities", f: "Home4Group", h: H.group, ph: H.groupPh });
+wrap("Sec05Mission", "Home5MissionNight.dc.html", "HCIG home, 5 Mission and vision, night", 1440, H.mission, "dark");
+wrap("Sec05Mission", "Home5MissionDay.dc.html", "HCIG home, 5 Mission and vision, day", 1440, H.mission, "light");
+wrap("Sec05Mission", "Home5MissionPhoneNight.dc.html", "HCIG home, 5 Mission and vision, phone, night", 390, H.missionPh, "dark");
+wrap("Sec05Mission", "Home5MissionPhoneDay.dc.html", "HCIG home, 5 Mission and vision, phone, day", 390, H.missionPh, "light");
+rows.push({ title: "5 · Our mission and our vision", short: "5 Mission and vision", f: "Home5Mission", h: H.mission, ph: H.missionPh });
 
 // ---------- the canvas index: the page "Home, every section", everything else kept exactly ----------
 const src = process.argv[2] || join(OUT, "canvas.json");
@@ -225,11 +159,11 @@ rows.forEach((r, i) => {
   c.notes[`home${i}`] = { x: 0, y: y - 250, text: r.title, kind: "title1", maxW: 3900, page: PAGE };
   y += Math.max(r.h, r.ph) + 120 + 250;
 });
-c.notes.homeNote = { x: 4040, y: 0, w: 460, maxH: 1200, size: "m", fill: "yellow", page: PAGE, text: "Home, every section\n\nThe home in the live order, one row per section, each its own boards: night, day, phone night, phone day.\n\n2 Hero: B, D, J, O and B with the group film. Not chosen yet; all stay.\n3 About: new. Heading Healthcare International Group (your pick). Every word is the live text.\n4 Our Premises and Facilities: the group film now; the 8 brand cards come next.\n\nPress Play on a board to see the motion: lines draw, ticks draw, numbers count up, the photo opens." };
+c.notes.homeNote = { x: 4040, y: 0, w: 460, maxH: 1300, size: "m", fill: "yellow", page: PAGE, text: "Home, every section\n\nThe home in the live order, one row per section: night, day, phone night, phone day. Every word is the live text.\n\n2 Hero: your pick is B with the group film. The other four stay as kept options.\n3 About: redesigned for reading: the record, the three numbers early, the photo beside the model, the three points as tiles, the statement to close.\n4 Our Premises and Facilities: approved. Hover a company to see its logo; on phones each name carries its logo.\n5 Our mission and our vision: new.\n\nWhen every section is done they merge into the final website.\nPress Play on a board to see the motion." };
 c.notes.homeOpen = { x: 4040, y: 1400, w: 460, maxH: 700, size: "m", fill: "orange", page: PAGE, text: "Open items from the live site\n\n1. The About heading is blank on the live site (a script breaks). Your pick: Healthcare International Group.\n2. The two closing buttons, Become a Partner and Request a Consultation, point nowhere.\n3. The insurer band shows 100% with an empty second line.\n4. The live footer reads 2026 Healthcare International Group. All Rights Reserved. without a ©." };
 // the section components themselves: every .dc.html shows on the canvas, so they get their own page (edit there, every board follows)
 c.pages = c.pages.filter((p) => p.id !== "parts"); c.pages.push({ id: "parts", name: "Parts (section components)" });
-const PARTS = [["Sec03About.dc.html", 1440, H.about, "3 · About, the component"]];
+const PARTS = [["Sec03About.dc.html", 1440, H.about, "3 · About, the component"], ["Sec05Mission.dc.html", 1440, H.mission, "5 · Mission and vision, the component"]];
 PARTS.forEach(([file, w, h, title], i) => { c.boards[file] = { x: 0, y: i * (h + 370), w, h, title, is_interactive: true, page: "parts" }; if (!c.order.includes(file)) c.order.push(file); });
 writeFileSync(join(OUT, "canvas.json"), JSON.stringify(c, null, 2));
 console.log("home page:", rows.length, "rows,", Object.values(c.boards).filter((b) => b.page === PAGE).length, "boards; pages", c.pages.map((p) => p.id).join(","));

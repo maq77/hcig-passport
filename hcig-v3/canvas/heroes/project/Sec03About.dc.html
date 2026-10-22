@@ -17,83 +17,99 @@ body{margin:0}
   transition:background-color 1.3s var(--sweep-ease) .9s,color 1s var(--sweep-ease) 1s}
 .ab.light{--ink:#000000;--ink2:#565759;--muted:#565759;--line:#DDDDDF;--paper:#FFFFFF}
 .ab *{box-sizing:border-box}
-.ab-in{max-width:1440px;margin:0 auto;padding:136px var(--gutter) 120px;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-areas:"copy media" "stats stats";column-gap:clamp(40px,6cqi,104px);row-gap:88px}
-.ab-copy{grid-area:copy;display:flex;flex-direction:column;gap:22px;max-width:660px}
-.ab-h{margin:0 0 6px;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:58px;line-height:1.05;letter-spacing:-.01em;text-wrap:balance}
-.ab-lead{margin:0;font-size:22px;line-height:1.45;font-weight:600;color:var(--ink);text-wrap:pretty}
-.ab-p{margin:0;font-size:17px;line-height:1.72;color:var(--ink2);text-wrap:pretty;transition:color 1s var(--sweep-ease) 1s}
-.ab-list{list-style:none;margin:2px 0 4px;padding:0;display:grid;gap:14px}
-.ab-list li{display:flex;gap:14px;align-items:flex-start;font-size:17px;line-height:1.5;font-weight:500;color:var(--ink)}
-/* the live site's tick: a Turquoise check mark, popping in after its line */
-.ab-tick{flex:none;width:22px;font-size:17px;line-height:1.5;color:var(--accent);text-align:center}
-.ab.arm .ab-tick{opacity:0;transform:scale(.4)}
-.ab.in .ab-tick{opacity:1;transform:none;transition:opacity .5s var(--ease) .35s,transform .7s cubic-bezier(.34,1.56,.64,1) .35s}
-.ab-say{margin:10px 0 0;padding-top:26px;border-top:1px solid var(--line);font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:34px;line-height:1.2;letter-spacing:-.005em;transition:border-color 1s var(--sweep-ease) 1s}
-.ab-say .acc{color:var(--accent)}
-/* the photo: a collage on a white ground, so at night it sits in a light frame like a print */
-.ab-media{grid-area:media;align-self:start;margin-top:8px}
-.ab-frame{position:relative;aspect-ratio:4/5;border-radius:26px;overflow:hidden;background:#FFFFFF;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 50px 120px -50px rgba(18,192,198,.55);transition:box-shadow 1.3s var(--sweep-ease) .9s,clip-path 1.5s var(--ease)}
-.ab.light .ab-frame{box-shadow:0 0 0 1px #DDDDDF,0 40px 90px -60px rgba(0,0,0,.35)}
-.ab-par{position:absolute;inset:-5% 0;will-change:transform}
-.ab-par img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.8s var(--ease)}
-.ab.arm .ab-frame{clip-path:inset(14% 0 0 0 round 26px)}.ab.in .ab-frame{clip-path:inset(0 0 0 0 round 26px)}
-.ab.arm .ab-par img{transform:scale(1.08)}.ab.in .ab-par img{transform:none}
-@supports (animation-timeline:view()){.ab-par{animation:abPar linear both;animation-timeline:view();animation-range:cover}@keyframes abPar{from{transform:translateY(-4%)}to{transform:translateY(4%)}}}
-/* the proof: three numbers under a line that draws */
-.ab-stats{grid-area:stats;position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);transition:border-color 1s var(--sweep-ease) 1s}
-.ab-stats:before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:var(--accent);transform-origin:left;transform:scaleX(.18)}
-.ab.arm .ab-stats:before{transform:scaleX(0)}.ab.in .ab-stats:before{transform:scaleX(.18);transition:transform 1.4s var(--ease) .2s}
-.ab-stat{display:flex;flex-direction:column;gap:12px;padding:40px 32px 0 0;min-width:0}
-.ab-stat+.ab-stat{padding-left:40px;border-left:1px solid var(--line);transition:border-color 1s var(--sweep-ease) 1s}
-.ab-num{font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:96px;line-height:.95;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ab-in{max-width:1440px;margin:0 auto;padding:128px var(--gutter) 120px;display:flex;flex-direction:column;gap:72px}
+/* 1 the record: heading left, the lead right */
+.ab-top{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6cqi,96px);align-items:end}
+.ab-h{margin:0;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:64px;line-height:1.02;letter-spacing:-.015em;text-wrap:balance}
+.ab-lead{margin:0;font-size:22px;line-height:1.5;font-weight:600;color:var(--ink);text-wrap:pretty;max-width:46ch}
+/* 2 the proof, early: three numbers under a line that draws across */
+.ab-stats{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);transition:border-color 1s var(--sweep-ease) 1s}
+.ab-stats:before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;background:var(--accent);transform-origin:left}
+.ab.arm .ab-stats:before{transform:scaleX(0)}.ab.in .ab-stats:before{transform:scaleX(1);transition:transform 1.9s var(--ease) .25s}
+.ab-stat{display:flex;flex-direction:column;gap:14px;padding:44px 36px 42px;min-width:0}
+.ab-stat:first-child{padding-left:0}
+.ab-stat+.ab-stat{border-left:1px solid var(--line);transition:border-color 1s var(--sweep-ease) 1s}
+.ab-num{font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:92px;line-height:.95;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
 .ab-num .plus{color:var(--accent)}
 .ab-lab{font-size:13px;line-height:1.4;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted);transition:color 1s var(--sweep-ease) 1s}
+/* 3 the model: the photo beside the story, the three points as tiles */
+.ab-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5cqi,80px);align-items:start}
+.ab-media{margin:0;position:sticky;top:24px}
+.ab-frame{position:relative;aspect-ratio:4/5;border-radius:26px;overflow:hidden;background:#FFFFFF;box-shadow:0 0 0 1px #333333,0 50px 120px -50px rgba(18,192,198,.45);transition:box-shadow 1.3s var(--sweep-ease) .9s,clip-path 1.5s var(--ease)}
+.ab.light .ab-frame{box-shadow:0 0 0 1px #DDDDDF,0 40px 90px -60px rgba(0,0,0,.35)}
+.ab-par{position:absolute;inset:-5% 0}
+.ab-par img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.8s var(--ease)}
+.ab.arm .ab-frame{clip-path:inset(12% 0 0 0 round 26px)}.ab.in .ab-frame{clip-path:inset(0 0 0 0 round 26px)}
+.ab.arm .ab-par img{transform:scale(1.08)}.ab.in .ab-par img{transform:none}
+@supports (animation-timeline:view()){.ab-par{animation:abPar linear both;animation-timeline:view();animation-range:cover}@keyframes abPar{from{transform:translateY(-4%)}to{transform:translateY(4%)}}}
+.ab-story{display:flex;flex-direction:column;gap:24px;min-width:0}
+.ab-big{margin:0;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:32px;line-height:1.28;letter-spacing:-.005em;text-wrap:pretty}
+.ab-p{margin:0;font-size:17px;line-height:1.72;color:var(--ink2);text-wrap:pretty;max-width:62ch;transition:color 1s var(--sweep-ease) 1s}
+.ab-k{margin:12px 0 0;font-size:13px;line-height:1.4;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.ab-ensure{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ab-ensure li{display:flex;flex-direction:column;gap:18px;padding:24px 22px 26px;border:1px solid var(--line);border-radius:20px;font-size:17px;line-height:1.45;font-weight:600;color:var(--ink);transition:border-color .4s var(--ease),transform .4s var(--ease),color 1s var(--sweep-ease) 1s}
+.ab-ensure li:hover{border-color:var(--accent);transform:translateY(-3px)}
+.ab-tick{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--accent);color:var(--accent);font-size:17px;line-height:1}
+.ab.arm .ab-tick{opacity:0;transform:scale(.4)}
+.ab.in .ab-tick{opacity:1;transform:none;transition:opacity .5s var(--ease) calc(var(--d) * 1ms + 300ms),transform .7s cubic-bezier(.34,1.56,.64,1) calc(var(--d) * 1ms + 300ms)}
+/* 4 the close: the reach, then the statement */
+.ab-close{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5cqi,80px);align-items:end;padding-top:48px;border-top:1px solid var(--line);transition:border-color 1s var(--sweep-ease) 1s}
+.ab-say{margin:0;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:52px;line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
+.ab-say .acc{color:var(--accent)}
 /* phone first */
-@container ab (max-width:820px){
-  .ab-in{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "stats" "media";padding:76px var(--gutter) 72px;row-gap:48px}
-  .ab-h{font-size:34px;line-height:1.1}
-  .ab-lead{font-size:19px}
-  .ab-p,.ab-list li{font-size:16px}
-  .ab-say{font-size:26px;padding-top:20px}
-  /* phone: the three numbers stack, each big number with its label beside it */
-  .ab-stats{grid-template-columns:minmax(0,1fr)}
-  .ab-stat{flex-direction:row;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}
-  .ab-stat+.ab-stat{padding-left:0;border-left:0;border-top:1px solid var(--line)}
-  .ab-num{font-size:52px}
-  .ab-num{flex:none}.ab-lab{font-size:12px;letter-spacing:.1em;text-align:right;min-width:0}
-  .ab-media{margin-top:0}
+@container ab (max-width:900px){
+  .ab-in{padding:76px var(--gutter) 72px;gap:40px}
+  .ab-top,.ab-grid,.ab-close{grid-template-columns:minmax(0,1fr);gap:20px}
+  .ab-h{font-size:36px;line-height:1.08}
+  .ab-lead{font-size:18px}
+  .ab-stat{padding:22px 10px 20px;gap:8px}
+  .ab-stat:first-child{padding-left:0}.ab-stat:last-child{padding-right:0}
+  .ab-num{font-size:31px}
+  .ab-lab{font-size:13px;letter-spacing:0;text-transform:none;line-height:1.3}
+  .ab-media{position:static}
+  .ab-frame{aspect-ratio:4/3}
+  .ab-par img{object-position:50% 22%}
+  .ab-big{font-size:21px;line-height:1.32}
+  .ab-p{font-size:16px}
+  .ab-ensure{grid-template-columns:minmax(0,1fr);gap:10px}
+  .ab-ensure li{flex-direction:row;align-items:center;gap:16px;padding:16px 18px;font-size:16px}
+  .ab-tick{flex:none;width:36px;height:36px;font-size:15px}
+  .ab-close{padding-top:28px;gap:18px}
+  .ab-say{font-size:31px}
 }
-@container ab (max-width:370px){.ab-num{font-size:46px}.ab-h{font-size:31px}}
+@container ab (max-width:370px){.ab-num{font-size:28px}.ab-h{font-size:32px}.ab-say{font-size:28px}}
 .ab.arm .rv{opacity:0;transform:translateY(22px)}
 .ab.in .rv{opacity:1;transform:none;transition:opacity .9s var(--ease) calc(var(--d,0) * 1ms),transform 1.1s var(--ease) calc(var(--d,0) * 1ms)}
 @media (prefers-reduced-motion:reduce){.ab .rv{opacity:1!important;transform:none!important;transition:none!important}}
-@media (prefers-reduced-motion:reduce){.ab-tick{opacity:1!important;transform:none!important}.ab-frame{clip-path:none!important}.ab-par{animation:none!important}.ab-stats:before{transform:scaleX(.18)!important}}
+@media (prefers-reduced-motion:reduce){.ab-tick{opacity:1!important;transform:none!important}.ab-frame{clip-path:none!important}.ab-par{animation:none!important}.ab-stats:before{transform:scaleX(1)!important}.ab-ensure li:hover{transform:none}}
 </style>
 </helmet>
 <section class="ab {{cls}}" ref="{{rootRef}}" aria-labelledby="ab-h"><div class="ab-in">
-<div class="ab-copy">
+<div class="ab-top">
 <h2 class="ab-h rv" id="ab-h">Healthcare International Group</h2>
-<p class="ab-lead rv" style="--d:80">With over 40 years of experience, Healthcare International Group (HCIG) is built to manage the full patient journey across international healthcare markets.</p>
-<p class="ab-p rv" style="--d:160">Rather than operating as a traditional healthcare provider, HCIG brings structure to a system that is often fragmented connecting urgent care, hospital treatment, and international medical coordination within one clear model.</p>
-<p class="ab-p rv" style="--d:220">Our ecosystem spans on-site medical services in hotels and resorts, advanced hospital care, and direct coordination with insurance and assistance partners.</p>
-<p class="ab-p rv" style="--d:280">This approach allows us to ensure:</p>
-<ul class="ab-list">
-<li class="rv" style="--d:340"><span class="ab-tick" aria-hidden="true">✔</span><span>faster access to care</span></li>
-<li class="rv" style="--d:440"><span class="ab-tick" aria-hidden="true">✔</span><span>clear responsibility across the case</span></li>
-<li class="rv" style="--d:540"><span class="ab-tick" aria-hidden="true">✔</span><span>seamless patient management from first contact to resolution</span></li>
-</ul>
-<p class="ab-p rv" style="--d:620">Operating across multiple markets, HCIG supports international patients, insurers, and global partners with structured, reliable, and scalable healthcare solutions.</p>
-<p class="ab-say rv" style="--d:700">We don’t just provide healthcare <span class="acc">we manage it.</span></p>
+<p class="ab-lead rv" style="--d:100">With over 40 years of experience, Healthcare International Group (HCIG) is built to manage the full patient journey across international healthcare markets.</p>
 </div>
-<figure class="ab-media rv" style="--d:200;margin-left:0;margin-right:0;margin-bottom:0"><div class="ab-frame"><div class="ab-par"><img src="/_blob/f3a25ac8fafb7ba5345ee1f57b2a2bf5" alt="HCIG medical tourism in Egypt"></div></div></figure>
 <div class="ab-stats" role="list">
 <div class="ab-stat rv" role="listitem" style="--d:120"><span class="ab-num">{{n1}}<span class="plus">+</span></span><span class="ab-lab">Years of Experience</span></div>
 <div class="ab-stat rv" role="listitem" style="--d:220"><span class="ab-num">{{n2}}<span class="plus">+</span></span><span class="ab-lab">Patients Served</span></div>
 <div class="ab-stat rv" role="listitem" style="--d:320"><span class="ab-num">{{n3}}<span class="plus">+</span></span><span class="ab-lab">Medical Professionals</span></div>
 </div>
+<div class="ab-grid">
+<figure class="ab-media rv" style="--d:120"><div class="ab-frame"><div class="ab-par"><img src="/_blob/f3a25ac8fafb7ba5345ee1f57b2a2bf5" alt="HCIG medical tourism in Egypt"></div></div></figure>
+<div class="ab-story">
+<p class="ab-big rv" style="--d:160">Rather than operating as a traditional healthcare provider, HCIG brings structure to a system that is often fragmented connecting urgent care, hospital treatment, and international medical coordination within one clear model.</p>
+<p class="ab-p rv" style="--d:240">Our ecosystem spans on-site medical services in hotels and resorts, advanced hospital care, and direct coordination with insurance and assistance partners.</p>
+<p class="ab-k rv" style="--d:300">This approach allows us to ensure:</p>
+<ul class="ab-ensure"><li class="rv" style="--d:360"><span class="ab-tick" aria-hidden="true">✔</span><span>faster access to care</span></li><li class="rv" style="--d:460"><span class="ab-tick" aria-hidden="true">✔</span><span>clear responsibility across the case</span></li><li class="rv" style="--d:560"><span class="ab-tick" aria-hidden="true">✔</span><span>seamless patient management from first contact to resolution</span></li></ul>
+</div>
+</div>
+<div class="ab-close">
+<p class="ab-p rv" style="--d:100">Operating across multiple markets, HCIG supports international patients, insurers, and global partners with structured, reliable, and scalable healthcare solutions.</p>
+<p class="ab-say rv" style="--d:200">We don’t just provide healthcare <span class="acc">we manage it.</span></p>
+</div>
 </div></section>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Section"},"$preview":{"width":1440,"height":1350}}'>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Section"},"$preview":{"width":1440,"height":1610}}'>
 class Component extends DCLogic {
   componentDidMount() {
     const el = this.root;

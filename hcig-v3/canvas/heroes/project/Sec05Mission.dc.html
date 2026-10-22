@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HCIG home, 5 Mission and vision</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+@font-face{font-family:'Helma';src:url('/_blob/dd74c2cb45ea68cbd798ea38d33c7729') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+body{margin:0}
+.mv{--accent:#12C0C6;--ink:#FFFFFF;--ink2:#DDDDDF;--muted:#BBBCBE;--line:#333333;--paper:#000000;--serif:'Helma',Georgia,'Times New Roman',serif;--sans:'Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;--gutter:clamp(20px,5cqi,80px);--ease:cubic-bezier(.16,1,.3,1);--sweep-ease:cubic-bezier(.45,.05,.35,1);
+  container-type:inline-size;container-name:mv;background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;font-synthesis:none;
+  transition:background-color 1.3s var(--sweep-ease) .9s,color 1s var(--sweep-ease) 1s}
+.mv.light{--ink:#000000;--ink2:#565759;--muted:#565759;--line:#DDDDDF;--paper:#FFFFFF}
+.mv *{box-sizing:border-box}
+.mv-in{max-width:1440px;margin:0 auto;padding:128px var(--gutter) 128px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(40px,6cqi,104px);align-items:start}
+.mv-media{margin:0;position:sticky;top:24px}
+.mv-frame{position:relative;aspect-ratio:4/5;border-radius:26px;overflow:hidden;box-shadow:0 0 0 1px #333333,0 50px 120px -50px rgba(18,192,198,.5);transition:box-shadow 1.3s var(--sweep-ease) .9s,clip-path 1.5s var(--ease)}
+.mv.light .mv-frame{box-shadow:0 0 0 1px #DDDDDF,0 40px 90px -60px rgba(0,0,0,.35)}
+.mv-par{position:absolute;inset:-6% 0}
+.mv-par img{display:block;width:100%;height:100%;object-fit:cover;object-position:52% 50%;transition:transform 1.8s var(--ease)}
+.mv.arm .mv-frame{clip-path:inset(0 0 14% 0 round 26px)}.mv.in .mv-frame{clip-path:inset(0 0 0 0 round 26px)}
+.mv.arm .mv-par img{transform:scale(1.1)}.mv.in .mv-par img{transform:none}
+@supports (animation-timeline:view()){.mv-par{animation:mvPar linear both;animation-timeline:view();animation-range:cover}@keyframes mvPar{from{transform:translateY(-5%)}to{transform:translateY(5%)}}}
+.mv-copy{display:flex;flex-direction:column;gap:0;min-width:0}
+.mv-h{margin:0 0 28px;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:60px;line-height:1.02;letter-spacing:-.015em}
+.mv-h .acc{color:var(--accent)}
+/* the mission: three promises, each under a line that draws */
+.mv-list{list-style:none;margin:0;padding:0;display:grid}
+.mv-list li{position:relative;padding:26px 0 26px 0;border-top:1px solid var(--line);font-size:20px;line-height:1.55;color:var(--ink);text-wrap:pretty;transition:border-color 1s var(--sweep-ease) 1s,color 1s var(--sweep-ease) 1s}
+.mv-list li:last-child{border-bottom:1px solid var(--line)}
+.mv-list li:before{content:"";position:absolute;left:0;top:-1px;width:72px;height:1px;background:var(--accent);transform-origin:left}
+.mv.arm .mv-list li:before{transform:scaleX(0)}.mv.in .mv-list li:before{transform:scaleX(1);transition:transform 1s var(--ease) calc(var(--d) * 1ms + 250ms)}
+/* the vision: its first sentence as the large line */
+.mv-vision{margin-top:88px}
+.mv-big{margin:0 0 22px;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:38px;line-height:1.22;letter-spacing:-.005em;text-wrap:pretty}
+.mv-p{margin:0;font-size:18px;line-height:1.7;color:var(--ink2);max-width:60ch;text-wrap:pretty;transition:color 1s var(--sweep-ease) 1s}
+.mv-cta{margin-top:44px}
+.btn{white-space:nowrap;display:inline-flex;align-items:center;gap:12px;min-height:56px;padding:0 30px;border-radius:999px;background:var(--accent);color:#000000;font:600 15px/1 var(--sans);text-decoration:none;border:1px solid var(--accent);position:relative;overflow:hidden;transition:transform .25s var(--ease),box-shadow .35s}
+.btn:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease)}
+.btn:hover{transform:translateY(-1px);box-shadow:0 16px 36px -14px rgba(18,192,198,.8)}.btn:hover:after{transform:translateX(120%)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.btn svg{flex:none}
+/* phone first: the photo as a band on top, then the promises, the button full width */
+@container mv (max-width:900px){
+  .mv-in{grid-template-columns:minmax(0,1fr);padding:0 0 72px;gap:0}
+  .mv-media{position:static}
+  .mv-frame{aspect-ratio:16/11;border-radius:0;box-shadow:none}
+  .mv.light .mv-frame{box-shadow:none}
+  .mv.arm .mv-frame{clip-path:inset(0 0 14% 0)}.mv.in .mv-frame{clip-path:inset(0)}
+  .mv-copy{padding:44px var(--gutter) 0}
+  .mv-h{font-size:38px;margin-bottom:18px}
+  .mv-list li{font-size:17px;padding:20px 0}
+  .mv-vision{margin-top:56px}
+  .mv-big{font-size:26px}
+  .mv-p{font-size:16px}
+  .mv-cta{margin-top:34px}
+  .btn{width:100%;justify-content:center;min-height:54px}
+}
+@container mv (max-width:370px){.mv-h{font-size:34px}.mv-big{font-size:24px}}
+.mv.arm .rv{opacity:0;transform:translateY(22px)}
+.mv.in .rv{opacity:1;transform:none;transition:opacity .9s var(--ease) calc(var(--d,0) * 1ms),transform 1.1s var(--ease) calc(var(--d,0) * 1ms)}
+@media (prefers-reduced-motion:reduce){.mv .rv{opacity:1!important;transform:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){.mv-frame{clip-path:none!important}.mv-par{animation:none!important}.mv-list li:before{transform:scaleX(1)!important}}
+</style>
+</helmet>
+<section class="mv {{cls}}" ref="{{rootRef}}" aria-label="Our mission and our vision"><div class="mv-in">
+<figure class="mv-media rv"><div class="mv-frame"><div class="mv-par"><img src="/_blob/6e3d7836321d9c94d997944020c211f6" alt="HCIG medical tourism in Egypt"></div></div></figure>
+<div class="mv-copy">
+<h2 class="mv-h rv">Our <span class="acc">mission</span></h2>
+<ul class="mv-list">
+<li class="rv" style="--d:100">To build and scale a healthcare ecosystem that redefines how patient care is accessed, managed, and delivered across international markets.</li>
+<li class="rv" style="--d:220">To take full responsibility for the patient journey ensuring speed, clarity, and control from the first point of contact to resolution.</li>
+<li class="rv" style="--d:340">To lead the transformation of healthcare by working with insurers, providers, and global partners to eliminate fragmentation and establish a more efficient, transparent, and globally connected model of care.</li>
+</ul>
+<div class="mv-vision">
+<h2 class="mv-h rv">Our <span class="acc">vision</span></h2>
+<p class="mv-big rv" style="--d:100">To define the future of global healthcare by setting a new standard for how medical services are delivered across borders.</p>
+<p class="mv-p rv" style="--d:200">We envision a world where healthcare is no longer fragmented or reactive, but structured, predictable, and seamlessly embedded into global travel, hospitality, and everyday life.</p>
+</div>
+<div class="mv-cta rv" style="--d:120"><a href="mailto:partner@healthcareig.com" class="btn">Talk to our team<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></a></div>
+</div>
+</div></section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["dark","light"],"default":"dark","section":"Section"},"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    const el = this.root;
+    if (!el || !('IntersectionObserver' in window) || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    this.setState({ arm: true, p: 0 });
+    this.io = new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting)) return;
+      this.io.disconnect();
+      this.setState({ inv: true });
+      this.t = setTimeout(() => this.count(), 450);
+    }, { threshold: 0.18 });
+    this.io.observe(el);
+  }
+  count() {
+    const t0 = performance.now(), D = 1700;
+    const step = (t) => { const k = Math.min(1, (t - t0) / D); this.setState({ p: 1 - Math.pow(1 - k, 3) }); if (k < 1) this.raf = requestAnimationFrame(step); };
+    this.raf = requestAnimationFrame(step);
+  }
+  componentWillUnmount() { if (this.io) this.io.disconnect(); clearTimeout(this.t); cancelAnimationFrame(this.raf); }
+  renderVals() {
+    const s = this.state || {};
+    const theme = this.props.theme === 'light' ? 'light' : 'dark';
+    const rootRef = this.rootRef || (this.rootRef = (el) => { this.root = el; });
+    return { rootRef, cls: theme + (s.arm ? ' arm' : '') + (s.inv ? ' in' : '') };
+  }
+}
+</script>
+</body>
+</html>

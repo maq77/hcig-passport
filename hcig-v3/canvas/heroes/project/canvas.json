@@ -654,7 +654,7 @@
       "x": 0,
       "y": 0,
       "w": 1440,
-      "h": 1350,
+      "h": 1610,
       "title": "3 · About, the component",
       "is_interactive": true,
       "page": "parts"
@@ -843,7 +843,7 @@
       "x": 0,
       "y": 6840,
       "w": 1440,
-      "h": 1350,
+      "h": 1610,
       "title": "3 About · night",
       "is_interactive": true,
       "page": "home"
@@ -852,7 +852,7 @@
       "x": 1520,
       "y": 6840,
       "w": 1440,
-      "h": 1350,
+      "h": 1610,
       "title": "3 About · day",
       "is_interactive": true,
       "page": "home"
@@ -861,7 +861,7 @@
       "x": 3040,
       "y": 6840,
       "w": 390,
-      "h": 1980,
+      "h": 1750,
       "title": "3 About · phone night",
       "is_interactive": true,
       "page": "home"
@@ -870,14 +870,14 @@
       "x": 3510,
       "y": 6840,
       "w": 390,
-      "h": 1980,
+      "h": 1750,
       "title": "3 About · phone day",
       "is_interactive": true,
       "page": "home"
     },
     "Home4GroupNight.dc.html": {
       "x": 0,
-      "y": 9190,
+      "y": 8960,
       "w": 1440,
       "h": 1225,
       "title": "4 Our Premises and Facilities · night",
@@ -886,7 +886,7 @@
     },
     "Home4GroupDay.dc.html": {
       "x": 1520,
-      "y": 9190,
+      "y": 8960,
       "w": 1440,
       "h": 1225,
       "title": "4 Our Premises and Facilities · day",
@@ -895,21 +895,66 @@
     },
     "Home4GroupPhoneNight.dc.html": {
       "x": 3040,
-      "y": 9190,
+      "y": 8960,
       "w": 390,
-      "h": 1240,
+      "h": 1290,
       "title": "4 Our Premises and Facilities · phone night",
       "is_interactive": true,
       "page": "home"
     },
     "Home4GroupPhoneDay.dc.html": {
       "x": 3510,
-      "y": 9190,
+      "y": 8960,
       "w": 390,
-      "h": 1240,
+      "h": 1290,
       "title": "4 Our Premises and Facilities · phone day",
       "is_interactive": true,
       "page": "home"
+    },
+    "Home5MissionNight.dc.html": {
+      "x": 0,
+      "y": 10620,
+      "w": 1440,
+      "h": 1300,
+      "title": "5 Mission and vision · night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home5MissionDay.dc.html": {
+      "x": 1520,
+      "y": 10620,
+      "w": 1440,
+      "h": 1300,
+      "title": "5 Mission and vision · day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home5MissionPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 10620,
+      "w": 390,
+      "h": 1380,
+      "title": "5 Mission and vision · phone night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home5MissionPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 10620,
+      "w": 390,
+      "h": 1380,
+      "title": "5 Mission and vision · phone day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Sec05Mission.dc.html": {
+      "x": 0,
+      "y": 1670,
+      "w": 1440,
+      "h": 1300,
+      "title": "5 · Mission and vision, the component",
+      "is_interactive": true,
+      "page": "parts"
     }
   },
   "createdOnFiles": {
@@ -1203,7 +1248,7 @@
     "home0": {
       "x": 0,
       "y": -250,
-      "text": "2 · Hero B · Night Network (hero not chosen yet)",
+      "text": "2 · Hero B · Night Network (other option, kept)",
       "kind": "title1",
       "maxW": 3900,
       "page": "home"
@@ -1211,7 +1256,7 @@
     "home1": {
       "x": 0,
       "y": 1120,
-      "text": "2 · Hero D · Boardroom (hero not chosen yet)",
+      "text": "2 · Hero D · Boardroom (other option, kept)",
       "kind": "title1",
       "maxW": 3900,
       "page": "home"
@@ -1219,7 +1264,7 @@
     "home2": {
       "x": 0,
       "y": 2540,
-      "text": "2 · Hero J · Marble Noir (hero not chosen yet)",
+      "text": "2 · Hero J · Marble Noir (other option, kept)",
       "kind": "title1",
       "maxW": 3900,
       "page": "home"
@@ -1227,7 +1272,7 @@
     "home3": {
       "x": 0,
       "y": 3810,
-      "text": "2 · Hero O · the original, polished (hero not chosen yet)",
+      "text": "2 · Hero O · the original, polished (other option, kept)",
       "kind": "title1",
       "maxW": 3900,
       "page": "home"
@@ -1235,7 +1280,7 @@
     "home4": {
       "x": 0,
       "y": 5170,
-      "text": "2 · Hero B with the group film (hero not chosen yet)",
+      "text": "2 · Hero B with the group film (his pick)",
       "kind": "title1",
       "maxW": 3900,
       "page": "home"
@@ -1250,8 +1295,16 @@
     },
     "home6": {
       "x": 0,
-      "y": 8940,
-      "text": "4 · Our Premises and Facilities: the group film (next: the 8 brand cards and the live heading)",
+      "y": 8710,
+      "text": "4 · Our Premises and Facilities (approved; hover a company to see its logo)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home"
+    },
+    "home7": {
+      "x": 0,
+      "y": 10370,
+      "text": "5 · Our mission and our vision",
       "kind": "title1",
       "maxW": 3900,
       "page": "home"
@@ -1260,11 +1313,11 @@
       "x": 4040,
       "y": 0,
       "w": 460,
-      "maxH": 1200,
+      "maxH": 1300,
       "size": "m",
       "fill": "yellow",
       "page": "home",
-      "text": "Home, every section\n\nThe home in the live order, one row per section, each its own boards: night, day, phone night, phone day.\n\n2 Hero: B, D, J, O and B with the group film. Not chosen yet; all stay.\n3 About: new. Heading Healthcare International Group (your pick). Every word is the live text.\n4 Our Premises and Facilities: the group film now; the 8 brand cards come next.\n\nPress Play on a board to see the motion: lines draw, ticks draw, numbers count up, the photo opens."
+      "text": "Home, every section\n\nThe home in the live order, one row per section: night, day, phone night, phone day. Every word is the live text.\n\n2 Hero: your pick is B with the group film. The other four stay as kept options.\n3 About: redesigned for reading: the record, the three numbers early, the photo beside the model, the three points as tiles, the statement to close.\n4 Our Premises and Facilities: approved. Hover a company to see its logo; on phones each name carries its logo.\n5 Our mission and our vision: new.\n\nWhen every section is done they merge into the final website.\nPress Play on a board to see the motion."
     },
     "homeOpen": {
       "x": 4040,
@@ -1378,7 +1431,12 @@
     "Home4GroupNight.dc.html",
     "Home4GroupDay.dc.html",
     "Home4GroupPhoneNight.dc.html",
-    "Home4GroupPhoneDay.dc.html"
+    "Home4GroupPhoneDay.dc.html",
+    "Home5MissionNight.dc.html",
+    "Home5MissionDay.dc.html",
+    "Home5MissionPhoneNight.dc.html",
+    "Home5MissionPhoneDay.dc.html",
+    "Sec05Mission.dc.html"
   ],
   "pages": [
     {
