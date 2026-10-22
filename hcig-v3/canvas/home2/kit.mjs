@@ -105,7 +105,7 @@ ${vals}
 </body>
 </html>
 `;
-export const THEME_PROP = (h) => ({ theme: { editor: "enum", options: ["dark", "light"], default: "dark", section: "Section" }, $preview: { width: 1440, height: h } });
+export const THEME_PROP = (h) => ({ theme: { editor: "enum", options: ["light", "dark"], default: "light", section: "Section" }, $preview: { width: 1440, height: h } });
 
 // thin board wrapper around a component, night or day, desktop or phone
 export const wrap = (OUT, comp, file, title, w, h, theme) => writeFileSync(join(OUT, file), `<!doctype html>

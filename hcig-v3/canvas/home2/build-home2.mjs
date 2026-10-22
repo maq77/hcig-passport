@@ -61,10 +61,11 @@ let y = 0;
 rows.forEach((r, i) => {
   const short = r.title.replace(" · ", " ").replace(/ \(.*\)$/, "");
   const add = (file, b) => { c.boards[file] = { ...b, is_interactive: true, page: PAGE }; c.order.push(file); };
-  add(`${r.f}Night.dc.html`, { x: 0, y, w: 1440, h: r.h, title: `${short} · night` });
-  add(`${r.f}Day.dc.html`, { x: 1520, y, w: 1440, h: r.h, title: `${short} · day` });
-  add(`${r.f}PhoneNight.dc.html`, { x: 3040, y, w: 390, h: r.ph, title: `${short} · phone night` });
-  add(`${r.f}PhoneDay.dc.html`, { x: 3510, y, w: 390, h: r.ph, title: `${short} · phone day` });
+  // day is the default theme (his note 2026-10-22): day boards first
+  add(`${r.f}Day.dc.html`, { x: 0, y, w: 1440, h: r.h, title: `${short} · day` });
+  add(`${r.f}Night.dc.html`, { x: 1520, y, w: 1440, h: r.h, title: `${short} · night` });
+  add(`${r.f}PhoneDay.dc.html`, { x: 3040, y, w: 390, h: r.ph, title: `${short} · phone day` });
+  add(`${r.f}PhoneNight.dc.html`, { x: 3510, y, w: 390, h: r.ph, title: `${short} · phone night` });
   c.notes[`h2row${i}`] = { x: 0, y: y - 250, text: r.title, kind: "title1", maxW: 3900, page: PAGE };
   y += Math.max(r.h, r.ph) + 120 + 250;
 });

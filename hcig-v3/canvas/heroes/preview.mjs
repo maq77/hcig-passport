@@ -31,7 +31,7 @@ for (const [f, theme, outName, mk] of jobs) {
   s = s.replace(/<helmet>[\s\S]*?<\/helmet>/, "").replace('<script src="./support.js"></script>', helmet);
   s = s.replace(/<script type="text\/x-dc"[\s\S]*?<\/script>/, "").replace(/<\/?x-dc>/g, "");
   s = s.replace(/<sc-if value="\{\{[^}]*\}\}" hint-placeholder-val="\{\{ (true|false) \}\}">([\s\S]*?)<\/sc-if>/g, (m, v, inner) => (v === "true" ? inner : ""));
-  s = s.replace(/ onClick="\{\{[^}]*\}\}"/g, "").replace(/\{\{shade\}\}/g, shade).replace(/\{\{themeCls\}\}/g, theme).replace(/\{\{cls\}\}/g, theme).replace(/\{\{n1\}\}/g, "40").replace(/\{\{n2\}\}/g, "600K").replace(/\{\{n3\}\}/g, "350").replace(/\{\{n4\}\}/g, "135").replace(/\{\{l1\}\}/g, "Years of experience").replace(/\{\{l2\}\}/g, "Patients served").replace(/\{\{l3\}\}/g, "Medical professionals").replace(/\{\{l4\}\}/g, "On-site clinics across Egypt").replace(/\{\{modeCls\}\}/g, "mode-section").replace(/\{\{[^}]*\}\}/g, "");
+  s = s.replace(/ onClick="\{\{[^}]*\}\}"/g, "").replace(/\{\{shade\}\}/g, shade).replace(/\{\{themeCls\}\}/g, theme).replace(/\{\{cls\}\}/g, theme).replace(/\{\{n1\}\}/g, "40").replace(/\{\{n2\}\}/g, "600K").replace(/\{\{n3\}\}/g, "350").replace(/\{\{n4\}\}/g, "135").replace(/\{\{c0\}\}/g, "sel").replace(/\{\{l1\}\}/g, "Years of experience").replace(/\{\{l2\}\}/g, "Patients served").replace(/\{\{l3\}\}/g, "Medical professionals").replace(/\{\{l4\}\}/g, "On-site clinics across Egypt").replace(/\{\{modeCls\}\}/g, "mode-section").replace(/\{\{[^}]*\}\}/g, "");
   s = s.replace(/\/_blob\/[0-9a-f]{32}/g, (m) => local[m] || m);
   writeFileSync(join(OUT, outName), s);
   console.log(outName, "unresolved:", (s.match(/\{\{|<sc-if|\/_blob\//g) || []).length);
