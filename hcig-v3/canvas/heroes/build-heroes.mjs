@@ -64,7 +64,7 @@ const cue = () => `<a href="#" class="cue" aria-label="Scroll down"><span class=
 
 // ---------- base CSS ----------
 const BASE = `
-.hero{--accent:#12C0C6;--ink:#000000;--ink2:#565759;--muted:#565759;--paper:#FFFFFF;--line:#DDDDDF;--acc-text:#000000;--serif:'Helma','Bodoni Moda',Didot,Georgia,serif;--sans:'Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;--gutter:clamp(20px,5cqi,80px);--ease:cubic-bezier(.16,1,.3,1);
+.hero{--accent:#12C0C6;--ink:#000000;--ink2:#565759;--muted:#565759;--paper:#FFFFFF;--line:#DDDDDF;--acc-text:#12C0C6;--serif:'Helma','Bodoni Moda',Didot,Georgia,serif;--sans:'Inter',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;--gutter:clamp(20px,5cqi,80px);--ease:cubic-bezier(.16,1,.3,1);
   container-type:inline-size;container-name:hero;font-family:var(--sans);line-height:1.65;-webkit-font-smoothing:antialiased;font-synthesis:none;background:var(--paper);color:var(--ink)}
 .in{position:relative;overflow:hidden;font-size:17px;min-height:900px;display:flex;flex-direction:column}
 .hero *{box-sizing:border-box}.hero img{display:block;max-width:100%}.hero a{color:inherit;text-decoration:none}
@@ -94,10 +94,6 @@ const BASE = `
 .h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
 .h1 .w>span{display:inline-block;transform:translateY(105%);animation:rise 1.1s var(--ease) forwards;animation-delay:calc(var(--i) * 70ms + 250ms)}
 .h1 .acc{color:var(--acc-text)}
-/* day: the accent words are Black with a brand Turquoise line under them; the line bridges the spaces between them */
-.hero .h1 .w.acc{background:linear-gradient(#12C0C6,#12C0C6) no-repeat 0 calc(100% - .02em)/0% .09em;padding-right:.27em;margin-right:-.27em}
-.hero .h1 .w.acc:last-child{padding-right:0;margin-right:0}
-.hero.light .h1 .w.acc{background-size:100% .09em}
 .sub{margin:0;font-size:20px;line-height:1.45;font-weight:500;color:var(--ink);max-width:40ch}
 .lead{margin:0;font-size:17px;line-height:1.65;color:var(--ink2);max-width:58ch}
 .f{opacity:0;transform:translateY(18px);animation:fadeup 1s var(--ease) forwards;animation-delay:var(--d,0ms)}
@@ -414,9 +410,9 @@ const shadesFx = (dark, light) => `<div class="shades"><div class="th-d"><div st
 // Night and day, shared by the four. The sweep 2.4 s; words and logo change at its middle.
 const THEME_CSS = `
 .hero{--sweep:2.4s;--sweep-ease:cubic-bezier(.45,.05,.35,1);transition:background-color 1.3s var(--sweep-ease) .9s}
-.hero.light{--ink:#000000;--ink2:#565759;--muted:#565759;--line:#DDDDDF;--acc-text:#000000;background:#FFFFFF}
+.hero.light{--ink:#000000;--ink2:#565759;--muted:#565759;--line:#DDDDDF;--acc-text:#12C0C6;background:#FFFFFF}
 .h1,.sub,.lead,.seals p,.hd-nav a,.btn2,.lang-btn,.theme-btn,.menu-btn,.soc a,.o-cred,.o-tag,.o-kicker{transition:color 1s var(--sweep-ease) 1s,border-color 1s var(--sweep-ease) 1s,background-color .3s}
-.h1 .acc{transition:color 1s var(--sweep-ease) 1s,background-size .9s var(--sweep-ease) 1.3s}
+.h1 .acc{transition:color 1s var(--sweep-ease) 1s}
 /* the day photo is revealed by a soft terminator travelling from the east (right) to the west */
 @property --dawn{syntax:'<percentage>';inherits:false;initial-value:-12%}
 .bg .th-l{position:absolute;inset:0;--dawn:-12%;-webkit-mask-image:linear-gradient(-72deg,#000 calc(var(--dawn) - 10%),transparent calc(var(--dawn) + 10%));mask-image:linear-gradient(-72deg,#000 calc(var(--dawn) - 10%),transparent calc(var(--dawn) + 10%));transition:--dawn var(--sweep) var(--sweep-ease)}
@@ -560,7 +556,7 @@ ${header("dark")}
 .o-cred{margin:0;font-size:16px;line-height:1.5;font-weight:600;color:var(--ink)}.o-tag{margin:4px 0 0;font-size:14px;color:var(--muted)}
 .o-copy{margin:auto 0;max-width:720px;gap:20px;padding:40px 0}
 .o-kicker{margin:0;font-size:22px;line-height:1.45;font-weight:500;color:var(--accent);max-width:34ch}
-.hero.light .o-kicker{color:#000000;text-decoration:underline;text-decoration-color:#12C0C6;text-decoration-thickness:2px;text-underline-offset:6px}
+.hero.light .o-kicker{color:var(--accent)}
 .o-h1{font-size:46px;line-height:1.16}
 .o-h1 .w>span{animation-delay:calc(var(--i) * 45ms + 500ms)}
 .o-safe{display:flex;align-items:center;gap:8px;margin:0;font-size:13px;color:var(--muted)}.o-safe svg{color:var(--accent)}
