@@ -649,6 +649,267 @@
       "title": "Final · phone day",
       "is_interactive": true,
       "page": "final"
+    },
+    "Sec03About.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1350,
+      "title": "3 · About, the component",
+      "is_interactive": true,
+      "page": "parts"
+    },
+    "Home2BNight.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "2 Hero B · Night Network · night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2BDay.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "2 Hero B · Night Network · day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2BPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 390,
+      "h": 1000,
+      "title": "2 Hero B · Night Network · phone night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2BPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 0,
+      "w": 390,
+      "h": 1000,
+      "title": "2 Hero B · Night Network · phone day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2DNight.dc.html": {
+      "x": 0,
+      "y": 1370,
+      "w": 1440,
+      "h": 900,
+      "title": "2 Hero D · Boardroom · night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2DDay.dc.html": {
+      "x": 1520,
+      "y": 1370,
+      "w": 1440,
+      "h": 900,
+      "title": "2 Hero D · Boardroom · day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2DPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 1370,
+      "w": 390,
+      "h": 1050,
+      "title": "2 Hero D · Boardroom · phone night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2DPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 1370,
+      "w": 390,
+      "h": 1050,
+      "title": "2 Hero D · Boardroom · phone day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2JNight.dc.html": {
+      "x": 0,
+      "y": 2790,
+      "w": 1440,
+      "h": 900,
+      "title": "2 Hero J · Marble Noir · night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2JDay.dc.html": {
+      "x": 1520,
+      "y": 2790,
+      "w": 1440,
+      "h": 900,
+      "title": "2 Hero J · Marble Noir · day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2JPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 2790,
+      "w": 390,
+      "h": 860,
+      "title": "2 Hero J · Marble Noir · phone night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2JPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 2790,
+      "w": 390,
+      "h": 860,
+      "title": "2 Hero J · Marble Noir · phone day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2ONight.dc.html": {
+      "x": 0,
+      "y": 4060,
+      "w": 1440,
+      "h": 900,
+      "title": "2 Hero O · the original, polished · night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2ODay.dc.html": {
+      "x": 1520,
+      "y": 4060,
+      "w": 1440,
+      "h": 900,
+      "title": "2 Hero O · the original, polished · day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2OPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 4060,
+      "w": 390,
+      "h": 990,
+      "title": "2 Hero O · the original, polished · phone night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2OPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 4060,
+      "w": 390,
+      "h": 990,
+      "title": "2 Hero O · the original, polished · phone day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2BFilmNight.dc.html": {
+      "x": 0,
+      "y": 5420,
+      "w": 1440,
+      "h": 900,
+      "title": "2 Hero B with the group film · night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2BFilmDay.dc.html": {
+      "x": 1520,
+      "y": 5420,
+      "w": 1440,
+      "h": 900,
+      "title": "2 Hero B with the group film · day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2BFilmPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 5420,
+      "w": 390,
+      "h": 1050,
+      "title": "2 Hero B with the group film · phone night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home2BFilmPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 5420,
+      "w": 390,
+      "h": 1050,
+      "title": "2 Hero B with the group film · phone day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home3AboutNight.dc.html": {
+      "x": 0,
+      "y": 6840,
+      "w": 1440,
+      "h": 1350,
+      "title": "3 About · night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home3AboutDay.dc.html": {
+      "x": 1520,
+      "y": 6840,
+      "w": 1440,
+      "h": 1350,
+      "title": "3 About · day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home3AboutPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 6840,
+      "w": 390,
+      "h": 1980,
+      "title": "3 About · phone night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home3AboutPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 6840,
+      "w": 390,
+      "h": 1980,
+      "title": "3 About · phone day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home4GroupNight.dc.html": {
+      "x": 0,
+      "y": 9190,
+      "w": 1440,
+      "h": 1225,
+      "title": "4 Our Premises and Facilities · night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home4GroupDay.dc.html": {
+      "x": 1520,
+      "y": 9190,
+      "w": 1440,
+      "h": 1225,
+      "title": "4 Our Premises and Facilities · day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home4GroupPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 9190,
+      "w": 390,
+      "h": 1240,
+      "title": "4 Our Premises and Facilities · phone night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home4GroupPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 9190,
+      "w": 390,
+      "h": 1240,
+      "title": "4 Our Premises and Facilities · phone day",
+      "is_interactive": true,
+      "page": "home"
     }
   },
   "createdOnFiles": {
@@ -658,7 +919,7 @@
   "designSystems": [],
   "launch": {
     "view": "canvas",
-    "page": "final"
+    "page": "home"
   },
   "notes": {
     "brand0": {
@@ -938,6 +1199,82 @@
       "fill": "yellow",
       "page": "final",
       "text": "The final page, my picks\n\n1. Hero: B, the Earth at night with the light flows. The group film plays in the picture where the flows meet, so HCIG and its eight brands are in the image itself.\n2. Below it: the group section, the full 30 second film with a sound button and the eight brands.\n3. One switch: the sun or the moon in the header turns the whole page, hero and section together.\n4. Brand colours only: Black, Dim Gray, Turquoise, White. At night the accent words are Turquoise; by day they are Black with a Turquoise line.\n5. Phones first: the photo strip melts into the page with no seam when you switch.\n\nThe four heroes, the film boards and the twelve stay on their pages."
+    },
+    "home0": {
+      "x": 0,
+      "y": -250,
+      "text": "2 · Hero B · Night Network (hero not chosen yet)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home"
+    },
+    "home1": {
+      "x": 0,
+      "y": 1120,
+      "text": "2 · Hero D · Boardroom (hero not chosen yet)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home"
+    },
+    "home2": {
+      "x": 0,
+      "y": 2540,
+      "text": "2 · Hero J · Marble Noir (hero not chosen yet)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home"
+    },
+    "home3": {
+      "x": 0,
+      "y": 3810,
+      "text": "2 · Hero O · the original, polished (hero not chosen yet)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home"
+    },
+    "home4": {
+      "x": 0,
+      "y": 5170,
+      "text": "2 · Hero B with the group film (hero not chosen yet)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home"
+    },
+    "home5": {
+      "x": 0,
+      "y": 6590,
+      "text": "3 · About: Healthcare International Group",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home"
+    },
+    "home6": {
+      "x": 0,
+      "y": 8940,
+      "text": "4 · Our Premises and Facilities: the group film (next: the 8 brand cards and the live heading)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home"
+    },
+    "homeNote": {
+      "x": 4040,
+      "y": 0,
+      "w": 460,
+      "maxH": 1200,
+      "size": "m",
+      "fill": "yellow",
+      "page": "home",
+      "text": "Home, every section\n\nThe home in the live order, one row per section, each its own boards: night, day, phone night, phone day.\n\n2 Hero: B, D, J, O and B with the group film. Not chosen yet; all stay.\n3 About: new. Heading Healthcare International Group (your pick). Every word is the live text.\n4 Our Premises and Facilities: the group film now; the 8 brand cards come next.\n\nPress Play on a board to see the motion: lines draw, ticks draw, numbers count up, the photo opens."
+    },
+    "homeOpen": {
+      "x": 4040,
+      "y": 1400,
+      "w": 460,
+      "maxH": 700,
+      "size": "m",
+      "fill": "orange",
+      "page": "home",
+      "text": "Open items from the live site\n\n1. The About heading is blank on the live site (a script breaks). Your pick: Healthcare International Group.\n2. The two closing buttons, Become a Partner and Request a Consultation, point nowhere.\n3. The insurer band shows 100% with an empty second line.\n4. The live footer reads 2026 Healthcare International Group. All Rights Reserved. without a ©."
     }
   },
   "order": [
@@ -1012,9 +1349,42 @@
     "FinalNight.dc.html",
     "FinalDay.dc.html",
     "FinalPhoneNight.dc.html",
-    "FinalPhoneDay.dc.html"
+    "FinalPhoneDay.dc.html",
+    "Sec03About.dc.html",
+    "Home2BNight.dc.html",
+    "Home2BDay.dc.html",
+    "Home2BPhoneNight.dc.html",
+    "Home2BPhoneDay.dc.html",
+    "Home2DNight.dc.html",
+    "Home2DDay.dc.html",
+    "Home2DPhoneNight.dc.html",
+    "Home2DPhoneDay.dc.html",
+    "Home2JNight.dc.html",
+    "Home2JDay.dc.html",
+    "Home2JPhoneNight.dc.html",
+    "Home2JPhoneDay.dc.html",
+    "Home2ONight.dc.html",
+    "Home2ODay.dc.html",
+    "Home2OPhoneNight.dc.html",
+    "Home2OPhoneDay.dc.html",
+    "Home2BFilmNight.dc.html",
+    "Home2BFilmDay.dc.html",
+    "Home2BFilmPhoneNight.dc.html",
+    "Home2BFilmPhoneDay.dc.html",
+    "Home3AboutNight.dc.html",
+    "Home3AboutDay.dc.html",
+    "Home3AboutPhoneNight.dc.html",
+    "Home3AboutPhoneDay.dc.html",
+    "Home4GroupNight.dc.html",
+    "Home4GroupDay.dc.html",
+    "Home4GroupPhoneNight.dc.html",
+    "Home4GroupPhoneDay.dc.html"
   ],
   "pages": [
+    {
+      "id": "home",
+      "name": "Home, every section"
+    },
     {
       "id": "final",
       "name": "Final: hero and group film"
@@ -1034,6 +1404,10 @@
     {
       "id": "twelve",
       "name": "All twelve heroes"
+    },
+    {
+      "id": "parts",
+      "name": "Parts (section components)"
     }
   ],
   "title": "HCIG v3 Hero"
