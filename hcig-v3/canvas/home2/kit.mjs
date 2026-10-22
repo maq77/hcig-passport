@@ -14,13 +14,21 @@ export const TOKENS = (cls) => `.${cls}{--accent:#12C0C6;--ink:#FFFFFF;--ink2:#D
   transition:background-color 1.3s var(--sweep-ease) .9s,color 1s var(--sweep-ease) 1s}
 .${cls}.light{--ink:#000000;--ink2:#565759;--muted:#565759;--line:#DDDDDF;--paper:#FFFFFF;--card:#FFFFFF}
 .${cls} *{box-sizing:border-box}
-.${cls} .in-w{max-width:1440px;margin:0 auto;padding:128px var(--gutter)}
-.${cls} .eye{margin:0;font:600 13px/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
-.${cls} .h2{margin:0;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:64px;line-height:1.03;letter-spacing:-.015em;text-wrap:balance}
+.${cls} .in-w{max-width:1440px;margin:0 auto;padding:144px var(--gutter)}
+/* full-bleed tiles: a section can be a dark tile in day mode too; the colour change is the divider */
+.${cls}.tile-dark{--ink:#FFFFFF;--ink2:#DDDDDF;--muted:#BBBCBE;--line:#333333;--paper:#000000;--card:rgba(255,255,255,.04)}
+/* a photo tile: the picture fills the section, words sit on it in white */
+.${cls} .tile-img{position:absolute;inset:0;z-index:0;overflow:hidden}
+.${cls} .tile-img img{position:absolute;inset:-4% 0;width:100%;height:108%;object-fit:cover}
+.${cls} .tile-img:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.15) 45%,rgba(0,0,0,.7))}
+@supports (animation-timeline:view()){.${cls} .tile-img img{animation:${cls}Par linear both;animation-timeline:view();animation-range:cover}@keyframes ${cls}Par{from{transform:translateY(-3%)}to{transform:translateY(3%)}}}
+.${cls} .eye{margin:0;font:600 14px/1.2 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.${cls} .h2{margin:0;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:88px;line-height:1;letter-spacing:-.025em;text-wrap:balance}
 .${cls} .acc{color:var(--accent)}
-.${cls} .lead{margin:0;font-size:20px;line-height:1.55;color:var(--ink2);max-width:46ch;text-wrap:pretty;transition:color 1s var(--sweep-ease) 1s}
-@container ${cls} (max-width:900px){.${cls} .in-w{padding:76px var(--gutter)}.${cls} .h2{font-size:36px;line-height:1.08}.${cls} .lead{font-size:17px}}
-@container ${cls} (max-width:370px){.${cls} .h2{font-size:32px}}`;
+.${cls} .lead{margin:0;font-size:22px;line-height:1.5;color:var(--ink2);max-width:44ch;text-wrap:pretty;transition:color 1s var(--sweep-ease) 1s}
+.${cls} p,.${cls} li{font-weight:400}
+@container ${cls} (max-width:900px){.${cls} .in-w{padding:88px var(--gutter)}.${cls} .h2{font-size:44px;line-height:1.04;letter-spacing:-.02em}.${cls} .lead{font-size:18px}}
+@container ${cls} (max-width:370px){.${cls} .h2{font-size:38px}}`;
 
 // reveal on scroll from a visible resting state: nothing hides until the script arms it, so a board is complete at rest
 export const REVEAL = (cls) => `.${cls}.arm .rv{opacity:0;transform:translateY(22px)}
@@ -44,7 +52,7 @@ export const C = (cx, cy, r) => `<circle cx="${cx}" cy="${cy}" r="${r}" pathLeng
 // buttons: the hero's primary (Turquoise, Black text) and the outline secondary
 export const BUTTONS = (cls) => `.${cls} .btn{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:0 30px;border-radius:999px;background:var(--accent);color:#000000;font:600 15px/1 var(--sans);text-decoration:none;border:1px solid var(--accent);position:relative;overflow:hidden;cursor:pointer;transition:transform .25s var(--ease),box-shadow .35s}
 .${cls} .btn:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s var(--ease)}
-.${cls} .btn:hover{transform:translateY(-1px);box-shadow:0 16px 36px -14px rgba(18,192,198,.8)}.${cls} .btn:hover:after{transform:translateX(120%)}
+.${cls} .btn:hover{transform:translateY(-1px);box-shadow:0 16px 36px -14px rgba(18,192,198,.8)}.${cls} .btn:active,.${cls} .btn2:active{transform:scale(.95)}.${cls} .btn:hover:after{transform:translateX(120%)}
 .${cls} .btn2{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:56px;padding:0 30px;border-radius:999px;background:transparent;color:var(--ink);font:600 15px/1 var(--sans);text-decoration:none;border:1px solid var(--line);cursor:pointer;transition:border-color .3s,color 1s var(--sweep-ease) 1s}
 .${cls} .btn2:hover{border-color:var(--accent)}
 .${cls} .btn:focus-visible,.${cls} .btn2:focus-visible,.${cls} a:focus-visible,.${cls} button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
