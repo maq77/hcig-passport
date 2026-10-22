@@ -25,9 +25,8 @@ ${kit.ICONS(k, 52)}
 .rc-copy{display:flex;flex-direction:column;gap:18px}
 .rc-map{position:relative;aspect-ratio:${W}/${H};width:100%;margin-top:40px}
 .rc-map svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.rc-dots circle{fill:#565759;opacity:.28;transition:fill 1s var(--sweep-ease) 1s,opacity 1s}
-.rc.dark .rc-dots circle{fill:#FFFFFF;opacity:.16}
-.rc-arc{fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+.rc-dots circle{fill:#FFFFFF;opacity:.17}
+.rc-arc{fill:none;stroke:var(--accent);stroke-width:1.8;filter:drop-shadow(0 0 4px rgba(18,192,198,.8));stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
 .rc.arm .rc-arc{stroke-dashoffset:1}.rc.in .rc-arc{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(--ease) calc(var(--d) * 1ms + 600ms)}
 .rc-pin{position:absolute;width:0;height:0}
 .rc-pin i{position:absolute;left:-6px;top:-6px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(18,192,198,.18)}
@@ -39,8 +38,8 @@ ${kit.ICONS(k, 52)}
 .rc.in .rc-pin{opacity:1;transform:none;transition:opacity .5s var(--ease) calc(var(--d) * 1ms + 400ms),transform .8s cubic-bezier(.34,1.56,.64,1) calc(var(--d) * 1ms + 400ms)}
 @keyframes rcPing{0%{transform:scale(.6);opacity:.9}100%{transform:scale(2.6);opacity:0}}
 .rc-facts{list-style:none;margin:40px 0 0;padding:28px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;transition:border-color 1s var(--sweep-ease) 1s}
-.rc-fact{display:flex;align-items:center;gap:18px;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:24px;line-height:1.2}
-.rc-say{margin:96px auto 0;max-width:22ch;text-align:center;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:52px;line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
+.rc-fact{display:flex;align-items:center;gap:18px;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:28px;line-height:1.18}
+.rc-say{margin:112px auto 0;max-width:20ch;text-align:center;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:72px;letter-spacing:-.02em;line-height:1.1;letter-spacing:-.01em;text-wrap:balance}
 @container rc (max-width:900px){
   .rc-top{grid-template-columns:minmax(0,1fr);gap:14px}
   .rc-map{margin:28px calc(var(--gutter) * -1) 0;width:auto;overflow:hidden;padding-block:14px;box-sizing:content-box}
@@ -49,17 +48,17 @@ ${kit.ICONS(k, 52)}
   .rc-hurghada b{left:-40px;top:12px}.rc-dubai b{left:-34px;top:-30px}
   .rc-facts{grid-template-columns:minmax(0,1fr);gap:16px;margin-top:24px;padding-top:22px}
   .rc-fact{font-size:20px}
-  .rc-say{font-size:30px;margin-top:56px}
+  .rc-say{font-size:36px;margin-top:64px}
 }
 @container rc (max-width:370px){.rc-say{font-size:27px}}
 ${kit.REVEAL(k)}
 @media (prefers-reduced-motion:reduce){.rc-arc{stroke-dashoffset:0!important}.rc-pin{opacity:1!important;transform:none!important}.rc-pin i:after{animation:none}}`;
-  const body = `<section class="rc {{cls}}" ref="{{rootRef}}" aria-labelledby="rc-h"><div class="in-w">
+  const body = `<section class="rc tile-dark {{cls}}" ref="{{rootRef}}" aria-labelledby="rc-h"><div class="in-w">
 <div class="rc-top"><div class="rc-copy"><p class="eye rv">Global reach</p><h2 class="h2 rv" id="rc-h" style="--d:80">Built for global <span class="acc">healthcare delivery.</span></h2></div></div>
 <div class="rc-map rv" role="img" aria-label="Map: Hurghada linked to Clearwater, Barcelona, Munich and Dubai"><svg viewBox="0 0 ${W} ${H}" aria-hidden="true"><g class="rc-dots">${dots}</g>${arcs}</svg>${pins}</div>
 <ul class="rc-facts">${FACTS.map(fact).join("")}</ul>
 <p class="rc-say rv">Built to perform under pressure. <span class="acc">Structured to deliver at scale.</span></p>
 </div></section>`;
   const vals = `    return { rootRef, cls: ${kit.CLS} };`;
-  return { css, body, vals, h: 1250, ph: 1150 };
+  return { css, body, vals, h: 1420, ph: 1250 };
 };

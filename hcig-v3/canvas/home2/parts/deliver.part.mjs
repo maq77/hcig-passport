@@ -21,51 +21,50 @@ export default ({ B, kit }) => {
   const css = `${kit.TOKENS(k)}
 .dl-top{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(32px,6cqi,96px);align-items:end}
 .dl-copy{display:flex;flex-direction:column;gap:18px}
-.dl-body{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5cqi,72px);margin-top:64px;align-items:stretch}
-.dl-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line);transition:border-color 1s var(--sweep-ease) 1s}
-.dl-item{border-bottom:1px solid var(--line);transition:border-color 1s var(--sweep-ease) 1s}
-.dl-btn{position:relative;width:100%;display:flex;align-items:center;gap:20px;min-height:72px;padding:0;border:0;background:none;cursor:pointer;text-align:left;color:var(--ink2);font:inherit;transition:color .35s var(--ease)}
+/* the stage: one big picture at a time, its name large over it */
+.dl-stage{position:relative;margin-top:56px;aspect-ratio:21/9;border-radius:28px;overflow:hidden;background:#000000}
+.dl-slide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity 1s var(--ease)}
+.dl-slide.sel{opacity:1}
+.dl-slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.07);transition:transform 6.5s linear}
+.dl-slide.sel img{transform:scale(1)}
+.dl-slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.72))}
+.dl-slide figcaption{position:absolute;z-index:1;left:56px;right:56px;bottom:48px;display:grid;gap:12px;color:#FFFFFF;transform:translateY(16px);opacity:0;transition:opacity .7s var(--ease) .25s,transform .9s var(--ease) .25s}
+.dl-slide.sel figcaption{opacity:1;transform:none}
+.dl-cap-n{font:600 14px/1 var(--sans);letter-spacing:.18em;color:#12C0C6}
+.dl-slide b{font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:64px;line-height:1.02;letter-spacing:-.02em;max-width:16ch}
+.dl-slide figcaption span:last-child{font-size:21px;line-height:1.5;color:rgba(255,255,255,.86);max-width:48ch}
+/* the seven tabs under the stage */
+.dl-list{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.dl-item{min-width:0}
+.dl-btn{position:relative;width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:92px;padding:18px 4px 14px 0;border:0;border-top:1px solid var(--line);background:none;cursor:pointer;text-align:left;color:var(--ink2);font:inherit;transition:color .35s var(--ease),border-color 1s var(--sweep-ease) 1s}
 .dl-btn:hover,.dl-btn.sel{color:var(--ink)}
-.dl-n{flex:none;width:28px;font:600 13px/1 var(--sans);letter-spacing:.06em;font-variant-numeric:tabular-nums;color:var(--muted)}
+.dl-n{font:600 13px/1 var(--sans);letter-spacing:.08em;font-variant-numeric:tabular-nums;color:var(--muted)}
 .dl-btn.sel .dl-n{color:var(--accent)}
-.dl-t{font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:26px;line-height:1.2}
-.dl-bar{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);transform-origin:left;transform:scaleX(0)}
+.dl-t{font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:19px;line-height:1.2}
+.dl-bar{position:absolute;left:0;right:0;top:-1px;height:2px;background:var(--accent);transform-origin:left;transform:scaleX(0)}
 .dl-btn.sel .dl-bar{transform:scaleX(1);transition:transform 6s linear}
 .dl.held .dl-btn.sel .dl-bar{transition:transform .5s var(--ease)}
 .dl-btn:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 .dl-open{display:none}
-/* the stage: every image is there, the chosen one shows */
-.dl-stage{position:relative;min-height:560px;border-radius:28px;overflow:hidden;background:#000000;box-shadow:0 0 0 1px var(--line)}
-.dl-slide{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .9s var(--ease)}
-.dl-slide.sel{opacity:1}
-.dl-slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 6.5s linear}
-.dl-slide.sel img{transform:scale(1)}
-.dl-slide figcaption{position:absolute;left:24px;right:24px;bottom:24px;display:grid;gap:8px;padding:22px 24px;border-radius:20px;background:rgba(255,255,255,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#000000;transform:translateY(12px);opacity:0;transition:opacity .6s var(--ease) .25s,transform .8s var(--ease) .25s}
-.dl.dark .dl-slide figcaption{background:rgba(0,0,0,.72);color:#FFFFFF}
-.dl-slide.sel figcaption{opacity:1;transform:none}
-.dl-cap-n{font:600 12px/1 var(--sans);letter-spacing:.14em;color:#12C0C6}
-.dl-slide b{font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:26px;line-height:1.2}
-.dl-slide figcaption span:last-child{font-size:16px;line-height:1.5;color:inherit;opacity:.82}
 /* phone first: an accordion, the open item shows its picture and line */
 @container dl (max-width:900px){
   .dl-top{grid-template-columns:minmax(0,1fr);gap:14px}
-  .dl-body{grid-template-columns:minmax(0,1fr);margin-top:28px}
   .dl-stage{display:none}
-  .dl-btn{min-height:64px;gap:14px}
-  .dl-t{font-size:21px}
+  .dl-list{display:block;margin-top:28px;border-top:1px solid var(--line)}
+  .dl-item{border-bottom:1px solid var(--line)}
+  .dl-btn{flex-direction:row;align-items:center;gap:14px;min-height:68px;padding:0;border-top:0}
+  .dl-t{font-size:23px}
   .dl-bar{display:none}
-  .dl-open{display:grid;gap:12px;padding:0 0 22px}
-  .dl-open img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:18px}
-  .dl-open p{margin:0;font-size:16px;line-height:1.6;color:var(--ink2)}
+  .dl-open{display:grid;gap:14px;padding:0 0 24px}
+  .dl-open img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:20px}
+  .dl-open p{margin:0;font-size:17px;line-height:1.6;color:var(--ink2)}
 }
 ${kit.REVEAL(k)}
 @media (prefers-reduced-motion:reduce){.dl-slide,.dl-slide img,.dl-slide figcaption,.dl-btn.sel .dl-bar{transition:none!important}}`;
   const body = `<section class="dl {{cls}}" ref="{{rootRef}}" aria-labelledby="dl-h"><div class="in-w">
 <div class="dl-top"><div class="dl-copy"><p class="eye rv">What we deliver</p><h2 class="h2 rv" id="dl-h" style="--d:80">Care at <span class="acc">every level.</span></h2></div><p class="lead rv" style="--d:160">Delivered across multiple levels of care within one structured system.</p></div>
-<div class="dl-body">
-<ol class="dl-list rv" style="--d:120">${SV.map(item).join("")}</ol>
-<div class="dl-stage rv" style="--d:200" aria-live="polite">${stage}</div>
-</div>
+<div class="dl-stage rv" style="--d:120" aria-live="polite">${stage}</div>
+<ol class="dl-list rv" style="--d:200">${SV.map(item).join("")}</ol>
 </div></section>`;
   const vals = `    const N = ${SV.length};
     const sel = s.sel === undefined ? 0 : s.sel;
@@ -77,5 +76,5 @@ ${kit.REVEAL(k)}
     const out = { rootRef, cls: ${kit.CLS} + (s.held ? ' held' : '') };
     for (let i = 0; i < N; i++) { out['pick' + i] = this.pk[i]; out['c' + i] = i === sel ? 'sel' : ''; out['on' + i] = i === sel; out['x' + i] = i === sel ? 'true' : 'false'; }
     return out;`;
-  return { css, body, vals, h: 1100, ph: 1250 };
+  return { css, body, vals, h: 1180, ph: 1400 };
 };

@@ -10,18 +10,20 @@ export default ({ B, kit }) => {
 </li>`;
   const css = `${kit.TOKENS(k)}
 .vc-top{display:flex;flex-direction:column;gap:18px;max-width:880px}
-.vc-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5cqi,72px);align-items:center;margin-top:64px}
+.vc{text-align:center}
+.vc-top{margin:0 auto;align-items:center}
+.vc-grid{display:flex;flex-direction:column;gap:72px;margin-top:56px}
 /* the CEO quote */
-.vc-quote{position:relative;margin:0;padding:48px 44px 40px;border:1px solid var(--line);border-radius:28px;background:var(--card);transition:border-color 1s var(--sweep-ease) 1s,background-color 1.3s var(--sweep-ease) .9s}
+.vc-quote{position:relative;margin:0 auto;max-width:1040px;display:flex;flex-direction:column;align-items:center}
 .vc-mark{width:56px;height:56px;fill:none;stroke:var(--accent);stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round}
 .vc-mark path{stroke-dasharray:1;stroke-dashoffset:0}
 .vc.arm .vc-mark path{stroke-dashoffset:1}.vc.in .vc-mark path{stroke-dashoffset:0;transition:stroke-dashoffset 1.4s var(--ease) .3s}
-.vc-quote p{margin:22px 0 0;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:30px;line-height:1.3;text-wrap:pretty}
-.vc-who{display:flex;align-items:center;gap:14px;margin-top:30px;font-size:15px;color:var(--ink2)}
+.vc-quote p{margin:26px 0 0;font-family:var(--serif);font-weight:600;font-synthesis:weight;font-size:48px;line-height:1.18;letter-spacing:-.015em;text-wrap:balance}
+.vc-who{display:flex;align-items:center;gap:14px;margin-top:34px;font-size:17px;color:var(--ink2)}
 .vc-who:before{content:"";width:40px;height:1px;background:var(--accent)}
 .vc-who b{color:var(--ink);font-weight:600}
 /* three real stories */
-.vc-tiles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:14px;align-items:end}
+.vc-tiles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr 1.9fr;gap:20px;align-items:end;text-align:left}
 .vc-tile{position:relative;border-radius:22px;overflow:hidden;background:#000000;box-shadow:0 0 0 1px var(--line)}
 .vc-tall{aspect-ratio:9/16}.vc-wide{aspect-ratio:16/9;align-self:center}
 .vc-tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000000}
@@ -35,9 +37,9 @@ export default ({ B, kit }) => {
 /* phone first: the quote, then the stories as a swipeable row */
 @container vc (max-width:900px){
   .vc-grid{grid-template-columns:minmax(0,1fr);gap:28px;margin-top:32px}
-  .vc-quote{padding:32px 24px 28px}
+  .vc-grid{gap:40px}
   .vc-mark{width:44px;height:44px}
-  .vc-quote p{font-size:22px;margin-top:16px}
+  .vc-quote p{font-size:28px;margin-top:16px}
   .vc-tiles{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(var(--gutter) * -1);padding:0 var(--gutter) 6px;scrollbar-width:none}
   .vc-tiles::-webkit-scrollbar{display:none}
   .vc-tile{flex:0 0 62%;scroll-snap-align:center}
@@ -65,5 +67,5 @@ ${kit.REVEAL(k)}
       play0: this.plays[0], play1: this.plays[1], play2: this.plays[2],
       cover0: !s.on0, cover1: !s.on1, cover2: !s.on2,
     };`;
-  return { css, body, vals, h: 1150, ph: 1500 };
+  return { css, body, vals, h: 1500, ph: 1450 };
 };
