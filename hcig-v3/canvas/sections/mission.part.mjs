@@ -7,7 +7,7 @@ export const mission = ({ B, TOKENS, REVEAL }) => {
 .mv-frame{position:relative;aspect-ratio:4/5;border-radius:26px;overflow:hidden;box-shadow:0 0 0 1px #333333,0 50px 120px -50px rgba(18,192,198,.5);transition:box-shadow 1.3s var(--sweep-ease) .9s,clip-path 1.5s var(--ease)}
 .mv.light .mv-frame{box-shadow:0 0 0 1px #DDDDDF,0 40px 90px -60px rgba(0,0,0,.35)}
 .mv-par{position:absolute;inset:-6% 0}
-.mv-par img{display:block;width:100%;height:100%;object-fit:cover;object-position:52% 50%;transition:transform 1.8s var(--ease)}
+.mv-par img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 45%;transition:transform 1.8s var(--ease)}
 .mv.arm .mv-frame{clip-path:inset(0 0 14% 0 round 26px)}.mv.in .mv-frame{clip-path:inset(0 0 0 0 round 26px)}
 .mv.arm .mv-par img{transform:scale(1.1)}.mv.in .mv-par img{transform:none}
 @supports (animation-timeline:view()){.mv-par{animation:mvPar linear both;animation-timeline:view();animation-range:cover}@keyframes mvPar{from{transform:translateY(-5%)}to{transform:translateY(5%)}}}
@@ -51,7 +51,7 @@ ${REVEAL("mv")}
 @media (prefers-reduced-motion:reduce){.mv-frame{clip-path:none!important}.mv-par{animation:none!important}.mv-list li:before{transform:scaleX(1)!important}}`;
   const arrow = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg>';
   const body = `<section class="mv {{cls}}" ref="{{rootRef}}" aria-label="Our mission and our vision"><div class="mv-in">
-<figure class="mv-media rv"><div class="mv-frame"><div class="mv-par"><img src="${B["missio"]}" alt="HCIG medical tourism in Egypt"></div></div></figure>
+<figure class="mv-media rv"><div class="mv-frame"><div class="mv-par"><img src="${B["missio2"]}" alt="A glass globe with turquoise routes across Europe, Africa and the Gulf"></div></div></figure>
 <div class="mv-copy">
 <h2 class="mv-h rv">Our <span class="acc">mission</span></h2>
 <ul class="mv-list">

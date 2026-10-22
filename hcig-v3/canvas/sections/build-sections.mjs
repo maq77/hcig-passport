@@ -82,7 +82,7 @@ ${vals}
 `;
 
 // rows of the page, in the live order; heights measured at 1440 and 390 (see the work log)
-const H = { hero: 900, heroPh: { B: 1000, D: 1050, J: 860, O: 990, BFilm: 1050 }, about: 1610, aboutPh: 1750, group: 1225, groupPh: 1290, mission: 1300, missionPh: 1380, why: 1970, whyPh: 2640, glob: 1830, globPh: 2170 };
+const H = { hero: 900, heroPh: { B: 1000, D: 1050, J: 860, O: 990, BFilm: 1050 }, about: 1610, aboutPh: 1790, group: 1225, groupPh: 1290, mission: 1300, missionPh: 1380, why: 1970, whyPh: 2640, glob: 1830, globPh: 2170 };
 
 // ---------- 3 · About (about.part.mjs) ----------
 const AB = about({ B, TOKENS, REVEAL });

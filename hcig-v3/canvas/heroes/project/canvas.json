@@ -677,6 +677,15 @@
       "is_interactive": true,
       "page": "parts"
     },
+    "Sec07Global.dc.html": {
+      "x": 0,
+      "y": 5990,
+      "w": 1440,
+      "h": 1830,
+      "title": "7 · Built for Global Healthcare Delivery, the component",
+      "is_interactive": true,
+      "page": "parts"
+    },
     "Home2BNight.dc.html": {
       "x": 0,
       "y": 0,
@@ -879,7 +888,7 @@
       "x": 3040,
       "y": 6840,
       "w": 390,
-      "h": 1750,
+      "h": 1790,
       "title": "3 About · phone night",
       "is_interactive": true,
       "page": "home"
@@ -888,14 +897,14 @@
       "x": 3510,
       "y": 6840,
       "w": 390,
-      "h": 1750,
+      "h": 1790,
       "title": "3 About · phone day",
       "is_interactive": true,
       "page": "home"
     },
     "Home4GroupNight.dc.html": {
       "x": 0,
-      "y": 8960,
+      "y": 9000,
       "w": 1440,
       "h": 1225,
       "title": "4 Our Premises and Facilities · night",
@@ -904,7 +913,7 @@
     },
     "Home4GroupDay.dc.html": {
       "x": 1520,
-      "y": 8960,
+      "y": 9000,
       "w": 1440,
       "h": 1225,
       "title": "4 Our Premises and Facilities · day",
@@ -913,7 +922,7 @@
     },
     "Home4GroupPhoneNight.dc.html": {
       "x": 3040,
-      "y": 8960,
+      "y": 9000,
       "w": 390,
       "h": 1290,
       "title": "4 Our Premises and Facilities · phone night",
@@ -922,7 +931,7 @@
     },
     "Home4GroupPhoneDay.dc.html": {
       "x": 3510,
-      "y": 8960,
+      "y": 9000,
       "w": 390,
       "h": 1290,
       "title": "4 Our Premises and Facilities · phone day",
@@ -931,7 +940,7 @@
     },
     "Home5MissionNight.dc.html": {
       "x": 0,
-      "y": 10620,
+      "y": 10660,
       "w": 1440,
       "h": 1300,
       "title": "5 Mission and vision · night",
@@ -940,7 +949,7 @@
     },
     "Home5MissionDay.dc.html": {
       "x": 1520,
-      "y": 10620,
+      "y": 10660,
       "w": 1440,
       "h": 1300,
       "title": "5 Mission and vision · day",
@@ -949,7 +958,7 @@
     },
     "Home5MissionPhoneNight.dc.html": {
       "x": 3040,
-      "y": 10620,
+      "y": 10660,
       "w": 390,
       "h": 1380,
       "title": "5 Mission and vision · phone night",
@@ -958,7 +967,7 @@
     },
     "Home5MissionPhoneDay.dc.html": {
       "x": 3510,
-      "y": 10620,
+      "y": 10660,
       "w": 390,
       "h": 1380,
       "title": "5 Mission and vision · phone day",
@@ -967,7 +976,7 @@
     },
     "Home6WhyNight.dc.html": {
       "x": 0,
-      "y": 12370,
+      "y": 12410,
       "w": 1440,
       "h": 1970,
       "title": "6 Why partners · night",
@@ -976,7 +985,7 @@
     },
     "Home6WhyDay.dc.html": {
       "x": 1520,
-      "y": 12370,
+      "y": 12410,
       "w": 1440,
       "h": 1970,
       "title": "6 Why partners · day",
@@ -985,7 +994,7 @@
     },
     "Home6WhyPhoneNight.dc.html": {
       "x": 3040,
-      "y": 12370,
+      "y": 12410,
       "w": 390,
       "h": 2640,
       "title": "6 Why partners · phone night",
@@ -994,7 +1003,7 @@
     },
     "Home6WhyPhoneDay.dc.html": {
       "x": 3510,
-      "y": 12370,
+      "y": 12410,
       "w": 390,
       "h": 2640,
       "title": "6 Why partners · phone day",
@@ -1003,7 +1012,7 @@
     },
     "Home7GlobalNight.dc.html": {
       "x": 0,
-      "y": 15380,
+      "y": 15420,
       "w": 1440,
       "h": 1830,
       "title": "7 Global delivery · night",
@@ -1012,7 +1021,7 @@
     },
     "Home7GlobalDay.dc.html": {
       "x": 1520,
-      "y": 15380,
+      "y": 15420,
       "w": 1440,
       "h": 1830,
       "title": "7 Global delivery · day",
@@ -1021,7 +1030,7 @@
     },
     "Home7GlobalPhoneNight.dc.html": {
       "x": 3040,
-      "y": 15380,
+      "y": 15420,
       "w": 390,
       "h": 2170,
       "title": "7 Global delivery · phone night",
@@ -1030,21 +1039,12 @@
     },
     "Home7GlobalPhoneDay.dc.html": {
       "x": 3510,
-      "y": 15380,
+      "y": 15420,
       "w": 390,
       "h": 2170,
       "title": "7 Global delivery · phone day",
       "is_interactive": true,
       "page": "home"
-    },
-    "Sec07Global.dc.html": {
-      "x": 0,
-      "y": 5990,
-      "w": 1440,
-      "h": 1830,
-      "title": "7 · Built for Global Healthcare Delivery, the component",
-      "is_interactive": true,
-      "page": "parts"
     }
   },
   "createdOnFiles": {
@@ -1385,7 +1385,7 @@
     },
     "home6": {
       "x": 0,
-      "y": 8710,
+      "y": 8750,
       "text": "4 · Our Premises and Facilities (approved; hover a company to see its logo)",
       "kind": "title1",
       "maxW": 3900,
@@ -1393,7 +1393,7 @@
     },
     "home7": {
       "x": 0,
-      "y": 10370,
+      "y": 10410,
       "text": "5 · Our mission and our vision",
       "kind": "title1",
       "maxW": 3900,
@@ -1401,7 +1401,7 @@
     },
     "home8": {
       "x": 0,
-      "y": 12120,
+      "y": 12160,
       "text": "6 · Why partners choose HCIG",
       "kind": "title1",
       "maxW": 3900,
@@ -1409,7 +1409,7 @@
     },
     "home9": {
       "x": 0,
-      "y": 15130,
+      "y": 15170,
       "text": "7 · Built for Global Healthcare Delivery",
       "kind": "title1",
       "maxW": 3900,
@@ -1512,6 +1512,7 @@
     "Sec03About.dc.html",
     "Sec05Mission.dc.html",
     "Sec06Why.dc.html",
+    "Sec07Global.dc.html",
     "Home2BNight.dc.html",
     "Home2BDay.dc.html",
     "Home2BPhoneNight.dc.html",
@@ -1551,8 +1552,7 @@
     "Home7GlobalNight.dc.html",
     "Home7GlobalDay.dc.html",
     "Home7GlobalPhoneNight.dc.html",
-    "Home7GlobalPhoneDay.dc.html",
-    "Sec07Global.dc.html"
+    "Home7GlobalPhoneDay.dc.html"
   ],
   "pages": [
     {
