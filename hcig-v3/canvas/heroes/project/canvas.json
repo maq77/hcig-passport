@@ -659,6 +659,15 @@
       "is_interactive": true,
       "page": "parts"
     },
+    "Sec05Mission.dc.html": {
+      "x": 0,
+      "y": 1980,
+      "w": 1440,
+      "h": 1300,
+      "title": "5 · Mission and vision, the component",
+      "is_interactive": true,
+      "page": "parts"
+    },
     "Home2BNight.dc.html": {
       "x": 0,
       "y": 0,
@@ -947,12 +956,48 @@
       "is_interactive": true,
       "page": "home"
     },
-    "Sec05Mission.dc.html": {
+    "Home6WhyNight.dc.html": {
       "x": 0,
-      "y": 1670,
+      "y": 12370,
       "w": 1440,
-      "h": 1300,
-      "title": "5 · Mission and vision, the component",
+      "h": 1970,
+      "title": "6 Why partners · night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home6WhyDay.dc.html": {
+      "x": 1520,
+      "y": 12370,
+      "w": 1440,
+      "h": 1970,
+      "title": "6 Why partners · day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home6WhyPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 12370,
+      "w": 390,
+      "h": 2640,
+      "title": "6 Why partners · phone night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home6WhyPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 12370,
+      "w": 390,
+      "h": 2640,
+      "title": "6 Why partners · phone day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Sec06Why.dc.html": {
+      "x": 0,
+      "y": 3650,
+      "w": 1440,
+      "h": 1970,
+      "title": "6 · Why partners choose HCIG, the component",
       "is_interactive": true,
       "page": "parts"
     }
@@ -1309,6 +1354,14 @@
       "maxW": 3900,
       "page": "home"
     },
+    "home8": {
+      "x": 0,
+      "y": 12120,
+      "text": "6 · Why partners choose HCIG",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home"
+    },
     "homeNote": {
       "x": 4040,
       "y": 0,
@@ -1317,7 +1370,7 @@
       "size": "m",
       "fill": "yellow",
       "page": "home",
-      "text": "Home, every section\n\nThe home in the live order, one row per section: night, day, phone night, phone day. Every word is the live text.\n\n2 Hero: your pick is B with the group film. The other four stay as kept options.\n3 About: redesigned for reading: the record, the three numbers early, the photo beside the model, the three points as tiles, the statement to close.\n4 Our Premises and Facilities: approved. Hover a company to see its logo; on phones each name carries its logo.\n5 Our mission and our vision: new.\n\nWhen every section is done they merge into the final website.\nPress Play on a board to see the motion."
+      "text": "Home, every section\n\nThe home in the live order, one row per section: night, day, phone night, phone day. Every word is the live text.\n\n2 Hero: your pick is B with the group film. The other four stay as kept options.\n3 About: redesigned for reading: the record, the three numbers early, the photo beside the model, the three points as tiles, the statement to close.\n4 Our Premises and Facilities: approved. Hover a company to see its logo; on phones each name carries its logo.\n5 Our mission and our vision: new.\n6 Why partners choose HCIG: new, our own icons that draw in, Gemini images.\n\nWhen every section is done they merge into the final website.\nPress Play on a board to see the motion."
     },
     "homeOpen": {
       "x": 4040,
@@ -1404,6 +1457,7 @@
     "FinalPhoneNight.dc.html",
     "FinalPhoneDay.dc.html",
     "Sec03About.dc.html",
+    "Sec05Mission.dc.html",
     "Home2BNight.dc.html",
     "Home2BDay.dc.html",
     "Home2BPhoneNight.dc.html",
@@ -1436,7 +1490,11 @@
     "Home5MissionDay.dc.html",
     "Home5MissionPhoneNight.dc.html",
     "Home5MissionPhoneDay.dc.html",
-    "Sec05Mission.dc.html"
+    "Home6WhyNight.dc.html",
+    "Home6WhyDay.dc.html",
+    "Home6WhyPhoneNight.dc.html",
+    "Home6WhyPhoneDay.dc.html",
+    "Sec06Why.dc.html"
   ],
   "pages": [
     {
