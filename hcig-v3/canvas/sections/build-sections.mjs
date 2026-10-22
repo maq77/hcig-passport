@@ -10,6 +10,7 @@ import { fileURLToPath } from "node:url";
 import { about } from "./about.part.mjs";
 import { mission } from "./mission.part.mjs";
 import { why } from "./why.part.mjs";
+import { global } from "./global.part.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT = join(HERE, "..", "heroes", "project");
@@ -81,12 +82,15 @@ ${vals}
 `;
 
 // rows of the page, in the live order; heights measured at 1440 and 390 (see the work log)
-const H = { hero: 900, heroPh: { B: 1000, D: 1050, J: 860, O: 990, BFilm: 1050 }, about: 1610, aboutPh: 1750, group: 1225, groupPh: 1290, mission: 1300, missionPh: 1380, why: 1970, whyPh: 2640 };
+const H = { hero: 900, heroPh: { B: 1000, D: 1050, J: 860, O: 990, BFilm: 1050 }, about: 1610, aboutPh: 1750, group: 1225, groupPh: 1290, mission: 1300, missionPh: 1380, why: 1970, whyPh: 2640, glob: 1830, globPh: 2170 };
 
 // ---------- 3 · About (about.part.mjs) ----------
 const AB = about({ B, TOKENS, REVEAL });
 const MV = mission({ B, TOKENS, REVEAL });
 const WY = why({ B, TOKENS, REVEAL });
+const GL = global({ TOKENS, REVEAL, globePath: join(HERE, "..", "..", "motion", "globe.json") });
+writeFileSync(join(OUT, "Sec07Global.dc.html"), page("HCIG home, 7 Built for Global Healthcare Delivery", GL.css, GL.body,
+  { theme: { editor: "enum", options: ["dark", "light"], default: "dark", section: "Section" }, $preview: { width: 1440, height: H.glob } }, GL.vals));
 writeFileSync(join(OUT, "Sec06Why.dc.html"), page("HCIG home, 6 Why partners choose HCIG", WY.css, WY.body,
   { theme: { editor: "enum", options: ["dark", "light"], default: "dark", section: "Section" }, $preview: { width: 1440, height: H.why } }, WY.vals));
 writeFileSync(join(OUT, "Sec05Mission.dc.html"), page("HCIG home, 5 Mission and vision", MV.css, MV.body,
@@ -146,6 +150,8 @@ wrap("Sec05Mission", "Home5MissionPhoneDay.dc.html", "HCIG home, 5 Mission and v
 rows.push({ title: "5 · Our mission and our vision", short: "5 Mission and vision", f: "Home5Mission", h: H.mission, ph: H.missionPh });
 for (const [t, th] of [["Night", "dark"], ["Day", "light"]]) { wrap("Sec06Why", `Home6Why${t}.dc.html`, `HCIG home, 6 Why partners choose HCIG, ${t.toLowerCase()}`, 1440, H.why, th); wrap("Sec06Why", `Home6WhyPhone${t}.dc.html`, `HCIG home, 6 Why partners choose HCIG, phone, ${t.toLowerCase()}`, 390, H.whyPh, th); }
 rows.push({ title: "6 · Why partners choose HCIG", short: "6 Why partners", f: "Home6Why", h: H.why, ph: H.whyPh });
+for (const [t, th] of [["Night", "dark"], ["Day", "light"]]) { wrap("Sec07Global", `Home7Global${t}.dc.html`, `HCIG home, 7 Built for Global Healthcare Delivery, ${t.toLowerCase()}`, 1440, H.glob, th); wrap("Sec07Global", `Home7GlobalPhone${t}.dc.html`, `HCIG home, 7 Built for Global Healthcare Delivery, phone, ${t.toLowerCase()}`, 390, H.globPh, th); }
+rows.push({ title: "7 · Built for Global Healthcare Delivery", short: "7 Global delivery", f: "Home7Global", h: H.glob, ph: H.globPh });
 
 // ---------- the canvas index: the page "Home, every section", everything else kept exactly ----------
 const src = process.argv[2] || join(OUT, "canvas.json");
@@ -165,11 +171,27 @@ rows.forEach((r, i) => {
   c.notes[`home${i}`] = { x: 0, y: y - 250, text: r.title, kind: "title1", maxW: 3900, page: PAGE };
   y += Math.max(r.h, r.ph) + 120 + 250;
 });
-c.notes.homeNote = { x: 4040, y: 0, w: 460, maxH: 1300, size: "m", fill: "yellow", page: PAGE, text: "Home, every section\n\nThe home in the live order, one row per section: night, day, phone night, phone day. Every word is the live text.\n\n2 Hero: your pick is B with the group film. The other four stay as kept options.\n3 About: redesigned for reading: the record, the three numbers early, the photo beside the model, the three points as tiles, the statement to close.\n4 Our Premises and Facilities: approved. Hover a company to see its logo; on phones each name carries its logo.\n5 Our mission and our vision: new.\n6 Why partners choose HCIG: new, our own icons that draw in, Gemini images.\n\nWhen every section is done they merge into the final website.\nPress Play on a board to see the motion." };
+// the page note, one line per entry (joined, so a line break can never break the file)
+const HOME_NOTE = [
+ "Home, every section",
+ "",
+ "The home in the live order, one row per section: night, day, phone night, phone day. Every word is the live text.",
+ "",
+ "2 Hero: your pick is B with the group film. The other four stay as kept options.",
+ "3 About: redesigned for reading: the record, the three numbers early, the photo beside the model, the three points as tiles, the statement to close.",
+ "4 Our Premises and Facilities: approved. Hover a company to see its logo; on phones each name carries its logo.",
+ "5 Our mission and our vision: new.",
+ "6 Why partners choose HCIG: new, our own icons that draw in, Gemini images.",
+ "7 Built for Global Healthcare Delivery: new, the network drawn on a dotted map (the real places), six cards with our own icons.",
+ "",
+ "When every section is done they merge into the final website.",
+ "Press Play on a board to see the motion."
+];
+c.notes.homeNote = { x: 4040, y: 0, w: 460, maxH: 1400, size: "m", fill: "yellow", page: PAGE, text: HOME_NOTE.join(String.fromCharCode(10)) };
 c.notes.homeOpen = { x: 4040, y: 1400, w: 460, maxH: 700, size: "m", fill: "orange", page: PAGE, text: "Open items from the live site\n\n1. The About heading is blank on the live site (a script breaks). Your pick: Healthcare International Group.\n2. The two closing buttons, Become a Partner and Request a Consultation, point nowhere.\n3. The insurer band shows 100% with an empty second line.\n4. The live footer reads 2026 Healthcare International Group. All Rights Reserved. without a ©." };
 // the section components themselves: every .dc.html shows on the canvas, so they get their own page (edit there, every board follows)
 c.pages = c.pages.filter((p) => p.id !== "parts"); c.pages.push({ id: "parts", name: "Parts (section components)" });
-const PARTS = [["Sec03About.dc.html", 1440, H.about, "3 · About, the component"], ["Sec05Mission.dc.html", 1440, H.mission, "5 · Mission and vision, the component"], ["Sec06Why.dc.html", 1440, H.why, "6 · Why partners choose HCIG, the component"]];
+const PARTS = [["Sec03About.dc.html", 1440, H.about, "3 · About, the component"], ["Sec05Mission.dc.html", 1440, H.mission, "5 · Mission and vision, the component"], ["Sec06Why.dc.html", 1440, H.why, "6 · Why partners choose HCIG, the component"], ["Sec07Global.dc.html", 1440, H.glob, "7 · Built for Global Healthcare Delivery, the component"]];
 let py = 0; PARTS.forEach(([file, w, h, title]) => { c.boards[file] = { x: 0, y: py, w, h, title, is_interactive: true, page: "parts" }; if (!c.order.includes(file)) c.order.push(file); py += h + 370; });
 writeFileSync(join(OUT, "canvas.json"), JSON.stringify(c, null, 2));
 console.log("home page:", rows.length, "rows,", Object.values(c.boards).filter((b) => b.page === PAGE).length, "boards; pages", c.pages.map((p) => p.id).join(","));

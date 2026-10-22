@@ -668,6 +668,15 @@
       "is_interactive": true,
       "page": "parts"
     },
+    "Sec06Why.dc.html": {
+      "x": 0,
+      "y": 3650,
+      "w": 1440,
+      "h": 1970,
+      "title": "6 · Why partners choose HCIG, the component",
+      "is_interactive": true,
+      "page": "parts"
+    },
     "Home2BNight.dc.html": {
       "x": 0,
       "y": 0,
@@ -992,12 +1001,48 @@
       "is_interactive": true,
       "page": "home"
     },
-    "Sec06Why.dc.html": {
+    "Home7GlobalNight.dc.html": {
       "x": 0,
-      "y": 3650,
+      "y": 15380,
       "w": 1440,
-      "h": 1970,
-      "title": "6 · Why partners choose HCIG, the component",
+      "h": 1830,
+      "title": "7 Global delivery · night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home7GlobalDay.dc.html": {
+      "x": 1520,
+      "y": 15380,
+      "w": 1440,
+      "h": 1830,
+      "title": "7 Global delivery · day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home7GlobalPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 15380,
+      "w": 390,
+      "h": 2170,
+      "title": "7 Global delivery · phone night",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Home7GlobalPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 15380,
+      "w": 390,
+      "h": 2170,
+      "title": "7 Global delivery · phone day",
+      "is_interactive": true,
+      "page": "home"
+    },
+    "Sec07Global.dc.html": {
+      "x": 0,
+      "y": 5990,
+      "w": 1440,
+      "h": 1830,
+      "title": "7 · Built for Global Healthcare Delivery, the component",
       "is_interactive": true,
       "page": "parts"
     }
@@ -1362,15 +1407,23 @@
       "maxW": 3900,
       "page": "home"
     },
+    "home9": {
+      "x": 0,
+      "y": 15130,
+      "text": "7 · Built for Global Healthcare Delivery",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home"
+    },
     "homeNote": {
       "x": 4040,
       "y": 0,
       "w": 460,
-      "maxH": 1300,
+      "maxH": 1400,
       "size": "m",
       "fill": "yellow",
       "page": "home",
-      "text": "Home, every section\n\nThe home in the live order, one row per section: night, day, phone night, phone day. Every word is the live text.\n\n2 Hero: your pick is B with the group film. The other four stay as kept options.\n3 About: redesigned for reading: the record, the three numbers early, the photo beside the model, the three points as tiles, the statement to close.\n4 Our Premises and Facilities: approved. Hover a company to see its logo; on phones each name carries its logo.\n5 Our mission and our vision: new.\n6 Why partners choose HCIG: new, our own icons that draw in, Gemini images.\n\nWhen every section is done they merge into the final website.\nPress Play on a board to see the motion."
+      "text": "Home, every section\n\nThe home in the live order, one row per section: night, day, phone night, phone day. Every word is the live text.\n\n2 Hero: your pick is B with the group film. The other four stay as kept options.\n3 About: redesigned for reading: the record, the three numbers early, the photo beside the model, the three points as tiles, the statement to close.\n4 Our Premises and Facilities: approved. Hover a company to see its logo; on phones each name carries its logo.\n5 Our mission and our vision: new.\n6 Why partners choose HCIG: new, our own icons that draw in, Gemini images.\n7 Built for Global Healthcare Delivery: new, the network drawn on a dotted map (the real places), six cards with our own icons.\n\nWhen every section is done they merge into the final website.\nPress Play on a board to see the motion."
     },
     "homeOpen": {
       "x": 4040,
@@ -1458,6 +1511,7 @@
     "FinalPhoneDay.dc.html",
     "Sec03About.dc.html",
     "Sec05Mission.dc.html",
+    "Sec06Why.dc.html",
     "Home2BNight.dc.html",
     "Home2BDay.dc.html",
     "Home2BPhoneNight.dc.html",
@@ -1494,7 +1548,11 @@
     "Home6WhyDay.dc.html",
     "Home6WhyPhoneNight.dc.html",
     "Home6WhyPhoneDay.dc.html",
-    "Sec06Why.dc.html"
+    "Home7GlobalNight.dc.html",
+    "Home7GlobalDay.dc.html",
+    "Home7GlobalPhoneNight.dc.html",
+    "Home7GlobalPhoneDay.dc.html",
+    "Sec07Global.dc.html"
   ],
   "pages": [
     {
