@@ -19,3 +19,9 @@ All files were retrieved from official sources. No logo aggregators, no AI redra
 | ITB Berlin | `itb-berlin.svg` | SVG (Vector) | Vector (viewBox 0 0 191.52 85.76) | https://messe-berlinprod-media.e-spirit.cloud/eb9073d7-d515-4782-a31b-1ef49560ea39/ITB/Layout/Images/ITB_26_Logo_Berlin_279x86px.svg | Proprietary trade mark of Messe Berlin GmbH. Official event vector logo from itb.com CDN. |
 | ITIC | `itic.svg` | SVG (Vector) | Vector (viewBox 0 0 1000 1392.32) | https://www.itic.co/wp-content/themes/itic/assets/img/logo-itic.svg | Proprietary trade mark of ITIC (International Travel & Health Insurance Conference). Official theme vector logo from itic.co. |
 | Africa Health ExCon | `africa-health-excon.png` | PNG (RGBA transparent) | 151x117 | https://www.africahealthexcon.com/images/logo.png | Proprietary trade mark of Africa Health ExCon / Unified Procurement Authority (UPA Egypt). Official website header logo. |
+
+## Review by Claude (2026-10-26)
+
+- Accepted: every file except `allianz-partners.png`, which is corrupted (PNG "chunk too big") and was removed; Allianz Partners stays on the gap list.
+- Checked by eye: DMWV (association logo, English), GHA (stacked logo, not a seal), UCA MENA emblem. GHA source URL returns the same 44,560 bytes.
+- Smaller than files we already hold: MedOne (351 px vs 1100 px in `hcig-v3/motion/logos`), SCMG (172 px vs 1080 px in `hcig material`), MedPark (keep the transparent 558 px cut for dark grounds; the official 1500 px JPEG is the master).
