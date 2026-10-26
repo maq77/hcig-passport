@@ -1220,7 +1220,7 @@ html.menu-open { overflow: hidden; }
 
 /* Our Impact: the two lines without a number sit on the same baseline as the others */
 @container page (min-width: 901px) {
-  .impact-row li:not(:has(.impact-n)) .impact-ico { margin-bottom: clamp(44px, 2rem + 2.4vw, 72px); }
+  .impact-row li:not(:has(.impact-n)) .impact-ico { margin-bottom: calc(clamp(44px, 2rem + 2.4vw, 72px) + 12px); }
 }
 
 /* The ring's small caps line never leaves a word alone */
