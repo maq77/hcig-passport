@@ -12,3 +12,6 @@ Owner's rule: log everything from the first change, for the final email.
 | 2026-10-26 | Words | Manager's maritime copy saved word for word (page, home block, SEO table); all saved versions in the scrape are identical | line diff of the four versions |
 | 2026-10-26 | Words | Guideline verbal identity transcribed word for word (essence, promise, tone, 5 key messages, elevator pitch, 5 slogans) | read from full-resolution crops |
 | 2026-10-26 | Review | agy read-only review of spec and plan: 15 findings, 12 taken into the plan, 2 not taken (his decisions) | each checked against files and decisions |
+| 2026-10-26 | Facts | Fact sheet written (28 live pages, company profile); conflicts resolved by him: profile titles for leadership, five countries for presence | his answers |
+| 2026-10-26 | URLs | Address and redirect contract written: 10 live paths kept, 3 leadership pages and every duplicate or leftover get one-hop 301s | `contracts/urls.md` |
+| 2026-10-26 | Security | Found: `hcigdb.sql` public (HTTP 200, admins table with a `pass` column), `hcigadmins/` and four legacy PHP files public; `error_log` already blocked (403) | curl status codes; SQL structure read without printing values |

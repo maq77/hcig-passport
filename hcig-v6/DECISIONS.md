@@ -1,5 +1,16 @@
 # DECISIONS.md: HCIG v6 (newest first, the owner's words quoted)
 
+## 2026-10-26 (later): fact sheet, sitemap, leadership, presence, security
+
+- **Fact sheet and sitemap approved** ("Approve both"). The hotels partner page is `/partner/hotels-and-resorts/`.
+- **Leadership uses the company profile titles:** Board: Dr. Mostafa Elshakankery Group Chairman, Dr. Amr Abbass Group
+  Vice Chairman, Mr. Mohsen Mohamed HCIG Board Member. Executive committee: Dr. Amr Abbass Group CEO, Dr. Ahmed Safwat
+  Group Deputy CEO, Dr. Mohamed Aziz Group CSO, Dr. Hesham Abdalla Group COO.
+- **Network page names five countries** (Egypt, UAE, Germany, Spain, USA) with the Cairo and Clearwater offices.
+- **Security fix on the live site, reversible:** "Block now, reversibly". The public `hcigdb.sql` (admins table with a
+  plain-text looking password), `hcigadmins/`, `datastore.php`, `inscomment.php`, `contactconf.php`, `test_mail.php`
+  move out of `public_html` into a private folder. That admin password counts as leaked.
+
 ## 2026-10-26: v6 starts, five question rounds
 
 - **Start:** "now i want it to be hcig v6, this is complete and full and best version in all aspects ... forget v3,

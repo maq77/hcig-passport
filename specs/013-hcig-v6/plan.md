@@ -42,6 +42,37 @@ it lands). Each finding was checked against the files and his decisions before i
 12. **B2B proof earlier on the home page:** offered on the canvas as the recommended option (insurer logos right
     after Hero B or after About); order is design, his pick decides.
 
+**Taken from Review 2 (Gemini Argon, his Pro account; full text in `reviews/gemini-argon-review.md`):**
+13. **Fact-to-page gate:** every new page gets a fact brief first; a page with fewer than five verified facts is merged
+    into its hub, or a short "missing facts" list goes to him. No padding.
+14. **Seven-language B2B glossary, locked before any translation:** 20 to 30 core terms per language (guarantee of
+    payment, direct billing, repatriation, cashless, fit to fly, shore-side clinic...), checked against real insurer
+    pages and native search results; `check-words.mjs` enforces it on translated pages. agy drafts never ship unreviewed.
+15. **Clear intent per page type** in the keyword map: brand pages answer brand and entity searches only; service pages
+    answer what is delivered; partner pages answer who buys and how the relationship works.
+16. **Every hidden text is in the HTML:** "two lines then open", tabs and accordions toggle with CSS, `hidden` or
+    `<details>`, never JavaScript-rendered, so Google and AI crawlers read every live word.
+17. **Schema additions:** `areaServed` (only places the live site or group sites state) and `ContactPoint` with
+    `availableLanguage` for the seven languages; hreflang in the head and in the sitemaps come from one mapping.
+18. **Leads never lost:** SQLite in WAL mode with a busy timeout, plus an append-only JSONL copy (`flock`) outside
+    `public_html`.
+19. **Static host details:** `flatten-rsc.mjs` runs on the live build too; site links are plain anchors; a
+    language-aware 404 page with `ErrorDocument 404`; tested on a real Apache staging folder before go-live.
+20. **Cutover order fixed:** `deploy.php` and `rollback.php` work on PHP 7.1 and 8.x; PHP switches to 8.x right after
+    the swap; the email DNS fix happens at least 48 hours before go-live (with his OK); a throwaway `test-env.php`
+    (his OK) proves outbound SMTP on 587, writes outside `public_html` and ZipArchive.
+21. **No dead end when consent is declined:** the contact sheet offers WhatsApp, call and email right away and explains
+    that the AI chat needs consent.
+22. **Helma rendering:** the P3 spike compares synthetic 600 (his approved look) with alternatives on Chrome and Safari
+    so large headings stay sharp.
+
+**Not taken from Review 2:**
+- "Cache Google reviews for 24 hours on our server": Google's Places terms do not allow caching review content.
+  Instead: a browser key restricted to healthcareig.com, a daily quota cap in Google Cloud, calls only after consent
+  and only when the section is near.
+- "Phase 5.5, show Irina the core English templates before the other languages": a good risk control, but he chose
+  "only the finished preview". Asked again as a choice; his answer stands until he changes it.
+
 **Not taken (his decisions stand):**
 - "Drop the live Google reviews": he chose live MedPark reviews in the Elfsight look. Kept, clearly attributed, in the
   testimonials section, with the link card fallback.
@@ -139,7 +170,7 @@ Nothing has leaked yet (git history checked).
 | 7 | Quality pass | SEO, AEO, speed, accessibility, every page in a real browser | all checks green |
 | 8 | Irina | finished preview + a one-page note (registry status `review`) | Irina approves |
 | 9 | Go-live | cutover on cPanel with rollback ready | your word |
-| 10 | After launch | Search Console, AI reruns, off-page, Irina's article brief, ads when tracking is proven, DNS email fix | ongoing |
+| 10 | After launch | Search Console, AI reruns, off-page, Irina's article brief, ads when tracking is proven | ongoing |
 
 ### Phase notes
 - **P0.** `Host hcig` in `~/.ssh/config` (healthcareig.com, port 22, user `healthcareig`, key outside the repo). Read-only
