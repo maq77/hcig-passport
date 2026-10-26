@@ -15,6 +15,10 @@
       "name": "Home"
     },
     {
+      "id": "r3",
+      "name": "Phone round 3 (pick)"
+    },
+    {
       "id": "parts",
       "name": "Source boards"
     }
@@ -46,12 +50,172 @@
       "title": "Home source (edit here)",
       "page": "parts",
       "is_interactive": true
+    },
+    "R3Why1.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 760,
+      "title": "Why, option W1: two-row deck with a peek (auto slides one column)",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3Why2.dc.html": {
+      "x": 430,
+      "y": 0,
+      "w": 390,
+      "h": 760,
+      "title": "Why, option W2: Dim Gray band, two rows gliding opposite ways; tap a card to read it",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3Why3.dc.html": {
+      "x": 860,
+      "y": 0,
+      "w": 390,
+      "h": 760,
+      "title": "Why, option W3: numbered index cards, story progress bar, tap opens the text below",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3Built1.dc.html": {
+      "x": 0,
+      "y": 840,
+      "w": 390,
+      "h": 820,
+      "title": "Built, option B1: image tiles in two rows (tap opens the text); images shown are stand-ins",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3Built2.dc.html": {
+      "x": 430,
+      "y": 840,
+      "w": 390,
+      "h": 820,
+      "title": "Built, option B2: editorial spec sheet, the guideline's black hairlines, two per page, auto pages",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3Built3.dc.html": {
+      "x": 860,
+      "y": 840,
+      "w": 390,
+      "h": 820,
+      "title": "Built, option B3: square tiles, 2 x 2 per page on a turquoise wash, tap opens the text",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3Care1.dc.html": {
+      "x": 0,
+      "y": 1700,
+      "w": 390,
+      "h": 1180,
+      "title": "Our Healthcare, option H1: bento, all seven at once, tap a tile for its page",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3Care2.dc.html": {
+      "x": 430,
+      "y": 1700,
+      "w": 390,
+      "h": 980,
+      "title": "Our Healthcare, option H2: image accordion, all seven titles at once, one opens with its text",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3Care3.dc.html": {
+      "x": 860,
+      "y": 1700,
+      "w": 390,
+      "h": 820,
+      "title": "Our Healthcare, option H3: one featured service rotates on its own (story bars); seven thumbnails jump to any",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3About1d.dc.html": {
+      "x": 1320,
+      "y": 0,
+      "w": 1280,
+      "h": 460,
+      "title": "About band, option A1 desktop: light editorial: white to turquoise wash, black Helma, the route with one gliding light (no pulsing)",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3About1m.dc.html": {
+      "x": 2640,
+      "y": 0,
+      "w": 390,
+      "h": 680,
+      "title": "About band, option A1 phone",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3About2d.dc.html": {
+      "x": 1320,
+      "y": 760,
+      "w": 1280,
+      "h": 460,
+      "title": "About band, option A2 desktop: image-led: the photo fills the card, the words sit on a frosted glass panel",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3About2m.dc.html": {
+      "x": 2640,
+      "y": 760,
+      "w": 390,
+      "h": 680,
+      "title": "About band, option A2 phone",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3About3d.dc.html": {
+      "x": 1320,
+      "y": 1520,
+      "w": 1280,
+      "h": 460,
+      "title": "About band, option A3 desktop: deep and calm: Black to Dim Gray with a soft turquoise horizon, numbered route, framed photo",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3About3m.dc.html": {
+      "x": 2640,
+      "y": 1520,
+      "w": 390,
+      "h": 680,
+      "title": "About band, option A3 phone",
+      "page": "r3",
+      "is_interactive": true
+    },
+    "R3Upgrades.dc.html": {
+      "x": 3080,
+      "y": 0,
+      "w": 390,
+      "h": 1700,
+      "title": "Other phone upgrades: Mission & Vision tabs, journey line, maritime chips, impact tiles",
+      "page": "r3",
+      "is_interactive": true
     }
   },
   "order": [
     "Main.dc.html",
     "HomePhone.dc.html",
-    "Home.dc.html"
+    "Home.dc.html",
+    "R3Why1.dc.html",
+    "R3Why2.dc.html",
+    "R3Why3.dc.html",
+    "R3Built1.dc.html",
+    "R3Built2.dc.html",
+    "R3Built3.dc.html",
+    "R3Care1.dc.html",
+    "R3Care2.dc.html",
+    "R3Care3.dc.html",
+    "R3About1d.dc.html",
+    "R3About1m.dc.html",
+    "R3About2d.dc.html",
+    "R3About2m.dc.html",
+    "R3About3d.dc.html",
+    "R3About3m.dc.html",
+    "R3Upgrades.dc.html"
   ],
   "notes": {},
   "designSystems": []

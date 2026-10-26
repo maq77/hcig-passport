@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Why W2</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+@font-face { font-family: 'Helma'; src: url('/_blob/c002ba327633cc3513ea200bac9e6b8d') format('woff2'); font-weight: 400; font-display: swap; }
+body { margin: 0; }
+.ph { --black:#000; --b80:#333; --b60:#666; --dim:#565759; --d80:#78797B; --d60:#9A9A9C; --d40:#BBBCBE; --d20:#DDDDDF; --d06:#F6F6F6;
+  --t:#12C0C6; --t80:#42CDD1; --t60:#71D9DD; --t40:#A0E6E8; --t20:#D0F2F4; --t08:#EDFAFA; --w:#FFF;
+  --ease: cubic-bezier(.16,1,.3,1); font: 400 16px/1.6 'Inter', system-ui, sans-serif; color: var(--black); background: var(--w);
+  -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+.ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
+.ph img { display: block; max-width: 100%; }
+.ph p { margin: 0; }
+.tag { position: absolute; top: 10px; right: 10px; z-index: 9; padding: 5px 10px; border-radius: 999px; background: var(--black); color: var(--w); font: 600 11px/1 'Inter', sans-serif; letter-spacing: .08em; }
+.sec { position: relative; padding: 44px 20px 40px; overflow: hidden; }
+.soft { background: var(--d06); }
+.hd2 { margin: 0 0 26px; text-align: center; }
+.hd2 h2 { margin: 0; font: 400 32px/1.1 'Helma', Georgia, serif; letter-spacing: -.005em; text-wrap: balance; }
+.hd2 h2::after { content: ""; display: block; width: 56px; height: 1px; margin: 16px auto 0; background: var(--black); }
+.hd2 p { margin-top: 14px; color: var(--dim); font-size: 15px; line-height: 1.6; }
+.acc { color: var(--t); }
+.s .acc { white-space: nowrap; }
+.ico { width: 44px; height: 44px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 13px; background: var(--t20); color: var(--black); }
+.nav { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+.nav .ar { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--d20); background: var(--w); color: var(--black); }
+.nav .ar.l svg { transform: scaleX(-1); }
+.nav .grow { flex: 1; }
+.w2 { background: radial-gradient(90% 60% at 100% 0%, rgba(18,192,198,.22), transparent 60%), linear-gradient(160deg, var(--b80), var(--dim)); color: var(--w); }
+.w2 .hd2 h2::after { background: rgba(255,255,255,.5); } .w2 .hd2 p { color: var(--d20); }
+.w2r { overflow: hidden; margin: 0 -20px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.w2r + .w2r { margin-top: 12px; }
+.w2t { display: flex; gap: 12px; width: max-content; animation: w2 26s linear infinite; }
+.w2r.rev .w2t { animation-direction: reverse; animation-duration: 30s; }
+@keyframes w2 { to { transform: translateX(-50%); } }
+.w2c { width: 210px; min-height: 132px; padding: 16px; display: grid; align-content: space-between; gap: 18px; border-radius: 18px; background: rgba(255,255,255,.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
+.w2i { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--t); color: var(--black); }
+.w2c h3 { margin: 0; font: 400 19px/1.2 'Helma', serif; }
+.w2open { margin-top: 18px; padding: 16px; border-radius: 16px; background: var(--w); color: var(--black); }
+.w2open b { display: block; font: 600 15px/1.3 'Inter', sans-serif; margin-bottom: 6px; } .w2open p { font-size: 14px; color: var(--dim); }
+.w2hint { margin-top: 12px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--d40); text-align: center; }</style>
+</helmet>
+<div class="ph"><section class="sec w2"><span class="tag">W2</span><div class="hd2"><h2>Why partners choose HCIG</h2><p>Designed for insurers, global partners, and international patients.</p></div><div class="w2r"><div class="w2t"><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 20.5v-.5a7 7 0 0 1 9.5-6.5M15 18.5l2 2 4-4.5"/></svg></span><h3>Full Patient Ownership</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><circle cx="12" cy="13" r="2"/><path d="M12 7v4M10.4 14.3l-4 2.5M13.6 14.3l4 2.5"/></svg></span><h3>Connected Care Delivery</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4.5-5.5"/><circle cx="12" cy="16" r="1.2"/></svg></span><h3>Speed &amp; Responsiveness</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.8L7.8 21l4.2-2.2 4.2 2.2-1.2-7.2"/><path d="M10 9l1.4 1.4L14 7.8"/></svg></span><h3>Global Standards &amp; Accreditation</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 20.5v-.5a7 7 0 0 1 9.5-6.5M15 18.5l2 2 4-4.5"/></svg></span><h3>Full Patient Ownership</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><circle cx="12" cy="13" r="2"/><path d="M12 7v4M10.4 14.3l-4 2.5M13.6 14.3l4 2.5"/></svg></span><h3>Connected Care Delivery</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4.5-5.5"/><circle cx="12" cy="16" r="1.2"/></svg></span><h3>Speed &amp; Responsiveness</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.8L7.8 21l4.2-2.2 4.2 2.2-1.2-7.2"/><path d="M10 9l1.4 1.4L14 7.8"/></svg></span><h3>Global Standards &amp; Accreditation</h3></article></div></div><div class="w2r rev"><div class="w2t"><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 21V8.5L12 3.5l8.5 5V21"/><path d="M9.5 21v-5h5v5M8 11.5h2M14 11.5h2"/></svg></span><h3>Hospitality Integration</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5h9M8 3.5v2M5.5 5.5c.6 3 2.6 5.4 5.2 6.8M10.5 5.5c-.8 3.5-3 6.4-6 8"/><path d="M12.5 20.5l4-9 4 9M14 17.5h5"/></svg></span><h3>Cultural Intelligence</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20.5h16M5.5 16l4.5-4.5 3 3 6-6.5M15 8h4.5v4.5"/></svg></span><h3>Partner Development &amp; Accreditation Support</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 21V8.5L12 3.5l8.5 5V21"/><path d="M9.5 21v-5h5v5M8 11.5h2M14 11.5h2"/></svg></span><h3>Hospitality Integration</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5h9M8 3.5v2M5.5 5.5c.6 3 2.6 5.4 5.2 6.8M10.5 5.5c-.8 3.5-3 6.4-6 8"/><path d="M12.5 20.5l4-9 4 9M14 17.5h5"/></svg></span><h3>Cultural Intelligence</h3></article><article class="w2c"><span class="w2i"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20.5h16M5.5 16l4.5-4.5 3 3 6-6.5M15 8h4.5v4.5"/></svg></span><h3>Partner Development &amp; Accreditation Support</h3></article></div></div><div class="w2open"><b>Full Patient Ownership</b><p>We take full responsibility for every patient journey from first contact to full recovery.</p></div><p class="w2hint">Tap a card to read it</p></section></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":760}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

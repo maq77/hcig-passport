@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Care H2</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+@font-face { font-family: 'Helma'; src: url('/_blob/c002ba327633cc3513ea200bac9e6b8d') format('woff2'); font-weight: 400; font-display: swap; }
+body { margin: 0; }
+.ph { --black:#000; --b80:#333; --b60:#666; --dim:#565759; --d80:#78797B; --d60:#9A9A9C; --d40:#BBBCBE; --d20:#DDDDDF; --d06:#F6F6F6;
+  --t:#12C0C6; --t80:#42CDD1; --t60:#71D9DD; --t40:#A0E6E8; --t20:#D0F2F4; --t08:#EDFAFA; --w:#FFF;
+  --ease: cubic-bezier(.16,1,.3,1); font: 400 16px/1.6 'Inter', system-ui, sans-serif; color: var(--black); background: var(--w);
+  -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+.ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
+.ph img { display: block; max-width: 100%; }
+.ph p { margin: 0; }
+.tag { position: absolute; top: 10px; right: 10px; z-index: 9; padding: 5px 10px; border-radius: 999px; background: var(--black); color: var(--w); font: 600 11px/1 'Inter', sans-serif; letter-spacing: .08em; }
+.sec { position: relative; padding: 44px 20px 40px; overflow: hidden; }
+.soft { background: var(--d06); }
+.hd2 { margin: 0 0 26px; text-align: center; }
+.hd2 h2 { margin: 0; font: 400 32px/1.1 'Helma', Georgia, serif; letter-spacing: -.005em; text-wrap: balance; }
+.hd2 h2::after { content: ""; display: block; width: 56px; height: 1px; margin: 16px auto 0; background: var(--black); }
+.hd2 p { margin-top: 14px; color: var(--dim); font-size: 15px; line-height: 1.6; }
+.acc { color: var(--t); }
+.s .acc { white-space: nowrap; }
+.ico { width: 44px; height: 44px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 13px; background: var(--t20); color: var(--black); }
+.nav { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+.nav .ar { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--d20); background: var(--w); color: var(--black); }
+.nav .ar.l svg { transform: scaleX(-1); }
+.nav .grow { flex: 1; }
+.h2l { display: grid; gap: 8px; }
+.h2r { position: relative; height: 64px; border-radius: 16px; overflow: hidden; color: var(--w); }
+.h2r.open { height: 300px; }
+.h2r img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.h2g { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.72), rgba(0,0,0,.25)); }
+.h2r.open .h2g { background: linear-gradient(180deg, rgba(0,0,0,.05) 20%, rgba(0,0,0,.82)); }
+.h2b { position: absolute; inset: 0; display: grid; grid-template-columns: 34px 1fr 28px; align-items: center; gap: 6px; padding: 0 14px; }
+.h2r.open .h2b { align-content: end; padding-bottom: 16px; grid-template-rows: auto auto; }
+.h2n { font: 400 18px/1 'Helma', serif; color: var(--t60); }
+.h2b h3 { margin: 0; font: 600 14.5px/1.25 'Inter', sans-serif; }
+.h2r.open h3 { font: 400 22px/1.15 'Helma', serif; }
+.h2b p { grid-column: 1 / -1; font-size: 13.5px; line-height: 1.5; color: var(--d20); }
+.h2p { color: var(--w); }
+.h2go { grid-column: 3; grid-row: 1; width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--t); color: var(--black); }</style>
+</helmet>
+<div class="ph"><section class="sec"><span class="tag">H2</span><div class="hd2"><h2>Our Healthcare</h2><p>Delivered across multiple levels of care within one structured system.</p></div><div class="h2l"><article class="h2r"><img src="/_blob/d6cf53c8198ea5c694f2a21572782d6c" alt=""><span class="h2g"></span><div class="h2b"><span class="h2n">01</span><h3>Hospital &amp; Specialty Services</h3><span class="h2p"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></span></div></article><article class="h2r open"><img src="/_blob/6a9975e85b3bc7149055070dea44b6e8" alt=""><span class="h2g"></span><div class="h2b"><span class="h2n">02</span><h3>Medical Tourism Facilitation</h3><p>End-to-end patient journey management for international patients. From initial coordination to treatment, travel logistics, medication support, and post-care follow-up.</p><span class="h2go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span></div></article><article class="h2r"><img src="/_blob/e9410633cc6b61cee0dc1e01c0332bf6" alt=""><span class="h2g"></span><div class="h2b"><span class="h2n">03</span><h3>Emergency &amp; Urgent Care</h3><span class="h2p"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></span></div></article><article class="h2r"><img src="/_blob/01da0c91367f7dcd6a9c8c1d411dac3d" alt=""><span class="h2g"></span><div class="h2b"><span class="h2n">04</span><h3>Wellness, Longevity &amp; Aesthetic Care</h3><span class="h2p"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></span></div></article><article class="h2r"><img src="/_blob/b4c714cf7644bb8ff51d99d72facc998" alt=""><span class="h2g"></span><div class="h2b"><span class="h2n">05</span><h3>Corporate Healthcare Solutions</h3><span class="h2p"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></span></div></article><article class="h2r"><img src="/_blob/9d7986f3177142c06ca555bb10a346d5" alt=""><span class="h2g"></span><div class="h2b"><span class="h2n">06</span><h3>Elite Medical Concierge Service</h3><span class="h2p"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></span></div></article><article class="h2r"><img src="/_blob/4306f34fc9093c4e6a927892ee5a7cd6" alt=""><span class="h2g"></span><div class="h2b"><span class="h2n">07</span><h3>Accreditation &amp; Training Services</h3><span class="h2p"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></span></div></article></div></section></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":980}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

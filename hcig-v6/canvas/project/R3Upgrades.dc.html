@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Phone upgrades</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+@font-face { font-family: 'Helma'; src: url('/_blob/c002ba327633cc3513ea200bac9e6b8d') format('woff2'); font-weight: 400; font-display: swap; }
+body { margin: 0; }
+.ph { --black:#000; --b80:#333; --b60:#666; --dim:#565759; --d80:#78797B; --d60:#9A9A9C; --d40:#BBBCBE; --d20:#DDDDDF; --d06:#F6F6F6;
+  --t:#12C0C6; --t80:#42CDD1; --t60:#71D9DD; --t40:#A0E6E8; --t20:#D0F2F4; --t08:#EDFAFA; --w:#FFF;
+  --ease: cubic-bezier(.16,1,.3,1); font: 400 16px/1.6 'Inter', system-ui, sans-serif; color: var(--black); background: var(--w);
+  -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+.ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
+.ph img { display: block; max-width: 100%; }
+.ph p { margin: 0; }
+.tag { position: absolute; top: 10px; right: 10px; z-index: 9; padding: 5px 10px; border-radius: 999px; background: var(--black); color: var(--w); font: 600 11px/1 'Inter', sans-serif; letter-spacing: .08em; }
+.sec { position: relative; padding: 44px 20px 40px; overflow: hidden; }
+.soft { background: var(--d06); }
+.hd2 { margin: 0 0 26px; text-align: center; }
+.hd2 h2 { margin: 0; font: 400 32px/1.1 'Helma', Georgia, serif; letter-spacing: -.005em; text-wrap: balance; }
+.hd2 h2::after { content: ""; display: block; width: 56px; height: 1px; margin: 16px auto 0; background: var(--black); }
+.hd2 p { margin-top: 14px; color: var(--dim); font-size: 15px; line-height: 1.6; }
+.acc { color: var(--t); }
+.s .acc { white-space: nowrap; }
+.ico { width: 44px; height: 44px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 13px; background: var(--t20); color: var(--black); }
+.nav { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+.nav .ar { width: 42px; height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--d20); background: var(--w); color: var(--black); }
+.nav .ar.l svg { transform: scaleX(-1); }
+.nav .grow { flex: 1; }
+.up h4 { margin: 0 0 14px; font: 600 11px/1 'Inter', sans-serif; letter-spacing: .2em; color: var(--d60); text-transform: uppercase; }
+.blk { padding: 30px 20px; border-bottom: 1px dashed var(--d20); }
+.seg2 { display: grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 999px; background: var(--d06); box-shadow: inset 0 0 0 1px var(--d20); margin-bottom: 16px; }
+.seg2 span { text-align: center; padding: 10px; border-radius: 999px; font: 600 14px/1 'Inter', sans-serif; color: var(--dim); }
+.seg2 span.on { background: var(--black); color: var(--w); }
+.mvl { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; } .mvl li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; font-size: 14.5px; color: var(--dim); }
+.ck { width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--t); color: var(--black); margin-top: 2px; }
+.tl { list-style: none; margin: 0; padding: 0 0 0 28px; position: relative; display: grid; gap: 18px; }
+.tl::before { content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px; width: 1px; background: var(--d20); }
+.tl::after { content: ""; position: absolute; left: 7px; top: 6px; height: 46%; width: 1px; background: var(--t); }
+.tl li { position: relative; } .tl .dot { position: absolute; left: -26px; top: 4px; width: 13px; height: 13px; border-radius: 50%; background: var(--w); box-shadow: 0 0 0 1px var(--d40); }
+.tl li:nth-child(-n+3) .dot { background: var(--t); box-shadow: 0 0 0 4px var(--t20); }
+.tl .n { font: 400 15px/1 'Helma', serif; color: var(--t); } .tl h3 { margin: 4px 0; font: 600 15px/1.3 'Inter', sans-serif; } .tl p { font-size: 13.5px; color: var(--dim); }
+.chips { display: flex; gap: 8px; overflow: hidden; margin: 0 -20px; padding: 0 20px; }
+.chips span { flex: none; display: inline-flex; gap: 8px; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; background: var(--w); box-shadow: 0 0 0 1px var(--d20); font: 500 13px/1 'Inter', sans-serif; } .chips svg { color: var(--t); }
+.ig { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ip { padding: 16px; border-radius: 18px; background: var(--d06); display: grid; gap: 8px; align-content: start; } .ip.d { background: var(--b80); color: var(--w); }
+.ip span { color: var(--t); } .ip b { font: 400 36px/1 'Helma', serif; } .ip p { font: 600 13.5px/1.4 'Inter', sans-serif; }</style>
+</helmet>
+<div class="ph up"><span class="tag">UPGRADES</span>
+<div class="blk"><h4>Mission &amp; Vision: tabs instead of two long cards</h4><div class="seg2"><span class="on">Our mission</span><span>Our vision</span></div><ul class="mvl"><li><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>To build and scale a healthcare ecosystem that redefines how patient care is accessed, managed, and delivered across international markets.</li><li><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>To take full responsibility for the patient journey ensuring speed, clarity, and control from the first point of contact to resolution.</li><li><span class="ck"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>To lead the transformation of healthcare by working with insurers, providers, and global partners to eliminate fragmentation and establish a more efficient, transparent, and globally connected model of care.</li></ul></div>
+<div class="blk"><h4>How Our System Works: a journey line that fills as you scroll</h4><ol class="tl"><li><span class="dot"></span><span class="n">01</span><h3>Immediate Access &amp; First Response</h3><p>Patients receive immediate medical support through on-site clinics, urgent care centers, or coordinated medical access points.</p></li><li><span class="dot"></span><span class="n">02</span><h3>Case Ownership &amp; Medical Coordination</h3><p>Each case is taken under full control with continuous coordination between providers, insurers, and partners.</p></li><li><span class="dot"></span><span class="n">03</span><h3>Escalation to Advanced Care</h3><p>When required, patients are transferred to hospital-level treatment within our network or partner facilities.</p></li><li><span class="dot"></span><span class="n">04</span><h3>Evacuation &amp; Repatriation</h3><p>For critical or complex cases, we organize medical evacuation or repatriation across countries with full logistical and medical coordination.</p></li><li><span class="dot"></span><span class="n">05</span><h3>Insurance &amp; Claims Management</h3><p>We work directly with insurance and assistance companies, ensuring efficient approvals, documentation, and claims handling.</p></li><li><span class="dot"></span><span class="n">06</span><h3>Follow-Up &amp; Case Closure</h3><p>We continue managing the patient journey until full recovery or case resolution ensuring continuity and quality of care.</p></li></ol></div>
+<div class="blk"><h4>Maritime: service chips in one swipe row</h4><div class="chips"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17" rx="1.5"/><path d="M12 7v6M9 10h6M9.5 20.5v-4h5v4"/></svg>Onboard Medical Clinics</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3.5"/><path d="M5 21v-1.5A5.5 5.5 0 0 1 10.5 14h3a5.5 5.5 0 0 1 5.5 5.5V21M9.5 14.5v3a2 2 0 0 0 4 0"/></svg>Doctors &amp; Nurses</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 16.5l1.8 3.5h14.4l1.8-3.5-9-3z"/><path d="M6 15.5V10h12v5.5M9 10V7h6v3M12 4v3"/></svg>Fleet Medical Management</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="M12 7v14M8 11h8M4.5 14.5a7.5 7.5 0 0 0 15 0"/></svg>Shore-Side Assistance</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4.5c-.8-.8-2.2-.6-3 .2L14.5 8 6 6 4.5 7.5l6.5 3.5-3.5 3.5-3-.5L3 15.5l3.5 1.5 1.5 3.5 1.5-1.5-.5-3 3.5-3.5 3.5 6.5L18 17l-2-8.5 3.3-3.5c.8-.8 1-2.2.2-3z"/></svg>Evacuation &amp; Repatriation</span></div></div>
+<div class="blk"><h4>Our Impact: 2 x 2 tiles, the first one dark</h4><div class="ig"><div class="ip d"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17" rx="1.5"/><path d="M12 7v6M9 10h6M9.5 20.5v-4h5v4"/></svg></span><b>135+</b><p>On-Site Clinics Across Egypt</p></div><div class="ip"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><b>24/7</b><p>Medical Coverage in Key Travel Destinations</p></div><div class="ip"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5l4-4 3.5 1 2-1.5 3 .5 5 4"/><path d="M7 7.5L3 11.5l5.5 5.5c.8.8 2 .8 2.8 0l5.7-5.5M10.5 14l1.5 1.5M13 12l1.5 1.5"/></svg></span><p>Direct Partnerships with Global Insurers</p></div><div class="ip"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 19v-.5A5 5 0 0 1 8.5 13.5h1a5 5 0 0 1 5 5v.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 13.5a4.5 4.5 0 0 1 4.5 4.5v.5"/></svg></span><p>Thousands of International Patients Managed Annually</p></div></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1700}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
