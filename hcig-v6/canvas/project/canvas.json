@@ -15,6 +15,10 @@
       "name": "Home"
     },
     {
+      "id": "r4",
+      "name": "Phone round 4 (pick)"
+    },
+    {
       "id": "hd",
       "name": "Header (pick)"
     },
@@ -252,6 +256,87 @@
       "title": "Phone menu M3: Dim Gray glass panel from the right: white Helma links, quick contact row (WhatsApp, call, email), the page slides a little left behind it",
       "page": "hd",
       "is_interactive": true
+    },
+    "R4Tst1.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 796,
+      "h": 760,
+      "title": "Testimonials T1 (your spec): portrait stories, arrows on the videos, Swipe for more; third video cropped to portrait; tap opens it full screen in its original shape",
+      "page": "r4",
+      "is_interactive": true
+    },
+    "R4Tst2.dc.html": {
+      "x": 860,
+      "y": 0,
+      "w": 796,
+      "h": 760,
+      "title": "Testimonials T2: the centre story large, the others smaller and dimmed behind it, arrows on the videos, Swipe for more; tap opens full screen",
+      "page": "r4",
+      "is_interactive": true
+    },
+    "R4Why1.dc.html": {
+      "x": 0,
+      "y": 840,
+      "w": 390,
+      "h": 800,
+      "title": "Why Y1: a numbered index on the guideline's hairlines; all seven titles at a glance, tap one to read it",
+      "page": "r4",
+      "is_interactive": true
+    },
+    "R4Why2.dc.html": {
+      "x": 430,
+      "y": 840,
+      "w": 390,
+      "h": 900,
+      "title": "Why Y2: bento; the first reason as a dark lead card with its text, the six others in a clean 2 x 3 grid, tap any for its text",
+      "page": "r4",
+      "is_interactive": true
+    },
+    "R4Why3.dc.html": {
+      "x": 860,
+      "y": 840,
+      "w": 390,
+      "h": 1100,
+      "title": "Why Y3: a vertical spine with icons, title and a two-line reason each; reads straight down, nothing hidden behind taps",
+      "page": "r4",
+      "is_interactive": true
+    },
+    "R4Who1.dc.html": {
+      "x": 0,
+      "y": 2000,
+      "w": 390,
+      "h": 760,
+      "title": "Who W1: choose your path; six rows like a menu, tap one to see its line and go to its page (no sliding)",
+      "page": "r4",
+      "is_interactive": true
+    },
+    "R4Who2.dc.html": {
+      "x": 430,
+      "y": 2000,
+      "w": 390,
+      "h": 760,
+      "title": "Who W2: a stacked deck; swipe the top card away to reveal the next (the motion is shown looping)",
+      "page": "r4",
+      "is_interactive": true
+    },
+    "R4Who3.dc.html": {
+      "x": 860,
+      "y": 2000,
+      "w": 390,
+      "h": 760,
+      "title": "Who W3: a row of partner chips like tabs; tapping one swaps the dark panel under it",
+      "page": "r4",
+      "is_interactive": true
+    },
+    "R4Built.dc.html": {
+      "x": 1700,
+      "y": 840,
+      "w": 390,
+      "h": 760,
+      "title": "Built, minimal: the same two rows that slide on their own, icon tiles instead of photos (light turquoise and dark)",
+      "page": "r4",
+      "is_interactive": true
     }
   },
   "order": [
@@ -279,7 +364,16 @@
     "HDD3.dc.html",
     "HDM1.dc.html",
     "HDM2.dc.html",
-    "HDM3.dc.html"
+    "HDM3.dc.html",
+    "R4Tst1.dc.html",
+    "R4Tst2.dc.html",
+    "R4Why1.dc.html",
+    "R4Why2.dc.html",
+    "R4Why3.dc.html",
+    "R4Who1.dc.html",
+    "R4Who2.dc.html",
+    "R4Who3.dc.html",
+    "R4Built.dc.html"
   ],
   "notes": {},
   "designSystems": []

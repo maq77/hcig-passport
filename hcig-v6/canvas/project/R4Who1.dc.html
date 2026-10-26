@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Who W1</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+@font-face { font-family: 'Helma'; src: url('/_blob/c002ba327633cc3513ea200bac9e6b8d') format('woff2'); font-weight: 400; font-display: swap; }
+body { margin: 0; }
+.ph { --black:#000; --b80:#333; --dim:#565759; --d60:#9A9A9C; --d40:#BBBCBE; --d20:#DDDDDF; --d06:#F6F6F6;
+  --t:#12C0C6; --t60:#71D9DD; --t40:#A0E6E8; --t20:#D0F2F4; --t08:#EDFAFA; --w:#FFF; --ease: cubic-bezier(.16,1,.3,1);
+  font: 400 16px/1.6 'Inter', system-ui, sans-serif; color: var(--black); background: var(--w); -webkit-font-smoothing: antialiased; box-sizing: border-box; position: relative; }
+.ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
+.ph img, .ph video { display: block; max-width: 100%; }
+.ph p { margin: 0; }
+.tag { position: absolute; top: 10px; right: 10px; z-index: 9; padding: 5px 10px; border-radius: 999px; background: var(--black); color: var(--w); font: 600 11px/1 'Inter', sans-serif; letter-spacing: .08em; }
+.cap { position: absolute; left: 10px; top: 10px; z-index: 9; padding: 5px 8px; border-radius: 6px; background: rgba(255,255,255,.9); font: 600 10.5px/1 'Inter', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.sec { position: relative; padding: 44px 20px 40px; overflow: hidden; }
+.soft { background: var(--d06); }
+.hd2 { margin: 0 0 24px; text-align: center; }
+.hd2 h2 { margin: 0; font: 400 32px/1.1 'Helma', Georgia, serif; text-wrap: balance; }
+.hd2 h2::after { content: ""; display: block; width: 56px; height: 1px; margin: 16px auto 0; background: var(--black); }
+.hd2 p { margin-top: 14px; color: var(--dim); font-size: 15px; }
+.ico { width: 44px; height: 44px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 13px; background: var(--t20); color: var(--black); }
+.note { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; font: 500 13px/1 'Inter', sans-serif; color: var(--dim); }
+.note svg { color: var(--t); animation: nudge 1.8s var(--ease) infinite; }
+@keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-8px); } }
+.p1 { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.p1 li { display: grid; grid-template-columns: 44px 1fr 36px; align-items: center; gap: 4px 12px; padding: 12px; border-radius: 18px; background: var(--w); box-shadow: 0 0 0 1px var(--d20); }
+.p1 .ii { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 13px; background: var(--t20); }
+.p1 .t { font: 600 15px/1.3 'Inter', sans-serif; }
+.p1 .go { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 0 0 1px var(--d20); }
+.p1 li.open { box-shadow: 0 0 0 1px var(--t); } .p1 li.open .go { background: var(--t); box-shadow: none; }
+.p1 li p { grid-column: 2 / -1; font-size: 14px; color: var(--dim); }</style>
+</helmet>
+<div class="ph"><section class="sec"><span class="tag">W1</span><div class="hd2"><h2>Who We Work With</h2><p>Designed to support partners operating in international and high-demand environments.</p></div><ul class="p1"><li class="open"><span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l7 3v5.5c0 4.4-3 7.7-7 9-4-1.3-7-4.6-7-9V6.5z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="t">Insurance &amp; Assistance Companies</span><span class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span><p>Direct medical coordination, case management, and seamless integration with global insurance networks.</p></li><li class=""><span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20.5h18M5 20.5V10M19 20.5V10M9.5 20.5V10M14.5 20.5V10M3 10l9-6 9 6"/></svg></span><span class="t">Embassies &amp; Government Institutions</span><span class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span></li><li class=""><span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 21V8.5L12 3.5l8.5 5V21"/><path d="M9.5 21v-5h5v5M8 11.5h2M14 11.5h2"/></svg></span><span class="t">Hotels, Resorts &amp; Cruise Lines</span><span class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span></li><li class=""><span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4.5c-.8-.8-2.2-.6-3 .2L14.5 8 6 6 4.5 7.5l6.5 3.5-3.5 3.5-3-.5L3 15.5l3.5 1.5 1.5 3.5 1.5-1.5-.5-3 3.5-3.5 3.5 6.5L18 17l-2-8.5 3.3-3.5c.8-.8 1-2.2.2-3z"/></svg></span><span class="t">Tour Operators &amp; Travel Agencies</span><span class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span></li><li class=""><span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17" rx="1.5"/><path d="M12 7v6M9 10h6M9.5 20.5v-4h5v4"/></svg></span><span class="t">Healthcare Providers</span><span class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span></li><li class=""><span class="ii"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5h6v2M3 13h18M11 13v2h2v-2"/></svg></span><span class="t">Corporate Clients &amp; International Organizations</span><span class="go"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span></li></ul></section></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":760}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

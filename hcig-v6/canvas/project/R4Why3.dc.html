@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Why Y3</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+@font-face { font-family: 'Helma'; src: url('/_blob/c002ba327633cc3513ea200bac9e6b8d') format('woff2'); font-weight: 400; font-display: swap; }
+body { margin: 0; }
+.ph { --black:#000; --b80:#333; --dim:#565759; --d60:#9A9A9C; --d40:#BBBCBE; --d20:#DDDDDF; --d06:#F6F6F6;
+  --t:#12C0C6; --t60:#71D9DD; --t40:#A0E6E8; --t20:#D0F2F4; --t08:#EDFAFA; --w:#FFF; --ease: cubic-bezier(.16,1,.3,1);
+  font: 400 16px/1.6 'Inter', system-ui, sans-serif; color: var(--black); background: var(--w); -webkit-font-smoothing: antialiased; box-sizing: border-box; position: relative; }
+.ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
+.ph img, .ph video { display: block; max-width: 100%; }
+.ph p { margin: 0; }
+.tag { position: absolute; top: 10px; right: 10px; z-index: 9; padding: 5px 10px; border-radius: 999px; background: var(--black); color: var(--w); font: 600 11px/1 'Inter', sans-serif; letter-spacing: .08em; }
+.cap { position: absolute; left: 10px; top: 10px; z-index: 9; padding: 5px 8px; border-radius: 6px; background: rgba(255,255,255,.9); font: 600 10.5px/1 'Inter', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.sec { position: relative; padding: 44px 20px 40px; overflow: hidden; }
+.soft { background: var(--d06); }
+.hd2 { margin: 0 0 24px; text-align: center; }
+.hd2 h2 { margin: 0; font: 400 32px/1.1 'Helma', Georgia, serif; text-wrap: balance; }
+.hd2 h2::after { content: ""; display: block; width: 56px; height: 1px; margin: 16px auto 0; background: var(--black); }
+.hd2 p { margin-top: 14px; color: var(--dim); font-size: 15px; }
+.ico { width: 44px; height: 44px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 13px; background: var(--t20); color: var(--black); }
+.note { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; font: 500 13px/1 'Inter', sans-serif; color: var(--dim); }
+.note svg { color: var(--t); animation: nudge 1.8s var(--ease) infinite; }
+@keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-8px); } }
+.y3 { list-style: none; margin: 0; padding: 0 0 0 4px; position: relative; display: grid; gap: 14px; }
+.y3::before { content: ""; position: absolute; left: 23px; top: 10px; bottom: 10px; width: 1px; background: linear-gradient(var(--t), var(--t40)); }
+.y3 li { position: relative; display: grid; grid-template-columns: 40px 1fr; gap: 14px; }
+.y3 .dot { position: relative; z-index: 1; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--w); color: var(--t); box-shadow: 0 0 0 1px var(--t40); }
+.y3 h3 { margin: 8px 0 4px; font: 600 15.5px/1.3 'Inter', sans-serif; }
+.y3 p { font-size: 14px; color: var(--dim); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }</style>
+</helmet>
+<div class="ph"><section class="sec soft"><span class="tag">Y3</span><div class="hd2"><h2>Why partners choose HCIG</h2><p>Designed for insurers, global partners, and international patients.</p></div><ol class="y3"><li><span class="dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 20.5v-.5a7 7 0 0 1 9.5-6.5M15 18.5l2 2 4-4.5"/></svg></span><div><h3>Full Patient Ownership</h3><p>We take full responsibility for every patient journey from first contact to full recovery.</p></div></li><li><span class="dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><circle cx="12" cy="13" r="2"/><path d="M12 7v4M10.4 14.3l-4 2.5M13.6 14.3l4 2.5"/></svg></span><div><h3>Connected Care Delivery</h3><p>We operate a healthcare ecosystem where all services work as one coordinated system.</p></div></li><li><span class="dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16a8 8 0 1 1 16 0"/><path d="M12 16l4.5-5.5"/><circle cx="12" cy="16" r="1.2"/></svg></span><div><h3>Speed &amp; Responsiveness</h3><p>We act immediately, ensuring fast access to care when every moment matters.</p></div></li><li><span class="dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.8L7.8 21l4.2-2.2 4.2 2.2-1.2-7.2"/><path d="M10 9l1.4 1.4L14 7.8"/></svg></span><div><h3>Global Standards &amp; Accreditation</h3><p>We operate in line with internationally recognized medical standards and trusted global partnerships.</p></div></li><li><span class="dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 21V8.5L12 3.5l8.5 5V21"/><path d="M9.5 21v-5h5v5M8 11.5h2M14 11.5h2"/></svg></span><div><h3>Hospitality Integration</h3><p>We seamlessly integrate healthcare into the hospitality experience for international patients.</p></div></li><li><span class="dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5h9M8 3.5v2M5.5 5.5c.6 3 2.6 5.4 5.2 6.8M10.5 5.5c-.8 3.5-3 6.4-6 8"/><path d="M12.5 20.5l4-9 4 9M14 17.5h5"/></svg></span><div><h3>Cultural Intelligence</h3><p>We understand international patients and adapt care to their expectations, culture, and mindset.</p></div></li><li><span class="dot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20.5h16M5.5 16l4.5-4.5 3 3 6-6.5M15 8h4.5v4.5"/></svg></span><div><h3>Partner Development &amp; Accreditation Support</h3><p>We don’t just work with partners we develop them. Through training, operational support, and accreditation guidance, we help healthcare providers reach international standards and integrate into the global medical tourism ecosystem.</p></div></li></ol></section></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1100}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

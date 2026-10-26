@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Built minimal</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+@font-face { font-family: 'Helma'; src: url('/_blob/c002ba327633cc3513ea200bac9e6b8d') format('woff2'); font-weight: 400; font-display: swap; }
+body { margin: 0; }
+.ph { --black:#000; --b80:#333; --dim:#565759; --d60:#9A9A9C; --d40:#BBBCBE; --d20:#DDDDDF; --d06:#F6F6F6;
+  --t:#12C0C6; --t60:#71D9DD; --t40:#A0E6E8; --t20:#D0F2F4; --t08:#EDFAFA; --w:#FFF; --ease: cubic-bezier(.16,1,.3,1);
+  font: 400 16px/1.6 'Inter', system-ui, sans-serif; color: var(--black); background: var(--w); -webkit-font-smoothing: antialiased; box-sizing: border-box; position: relative; }
+.ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
+.ph img, .ph video { display: block; max-width: 100%; }
+.ph p { margin: 0; }
+.tag { position: absolute; top: 10px; right: 10px; z-index: 9; padding: 5px 10px; border-radius: 999px; background: var(--black); color: var(--w); font: 600 11px/1 'Inter', sans-serif; letter-spacing: .08em; }
+.cap { position: absolute; left: 10px; top: 10px; z-index: 9; padding: 5px 8px; border-radius: 6px; background: rgba(255,255,255,.9); font: 600 10.5px/1 'Inter', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+.sec { position: relative; padding: 44px 20px 40px; overflow: hidden; }
+.soft { background: var(--d06); }
+.hd2 { margin: 0 0 24px; text-align: center; }
+.hd2 h2 { margin: 0; font: 400 32px/1.1 'Helma', Georgia, serif; text-wrap: balance; }
+.hd2 h2::after { content: ""; display: block; width: 56px; height: 1px; margin: 16px auto 0; background: var(--black); }
+.hd2 p { margin-top: 14px; color: var(--dim); font-size: 15px; }
+.ico { width: 44px; height: 44px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 13px; background: var(--t20); color: var(--black); }
+.note { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; font: 500 13px/1 'Inter', sans-serif; color: var(--dim); }
+.note svg { color: var(--t); animation: nudge 1.8s var(--ease) infinite; }
+@keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-8px); } }
+.bm { overflow: hidden; margin: 0 -20px; padding: 0 20px; }
+.bmt { display: grid; grid-template-rows: repeat(2, 1fr); grid-auto-flow: column; grid-auto-columns: 164px; gap: 10px; animation: bm 10s var(--ease) infinite; }
+@keyframes bm { 0%, 26% { transform: none; } 33%, 59% { transform: translateX(-174px); } 66%, 92% { transform: translateX(-348px); } 100% { transform: none; } }
+.bt { min-height: 150px; padding: 16px; display: grid; align-content: space-between; border-radius: 20px; background: var(--t08); box-shadow: inset 0 0 0 1px var(--t40); }
+.bt.dk { background: var(--b80); color: #fff; box-shadow: none; }
+.bt .big { color: var(--t); } .bt h3 { margin: 0; font: 400 19px/1.15 'Helma', serif; }
+.open { margin-top: 14px; padding: 14px 16px; border-left: 2px solid var(--t); border-radius: 0 14px 14px 0; background: var(--d06); font-size: 14.5px; color: var(--dim); }
+.open b { display: block; color: #000; font: 600 15px/1.3 'Inter', sans-serif; margin-bottom: 4px; }</style>
+</helmet>
+<div class="ph"><section class="sec"><span class="tag">B-MIN</span><div class="hd2"><h2>Built for Global Healthcare Delivery</h2><p>Designed to operate across borders, support international patients, and deliver consistent care in complex environments</p></div><div class="bm"><div class="bmt"><article class="bt "><span class="big"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5h9M8 3.5v2M5.5 5.5c.6 3 2.6 5.4 5.2 6.8M10.5 5.5c-.8 3.5-3 6.4-6 8"/><path d="M12.5 20.5l4-9 4 9M14 17.5h5"/></svg></span><h3>Multilingual Medical Teams</h3></article><article class="bt dk"><span class="big"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9M12 3c-2.6 2.6-3.8 5.6-3.8 9s1.2 6.4 3.8 9"/></svg></span><h3>Global Presence &amp; Network</h3></article><article class="bt "><span class="big"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5l7 3v5.5c0 4.4-3 7.7-7 9-4-1.3-7-4.6-7-9V6.5z"/><path d="M9 12l2 2 4-4"/></svg></span><h3>Insurance &amp; Assistance Integration</h3></article><article class="bt "><span class="big"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20.5h16M5.5 16l4.5-4.5 3 3 6-6.5M15 8h4.5v4.5"/></svg></span><h3>Training &amp; Partner Development</h3></article><article class="bt dk"><span class="big"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 21V8.5L12 3.5l8.5 5V21"/><path d="M9.5 21v-5h5v5M8 11.5h2M14 11.5h2"/></svg></span><h3>Hospitality &amp; Travel Integration</h3></article><article class="bt "><span class="big"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></span><h3>Operational Control &amp; Scalability</h3></article></div></div><p class="open"><b>Multilingual Medical Teams</b>Our teams operate across multiple languages, ensuring clear communication with international patients, insurers, and global partners.</p></section></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":760}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
