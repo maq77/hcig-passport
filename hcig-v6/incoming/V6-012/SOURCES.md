@@ -1,0 +1,21 @@
+# SOURCES: Official Logo Hunt for Gap List (Ticket V6-012)
+
+All files were retrieved from official sources. No logo aggregators, no AI redraws, no recolouring, and no tracing were used. Original file bytes were preserved.
+
+| Organisation | File | Format | Pixel Size | Source URL | Licence Note |
+|---|---|---|---|---|---|
+| MedOne Group | `medone.png` | PNG (RGBA transparent) | 351x201 | https://medoneclinic.net/assets/images/logo.png | Proprietary brand asset of MedOne Clinics / MedOne Group. Official website header logo. |
+| MedPark Health Group | `medpark.jpg` | JPEG (RGB, white background) | 1500x1500 | https://www.medparkhospitals.com/logo.JPG | Proprietary brand asset of MedPark Health Group. Official high resolution file referenced in site schema and open graph metadata. |
+| MedPark Health Group | `medpark.webp` | WEBP (RGB) | 160x160 | https://medparkhospitals.com/logo.webp | Proprietary brand asset of MedPark Health Group. Live site header and footer asset. |
+| One Medical Center | `onemedical.svg` | SVG (Vector) | Vector (viewBox 0 0 402.5 102.9) | https://irp.cdn-website.com/4617b40a/dms3rep/multi/logo.svg | Proprietary brand asset of One Medical Center (Clearwater, Florida). Official website header vector. |
+| One Medical Spa | `onespa.png` | PNG (RGBA transparent) | 1256x319 | https://irp.cdn-website.com/f059aea2/dms3rep/multi/Spa+(2).png | Proprietary brand asset of One Medical Spa (Florida). Official website header logo asset. |
+| UCA MENA | `uca.png` | PNG (RGB, white background) | 1280x1258 | https://img1.wsimg.com/isteam/ip/aa17bbe0-f92e-4cb5-b550-a964b809d30c/blob-0001.png/:/ll | Proprietary emblem of Urgent Care Association Egypt & MENA. Lossless original upload asset from ucamena.org header. |
+| Shakankiry Clinics Medical Group (SCMG) | `scmg.png` | PNG (RGBA transparent) | 172x100 | https://scmg-egypt.com/themes/en/images/logo.png | Proprietary brand asset of Shakankiry Clinics Medical Group. Official website header logo. |
+| Global Healthcare Accreditation (GHA) | `gha.png` | PNG (RGBA transparent) | 2024x774 | https://cdn.prod.website-files.com/61a537ef8190ad81d0177370/69726d284f04618a68c1e88e_GHA%20Stacked%20Logo-01.png | Proprietary brand asset of Global Healthcare Accreditation. Official stacked organisation logo from website header. Not a certificate seal. |
+| DMWV (Deutscher Medical Wellness Verband) | `dmwv.png` | PNG (RGBA transparent) | 829x849 | https://www.dmwv.de/images/dmwv-logo-de.png | Proprietary association logo of Deutscher Medical Wellness Verband. Official German header asset. |
+| German Medical Wellness Association | `dmwv-en.png` | PNG (RGBA transparent) | 1600x1600 | https://www.dmwv.de/images/dmwv-logo-en.png | Proprietary association logo of German Medical Wellness Association. Official international English asset from dmwv.de. |
+| CSS Insurance | `css.svg` | SVG (Vector) | Vector (viewBox 0 0 1695.6 723) | https://upload.wikimedia.org/wikipedia/commons/4/43/Css-versicherung-logo.svg | Wikimedia Commons File:Css-versicherung-logo.svg. Public domain (simple geometric shapes and text below threshold of originality). Exact match to header SVG on css.ch. |
+| Allianz Partners | `allianz-partners.png` | PNG (Indexed transparent) | 786x167 | https://www.allianz-partners.com/content/dam/onemarketing/awp/azpartnerscom/en_global/AZ_Partners_Attached_Descriptor_Positive_RGB_.png | Proprietary brand asset of Allianz Partners S.A.S. Official corporate website header logo. |
+| ITB Berlin | `itb-berlin.svg` | SVG (Vector) | Vector (viewBox 0 0 191.52 85.76) | https://messe-berlinprod-media.e-spirit.cloud/eb9073d7-d515-4782-a31b-1ef49560ea39/ITB/Layout/Images/ITB_26_Logo_Berlin_279x86px.svg | Proprietary trade mark of Messe Berlin GmbH. Official event vector logo from itb.com CDN. |
+| ITIC | `itic.svg` | SVG (Vector) | Vector (viewBox 0 0 1000 1392.32) | https://www.itic.co/wp-content/themes/itic/assets/img/logo-itic.svg | Proprietary trade mark of ITIC (International Travel & Health Insurance Conference). Official theme vector logo from itic.co. |
+| Africa Health ExCon | `africa-health-excon.png` | PNG (RGBA transparent) | 151x117 | https://www.africahealthexcon.com/images/logo.png | Proprietary trade mark of Africa Health ExCon / Unified Procurement Authority (UPA Egypt). Official website header logo. |
