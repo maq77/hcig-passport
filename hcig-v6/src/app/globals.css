@@ -1230,3 +1230,7 @@ html.menu-open { overflow: hidden; }
 /* Review dots: a 32 px target, the same small mark */
 .g-dots { gap: 2px; }
 .g-dots button { width: 32px; height: 32px; }
+
+/* the hairlines are spans too: keep the title rule (.h2 > span) off them */
+.sec-head .h2 > .hl { flex: 1 1 0%; max-width: none; }
+@container page (max-width: 760px) { .sec-head .h2 > .hl.r { flex: none; width: 56px; } }
