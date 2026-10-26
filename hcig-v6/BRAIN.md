@@ -97,8 +97,10 @@ Wellness Association (DMWV) in Egypt. **Never write "accredited by" about HCIG.*
 
 ## 5. Current phase and next step
 
-- **Phase P0** (safety, access, backup, workspace): in progress.
-- **Next:** P1, the spec in `specs/013-hcig-v6/`, then a Gemini review of the spec and plan.
+- **Deadline: full English website on HCIG Work in two days (from 2026-10-26), then Irina reviews.**
+- Home page: day and night. Every other page: day only for now. One design system everywhere.
+- Claude: all design, the home page first, then the important pages, then the rest. agy: low and mid priority work,
+  reviewed by Claude. The six other languages are drafted while Irina reviews.
 
 ## 6. Pages and home order
 

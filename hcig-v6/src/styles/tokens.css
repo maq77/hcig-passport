@@ -1,0 +1,102 @@
+/* HCIG v6 design tokens. One file, used by the canvas boards and the site.
+   Colour rule (owner, 2026-10-22): the guideline palette and its lighter tints only. No darker turquoise, no navy,
+   no off-palette near-blacks. Day is the default theme; night is the switch. */
+
+:root {
+  /* Guideline palette */
+  --black: #000000;
+  --black-80: #333333;
+  --black-60: #666666;
+  --black-40: #999999;
+  --black-20: #CCCCCC;
+  --dim: #565759;
+  --dim-80: #78797B;
+  --dim-60: #9A9A9C;
+  --dim-40: #BBBCBE;
+  --dim-20: #DDDDDF;
+  --turq: #12C0C6;
+  --turq-80: #42CDD1;
+  --turq-60: #71D9DD;
+  --turq-40: #A0E6E8;
+  --turq-20: #D0F2F4;
+  --white: #FFFFFF;
+
+  /* Lighter tints than the guideline's 20% step, mixed only from the palette */
+  --dim-06: color-mix(in srgb, var(--dim) 6%, var(--white));
+  --turq-08: color-mix(in srgb, var(--turq) 8%, var(--white));
+
+  /* Type */
+  --font-display: 'Helma', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --fs-display: clamp(34px, 2.2rem + 2.6vw, 62px);
+  --fs-h2: clamp(30px, 1.6rem + 2vw, 54px);
+  --fs-h3: clamp(19px, 1rem + .5vw, 24px);
+  --fs-sub: clamp(17px, 1rem + .25vw, 20px);
+  --fs-body: clamp(16px, .95rem + .1vw, 17px);
+  --fs-small: 14px;
+  --fs-label: 12px;
+  --lh-display: 1.06;
+  --lh-body: 1.65;
+  --track-label: .24em;
+
+  /* Space: 4 px base; compact sections (owner's rhythm) */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px; --s-6: 24px;
+  --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px; --s-20: 80px;
+  --section-y: clamp(40px, 4.2vw, 60px);
+  --gutter: clamp(20px, 5cqi, 80px);
+  --wrap: 1280px;
+  --measure: 62ch;
+
+  /* Shape and depth */
+  --r-pill: 999px;
+  --r-plate: 14px;
+  --r-card: 18px;
+  --r-media: 22px;
+  --sh-1: 0 1px 3px rgba(86, 87, 89, .08);
+  --sh-2: 0 30px 60px -24px rgba(0, 0, 0, .4);
+  --sh-glow: 0 16px 36px -14px rgba(18, 192, 198, .8);
+
+  /* Motion: the glass-door curve; feedback is fast, atmosphere is slow */
+  --ease: cubic-bezier(.16, 1, .3, 1);
+  --ease-sweep: cubic-bezier(.45, .05, .35, 1);
+  --t-fast: 180ms;
+  --t-base: 400ms;
+  --t-slow: 900ms;
+  --t-grand: 1400ms;
+  --sweep: 2.4s;
+
+  /* Layers */
+  --z-base: 0; --z-media: 1; --z-content: 2; --z-header: 10; --z-drawer: 20; --z-sheet: 40; --z-toast: 100;
+}
+
+/* Day (default) */
+.theme-day, :root {
+  --bg: var(--white);
+  --bg-soft: var(--dim-06);
+  --surface: var(--white);
+  --ink: var(--black);
+  --ink-2: var(--dim);         /* 7.2:1 on white */
+  --ink-3: var(--black-60);    /* 5.7:1 on white, meta only */
+  --line: var(--dim-20);
+  --accent: var(--turq);
+  --accent-soft: var(--turq-20);
+  --on-accent: var(--black);   /* text on a Turquoise fill is always Black (9.4:1) */
+  --acc-text: var(--turq);     /* heading accent words only (owner's rule); never body, links or labels */
+  color-scheme: light;
+}
+
+/* Night */
+.theme-night {
+  --bg: var(--black);
+  --bg-soft: color-mix(in srgb, var(--white) 6%, var(--black));
+  --surface: var(--black-80);
+  --ink: var(--white);
+  --ink-2: var(--dim-20);      /* 14.6:1 on black */
+  --ink-3: var(--dim-40);
+  --line: var(--black-80);
+  --accent: var(--turq);
+  --accent-soft: color-mix(in srgb, var(--turq) 14%, var(--black));
+  --on-accent: var(--black);
+  --acc-text: var(--turq);
+  color-scheme: dark;
+}

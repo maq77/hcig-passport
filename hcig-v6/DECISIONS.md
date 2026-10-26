@@ -1,5 +1,17 @@
 # DECISIONS.md: HCIG v6 (newest first, the owner's words quoted)
 
+## 2026-10-26 (evening): deadline and scope
+
+- **Two days, full website** [stated]: "i need to finish in two days, so make website full first and push to hcig passport
+  vercel to give to irina for review ... i prefer quality ... give agy low to mid priority tasks to save tokens in claude,
+  and only make claude review its work too, and claude must work on all design and home page as it is highest priority".
+- **English complete first**; the six other languages are drafted by agy against a locked glossary while Irina reviews,
+  checked by Claude, shipped before go-live.
+- **Full website, one design system** [stated]: "i want full website ... only home page has day and night, but the other
+  day only for now until we finish then we may add night later. and give more priority to important pages, but the other
+  pages are ok, only care about redesign with the new design system, to keep all website consistent".
+- **Review on the live preview** (HCIG Work `/hcig/v6`) instead of canvas rounds, to meet the date.
+
 ## 2026-10-26 (later): fact sheet, sitemap, leadership, presence, security
 
 - **Fact sheet and sitemap approved** ("Approve both"). The hotels partner page is `/partner/hotels-and-resorts/`.

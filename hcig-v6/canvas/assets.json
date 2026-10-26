@@ -1,0 +1,14 @@
+{
+  "_note": "Asset key -> local source file (repo-relative). The canvas build uploads each to the canvas asset store (ids in blobs.json); the site build copies optimised versions to public/.",
+  "earth-night": "hcig-v3/material/hero-assets/g-earth-network.jpg",
+  "earth-day": "hcig-v3/material/hero-assets/g-earth-day2.jpg",
+  "flows-night": "hcig-v3/material/hero-assets/flows-night.png",
+  "flows-day": "hcig-v3/material/hero-assets/flows-day.png",
+  "logo-h-white": "hcig-v3/material/hero-assets/logo-h-white.png",
+  "logo-h-black": "hcig-v3/material/hero-assets/logo-h-black.png",
+  "mark-white": "hcig-v3/material/hero-assets/mark-white.png",
+  "mark-black": "hcig-v3/material/hero-assets/mark-black.png",
+  "dmwv": "hcig-v3/material/hero-assets/dmwv.png",
+  "gha": "hcig-v3/material/hero-assets/gha.jpg",
+  "helma": "hcig-v3/material/hero-assets/helma.woff2"
+}

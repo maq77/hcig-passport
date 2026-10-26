@@ -30,3 +30,17 @@ done. agy tasks run in their own worktree and branch and hand back in `handbacks
 | V6-016 | URL map and one-hop 301 map | claude | done (approved) | main | `specs/013-hcig-v6/contracts/urls.md` | |
 | V6-017 | Public crawl of healthcareig.com: every internal link, image and script with its status code | agy-2 | open | v6/V6-017 | `hcig-v6/incoming/V6-017/` | HTTP reads only, browser user agent, one request per second, no login of any kind. Output: `crawl.csv` (url, status, type, found on) + `SUMMARY.md` |
 | V6-018 | Security: move the public SQL file, old admin panel and test files out of `public_html` (reversible) | claude | in progress | main | host only | his OK 2026-10-26; after the backup download |
+
+## Build (two-day push)
+
+| ID | Title | Owner | Status | Branch | May touch | Notes |
+|---|---|---|---|---|---|---|
+| V6-019 | Live words of every inner page into content files, word for word | agy-delegate | in progress | v6/V6-019 | `hcig-v6/src/content/live/` | from `hcig-v6/material/live-capture/2026-10-26/` |
+| V6-020 | Web video encodes (group film, testimonial videos), no frames, no posters | agy-delegate | in progress | v6/V6-020 | `hcig-v6/material/media/video/` (local) + `hcig-v6/handbacks/V6-020.md` | ffmpeg only |
+| V6-021 | Generated images for the maritime page and gaps (no people shown as staff or patients) | agy-delegate | in progress | v6/V6-021 | `hcig-v6/material/media/generated/` (local) + handback | Claude picks by eye |
+| V6-022 | Next.js app, design system in code, home page (day and night) | claude | in progress | main | `hcig-v6/` | highest priority |
+| V6-023 | Important pages: About, Services, Maritime, For Partners, Group, Contact, Blog | claude | open | main | `hcig-v6/` | day only |
+| V6-024 | All other pages (service lines, partner types, brands, network, trust, press, leadership, legal) | claude | open | main | `hcig-v6/` | day only, thin pages merged |
+| V6-025 | SEO, AEO, schema, sitemaps, llms.txt, redirects map in code | claude | open | main | `hcig-v6/` | |
+| V6-026 | Preview on HCIG Work `/hcig/v6`, QA pass, note for Irina | claude | open | main | root `build.js`, `src/hcig-v6/` | |
+| V6-027 | Seven-language B2B glossary, then first-draft translations | agy-delegate | open | v6/V6-027 | `hcig-v6/scripts/dict/` | after English is locked; Claude checks |
