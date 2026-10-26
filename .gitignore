@@ -72,3 +72,14 @@ tmasi-live/
 docs/emails/tmasi-security-*
 # Loose review screenshots in the repo root
 /*.png
+
+# HCIG v6 (2026-10-26): secrets and private material are never committed (this repo is public)
+prompt hcig.txt
+hcig material/
+*.ppk
+id_rsa*
+*.pem
+hcig-v6/material/
+hcig-v6/.env*
+hcig-v6/fonts-licensed/
+hcig-v6/live-build/

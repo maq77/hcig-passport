@@ -1,0 +1,21 @@
+# Next.js output
+/.next/
+/out/
+/live-build/
+/node_modules/
+next-env.d.ts
+*.tsbuildinfo
+
+# Private and heavy material: live-site backup, source media, generated media (kept local)
+/material/
+
+# Secrets and licensed font files never go into this public repo
+.env*
+/fonts-licensed/
+*.ppk
+id_rsa*
+*.pem
+
+# Local tool state
+/.playwright-mcp/
+/canvas/.pulled/
