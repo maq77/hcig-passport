@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <a className="skip" href="#main">{UI.skip.text}</a>
-        <div className="page">{children}</div>
+        {children}
       </body>
     </html>
   );

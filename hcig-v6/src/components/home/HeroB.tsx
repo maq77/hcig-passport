@@ -2,38 +2,22 @@
 // Hero B ("Night Network"), approved by the owner. The day/night switch changes ONLY the hero (his answer 2026-10-26);
 // every section below is always day, and the hero's foot melts into the day page in both modes.
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useRef, type CSSProperties } from "react";
 import { HERO } from "@/content/home.mjs";
 import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { SheetLink } from "@/components/ui/Sheet";
-import { Header } from "./Header";
+import { useTheme } from "./Theme";
 
-const STORE = "hcig-theme";
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
 export function HeroB() {
-  const [night, setNight] = useState(false);
-  const [sw, setSw] = useState(false);
+  const { night, sw } = useTheme();
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const stageY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 140]);
   const copyY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -50]);
-
-  useEffect(() => {
-    try {
-      if (localStorage.getItem(STORE) === "night") setNight(true);
-    } catch {}
-  }, []);
-
-  const toggle = () => {
-    setSw(true);
-    setNight((n) => {
-      try { localStorage.setItem(STORE, n ? "day" : "night"); } catch {}
-      return !n;
-    });
-  };
 
   const words = HERO.h1.text.split(" ");
   const vars = { "--flows-n": `url('${asset("flows-night")}')`, "--flows-d": `url('${asset("flows-day")}')` } as CSSProperties;
@@ -56,7 +40,6 @@ export function HeroB() {
           <div className="th-l"><div className="shade shade-d" /></div>
         </div>
         <div className="fx" aria-hidden="true"><div className="band" /><div className="flare" /></div>
-        <Header night={night} onTheme={toggle} />
         <motion.div className="body" style={{ y: copyY }}>
           <div className="copy">
             <h1 className="h1 rise" aria-label={HERO.h1.text}>

@@ -5,10 +5,15 @@ import { Premises } from "@/components/home/Premises";
 import { Built, MissionVision, OurHealthcare, SystemWorks, Why } from "@/components/home/Middle";
 import { CeoQuote, ClosingBand, Impact, Insurers, Maritime, Testimonials, WhoWeWorkWith } from "@/components/home/Lower";
 import { ContactSheet, Footer } from "@/components/home/Footer";
+import { Header } from "@/components/home/Header";
+import { ThemeProvider } from "@/components/home/Theme";
 
 export default function Home() {
   return (
-    <>
+    <ThemeProvider>
+      {/* the header sits outside the page frame: the frame is a CSS container, which would pin fixed elements to it */}
+      <Header />
+      <div className="page">
       <HeroB />
       <main id="main">
         <About />
@@ -28,6 +33,7 @@ export default function Home() {
       </main>
       <Footer />
       <ContactSheet />
-    </>
+      </div>
+    </ThemeProvider>
   );
 }
