@@ -1201,3 +1201,32 @@ body { margin: 0; background: var(--white); overflow-x: clip; }
 .menu-cta { width: 100%; justify-content: center; min-height: 56px; }
 html.menu-open { overflow: hidden; }
 @media (min-width: 1081px) { .menu { display: none; } }
+
+/* =====================================================================================
+   Review pass 2026-10-27 (UI/UX and graphic): hairlines that draw, aligned impact row, small fixes
+   ===================================================================================== */
+/* The title hairlines are real elements now (they draw outward from the title); the old pseudo lines retire */
+.sec-head .h2::before, .sec-head .h2::after { content: none; display: none; }
+.sec-head .hl { display: block; flex: 1 1 0; min-width: 20px; height: 1px; background: var(--ink); }
+.sec-head .hl.l { transform-origin: right center; }
+.sec-head .hl.r { transform-origin: left center; }
+.sec-head.start .hl { display: none; }
+.on-ink .hl { background: rgba(255, 255, 255, .45); }
+@container page (max-width: 760px) {
+  .sec-head .hl.l { display: none; }
+  .sec-head .hl.r { display: block; flex: none; width: 56px; min-width: 0; transform-origin: center; }
+  .sec-head.start .hl.r { transform-origin: left center; }
+}
+
+/* Our Impact: the two lines without a number sit on the same baseline as the others */
+@container page (min-width: 901px) {
+  .impact-row li:not(:has(.impact-n)) .impact-ico { margin-bottom: clamp(44px, 2rem + 2.4vw, 72px); }
+}
+
+/* The ring's small caps line never leaves a word alone */
+.ring-centre small { text-wrap: balance; }
+@container page (max-width: 900px) { .ring-centre small { letter-spacing: .12em; font-size: 10.5px; } }
+
+/* Review dots: a 32 px target, the same small mark */
+.g-dots { gap: 2px; }
+.g-dots button { width: 32px; height: 32px; }
