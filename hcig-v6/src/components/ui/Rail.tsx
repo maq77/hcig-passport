@@ -1,51 +1,99 @@
 "use client";
-// Phone first: on phones a card grid becomes a horizontal slider with arrows and a counter (owner, 2026-10-26:
-// "you can make horizontal with sliders and arrow on phone"). From tablet up the same items sit in their grid.
-import { useEffect, useRef, useState, type ReactNode } from "react";
+// Phone first: on phones a card grid becomes a horizontal slider (owner, 2026-10-26: "horizontal with sliders and
+// arrow on phone", then "2 rows each slider and auto slide"). From tablet up the same items sit in their grid.
+// rows=2 lays the cards out in two rows that move one column at a time; auto slides on its own, pauses while the
+// reader touches it, while it is off screen and under reduced motion. nav="story" shows story bars, "count" 01 / 07.
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useReducedMotion } from "motion/react";
 import { Icon } from "./Icon";
 import { Stagger } from "./Motion";
 import { UI } from "@/content/home.mjs";
 
-export function Rail({ children, className = "", label, gap = 0.07 }: { children: ReactNode; className?: string; label: string; gap?: number }) {
+type Props = { children: ReactNode; className?: string; label: string; gap?: number; rows?: 1 | 2; auto?: number; nav?: "count" | "story" };
+
+const PHONE = "(max-width: 760px)";
+
+export function Rail({ children, className = "", label, gap = 0.07, rows = 1, auto = 0, nav = "count" }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [at, setAt] = useState(0);
-  const [count, setCount] = useState(0);
+  const [cols, setCols] = useState<number[]>([]);
+  const [hold, setHold] = useState(false);
+  const [seen, setSeen] = useState(false);
+  const reduce = useReducedMotion();
 
+  // the slider's stops: one per column (two cards share a column when rows = 2)
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const kids = () => [...el.children] as HTMLElement[];
-    setCount(kids().length);
-    const onScroll = () => {
-      const x = el.scrollLeft + 4;
-      const i = kids().findIndex((k) => k.offsetLeft - el.offsetLeft + k.offsetWidth / 2 > x);
-      setAt(Math.max(0, i));
+    const measure = () => {
+      const lefts = [...new Set(([...el.children] as HTMLElement[]).map((k) => k.offsetLeft))].sort((a, b) => a - b);
+      setCols(lefts.map((x) => x - lefts[0]));
     };
+    const onScroll = () => {
+      const x = el.scrollLeft;
+      setCols((c) => {
+        let i = 0;
+        c.forEach((v, k) => { if (v <= x + 8) i = k; });
+        if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 4) i = c.length - 1;
+        setAt(i);
+        return c;
+      });
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
     el.addEventListener("scroll", onScroll, { passive: true });
-    return () => el.removeEventListener("scroll", onScroll);
+    const io = new IntersectionObserver(([e]) => setSeen(e.isIntersecting), { threshold: 0.35 });
+    io.observe(el);
+    return () => { ro.disconnect(); io.disconnect(); el.removeEventListener("scroll", onScroll); };
   }, []);
 
-  const go = (d: number) => {
+  const go = (i: number) => {
     const el = ref.current;
-    if (!el) return;
-    const k = el.children[Math.min(count - 1, Math.max(0, at + d))] as HTMLElement | undefined;
-    if (k) el.scrollTo({ left: k.offsetLeft - el.offsetLeft - parseFloat(getComputedStyle(el).paddingLeft || "0"), behavior: "smooth" });
+    if (!el || !cols.length) return;
+    const n = (i + cols.length) % cols.length;
+    el.scrollTo({ left: cols[n], behavior: reduce ? "auto" : "smooth" });
+    setAt(n);
   };
 
+  // auto slide on phones only
+  useEffect(() => {
+    if (!auto || hold || !seen || reduce || cols.length < 2) return;
+    if (!matchMedia(PHONE).matches) return;
+    const t = setTimeout(() => go(at + 1), auto);
+    return () => clearTimeout(t);
+  });
+
+  // a touch pauses the auto slide for a while, then it carries on
+  useEffect(() => {
+    if (!hold) return;
+    const t = setTimeout(() => setHold(false), 9000);
+    return () => clearTimeout(t);
+  }, [hold]);
+
+  const n = cols.length || 1;
   return (
-    <div className="rail-wrap">
-      <Stagger className={`rail ${className}`} gap={gap} ref={ref} role="group" aria-label={label}>
+    <div className="rail-wrap" onPointerDown={() => setHold(true)} onFocus={() => setHold(true)}>
+      <Stagger className={`rail${rows === 2 ? " r2" : ""} ${className}`} gap={gap} ref={ref} role="group" aria-label={label}>
         {children}
       </Stagger>
-      <div className="rail-nav">
-        <button type="button" className="rail-btn" onClick={() => go(-1)} disabled={at <= 0} aria-label={UI.prev.text}>
+      <div className={`rail-nav nav-${nav}`}>
+        {nav === "story" ? (
+          <span className="rail-story" aria-hidden="true" style={{ ["--auto" as string]: `${auto || 4000}ms` } as CSSProperties}>
+            {Array.from({ length: n }, (_, i) => (
+              <i key={i} className={i < at ? "done" : i === at ? (auto && !hold && seen && !reduce ? "on run" : "on") : ""} />
+            ))}
+          </span>
+        ) : (
+          <>
+            <span className="rail-count" aria-hidden="true"><b>{String(at + 1).padStart(2, "0")}</b> / {String(n).padStart(2, "0")}</span>
+            <span className="rail-bar" aria-hidden="true"><span style={{ width: `${((at + 1) / n) * 100}%` }} /></span>
+          </>
+        )}
+        <button type="button" className="rail-btn prev" onClick={() => { setHold(true); go(at - 1); }} aria-label={UI.prev.text}>
           <Icon name="arrow" size={20} className="flip-x" />
         </button>
-        <span className="rail-count" aria-live="polite">
-          <b>{String(at + 1).padStart(2, "0")}</b> / {String(count || 1).padStart(2, "0")}
-        </span>
-        <span className="rail-bar" aria-hidden="true"><span style={{ width: `${count ? ((at + 1) / count) * 100 : 0}%` }} /></span>
-        <button type="button" className="rail-btn" onClick={() => go(1)} disabled={at >= count - 1} aria-label={UI.next.text}>
+        <button type="button" className="rail-btn next" onClick={() => { setHold(true); go(at + 1); }} aria-label={UI.next.text}>
           <Icon name="arrow" size={20} />
         </button>
       </div>

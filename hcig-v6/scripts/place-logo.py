@@ -1,7 +1,7 @@
 # Place the real HC mark or logo on a surface in a generated photo (owner, 2026-10-26: brand identity on objects,
 # "real logo placed in post"). The logo file is placed, never redrawn. Ported from hcig-v3/canvas/heroes/etch_logo.py.
 #   python place-logo.py <photo> <out> <logo.png> <cx> <cy> <width> <mode>
-#   cx, cy, width in the photo's own pixels; mode: frost (frosted glass, light room) | glass-dark | print (ink on a light surface)
+#   cx, cy, width in the photo's own pixels; mode: frost | etch (light glass) | glass-dark | print (ink on a light surface)
 import sys
 import numpy as np
 from PIL import Image, ImageFilter
@@ -23,6 +23,8 @@ if mode == "frost":        # milky white with a cool grey rim, so it reads on br
     fill, fa, rim, ra = np.array([250, 252, 252]), 0.62, np.array([110, 136, 142]), 0.38
 elif mode == "glass-dark":  # catches the room light on darker glass
     fill, fa, rim, ra = np.array([236, 246, 247]), 0.34, np.array([255, 255, 255]), 0.30
+elif mode == "etch":        # acid-etched mark on light glass: a soft grey that reads without looking printed
+    fill, fa, rim, ra = np.array([122, 126, 130]), 0.5, np.array([255, 255, 255]), 0.25
 else:                       # printed ink on a light surface: Dim Gray, slightly soft
     fill, fa, rim, ra = np.array([86, 87, 89]), 0.82, np.array([60, 60, 62]), 0.10
 m = soft[..., None] * fa

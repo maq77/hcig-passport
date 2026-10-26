@@ -67,6 +67,9 @@ export const ABOUT = {
   closing: "Operating across multiple markets, HCIG supports international patients, insurers, and global partners with structured, reliable, and scalable healthcare solutions.",
   // live: "We don’t just provide healthcare we manage it." Punctuation fix logged (same words).
   statement: { text: "We don’t just provide healthcare. We manage it.", src: "live-fix" },
+  // the About band's route: the live sentence's own words ("connecting urgent care, hospital treatment, and
+  // international medical coordination within one clear model")
+  route: { items: ["urgent care", "hospital treatment", "international medical coordination"], src: "live" },
   stats: [
     { n: 40, suffix: "+", label: "Years of Experience" },
     { n: 600, suffix: "K+", label: "Patients Served" },

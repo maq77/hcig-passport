@@ -259,15 +259,15 @@
   },
   "svc-tourism": {
     "file": "svc-tourism.webp",
-    "w": 1264,
-    "h": 848,
-    "kb": 90
+    "w": 1376,
+    "h": 768,
+    "kb": 100
   },
   "svc-urgent": {
     "file": "svc-urgent.webp",
-    "w": 1264,
-    "h": 848,
-    "kb": 70
+    "w": 1376,
+    "h": 768,
+    "kb": 66
   },
   "svc-wellness": {
     "file": "svc-wellness.webp",
@@ -277,15 +277,15 @@
   },
   "svc-corporate": {
     "file": "svc-corporate.webp",
-    "w": 1264,
-    "h": 848,
-    "kb": 50
+    "w": 1376,
+    "h": 768,
+    "kb": 89
   },
   "svc-concierge": {
     "file": "svc-concierge.webp",
-    "w": 1264,
-    "h": 848,
-    "kb": 92
+    "w": 1376,
+    "h": 768,
+    "kb": 98
   },
   "svc-accreditation": {
     "file": "svc-accreditation.webp",
@@ -450,9 +450,9 @@
   },
   "ship-to-shore": {
     "file": "ship-to-shore.webp",
-    "w": 1600,
-    "h": 900,
-    "kb": 104
+    "w": 1376,
+    "h": 768,
+    "kb": 139
   },
   "yacht-marina": {
     "file": "yacht-marina.webp",
@@ -465,5 +465,41 @@
     "w": 1600,
     "h": 900,
     "kb": 130
+  },
+  "built-multilingual": {
+    "file": "built-multilingual.webp",
+    "w": 900,
+    "h": 502,
+    "kb": 32
+  },
+  "built-global": {
+    "file": "built-global.webp",
+    "w": 900,
+    "h": 502,
+    "kb": 42
+  },
+  "built-insurance": {
+    "file": "built-insurance.webp",
+    "w": 900,
+    "h": 502,
+    "kb": 22
+  },
+  "built-training": {
+    "file": "built-training.webp",
+    "w": 900,
+    "h": 502,
+    "kb": 52
+  },
+  "built-hospitality": {
+    "file": "built-hospitality.webp",
+    "w": 900,
+    "h": 502,
+    "kb": 63
+  },
+  "built-operations": {
+    "file": "built-operations.webp",
+    "w": 900,
+    "h": 502,
+    "kb": 40
   }
 }

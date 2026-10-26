@@ -61,44 +61,54 @@ export function MissionVision() {
 }
 
 // ---------- Why partners choose HCIG ----------
+// Phones (his pick W3, 2026-10-26): numbered index cards in two rows that slide on their own; tapping a card shows
+// its text in the panel under the slider. Desktop keeps the full cards.
 export function Why() {
   const items = WHY.items as Card[];
+  const [on, setOn] = useState(0);
   return (
     <section className="sec why band-soft" aria-labelledby="why-h">
       <div className="wrap">
         <SectionHead id="why-h" title={WHY.heading} lead={WHY.sub} />
-        <Rail className="why-grid" label={WHY.heading}>
+        <Rail className="why-grid" label={WHY.heading} rows={2} auto={3800} nav="story">
           {items.map((x, i) => (
-            <Item as="article" className={`card${i === 0 ? " card-feature" : ""}`} key={x.title}>
+            <Item as="article" className={`card why-card${on === i ? " is-on" : ""}`} key={x.title} onClick={() => setOn(i)}>
+              <span className="why-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
               <span className="ico" aria-hidden="true"><Icon name={x.icon} size={24} /></span>
               <h3>{x.title}</h3>
-              {x.text.length > 140 ? <Clamp text={x.text} /> : <p>{x.text}</p>}
+              {x.text.length > 140 ? <Clamp text={x.text} className="why-text" /> : <p className="why-text">{x.text}</p>}
             </Item>
           ))}
         </Rail>
+        <p className="why-open" aria-live="polite"><b>{items[on].title}</b>{items[on].text}</p>
       </div>
     </section>
   );
 }
 
 // ---------- Built for Global Healthcare Delivery ----------
+// Phones (his pick B1): image tiles in two rows, auto slide, tap shows the text under the slider.
+const BUILT_IMG = ["built-multilingual", "built-global", "built-insurance", "built-training", "built-hospitality", "built-operations"];
 export function Built() {
   const items = BUILT.items as Card[];
   const [a, c] = BUILT.closing.split(". ");
+  const [on, setOn] = useState(0);
   return (
     <section className="sec built" aria-labelledby="built-h">
       <div className="wrap">
         <SectionHead id="built-h" title={BUILT.heading} lead={BUILT.sub} />
-        <Rail className="built-grid" label={BUILT.heading}>
+        <Rail className="built-grid" label={BUILT.heading} rows={2} auto={4200}>
           {items.map((x, i) => (
-            <Item as="article" className="card built-card" key={x.title}>
+            <Item as="article" className={`card built-card${on === i ? " is-on" : ""}`} key={x.title} onClick={() => setOn(i)}>
+              <figure className="built-img" aria-hidden="true"><img src={asset(BUILT_IMG[i])} alt="" loading="lazy" /></figure>
               <span className="built-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
               <span className="ico" aria-hidden="true"><Icon name={x.icon} size={24} /></span>
               <h3>{x.title}</h3>
-              <p>{x.text}</p>
+              <p className="built-text">{x.text}</p>
             </Item>
           ))}
         </Rail>
+        <p className="built-open" aria-live="polite"><b>{items[on].title}</b>{items[on].text}</p>
         <Reveal as="p" className="built-close">
           {a}. <span className="acc">{c}</span>
         </Reveal>
@@ -115,6 +125,9 @@ export function SystemWorks() {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ring, offset: ["start end", "end start"] });
   const spin = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 90]);
+  const stepsRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: stepsP } = useScroll({ target: stepsRef, offset: ["start 75%", "end 60%"] });
+  const fill = useTransform(stepsP, [0, 1], [reduce ? 1 : 0, 1]);
   const n = nodes.length;
   return (
     <section className="sec eco band-soft" aria-labelledby="eco-h">
@@ -145,6 +158,9 @@ export function SystemWorks() {
             </div>
             <p className="eco-tagline">{ECOSYSTEM.tagline.text}</p>
           </Reveal>
+          {/* phones (his pick): a journey line that fills with turquoise as the reader scrolls the steps */}
+          <div className="steps-wrap" ref={stepsRef}>
+          <motion.span className="steps-fill" aria-hidden="true" style={{ scaleY: fill }} />
           <Stagger as="ol" className="steps" gap={0.1}>
             {steps.map((s) => (
               <Item as="li" key={s.n}>
@@ -156,6 +172,7 @@ export function SystemWorks() {
               </Item>
             ))}
           </Stagger>
+          </div>
         </div>
       </div>
     </section>
@@ -169,7 +186,7 @@ export function OurHealthcare() {
     <section className="sec care" aria-labelledby="care-h">
       <div className="wrap">
         <SectionHead id="care-h" title={HEALTHCARE.heading} lead={HEALTHCARE.sub} />
-        <Rail className="care-grid" label={HEALTHCARE.heading}>
+        <Stagger className="care-grid" gap={0.07}>
           {items.map((x) => (
             <Item as="article" className="care-card" key={x.title}>
               <figure className="media">
@@ -179,9 +196,10 @@ export function OurHealthcare() {
                 <h3><a href={href(x.path)}>{x.title}<Icon name="arrow" size={18} /></a></h3>
                 <Clamp text={x.text} />
               </div>
+              <a className="care-go" href={href(x.path)} tabIndex={-1} aria-hidden="true"><Icon name="up" size={16} /></a>
             </Item>
           ))}
-        </Rail>
+        </Stagger>
       </div>
     </section>
   );

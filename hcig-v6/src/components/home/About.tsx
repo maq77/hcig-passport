@@ -11,6 +11,7 @@ import { SectionHead } from "@/components/ui/SectionHead";
 import type { IconName } from "@/lib/icons";
 
 const FACT_ICONS: IconName[] = ["speed", "ownership", "network"];
+const ROUTE_ICONS: IconName[] = ["cross", "hospital", "globe"];
 
 export function About() {
   const [first, second, third] = ABOUT.paras;
@@ -24,25 +25,26 @@ export function About() {
     <section className="sec about" aria-labelledby="about-h">
       <div className="wrap">
         <SectionHead id="about-h" title={ABOUT.heading} lead={first} className="about-head" />
-        <Reveal className="about-band" ref={band}>
-          <div className="about-band-copy">
-            <div className="about-signal" aria-hidden="true">
-              <span className="nd"><Icon name="cross" size={22} /></span><span className="ln" />
-              <span className="nd"><Icon name="hospital" size={22} /></span><span className="ln" />
-              <span className="nd"><Icon name="globe" size={22} /></span>
-            </div>
+        {/* His pick 2026-10-26 ("choose best ... what feels more luxurious"): A2, the photo fills the card and the words
+            sit on frosted glass over the lounge on the left, never over the people. One light glides along the route. */}
+        <Reveal className="about-glass" ref={band}>
+          <motion.img
+            className="about-glass-img"
+            style={{ y: imgY }}
+            src={asset("about-band")}
+            alt="A doctor walking with a guest through the medical reception of a Red Sea resort"
+            loading="lazy"
+          />
+          <div className="about-glass-panel">
             <p className="about-statement">
               {st[0]}. <span className="acc">{st.slice(1).join(". ")}</span>
             </p>
+            <ol className="route">
+              {(ABOUT.route.items as string[]).map((t, i) => (
+                <li key={t}><span className="rn" aria-hidden="true"><Icon name={ROUTE_ICONS[i]} size={18} /></span><span className="rt">{t}</span></li>
+              ))}
+            </ol>
           </div>
-          <figure className="about-band-photo">
-            <motion.img
-              style={{ y: imgY }}
-              src={asset("about-band")}
-              alt="A doctor walking with a guest through the medical reception of a Red Sea resort"
-              loading="lazy"
-            />
-          </figure>
         </Reveal>
         <Stagger className="about-text">
           <Item as="div"><p>{second}</p></Item>

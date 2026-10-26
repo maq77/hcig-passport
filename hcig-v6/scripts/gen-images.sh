@@ -28,4 +28,12 @@ gen svc-tourism "An international patient couple arrives at the lobby of a luxur
 gen svc-urgent "A calm on-site clinic room inside a five-star beach resort: a doctor in a white coat dresses a minor wound on a tourist's forearm, white treatment chair, dim gray cabinets, turquoise accents, the sea seen through a large window. A blank white wall panel above the desk."
 gen svc-corporate "A corporate healthcare planning meeting in a glass boardroom overlooking a modern city skyline: two executives and a doctor review a health programme, a closed white laptop with a blank lid faces the camera on the table, glass of water, notebook."
 gen svc-concierge "Elite medical concierge at the entrance of a five-star hotel at dusk: a coordinator in a dark suit opens the rear door of a black luxury car for a guest, holding a slim dim gray medical case with a blank flat front panel. Warm lights, polished stone."
+
+# Built for Global Healthcare Delivery tiles (his pick B1, 2026-10-26)
+gen built-multilingual "At the medical reception of a luxury Red Sea resort, a doctor and a nurse speak with an international family of guests, warm and attentive, guests of different origins; a blank frosted glass panel on the wall behind them."
+gen built-global "A calm international medical coordination room at dusk: a large curved screen shows a softly glowing world map with thin turquoise route lines from Europe to the Red Sea, two coordinators at a white desk with headsets. The map has no text or labels."
+gen built-insurance "A case manager with a light headset reviews a patient file on a closed white laptop with a blank lid and printed documents on a clean white desk, bright modern office, turquoise pen, calm and organised."
+gen built-training "A nurse educator demonstrates CPR on a training mannequin to a small group of nurses in navy scrubs in a bright modern training room with large windows; a blank white wall panel in the background."
+gen built-hospitality "By the pool of a five star Red Sea resort a doctor in a white polo shirt with a slim dim gray medical bag checks on a smiling guest on a sun lounger, umbrellas, palm trees, turquoise water."
+gen built-operations "A modern healthcare operations centre: a supervisor stands before a wall of large screens showing calm abstract dashboards in turquoise and gray with no readable text, dim gray walls, glass, soft light."
 echo "done $(date +%T)"

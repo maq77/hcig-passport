@@ -173,24 +173,28 @@
     "width": 1264
   },
   "svc-tourism": {
-    "src": "hcig-v3/material/generated/deliver/s3.jpg",
-    "width": 1264
+    "src": "hcig-v6/material/media/generated/r2/svc-tourism.jpg",
+    "width": 1376,
+    "note": "Nano Banana route A 2026-10-26 (round 3 image review)"
   },
   "svc-urgent": {
-    "src": "hcig-v3/material/generated/deliver/s1.jpg",
-    "width": 1264
+    "src": "hcig-v6/material/media/generated/r2/svc-urgent-logo.jpg",
+    "width": 1376,
+    "note": "Nano Banana route A 2026-10-26 (round 3 image review); real HCIG logo placed on the wall panel in post"
   },
   "svc-wellness": {
     "src": "hcig-v3/material/generated/deliver/s6.jpg",
     "width": 1264
   },
   "svc-corporate": {
-    "src": "hcig-v3/material/generated/deliver/s5.jpg",
-    "width": 1264
+    "src": "hcig-v6/material/media/generated/r2/svc-corporate.jpg",
+    "width": 1376,
+    "note": "Nano Banana route A 2026-10-26 (round 3 image review)"
   },
   "svc-concierge": {
-    "src": "hcig-v3/material/generated/deliver/s4.jpg",
-    "width": 1264
+    "src": "hcig-v6/material/media/generated/r2/svc-concierge-logo.jpg",
+    "width": 1376,
+    "note": "Nano Banana route A 2026-10-26 (round 3 image review); real HC mark placed on the case in post"
   },
   "svc-accreditation": {
     "src": "hcig-v3/material/live-site/assets/blog/img/IMG_5626.PNG",
@@ -303,8 +307,9 @@
     "note": "Nano Banana route A 2026-10-26; real HC mark etched on the glass in post (scripts/place-logo.py)"
   },
   "ship-to-shore": {
-    "src": "hcig-v6/material/media/generated/ship-to-shore.jpg",
-    "width": 1600
+    "src": "hcig-v6/material/media/generated/r2/ship-to-shore.jpg",
+    "width": 1376,
+    "note": "Nano Banana route A 2026-10-26 (round 3 image review)"
   },
   "yacht-marina": {
     "src": "hcig-v6/material/media/generated/yacht-marina.jpg",
@@ -313,5 +318,35 @@
   "coordination-desk": {
     "src": "hcig-v6/material/media/generated/coordination-desk.jpg",
     "width": 1600
+  },
+  "built-multilingual": {
+    "src": "hcig-v6/material/media/generated/r2/built-multilingual-logo.jpg",
+    "width": 900,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1); real HCIG logo etched on the glass in post"
+  },
+  "built-global": {
+    "src": "hcig-v6/material/media/generated/r2/built-global.jpg",
+    "width": 900,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1)"
+  },
+  "built-insurance": {
+    "src": "hcig-v6/material/media/generated/r2/built-insurance.jpg",
+    "width": 900,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1)"
+  },
+  "built-training": {
+    "src": "hcig-v6/material/media/generated/r2/built-training-logo.jpg",
+    "width": 900,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1); real HCIG logo on the wall panel in post"
+  },
+  "built-hospitality": {
+    "src": "hcig-v6/material/media/generated/r2/built-hospitality.jpg",
+    "width": 900,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1)"
+  },
+  "built-operations": {
+    "src": "hcig-v6/material/media/generated/r2/built-operations.jpg",
+    "width": 900,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1)"
   }
 }
