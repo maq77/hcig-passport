@@ -19,10 +19,72 @@ function setOpen(page, name, open) {
   page.querySelectorAll(`[data-when="${name}"]`).forEach((el) => (el.hidden = !open));
 }
 
+const reduced = () => typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Fade-up reveals and count-ups when a block enters the screen. The real number is in the HTML; we only animate it.
+function initReveal(page) {
+  const els = page.querySelectorAll("[data-reveal], [data-count]");
+  if (!("IntersectionObserver" in window) || reduced()) { els.forEach((el) => el.classList.add("in")); return; }
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      const el = e.target;
+      el.classList.add("in");
+      if (el.dataset.count) countUp(el);
+      io.unobserve(el);
+    }
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+  els.forEach((el) => io.observe(el));
+}
+function countUp(el) {
+  const to = Number(el.dataset.count);
+  if (!to) return;
+  const t0 = performance.now(), dur = 1400;
+  const step = (t) => {
+    const k = Math.min(1, (t - t0) / dur), eased = 1 - Math.pow(1 - k, 3);
+    el.textContent = String(Math.round(to * eased));
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+// Group film: only the cut for the current theme and screen plays, and only while the section is on screen.
+function initFilms(page, state) {
+  const vids = [...page.querySelectorAll("video[data-film]")];
+  if (!vids.length) return () => {};
+  const film = page.querySelector(".gf-film");
+  let onScreen = false;
+  const current = () => {
+    const theme = page.classList.contains("theme-night") ? "night" : "day";
+    return vids.find((v) => v.dataset.th === theme && v.offsetParent !== null);
+  };
+  const sync = () => {
+    const lead = current();
+    for (const v of vids) {
+      const play = v === lead && onScreen && (!reduced() || state.sound);
+      if (v === lead && state.sound) v.muted = false; else v.muted = true;
+      if (play) {
+        if (v.preload === "none") { v.preload = "auto"; v.load(); }
+        const from = vids.find((o) => o !== v && !o.paused);
+        if (from && from.currentTime) v.currentTime = from.currentTime;
+        const p = v.play(); if (p && p.catch) p.catch(() => {});
+      } else if (!v.paused) v.pause();
+    }
+  };
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((es) => { onScreen = es[0].isIntersecting; sync(); }, { threshold: 0.25 }).observe(film);
+  } else { onScreen = true; }
+  addEventListener("resize", () => sync(), { passive: true });
+  return sync;
+}
+
 export function initRuntime(page = document.querySelector(".page")) {
   if (!page || page.dataset.runtime === "on") return;
   page.dataset.runtime = "on";
-  const state = { langOpen: false, menuOpen: false };
+  page.classList.add("js");
+  const state = { langOpen: false, menuOpen: false, sound: false };
+  initReveal(page);
+  const syncFilms = initFilms(page, state);
 
   let saved = null;
   try { saved = localStorage.getItem(STORE); } catch {}
@@ -48,6 +110,14 @@ export function initRuntime(page = document.querySelector(".page")) {
       setTheme(page, toNight ? "night" : "day", true);
       try { localStorage.setItem(STORE, toNight ? "night" : "day"); } catch {}
       state.menuOpen = false; state.langOpen = false; sync();
+      setTimeout(syncFilms, 900); // switch the film with the dawn
+    } else if (a === "toggleSound") {
+      state.sound = !state.sound;
+      t.setAttribute("aria-pressed", String(state.sound));
+      syncFilms();
+    } else if (a === "toggleMore") {
+      const box = t.closest(".clampable");
+      if (box) { const open = box.classList.toggle("open"); t.setAttribute("aria-expanded", String(open)); }
     } else if (a === "toggleLang") { state.langOpen = !state.langOpen; sync(); }
     else if (a === "toggleMenu") { state.menuOpen = !state.menuOpen; state.langOpen = false; sync(); }
     else if (a === "closeMenu") { state.menuOpen = false; sync(); }

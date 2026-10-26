@@ -1,0 +1,30 @@
+{
+  "name": "hcig-v6",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && node scripts/flatten-rsc.mjs",
+    "sync": "node scripts/sync-preview.mjs",
+    "preview": "npm run build && npm run sync",
+    "media": "node scripts/media.mjs",
+    "shots": "node scripts/shots.mjs",
+    "canvas": "node canvas/build-canvas.mjs",
+    "local": "node canvas/preview.mjs"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "motion": "^12.43.0",
+    "next": "16.3.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "playwright-core": "1.56.1",
+    "typescript": "^5"
+  }
+}

@@ -1,5 +1,38 @@
 # DECISIONS.md: HCIG v6 (newest first, the owner's words quoted)
 
+## 2026-10-26 (late night): home round 2, brand guideline review, phone first
+
+- **Stack** [stated]: Next.js + Framer Motion + Tailwind with one `globals.css`, built locally and uploaded compiled (TMASI v3 way).
+  The home is now React components in `src/components/`, one stylesheet `src/app/globals.css`.
+- **Day/night changes only the hero** [his answer]; every other section is always day; the hero melts into the page.
+- **About band: Dim Gray depth**, no pure black [his answer]. The CEO band uses the same depth.
+- **"Mission & Vision"** as the section title, check marks instead of dashes [stated].
+- **Strict brand guideline** [stated: "make sure that design system was built from brand guidlines"]. Review of the guideline
+  PDF (25 pages, read by eye) found and fixed: Helma now at its own Regular weight (was a synthetic bold copied from the live
+  site); section titles use the guideline's motif, the Helma title between two black hairlines (was an invented turquoise bar);
+  footer logo at the 120 px minimum (mark alone on phones, which the guideline allows); the HC mark as a watermark and the
+  stationery's flowing lines added as brand motifs. Palette, tints, Inter roles and Dim Gray bands already matched.
+- **Phone first, own phone layouts** [stated: "you can make horizontal with sliders and arrow on phone ... mobile first"]:
+  Why, Built, Our Healthcare, Who We Work With and the testimonial videos are sliders with arrows and a counter on phones.
+- **Google reviews** [stated, with the pasted widget]: MedPark Health Hub's real Google reviews (4.8, 292), word for word,
+  sliding on their own. Verified on medparkhospitals.com/healthhub.php the same day. Relative dates left out (they go stale).
+- **CEO portrait round** [stated: "make ceo face as round icon or so, like round profile"].
+- **Closing band background** [stated: "more better and meaningful"]: a generated coast where resort, hospital, marina and
+  airport are joined by turquoise light, one connected system.
+- **Images with brand identity**: Nano Banana scenes with a clean surface, the real HC mark placed in post
+  (`scripts/place-logo.py`), never an AI-drawn logo [his answer].
+
+## 2026-10-26 (night): original order, About image
+
+- **Same content and the same order as the live site** [stated]: "i want same content and ordering, like about us first and
+  then etc like original website". Home order: Hero, About Us, Our Premises and Facilities, Mission and Vision, Why
+  partners, Built for Global, How Our System Works, Our Healthcare, (Maritime block), Testimonials, (CEO quote), 100%
+  Trusted by Global Insurance & Assistance Networks, Who We Work With, Our Impact, the closing band, contact and footer.
+  The earlier idea of moving the insurer band up is dropped.
+- **About Us gets a better, generated image and a better design** [stated]: "use /imagine or claude in chrome into gemini
+  account and generate using nano banana and make better design for about us section and you can learn from tmasi v3
+  about us section".
+
 ## 2026-10-26 (evening): deadline and scope
 
 - **Two days, full website** [stated]: "i need to finish in two days, so make website full first and push to hcig passport

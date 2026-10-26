@@ -1,0 +1,317 @@
+{
+  "_note": "Asset key -> source file (repo-relative) and the width the site needs. scripts/media.mjs writes public/media/<key>.<ext> and public/media/manifest.json. Videos are copied as encoded by V6-020; no frame is ever taken from a video.",
+  "earth-night": {
+    "src": "hcig-v3/material/hero-assets/g-earth-network.jpg",
+    "width": 1376
+  },
+  "earth-day": {
+    "src": "hcig-v3/material/hero-assets/g-earth-day2.jpg",
+    "width": 2048
+  },
+  "flows-night": {
+    "src": "hcig-v3/material/hero-assets/flows-night.png",
+    "keep": true
+  },
+  "flows-day": {
+    "src": "hcig-v3/material/hero-assets/flows-day.png",
+    "keep": true
+  },
+  "logo-h-white": {
+    "src": "hcig-v3/material/hero-assets/logo-h-white.png",
+    "keep": true
+  },
+  "logo-h-black": {
+    "src": "hcig-v3/material/hero-assets/logo-h-black.png",
+    "keep": true
+  },
+  "mark-white": {
+    "src": "hcig-v3/material/hero-assets/mark-white.png",
+    "keep": true
+  },
+  "mark-black": {
+    "src": "hcig-v3/material/hero-assets/mark-black.png",
+    "keep": true
+  },
+  "dmwv": {
+    "src": "hcig-v3/material/hero-assets/dmwv.png",
+    "keep": true
+  },
+  "gha": {
+    "src": "hcig-v3/material/hero-assets/gha.jpg",
+    "width": 391
+  },
+  "helma": {
+    "src": "hcig-v3/material/hero-assets/helma.woff2",
+    "keep": true
+  },
+  "brand-247": {
+    "src": "hcig-v3/motion/logos/247.svg",
+    "keep": true
+  },
+  "brand-medpark": {
+    "src": "hcig-v3/motion/logos/medpark.png",
+    "keep": true
+  },
+  "brand-medone": {
+    "src": "hcig-v3/motion/logos/medone.png",
+    "width": 600
+  },
+  "brand-tmasi": {
+    "src": "hcig-v3/motion/logos/tmasi.png",
+    "width": 600
+  },
+  "brand-onemedical": {
+    "src": "hcig-v6/incoming/V6-012/onemedical.svg",
+    "keep": true
+  },
+  "brand-onespa": {
+    "src": "hcig-v6/incoming/V6-012/onespa.png",
+    "width": 640
+  },
+  "brand-scmg": {
+    "src": "hcig material/scmg.png",
+    "width": 480
+  },
+  "brand-uca": {
+    "src": "hcig-v6/incoming/V6-012/uca.png",
+    "width": 400
+  },
+  "ins-lloyds": {
+    "src": "hcig-v3/material/canvas-assets/insurers/lloyds.png",
+    "keep": true
+  },
+  "ins-aviva": {
+    "src": "hcig-v3/material/canvas-assets/insurers/aviva.png",
+    "keep": true
+  },
+  "ins-axa": {
+    "src": "247clinic-v4/public/logos/insurers/axa.svg",
+    "keep": true
+  },
+  "ins-post-office": {
+    "src": "hcig-v3/material/canvas-assets/insurers/post-office.png",
+    "keep": true
+  },
+  "ins-adac": {
+    "src": "247clinic-v4/public/logos/insurers/adac.svg",
+    "keep": true
+  },
+  "ins-uniqa": {
+    "src": "247clinic-v4/public/logos/insurers/uniqa.svg",
+    "keep": true
+  },
+  "ins-leisure-guard": {
+    "src": "hcig-v3/material/canvas-assets/insurers/leisure-guard.png",
+    "keep": true
+  },
+  "ins-admiral": {
+    "src": "hcig-v3/material/canvas-assets/insurers/admiral.png",
+    "keep": true
+  },
+  "ins-adec": {
+    "src": "hcig-v3/material/canvas-assets/insurers/adec.png",
+    "keep": true
+  },
+  "ins-gouda": {
+    "src": "hcig-v3/material/canvas-assets/insurers/gouda.png",
+    "keep": true
+  },
+  "ins-europe-insurance": {
+    "src": "hcig-v3/material/canvas-assets/insurers/europe-insurance.png",
+    "keep": true
+  },
+  "ins-coverwise": {
+    "src": "hcig-v3/material/canvas-assets/insurers/coverwise.png",
+    "keep": true
+  },
+  "ins-liberty-mutual": {
+    "src": "hcig-v3/material/canvas-assets/insurers/liberty-mutual.png",
+    "keep": true
+  },
+  "ins-vienna-insurance-group": {
+    "src": "hcig-v3/material/canvas-assets/insurers/vienna-insurance-group.png",
+    "keep": true
+  },
+  "ins-allianz": {
+    "src": "247clinic-v4/public/logos/insurers/allianz.svg",
+    "keep": true
+  },
+  "ins-hansemerkur": {
+    "src": "247clinic-v4/public/logos/insurers/hansemerkur.svg",
+    "keep": true
+  },
+  "ins-erv": {
+    "src": "hcig-v3/material/canvas-assets/insurers/erv.png",
+    "keep": true
+  },
+  "ins-ergo-hestia": {
+    "src": "hcig-v3/material/canvas-assets/insurers/ergo-hestia.png",
+    "keep": true
+  },
+  "ins-allclear": {
+    "src": "hcig-v3/material/canvas-assets/insurers/allclear.png",
+    "keep": true
+  },
+  "ins-ergo": {
+    "src": "247clinic-v4/public/logos/insurers/ergo.svg",
+    "keep": true
+  },
+  "ins-mondial-assistance": {
+    "src": "247clinic-v4/public/logos/insurers/mondial.webp",
+    "keep": true
+  },
+  "ins-avanti": {
+    "src": "hcig-v3/material/canvas-assets/insurers/avanti.png",
+    "keep": true
+  },
+  "ins-groupama": {
+    "src": "hcig-v3/material/canvas-assets/insurers/groupama.png",
+    "keep": true
+  },
+  "svc-hospital": {
+    "src": "hcig-v3/material/generated/deliver/s2.jpg",
+    "width": 1264
+  },
+  "svc-tourism": {
+    "src": "hcig-v3/material/generated/deliver/s3.jpg",
+    "width": 1264
+  },
+  "svc-urgent": {
+    "src": "hcig-v3/material/generated/deliver/s1.jpg",
+    "width": 1264
+  },
+  "svc-wellness": {
+    "src": "hcig-v3/material/generated/deliver/s6.jpg",
+    "width": 1264
+  },
+  "svc-corporate": {
+    "src": "hcig-v3/material/generated/deliver/s5.jpg",
+    "width": 1264
+  },
+  "svc-concierge": {
+    "src": "hcig-v3/material/generated/deliver/s4.jpg",
+    "width": 1264
+  },
+  "svc-accreditation": {
+    "src": "hcig-v3/material/live-site/assets/blog/img/IMG_5626.PNG",
+    "width": 1200
+  },
+  "ceo": {
+    "src": "hcig-v3/material/live-site/assets/img/amr.jpg",
+    "width": 800
+  },
+  "maritime-hero": {
+    "src": "hcig-v6/material/media/generated/r2/maritime-hero.jpg",
+    "width": 1376,
+    "note": "Nano Banana route A 2026-10-26"
+  },
+  "cta-bg": {
+    "src": "hcig-v6/material/media/generated/r2/cta.jpg",
+    "width": 1376,
+    "note": "Nano Banana route A 2026-10-26: one coast, resort, hospital, marina and airport joined by turquoise light"
+  },
+  "moment-itic-stage": {
+    "src": "hcig-v3/material/canvas-assets/img/itic-stage.jpg",
+    "width": 900,
+    "alt": "HCIG on stage at ITIC Global 2025 in Venice"
+  },
+  "moment-itic-booth": {
+    "src": "hcig-v3/material/canvas-assets/img/itic-booth.jpg",
+    "width": 900,
+    "alt": "The HCIG team at ITIC"
+  },
+  "moment-eha": {
+    "src": "hcig-v3/material/canvas-assets/img/eha-meeting.jpg",
+    "width": 900,
+    "alt": "Strategic dialogue with the Egypt Healthcare Authority at Africa Health ExCon 2025"
+  },
+  "moment-luxor": {
+    "src": "hcig-v3/material/canvas-assets/img/karnak-delegation.jpg",
+    "width": 900,
+    "alt": "TMASI GLOBAL with the Nordic and New Zealand consulates in Luxor"
+  },
+  "moment-gha": {
+    "src": "hcig-v3/material/live-site/assets/blog/img/IMG_5627.PNG",
+    "width": 900,
+    "alt": "GHA visits to leading hospitals with HCIG"
+  },
+  "moment-panel": {
+    "src": "hcig-v3/material/live-site/assets/blog/img/IMG_5981.PNG",
+    "width": 900,
+    "alt": "The HCIG panel at Africa Health ExCon 2025"
+  },
+  "moment-whd": {
+    "src": "hcig-v3/material/live-site/assets/blog/img/IMG_1636.JPG",
+    "width": 900,
+    "alt": "24/7 Clinic and Hilton Hurghada Plaza on World Health Day"
+  },
+  "moment-hub": {
+    "src": "hcig-v3/material/live-site/assets/blog/img/news1.JPG",
+    "width": 900,
+    "alt": "The opening of MEDPARK Health Hub in Hurghada"
+  },
+  "moment-uca": {
+    "src": "hcig-v3/material/canvas-assets/img/news15.jpg",
+    "width": 900,
+    "alt": "24/7 Clinics receive UCA accreditation in Chicago"
+  },
+  "moment-signing": {
+    "src": "hcig-v3/material/canvas-assets/img/signing.jpg",
+    "width": 900,
+    "alt": "An HCIG partnership signing"
+  },
+  "film-night-wide": {
+    "src": "hcig-v6/material/media/video/film-full-night-black-1280.mp4",
+    "video": true
+  },
+  "film-night-tall": {
+    "src": "hcig-v6/material/media/video/film-full-phone-night-black-720.mp4",
+    "video": true
+  },
+  "film-day-wide": {
+    "src": "hcig-v6/material/media/video/film-full-day-1280.mp4",
+    "video": true
+  },
+  "film-day-tall": {
+    "src": "hcig-v6/material/media/video/film-full-phone-day-720.mp4",
+    "video": true
+  },
+  "testimonial-1": {
+    "src": "hcig-v6/material/media/video/testimonial-1-720.mp4",
+    "video": true
+  },
+  "testimonial-2": {
+    "src": "hcig-v6/material/media/video/testimonial-2-720.mp4",
+    "video": true
+  },
+  "testimonial-3": {
+    "src": "hcig-v6/material/media/video/testimonial-3-720.mp4",
+    "video": true
+  },
+  "about-band": {
+    "src": "hcig-v6/material/media/generated/about-a.jpg",
+    "width": 1376,
+    "note": "Nano Banana (route A) 2026-10-26; a mood image, not a real HCIG clinic"
+  },
+  "traveller-centre": {
+    "src": "hcig-v6/material/media/generated/traveller-centre.jpg",
+    "width": 900
+  },
+  "onboard-clinic": {
+    "src": "hcig-v6/material/media/generated/r2/onboard-clinic-logo.jpg",
+    "width": 1376,
+    "note": "Nano Banana route A 2026-10-26; real HC mark etched on the glass in post (scripts/place-logo.py)"
+  },
+  "ship-to-shore": {
+    "src": "hcig-v6/material/media/generated/ship-to-shore.jpg",
+    "width": 1600
+  },
+  "yacht-marina": {
+    "src": "hcig-v6/material/media/generated/yacht-marina.jpg",
+    "width": 1600
+  },
+  "coordination-desk": {
+    "src": "hcig-v6/material/media/generated/coordination-desk.jpg",
+    "width": 1600
+  }
+}

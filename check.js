@@ -89,6 +89,19 @@ const V3_PLANNED = new Set([
   '/for-hotels', '/hotel-clinics', '/international-accreditation', '/insurance-assistance-partners',
 ].flatMap((p) => [`/247clinic/v3${p}`, `/247clinic/v4${p}`]));
 
+/* HCIG v6 (spec 013) is built home first, like 24/7 v3: the home already links the inner pages of the
+   approved sitemap (specs/013-hcig-v6/plan.md). Only these planned routes may be missing for now; remove
+   each one as its page ships. Any other dead link still fails. */
+const V6_PLANNED = new Set([
+  '/about/', '/services/', '/maritime-cruise-healthcare/', '/partner/', '/contacts/', '/blog/',
+  '/services/hospital-specialty-services/', '/services/medical-tourism-facilitation/', '/services/emergency-urgent-care/',
+  '/services/wellness-longevity-aesthetic-care/', '/services/corporate-healthcare-solutions/',
+  '/services/elite-medical-concierge/', '/services/accreditation-training/',
+  '/partner/insurance-assistance-companies/', '/partner/embassies-government/', '/partner/hotels-and-resorts/',
+  '/partner/tour-operators-travel-agencies/', '/partner/healthcare-providers/', '/partner/corporate-international-organisations/',
+  '/de/', '/pl/', '/fr/', '/it/', '/es/', '/cs/',
+].map((p) => `/hcig/v6${p}`));
+
 /** Mirror Vercel's cleanUrls + directory index, so the checker resolves a URL
  *  the same way production will. */
 function resolves(url) {
@@ -96,6 +109,7 @@ function resolves(url) {
   if (!clean || clean === '/') return fs.existsSync(path.join(DIST, 'index.html'));
   if (REDIRECTS.has(clean)) return true;
   if (V3_PLANNED.has(clean) || /^\/247clinic\/v[34]\/clinics\//.test(clean)) return true;
+  if (V6_PLANNED.has(clean)) return true;
   const p = path.join(DIST, clean.replace(/^\/+/, ''));
   if (fs.existsSync(p) && fs.statSync(p).isFile()) return true;
   if (fs.existsSync(p + '.html')) return true;

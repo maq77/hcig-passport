@@ -15,3 +15,14 @@ Owner's rule: log everything from the first change, for the final email.
 | 2026-10-26 | Facts | Fact sheet written (28 live pages, company profile); conflicts resolved by him: profile titles for leadership, five countries for presence | his answers |
 | 2026-10-26 | URLs | Address and redirect contract written: 10 live paths kept, 3 leadership pages and every duplicate or leftover get one-hop 301s | `contracts/urls.md` |
 | 2026-10-26 | Security | Found: `hcigdb.sql` public (HTTP 200, admins table with a `pass` column), `hcigadmins/` and four legacy PHP files public; `error_log` already blocked (403) | curl status codes; SQL structure read without printing values |
+| 2026-10-26 | Stack | Home ported to Next.js 16.3 + React 19 + Tailwind 4 + Motion 12 (`src/app`, `src/components`, one `globals.css`); static export at basePath `/hcig/v6`, noindex | `npm run build`, `tsc`, root `npm test` green |
+| 2026-10-26 | Home | Batch 3 built: Maritime block, Testimonials (videos, Google reviews, moments row), CEO quote, Insurers, Who We Work With, Our Impact, closing band with newsletter, footer, contact sheet | Playwright at 1440, 390, 360 |
+| 2026-10-26 | Brand | Guideline review: Helma Regular, hairline title motif, 120 px logo minimum, HC mark watermark, stationery lines | guideline PDF read page by page |
+| 2026-10-26 | Fix | Theme selectors after moving the theme onto the hero (day photo and dawn sweep were broken) | day and night screenshots |
+| 2026-10-26 | Fix | `.ring` clashed with Tailwind's `ring` utility (a 1px box around the ecosystem ring); renamed `.eco-ring` | computed style check |
+| 2026-10-26 | Fix | Reveals now also fire for blocks scrolled past, so a fast flick never leaves a section hidden | real scroll in Playwright: 0 hidden |
+| 2026-10-26 | Fix | Horizontal overflow from the last brand hover card and grid tracks sized to content (closing band on phones) | scrollWidth equals viewport |
+| 2026-10-26 | Fix | `tel:` links doubled the country code | link text checked |
+| 2026-10-26 | Phone | Sliders with arrows, counter and progress bar for Why, Built, Our Healthcare, Who We Work With, testimonial videos | arrow moves one card, counter 02 / 07 |
+| 2026-10-26 | Images | Closing band, maritime hero and onboard clinic regenerated (Nano Banana route A); HC mark etched on the clinic glass in post. Route A quota ran out after 3; route B has no API credit left; the other 8 rerun when the quota resets | by eye |
+| 2026-10-26 | Gates | `check.js` allows the planned v6 inner pages (like 24/7 v3); build.js serves `/hcig/v6` | root `npm test`: no problems |

@@ -19,3 +19,8 @@ id_rsa*
 # Local tool state
 /.playwright-mcp/
 /canvas/.pulled/
+
+# Built media: only the committed copy in ../src/hcig-v6 is stored in git (rebuild with npm run media)
+/public/media/*
+!/public/media/manifest.json
+/canvas/preview/

@@ -1,0 +1,99 @@
+/* HCIG v6 shared section system. Every page uses these pieces so the whole site follows one design system. */
+
+/* Shell */
+.sec { position: relative; padding: calc(var(--section-y) * 1.6) var(--gutter); }
+.sec-tight { padding-block: var(--section-y); }
+.wrap { max-width: var(--wrap); margin: 0 auto; }
+/* ONE section header for every section on every page: left aligned, a short turquoise rule, the title, the lead */
+.sec-head { display: grid; gap: 14px; max-width: 780px; margin-bottom: clamp(28px, 3.2vw, 44px); }
+.sec-head .h2 { position: relative; padding-top: 22px; font-size: var(--fs-h2); }
+.sec-head .h2::before { content: ""; position: absolute; left: 0; top: 0; width: 44px; height: 2px; border-radius: 2px; background: var(--accent); }
+.sec-head .lead { max-width: 60ch; }
+.eyebrow { display: inline-flex; align-items: center; gap: 12px; margin: 0; font: 500 var(--fs-label)/1 var(--font-sans); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--ink-2); }
+.eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--accent); }
+
+/* Bands */
+.band-soft { background: var(--bg-soft); }
+.band-ink { --ink: var(--white); --ink-2: var(--dim-20); --ink-3: var(--dim-40); --line: rgba(255, 255, 255, .14); background: var(--band, var(--black)); color: var(--ink); }
+.theme-night .band-ink { --band: color-mix(in srgb, var(--white) 7%, var(--black)); }
+.theme-night .band-soft { background: color-mix(in srgb, var(--white) 4%, var(--black)); }
+
+/* Scroll reveal: only hidden once the runtime is on (class js), so pages without script show everything */
+.js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease); transition-delay: var(--rd, 0ms); }
+.js [data-reveal].in { opacity: 1; transform: none; }
+
+/* Cards */
+.card { position: relative; display: grid; align-content: start; gap: 12px; padding: 26px; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); transition: border-color .35s var(--ease), transform .45s var(--ease), box-shadow .45s var(--ease); }
+.theme-night .card { background: color-mix(in srgb, var(--white) 3%, var(--black)); }
+.card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 24px 48px -32px rgba(0, 0, 0, .35); }
+.card h3 { margin: 0; font: 600 var(--fs-h3)/1.25 var(--font-sans); letter-spacing: -.01em; color: var(--ink); }
+.card p { margin: 0; color: var(--ink-2); font-size: 15.5px; line-height: 1.6; }
+.ico { width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: 14px; color: var(--accent); background: var(--accent-soft); flex: none; }
+.ico svg { width: 24px; height: 24px; }
+
+/* Two lines, then open on tap (the text is always in the page) */
+.clampable p.clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.clampable.open p.clamp { -webkit-line-clamp: unset; display: block; }
+.more-btn { justify-self: start; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0; background: none; border: 0; color: var(--ink); font: 600 14px/1 var(--font-sans); cursor: pointer; }
+.more-btn svg { transition: transform .3s var(--ease); }
+.clampable.open .more-btn svg { transform: rotate(180deg); }
+.more-btn .less, .clampable.open .more-btn .moreLabel { display: none; }
+.clampable.open .more-btn .less { display: inline; }
+
+/* Stats */
+.stats { display: flex; flex-wrap: wrap; gap: clamp(20px, 3vw, 48px); }
+.stat { display: grid; gap: 4px; }
+.stat b { font: 600 clamp(40px, 2rem + 2vw, 64px)/1 var(--font-display); font-synthesis: weight; letter-spacing: -.02em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat b em { font-style: normal; color: var(--acc-text); }
+.stat > span { font-size: 14px; color: var(--ink-2); }
+
+/* Logo marquee: two rows in opposite directions, pause on hover, still under reduced motion */
+.marquee { position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee + .marquee { margin-top: 14px; }
+.marquee-track { display: flex; gap: 14px; width: max-content; animation: marquee var(--dur, 60s) linear infinite; }
+.marquee.rev .marquee-track { animation-direction: reverse; }
+.marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.logo-tile { flex: none; width: 168px; height: 92px; display: flex; align-items: center; justify-content: center; padding: 14px 18px; border-radius: 16px; background: var(--white); box-shadow: 0 0 0 1px var(--dim-20), 0 14px 30px -24px rgba(0, 0, 0, .45); }
+.logo-tile img { max-width: 100%; max-height: 100%; object-fit: contain; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee { -webkit-mask-image: none; mask-image: none; }
+  .marquee-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
+  .marquee-track [aria-hidden="true"] { display: none; }
+}
+.still .marquee-track { animation: none; }
+
+/* Media */
+.media { position: relative; overflow: hidden; border-radius: var(--r-media); background: var(--bg-soft); }
+.media img, .media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Video tile with a designed cover (never a frame from the video) */
+.vtile { position: relative; overflow: hidden; border-radius: var(--r-media); background: var(--black); color: var(--white); isolation: isolate; }
+.vtile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vtile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, .55)); z-index: 1; pointer-events: none; }
+.vtile .watch { position: absolute; left: 16px; bottom: 16px; z-index: 2; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border: 0; border-radius: var(--r-pill); background: rgba(255, 255, 255, .92); color: var(--black); font: 600 14px/1 var(--font-sans); cursor: pointer; transition: transform .3s var(--ease); }
+.vtile .watch .pi { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--accent); color: var(--black); }
+.vtile .watch:hover { transform: translateY(-2px); }
+
+/* Lightbox (video with sound) and contact sheet */
+.lightbox, .sheet { border: 0; padding: 0; background: transparent; max-width: none; max-height: none; }
+.lightbox::backdrop, .sheet::backdrop { background: rgba(0, 0, 0, .78); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.lightbox video { display: block; max-width: min(92vw, 1280px); max-height: 86vh; border-radius: 16px; background: #000; }
+.dlg-close { position: absolute; top: -52px; right: 0; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .35); background: rgba(0, 0, 0, .4); color: #fff; cursor: pointer; }
+
+/* Forms */
+.field { display: grid; gap: 6px; }
+.field label { font-size: 13px; font-weight: 500; color: var(--ink-2); }
+.field input, .field select, .field textarea { width: 100%; min-height: 52px; padding: 0 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); font: 400 16px/1.4 var(--font-sans); }
+.field textarea { padding: 14px 16px; min-height: 120px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(18, 192, 198, .18); }
+.form-note { font-size: 13px; color: var(--ink-3); margin: 0; }
+.form-done { display: none; padding: 14px 16px; border-radius: 14px; background: var(--accent-soft); color: var(--ink); font-size: 15px; }
+form.sent .form-done { display: block; }
+form.sent .form-body { display: none; }
+
+@container page (max-width: 900px) {
+  .sec { padding-block: calc(var(--section-y) * 1.25); }
+  .card { padding: 22px; }
+  .logo-tile { width: 136px; height: 78px; padding: 12px 14px; }
+}

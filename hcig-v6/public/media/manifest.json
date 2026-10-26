@@ -1,0 +1,469 @@
+{
+  "earth-night": {
+    "file": "earth-night.webp",
+    "w": 1376,
+    "h": 768,
+    "kb": 115
+  },
+  "earth-day": {
+    "file": "earth-day.webp",
+    "w": 2048,
+    "h": 1144,
+    "kb": 197
+  },
+  "flows-night": {
+    "file": "flows-night.png",
+    "w": 1376,
+    "h": 768,
+    "kb": 89
+  },
+  "flows-day": {
+    "file": "flows-day.png",
+    "w": 2048,
+    "h": 1143,
+    "kb": 147
+  },
+  "logo-h-white": {
+    "file": "logo-h-white.png",
+    "w": 703,
+    "h": 227,
+    "kb": 28
+  },
+  "logo-h-black": {
+    "file": "logo-h-black.png",
+    "w": 703,
+    "h": 227,
+    "kb": 26
+  },
+  "mark-white": {
+    "file": "mark-white.png",
+    "w": 319,
+    "h": 323,
+    "kb": 13
+  },
+  "mark-black": {
+    "file": "mark-black.png",
+    "w": 319,
+    "h": 323,
+    "kb": 11
+  },
+  "dmwv": {
+    "file": "dmwv.png",
+    "w": 310,
+    "h": 281,
+    "kb": 75
+  },
+  "gha": {
+    "file": "gha.webp",
+    "w": 391,
+    "h": 236,
+    "kb": 9
+  },
+  "helma": {
+    "file": "helma.woff2",
+    "w": 0,
+    "h": 0,
+    "kb": 25
+  },
+  "brand-247": {
+    "file": "brand-247.svg",
+    "w": 0,
+    "h": 0,
+    "kb": 20
+  },
+  "brand-medpark": {
+    "file": "brand-medpark.png",
+    "w": 558,
+    "h": 377,
+    "kb": 67
+  },
+  "brand-medone": {
+    "file": "brand-medone.webp",
+    "w": 600,
+    "h": 376,
+    "kb": 26
+  },
+  "brand-tmasi": {
+    "file": "brand-tmasi.webp",
+    "w": 600,
+    "h": 280,
+    "kb": 54
+  },
+  "brand-onemedical": {
+    "file": "brand-onemedical.svg",
+    "w": 0,
+    "h": 0,
+    "kb": 7
+  },
+  "brand-onespa": {
+    "file": "brand-onespa.webp",
+    "w": 640,
+    "h": 162,
+    "kb": 19
+  },
+  "brand-scmg": {
+    "file": "brand-scmg.webp",
+    "w": 480,
+    "h": 480,
+    "kb": 6
+  },
+  "brand-uca": {
+    "file": "brand-uca.webp",
+    "w": 400,
+    "h": 394,
+    "kb": 15
+  },
+  "ins-lloyds": {
+    "file": "ins-lloyds.png",
+    "w": 129,
+    "h": 98,
+    "kb": 13
+  },
+  "ins-aviva": {
+    "file": "ins-aviva.png",
+    "w": 142,
+    "h": 108,
+    "kb": 18
+  },
+  "ins-axa": {
+    "file": "ins-axa.svg",
+    "w": 0,
+    "h": 0,
+    "kb": 4
+  },
+  "ins-post-office": {
+    "file": "ins-post-office.png",
+    "w": 123,
+    "h": 114,
+    "kb": 22
+  },
+  "ins-adac": {
+    "file": "ins-adac.svg",
+    "w": 0,
+    "h": 0,
+    "kb": 6
+  },
+  "ins-uniqa": {
+    "file": "ins-uniqa.svg",
+    "w": 0,
+    "h": 0,
+    "kb": 4
+  },
+  "ins-leisure-guard": {
+    "file": "ins-leisure-guard.png",
+    "w": 147,
+    "h": 93,
+    "kb": 12
+  },
+  "ins-admiral": {
+    "file": "ins-admiral.png",
+    "w": 153,
+    "h": 64,
+    "kb": 14
+  },
+  "ins-adec": {
+    "file": "ins-adec.png",
+    "w": 142,
+    "h": 73,
+    "kb": 16
+  },
+  "ins-gouda": {
+    "file": "ins-gouda.png",
+    "w": 158,
+    "h": 66,
+    "kb": 15
+  },
+  "ins-europe-insurance": {
+    "file": "ins-europe-insurance.png",
+    "w": 158,
+    "h": 66,
+    "kb": 16
+  },
+  "ins-coverwise": {
+    "file": "ins-coverwise.png",
+    "w": 105,
+    "h": 101,
+    "kb": 15
+  },
+  "ins-liberty-mutual": {
+    "file": "ins-liberty-mutual.png",
+    "w": 160,
+    "h": 109,
+    "kb": 23
+  },
+  "ins-vienna-insurance-group": {
+    "file": "ins-vienna-insurance-group.png",
+    "w": 160,
+    "h": 82,
+    "kb": 19
+  },
+  "ins-allianz": {
+    "file": "ins-allianz.svg",
+    "w": 0,
+    "h": 0,
+    "kb": 2
+  },
+  "ins-hansemerkur": {
+    "file": "ins-hansemerkur.svg",
+    "w": 0,
+    "h": 0,
+    "kb": 12
+  },
+  "ins-erv": {
+    "file": "ins-erv.png",
+    "w": 152,
+    "h": 72,
+    "kb": 16
+  },
+  "ins-ergo-hestia": {
+    "file": "ins-ergo-hestia.png",
+    "w": 137,
+    "h": 87,
+    "kb": 18
+  },
+  "ins-allclear": {
+    "file": "ins-allclear.png",
+    "w": 160,
+    "h": 66,
+    "kb": 16
+  },
+  "ins-ergo": {
+    "file": "ins-ergo.svg",
+    "w": 0,
+    "h": 0,
+    "kb": 10
+  },
+  "ins-mondial-assistance": {
+    "file": "ins-mondial-assistance.webp",
+    "w": 320,
+    "h": 130,
+    "kb": 5
+  },
+  "ins-avanti": {
+    "file": "ins-avanti.png",
+    "w": 164,
+    "h": 70,
+    "kb": 17
+  },
+  "ins-groupama": {
+    "file": "ins-groupama.png",
+    "w": 189,
+    "h": 132,
+    "kb": 24
+  },
+  "svc-hospital": {
+    "file": "svc-hospital.webp",
+    "w": 1264,
+    "h": 848,
+    "kb": 69
+  },
+  "svc-tourism": {
+    "file": "svc-tourism.webp",
+    "w": 1264,
+    "h": 848,
+    "kb": 90
+  },
+  "svc-urgent": {
+    "file": "svc-urgent.webp",
+    "w": 1264,
+    "h": 848,
+    "kb": 70
+  },
+  "svc-wellness": {
+    "file": "svc-wellness.webp",
+    "w": 1264,
+    "h": 848,
+    "kb": 60
+  },
+  "svc-corporate": {
+    "file": "svc-corporate.webp",
+    "w": 1264,
+    "h": 848,
+    "kb": 50
+  },
+  "svc-concierge": {
+    "file": "svc-concierge.webp",
+    "w": 1264,
+    "h": 848,
+    "kb": 92
+  },
+  "svc-accreditation": {
+    "file": "svc-accreditation.webp",
+    "w": 1200,
+    "h": 900,
+    "kb": 106
+  },
+  "ceo": {
+    "file": "ceo.webp",
+    "w": 800,
+    "h": 768,
+    "kb": 28
+  },
+  "maritime-hero": {
+    "file": "maritime-hero.webp",
+    "w": 1376,
+    "h": 768,
+    "kb": 131
+  },
+  "cta-bg": {
+    "file": "cta-bg.webp",
+    "w": 1376,
+    "h": 768,
+    "kb": 64
+  },
+  "moment-itic-stage": {
+    "file": "moment-itic-stage.webp",
+    "w": 900,
+    "h": 568,
+    "kb": 52,
+    "alt": "HCIG on stage at ITIC Global 2025 in Venice"
+  },
+  "moment-itic-booth": {
+    "file": "moment-itic-booth.webp",
+    "w": 900,
+    "h": 676,
+    "kb": 121,
+    "alt": "The HCIG team at ITIC"
+  },
+  "moment-eha": {
+    "file": "moment-eha.webp",
+    "w": 900,
+    "h": 676,
+    "kb": 97,
+    "alt": "Strategic dialogue with the Egypt Healthcare Authority at Africa Health ExCon 2025"
+  },
+  "moment-luxor": {
+    "file": "moment-luxor.webp",
+    "w": 900,
+    "h": 676,
+    "kb": 143,
+    "alt": "TMASI GLOBAL with the Nordic and New Zealand consulates in Luxor"
+  },
+  "moment-gha": {
+    "file": "moment-gha.webp",
+    "w": 900,
+    "h": 676,
+    "kb": 68,
+    "alt": "GHA visits to leading hospitals with HCIG"
+  },
+  "moment-panel": {
+    "file": "moment-panel.webp",
+    "w": 900,
+    "h": 676,
+    "kb": 43,
+    "alt": "The HCIG panel at Africa Health ExCon 2025"
+  },
+  "moment-whd": {
+    "file": "moment-whd.webp",
+    "w": 900,
+    "h": 1200,
+    "kb": 206,
+    "alt": "24/7 Clinic and Hilton Hurghada Plaza on World Health Day"
+  },
+  "moment-hub": {
+    "file": "moment-hub.webp",
+    "w": 900,
+    "h": 600,
+    "kb": 63,
+    "alt": "The opening of MEDPARK Health Hub in Hurghada"
+  },
+  "moment-uca": {
+    "file": "moment-uca.webp",
+    "w": 900,
+    "h": 1126,
+    "kb": 70,
+    "alt": "24/7 Clinics receive UCA accreditation in Chicago"
+  },
+  "moment-signing": {
+    "file": "moment-signing.webp",
+    "w": 900,
+    "h": 1200,
+    "kb": 64,
+    "alt": "An HCIG partnership signing"
+  },
+  "film-night-wide": {
+    "file": "film-night-wide.mp4",
+    "w": 1280,
+    "h": 720,
+    "kb": 2316,
+    "video": true
+  },
+  "film-night-tall": {
+    "file": "film-night-tall.mp4",
+    "w": 720,
+    "h": 1280,
+    "kb": 2059,
+    "video": true
+  },
+  "film-day-wide": {
+    "file": "film-day-wide.mp4",
+    "w": 1280,
+    "h": 720,
+    "kb": 2223,
+    "video": true
+  },
+  "film-day-tall": {
+    "file": "film-day-tall.mp4",
+    "w": 720,
+    "h": 1280,
+    "kb": 1984,
+    "video": true
+  },
+  "testimonial-1": {
+    "file": "testimonial-1.mp4",
+    "w": 720,
+    "h": 1280,
+    "kb": 12478,
+    "video": true
+  },
+  "testimonial-2": {
+    "file": "testimonial-2.mp4",
+    "w": 720,
+    "h": 1280,
+    "kb": 5784,
+    "video": true
+  },
+  "testimonial-3": {
+    "file": "testimonial-3.mp4",
+    "w": 1278,
+    "h": 720,
+    "kb": 2169,
+    "video": true
+  },
+  "about-band": {
+    "file": "about-band.webp",
+    "w": 1376,
+    "h": 768,
+    "kb": 102
+  },
+  "traveller-centre": {
+    "file": "traveller-centre.webp",
+    "w": 900,
+    "h": 506,
+    "kb": 57
+  },
+  "onboard-clinic": {
+    "file": "onboard-clinic.webp",
+    "w": 1376,
+    "h": 768,
+    "kb": 75
+  },
+  "ship-to-shore": {
+    "file": "ship-to-shore.webp",
+    "w": 1600,
+    "h": 900,
+    "kb": 104
+  },
+  "yacht-marina": {
+    "file": "yacht-marina.webp",
+    "w": 1600,
+    "h": 900,
+    "kb": 202
+  },
+  "coordination-desk": {
+    "file": "coordination-desk.webp",
+    "w": 1600,
+    "h": 900,
+    "kb": 130
+  }
+}

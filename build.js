@@ -553,6 +553,13 @@ if (fs.existsSync(TMASI_V4_SRC)) {
   fs.cpSync(TMASI_V4_SRC, path.join(OUT, 'tmasi', 'v4'), { recursive: true });
 }
 
+/* HCIG v6 (spec 013): the new healthcareig.com, a Next.js static export in hcig-v6, synced into
+   src/hcig-v6 by its `npm run sync`, served at /hcig/v6. Every page is noindex, nofollow. */
+const HCIG_V6_SRC = path.join(__dirname, 'src', 'hcig-v6');
+if (fs.existsSync(HCIG_V6_SRC)) {
+  fs.cpSync(HCIG_V6_SRC, path.join(OUT, 'hcig', 'v6'), { recursive: true });
+}
+
 /* healthcareig.com as it is live (spec 012): a copy made by scripts/mirror-hcig-live.mjs into
    src/hcig-live, served at /hcig-live. Changes to the live site are previewed here before they
    reach the real host. Every page is noindex, tracking tags are removed and forms do not send. */

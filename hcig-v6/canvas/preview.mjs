@@ -1,25 +1,30 @@
-// Local check pages: the v6 sections rendered in SITE mode with the real runtime, day and night.
+// Local check pages: the v6 home rendered in SITE mode with the real runtime, day and night.
 // Run:   node hcig-v6/canvas/preview.mjs
 // Serve: python -m http.server 8798 --bind 127.0.0.1   (from the repo root)
 // Open:  http://127.0.0.1:8798/hcig-v6/canvas/preview/home.html   (and home-night.html)
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import * as hero from "../src/sections/hero-b.mjs";
+import { HOME_SECTIONS, homeCss } from "../src/sections/index.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const V6 = join(HERE, "..");
-const ASSETS = JSON.parse(readFileSync(join(HERE, "assets.json"), "utf8"));
+const MEDIA = JSON.parse(readFileSync(join(V6, "media.json"), "utf8"));
+const manifestPath = join(V6, "public/media/manifest.json");
+const MANIFEST = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, "utf8")) : {};
+// Built media first; for anything not built yet (videos still encoding) the raw source file.
 const asset = (key) => {
-  if (!ASSETS[key]) throw new Error(`unknown asset key: ${key}`);
-  return "/" + ASSETS[key];
+  if (MANIFEST[key]) return `/hcig-v6/public/media/${MANIFEST[key].file}`;
+  if (MEDIA[key]) return "/" + MEDIA[key].src.split("/").map(encodeURIComponent).join("/");
+  throw new Error(`unknown asset key: ${key}`);
 };
 const ctx = { mode: "site", asset, href: (p) => p };
 
 const css = [
   readFileSync(join(V6, "src/styles/tokens.css"), "utf8"),
   readFileSync(join(V6, "src/styles/base.css"), "utf8"),
-  hero.css({ asset }),
+  readFileSync(join(V6, "src/styles/sections.css"), "utf8"),
+  homeCss({ asset }),
 ].join("\n");
 
 const page = (theme) => `<!doctype html>
@@ -38,7 +43,7 @@ ${css}
 </head>
 <body>
 <div class="page theme-${theme}">
-${hero.heroB(ctx)}
+${HOME_SECTIONS.map((s) => s(ctx)).join("\n")}
 </div>
 <script>
 ${readFileSync(join(V6, "src/runtime/runtime.mjs"), "utf8").replace(/^export /gm, "")}
@@ -54,5 +59,4 @@ mkdirSync(OUT, { recursive: true });
 writeFileSync(join(OUT, "home.html"), page("day"));
 writeFileSync(join(OUT, "home-night.html"), page("night"));
 const html = page("day");
-const dashes = (html.match(/[–—]/g) || []).length;
-console.log("wrote preview/home.html and preview/home-night.html", { bytes: html.length, dashes });
+console.log("wrote preview/home.html and home-night.html", { bytes: html.length, sections: HOME_SECTIONS.length, dashes: (html.match(/[–—]/g) || []).length });
