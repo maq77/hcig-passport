@@ -15,6 +15,10 @@
       "name": "Home"
     },
     {
+      "id": "hd",
+      "name": "Header (pick)"
+    },
+    {
       "id": "r3",
       "name": "Phone round 3 (pick)"
     },
@@ -194,6 +198,60 @@
       "title": "Other phone upgrades: Mission & Vision tabs, journey line, maritime chips, impact tiles",
       "page": "r3",
       "is_interactive": true
+    },
+    "HDD1.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 560,
+      "title": "Header D1 desktop: floating glass capsule: clear over the hero, a centred glass pill once you scroll",
+      "page": "hd",
+      "is_interactive": true
+    },
+    "HDD2.dc.html": {
+      "x": 0,
+      "y": 620,
+      "w": 1440,
+      "h": 560,
+      "title": "Header D2 desktop: full-width glass bar: tall and clear at the top, then a slim frosted bar with a hairline",
+      "page": "hd",
+      "is_interactive": true
+    },
+    "HDD3.dc.html": {
+      "x": 0,
+      "y": 1240,
+      "w": 1440,
+      "h": 560,
+      "title": "Header D3 desktop: three islands: logo chip, centred glass nav pill, call to action; on scroll the islands tighten",
+      "page": "hd",
+      "is_interactive": true
+    },
+    "HDM1.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 828,
+      "h": 812,
+      "title": "Phone menu M1: full-screen white menu: big Helma links rise one by one, numbered; Talk to our team pinned at the bottom",
+      "page": "hd",
+      "is_interactive": true
+    },
+    "HDM2.dc.html": {
+      "x": 2400,
+      "y": 0,
+      "w": 828,
+      "h": 812,
+      "title": "Phone menu M2: bottom sheet in thumb reach: the page dims and blurs, a sheet slides up with a 2 x 4 grid of links, languages and the call",
+      "page": "hd",
+      "is_interactive": true
+    },
+    "HDM3.dc.html": {
+      "x": 3280,
+      "y": 0,
+      "w": 828,
+      "h": 812,
+      "title": "Phone menu M3: Dim Gray glass panel from the right: white Helma links, quick contact row (WhatsApp, call, email), the page slides a little left behind it",
+      "page": "hd",
+      "is_interactive": true
     }
   },
   "order": [
@@ -215,7 +273,13 @@
     "R3About2m.dc.html",
     "R3About3d.dc.html",
     "R3About3m.dc.html",
-    "R3Upgrades.dc.html"
+    "R3Upgrades.dc.html",
+    "HDD1.dc.html",
+    "HDD2.dc.html",
+    "HDD3.dc.html",
+    "HDM1.dc.html",
+    "HDM2.dc.html",
+    "HDM3.dc.html"
   ],
   "notes": {},
   "designSystems": []
