@@ -2,7 +2,7 @@
 // Mission & Vision, Why partners choose HCIG, Built for Global Healthcare Delivery, How Our System Works,
 // Our Healthcare. Words from src/content/home.mjs only.
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BUILT, ECOSYSTEM, HEALTHCARE, MISSION, SYSTEM, UI, WHY } from "@/content/home.mjs";
 import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
@@ -11,6 +11,7 @@ import { SectionHead } from "@/components/ui/SectionHead";
 import { SheetLink } from "@/components/ui/Sheet";
 import { Rail } from "@/components/ui/Rail";
 import { Ribbons, Watermark } from "@/components/ui/Brand";
+import { DetailModal, useDetail } from "@/components/ui/DetailModal";
 import type { IconName } from "@/lib/icons";
 
 type Card = { title: string; text: string; icon: IconName };
@@ -61,56 +62,90 @@ export function MissionVision() {
 }
 
 // ---------- Why partners choose HCIG ----------
-// Phones (his pick Y2, 2026-10-27): no slider; a bento with the first reason as a dark lead card with its text and the
-// six others in a 2 x 3 grid of numbered cards; tapping one shows its text under the grid. Desktop keeps the full cards.
+// The page stays minimal: number, icon, title (his idea 2026-10-27); the full reason opens in the Why modal, a split
+// card whose Dim Gray panel carries the number and a large hairline icon (the image slot for later).
+// Phones (his pick Y2): a bento, the first reason as a dark lead card that keeps its text.
 export function Why() {
   const items = WHY.items as Card[];
-  const [on, setOn] = useState(1);
+  const d = useDetail();
   return (
     <section className="sec why band-soft" aria-labelledby="why-h">
       <div className="wrap">
         <SectionHead id="why-h" title={WHY.heading} lead={WHY.sub} />
         <Stagger className="why-grid" gap={0.06}>
           {items.map((x, i) => (
-            <Item as="article" className={`card why-card${on === i ? " is-on" : ""}`} key={x.title} onClick={() => { if (i) setOn(i); }}>
+            <Item as="article" className="card why-card tap-card" key={x.title} {...d.trigger(i)} aria-label={x.title}>
               <span className="why-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
               <span className="ico" aria-hidden="true"><Icon name={x.icon} size={24} /></span>
               <h3>{x.title}</h3>
-              {x.text.length > 140 ? <Clamp text={x.text} className="why-text" /> : <p className="why-text">{x.text}</p>}
+              <p className="why-text">{x.text}</p>
+              <span className="tap-plus" aria-hidden="true"><Icon name="arrow" size={16} /></span>
             </Item>
           ))}
         </Stagger>
-        <p className="why-open" aria-live="polite"><b>{items[on].title}</b>{items[on].text}</p>
       </div>
+      <DetailModal
+        items={items} index={d.index} origin={d.origin} variant="why" section={WHY.heading}
+        onIndex={d.setIndex} onClose={d.close}
+        render={(x, i, nav) => (
+          <div className="dmw">
+            <div className="dmw-art" aria-hidden="true">
+              <span className="dmw-n">{String(i + 1).padStart(2, "0")}</span>
+              <span className="dmw-ico"><Icon name={x.icon as IconName} size={120} /></span>
+              <small>{WHY.heading}</small>
+            </div>
+            <div className="dmw-tx"><h3>{x.title}</h3><p>{x.text}</p>{nav}</div>
+          </div>
+        )}
+      />
     </section>
   );
 }
 
 // ---------- Built for Global Healthcare Delivery ----------
-// Phones (his pick B1, then "minimal" 2026-10-27): icon tiles in two rows that slide on their own, tap shows the text.
+// Minimal tiles (number, icon, title); the Built modal is image-led, the photo carrying the title (his pick).
+// Phones (his pick A): a bento, a wide dark tile first and last; the closing line on two lines.
+const BUILT_IMG = ["built-multilingual", "built-global", "built-insurance", "built-training", "built-hospitality", "built-operations"];
 export function Built() {
-  const items = BUILT.items as Card[];
+  const items = (BUILT.items as Card[]).map((x, i) => ({ ...x, img: BUILT_IMG[i] }));
   const [a, c] = BUILT.closing.split(". ");
-  const [on, setOn] = useState(0);
+  const d = useDetail();
   return (
     <section className="sec built" aria-labelledby="built-h">
       <div className="wrap">
         <SectionHead id="built-h" title={BUILT.heading} lead={BUILT.sub} />
-        <Rail className="built-grid" label={BUILT.heading} rows={2} auto={4200}>
+        <Stagger className="built-grid" gap={0.07}>
           {items.map((x, i) => (
-            <Item as="article" className={`card built-card${on === i ? " is-on" : ""}`} key={x.title} onClick={() => setOn(i)}>
+            <Item as="article" className="card built-card tap-card" key={x.title} {...d.trigger(i)} aria-label={x.title}>
               <span className="built-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
               <span className="ico" aria-hidden="true"><Icon name={x.icon} size={24} /></span>
               <h3>{x.title}</h3>
               <p className="built-text">{x.text}</p>
+              <span className="tap-plus" aria-hidden="true"><Icon name="arrow" size={16} /></span>
             </Item>
           ))}
-        </Rail>
-        <p className="built-open" aria-live="polite"><b>{items[on].title}</b>{items[on].text}</p>
+        </Stagger>
         <Reveal as="p" className="built-close">
-          {a}. <span className="acc">{c}</span>
+          <span className="bc-a">{a}.</span> <span className="acc bc-b">{c}</span>
         </Reveal>
       </div>
+      <DetailModal
+        items={items} index={d.index} origin={d.origin} variant="built" section={BUILT.heading}
+        onIndex={d.setIndex} onClose={d.close}
+        render={(x, i, nav) => (
+          <div className="dmb">
+            <figure className="dmb-im">
+              <img src={asset(x.img as string)} alt="" />
+              <figcaption>
+                <span className="dmb-chip" aria-hidden="true"><Icon name={x.icon as IconName} size={26} /></span>
+                <h3>{x.title}</h3>
+                <b aria-hidden="true">{String(i + 1).padStart(2, "0")}</b>
+              </figcaption>
+            </figure>
+            <div className="dmb-bd"><p>{x.text}</p>{nav}</div>
+          </div>
+        )}
+      />
     </section>
   );
 }
@@ -127,6 +162,14 @@ export function SystemWorks() {
   const { scrollYProgress: stepsP } = useScroll({ target: stepsRef, offset: ["start 75%", "end 60%"] });
   const fill = useTransform(stepsP, [0, 1], [reduce ? 1 : 0, 1]);
   const n = nodes.length;
+  // phones (his pick, the clock): one service lights up at a time and its name shows under the ring; tap any icon
+  const [act, setAct] = useState(0);
+  const [hold, setHold] = useState(false);
+  useEffect(() => {
+    if (reduce || hold) return;
+    const t = setInterval(() => setAct((v) => (v + 1) % n), 2200);
+    return () => clearInterval(t);
+  }, [reduce, hold, n]);
   return (
     <section className="sec eco band-soft" aria-labelledby="eco-h">
       <div className="wrap">
@@ -147,13 +190,14 @@ export function SystemWorks() {
               <Stagger as="ul" className="ring-nodes" gap={0.06}>
                 {nodes.map((x, i) => (
                   // opacity only: each node's place on the ring is a CSS transform
-                  <motion.li key={x.label} data-rv="" variants={FADE} style={{ ["--a" as string]: `${(360 / n) * i}deg` }}>
+                  <motion.li key={x.label} data-rv="" variants={FADE} className={act === i ? "is-act" : ""} onClick={() => { setAct(i); setHold(true); }} style={{ ["--a" as string]: `${(360 / n) * i}deg` }}>
                     <span className="node-ico" aria-hidden="true"><Icon name={x.icon} size={24} /></span>
                     <span className="node-label">{x.label}</span>
                   </motion.li>
                 ))}
               </Stagger>
             </div>
+            <p className="ring-pill" aria-live="polite"><Icon name={nodes[act].icon} size={16} />{nodes[act].label}</p>
             <p className="eco-tagline">{ECOSYSTEM.tagline.text}</p>
           </Reveal>
           {/* phones (his pick): a journey line that fills with turquoise as the reader scrolls the steps */}
@@ -178,27 +222,52 @@ export function SystemWorks() {
 }
 
 // ---------- Our Healthcare: seven image cards ----------
+// The cards show the photo and the title; the Care modal (his pick) sets the photo beside the text, a Read more to the
+// service page, and the seven services as thumbnails. The service links stay real links for search engines.
 export function OurHealthcare() {
-  const items = HEALTHCARE.items as { title: string; text: string; img: string; path: string }[];
+  const items = (HEALTHCARE.items as { title: string; text: string; img: string; path: string }[]).map((x) => ({ ...x, href: href(x.path) }));
+  const d = useDetail();
   return (
     <section className="sec care" aria-labelledby="care-h">
       <div className="wrap">
         <SectionHead id="care-h" title={HEALTHCARE.heading} lead={HEALTHCARE.sub} />
         <Stagger className="care-grid" gap={0.07}>
-          {items.map((x) => (
-            <Item as="article" className="care-card" key={x.title}>
+          {items.map((x, i) => (
+            <Item as="article" className="care-card tap-card" key={x.title} {...d.trigger(i)} aria-label={x.title}>
               <figure className="media">
                 <img src={asset(x.img)} alt="" loading="lazy" />
               </figure>
               <div className="care-body">
-                <h3><a href={href(x.path)}>{x.title}<Icon name="arrow" size={18} /></a></h3>
-                <Clamp text={x.text} />
+                <h3><a href={x.href} tabIndex={-1}>{x.title}</a></h3>
+                <p className="care-text">{x.text}</p>
               </div>
-              <a className="care-go" href={href(x.path)} tabIndex={-1} aria-hidden="true"><Icon name="up" size={16} /></a>
+              <span className="care-go" aria-hidden="true"><Icon name="arrow" size={16} /></span>
             </Item>
           ))}
         </Stagger>
       </div>
+      <DetailModal
+        items={items} index={d.index} origin={d.origin} variant="care" section={HEALTHCARE.heading}
+        onIndex={d.setIndex} onClose={d.close}
+        render={(x, i, nav) => (
+          <div className="dmc">
+            <figure className="dmc-im"><img src={asset(x.img as string)} alt="" /></figure>
+            <div className="dmc-tx">
+              <small>{String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}</small>
+              <h3>{x.title}</h3>
+              <p>{x.text}</p>
+              <div className="dmc-row"><a className="btn" href={x.href}>{UI.readMore.text}<Icon name="arrow" /></a>{nav}</div>
+              <div className="dmc-thumbs">
+                {items.map((y, k) => (
+                  <button key={y.title} type="button" className={k === i ? "on" : ""} onClick={() => d.setIndex(k)} aria-label={y.title}>
+                    <img src={asset(y.img)} alt="" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      />
     </section>
   );
 }

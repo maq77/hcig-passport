@@ -41,10 +41,10 @@ export function Maritime() {
         </div>
         <Reveal className="mar-media" ref={box}>
           <figure className="mar-main media">
-            <motion.img style={{ y, scale: 1.12 }} src={asset("maritime-hero")} alt="A large ship at anchor off the Red Sea coast with a medical tender alongside" loading="lazy" />
+            <motion.img style={{ y, scale: 1.12 }} src={asset("mar-deck")} alt="A medical team on the deck of a cruise ship at sea" loading="lazy" />
           </figure>
-          <figure className="mar-sm media"><img src={asset("onboard-clinic")} alt="An onboard medical clinic on a cruise ship" loading="lazy" /></figure>
-          <figure className="mar-sm media"><img src={asset("ship-to-shore")} alt="A medical transfer from ship to shore" loading="lazy" /></figure>
+          <figure className="mar-sm media"><img src={asset("mar-consult")} alt="A ship doctor with a passenger in the onboard medical centre" loading="lazy" /></figure>
+          <figure className="mar-sm media"><img src={asset("mar-clinic")} alt="An onboard medical clinic on a cruise ship" loading="lazy" /></figure>
         </Reveal>
       </div>
     </section>

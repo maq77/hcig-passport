@@ -501,5 +501,23 @@
     "w": 900,
     "h": 502,
     "kb": 40
+  },
+  "mar-deck": {
+    "file": "mar-deck.webp",
+    "w": 1344,
+    "h": 680,
+    "kb": 84
+  },
+  "mar-consult": {
+    "file": "mar-consult.webp",
+    "w": 1336,
+    "h": 746,
+    "kb": 96
+  },
+  "mar-clinic": {
+    "file": "mar-clinic.webp",
+    "w": 1344,
+    "h": 768,
+    "kb": 76
   }
 }

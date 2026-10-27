@@ -1343,3 +1343,159 @@ html.menu-open { overflow: hidden; }
   .rail-arrow { margin-top: -40px; }
 }
 @media (prefers-reduced-motion: reduce) { .page .tst-vids.rail > * { transition: none; } }
+
+/* =====================================================================================
+   Round 5, his picks 2026-10-27: section modals, minimal cards, Built bento, ring clock, maritime collage
+   ===================================================================================== */
+
+/* Minimal cards that open a modal: the text stays in the page for search engines, out of sight */
+.why-card .why-text, .built-card .built-text, .care-card .care-text, .care-card .more-btn { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.tap-card { cursor: pointer; }
+.tap-card:focus-visible { outline: 2px solid var(--turq); outline-offset: 3px; }
+.tap-plus { position: absolute; right: 18px; bottom: 18px; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 0 0 1px var(--line); color: var(--ink); transition: background .3s var(--ease), color .3s, box-shadow .3s, rotate .4s var(--ease); }
+.tap-card:hover .tap-plus, .tap-card:focus-visible .tap-plus { background: var(--turq); color: var(--black); box-shadow: none; rotate: -45deg; }
+.why-card, .built-card { min-height: 190px; padding-bottom: 70px; }
+.why-card .why-n, .built-card .built-n { display: block; position: absolute; top: 24px; right: 26px; font: 400 15px/1 var(--font-display); color: var(--dim-40); letter-spacing: .04em; }
+.care-card { position: relative; }
+.care-card .care-body h3 a { pointer-events: none; }
+.care-go { display: inline-flex; position: absolute; right: 16px; bottom: 16px; width: 34px; height: 34px; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 0 0 1px var(--line); color: var(--ink); background: var(--white); transition: background .3s var(--ease), rotate .4s var(--ease); }
+.care-card:hover .care-go { background: var(--turq); box-shadow: none; rotate: -45deg; }
+.care-body { padding-right: 60px; }
+.built-close { display: grid; justify-items: center; gap: 2px; }
+.built-close .bc-a, .built-close .bc-b { display: block; white-space: nowrap; }
+
+/* ---------------- The modal frame ---------------- */
+html.modal-open { overflow: hidden; }
+.dm { position: fixed; inset: 0; z-index: 70; display: grid; place-items: center; padding: 24px; background: rgba(0, 0, 0, .46); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+.dm *, .dm *::before, .dm *::after { box-sizing: border-box; }
+.dm-card { position: relative; width: min(100%, 980px); max-height: calc(100dvh - 48px); overflow: auto; border-radius: 28px; background: var(--white); color: var(--black); box-shadow: 0 60px 120px -40px rgba(0, 0, 0, .6); }
+.dm-x { position: absolute; top: 18px; right: 18px; z-index: 5; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .94); color: var(--black); box-shadow: 0 8px 20px -10px rgba(0, 0, 0, .5); cursor: pointer; transition: rotate .4s var(--ease); }
+.dm-x:hover { rotate: 90deg; }
+.dm-x:focus-visible, .dm-arrow:focus-visible, .dmc-thumbs button:focus-visible { outline: 2px solid var(--turq); outline-offset: 3px; }
+.dm-nav { display: flex; align-items: center; gap: 10px; }
+.dm-nav b { margin-right: auto; font: 500 13px/1 var(--font-sans); letter-spacing: .08em; color: var(--dim-60); }
+.dm-arrow { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--dim-20); border-radius: 50%; background: var(--white); color: var(--black); cursor: pointer; transition: background .25s, border-color .25s; }
+.dm-arrow:hover { background: var(--turq); border-color: var(--turq); }
+.dm h3 { margin: 0; font-family: var(--font-display); font-weight: 400; letter-spacing: -.005em; text-wrap: balance; }
+.dm p { margin: 0; }
+.dm-grab { position: absolute; top: 8px; left: 50%; z-index: 6; width: 44px; height: 5px; margin-left: -22px; border-radius: 5px; background: rgba(255, 255, 255, .8); box-shadow: 0 0 0 1px rgba(0, 0, 0, .08); }
+
+/* Why: a split card, the Dim Gray panel with the number and a large hairline icon */
+.dm-why .dm-card { width: min(100%, 920px); }
+.dmw { display: grid; grid-template-columns: 40% 60%; min-height: 480px; }
+.dmw-art { position: relative; display: grid; align-content: space-between; padding: 34px; color: var(--white); background: radial-gradient(80% 70% at 100% 0%, rgba(18, 192, 198, .32), transparent 60%), linear-gradient(150deg, var(--black-80), var(--dim)); }
+.dmw-n { font: 400 96px/1 var(--font-display); color: transparent; -webkit-text-stroke: 1px var(--turq-60); }
+.dmw-ico { color: var(--turq); } .dmw-ico svg { stroke-width: .8; }
+.dmw-art small { font: 500 11px/1.4 var(--font-sans); letter-spacing: .22em; text-transform: uppercase; color: var(--dim-40); }
+.dmw-tx { display: grid; align-content: center; gap: 20px; padding: 56px 52px 44px; }
+.dmw-tx h3 { font-size: clamp(32px, 1.6rem + 1.2vw, 44px); line-height: 1.08; }
+.dmw-tx p { font-size: 18px; line-height: 1.65; color: var(--dim); }
+.dmw-tx .dm-nav { margin-top: 14px; padding-top: 22px; border-top: 1px solid var(--dim-20); }
+
+/* Built: image-led, the photo carries the title */
+.dmb-im { position: relative; margin: 0; height: 400px; }
+.dmb-im img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dmb-im::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, .74)); }
+.dmb-im figcaption { position: absolute; left: 40px; right: 40px; bottom: 30px; z-index: 2; display: flex; align-items: flex-end; gap: 18px; color: var(--white); }
+.dmb-chip { width: 56px; height: 56px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 16px; background: rgba(255, 255, 255, .94); color: var(--black); }
+.dmb-im h3 { font-size: clamp(30px, 1.4rem + 1.4vw, 44px); line-height: 1.05; color: var(--white); }
+.dmb-im b { margin-left: auto; font: 400 30px/1 var(--font-display); color: var(--turq-60); }
+.dmb-bd { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 40px; padding: 30px 40px 34px; }
+.dmb-bd p { font-size: 17.5px; line-height: 1.65; color: var(--dim); max-width: 60ch; }
+
+/* Our Healthcare: the photo full height beside the text, Read more, thumbnails */
+.dm-care .dm-card { width: min(100%, 1120px); }
+.dmc { display: grid; grid-template-columns: 56% 44%; min-height: 600px; }
+.dmc-im { position: relative; margin: 0; } .dmc-im img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.dmc-tx { display: grid; align-content: center; gap: 18px; padding: 56px 48px 40px; }
+.dmc-tx small { font: 500 12px/1 var(--font-sans); letter-spacing: .22em; color: var(--turq); }
+.dmc-tx h3 { font-size: clamp(32px, 1.6rem + 1.2vw, 46px); line-height: 1.06; }
+.dmc-tx p { font-size: 17.5px; line-height: 1.65; color: var(--dim); }
+.dmc-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; } .dmc-row .btn { margin-right: auto; } .dmc-row .dm-nav b { display: none; }
+.dmc-thumbs { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.dmc-thumbs button { width: 54px; height: 42px; padding: 0; border: 0; border-radius: 9px; overflow: hidden; cursor: pointer; opacity: .5; transition: opacity .25s, box-shadow .25s; background: var(--bg-soft); }
+.dmc-thumbs button img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.dmc-thumbs button.on, .dmc-thumbs button:hover { opacity: 1; } .dmc-thumbs button.on { box-shadow: 0 0 0 2px var(--turq); }
+
+/* Phones: every modal is a bottom sheet */
+@media (max-width: 760px) {
+  .dm { place-items: end stretch; padding: 0; }
+  .dm-card, .dm-why .dm-card, .dm-care .dm-card { width: 100%; max-height: 92dvh; border-radius: 26px 26px 0 0; touch-action: pan-x; }
+  .dm-x { top: 14px; right: 14px; }
+  .dmw { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+  .dmw-art { display: flex; align-items: flex-end; justify-content: space-between; min-height: 180px; padding: 26px 22px; }
+  .dmw-n { font-size: 64px; } .dmw-ico svg { width: 72px; height: 72px; } .dmw-art small { display: none; }
+  .dmw-tx { padding: 24px 22px 28px; gap: 14px; } .dmw-tx h3 { font-size: 30px; } .dmw-tx p { font-size: 15.5px; } .dmw-tx .dm-nav { margin-top: 6px; padding-top: 16px; }
+  .dmb-im { height: 300px; } .dmb-im figcaption { left: 20px; right: 20px; bottom: 18px; flex-wrap: wrap; gap: 10px; } .dmb-chip { width: 44px; height: 44px; border-radius: 13px; }
+  .dmb-im h3 { font-size: 28px; width: 100%; order: 2; } .dmb-im b { font-size: 22px; }
+  .dmb-bd { grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 22px 20px 28px; } .dmb-bd p { font-size: 15.5px; }
+  .dmc { grid-template-columns: minmax(0, 1fr); min-height: 0; } .dmc-im { height: 260px; }
+  .dmc-tx { padding: 22px 20px 28px; gap: 12px; } .dmc-tx h3 { font-size: 30px; } .dmc-tx p { font-size: 15.5px; }
+  .dmc-row { flex-wrap: wrap; } .dmc-thumbs button { width: 44px; height: 36px; }
+}
+
+/* ---------------- Page sections on phones ---------------- */
+@container page (max-width: 760px) {
+  /* Why bento: the cue sits small in the corner; the lead card keeps its text */
+  .page .why-grid > .why-card { padding-bottom: 16px; }
+  .page .why-grid > .why-card .tap-plus { right: 10px; bottom: 10px; width: 28px; height: 28px; }
+  .page .why-grid > .why-card:first-child .why-text { position: static; width: auto; height: auto; clip: auto; white-space: normal; overflow: visible; }
+  .page .why-grid > .why-card:first-child .tap-plus { box-shadow: 0 0 0 1px rgba(255, 255, 255, .35); color: var(--white); }
+
+  /* Built bento (his pick A): a wide dark tile first and last, four light tiles between */
+  .page .built-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .page .built-grid > .built-card { grid-column: auto !important; position: relative; min-height: 132px; padding: 16px; display: grid; align-content: end; gap: 8px; border: 0; border-radius: 20px; background: var(--turq-08); box-shadow: inset 0 0 0 1px var(--turq-40); }
+  .page .built-grid > .built-card:first-child, .page .built-grid > .built-card:last-child { grid-column: 1 / -1 !important; min-height: 120px; background: linear-gradient(150deg, var(--black-80), var(--dim)); box-shadow: none; color: var(--white); }
+  .page .built-grid > .built-card .built-n { top: 14px; left: 16px; right: auto; font-size: 18px; }
+  .page .built-grid > .built-card:first-child .built-n, .page .built-grid > .built-card:last-child .built-n { color: var(--turq-60); }
+  .page .built-grid > .built-card .ico { position: absolute; top: 12px; right: 12px; width: auto; height: auto; background: none; color: var(--turq); }
+  .page .built-grid > .built-card h3 { margin: 0; padding-right: 30px; font: 400 19px/1.15 var(--font-display); color: inherit; }
+  .page .built-grid > .built-card .tap-plus { right: 10px; bottom: 10px; width: 28px; height: 28px; }
+  .page .built-grid > .built-card:first-child .tap-plus, .page .built-grid > .built-card:last-child .tap-plus { color: var(--white); box-shadow: 0 0 0 1px rgba(255, 255, 255, .35); }
+  .built-close { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--ink); font-size: 24px; }
+  .built-close .bc-b { font-size: 27px; }
+
+  /* Our Healthcare bento: the tile opens the modal */
+  .page .care-grid .care-body h3 a::after { content: none; }
+  .care-go { width: 28px; height: 28px; background: var(--turq); box-shadow: none; color: var(--black); }
+  .page .care-grid .care-body { padding-right: 46px; }
+
+  /* Maritime collage (his pick B): the services as tiles, the last one dark */
+  .mar-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .mar-chips li { min-height: 64px; padding: 10px 12px; border-radius: 16px; gap: 10px; font: 600 13.5px/1.25 var(--font-sans); }
+  .mar-chips li svg { flex: none; width: 36px; height: 36px; padding: 9px; border-radius: 11px; background: var(--turq-20); color: var(--black); }
+  .mar-chips li:last-child { grid-column: 1 / -1; background: var(--black-80); color: var(--white); box-shadow: none; }
+  .mar-chips li:last-child svg { background: rgba(255, 255, 255, .1); color: var(--turq); }
+  .mar-media { height: 330px; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 10px; }
+}
+
+/* ---------------- How Our System Works on phones: the clock (his pick A) ---------------- */
+.ring-pill { display: none; }
+@container page (max-width: 900px) {
+  .page .eco-ring { position: relative; width: 340px; max-width: 100%; aspect-ratio: 1; height: auto; margin: 0 auto; display: block; --r: 140px; }
+  .page .eco-ring .ring-orbit { display: block; }
+  .page .eco-ring .ring-centre { position: absolute; left: 50%; top: 50%; width: 176px; transform: translate(-50%, -50%); margin: 0; padding: 12px; gap: 6px; }
+  .page .eco-ring .ring-centre .tv { width: 44px; height: 44px; } .page .eco-ring .ring-centre .tv svg { width: 24px; height: 24px; }
+  .page .eco-ring .ring-centre strong { font-size: 17px; }
+  .page .eco-ring .ring-centre small { font-size: 8.5px; letter-spacing: .12em; }
+  .page .eco-ring .ring-nodes { position: absolute; inset: 0; display: block; }
+  .page .eco-ring .ring-nodes li { position: absolute; left: 50%; top: 50%; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; display: block; transform: rotate(var(--a)) translateY(calc(var(--r) * -1)) rotate(calc(var(--a) * -1)); cursor: pointer; }
+  .page .eco-ring .node-ico { width: 44px; height: 44px; background: var(--white); box-shadow: 0 0 0 1px var(--line), 0 8px 18px -12px rgba(0, 0, 0, .4); transition: background .35s var(--ease), color .35s, box-shadow .35s; }
+  .page .eco-ring .node-ico svg { width: 21px; height: 21px; }
+  .page .eco-ring .node-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .page .eco-ring .ring-nodes li.is-act .node-ico { background: var(--turq); color: var(--black); box-shadow: 0 0 0 6px var(--turq-20); }
+  .ring-pill { display: flex; width: max-content; max-width: 100%; margin: 16px auto 0; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border-radius: 999px; background: var(--black); color: var(--white); font: 500 14px/1.2 var(--font-sans); }
+  .ring-pill svg { color: var(--turq); flex: none; }
+}
+@container page (max-width: 360px) { .page .eco-ring { --r: 128px; } .page .eco-ring .ring-centre { width: 158px; } }
+
+/* round 5 polish: tighter minimal cards, one row of thumbnails, the corner cue never touches a title */
+.why-card, .built-card { min-height: 170px; }
+.dmc-thumbs { flex-wrap: nowrap; gap: 6px; }
+.dmc-thumbs button { flex: 1 1 0; width: auto; min-width: 0; height: 40px; }
+@container page (max-width: 760px) {
+  .page .why-grid > .why-card h3 { padding-right: 26px; }
+  .page .why-grid > .why-card:first-child h3 { padding-right: 0; }
+  .page .why-grid > .why-card:first-child .why-text { padding-right: 34px; }
+  .page .care-grid > .care-card:nth-child(1) .care-body { padding-right: 52px; }
+}
