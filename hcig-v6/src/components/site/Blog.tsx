@@ -3,6 +3,7 @@
 // dateline, the text word for word, and three more posts. NewsArticle schema on every post.
 import { POSTS } from "@/content/blog.mjs";
 import { SITE_URL } from "@/content/pages.mjs";
+import { UI } from "@/content/home.mjs";
 import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { Item, Reveal, Stagger } from "@/components/ui/Motion";
@@ -12,30 +13,28 @@ import { Rail } from "@/components/ui/Rail";
 export type Post = { n: number; slug: string; title: string; dateline: string; img: string | null; alt: string; excerpt: string; blocks: { t: string; x: string }[] };
 const all = POSTS as Post[];
 export const postPath = (p: Post) => `/blog/${p.slug}/`;
-const firstLine = (p: Post) => p.excerpt || (p.blocks.find((b) => b.t === "p")?.x ?? "");
 
-function Card({ p, big = false }: { p: Post; big?: boolean }) {
+// His pick C1 (2026-10-27): portrait editorial. An open 4:5 photo with rounded corners (the newest posts are portrait
+// photos, so nothing is cut), the place and a Helma title under it, no box. "row" is the small version beside a post.
+function Card({ p, row = false }: { p: Post; row?: boolean }) {
   return (
-    <a className={`bc${big ? " bc-big" : ""}`} href={href(postPath(p))}>
-      <figure className="bc-im">{p.img ? <img src={asset(p.img)} alt={p.alt} loading="lazy" /> : null}</figure>
-      <div className="bc-body">
-        <p className="bc-place"><Icon name="pin" size={14} />{p.dateline}</p>
+    <a className={`pc${row ? " pc-row" : ""}`} href={href(postPath(p))}>
+      <figure className="pc-im">{p.img ? <img src={asset(p.img)} alt={p.alt} loading="lazy" /> : null}</figure>
+      <div className="pc-body">
+        <p className="pc-place"><Icon name="pin" size={13} />{p.dateline}</p>
         <h3>{p.title}</h3>
-        {big ? <p className="bc-ex">{firstLine(p)}</p> : null}
-        <span className="bc-go" aria-hidden="true"><Icon name="arrow" size={16} /></span>
+        {row ? null : <span className="pc-read">{UI.readMore.text}<Icon name="arrow" size={14} /></span>}
       </div>
     </a>
   );
 }
 
 export function BlogIndex() {
-  const [first, ...rest] = all;
   return (
     <section className="sec blog-sec" aria-label="Blog">
       <div className="wrap">
-        <Reveal className="bc-feature"><Card p={first} big /></Reveal>
-        <Stagger className="bc-grid" gap={0.06}>
-          {rest.map((p) => <Item as="article" key={p.n}><Card p={p} /></Item>)}
+        <Stagger className="pc-grid" gap={0.06}>
+          {all.map((p) => <Item as="article" key={p.n}><Card p={p} /></Item>)}
         </Stagger>
       </div>
     </section>
@@ -70,7 +69,7 @@ export function PostBody({ slug }: { slug: string }) {
             <a className="post-back" href={href("/blog/")}><Icon name="arrow" size={16} className="flip-x" />Blog</a>
           </article>
           <aside className="post-aside" aria-label="Blog">
-            {more.map((m) => <Card key={m.n} p={m} />)}
+            {more.map((m) => <Card key={m.n} p={m} row />)}
           </aside>
         </div>
       </section>
@@ -83,8 +82,8 @@ export function MoreNews({ title, cta }: { title: string; cta?: string }) {
     <section className="sec blog-more band-soft" aria-labelledby="bm-h">
       <div className="wrap">
         <SectionHead id="bm-h" title={title} />
-        <Rail className="bc-grid news-grid" label={title} auto={4500} gap={0.08}>
-          {all.slice(0, 3).map((p, i) => <Item as="article" key={p.n} className={i === 0 ? "news-lead" : undefined}><Card p={p} big={i === 0} /></Item>)}
+        <Rail className="pc-grid news-grid" label={title} auto={4500} gap={0.08}>
+          {all.slice(0, 3).map((p) => <Item as="article" key={p.n}><Card p={p} /></Item>)}
         </Rail>
         {cta ? <Reveal className="care-more"><a className="btn2 care-more-btn" href={href("/blog/")}>{cta}<Icon name="arrow" /></a></Reveal> : null}
       </div>
