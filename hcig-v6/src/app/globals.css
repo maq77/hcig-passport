@@ -1314,3 +1314,32 @@ html.menu-open { overflow: hidden; }
   .page .tst-vids.rail { padding-inline: calc((100% - min(72vw, 300px)) / 2); }
   .page .tst-vids.rail > *, .page .tst-vids.rail > .t-c { flex: 0 0 min(72vw, 300px); }
 }
+
+/* =====================================================================================
+   2026-10-27: desktop header D1 (his correction: "D1 then, i was mistaken"), phone testimonials T2 (centre stage)
+   ===================================================================================== */
+/* D1: clear over the hero, then a floating frosted capsule centred under the top edge */
+@media (min-width: 1081px) {
+  .hd.hd-sc { background: transparent; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; pointer-events: none; }
+  .hd.hd-sc .hd-in { pointer-events: auto; width: max-content; max-width: calc(100% - 32px); height: 64px; margin: 14px auto 0; padding: 0 8px 0 22px; gap: 22px; border-radius: 999px; background: rgba(255, 255, 255, .76); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); box-shadow: 0 0 0 1px rgba(255, 255, 255, .65), 0 20px 40px -20px rgba(0, 0, 0, .35); animation: capsuleIn .55s var(--ease) both; }
+  .hd.hd-sc .hd-nav { margin: 0; }
+  .hd.hd-sc .hd-nav ul { gap: 22px; }
+  .hd.hd-sc .hd-full { height: 40px; }
+}
+@keyframes capsuleIn { from { opacity: 0; transform: translateY(-14px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .hd.hd-sc .hd-in { animation: none; } }
+
+/* T2: the centre story large and bright, the stories beside it smaller and dimmed behind it */
+.rail-dots { display: none; }
+@container page (max-width: 760px) {
+  .page .tst-vids.rail { gap: 0; padding-inline: calc((100% - min(68vw, 280px)) / 2); }
+  .page .tst-vids.rail > *, .page .tst-vids.rail > .t-c { flex: 0 0 min(68vw, 280px); scale: .84; filter: brightness(.55); transition: scale .55s var(--ease), filter .55s var(--ease); z-index: 1; }
+  .page .tst-vids.rail > .is-center { scale: 1; filter: none; z-index: 2; }
+  .page .tst-vids.rail > :not(.is-center) .watch { opacity: 0; pointer-events: none; transition: opacity .3s; }
+  .rail-dots { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+  .rail-dots i { width: 7px; height: 7px; border-radius: 4px; background: var(--dim-40); transition: width .35s var(--ease), background .35s; }
+  .rail-dots i.on { width: 22px; background: var(--turq); }
+  .rail-note { margin-top: 10px; }
+  .rail-arrow { margin-top: -40px; }
+}
+@media (prefers-reduced-motion: reduce) { .page .tst-vids.rail > * { transition: none; } }

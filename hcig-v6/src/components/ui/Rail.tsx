@@ -30,6 +30,18 @@ export function Rail({ children, className = "", label, gap = 0.07, rows = 1, au
       setCols(lefts.map((x) => x - lefts[0]));
     };
     const onScroll = () => {
+      if (nav === "side") {
+        // centre stage: the story nearest the middle is the active one
+        const mid = el.scrollLeft + el.clientWidth / 2;
+        let best = 0, dist = Infinity;
+        ([...el.children] as HTMLElement[]).forEach((k, i) => {
+          const d = Math.abs(k.offsetLeft - el.offsetLeft + k.offsetWidth / 2 - mid);
+          if (d < dist) { dist = d; best = i; }
+        });
+        ([...el.children] as HTMLElement[]).forEach((k, i) => k.classList.toggle("is-center", i === best));
+        setAt(best);
+        return;
+      }
       const x = el.scrollLeft;
       setCols((c) => {
         let i = 0;
@@ -40,7 +52,8 @@ export function Rail({ children, className = "", label, gap = 0.07, rows = 1, au
       });
     };
     measure();
-    const ro = new ResizeObserver(measure);
+    onScroll();
+    const ro = new ResizeObserver(() => { measure(); onScroll(); });
     ro.observe(el);
     el.addEventListener("scroll", onScroll, { passive: true });
     const io = new IntersectionObserver(([e]) => setSeen(e.isIntersecting), { threshold: 0.35 });
@@ -86,6 +99,9 @@ export function Rail({ children, className = "", label, gap = 0.07, rows = 1, au
           </Stagger>
           <button type="button" className="rail-arrow prev" onClick={() => go(at - 1)} aria-label={UI.prev.text}><Icon name="arrow" size={20} className="flip-x" /></button>
           <button type="button" className="rail-arrow next" onClick={() => go(at + 1)} aria-label={UI.next.text}><Icon name="arrow" size={20} /></button>
+        </div>
+        <div className="rail-dots" aria-hidden="true">
+          {Array.from({ length: n }, (_, i) => <i key={i} className={i === at ? "on" : ""} />)}
         </div>
         <p className="rail-note"><Icon name="hand" size={16} />{UI.swipe.text}</p>
       </div>
