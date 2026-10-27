@@ -49,5 +49,6 @@ export const ICONS = {
   clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
   users: '<circle cx="9" cy="8" r="3"/><path d="M3.5 19v-.5A5 5 0 0 1 8.5 13.5h1a5 5 0 0 1 5 5v.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16.5 13.5a4.5 4.5 0 0 1 4.5 4.5v.5"/>',
   handshake: '<path d="M3 11.5l4-4 3.5 1 2-1.5 3 .5 5 4"/><path d="M7 7.5L3 11.5l5.5 5.5c.8.8 2 .8 2.8 0l5.7-5.5M10.5 14l1.5 1.5M13 12l1.5 1.5"/>',
+  hand: '<path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L4.3 14a1.5 1.5 0 0 1 2.4-1.8L9 15"/>',
 } as const;
 export type IconName = keyof typeof ICONS;

@@ -161,7 +161,7 @@ export function Testimonials() {
       <div className="wrap">
         <SectionHead id="tst-h" title={TESTIMONIALS.heading.text} />
         <div className="tst-bento">
-          <Rail className="tst-vids" label={TESTIMONIALS.heading.text} gap={0.1}>
+          <Rail className="tst-vids" label={TESTIMONIALS.heading.text} gap={0.1} nav="side">
             <VideoTile clip={clips[0]} className="t-a" onWatch={watch} />
             <VideoTile clip={clips[1]} className="t-b" onWatch={watch} />
             <VideoTile clip={clips[2]} className="t-c" onWatch={watch} />
@@ -248,20 +248,27 @@ export function Insurers() {
 // ---------- Who We Work With ----------
 export function WhoWeWorkWith() {
   const items = WHO.items as { title: string; text: string; path: string; icon: IconName }[];
+  const [on, setOn] = useState(0);
+  // phones (his pick W1, 2026-10-27): "choose your path", six rows; tapping a row opens its line, the arrow opens its page
+  const pick = (i: number) => (e: React.MouseEvent) => {
+    if (!matchMedia("(max-width: 760px)").matches || (e.target as Element).closest(".who-go")) return;
+    e.preventDefault();
+    setOn(i);
+  };
   return (
     <section className="sec who band-soft" aria-labelledby="who-h">
       <div className="wrap">
         <SectionHead id="who-h" title={WHO.heading} lead={WHO.sub} />
-        <Rail className="who-grid" label={WHO.heading}>
-          {items.map((x) => (
-            <Item as="article" className="card who-card" key={x.title}>
+        <Stagger className="who-grid" gap={0.07}>
+          {items.map((x, i) => (
+            <Item as="article" className={`card who-card${on === i ? " is-on" : ""}`} key={x.title} onClick={pick(i)}>
               <span className="ico" aria-hidden="true"><Icon name={x.icon} size={24} /></span>
-              <h3><a href={href(x.path)} className="stretched">{x.title}</a></h3>
+              <h3><a href={href(x.path)} className="stretched" aria-expanded={on === i}>{x.title}</a></h3>
               <p>{x.text}</p>
-              <span className="who-go" aria-hidden="true"><Icon name="arrow" size={20} /></span>
+              <a className="who-go" href={href(x.path)} aria-label={x.title} tabIndex={-1}><Icon name="arrow" size={20} /></a>
             </Item>
           ))}
-        </Rail>
+        </Stagger>
       </div>
     </section>
   );

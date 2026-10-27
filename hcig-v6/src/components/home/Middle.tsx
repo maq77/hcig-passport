@@ -61,25 +61,25 @@ export function MissionVision() {
 }
 
 // ---------- Why partners choose HCIG ----------
-// Phones (his pick W3, 2026-10-26): numbered index cards in two rows that slide on their own; tapping a card shows
-// its text in the panel under the slider. Desktop keeps the full cards.
+// Phones (his pick Y2, 2026-10-27): no slider; a bento with the first reason as a dark lead card with its text and the
+// six others in a 2 x 3 grid of numbered cards; tapping one shows its text under the grid. Desktop keeps the full cards.
 export function Why() {
   const items = WHY.items as Card[];
-  const [on, setOn] = useState(0);
+  const [on, setOn] = useState(1);
   return (
     <section className="sec why band-soft" aria-labelledby="why-h">
       <div className="wrap">
         <SectionHead id="why-h" title={WHY.heading} lead={WHY.sub} />
-        <Rail className="why-grid" label={WHY.heading} rows={2} auto={3800} nav="story">
+        <Stagger className="why-grid" gap={0.06}>
           {items.map((x, i) => (
-            <Item as="article" className={`card why-card${on === i ? " is-on" : ""}`} key={x.title} onClick={() => setOn(i)}>
+            <Item as="article" className={`card why-card${on === i ? " is-on" : ""}`} key={x.title} onClick={() => { if (i) setOn(i); }}>
               <span className="why-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
               <span className="ico" aria-hidden="true"><Icon name={x.icon} size={24} /></span>
               <h3>{x.title}</h3>
               {x.text.length > 140 ? <Clamp text={x.text} className="why-text" /> : <p className="why-text">{x.text}</p>}
             </Item>
           ))}
-        </Rail>
+        </Stagger>
         <p className="why-open" aria-live="polite"><b>{items[on].title}</b>{items[on].text}</p>
       </div>
     </section>
@@ -87,8 +87,7 @@ export function Why() {
 }
 
 // ---------- Built for Global Healthcare Delivery ----------
-// Phones (his pick B1): image tiles in two rows, auto slide, tap shows the text under the slider.
-const BUILT_IMG = ["built-multilingual", "built-global", "built-insurance", "built-training", "built-hospitality", "built-operations"];
+// Phones (his pick B1, then "minimal" 2026-10-27): icon tiles in two rows that slide on their own, tap shows the text.
 export function Built() {
   const items = BUILT.items as Card[];
   const [a, c] = BUILT.closing.split(". ");
@@ -100,7 +99,6 @@ export function Built() {
         <Rail className="built-grid" label={BUILT.heading} rows={2} auto={4200}>
           {items.map((x, i) => (
             <Item as="article" className={`card built-card${on === i ? " is-on" : ""}`} key={x.title} onClick={() => setOn(i)}>
-              <figure className="built-img" aria-hidden="true"><img src={asset(BUILT_IMG[i])} alt="" loading="lazy" /></figure>
               <span className="built-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
               <span className="ico" aria-hidden="true"><Icon name={x.icon} size={24} /></span>
               <h3>{x.title}</h3>

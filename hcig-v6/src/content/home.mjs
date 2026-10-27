@@ -314,4 +314,5 @@ export const UI = {
   skip: { text: "Skip to content", src: "new" },
   prev: { text: "Previous", src: "new" },
   next: { text: "Next", src: "new" },
+  swipe: { text: "Swipe for more", src: "owner" }, // his words, 2026-10-27
 };

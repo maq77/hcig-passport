@@ -1234,3 +1234,83 @@ html.menu-open { overflow: hidden; }
 /* the hairlines are spans too: keep the title rule (.h2 > span) off them */
 .sec-head .h2 > .hl { flex: 1 1 0%; max-width: none; }
 @container page (max-width: 760px) { .sec-head .h2 > .hl.r { flex: none; width: 56px; } }
+
+/* =====================================================================================
+   Phone round 4, his picks 2026-10-27: T1 story rail, Y2 Why bento, W1 Who path list, minimal Built
+   ===================================================================================== */
+.rail-arrow, .rail-note { display: none; }
+.tst-bento .rail-side { display: contents; }
+
+@container page (max-width: 760px) {
+  /* T1: portrait stories, arrows on the videos, "Swipe for more" */
+  .rail-side { position: relative; display: block; }
+  .page .tst-vids.rail { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 15% 10px; scroll-padding: 0; }
+  .page .tst-vids.rail > *, .page .tst-vids.rail > .t-c { flex: 0 0 70%; aspect-ratio: 9 / 16; align-self: auto; scroll-snap-align: center; }
+  .rail-arrow { display: inline-flex; position: absolute; top: 50%; z-index: 5; width: 46px; height: 46px; margin-top: -28px; align-items: center; justify-content: center; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .94); color: var(--black); box-shadow: 0 12px 24px -12px rgba(0, 0, 0, .5); cursor: pointer; transition: transform .2s var(--ease); }
+  .rail-arrow:active { transform: scale(.92); }
+  .rail-arrow.prev { left: calc(var(--gutter) * -1 + 10px); }
+  .rail-arrow.next { right: calc(var(--gutter) * -1 + 10px); }
+  .rail-note { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 12px 0 0; font: 500 13px/1 var(--font-sans); color: var(--ink-2); }
+  .rail-note svg { color: var(--turq); animation: nudge 1.8s var(--ease) infinite; }
+  .tst-vids .vtile .watch { left: 50%; top: 50%; bottom: auto; transform: translate(-50%, -50%); flex-direction: column; gap: 12px; min-height: 0; padding: 0; background: none; color: var(--white); }
+  .tst-vids .vtile .watch:hover { transform: translate(-50%, -50%); }
+  .tst-vids .vtile .watch .pi { width: 64px; height: 64px; background: rgba(255, 255, 255, .94); color: var(--black); box-shadow: 0 0 0 8px rgba(255, 255, 255, .18); }
+  .tst-vids .vtile .watch .pi svg { width: 22px; height: 22px; }
+  .tst-vids .vtile .watch > span:last-child { padding: 7px 12px; border-radius: 999px; background: rgba(0, 0, 0, .38); font: 600 13px/1 var(--font-sans); }
+
+  /* Y2: Why as a bento, no slider */
+  .page .why-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .page .why-grid > .why-card { grid-column: auto !important; position: relative; min-height: 138px; padding: 16px 14px; display: grid; align-content: end; gap: 8px; border: 0; border-radius: 18px; background: var(--white); box-shadow: 0 0 0 1px var(--line); cursor: pointer; }
+  .page .why-grid > .why-card .ico { position: absolute; top: 14px; right: 14px; width: auto; height: auto; background: none; color: var(--turq); }
+  .page .why-grid > .why-card .ico svg { width: 20px; height: 20px; }
+  .page .why-grid > .why-card .why-n { display: block; position: absolute; top: 14px; left: 14px; font: 400 20px/1 var(--font-display); color: var(--dim-40); }
+  .page .why-grid > .why-card h3 { font: 600 14px/1.3 var(--font-sans); }
+  .page .why-grid > .why-card .why-text, .page .why-grid > .why-card .more-btn { display: none; }
+  .page .why-grid > .why-card.is-on { box-shadow: 0 0 0 1px var(--turq), 0 16px 30px -22px rgba(18, 192, 198, .55); }
+  .page .why-grid > .why-card.is-on .why-n { color: var(--turq); }
+  .page .why-grid > .why-card:first-child { grid-column: 1 / -1 !important; min-height: 0; padding: 22px 20px; align-content: start; gap: 10px; color: var(--white); cursor: default; background: radial-gradient(90% 90% at 100% 0%, rgba(18, 192, 198, .25), transparent 60%), linear-gradient(150deg, var(--black-80), var(--dim)); box-shadow: none; }
+  .page .why-grid > .why-card:first-child .why-n { position: static; font-size: 28px; color: var(--turq-60); }
+  .page .why-grid > .why-card:first-child h3 { font: 400 26px/1.15 var(--font-display); color: var(--white); }
+  .page .why-grid > .why-card:first-child .why-text { display: block; font-size: 14.5px; line-height: 1.6; color: var(--dim-20); }
+
+  /* W1: Who We Work With, choose your path */
+  .page .who-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .page .who-grid > .who-card { grid-column: auto !important; display: grid; grid-template-columns: 44px minmax(0, 1fr) 36px; align-items: center; gap: 4px 12px; min-height: 0; padding: 12px; border-radius: 18px; cursor: pointer; }
+  .page .who-grid > .who-card:hover { translate: none; }
+  .page .who-grid .who-card .ico { grid-column: 1; grid-row: 1; width: 44px; height: 44px; }
+  .page .who-grid .who-card h3 { grid-column: 2; grid-row: 1; margin: 0; font: 600 15px/1.3 var(--font-sans); }
+  .page .who-grid .who-card h3 a::after { content: none; }
+  .page .who-grid .who-card p { display: none; grid-column: 2 / -1; grid-row: 2; font-size: 14px; line-height: 1.55; }
+  .page .who-grid .who-card.is-on p { display: block; }
+  .page .who-grid .who-card .who-go { position: static; grid-column: 3; grid-row: 1; width: 36px; height: 36px; }
+  .page .who-grid .who-card.is-on { box-shadow: 0 0 0 1px var(--turq); border-color: var(--turq); }
+  .page .who-grid .who-card.is-on .who-go { background: var(--turq); color: var(--black); box-shadow: none; }
+
+  /* Built, minimal: icon tiles, light turquoise and dark */
+  .built-grid.rail .built-card { min-height: 150px; padding: 16px; align-content: space-between; gap: 12px; border-radius: 20px; background: var(--turq-08); box-shadow: inset 0 0 0 1px var(--turq-40); }
+  .built-grid.rail .built-card:nth-child(3n + 2) { background: var(--black-80); box-shadow: none; }
+  .built-grid.rail .built-card:nth-child(3n + 2) h3 { color: var(--white); }
+  .built-grid.rail .built-card .ico { position: static; width: auto; height: auto; justify-content: flex-start; background: none; color: var(--turq); }
+  .built-grid.rail .built-card .ico svg { width: 30px; height: 30px; }
+  .built-grid.rail .built-card h3 { margin: 0; font: 400 19px/1.15 var(--font-display); }
+  .built-grid.rail .built-card.is-on { box-shadow: inset 0 0 0 2px var(--turq); }
+}
+@keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-8px); } }
+@media (prefers-reduced-motion: reduce) { .rail-note svg { animation: none; } }
+
+/* Phones: a story opens full screen in its own shape */
+@media (max-width: 760px) {
+  .lightbox[open] { inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; background: var(--black); }
+  .lightbox video { width: 100vw; height: 100dvh; max-width: none; max-height: none; border-radius: 0; object-fit: contain; }
+  .lightbox .dlg-close { top: 16px; right: 16px; z-index: 2; }
+}
+
+/* story rail fixes: on phones the wrapper is a real box (the desktop rule dissolves it), the arrows sit on its edges,
+   and each story is a true phone-width portrait card */
+@container page (max-width: 760px) {
+  .tst-bento .rail-side { display: block; position: relative; }
+  .rail-arrow.prev { left: 10px; }
+  .rail-arrow.next { right: 10px; }
+  .page .tst-vids.rail { padding-inline: calc((100% - min(72vw, 300px)) / 2); }
+  .page .tst-vids.rail > *, .page .tst-vids.rail > .t-c { flex: 0 0 min(72vw, 300px); }
+}

@@ -9,7 +9,7 @@ import { Icon } from "./Icon";
 import { Stagger } from "./Motion";
 import { UI } from "@/content/home.mjs";
 
-type Props = { children: ReactNode; className?: string; label: string; gap?: number; rows?: 1 | 2; auto?: number; nav?: "count" | "story" };
+type Props = { children: ReactNode; className?: string; label: string; gap?: number; rows?: 1 | 2; auto?: number; nav?: "count" | "story" | "side" };
 
 const PHONE = "(max-width: 760px)";
 
@@ -52,7 +52,11 @@ export function Rail({ children, className = "", label, gap = 0.07, rows = 1, au
     const el = ref.current;
     if (!el || !cols.length) return;
     const n = (i + cols.length) % cols.length;
-    el.scrollTo({ left: cols[n], behavior: reduce ? "auto" : "smooth" });
+    if (nav === "side") {
+      // story rail: the chosen card comes to the centre (cards snap to the centre)
+      const k = el.children[n] as HTMLElement | undefined;
+      if (k) el.scrollTo({ left: k.offsetLeft - el.offsetLeft - (el.clientWidth - k.offsetWidth) / 2, behavior: reduce ? "auto" : "smooth" });
+    } else el.scrollTo({ left: cols[n], behavior: reduce ? "auto" : "smooth" });
     setAt(n);
   };
 
@@ -72,6 +76,21 @@ export function Rail({ children, className = "", label, gap = 0.07, rows = 1, au
   }, [hold]);
 
   const n = cols.length || 1;
+  if (nav === "side") {
+    // his spec 2026-10-27 (MedPark "Patient stories"): arrows on the sides of the videos and a small "Swipe for more"
+    return (
+      <div className="rail-wrap rail-side-wrap">
+        <div className="rail-side">
+          <Stagger className={`rail ${className}`} gap={gap} ref={ref} role="group" aria-label={label}>
+            {children}
+          </Stagger>
+          <button type="button" className="rail-arrow prev" onClick={() => go(at - 1)} aria-label={UI.prev.text}><Icon name="arrow" size={20} className="flip-x" /></button>
+          <button type="button" className="rail-arrow next" onClick={() => go(at + 1)} aria-label={UI.next.text}><Icon name="arrow" size={20} /></button>
+        </div>
+        <p className="rail-note"><Icon name="hand" size={16} />{UI.swipe.text}</p>
+      </div>
+    );
+  }
   return (
     <div className="rail-wrap" onPointerDown={() => setHold(true)} onFocus={() => setHold(true)}>
       <Stagger className={`rail${rows === 2 ? " r2" : ""} ${className}`} gap={gap} ref={ref} role="group" aria-label={label}>
