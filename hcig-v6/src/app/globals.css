@@ -2072,54 +2072,12 @@ html.modal-open { overflow: hidden; }
   .ev h3 { font-size: 16.5px; }
 }
 
-/* =====================================================================================
-   His notes 2026-10-27 (round 7): whole photos on news cards, silk as a calm background, post hero
-   ===================================================================================== */
-/* Blog cards: the whole photo, never cut, over a soft blurred copy of itself */
-.bc-im { position: relative; }
-.bc-im .bc-back { position: absolute; inset: -10%; width: 120%; height: 120%; object-fit: cover; filter: blur(18px) saturate(1.1) brightness(.92); transform: scale(1.05); }
-.bc-im .bc-front { position: relative; width: 100%; height: 100%; object-fit: contain; object-position: 50% 50%; z-index: 1; }
-.bc:hover .bc-im img.bc-front { transform: scale(1.03); }
-.bc:hover .bc-im img.bc-back { transform: scale(1.08); }
-
-/* News & Updates on desktop: three equal cards, the same frame for every photo */
-@container page (min-width: 761px) {
-  .news-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: none; }
-  .news-grid > * { grid-column: auto !important; grid-row: auto !important; }
-  .news-grid > * .bc-im { aspect-ratio: 4 / 3; height: auto; }
-  .news-grid > * .bc-body { padding: 18px 58px 22px 20px; gap: 8px; }
-}
-@container page (max-width: 760px) { .page .news-grid.rail .bc-im { aspect-ratio: 4 / 3; } }
-/* every other blog card keeps the same frame shape on desktop too */
-.bc-grid:not(.news-grid) .bc-im, .post-aside .bc-im { aspect-ratio: 4 / 3; }
-.bc-big .bc-im { aspect-ratio: auto; }
-
-/* The silk: a calm background behind the "Our services" button (no separate band, no moving light) */
-.silk:not(.silk-bg) { display: none; }
-.care-more-silk { position: relative; padding-block: clamp(26px, 3vw, 44px); margin-top: clamp(10px, 1.5vw, 20px); }
-.care-more-silk > a { position: relative; z-index: 1; background: var(--white); }
-.silk.silk-bg { display: block; position: absolute; left: 50%; top: 50%; width: 100vw; height: clamp(110px, 11vw, 160px); margin: 0; transform: translate(-50%, -50%); background: none; z-index: 0; }
-.care:has(.care-more-silk) { padding-bottom: calc(var(--section-y) * 1.1); }
-.care + .mar { padding-top: calc(var(--section-y) * 1.1); }
-@container page (max-width: 760px) {
-  .silk.silk-bg { height: 110px; }
-  .silk.silk-bg svg { width: 240%; left: -70%; }
-}
-
-/* Blog post: the photo as the hero background; a calmer title */
+/* Blog post: the photo as the hero background; a calmer title (kept from round 7) */
 .ph-post { min-height: min(72vh, 600px); }
 .ph-post .ph-cover-img { object-position: 50% 28%; }
 .ph-post .ph-title { font-size: clamp(28px, 1.1rem + 1.7vw, 46px); line-height: 1.12; max-width: 24ch; }
 .ph-post::after { background: linear-gradient(90deg, rgba(0, 0, 0, .78) 0%, rgba(0, 0, 0, .5) 55%, rgba(0, 0, 0, .2) 100%), linear-gradient(0deg, rgba(0, 0, 0, .6), transparent 50%); }
-@container page (max-width: 900px) {
-  .ph-post { min-height: 560px; }
-  .ph-post .ph-title { font-size: clamp(26px, 7cqi, 32px); }
-}
-
-/* news cards on desktop: the 4:3 frame wins over the earlier lower-card heights */
-@container page (min-width: 761px) {
-  .page .news-grid > :is(*, :not(.news-lead)) .bc-im { aspect-ratio: 4 / 3; height: auto; min-height: 0; }
-}
+@container page (max-width: 900px) { .ph-post { min-height: 560px; } .ph-post .ph-title { font-size: clamp(26px, 7cqi, 32px); } }
 /* a dark photo hero: the header at the top of the page is the frosted capsule, so its dark words stay readable */
 @media (min-width: 1081px) {
   body:has(.ph-cover) .hd:not(.hd-sc) .hd-in { width: max-content; max-width: calc(100% - 32px); height: 64px; margin: 14px auto 0; padding: 0 8px 0 22px; gap: 22px; border-radius: 999px; background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); box-shadow: 0 0 0 1px rgba(255, 255, 255, .6), 0 20px 40px -20px rgba(0, 0, 0, .35); }
@@ -2127,5 +2085,3 @@ html.modal-open { overflow: hidden; }
   body:has(.ph-cover) .hd:not(.hd-sc) .hd-nav { margin: 0; }
   body:has(.ph-cover) .hd:not(.hd-sc) .lg .th-l { opacity: 1; } body:has(.ph-cover) .hd:not(.hd-sc) .lg .th-d { opacity: 0; }
 }
-/* the silk a touch clearer behind the button */
-.silk.silk-bg { opacity: 1; } .silk.silk-bg svg path { mix-blend-mode: multiply; }

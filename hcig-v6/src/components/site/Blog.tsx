@@ -17,7 +17,7 @@ const firstLine = (p: Post) => p.excerpt || (p.blocks.find((b) => b.t === "p")?.
 function Card({ p, big = false }: { p: Post; big?: boolean }) {
   return (
     <a className={`bc${big ? " bc-big" : ""}`} href={href(postPath(p))}>
-      <figure className="bc-im">{p.img ? <><img className="bc-back" src={asset(p.img)} alt="" aria-hidden="true" loading="lazy" /><img className="bc-front" src={asset(p.img)} alt={p.alt} loading="lazy" /></> : null}</figure>
+      <figure className="bc-im">{p.img ? <img src={asset(p.img)} alt={p.alt} loading="lazy" /> : null}</figure>
       <div className="bc-body">
         <p className="bc-place"><Icon name="pin" size={14} />{p.dateline}</p>
         <h3>{p.title}</h3>
@@ -84,7 +84,7 @@ export function MoreNews({ title, cta }: { title: string; cta?: string }) {
       <div className="wrap">
         <SectionHead id="bm-h" title={title} />
         <Rail className="bc-grid news-grid" label={title} auto={4500} gap={0.08}>
-          {all.slice(0, 3).map((p) => <Item as="article" key={p.n}><Card p={p} /></Item>)}
+          {all.slice(0, 3).map((p, i) => <Item as="article" key={p.n} className={i === 0 ? "news-lead" : undefined}><Card p={p} big={i === 0} /></Item>)}
         </Rail>
         {cta ? <Reveal className="care-more"><a className="btn2 care-more-btn" href={href("/blog/")}>{cta}<Icon name="arrow" /></a></Reveal> : null}
       </div>

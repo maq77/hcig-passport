@@ -1,14 +1,14 @@
 "use client";
 // Silk divider between Our Healthcare and Maritime (his note 2026-10-27): a band of fine threads that ripple slowly like
-// silk in a light current, a soft turquoise body, a white sheen gliding across, and 
-// Brand tints only (Turquoise 20 to 100, Dim Gray 20 to 60). The threads morph between two calm states
+// silk in a light current, a soft turquoise body, a white sheen gliding across, and one light travelling along the
+// centre thread. Brand tints only (Turquoise 20 to 100, Dim Gray 20 to 60). The threads morph between two calm states
 // (SVG animate, no script work per frame); under reduced motion the silk lies still.
 import { useReducedMotion } from "motion/react";
 import { useId } from "react";
 
 const W = 1440;
 const H = 240;
-const N = 9; // threads (calm, like the Mission & Vision lines)
+const N = 18; // threads
 
 // one silk edge: a soft wave across the width
 type Wave = { y: number; a: number; f: number; p: number; a2: number; f2: number; p2: number };
@@ -39,12 +39,12 @@ const ribbon = (top: Wave, bot: Wave) => `${smooth(points(top, bot, 0))} ${smoot
 
 // two calm states the silk breathes between
 const A = {
-  top: { y: 96, a: 30, f: 1.1, p: 0.4, a2: 8, f2: 2.6, p2: 1.2 },
-  bot: { y: 146, a: 26, f: 0.9, p: 1.4, a2: 12, f2: 2.2, p2: 0.2 },
+  top: { y: 74, a: 34, f: 1.1, p: 0.4, a2: 10, f2: 2.6, p2: 1.2 },
+  bot: { y: 168, a: 26, f: 0.9, p: 1.4, a2: 12, f2: 2.2, p2: 0.2 },
 };
 const B = {
-  top: { y: 102, a: 26, f: 1.0, p: 1.3, a2: 10, f2: 2.4, p2: 2.4 },
-  bot: { y: 140, a: 34, f: 1.05, p: 0.5, a2: 9, f2: 2.8, p2: 1.6 },
+  top: { y: 84, a: 28, f: 1.0, p: 1.3, a2: 14, f2: 2.4, p2: 2.4 },
+  bot: { y: 160, a: 34, f: 1.05, p: 0.5, a2: 9, f2: 2.8, p2: 1.6 },
 };
 
 // the deeper ribbon behind, crossing the first in Dim Gray tints
@@ -56,9 +56,9 @@ const D = {
   top: { y: 84, a: 30, f: 0.85, p: 3.3, a2: 12, f2: 2.1, p2: 1.9 },
   bot: { y: 164, a: 38, f: 0.7, p: 2.4, a2: 8, f2: 1.9, p2: 0.6 },
 };
-const BACK = 5;
+const BACK = 12;
 
-export function SilkDivider({ className = "" }: { className?: string }) {
+export function SilkDivider() {
   const reduce = useReducedMotion();
   const id = useId().replace(/:/g, "");
   const threads = Array.from({ length: N }, (_, i) => {
@@ -80,7 +80,7 @@ export function SilkDivider({ className = "" }: { className?: string }) {
   });
 
   return (
-    <div className={`silk ${className}`} aria-hidden="true">
+    <div className="silk" aria-hidden="true">
       <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" focusable="false">
         <defs>
           <linearGradient id={`silk-body-${id}`} x1="0" y1="0" x2="1" y2="0">
@@ -130,22 +130,35 @@ export function SilkDivider({ className = "" }: { className?: string }) {
         ))}
 
         {/* the soft body of the silk */}
-        <path d={bodyA} fill={`url(#silk-body-${id})`} opacity=".3">
+        <path d={bodyA} fill={`url(#silk-body-${id})`} opacity=".55">
           {reduce ? null : <animate attributeName="d" values={`${bodyA};${bodyB};${bodyA}`} dur={`${dur}s`} repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" />}
         </path>
-        <path d={bodyA} fill={`url(#silk-sheen-${id})`} opacity=".35">
+        <path d={bodyA} fill={`url(#silk-sheen-${id})`} opacity=".55">
           {reduce ? null : <animate attributeName="d" values={`${bodyA};${bodyB};${bodyA}`} dur={`${dur}s`} repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" />}
         </path>
 
         {/* the threads */}
         {threads.map((t, i) => (
-          <path key={i} d={t.da} fill="none" stroke={`url(#silk-thread-${id})`} strokeWidth={0.5 + t.mid * 0.6} strokeOpacity={0.22 + t.mid * 0.45} vectorEffect="non-scaling-stroke" strokeLinecap="round">
+          <path key={i} d={t.da} fill="none" stroke={`url(#silk-thread-${id})`} strokeWidth={0.6 + t.mid * 0.9} strokeOpacity={0.28 + t.mid * 0.6} vectorEffect="non-scaling-stroke" strokeLinecap="round">
             {reduce ? null : (
               <animate attributeName="d" values={`${t.da};${t.db};${t.da}`} dur={`${dur}s`} begin={`${-(i * 0.18).toFixed(2)}s`} repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" />
             )}
           </path>
         ))}
 
+        {/* one light travelling along the centre thread */}
+        {reduce ? null : (
+          <>
+            <path d={centreA} fill="none" stroke="#12C0C6" strokeWidth="6" strokeLinecap="round" strokeDasharray="70 2400" filter={`url(#silk-glow-${id})`} opacity=".9" vectorEffect="non-scaling-stroke" pathLength="2470">
+              <animate attributeName="d" values={`${centreA};${centreB};${centreA}`} dur={`${dur}s`} begin="-1.6s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" />
+              <animate attributeName="stroke-dashoffset" values="70;-2400" dur="7s" repeatCount="indefinite" />
+            </path>
+            <path d={centreA} fill="none" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" strokeDasharray="40 2430" vectorEffect="non-scaling-stroke" pathLength="2470">
+              <animate attributeName="d" values={`${centreA};${centreB};${centreA}`} dur={`${dur}s`} begin="-1.6s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" />
+              <animate attributeName="stroke-dashoffset" values="55;-2415" dur="7s" repeatCount="indefinite" />
+            </path>
+          </>
+        )}
       </svg>
     </div>
   );
