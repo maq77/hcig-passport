@@ -21,9 +21,10 @@ type Props = {
   note?: string;
   tone?: "split" | "cover";
   aside?: ReactNode;
+  size?: "post";
 };
 
-export function PageHero({ crumbs, eyebrow, title, lead, image, imageAlt = "", actions, note, tone = "split", aside }: Props) {
+export function PageHero({ crumbs, eyebrow, title, lead, image, imageAlt = "", actions, note, tone = "split", aside, size }: Props) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -40,7 +41,7 @@ export function PageHero({ crumbs, eyebrow, title, lead, image, imageAlt = "", a
   };
 
   return (
-    <section ref={ref} className={`ph-hero ph-${tone}`}>
+    <section ref={ref} className={`ph-hero ph-${tone}${size ? ` ph-${size}` : ""}`}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       {tone === "cover" && image ? (
         <motion.img className="ph-cover-img" style={{ y }} src={asset(image)} alt={imageAlt} fetchPriority="high" />

@@ -6,7 +6,6 @@ import { Built, MissionVision, OurHealthcare, SystemWorks, Why } from "@/compone
 import { CeoQuote, ClosingBand, Impact, Insurers, Maritime, Testimonials, WhoWeWorkWith } from "@/components/home/Lower";
 import { Shell } from "@/components/site/Shell";
 import { MoreNews } from "@/components/site/Blog";
-import { SilkDivider } from "@/components/ui/Silk";
 import { NEWS, UI } from "@/content/home.mjs";
 
 export default function Home() {
@@ -21,7 +20,6 @@ export default function Home() {
         <Built />
         <SystemWorks />
         <OurHealthcare more />
-        <SilkDivider />
         <Maritime />
         <Testimonials />
         <CeoQuote />

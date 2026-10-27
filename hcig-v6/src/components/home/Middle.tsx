@@ -12,6 +12,7 @@ import { SheetLink } from "@/components/ui/Sheet";
 import { Rail } from "@/components/ui/Rail";
 import { Ribbons, Watermark } from "@/components/ui/Brand";
 import { DetailModal, useDetail } from "@/components/ui/DetailModal";
+import { SilkDivider } from "@/components/ui/Silk";
 import type { IconName } from "@/lib/icons";
 
 type Card = { title: string; text: string; icon: IconName };
@@ -248,7 +249,8 @@ export function OurHealthcare({ more = false }: { more?: boolean }) {
           ))}
         </Stagger>
         {more ? (
-          <Reveal className="care-more">
+          <Reveal className="care-more care-more-silk">
+            <SilkDivider className="silk-bg" />
             <a className="btn2 care-more-btn" href={href("/services/")}>{UI.ourServices.text}<Icon name="arrow" /></a>
           </Reveal>
         ) : null}

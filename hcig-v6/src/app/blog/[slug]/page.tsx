@@ -27,8 +27,12 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       <main id="main">
         <PageHero
           crumbs={[{ label: "Home", path: "/" }, { label: "Blog", path: "/blog/" }, { label: p.title, path: `/blog/${p.slug}/` }]}
+          tone="cover"
+          size="post"
           eyebrow={p.dateline}
           title={p.title}
+          image={p.img ?? undefined}
+          imageAlt={p.alt}
         />
         <PostBody slug={slug} />
         <ClosingBand />
