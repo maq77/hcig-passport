@@ -41,7 +41,7 @@ export function Maritime() {
         </div>
         <Reveal className="mar-media" ref={box}>
           <figure className="mar-main media">
-            <motion.img style={{ y, scale: 1.12 }} src={asset("mar-deck")} alt="A medical team on the deck of a cruise ship at sea" loading="lazy" />
+            <motion.img style={{ y, scale: 1.06 }} src={asset("mar-deck")} alt="A medical team on the deck of a cruise ship at sea" loading="lazy" />
           </figure>
           <figure className="mar-sm media"><img src={asset("mar-consult")} alt="A ship doctor with a passenger in the onboard medical centre" loading="lazy" /></figure>
           <figure className="mar-sm media"><img src={asset("mar-clinic")} alt="An onboard medical clinic on a cruise ship" loading="lazy" /></figure>
@@ -54,25 +54,35 @@ export function Maritime() {
 // ---------- Testimonials: video bento, Google card, moments row ----------
 type Clip = { key: string; label: { text: string } };
 
+// A landscape story (the third) plays uncropped in its portrait card over a blurred copy of itself, so it keeps its
+// full resolution instead of being cropped and stretched. Previews carry a version, so phones never keep an old cut.
+const PREVIEW_V = "2";
 function VideoTile({ clip, className, onWatch }: { clip: Clip; className: string; onWatch: (k: string) => void }) {
   const ref = useRef<HTMLVideoElement>(null);
+  const back = useRef<HTMLVideoElement>(null);
   const reduce = useReducedMotion();
+  const wide = className.includes("t-c");
   useEffect(() => {
     const v = ref.current;
     if (!v || reduce) return;
     const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        if (v.preload === "none") { v.preload = "auto"; v.load(); }
-        v.play().catch(() => {});
-      } else v.pause();
-    }, { threshold: 0.3 });
+      for (const x of [v, back.current]) {
+        if (!x) continue;
+        if (e.isIntersecting) {
+          if (x.preload === "none") { x.preload = "auto"; x.load(); }
+          x.play().catch(() => {});
+        } else x.pause();
+      }
+    }, { threshold: 0.01 }); // the dimmed side stories load as soon as any part shows, never a black slab
     io.observe(v);
     return () => io.disconnect();
   }, [reduce]);
+  const src = `${file(`media/preview/${clip.key}-loop.mp4`)}?v=${PREVIEW_V}`;
   return (
     // reveals on its own: on desktop its slider wrapper is display: contents and has no box to observe
-    <Item as="article" className={`vtile ${className}`} initial="hide" whileInView="show" viewport={{ once: true, margin: "100000px 0px -8% 0px" }}>
-      <video ref={ref} src={file(`media/preview/${clip.key}-loop.mp4`)} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} />
+    <Item as="article" className={`vtile ${className}${wide ? " vtile-wide" : ""}`} initial="hide" whileInView="show" viewport={{ once: true, margin: "100000px 0px -8% 0px" }}>
+      {wide ? <video ref={back} className="vtile-back" src={src} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} /> : null}
+      <video ref={ref} className="vtile-front" src={src} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} />
       <span className="vtile-q" aria-hidden="true"><Icon name="quote" size={22} /></span>
       <button type="button" className="watch" onClick={() => onWatch(clip.key)}>
         <span className="pi" aria-hidden="true"><Icon name="play" size={16} /></span>
