@@ -207,9 +207,9 @@
     "width": 800
   },
   "maritime-hero": {
-    "src": "hcig-v6/material/media/generated/r2/maritime-hero.jpg",
-    "width": 1376,
-    "note": "Nano Banana route A 2026-10-26"
+    "src": "hcig-v6/material/media/upscaled/maritime-hero.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "cta-bg": {
     "src": "hcig-v6/material/media/upscaled/cta-bg.png",
@@ -305,14 +305,14 @@
     "note": "upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "onboard-clinic": {
-    "src": "hcig-v6/material/media/generated/r2/onboard-clinic-logo.jpg",
-    "width": 1376,
-    "note": "Nano Banana route A 2026-10-26; real HC mark etched on the glass in post (scripts/place-logo.py)"
+    "src": "hcig-v6/material/media/upscaled/onboard-clinic.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26; real HC mark etched on the glass in post (scripts/place-logo.py); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "ship-to-shore": {
-    "src": "hcig-v6/material/media/generated/r2/ship-to-shore.jpg",
-    "width": 1376,
-    "note": "Nano Banana route A 2026-10-26 (round 3 image review)"
+    "src": "hcig-v6/material/media/upscaled/ship-to-shore.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26 (round 3 image review); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "yacht-marina": {
     "src": "hcig-v6/material/media/upscaled/yacht-marina.png",
