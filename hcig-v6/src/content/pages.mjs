@@ -151,3 +151,45 @@ export const SERVICE_LINES = [
   { slug: "elite-medical-concierge", caps: ["Elite Medical Concierge Service", "Medical Coordination & Case Management", "Immediate Medical Access"] },
   { slug: "accreditation-training", caps: ["Medical Coordination & Case Management"] },
 ];
+
+// Group, Network, Trust (fact sheet sections 1, 2, 4, 5 and 6, approved 2026-10-26)
+export const GROUP_PAGE = {
+  meta: { title: "Our Premises and Facilities | Healthcare International Group", src: "new" },
+  title: "Our Premises and Facilities", // live
+  line: "Integrated healthcare group all over the world", // approved
+  visit: { text: "Visit website", src: "new" },
+  places: {
+    title: { text: "MedPark", src: "live" },
+    hub: { name: "MedPark Health Hub", place: "Sahl Hasheesh Road, Hurghada", img: "about-hub", src: "fact-sheet" },
+    hospital: { name: "MedPark Hospital", place: "El Quseir", img: "medpark-hospital", src: "fact-sheet" },
+  },
+};
+
+export const NETWORK_PAGE = {
+  meta: { title: "Where We Operate | Healthcare International Group", src: "new" },
+  title: { text: "Where We Operate", src: "new" },
+  lead: { text: "Operating across multiple markets, HCIG supports international patients, insurers, and global partners with structured, reliable, and scalable healthcare solutions.", src: "live-about" },
+  countries: [
+    { name: "Egypt", note: "135+ On-Site Clinics Across Egypt", office: 0 },
+    { name: "United Arab Emirates" },
+    { name: "Germany" },
+    { name: "Spain" },
+    { name: "United States", office: 1 },
+  ],
+  countriesSrc: "fact-sheet (company profile, his answer 2026-10-26: five countries)",
+  officesTitle: { text: "Our offices", src: "new" },
+};
+
+export const TRUST_PAGE = {
+  meta: { title: "Trust and Standards | Healthcare International Group", src: "new" },
+  title: { text: "Trust and Standards", src: "new" },
+  lead: { text: "We operate in line with internationally recognized medical standards and trusted global partnerships.", src: "live (Why: Global Standards & Accreditation)" },
+  partnership: { text: "Healthcare International Group (HCIG) is the Official Partner of Global Healthcare Accreditation™ (GHA) and the German Medical Wellness Association (DMWV) in Egypt", src: "live" },
+  partners: [
+    { name: "Global Healthcare Accreditation (GHA)", logo: "gha", post: 5 },
+    { name: "German Medical Wellness Association (DMWV)", logo: "dmwv", post: 3 },
+  ],
+  uca: { text: "24/7 Clinics becomes the first urgent care organization outside the United States accredited by the Urgent Care Association", post: 15, src: "live (blog)" },
+  eventsTitle: { text: "Where we show up", src: "new" },
+  events: [13, 6, 12, 10, 9, 8],
+};

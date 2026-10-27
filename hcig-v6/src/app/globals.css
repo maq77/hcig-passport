@@ -2001,3 +2001,73 @@ html.modal-open { overflow: hidden; }
 @container page (max-width: 760px) {
   .cta-in .h2 .acc { white-space: nowrap; font-size: clamp(22px, 7.4cqi, 40px); }
 }
+
+/* =====================================================================================
+   Group hub, Network, Trust (2026-10-27)
+   ===================================================================================== */
+.brand-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.brand-card a { display: grid; align-content: start; gap: 10px; height: 100%; padding: 24px 22px 22px; border-radius: 22px; background: var(--white); box-shadow: 0 0 0 1px var(--line); transition: translate .45s var(--ease), box-shadow .4s var(--ease); }
+.brand-card a:hover { translate: 0 -4px; box-shadow: 0 0 0 1px var(--turq), 0 30px 60px -40px rgba(0, 0, 0, .45); }
+.brand-logo { height: 84px; display: flex; align-items: center; justify-content: flex-start; margin-bottom: 8px; }
+.brand-logo img { max-height: 72px; max-width: 170px; width: auto; object-fit: contain; }
+.brand-card h3 { margin: 0; font: 400 21px/1.2 var(--font-display); color: var(--ink); }
+.brand-card p { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--ink-2); }
+.brand-visit { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 8px; font: 600 13.5px/1 var(--font-sans); color: var(--ink); }
+.brand-visit svg { color: var(--turq); transition: translate .3s var(--ease); }
+.brand-card a:hover .brand-visit svg { translate: 2px -2px; }
+.places-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.place { position: relative; margin: 0; aspect-ratio: 3 / 2; border-radius: 24px; overflow: hidden; box-shadow: 0 40px 80px -50px rgba(0, 0, 0, .5); }
+.place img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.place:hover img { transform: scale(1.04); }
+.place .place-cap { margin: 0;  position: absolute; left: 0; right: 0; bottom: 0; display: grid; gap: 4px; padding: 60px 24px 22px; color: var(--white); background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .72)); }
+.place .place-cap b { font: 400 clamp(22px, 1rem + 1vw, 30px)/1.15 var(--font-display); }
+.place .place-cap span { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--dim-20); }
+.place .place-cap svg { color: var(--turq); }
+@container page (max-width: 1000px) { .brand-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container page (max-width: 640px) {
+  .brand-grid { gap: 10px; }
+  .brand-card a { padding: 16px 14px; gap: 6px; }
+  .brand-logo { height: 56px; margin-bottom: 4px; } .brand-logo img { max-height: 48px; max-width: 120px; }
+  .brand-card h3 { font-size: 17px; } .brand-card p { font-size: 13px; }
+  .places-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+.net-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.net-list li { display: grid; grid-template-columns: 64px minmax(0, 4fr) minmax(0, 6fr); gap: 6px 20px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.net-n { font: 400 18px/1 var(--font-display); color: var(--turq); }
+.net-list h3 { margin: 0; font: 400 clamp(26px, 1rem + 1.6vw, 44px)/1.1 var(--font-display); color: var(--ink); }
+.net-list p { margin: 0; grid-column: 3; color: var(--ink-2); line-height: 1.6; }
+.net-list p + p { grid-column: 3; }
+.net-office { display: inline-flex; gap: 8px; align-items: flex-start; } .net-office svg { color: var(--turq); flex: none; margin-top: 4px; }
+@container page (max-width: 760px) {
+  .net-list li { grid-template-columns: 40px minmax(0, 1fr); }
+  .net-list p, .net-list p + p { grid-column: 2; }
+}
+
+.trust-line p { margin: 0 auto clamp(28px, 3vw, 44px); max-width: 30ch; text-align: center; font: 400 clamp(24px, 1rem + 1.4vw, 38px)/1.3 var(--font-display); color: var(--ink); text-wrap: balance; }
+.trust-partners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto; }
+.trust-card { display: grid; justify-items: center; gap: 14px; padding: clamp(24px, 3vw, 40px); border-radius: 24px; background: var(--bg-soft); text-align: center; }
+.trust-logo { width: 160px; height: 110px; display: flex; align-items: center; justify-content: center; padding: 14px; border-radius: 18px; background: var(--white); box-shadow: 0 0 0 1px var(--line); }
+.trust-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.trust-card h3 { margin: 0; font: 400 22px/1.2 var(--font-display); color: var(--ink); }
+.trust-read { display: inline-flex; align-items: center; gap: 8px; font: 600 14px/1.4 var(--font-sans); color: var(--ink); border-bottom: 1px solid var(--turq); padding-bottom: 4px; }
+.uca-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(28px, 5vw, 80px); align-items: center; }
+.uca-im { border-radius: 26px; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: 0 50px 90px -50px rgba(0, 0, 0, .5); }
+.uca-im img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.uca-copy { display: grid; gap: 18px; justify-items: start; }
+.uca-copy .h3d { font-size: clamp(26px, 1rem + 1.6vw, 42px); line-height: 1.2; }
+.uca-copy .btn2 { white-space: normal; text-align: left; height: auto; padding: 12px 22px; }
+.ev-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ev { display: grid; gap: 10px; }
+.ev figure { margin: 0; aspect-ratio: 4 / 3; border-radius: 20px; overflow: hidden; background: var(--white); }
+.ev img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 24%; transition: transform 1.1s var(--ease); }
+.ev:hover img { transform: scale(1.05); }
+.ev-place { display: inline-flex; align-items: center; gap: 6px; font: 500 12px/1.3 var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.ev-place svg { color: var(--turq); }
+.ev h3 { margin: 0; font: 400 20px/1.25 var(--font-display); color: var(--ink); }
+@container page (max-width: 900px) {
+  .trust-partners, .uca-grid { grid-template-columns: minmax(0, 1fr); }
+  .uca-im { aspect-ratio: 4 / 3; }
+  .ev-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .ev h3 { font-size: 16.5px; }
+}

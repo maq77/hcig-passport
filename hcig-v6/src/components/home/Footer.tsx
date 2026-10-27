@@ -8,6 +8,14 @@ import { Reveal } from "@/components/ui/Motion";
 import { SOCIAL } from "./Header";
 import { Ribbons, Watermark } from "@/components/ui/Brand";
 
+// the group pages reachable from every page (labels are the pages' own titles)
+const MORE = [
+  { label: "Our Premises and Facilities", path: "/group/" },
+  { label: "Board Members", path: "/about/leadership/" },
+  { label: "Where We Operate", path: "/network/" },
+  { label: "Trust and Standards", path: "/trust/" },
+];
+
 const tel = (p: string) => "tel:" + p.replace(/[^\d+]/g, ""); // "+2 01001828828" dials +20 100 182 8828
 
 export function Footer() {
@@ -29,6 +37,7 @@ export function Footer() {
           <nav aria-label="Footer">
             <ul className="ft-nav">
               {NAV.map((n) => <li key={n.path}><a href={href(n.path)}>{n.label}</a></li>)}
+              {MORE.map((n) => <li key={n.path}><a href={href(n.path)}>{n.label}</a></li>)}
             </ul>
           </nav>
           <div className="ft-col">
