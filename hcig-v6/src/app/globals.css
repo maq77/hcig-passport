@@ -1957,3 +1957,47 @@ html.modal-open { overflow: hidden; }
 .silk { overflow: hidden; }
 @container page (max-width: 760px) { .silk { height: 150px; } .silk svg { width: 260%; left: -80%; } }
 @container page (min-width: 761px) and (max-width: 1100px) { .silk svg { width: 150%; left: -25%; } }
+
+/* =====================================================================================
+   His notes 2026-10-27 (round 6): closer seam with a taller silk, lower news cards, faces in frame,
+   news slider on phones, "Without Fragmentation" on one line on phones
+   ===================================================================================== */
+/* Our Healthcare to Maritime: less air, the silk a little taller */
+.care:has(+ .silk) { padding-bottom: calc(var(--section-y) * .7); }
+.silk { height: clamp(160px, 17vw, 260px); margin: calc(var(--section-y) * -0.9) 0; }
+.silk + .mar { padding-top: calc(var(--section-y) * .5); }
+@container page (max-width: 760px) {
+  .care:has(+ .silk) { padding-bottom: calc(var(--section-y) * .5); }
+  .silk { height: 160px; margin: calc(var(--section-y) * -0.7) 0; }
+  .silk + .mar { padding-top: calc(var(--section-y) * .3); }
+}
+
+/* Blog photos are mostly people: crop from the upper third so faces stay in frame */
+.bc-im img, .post-aside .bc-im img { object-position: 50% 24%; }
+
+/* News & Updates on desktop: lower cards */
+@container page (min-width: 761px) {
+  .news-lead .bc-big .bc-im { aspect-ratio: auto; height: clamp(230px, 22vw, 320px); }
+  .news-grid > :not(.news-lead) .bc-im { aspect-ratio: auto; height: clamp(120px, 10vw, 150px); }
+  .news-grid > :not(.news-lead) .bc-body { padding: 14px 56px 16px 18px; gap: 6px; }
+  .news-lead .bc-big .bc-body { padding: 20px 64px 22px 24px; gap: 10px; }
+  .news-lead .bc-ex { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .news-grid .rail-nav { display: none; }
+}
+
+/* News & Updates on phones: a slider that moves on its own, every card the same shape */
+@container page (max-width: 760px) {
+  .page .news-grid.rail { display: flex; }
+  .page .news-grid.rail > * { flex: 0 0 84%; grid-column: auto !important; grid-row: auto !important; }
+  .page .news-grid.rail .bc, .page .news-grid.rail .bc-big { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr; }
+  .page .news-grid.rail .bc-im { aspect-ratio: 16 / 10; height: auto; min-height: 0; }
+  .page .news-grid.rail .bc-body { padding: 16px 52px 20px 18px; gap: 8px; }
+  .page .news-grid.rail .bc-body h3 { font-size: 19px; }
+  .page .news-grid.rail .bc-ex { display: none; }
+  .page .news-grid.rail .bc-go { top: 18px; right: 14px; margin-top: 0; }
+}
+
+/* Closing band on phones: "Without Fragmentation" stays on one line, a little smaller */
+@container page (max-width: 760px) {
+  .cta-in .h2 .acc { white-space: nowrap; font-size: clamp(22px, 7.4cqi, 40px); }
+}

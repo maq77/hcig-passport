@@ -7,6 +7,7 @@ import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { Item, Reveal, Stagger } from "@/components/ui/Motion";
 import { SectionHead } from "@/components/ui/SectionHead";
+import { Rail } from "@/components/ui/Rail";
 
 export type Post = { n: number; slug: string; title: string; dateline: string; img: string | null; alt: string; excerpt: string; blocks: { t: string; x: string }[] };
 const all = POSTS as Post[];
@@ -83,9 +84,9 @@ export function MoreNews({ title, cta }: { title: string; cta?: string }) {
     <section className="sec blog-more band-soft" aria-labelledby="bm-h">
       <div className="wrap">
         <SectionHead id="bm-h" title={title} />
-        <Stagger className="bc-grid news-grid" gap={0.08}>
+        <Rail className="bc-grid news-grid" label={title} auto={4500} gap={0.08}>
           {all.slice(0, 3).map((p, i) => <Item as="article" key={p.n} className={i === 0 ? "news-lead" : undefined}><Card p={p} big={i === 0} /></Item>)}
-        </Stagger>
+        </Rail>
         {cta ? <Reveal className="care-more"><a className="btn2 care-more-btn" href={href("/blog/")}>{cta}<Icon name="arrow" /></a></Reveal> : null}
       </div>
     </section>

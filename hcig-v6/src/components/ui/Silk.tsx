@@ -39,12 +39,12 @@ const ribbon = (top: Wave, bot: Wave) => `${smooth(points(top, bot, 0))} ${smoot
 
 // two calm states the silk breathes between
 const A = {
-  top: { y: 92, a: 34, f: 1.1, p: 0.4, a2: 10, f2: 2.6, p2: 1.2 },
-  bot: { y: 150, a: 26, f: 0.9, p: 1.4, a2: 12, f2: 2.2, p2: 0.2 },
+  top: { y: 74, a: 34, f: 1.1, p: 0.4, a2: 10, f2: 2.6, p2: 1.2 },
+  bot: { y: 168, a: 26, f: 0.9, p: 1.4, a2: 12, f2: 2.2, p2: 0.2 },
 };
 const B = {
-  top: { y: 104, a: 28, f: 1.0, p: 1.3, a2: 14, f2: 2.4, p2: 2.4 },
-  bot: { y: 140, a: 34, f: 1.05, p: 0.5, a2: 9, f2: 2.8, p2: 1.6 },
+  top: { y: 84, a: 28, f: 1.0, p: 1.3, a2: 14, f2: 2.4, p2: 2.4 },
+  bot: { y: 160, a: 34, f: 1.05, p: 0.5, a2: 9, f2: 2.8, p2: 1.6 },
 };
 
 // the deeper ribbon behind, crossing the first in Dim Gray tints
