@@ -2272,3 +2272,17 @@ html.modal-open { overflow: hidden; }
   .pr-contact-ways { display: grid; } .pr-contact-ways > * { justify-content: center; width: 100%; }
   .pr-contact-ways .btn { font-size: 14px; }
 }
+
+/* Other languages (2026-10-27): long compound words (German, Czech, Polish) hyphenate instead of pushing out of the
+   phone screen; the html lang attribute picks the right hyphenation dictionary */
+html:not([lang="en"]) :is(h1, h2, h3, h4, p, li, b, span, a, small, figcaption, button) { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; hyphenate-limit-chars: 10 4 4; }
+body { overflow-wrap: break-word; }
+
+/* the one-line accents chosen for English wrap in the other languages, where the phrases run longer */
+html:not([lang="en"]) :is(.about-glass .about-statement .acc, .built-close .bc-a, .built-close .bc-b, .cta-in .h2 .acc) { white-space: normal; }
+
+/* the hero copy column never grows past the screen, whatever the word lengths of a language */
+.ph-copy { grid-template-columns: minmax(0, 1fr); } .ph-copy > * { max-width: 100%; }
+
+/* the other languages run longer in the header: the "talk to our team" button waits for a wide screen (the menu keeps Contact and the hero carries the same call) */
+@media (max-width: 1560px) { html:is([lang="de"], [lang="fr"], [lang="es"], [lang="pl"], [lang="it"]) .hd-tools .btn { display: none; } }

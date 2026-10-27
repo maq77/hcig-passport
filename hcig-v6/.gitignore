@@ -26,3 +26,6 @@ id_rsa*
 /public/media/*
 !/public/media/manifest.json
 /canvas/preview/
+/i18n/todo-*.json
+/i18n/missing-*.json
+/i18n/merge-report.json

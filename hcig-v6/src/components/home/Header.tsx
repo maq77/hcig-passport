@@ -7,7 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { NAV, LANGS, HERO, UI, SOCIAL_LINKS } from "@/content/home.mjs";
-import { abs, asset, href, langHome, LANG } from "@/lib/site";
+import { abs, asset, href, langHome, LANG, ROOT, SITE } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { SheetLink, openSheet } from "@/components/ui/Sheet";
 import { EASE } from "@/components/ui/Motion";
@@ -16,7 +16,6 @@ import { useTheme } from "./Theme";
 
 export const SOCIAL = SOCIAL_LINKS as { name: string; icon: IconName; url: string }[];
 
-const langHref = langHome;
 
 // the main navigation as SiteNavigationElement (SEO build standard: sitelinks)
 const NAV_LD = {
@@ -30,6 +29,16 @@ export function Header() {
   const isCurrent = (p: string) => (p === "/" ? pathname === "/" : pathname.startsWith(p));
   const { night, toggle: onTheme } = useTheme();
   const [lang, setLang] = useState(false);
+  // the same page in every language: read from the hreflang links written into the head after the build
+  const [alts, setAlts] = useState<Record<string, string>>({});
+  useEffect(() => {
+    const m: Record<string, string> = {};
+    document.querySelectorAll<HTMLLinkElement>('link[rel="alternate"][hreflang]').forEach((l) => {
+      m[l.hreflang] = ROOT + l.getAttribute("href")!.replace(SITE, "");
+    });
+    setAlts(m);
+  }, []);
+  const langHref = (code: string) => alts[code] ?? langHome(code);
   const [menu, setMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);

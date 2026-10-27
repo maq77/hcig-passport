@@ -11,9 +11,13 @@ const [, , outDir, ...paths] = process.argv;
 const OUT = fileURLToPath(new URL("../out/", import.meta.url));
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".webp": "image/webp", ".png": "image/png", ".svg": "image/svg+xml", ".mp4": "video/mp4", ".woff2": "font/woff2", ".txt": "text/plain", ".jpg": "image/jpeg" };
 const server = createServer(async (req, res) => {
-  const p = decodeURIComponent(req.url.split("?")[0]).replace(/^\/hcig\/v6/, "");
-  let f = join(OUT, p);
-  try { if ((await stat(f)).isDirectory()) f = join(f, "index.html"); } catch { f = join(OUT, p.replace(/\/$/, "") + ".html"); }
+  let p = decodeURIComponent(req.url.split("?")[0]).replace(/^\/hcig\/v6/, "");
+  // other languages are served from out-langs/<lang> (media stays under the English root)
+  let base = OUT;
+  const m = p.match(/^\/(de|pl|fr|it|es|cs)(\/.*)$/);
+  if (m) { base = fileURLToPath(new URL(`../out-langs/${m[1]}/`, import.meta.url)); p = m[2]; }
+  let f = join(base, p);
+  try { if ((await stat(f)).isDirectory()) f = join(f, "index.html"); } catch { f = join(base, p.replace(/\/$/, "") + ".html"); }
   try { const b = await readFile(f); res.writeHead(200, { "content-type": TYPES[extname(f)] || "application/octet-stream" }); res.end(b); } catch { res.writeHead(404); res.end(); }
 }).listen(0);
 const port = server.address().port;
