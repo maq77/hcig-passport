@@ -438,9 +438,9 @@
   },
   "traveller-centre": {
     "file": "traveller-centre.webp",
-    "w": 900,
-    "h": 506,
-    "kb": 57
+    "w": 2752,
+    "h": 1548,
+    "kb": 278
   },
   "onboard-clinic": {
     "file": "onboard-clinic.webp",
@@ -456,15 +456,15 @@
   },
   "yacht-marina": {
     "file": "yacht-marina.webp",
-    "w": 1600,
-    "h": 900,
-    "kb": 202
+    "w": 2752,
+    "h": 1548,
+    "kb": 506
   },
   "coordination-desk": {
     "file": "coordination-desk.webp",
-    "w": 1600,
-    "h": 900,
-    "kb": 130
+    "w": 2752,
+    "h": 1548,
+    "kb": 290
   },
   "built-multilingual": {
     "file": "built-multilingual.webp",
@@ -519,5 +519,41 @@
     "w": 2048,
     "h": 1170,
     "kb": 142
+  },
+  "lead-mostafa": {
+    "file": "lead-mostafa.webp",
+    "w": 899,
+    "h": 914,
+    "kb": 42
+  },
+  "lead-amr": {
+    "file": "lead-amr.webp",
+    "w": 899,
+    "h": 914,
+    "kb": 45
+  },
+  "lead-mohsen": {
+    "file": "lead-mohsen.webp",
+    "w": 899,
+    "h": 914,
+    "kb": 42
+  },
+  "lead-safwat": {
+    "file": "lead-safwat.webp",
+    "w": 952,
+    "h": 968,
+    "kb": 30
+  },
+  "about-hub": {
+    "file": "about-hub.webp",
+    "w": 1800,
+    "h": 1200,
+    "kb": 190
+  },
+  "medpark-hospital": {
+    "file": "medpark-hospital.webp",
+    "w": 1920,
+    "h": 1280,
+    "kb": 233
   }
 }

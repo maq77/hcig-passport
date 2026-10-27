@@ -300,8 +300,9 @@
     "note": "Nano Banana (route A) 2026-10-26; a mood image, not a real HCIG clinic; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "traveller-centre": {
-    "src": "hcig-v6/material/media/generated/traveller-centre.jpg",
-    "width": 900
+    "src": "hcig-v6/material/media/upscaled/traveller-centre.png",
+    "width": 2048,
+    "note": "upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "onboard-clinic": {
     "src": "hcig-v6/material/media/generated/r2/onboard-clinic-logo.jpg",
@@ -314,12 +315,14 @@
     "note": "Nano Banana route A 2026-10-26 (round 3 image review)"
   },
   "yacht-marina": {
-    "src": "hcig-v6/material/media/generated/yacht-marina.jpg",
-    "width": 1600
+    "src": "hcig-v6/material/media/upscaled/yacht-marina.png",
+    "width": 2048,
+    "note": "upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "coordination-desk": {
-    "src": "hcig-v6/material/media/generated/coordination-desk.jpg",
-    "width": 1600
+    "src": "hcig-v6/material/media/upscaled/coordination-desk.png",
+    "width": 2048,
+    "note": "upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "built-multilingual": {
     "src": "hcig-v6/material/media/upscaled/built-multilingual.png",
@@ -365,5 +368,32 @@
     "src": "hcig-v6/material/media/upscaled/mar-clinic.png",
     "width": 2048,
     "note": "his photo 2026-10-27; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+  },
+  "lead-mostafa": {
+    "src": "hcig-v3/material/canvas-assets/img/board-mostafa-elshakankery.jpg",
+    "width": 899
+  },
+  "lead-amr": {
+    "src": "hcig-v3/material/canvas-assets/img/board-amr-abbass.jpg",
+    "width": 899
+  },
+  "lead-mohsen": {
+    "src": "hcig-v3/material/canvas-assets/img/board-mohsen-mohamed.jpg",
+    "width": 899
+  },
+  "lead-safwat": {
+    "src": "hcig-v6/material/media/leaders/safwat-bw.jpg",
+    "width": 952,
+    "note": "live saf.jpeg, black and white and square to match the board set"
+  },
+  "about-hub": {
+    "src": "hcig-v3/material/canvas-assets/img/hub-ambulance.jpg",
+    "width": 2400,
+    "note": "real photo: MedPark Health Hub, Sahl Hasheesh Road, Hurghada"
+  },
+  "medpark-hospital": {
+    "src": "hcig-v3/material/canvas-assets/img/medpark-hospital.jpg",
+    "width": 1920,
+    "note": "real photo: MedPark Hospital, El Quseir"
   }
 }

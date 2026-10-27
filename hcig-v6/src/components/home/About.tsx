@@ -13,7 +13,7 @@ import type { IconName } from "@/lib/icons";
 const FACT_ICONS: IconName[] = ["speed", "ownership", "network"];
 const ROUTE_ICONS: IconName[] = ["cross", "hospital", "globe"];
 
-export function About() {
+export function About({ page = false }: { page?: boolean }) {
   const [first, second, third] = ABOUT.paras;
   const st = ABOUT.statement.text.split(". ");
   const band = useRef<HTMLDivElement>(null);
@@ -22,9 +22,9 @@ export function About() {
   const imgY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-7%", "7%"]);
 
   return (
-    <section className="sec about" aria-labelledby="about-h">
+    <section className={`sec about${page ? " about-page" : ""}`} aria-labelledby={page ? undefined : "about-h"} aria-label={page ? ABOUT.heading : undefined}>
       <div className="wrap">
-        <SectionHead id="about-h" title={ABOUT.heading} lead={first} className="about-head" />
+        {page ? null : <SectionHead id="about-h" title={ABOUT.heading} lead={first} className="about-head" />}
         {/* His pick 2026-10-26 ("choose best ... what feels more luxurious"): A2, the photo fills the card and the words
             sit on frosted glass over the lounge on the left, never over the people. One light glides along the route. */}
         <Reveal className="about-glass" ref={band}>

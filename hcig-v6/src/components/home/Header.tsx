@@ -4,6 +4,7 @@
 // Helma links rise one by one), and on phones the bar hides while scrolling down and returns on the way up.
 // The logo is never squeezed: it keeps its own 3.1 : 1 shape at 60 px, 44 px once scrolled, 40 px on phones.
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { NAV, LANGS, HERO, UI } from "@/content/home.mjs";
 import { asset, href } from "@/lib/site";
@@ -23,6 +24,8 @@ const langHref = (code: string) => href("/" + (code === "en" ? "" : code + "/"))
 const PHONE = "(max-width: 1080px)";
 
 export function Header() {
+  const pathname = usePathname() || "/";
+  const isCurrent = (p: string) => (p === "/" ? pathname === "/" : pathname.startsWith(p));
   const { night, toggle: onTheme } = useTheme();
   const [lang, setLang] = useState(false);
   const [menu, setMenu] = useState(false);
@@ -99,7 +102,7 @@ export function Header() {
           <nav className="hd-nav" aria-label={UI.mainNav.text}>
             <ul>
               {NAV.map((n) => (
-                <li key={n.path}><a href={href(n.path)} aria-current={n.path === "/" ? "page" : undefined}>{n.label}</a></li>
+                <li key={n.path}><a href={href(n.path)} aria-current={isCurrent(n.path) ? "page" : undefined}>{n.label}</a></li>
               ))}
             </ul>
           </nav>
@@ -162,7 +165,7 @@ export function Header() {
                     exit={{ opacity: 0, transition: { duration: 0.15 } }}
                   >
                     <span className="menu-n" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-                    <a ref={i === 0 ? first : undefined} href={href(n.path)} aria-current={n.path === "/" ? "page" : undefined} onClick={() => close(false)}>{n.label}</a>
+                    <a ref={i === 0 ? first : undefined} href={href(n.path)} aria-current={isCurrent(n.path) ? "page" : undefined} onClick={() => close(false)}>{n.label}</a>
                   </motion.li>
                 ))}
               </ol>
