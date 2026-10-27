@@ -395,5 +395,80 @@
     "src": "hcig-v3/material/canvas-assets/img/medpark-hospital.jpg",
     "width": 1920,
     "note": "real photo: MedPark Hospital, El Quseir"
+  },
+  "post-15": {
+    "src": "hcig-v6/material/media/blog/post-15.jpg",
+    "width": 1600,
+    "note": "blog post news15 photo (live site)"
+  },
+  "post-14": {
+    "src": "hcig-v6/material/media/blog/post-14.png",
+    "width": 1600,
+    "note": "blog post news14 photo (live site)"
+  },
+  "post-13": {
+    "src": "hcig-v6/material/media/blog/post-13.jpg",
+    "width": 1600,
+    "note": "blog post news13 photo (live site)"
+  },
+  "post-12": {
+    "src": "hcig-v6/material/media/blog/post-12.png",
+    "width": 1600,
+    "note": "blog post news12 photo (live site)"
+  },
+  "post-11": {
+    "src": "hcig-v6/material/media/blog/post-11.jpg",
+    "width": 1600,
+    "note": "blog post news11 photo (live site)"
+  },
+  "post-10": {
+    "src": "hcig-v6/material/media/blog/post-10.png",
+    "width": 1600,
+    "note": "blog post news10 photo (live site)"
+  },
+  "post-9": {
+    "src": "hcig-v6/material/media/blog/post-9.png",
+    "width": 1600,
+    "note": "blog post news9 photo (live site)"
+  },
+  "post-8": {
+    "src": "hcig-v6/material/media/blog/post-8.png",
+    "width": 1600,
+    "note": "blog post news8 photo (live site)"
+  },
+  "post-7": {
+    "src": "hcig-v6/material/media/blog/post-7.jpg",
+    "width": 1600,
+    "note": "blog post news7 photo (live site)"
+  },
+  "post-6": {
+    "src": "hcig-v6/material/media/blog/post-6.jpeg",
+    "width": 1600,
+    "note": "blog post news6 photo (live site)"
+  },
+  "post-5": {
+    "src": "hcig-v6/material/media/blog/post-5.jpg",
+    "width": 1600,
+    "note": "blog post news5 photo (live site)"
+  },
+  "post-4": {
+    "src": "hcig-v6/material/media/blog/post-4.jpg",
+    "width": 1600,
+    "note": "blog post news4 photo (live site)"
+  },
+  "post-3": {
+    "src": "hcig-v6/material/media/blog/post-3.jpg",
+    "width": 1600,
+    "note": "blog post news3 photo (live site)"
+  },
+  "post-2": {
+    "src": "hcig-v6/material/media/blog/post-2.jpg",
+    "width": 1600,
+    "note": "blog post news2 photo (live site)"
+  },
+  "post-1": {
+    "src": "hcig-v6/material/media/blog/post-1.jpg",
+    "width": 1600,
+    "note": "blog post news1 photo (live site)"
   }
 }
