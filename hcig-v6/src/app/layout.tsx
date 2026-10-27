@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { HERO, UI } from "@/content/home.mjs";
-import { IS_PREVIEW, file } from "@/lib/site";
+import { IS_PREVIEW, LANG, file } from "@/lib/site";
 
 const sans = Inter({ subsets: ["latin", "latin-ext"], weight: ["400", "500", "600", "700"], variable: "--font-inter", display: "swap" });
 /* Helma, the guideline display face: one Regular file, shown at a synthetic 600 like the live site. */
@@ -25,7 +25,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable}`}>
+    <html lang={LANG} className={`${sans.variable} ${display.variable}`}>
       <head>
         <noscript>
           <style>{`[data-rv]{opacity:1!important;transform:none!important}`}</style>

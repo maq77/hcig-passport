@@ -3,7 +3,7 @@
 // with the statement and the resort-clinic image, two paragraphs, three facts, and the counters panel.
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { ABOUT } from "@/content/home.mjs";
+import { ABOUT, T } from "@/content/home.mjs";
 import { asset } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { CountUp, Item, Reveal, Stagger } from "@/components/ui/Motion";
@@ -32,7 +32,7 @@ export function About({ page = false }: { page?: boolean }) {
             className="about-glass-img"
             style={{ y: imgY }}
             src={asset("about-band")}
-            alt="A doctor walking with a guest through the medical reception of a Red Sea resort"
+            alt={T.alt.reception}
             loading="lazy"
           />
           <div className="about-glass-panel">

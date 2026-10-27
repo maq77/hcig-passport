@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { WHO } from "@/content/home.mjs";
+import { WHO, T } from "@/content/home.mjs";
 import { PARTNER_PAGE, PARTNER_TYPES } from "@/content/pages.mjs";
 import { href } from "@/lib/site";
 import { Shell } from "@/components/site/Shell";
@@ -20,7 +20,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const w = find(slug);
-  return { title: `${w.title} | HCIG Partners`, description: w.text };
+  return { title: `${w.title} | ${T.hcigPartners}`, description: w.text };
 }
 
 export default async function PartnerTypePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -32,7 +32,7 @@ export default async function PartnerTypePage({ params }: { params: Promise<{ sl
     <Shell>
       <main id="main">
         <PageHero
-          crumbs={[{ label: "Home", path: "/" }, { label: "For Partners", path: "/partner/" }, { label: w.title, path: w.path }]}
+          crumbs={[{ label: T.home, path: "/" }, { label: T.forPartners, path: "/partner/" }, { label: w.title, path: w.path }]}
           eyebrow={P.whoTitle}
           title={w.title}
           lead={w.text}

@@ -1,7 +1,7 @@
 "use client";
 // Footer (live contact block, nav, social, Pulse credit) and the "Talk to our team" contact sheet.
 import { useEffect, useRef } from "react";
-import { CONTACT, HERO, NAV, UI } from "@/content/home.mjs";
+import { CONTACT, HERO, NAV, UI, T } from "@/content/home.mjs";
 import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Motion";
@@ -10,11 +10,11 @@ import { Ribbons, Watermark } from "@/components/ui/Brand";
 
 // the group pages reachable from every page (labels are the pages' own titles)
 const MORE = [
-  { label: "Our Premises and Facilities", path: "/group/" },
-  { label: "Board Members", path: "/about/leadership/" },
-  { label: "Where We Operate", path: "/network/" },
-  { label: "Trust and Standards", path: "/trust/" },
-  { label: "Press Room", path: "/press/" },
+  { label: T.more.group, path: "/group/" },
+  { label: T.more.leadership, path: "/about/leadership/" },
+  { label: T.more.network, path: "/network/" },
+  { label: T.more.trust, path: "/trust/" },
+  { label: T.more.press, path: "/press/" },
 ];
 
 const tel = (p: string) => "tel:" + p.replace(/[^\d+]/g, ""); // "+2 01001828828" dials +20 100 182 8828
@@ -35,7 +35,7 @@ export function Footer() {
           </div>
         </Reveal>
         <div className="ft-grid">
-          <nav aria-label="Footer">
+          <nav aria-label={T.footer}>
             <ul className="ft-nav">
               {NAV.map((n) => <li key={n.path}><a href={href(n.path)}>{n.label}</a></li>)}
               {MORE.map((n) => <li key={n.path}><a href={href(n.path)}>{n.label}</a></li>)}

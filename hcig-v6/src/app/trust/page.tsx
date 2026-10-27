@@ -4,20 +4,21 @@ import { Shell } from "@/components/site/Shell";
 import { PageHero } from "@/components/site/PageHero";
 import { TrustBody } from "@/components/site/GroupPages";
 import { Insurers, Testimonials, ClosingBand } from "@/components/home/Lower";
+import { T } from "@/content/home.mjs";
 
 export const metadata: Metadata = { title: { absolute: TRUST_PAGE.meta.title }, description: TRUST_PAGE.partnership.text };
 
 export default function TrustPage() {
-  const T = TRUST_PAGE;
+  const TP = TRUST_PAGE;
   return (
     <Shell>
       <main id="main">
         <PageHero
-          crumbs={[{ label: "Home", path: "/" }, { label: T.title.text, path: "/trust/" }]}
-          title={T.title.text}
-          lead={T.lead.text}
+          crumbs={[{ label: T.home, path: "/" }, { label: TP.title.text, path: "/trust/" }]}
+          title={TP.title.text}
+          lead={TP.lead.text}
           image="svc-accreditation"
-          imageAlt="Healthcare professionals at a GHA accreditation event"
+          imageAlt={T.alt.gha}
         />
         <TrustBody />
         <Insurers />

@@ -4,10 +4,10 @@
 // a full-bleed photo (for pages that should open cinematic, like Maritime).
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef, type ReactNode } from "react";
-import { asset, href } from "@/lib/site";
-import { SITE_URL } from "@/content/pages.mjs";
+import { abs, asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { EASE } from "@/components/ui/Motion";
+import { T } from "@/content/home.mjs";
 
 export type Crumb = { label: string; path: string };
 type Props = {
@@ -37,7 +37,7 @@ export function PageHero({ crumbs, eyebrow, title, lead, image, imageAlt = "", a
   const schema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: crumbs.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.label, item: SITE_URL + c.path })),
+    itemListElement: crumbs.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.label, item: abs(c.path) })),
   };
 
   return (
@@ -48,7 +48,7 @@ export function PageHero({ crumbs, eyebrow, title, lead, image, imageAlt = "", a
       ) : null}
       <div className="ph-in wrap">
         <div className="ph-copy">
-          <motion.nav className="ph-crumbs" aria-label="Breadcrumb" {...rise(0)}>
+          <motion.nav className="ph-crumbs" aria-label={T.breadcrumb} {...rise(0)}>
             <ol>
               {crumbs.map((c, i) => (
                 <li key={c.path}>

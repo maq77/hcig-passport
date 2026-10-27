@@ -2,9 +2,8 @@
 // Blog: the newest post as a feature, the rest as a grid; each post as an editorial article with its photo, the
 // dateline, the text word for word, and three more posts. NewsArticle schema on every post.
 import { POSTS } from "@/content/blog.mjs";
-import { SITE_URL } from "@/content/pages.mjs";
-import { UI } from "@/content/home.mjs";
-import { asset, href } from "@/lib/site";
+import { UI, T } from "@/content/home.mjs";
+import { asset, href, SITE, abs, absAsset } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { Item, Reveal, Stagger } from "@/components/ui/Motion";
 import { SectionHead } from "@/components/ui/SectionHead";
@@ -31,7 +30,7 @@ function Card({ p, row = false }: { p: Post; row?: boolean }) {
 
 export function BlogIndex() {
   return (
-    <section className="sec blog-sec" aria-label="Blog">
+    <section className="sec blog-sec" aria-label={T.blog}>
       <div className="wrap">
         <Stagger className="pc-grid" gap={0.06}>
           {all.map((p) => <Item as="article" key={p.n}><Card p={p} /></Item>)}
@@ -48,10 +47,10 @@ export function PostBody({ slug }: { slug: string }) {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     headline: p.title,
-    image: p.img ? [SITE_URL + asset(p.img).replace(/^\/hcig\/v6/, "")] : undefined,
+    image: p.img ? [absAsset(p.img)] : undefined,
     dateline: p.dateline,
-    publisher: { "@type": "Organization", name: "Healthcare International Group", url: SITE_URL },
-    mainEntityOfPage: SITE_URL + postPath(p),
+    publisher: { "@type": "Organization", name: "Healthcare International Group", url: SITE + "/" },
+    mainEntityOfPage: abs(postPath(p)),
   };
   return (
     <>
@@ -66,9 +65,9 @@ export function PostBody({ slug }: { slug: string }) {
                 : <p key={i} className={i === 0 ? "post-lead" : undefined}>{i === 0 ? <><b>{p.dateline}.</b> {b.x}</> : b.x}</p>,
               )}
             </div>
-            <a className="post-back" href={href("/blog/")}><Icon name="arrow" size={16} className="flip-x" />Blog</a>
+            <a className="post-back" href={href("/blog/")}><Icon name="arrow" size={16} className="flip-x" />{T.blog}</a>
           </article>
-          <aside className="post-aside" aria-label="Blog">
+          <aside className="post-aside" aria-label={T.blog}>
             {more.map((m) => <Card key={m.n} p={m} row />)}
           </aside>
         </div>

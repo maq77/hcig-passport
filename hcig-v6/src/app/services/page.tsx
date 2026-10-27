@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CTA } from "@/content/home.mjs";
+import { CTA, T } from "@/content/home.mjs";
 import { SERVICES_PAGE } from "@/content/pages.mjs";
 import { href } from "@/lib/site";
 import { Shell } from "@/components/site/Shell";
@@ -18,12 +18,12 @@ export default function ServicesPage() {
     <Shell>
       <main id="main">
         <PageHero
-          crumbs={[{ label: "Home", path: "/" }, { label: S.eyebrow, path: "/services/" }]}
+          crumbs={[{ label: T.home, path: "/" }, { label: S.eyebrow, path: "/services/" }]}
           eyebrow={S.eyebrow}
           title={S.title}
           lead={S.lead}
           image="coordination-desk"
-          imageAlt="An international medical coordination room with a world map of patient routes"
+          imageAlt={T.alt.coordRoom}
           actions={<SheetLink className="btn">{S.cta}<Icon name="arrow" /></SheetLink>}
           note={S.note}
         />

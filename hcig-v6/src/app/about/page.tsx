@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ABOUT, HERO } from "@/content/home.mjs";
+import { ABOUT, HERO, T } from "@/content/home.mjs";
 import { ABOUT_PAGE } from "@/content/pages.mjs";
 import { Shell } from "@/components/site/Shell";
 import { PageHero } from "@/components/site/PageHero";
@@ -17,12 +17,12 @@ export default function AboutPage() {
     <Shell>
       <main id="main">
         <PageHero
-          crumbs={[{ label: "Home", path: "/" }, { label: ABOUT.heading, path: "/about/" }]}
+          crumbs={[{ label: T.home, path: "/" }, { label: ABOUT.heading, path: "/about/" }]}
           eyebrow={ABOUT_PAGE.eyebrow}
           title={ABOUT_PAGE.title}
           lead={ABOUT.paras[0]}
           image="about-hub"
-          imageAlt="MedPark Health Hub on Sahl Hasheesh Road, Hurghada, with its ambulance"
+          imageAlt={T.alt.hubAmbulance}
           actions={<SheetLink className="btn">{HERO.ctaPrimary.text}<Icon name="arrow" /></SheetLink>}
           note={ABOUT_PAGE.note}
         />

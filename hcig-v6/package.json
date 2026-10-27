@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/flatten-rsc.mjs",
+    "build": "next build && node scripts/flatten-rsc.mjs && node scripts/seo-post.mjs",
     "sync": "node scripts/sync-preview.mjs",
+    "langs": "node scripts/build-langs.mjs",
+    "i18n": "node scripts/i18n-gen.mjs",
     "preview": "npm run build && npm run sync",
     "media": "node scripts/media.mjs",
     "shots": "node scripts/shots.mjs",

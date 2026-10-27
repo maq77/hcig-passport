@@ -3,7 +3,7 @@
 // every section below is always day, and the hero's foot melts into the day page in both modes.
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef, type CSSProperties } from "react";
-import { HERO } from "@/content/home.mjs";
+import { HERO, T } from "@/content/home.mjs";
 import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { SheetLink } from "@/components/ui/Sheet";
@@ -62,8 +62,8 @@ export function HeroB() {
           </div>
           <div className="seals seals-row f" style={d(1400)}>
             <div className="plates">
-              <span className="plate"><img src={asset("dmwv")} alt="German Medical Wellness Association (DMWV)" width={310} height={281} /></span>
-              <span className="plate plate-w"><img src={asset("gha")} alt="Global Healthcare Accreditation (GHA)" width={391} height={235} /></span>
+              <span className="plate"><img src={asset("dmwv")} alt={T.alt.dmwv} width={310} height={281} /></span>
+              <span className="plate plate-w"><img src={asset("gha")} alt={T.alt.ghaLogo} width={391} height={235} /></span>
             </div>
             <p>{HERO.partner.text}</p>
           </div>

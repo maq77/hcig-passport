@@ -1,6 +1,8 @@
 # Next.js output
 /.next/
 /out/
+/out-langs/
+/.i18n/
 /live-build/
 /node_modules/
 next-env.d.ts

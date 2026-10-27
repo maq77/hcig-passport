@@ -4,6 +4,7 @@ import { Shell } from "@/components/site/Shell";
 import { PageHero } from "@/components/site/PageHero";
 import { PostBody, type Post } from "@/components/site/Blog";
 import { ClosingBand } from "@/components/home/Lower";
+import { T } from "@/content/home.mjs";
 
 const all = POSTS as Post[];
 const find = (slug: string) => all.find((p) => p.slug === slug) as Post;
@@ -26,7 +27,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
     <Shell>
       <main id="main">
         <PageHero
-          crumbs={[{ label: "Home", path: "/" }, { label: "Blog", path: "/blog/" }, { label: p.title, path: `/blog/${p.slug}/` }]}
+          crumbs={[{ label: T.home, path: "/" }, { label: T.blog, path: "/blog/" }, { label: p.title, path: `/blog/${p.slug}/` }]}
           tone="cover"
           size="post"
           eyebrow={p.dateline}

@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { POSTS } from "@/content/blog.mjs";
 import { Shell } from "@/components/site/Shell";
 import { PageHero } from "@/components/site/PageHero";
 import { BlogIndex } from "@/components/site/Blog";
 import { ClosingBand } from "@/components/home/Lower";
+import { T } from "@/content/home.mjs";
 
 // the live blog's title, kept
-export const metadata: Metadata = { title: { absolute: "HCIG Blog | Insights on Medical Tourism & Wellness in Egypt" }, description: (POSTS as { excerpt: string }[])[0].excerpt };
+export const metadata: Metadata = { title: { absolute: T.blogMeta }, description: T.blogDesc };
 
 export default function BlogPage() {
   return (
     <Shell>
       <main id="main">
-        <PageHero crumbs={[{ label: "Home", path: "/" }, { label: "Blog", path: "/blog/" }]} title="Blog" />
+        <PageHero crumbs={[{ label: T.home, path: "/" }, { label: T.blog, path: "/blog/" }]} title={T.blog} />
         <BlogIndex />
         <ClosingBand />
       </main>

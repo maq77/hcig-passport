@@ -6,7 +6,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef, useState } from "react";
 import { MARITIME_PAGE } from "@/content/maritime.mjs";
-import { CONTACT } from "@/content/home.mjs";
+import { CONTACT, T } from "@/content/home.mjs";
 import { asset } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { Item, Reveal, Stagger } from "@/components/ui/Motion";
@@ -77,7 +77,7 @@ export function MaritimeBody() {
               {M.eco.paras.map((p) => <Item key={p}><p>{p}</p></Item>)}
             </Stagger>
           </div>
-          <Reveal className="mx-eco-media"><img src={asset("onboard-clinic")} alt="An onboard medical centre with sea views" loading="lazy" /></Reveal>
+          <Reveal className="mx-eco-media"><img src={asset("onboard-clinic")} alt={T.alt.seaClinic} loading="lazy" /></Reveal>
         </div>
       </section>
 

@@ -16,6 +16,13 @@ export const NAV = [
   { label: "Blog", path: "/blog/", src: "live" },
 ];
 
+// the group's social profiles (live footer links)
+export const SOCIAL_LINKS = [
+  { name: "Facebook", icon: "facebook", url: "https://www.facebook.com/profile.php?id=61573961671310" },
+  { name: "LinkedIn", icon: "linkedin", url: "https://www.linkedin.com/company/healthcareig/" },
+  { name: "Instagram", icon: "instagram", url: "https://www.instagram.com/hcig.egypt" },
+];
+
 export const LANGS = [
   { code: "en", name: "English" },
   { code: "de", name: "Deutsch" },
@@ -320,4 +327,46 @@ export const UI = {
   swipe: { text: "Swipe for more", src: "owner" }, // his words, 2026-10-27
   ourServices: { text: "Our services", src: "owner" }, // his words, 2026-10-27
   allNews: { text: "View all news", src: "new" },
+};
+
+// Words that used to sit in the components (breadcrumbs, image descriptions, footer links), kept here so every
+// language build translates them. Labels are the pages' own titles or nav words.
+export const T = {
+  home: "Home",
+  blog: "Blog",
+  contact: "Contact",
+  maritime: "Maritime & Cruise",
+  forPartners: "For Partners",
+  mission: "Mission",
+  vision: "Vision",
+  breadcrumb: "Breadcrumb",
+  footer: "Footer",
+  hcigServices: "HCIG Services",
+  hcigPartners: "HCIG Partners",
+  blogMeta: "HCIG Blog | Insights on Medical Tourism & Wellness in Egypt",
+  // new (meta description only, for his review): built from the posts' own subjects
+  blogDesc: "News from Healthcare International Group: partnerships, accreditation milestones, conferences and medical tourism in Egypt.",
+  more: {
+    group: "Our Premises and Facilities",
+    leadership: "Board Members",
+    network: "Where We Operate",
+    trust: "Trust and Standards",
+    press: "Press Room",
+  },
+  alt: {
+    hubAmbulance: "MedPark Health Hub on Sahl Hasheesh Road, Hurghada, with its ambulance",
+    hub: "MedPark Health Hub on Sahl Hasheesh Road, Hurghada",
+    deck: "A medical team on the deck of a cruise ship at sea",
+    airport: "International travellers arriving at an airport",
+    mapTeam: "Medical coordinators in front of a world map of patient routes",
+    itic: "HCIG on stage at ITIC Global",
+    coordRoom: "An international medical coordination room with a world map of patient routes",
+    gha: "Healthcare professionals at a GHA accreditation event",
+    reception: "A doctor walking with a guest through the medical reception of a Red Sea resort",
+    consult: "A ship doctor with a passenger in the onboard medical centre",
+    clinic: "An onboard medical clinic on a cruise ship",
+    seaClinic: "An onboard medical centre with sea views",
+    dmwv: "German Medical Wellness Association (DMWV)",
+    ghaLogo: "Global Healthcare Accreditation (GHA)",
+  },
 };

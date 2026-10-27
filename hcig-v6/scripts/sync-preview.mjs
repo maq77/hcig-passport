@@ -11,6 +11,14 @@ if (!fs.readFileSync(index, "utf8").includes("/hcig/v6/")) { console.error("sync
 fs.rmSync(DEST, { recursive: true, force: true });
 fs.cpSync(OUT, DEST, { recursive: true });
 
+/* The other languages (scripts/build-langs.mjs) sit beside English: /hcig/v6/de/, /hcig/v6/pl/ and so on. */
+const LANGS = path.resolve("out-langs");
+if (fs.existsSync(LANGS)) for (const l of fs.readdirSync(LANGS)) {
+  if (!fs.existsSync(path.join(LANGS, l, "index.html"))) continue;
+  fs.cpSync(path.join(LANGS, l), path.join(DEST, l), { recursive: true });
+  console.log(`sync: + ${l}`);
+}
+
 /* Media the page never names stay out of the committed copy (night film cuts, full testimonial films are kept: Watch uses them). */
 const texts = [];
 (function read(d) { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, e.name); if (e.isDirectory()) read(p); else if (/\.(html|txt|js|css|json)$/.test(e.name) && e.name !== "manifest.json") texts.push(fs.readFileSync(p, "utf8")); } })(DEST);

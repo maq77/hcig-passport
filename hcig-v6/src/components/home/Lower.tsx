@@ -3,7 +3,7 @@
 // the closing band with the newsletter. Words from src/content/home.mjs only.
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { CEO, CTA, IMPACT, INSURERS, MARITIME, TESTIMONIALS, UI, WHO } from "@/content/home.mjs";
+import { CEO, CTA, IMPACT, INSURERS, MARITIME, TESTIMONIALS, UI, WHO, T } from "@/content/home.mjs";
 import { asset, file, href, slug } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { CountUp, Item, Reveal, Stagger } from "@/components/ui/Motion";
@@ -41,10 +41,10 @@ export function Maritime() {
         </div>
         <Reveal className="mar-media" ref={box}>
           <figure className="mar-main media">
-            <motion.img style={{ y, scale: 1.06 }} src={asset("mar-deck")} alt="A medical team on the deck of a cruise ship at sea" loading="lazy" />
+            <motion.img style={{ y, scale: 1.06 }} src={asset("mar-deck")} alt={T.alt.deck} loading="lazy" />
           </figure>
-          <figure className="mar-sm media"><img src={asset("mar-consult")} alt="A ship doctor with a passenger in the onboard medical centre" loading="lazy" /></figure>
-          <figure className="mar-sm media"><img src={asset("mar-clinic")} alt="An onboard medical clinic on a cruise ship" loading="lazy" /></figure>
+          <figure className="mar-sm media"><img src={asset("mar-consult")} alt={T.alt.consult} loading="lazy" /></figure>
+          <figure className="mar-sm media"><img src={asset("mar-clinic")} alt={T.alt.clinic} loading="lazy" /></figure>
         </Reveal>
       </div>
     </section>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { CTA, HEALTHCARE } from "@/content/home.mjs";
+import { CTA, HEALTHCARE, T } from "@/content/home.mjs";
 import { SERVICES_PAGE, SERVICE_LINES } from "@/content/pages.mjs";
-import { href } from "@/lib/site";
+import { SITE, abs, href } from "@/lib/site";
 import { Shell } from "@/components/site/Shell";
 import { CtaBand, PageHero } from "@/components/site/PageHero";
 import { ServiceLineBody } from "@/components/site/Partners";
@@ -20,18 +20,20 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const l = find(slug);
-  return { title: `${l.title} | HCIG Services`, description: l.text };
+  return { title: `${l.title} | ${T.hcigServices}`, description: l.text };
 }
 
 export default async function ServiceLinePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const l = find(slug);
   const S = SERVICES_PAGE;
+  const ld = { "@context": "https://schema.org", "@type": "Service", name: l.title, serviceType: l.title, description: l.text, url: abs(l.path), provider: { "@type": "MedicalOrganization", "@id": `${SITE}/#org`, name: "Healthcare International Group" }, areaServed: { "@type": "Country", name: "Egypt" } };
   return (
     <Shell>
       <main id="main">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
         <PageHero
-          crumbs={[{ label: "Home", path: "/" }, { label: S.eyebrow, path: "/services/" }, { label: l.title, path: l.path }]}
+          crumbs={[{ label: T.home, path: "/" }, { label: S.eyebrow, path: "/services/" }, { label: l.title, path: l.path }]}
           eyebrow={HEALTHCARE.heading}
           title={l.title}
           lead={l.text}

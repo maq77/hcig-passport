@@ -3,7 +3,7 @@
 // Our Healthcare. Words from src/content/home.mjs only.
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { BUILT, ECOSYSTEM, HEALTHCARE, MARITIME, MISSION, SYSTEM, UI, WHY } from "@/content/home.mjs";
+import { BUILT, ECOSYSTEM, HEALTHCARE, MARITIME, MISSION, SYSTEM, UI, WHY, T } from "@/content/home.mjs";
 import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { Item, Reveal, Stagger } from "@/components/ui/Motion";
@@ -38,7 +38,7 @@ export function MissionVision() {
     <section className="sec mv" aria-labelledby="mv-h">
       <Ribbons />
       <div className="wrap">
-        <SectionHead id="mv-h" title={<>Mission <span className="acc">&amp;</span> Vision</>} />
+        <SectionHead id="mv-h" title={<>{T.mission} <span className="acc">&amp;</span> {T.vision}</>} />
         <Stagger className="mv-grid" gap={0.14}>
           {cards.map((c, i) => (
             <Item as="article" className={`mv-card${i ? " mv-vision" : ""}`} key={c.heading}>

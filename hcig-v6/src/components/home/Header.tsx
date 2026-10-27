@@ -6,21 +6,23 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { NAV, LANGS, HERO, UI } from "@/content/home.mjs";
-import { asset, href } from "@/lib/site";
+import { NAV, LANGS, HERO, UI, SOCIAL_LINKS } from "@/content/home.mjs";
+import { abs, asset, href, langHome, LANG } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { SheetLink, openSheet } from "@/components/ui/Sheet";
 import { EASE } from "@/components/ui/Motion";
 import type { IconName } from "@/lib/icons";
 import { useTheme } from "./Theme";
 
-export const SOCIAL: { name: string; icon: IconName; url: string }[] = [
-  { name: "Facebook", icon: "facebook", url: "https://www.facebook.com/profile.php?id=61573961671310" },
-  { name: "LinkedIn", icon: "linkedin", url: "https://www.linkedin.com/company/healthcareig/" },
-  { name: "Instagram", icon: "instagram", url: "https://www.instagram.com/hcig.egypt" },
-];
+export const SOCIAL = SOCIAL_LINKS as { name: string; icon: IconName; url: string }[];
 
-const langHref = (code: string) => href("/" + (code === "en" ? "" : code + "/"));
+const langHref = langHome;
+
+// the main navigation as SiteNavigationElement (SEO build standard: sitelinks)
+const NAV_LD = {
+  "@context": "https://schema.org",
+  "@graph": (NAV as { label: string; path: string }[]).map((n) => ({ "@type": "SiteNavigationElement", name: n.label, url: abs(n.path) })),
+};
 const PHONE = "(max-width: 1080px)";
 
 export function Header() {
@@ -96,6 +98,7 @@ export function Header() {
   const D = reduce ? 0 : 1;
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(NAV_LD) }} />
       <header className={`hd ${scrolled || !night ? "theme-day" : "theme-night"}${scrolled ? " hd-sc" : ""}${hidden && !menu ? " hd-hide" : ""}`}>
         <div className="hd-in">
           <a href={href("/")} className="hd-logo" aria-label={UI.home.text}>{logo("hd-full-box")}</a>
@@ -120,7 +123,7 @@ export function Header() {
             </button>
             <div className="lang">
               <button type="button" className="lang-btn" onClick={() => setLang((v) => !v)} aria-haspopup="true" aria-expanded={lang}>
-                <Icon name="globe" size={17} /><span>EN</span><Icon name="chevron" size={15} />
+                <Icon name="globe" size={17} /><span>{LANG.toUpperCase()}</span><Icon name="chevron" size={15} />
               </button>
               {lang ? (
                 <ul className="lang-menu">
@@ -172,7 +175,7 @@ export function Header() {
             </nav>
             <motion.div className="menu-foot" initial={{ opacity: 0, y: 16 * D }} animate={{ opacity: 1, y: 0, transition: { delay: 0.6, duration: 0.6, ease: EASE } }} exit={{ opacity: 0 }}>
               <div className="menu-langs">
-                {LANGS.map((l) => <a key={l.code} href={langHref(l.code)} lang={l.code} className={l.code === "en" ? "on" : ""}>{l.name}</a>)}
+                {LANGS.map((l) => <a key={l.code} href={langHref(l.code)} lang={l.code} className={l.code === LANG ? "on" : ""}>{l.name}</a>)}
               </div>
               <div className="menu-soc">{soc(20)}</div>
               <button type="button" className="btn menu-cta" onClick={() => { close(false); setTimeout(openSheet, 350); }}>

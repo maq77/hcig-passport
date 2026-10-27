@@ -7,6 +7,7 @@ import { PartnerHubBody } from "@/components/site/Partners";
 import { Insurers, Maritime } from "@/components/home/Lower";
 import { SheetLink } from "@/components/ui/Sheet";
 import { Icon } from "@/components/ui/Icon";
+import { T } from "@/content/home.mjs";
 
 export const metadata: Metadata = { title: { absolute: PARTNER_PAGE.meta.title }, description: PARTNER_PAGE.lead };
 
@@ -16,12 +17,12 @@ export default function PartnerPage() {
     <Shell>
       <main id="main">
         <PageHero
-          crumbs={[{ label: "Home", path: "/" }, { label: "For Partners", path: "/partner/" }]}
+          crumbs={[{ label: T.home, path: "/" }, { label: T.forPartners, path: "/partner/" }]}
           eyebrow={P.eyebrow}
           title={<>{P.title.lead} <span className="acc">{P.title.accent}</span></>}
           lead={P.lead}
           image="built-global"
-          imageAlt="Medical coordinators in front of a world map of patient routes"
+          imageAlt={T.alt.mapTeam}
           actions={<>
             <a className="btn" href={href("/contacts/")}>{P.primary}<Icon name="arrow" /></a>
             <SheetLink className="btn2">{P.secondary}</SheetLink>

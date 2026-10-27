@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { BRANDS, BRAND_UI } from "@/content/brands.mjs";
-import { CTA } from "@/content/home.mjs";
-import { SITE_URL } from "@/content/pages.mjs";
-import { href } from "@/lib/site";
+import { CTA, T } from "@/content/home.mjs";
+import { SITE, abs, href } from "@/lib/site";
 import { Shell } from "@/components/site/Shell";
 import { PageHero } from "@/components/site/PageHero";
 import { BrandBody, BrandPlate } from "@/components/site/BrandPage";
@@ -19,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const b = brandBySlug(slug);
   const g = groupOf(b);
-  return { title: { absolute: `${g.name}: ${g.line} | HCIG` }, description: b.lead };
+  return { title: { absolute: `${g.name}: ${g.line} | HCIG` }, description: `${b.lead} ${b.about}` };
 }
 
 export default async function BrandRoute({ params }: { params: Promise<{ slug: string }> }) {
@@ -33,15 +32,15 @@ export default async function BrandRoute({ params }: { params: Promise<{ slug: s
     name: g.name,
     url: g.url,
     description: b.lead,
-    parentOrganization: { "@type": "Organization", name: "Healthcare International Group", url: SITE_URL + "/" },
-    mainEntityOfPage: SITE_URL + brandPath(b),
+    parentOrganization: { "@type": "Organization", name: "Healthcare International Group", url: SITE + "/" },
+    mainEntityOfPage: abs(brandPath(b)),
   };
   return (
     <Shell>
       <main id="main">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
         <PageHero
-          crumbs={[{ label: "Home", path: "/" }, { label: BRAND_UI.crumb.text, path: "/group/" }, { label: g.short, path: brandPath(b) }]}
+          crumbs={[{ label: T.home, path: "/" }, { label: BRAND_UI.crumb.text, path: "/group/" }, { label: g.short, path: brandPath(b) }]}
           eyebrow={g.line}
           title={g.name}
           lead={b.lead}

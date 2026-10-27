@@ -1,0 +1,32 @@
+You are translating the website of Healthcare International Group (HCIG), a B2B healthcare group in Egypt
+(clients: insurers, assistance companies, hotels, cruise lines, tour operators, embassies, corporates), into French.
+This is a read-only task. Do not edit any file. Put the whole answer in your final reply.
+
+Read the file i18n/jobs/fr-1.json in this workspace. It is a JSON array of 561 English strings.
+
+Translate every string into natural, professional French for B2B readers (formal address, vous).
+
+Rules (all of them matter):
+1. Same meaning, nothing added, nothing left out. Never add claims, numbers or superlatives that are not in the English.
+2. Keep exactly as written: organisation and brand names (Healthcare International Group, HCIG, MedPark Health Group,
+   MedPark Health Hub, MedPark Hospital, 24/7 Clinic, 24/7 Clinics, MedOne, TMASI GLOBAL, One Medical Center, One Medical
+   Spa, Shakankiry Clinics Medical Group, SCMG, UCA MENA, Urgent Care Association, Global Healthcare Accreditation, GHA,
+   German Medical Wellness Association, DMWV, ITIC, ITB, PULSE Marketing, insurer names), people's names and titles
+   like Dr., numbers and figures (40+, 600K+, 350+, 135+, 24/7, 30,000+), K+, email addresses, phone numbers, street
+   addresses, and the words in brackets after a name such as (Florida - USA).
+3. Never use an em dash or an en dash, and never a hyphen with spaces around it as a dash. Use a full stop, a comma or
+   a colon instead. Normal compound hyphens are fine.
+4. Never write that HCIG is "accredited". HCIG is an "official partner" of GHA and DMWV.
+5. Short labels (buttons, menu items, headings) stay short. Use the capitalisation that is normal in French
+   (English Title Case becomes normal French capitalisation).
+6. Keep any line breaks and the punctuation style of each string. Keep typographic apostrophes natural for French.
+7. Place names: use the usual French name for cities and countries (for example Venice, Egypt).
+
+Reply format: ONE JSON object and nothing else, no code fences, no comments:
+{"t": [ ...exactly 561 translated strings, in the same order as the input array... ], "slugs": { "/about/": "/.../", ... }}
+The "t" array must have exactly 561 entries. Check the count before you answer.
+
+ALSO, in the same reply, translate these page addresses into French URL slugs (lowercase ASCII letters,
+digits and hyphens only, no accents: transliterate, e.g. German ä to ae, ü to ue, ß to ss; short, natural, the words a
+French buyer would search). Keep the same depth and the trailing slash. Keep /blog/ as /blog/.
+Paths: ["/about/","/about/leadership/","/services/","/services/hospital-specialty-services/","/services/medical-tourism-facilitation/","/services/emergency-urgent-care/","/services/wellness-longevity-aesthetic-care/","/services/corporate-healthcare-solutions/","/services/elite-medical-concierge/","/services/accreditation-training/","/maritime-cruise-healthcare/","/partner/","/partner/insurance-assistance-companies/","/partner/embassies-government/","/partner/hotels-and-resorts/","/partner/tour-operators-travel-agencies/","/partner/healthcare-providers/","/partner/corporate-international-organisations/","/contacts/","/blog/","/group/","/network/","/trust/","/press/"]
