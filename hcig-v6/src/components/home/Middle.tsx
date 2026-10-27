@@ -3,7 +3,7 @@
 // Our Healthcare. Words from src/content/home.mjs only.
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { BUILT, ECOSYSTEM, HEALTHCARE, MISSION, SYSTEM, UI, WHY } from "@/content/home.mjs";
+import { BUILT, ECOSYSTEM, HEALTHCARE, MARITIME, MISSION, SYSTEM, UI, WHY } from "@/content/home.mjs";
 import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { Item, Reveal, Stagger } from "@/components/ui/Motion";
@@ -224,8 +224,10 @@ export function SystemWorks() {
 // ---------- Our Healthcare: seven image cards ----------
 // The cards show the photo and the title; the Care modal (his pick) sets the photo beside the text, a Read more to the
 // service page, and the seven services as thumbnails. The service links stay real links for search engines.
-export function OurHealthcare() {
-  const items = (HEALTHCARE.items as { title: string; text: string; img: string; path: string }[]).map((x) => ({ ...x, href: href(x.path) }));
+export function OurHealthcare({ more = false }: { more?: boolean }) {
+  // the eighth service (his pick 2026-10-27): Maritime & Cruise, in the manager's words, opening her page
+  const maritime = { title: "Maritime & Cruise Healthcare", text: (MARITIME.paras as string[])[0], img: "mar-deck", path: "/maritime-cruise-healthcare/" };
+  const items = [...(HEALTHCARE.items as { title: string; text: string; img: string; path: string }[]), maritime].map((x) => ({ ...x, href: href(x.path) }));
   const d = useDetail();
   return (
     <section className="sec care" aria-labelledby="care-h">
@@ -245,6 +247,11 @@ export function OurHealthcare() {
             </Item>
           ))}
         </Stagger>
+        {more ? (
+          <Reveal className="care-more">
+            <a className="btn2 care-more-btn" href={href("/services/")}>{UI.ourServices.text}<Icon name="arrow" /></a>
+          </Reveal>
+        ) : null}
       </div>
       <DetailModal
         items={items} index={d.index} origin={d.origin} variant="care" section={HEALTHCARE.heading}

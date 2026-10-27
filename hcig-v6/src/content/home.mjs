@@ -210,6 +210,9 @@ export const MARITIME = {
   src: "manager",
 };
 
+// his section, 2026-10-27: "our news & updates" (the three newest posts)
+export const NEWS = { heading: { text: "Our News & Updates", src: "owner" } };
+
 export const TESTIMONIALS = {
   heading: { text: "Testimonials", src: "live" },
   videos: [
@@ -315,4 +318,6 @@ export const UI = {
   prev: { text: "Previous", src: "new" },
   next: { text: "Next", src: "new" },
   swipe: { text: "Swipe for more", src: "owner" }, // his words, 2026-10-27
+  ourServices: { text: "Our services", src: "owner" }, // his words, 2026-10-27
+  allNews: { text: "View all news", src: "new" },
 };

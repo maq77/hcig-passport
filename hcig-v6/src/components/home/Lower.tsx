@@ -10,7 +10,7 @@ import { CountUp, Item, Reveal, Stagger } from "@/components/ui/Motion";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { SheetLink } from "@/components/ui/Sheet";
 import { Marquee } from "@/components/ui/Marquee";
-import { Watermark } from "@/components/ui/Brand";
+import { Ribbons, Watermark } from "@/components/ui/Brand";
 import { Rail } from "@/components/ui/Rail";
 import type { IconName } from "@/lib/icons";
 
@@ -23,10 +23,11 @@ export function Maritime() {
   const { scrollYProgress } = useScroll({ target: box, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-6%", "6%"]);
   return (
-    <section className="sec mar band-soft" aria-labelledby="mar-h">
+    <section className="sec mar mar-sea" aria-labelledby="mar-h">
+      <Ribbons className="sea-wave" />
       <div className="wrap mar-grid">
         <div className="mar-copy">
-          <SectionHead id="mar-h" align="start" eyebrow={MARITIME.eyebrow} title={MARITIME.heading} />
+          <SectionHead id="mar-h" align="start" tone="ink" eyebrow={MARITIME.eyebrow} title={MARITIME.heading} />
           <Stagger className="mar-paras" gap={0.12}>
             {(MARITIME.paras as string[]).map((p) => <Item key={p}><p>{p}</p></Item>)}
           </Stagger>

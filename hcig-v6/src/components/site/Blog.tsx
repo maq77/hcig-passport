@@ -78,14 +78,15 @@ export function PostBody({ slug }: { slug: string }) {
   );
 }
 
-export function MoreNews({ title }: { title: string }) {
+export function MoreNews({ title, cta }: { title: string; cta?: string }) {
   return (
     <section className="sec blog-more band-soft" aria-labelledby="bm-h">
       <div className="wrap">
         <SectionHead id="bm-h" title={title} />
-        <Stagger className="bc-grid" gap={0.06}>
-          {all.slice(0, 3).map((p) => <Item as="article" key={p.n}><Card p={p} /></Item>)}
+        <Stagger className="bc-grid news-grid" gap={0.08}>
+          {all.slice(0, 3).map((p, i) => <Item as="article" key={p.n} className={i === 0 ? "news-lead" : undefined}><Card p={p} big={i === 0} /></Item>)}
         </Stagger>
+        {cta ? <Reveal className="care-more"><a className="btn2 care-more-btn" href={href("/blog/")}>{cta}<Icon name="arrow" /></a></Reveal> : null}
       </div>
     </section>
   );
