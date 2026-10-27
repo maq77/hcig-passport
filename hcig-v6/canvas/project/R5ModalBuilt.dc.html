@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Modal Built desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+@font-face { font-family: 'Helma'; src: url('/_blob/c002ba327633cc3513ea200bac9e6b8d') format('woff2'); font-weight: 400; font-display: swap; }
+body { margin: 0; }
+.ph { --black:#000; --b80:#333; --dim:#565759; --d60:#9A9A9C; --d40:#BBBCBE; --d20:#DDDDDF; --d06:#F6F6F6;
+  --t:#12C0C6; --t60:#71D9DD; --t40:#A0E6E8; --t20:#D0F2F4; --t08:#EDFAFA; --w:#FFF; --ease: cubic-bezier(.16,1,.3,1);
+  position: relative; font: 400 16px/1.6 'Inter', system-ui, sans-serif; color: var(--black); background: var(--w); -webkit-font-smoothing: antialiased; box-sizing: border-box; overflow: hidden; }
+.ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
+.ph img { display: block; max-width: 100%; }
+.ph p { margin: 0; }
+.tag { position: absolute; top: 10px; right: 10px; z-index: 30; padding: 5px 10px; border-radius: 999px; background: var(--black); color: var(--w); font: 600 11px/1 'Inter', sans-serif; letter-spacing: .08em; }
+.sec { position: relative; padding: 44px 20px 40px; }
+.soft { background: var(--d06); }
+.hd2 { margin: 0 0 24px; text-align: center; }
+.hd2 h2 { margin: 0; font: 400 32px/1.1 'Helma', Georgia, serif; text-wrap: balance; }
+.hd2 h2::after { content: ""; display: block; width: 56px; height: 1px; margin: 16px auto 0; background: var(--black); }
+.hd2 p { margin-top: 14px; color: var(--dim); font-size: 15px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 500 11.5px/1 'Inter', sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
+.eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--t); color: var(--black); font: 600 14px/1 'Inter', sans-serif; }
+.cbtn { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--d20); background: var(--w); color: var(--black); flex: none; }
+.cbtn.l svg { transform: scaleX(-1); }
+
+.pg { position: absolute; inset: 0; padding: 70px 80px; background: var(--d06); filter: blur(3px); }
+.pgh { display: flex; align-items: center; gap: 30px; justify-content: center; margin-bottom: 40px; } .pgh span { flex: 1; height: 1px; background: #000; } .pgh b { width: 360px; height: 46px; border-radius: 8px; background: #d9d9db; }
+.pgg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; } .pgg i { height: 190px; border-radius: 18px; background: #fff; box-shadow: 0 0 0 1px var(--d20); }
+.dim { position: absolute; inset: 0; background: rgba(0,0,0,.42); }
+.m-x { position: absolute; top: 18px; right: 18px; z-index: 5; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255,255,255,.92); color: #000; box-shadow: 0 8px 20px -10px rgba(0,0,0,.5); }
+.m-nav { display: flex; align-items: center; gap: 10px; } .m-nav b { font: 500 13px/1 'Inter', sans-serif; letter-spacing: .08em; color: var(--d60); margin-right: auto; }
+.note { position: absolute; left: 20px; bottom: 16px; z-index: 6; max-width: 520px; padding: 8px 12px; border-radius: 10px; background: rgba(255,255,255,.92); font: 500 12px/1.45 'Inter', sans-serif; color: var(--dim); }
+.ph.phone .pg { padding: 40px 20px; } .ph.phone .pgg { grid-template-columns: 1fr 1fr; } .ph.phone .pgh b { width: 200px; }
+.sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 4; border-radius: 26px 26px 0 0; background: #fff; overflow: hidden; box-shadow: 0 -24px 50px -24px rgba(0,0,0,.45); }
+.grab { position: absolute; top: 8px; left: 50%; z-index: 6; width: 44px; height: 5px; margin-left: -22px; border-radius: 5px; background: rgba(255,255,255,.7); }
+
+.mb { position: absolute; left: 50%; top: 50%; z-index: 4; width: 980px; transform: translate(-50%, -50%); border-radius: 28px; overflow: hidden; background: #fff; box-shadow: 0 60px 120px -40px rgba(0,0,0,.6); }
+.mb .im { position: relative; height: 400px; } .mb .im img { width: 100%; height: 100%; object-fit: cover; }
+.mb .im::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,.72)); }
+.mb .cap { position: absolute; left: 40px; right: 40px; bottom: 30px; z-index: 2; display: flex; align-items: flex-end; gap: 18px; color: #fff; }
+.mb .chip { width: 56px; height: 56px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 16px; background: rgba(255,255,255,.94); color: #000; }
+.mb .cap h3 { margin: 0; font: 400 44px/1.05 'Helma', serif; } .mb .cap b { margin-left: auto; font: 400 30px/1 'Helma', serif; color: var(--t60); }
+.mb .bd { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 40px; padding: 30px 40px 34px; } .mb .bd p { font-size: 17.5px; line-height: 1.65; color: var(--dim); max-width: 60ch; }
+.mbp { } .mbp .im { height: 300px; position: relative; } .mbp .im img { width: 100%; height: 100%; object-fit: cover; }
+.mbp .im::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(0,0,0,.75)); }
+.mbp .cap { position: absolute; left: 20px; right: 20px; bottom: 18px; z-index: 2; color: #fff; } .mbp .cap b { font: 400 22px/1 'Helma', serif; color: var(--t60); } .mbp .cap h3 { margin: 6px 0 0; font: 400 30px/1.08 'Helma', serif; }
+.mbp .bd { padding: 22px 20px; display: grid; gap: 18px; } .mbp .bd p { font-size: 15.5px; color: var(--dim); }</style>
+</helmet>
+<div class="ph" style="height:860px"><span class="tag">MODAL BUILT</span><div class="pg"><div class="pgh"><span></span><b></b><span></span></div><div class="pgg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="dim"></div><div class="mb"><div class="im"><img src="/_blob/12d19e0c15749efa093789e8cd0f8908" alt=""><div class="cap"><span class="chip"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 21V8.5L12 3.5l8.5 5V21"/><path d="M9.5 21v-5h5v5M8 11.5h2M14 11.5h2"/></svg></span><h3>Hospitality &amp; Travel Integration</h3><b>05</b></div></div><div class="bd"><p>Our model is designed to operate inside hotels, resorts, and travel environments bringing healthcare closer to the patient.</p><div class="m-nav"><b>05 / 06</b><span class="cbtn l"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span><span class="cbtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span></div></div><span class="m-x"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></span></div><p class="note">Motion: the photo opens from the tile with a slow zoom settling in; next and previous slide the photo sideways.</p></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":860}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

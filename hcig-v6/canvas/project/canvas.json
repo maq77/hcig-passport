@@ -15,6 +15,10 @@
       "name": "Home"
     },
     {
+      "id": "r5",
+      "name": "Round 5: modals and phone (pick)"
+    },
+    {
       "id": "r4",
       "name": "Phone round 4 (pick)"
     },
@@ -337,6 +341,114 @@
       "title": "Built, minimal: the same two rows that slide on their own, icon tiles instead of photos (light turquoise and dark)",
       "page": "r4",
       "is_interactive": true
+    },
+    "R5ModalWhy.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 860,
+      "title": "Modal, Why (desktop): a split card; the Dim Gray panel carries the number and a large hairline icon now, and becomes the image later; step through all seven inside",
+      "page": "r5",
+      "is_interactive": true
+    },
+    "R5ModalWhyP.dc.html": {
+      "x": 1500,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "Modal, Why (phone): a bottom sheet that slides up; drag it down or tap the X to close",
+      "page": "r5",
+      "is_interactive": true
+    },
+    "R5ModalBuilt.dc.html": {
+      "x": 0,
+      "y": 940,
+      "w": 1440,
+      "h": 860,
+      "title": "Modal, Built (desktop): image-led; the photo carries the title, the text sits under it; step through all six (the Built photos come back here)",
+      "page": "r5",
+      "is_interactive": true
+    },
+    "R5ModalBuiltP.dc.html": {
+      "x": 1500,
+      "y": 940,
+      "w": 390,
+      "h": 844,
+      "title": "Modal, Built (phone): a tall sheet with the photo on top; swipe sideways for the next one",
+      "page": "r5",
+      "is_interactive": true
+    },
+    "R5ModalCare.dc.html": {
+      "x": 0,
+      "y": 1880,
+      "w": 1440,
+      "h": 860,
+      "title": "Modal, Our Healthcare (desktop): side by side, the photo full height; the text, a Read more to the service page, and the seven services as thumbnails",
+      "page": "r5",
+      "is_interactive": true
+    },
+    "R5ModalCareP.dc.html": {
+      "x": 1500,
+      "y": 1880,
+      "w": 390,
+      "h": 844,
+      "title": "Modal, Our Healthcare (phone): a sheet with the photo on top, the text and Read more",
+      "page": "r5",
+      "is_interactive": true
+    },
+    "R5BuiltBento.dc.html": {
+      "x": 2000,
+      "y": 0,
+      "w": 390,
+      "h": 860,
+      "title": "Built on phones, option A, bento: a wide dark tile first and last, four light tiles between; the closing line on two lines under a hairline; tap a tile for its modal",
+      "page": "r5",
+      "is_interactive": true
+    },
+    "R5BuiltGrid.dc.html": {
+      "x": 2430,
+      "y": 0,
+      "w": 390,
+      "h": 860,
+      "title": "Built on phones, option B, 2 x 3: six equal tiles in a light and dark checker; the closing line on two lines, left aligned, small then large",
+      "page": "r5",
+      "is_interactive": true
+    },
+    "R5RingClock.dc.html": {
+      "x": 2000,
+      "y": 940,
+      "w": 390,
+      "h": 760,
+      "title": "How Our System Works on phones, option A, the clock: the twelve services as icons around the traveller; one lights up at a time and its name shows under the ring; tap any icon",
+      "page": "r5",
+      "is_interactive": true
+    },
+    "R5RingLegend.dc.html": {
+      "x": 2430,
+      "y": 940,
+      "w": 390,
+      "h": 900,
+      "title": "How Our System Works on phones, option B, clock and key: the same ring with numbered icons, and a two-column key of all twelve names under it",
+      "page": "r5",
+      "is_interactive": true
+    },
+    "R5MarCover.dc.html": {
+      "x": 2900,
+      "y": 0,
+      "w": 390,
+      "h": 1500,
+      "title": "Maritime on phones, option A, cover story: your deck photo full bleed with the title on it, the two paragraphs, the services in a swipe row, two of your photos, the call",
+      "page": "r5",
+      "is_interactive": true
+    },
+    "R5MarCollage.dc.html": {
+      "x": 3330,
+      "y": 0,
+      "w": 390,
+      "h": 1500,
+      "title": "Maritime on phones, option B, collage: three of your photos as a collage first, then the eyebrow, title and paragraphs, the five services as tiles (the last one dark), the call",
+      "page": "r5",
+      "is_interactive": true
     }
   },
   "order": [
@@ -373,7 +485,19 @@
     "R4Who1.dc.html",
     "R4Who2.dc.html",
     "R4Who3.dc.html",
-    "R4Built.dc.html"
+    "R4Built.dc.html",
+    "R5ModalWhy.dc.html",
+    "R5ModalWhyP.dc.html",
+    "R5ModalBuilt.dc.html",
+    "R5ModalBuiltP.dc.html",
+    "R5ModalCare.dc.html",
+    "R5ModalCareP.dc.html",
+    "R5BuiltBento.dc.html",
+    "R5BuiltGrid.dc.html",
+    "R5RingClock.dc.html",
+    "R5RingLegend.dc.html",
+    "R5MarCover.dc.html",
+    "R5MarCollage.dc.html"
   ],
   "notes": {},
   "designSystems": []
