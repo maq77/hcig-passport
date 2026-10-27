@@ -15,6 +15,10 @@
       "name": "Home"
     },
     {
+      "id": "r8",
+      "name": "Round 8: final silk and blog card (pick)"
+    },
+    {
       "id": "r5",
       "name": "Round 5: modals and phone (pick)"
     },
@@ -449,6 +453,114 @@
       "title": "Maritime on phones, option B, collage: three of your photos as a collage first, then the eyebrow, title and paragraphs, the five services as tiles (the last one dark), the call",
       "page": "r5",
       "is_interactive": true
+    },
+    "R8Silk1.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 300,
+      "title": "Silk S1 desktop: hairline silk: seven fine lines crossing slowly, the Mission & Vision lines grown up; the calmest",
+      "page": "r8",
+      "is_interactive": true
+    },
+    "R8Silk1m.dc.html": {
+      "x": 1500,
+      "y": 0,
+      "w": 390,
+      "h": 400,
+      "title": "Silk S1 phone",
+      "page": "r8",
+      "is_interactive": true
+    },
+    "R8Silk2.dc.html": {
+      "x": 0,
+      "y": 360,
+      "w": 1440,
+      "h": 300,
+      "title": "Silk S2 desktop: satin ribbon: one folded band of turquoise fabric over a soft grey fold, a white sheen gliding along it; no threads",
+      "page": "r8",
+      "is_interactive": true
+    },
+    "R8Silk2m.dc.html": {
+      "x": 1500,
+      "y": 460,
+      "w": 390,
+      "h": 400,
+      "title": "Silk S2 phone",
+      "page": "r8",
+      "is_interactive": true
+    },
+    "R8Silk3.dc.html": {
+      "x": 0,
+      "y": 720,
+      "w": 1440,
+      "h": 300,
+      "title": "Silk S3 desktop: silk and threads: a pale satin band with five hairlines riding its edges, the centre one turquoise",
+      "page": "r8",
+      "is_interactive": true
+    },
+    "R8Silk3m.dc.html": {
+      "x": 1500,
+      "y": 920,
+      "w": 390,
+      "h": 400,
+      "title": "Silk S3 phone",
+      "page": "r8",
+      "is_interactive": true
+    },
+    "R8Card1.dc.html": {
+      "x": 0,
+      "y": 1500,
+      "w": 1440,
+      "h": 780,
+      "title": "Blog card C1 desktop: portrait editorial: an open 4:5 photo with rounded corners (the newest posts are portrait, nothing is cut), the dateline and a Helma title under it, no box",
+      "page": "r8",
+      "is_interactive": true
+    },
+    "R8Card1m.dc.html": {
+      "x": 1500,
+      "y": 1500,
+      "w": 390,
+      "h": 820,
+      "title": "Blog card C1 phone (slides on its own)",
+      "page": "r8",
+      "is_interactive": true
+    },
+    "R8Card2.dc.html": {
+      "x": 0,
+      "y": 2420,
+      "w": 1440,
+      "h": 780,
+      "title": "Blog card C2 desktop: story cover: the 4:5 photo fills the card, the title sits on a soft dark fade at the bottom, the place as a glass chip on top",
+      "page": "r8",
+      "is_interactive": true
+    },
+    "R8Card2m.dc.html": {
+      "x": 1500,
+      "y": 2420,
+      "w": 390,
+      "h": 820,
+      "title": "Blog card C2 phone (slides on its own)",
+      "page": "r8",
+      "is_interactive": true
+    },
+    "R8Card3.dc.html": {
+      "x": 0,
+      "y": 3340,
+      "w": 1440,
+      "h": 860,
+      "title": "Blog card C3 desktop: news desk: the newest post as a tall 4:5 cover on the left, the next two as rows with a small portrait photo, the place and the title, divided by hairlines",
+      "page": "r8",
+      "is_interactive": true
+    },
+    "R8Card3m.dc.html": {
+      "x": 1500,
+      "y": 3340,
+      "w": 390,
+      "h": 820,
+      "title": "Blog card C3 phone",
+      "page": "r8",
+      "is_interactive": true
     }
   },
   "order": [
@@ -497,7 +609,19 @@
     "R5RingClock.dc.html",
     "R5RingLegend.dc.html",
     "R5MarCover.dc.html",
-    "R5MarCollage.dc.html"
+    "R5MarCollage.dc.html",
+    "R8Silk1.dc.html",
+    "R8Silk1m.dc.html",
+    "R8Silk2.dc.html",
+    "R8Silk2m.dc.html",
+    "R8Silk3.dc.html",
+    "R8Silk3m.dc.html",
+    "R8Card1.dc.html",
+    "R8Card1m.dc.html",
+    "R8Card2.dc.html",
+    "R8Card2m.dc.html",
+    "R8Card3.dc.html",
+    "R8Card3m.dc.html"
   ],
   "notes": {},
   "designSystems": []

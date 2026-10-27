@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Card C3 phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+@font-face { font-family: 'Helma'; src: url('/_blob/c002ba327633cc3513ea200bac9e6b8d') format('woff2'); font-weight: 400; font-display: swap; }
+body { margin: 0; }
+.ph { --black:#000; --b80:#333; --dim:#565759; --d60:#9A9A9C; --d40:#BBBCBE; --d20:#DDDDDF; --d06:#F6F6F6;
+  --t:#12C0C6; --t60:#71D9DD; --t40:#A0E6E8; --t20:#D0F2F4; --t08:#EDFAFA; --w:#FFF; --ease: cubic-bezier(.16,1,.3,1);
+  position: relative; font: 400 16px/1.6 'Inter', system-ui, sans-serif; color: var(--black); background: var(--w); -webkit-font-smoothing: antialiased; box-sizing: border-box; overflow: hidden; }
+.ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
+.ph img { display: block; max-width: 100%; }
+.ph p { margin: 0; }
+.tag { position: absolute; top: 10px; right: 10px; z-index: 30; padding: 5px 10px; border-radius: 999px; background: var(--black); color: var(--w); font: 600 11px/1 'Inter', sans-serif; letter-spacing: .08em; }
+.sec { position: relative; padding: 44px 20px 40px; }
+.soft { background: var(--d06); }
+.hd2 { margin: 0 0 24px; text-align: center; }
+.hd2 h2 { margin: 0; font: 400 32px/1.1 'Helma', Georgia, serif; text-wrap: balance; }
+.hd2 h2::after { content: ""; display: block; width: 56px; height: 1px; margin: 16px auto 0; background: var(--black); }
+.hd2 p { margin-top: 14px; color: var(--dim); font-size: 15px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 500 11.5px/1 'Inter', sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
+.eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--t); color: var(--black); font: 600 14px/1 'Inter', sans-serif; }
+.cbtn { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--d20); background: var(--w); color: var(--black); flex: none; }
+.cbtn.l svg { transform: scaleX(-1); }
+.news { padding: 40px 64px 44px; background: var(--d06); } .ph .news.m { padding: 34px 20px 30px; }
+.nh { display: flex; align-items: center; gap: 28px; margin-bottom: 30px; } .nh span { flex: 1; height: 1px; background: #000; } .nh h2 { margin: 0; font: 400 40px/1 'Helma', serif; white-space: nowrap; }
+.m .nh { display: block; text-align: center; } .m .nh span { display: none; } .m .nh h2 { font-size: 30px; } .m .nh h2::after { content: ""; display: block; width: 56px; height: 1px; margin: 14px auto 0; background: #000; }
+.place { display: inline-flex; align-items: center; gap: 6px; font: 500 11px/1.3 'Inter', sans-serif; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); } .place svg { color: var(--t); }
+.more { display: flex; justify-content: center; margin-top: 26px; } .more span { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 24px; border-radius: 999px; border: 1px solid var(--d20); background: #fff; font: 500 14.5px/1 'Inter', sans-serif; }
+.dots { display: flex; gap: 6px; justify-content: center; margin-top: 16px; } .dots i { width: 7px; height: 7px; border-radius: 4px; background: var(--d40); } .dots i.on { width: 22px; background: var(--t); }
+.track { display: flex; gap: 12px; overflow: hidden; margin: 0 -20px; padding: 0 20px; } .track > * { flex: 0 0 80%; }
+.c3 { display: grid; grid-template-columns: 5fr 7fr; gap: 34px; align-items: start; }
+.c3 .lead { position: relative; aspect-ratio: 4 / 5; border-radius: 24px; overflow: hidden; color: #fff; } .c3 .lead img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.c3 .lead::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,.82)); } .c3 .lead .tx { position: absolute; left: 22px; right: 22px; bottom: 22px; z-index: 2; display: grid; gap: 10px; } .c3 .lead .place { color: rgba(255,255,255,.85); }
+.c3 .lead h3 { margin: 0; font: 400 26px/1.2 'Helma', serif; }
+.c3 .list { border-top: 1px solid #000; } .c3 .row { display: grid; grid-template-columns: 120px 1fr 36px; gap: 20px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--d20); }
+.c3 .row figure { margin: 0; aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; } .c3 .row img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.c3 .row h3 { margin: 8px 0 0; font: 400 22px/1.25 'Helma', serif; } .c3 .row p { margin: 8px 0 0; font-size: 14px; color: var(--dim); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.c3 .go { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 0 0 1px var(--d20); }
+.m .c3 { grid-template-columns: 1fr; gap: 16px; } .m .c3 .lead h3 { font-size: 22px; } .m .c3 .row { grid-template-columns: 88px 1fr 32px; gap: 14px; padding: 14px 0; } .m .c3 .row h3 { font-size: 17px; } .m .c3 .row p { display: none; }</style>
+</helmet>
+<div class="ph m" style="width:390px"><span class="tag">C3</span><section class="news m"><div class="nh"><span></span><h2>Our News &amp; Updates</h2><span></span></div><div class="c3"><a class="lead"><img src="/_blob/4c06ee222a949b5fac097f94a6e87b76" alt=""><div class="tx"><span class="place"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Chicago, USA</span><h3>24/7 Clinics Achieve UCA Accreditation in Chicago: A Milestone for Global Urgent Care</h3></div></a><div class="list"><a class="row"><figure><img src="/_blob/5a04e46f538cba6d470ff0d1c6779d5f" alt=""></figure><div><span class="place"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Cairo, Egypt</span><h3>Strengthening Egypt’s Healthcare Presence on the Global Stage</h3><p>Cairo, Egypt, Strengthening Egypt’s position on the global healthcare and medical tourism map begins with real partnerships, open dialogue, and a clear understanding of what international readiness truly means.</p></div><span class="go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span></a><a class="row"><figure><img src="/_blob/0e934f7cd18a5de92173b5e5cd80ff77" alt=""></figure><div><span class="place"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Venice, Italy</span><h3>HCIG at ITIC Global Venice 2025: Egypt’s Healthcare Reimagined</h3><p>Venice, Italy, Healthcare International Group (HCIG) proudly participated in ITIC Global 2025, one of the world’s most prominent gatherings for travel and health insurance professionals, held this November in the timeless city of Venice, Italy.</p></div><span class="go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span></a></div></div><div class="more"><span>View all news<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13.5 6.5L19 12l-5.5 5.5"/></svg></span></div></section></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":820}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
