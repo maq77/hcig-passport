@@ -169,32 +169,34 @@
     "keep": true
   },
   "svc-hospital": {
-    "src": "hcig-v3/material/generated/deliver/s2.jpg",
-    "width": 1264
+    "src": "hcig-v6/material/media/upscaled/svc-hospital.png",
+    "width": 2048,
+    "note": "upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "svc-tourism": {
-    "src": "hcig-v6/material/media/generated/r2/svc-tourism.jpg",
-    "width": 1376,
-    "note": "Nano Banana route A 2026-10-26 (round 3 image review)"
+    "src": "hcig-v6/material/media/upscaled/svc-tourism.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26 (round 3 image review); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "svc-urgent": {
-    "src": "hcig-v6/material/media/generated/r2/svc-urgent-logo.jpg",
-    "width": 1376,
-    "note": "Nano Banana route A 2026-10-26 (round 3 image review); real HCIG logo placed on the wall panel in post"
+    "src": "hcig-v6/material/media/upscaled/svc-urgent.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26 (round 3 image review); real HCIG logo placed on the wall panel in post; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "svc-wellness": {
-    "src": "hcig-v3/material/generated/deliver/s6.jpg",
-    "width": 1264
+    "src": "hcig-v6/material/media/upscaled/svc-wellness.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-27 (review: replaces the empty lounge); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "svc-corporate": {
-    "src": "hcig-v6/material/media/generated/r2/svc-corporate.jpg",
-    "width": 1376,
-    "note": "Nano Banana route A 2026-10-26 (round 3 image review)"
+    "src": "hcig-v6/material/media/upscaled/svc-corporate.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26 (round 3 image review); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "svc-concierge": {
-    "src": "hcig-v6/material/media/generated/r2/svc-concierge-logo.jpg",
-    "width": 1376,
-    "note": "Nano Banana route A 2026-10-26 (round 3 image review); real HC mark placed on the case in post"
+    "src": "hcig-v6/material/media/upscaled/svc-concierge.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26 (round 3 image review); real HC mark placed on the case in post; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "svc-accreditation": {
     "src": "hcig-v3/material/live-site/assets/blog/img/IMG_5626.PNG",
@@ -210,9 +212,9 @@
     "note": "Nano Banana route A 2026-10-26"
   },
   "cta-bg": {
-    "src": "hcig-v6/material/media/generated/r2/cta.jpg",
-    "width": 1376,
-    "note": "Nano Banana route A 2026-10-26: one coast, resort, hospital, marina and airport joined by turquoise light"
+    "src": "hcig-v6/material/media/upscaled/cta-bg.png",
+    "width": 2400,
+    "note": "Nano Banana route A 2026-10-26: one coast, resort, hospital, marina and airport joined by turquoise light; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "moment-itic-stage": {
     "src": "hcig-v3/material/canvas-assets/img/itic-stage.jpg",
@@ -293,9 +295,9 @@
     "video": true
   },
   "about-band": {
-    "src": "hcig-v6/material/media/generated/about-a.jpg",
-    "width": 1376,
-    "note": "Nano Banana (route A) 2026-10-26; a mood image, not a real HCIG clinic"
+    "src": "hcig-v6/material/media/upscaled/about-band.png",
+    "width": 2400,
+    "note": "Nano Banana (route A) 2026-10-26; a mood image, not a real HCIG clinic; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "traveller-centre": {
     "src": "hcig-v6/material/media/generated/traveller-centre.jpg",
@@ -320,48 +322,48 @@
     "width": 1600
   },
   "built-multilingual": {
-    "src": "hcig-v6/material/media/generated/r2/built-multilingual-logo.jpg",
-    "width": 900,
-    "note": "Nano Banana route A 2026-10-26 (his pick B1); real HCIG logo etched on the glass in post"
+    "src": "hcig-v6/material/media/upscaled/built-multilingual.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1); real HCIG logo etched on the glass in post; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "built-global": {
-    "src": "hcig-v6/material/media/generated/r2/built-global.jpg",
-    "width": 900,
-    "note": "Nano Banana route A 2026-10-26 (his pick B1)"
+    "src": "hcig-v6/material/media/upscaled/built-global.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "built-insurance": {
-    "src": "hcig-v6/material/media/generated/r2/built-insurance.jpg",
-    "width": 900,
-    "note": "Nano Banana route A 2026-10-26 (his pick B1)"
+    "src": "hcig-v6/material/media/upscaled/built-insurance.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "built-training": {
-    "src": "hcig-v6/material/media/generated/r2/built-training-logo.jpg",
-    "width": 900,
-    "note": "Nano Banana route A 2026-10-26 (his pick B1); real HCIG logo on the wall panel in post"
+    "src": "hcig-v6/material/media/upscaled/built-training.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1); real HCIG logo on the wall panel in post; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "built-hospitality": {
-    "src": "hcig-v6/material/media/generated/r2/built-hospitality.jpg",
-    "width": 900,
-    "note": "Nano Banana route A 2026-10-26 (his pick B1)"
+    "src": "hcig-v6/material/media/upscaled/built-hospitality.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "built-operations": {
-    "src": "hcig-v6/material/media/generated/r2/built-operations.jpg",
-    "width": 900,
-    "note": "Nano Banana route A 2026-10-26 (his pick B1)"
+    "src": "hcig-v6/material/media/upscaled/built-operations.png",
+    "width": 2048,
+    "note": "Nano Banana route A 2026-10-26 (his pick B1); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "mar-deck": {
-    "src": "hcig-v6/material/media/maritime-real/m5-clean.jpg",
-    "width": 1344,
-    "note": "his photo 2026-10-27; Gemini star cropped off"
+    "src": "hcig-v6/material/media/upscaled/mar-deck.png",
+    "width": 2400,
+    "note": "his photo 2026-10-27; Gemini star cropped off; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "mar-consult": {
-    "src": "hcig-v6/material/media/maritime-real/m4-clean.jpg",
-    "width": 1336,
-    "note": "his photo 2026-10-27; NCL plaque replaced by a framed HC mark, sign made plain, upscaled 2x"
+    "src": "hcig-v6/material/media/upscaled/mar-consult.png",
+    "width": 2048,
+    "note": "his photo 2026-10-27; NCL plaque replaced by a framed HC mark, sign made plain, upscaled 2x; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "mar-clinic": {
-    "src": "hcig-v6/material/media/maritime-real/m1.jpg",
-    "width": 1344,
-    "note": "his photo 2026-10-27"
+    "src": "hcig-v6/material/media/upscaled/mar-clinic.png",
+    "width": 2048,
+    "note": "his photo 2026-10-27; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   }
 }
