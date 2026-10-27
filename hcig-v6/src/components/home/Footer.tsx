@@ -14,6 +14,7 @@ const MORE = [
   { label: "Board Members", path: "/about/leadership/" },
   { label: "Where We Operate", path: "/network/" },
   { label: "Trust and Standards", path: "/trust/" },
+  { label: "Press Room", path: "/press/" },
 ];
 
 const tel = (p: string) => "tel:" + p.replace(/[^\d+]/g, ""); // "+2 01001828828" dials +20 100 182 8828

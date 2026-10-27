@@ -193,3 +193,47 @@ export const TRUST_PAGE = {
   eventsTitle: { text: "Where we show up", src: "new" },
   events: [13, 6, 12, 10, 9, 8],
 };
+
+// Press room (/press/): facts, boilerplate, news and the media kit. Facts and boilerplate are live words or the brand
+// guideline's elevator pitch (word for word); labels are new and wait for his review.
+export const PRESS_PAGE = {
+  meta: { title: "Press Room | Healthcare International Group (HCIG)", src: "new" },
+  title: { text: "Press Room", src: "new" },
+  lead: { text: "News, facts and brand assets about Healthcare International Group, for journalists, event organisers and partners.", src: "new" },
+  glance: { text: "HCIG at a glance", src: "plan (approved)" },
+  facts: [
+    { v: "40+", t: "Years of Experience" },
+    { v: "600K+", t: "Patients Served" },
+    { v: "350+", t: "Medical Professionals" },
+    { v: "135+", t: "On-Site Clinics Across Egypt" },
+  ],
+  factsSrc: "live",
+  partner: { text: "Official Partner of Global Healthcare Accreditation (GHA) and the German Medical Wellness Association (DMWV) in Egypt", src: "live" },
+  aboutTitle: { text: "About HCIG", src: "new" },
+  short: { label: "In one line", src: "new" },
+  long: { label: "Boilerplate", src: "new" },
+  pitch: { text: "HCIG is Egypt’s most trusted name in medical assistance and medical tourism. As the official partner of Global Healthcare Accreditation (GHA), we bring international standards into every hospital, clinic, and patient journey. With a nationwide network and a commitment to excellence, HCIG ensures that every patient, tourist, and partner experiences healthcare they can trust, anytime, anywhere.", src: "guideline (Elevator Pitch, page 24)" },
+  copy: { text: "Copy", src: "new" },
+  copied: { text: "Copied", src: "new" },
+  newsTitle: { text: "Our News & Updates", src: "owner" },
+  kitTitle: { text: "Media kit", src: "new" },
+  kitLead: { text: "Use the logo as supplied, on a clear background, in its own colours.", src: "new (from the guideline logo rules)" },
+  logos: [
+    { key: "logo-h-black", name: "Logo, black", ground: "light" },
+    { key: "logo-h-white", name: "Logo, white", ground: "dark" },
+    { key: "mark-black", name: "HC mark, black", ground: "light" },
+    { key: "mark-white", name: "HC mark, white", ground: "dark" },
+  ],
+  download: { text: "Download PNG", src: "new" },
+  colours: { text: "Brand colours", src: "new" },
+  palette: [
+    { name: "Black", hex: "#000000" },
+    { name: "Dim Gray", hex: "#565759" },
+    { name: "Turquoise", hex: "#12C0C6" },
+    { name: "White", hex: "#FFFFFF" },
+  ],
+  type: { text: "Typefaces", src: "new" },
+  fonts: [{ name: "Helma", use: "Headings" }, { name: "Inter", use: "Text" }],
+  contactTitle: { text: "Media enquiries", src: "new" },
+  contactLead: { text: "For interviews, event invitations and brand assets, write to us.", src: "new" },
+};
