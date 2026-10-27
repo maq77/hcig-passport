@@ -470,5 +470,10 @@
     "src": "hcig-v6/material/media/blog/post-1.jpg",
     "width": 1600,
     "note": "blog post news1 photo (live site)"
+  },
+  "brand-247-care": {
+    "src": "247clinic-v4/public/img/new-medical-care.jpg",
+    "width": 1080,
+    "note": "real photo from 24/7 Clinic's own site: a 24/7 doctor caring for a guest on a resort beach"
   }
 }

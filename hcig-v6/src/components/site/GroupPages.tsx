@@ -7,6 +7,7 @@ import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { Item, Reveal, Stagger } from "@/components/ui/Motion";
 import { SectionHead } from "@/components/ui/SectionHead";
+import { BRANDS, BRAND_UI } from "@/content/brands.mjs";
 
 type Brand = { short: string; name: string; line: string; url: string; logo: string };
 type Post = { n: number; slug: string; title: string; dateline: string; img: string | null; alt: string };
@@ -22,11 +23,11 @@ export function BrandGrid() {
         <Stagger className="brand-grid" gap={0.06}>
           {brands.map((b) => (
             <Item as="article" className="brand-card" key={b.short}>
-              <a href={b.url} target="_blank" rel="noopener">
+              <a href={href(`/group/${(BRANDS.find((x) => x.key === b.short) as { slug: string }).slug}/`)}>
                 <span className="brand-logo"><img src={asset(b.logo)} alt={b.name} loading="lazy" /></span>
                 <h3>{b.name}</h3>
                 <p>{b.line}</p>
-                <span className="brand-visit">{GROUP_PAGE.visit.text}<Icon name="up" size={15} /></span>
+                <span className="brand-visit">{BRAND_UI.discover.text}<Icon name="arrow" size={15} /></span>
               </a>
             </Item>
           ))}
