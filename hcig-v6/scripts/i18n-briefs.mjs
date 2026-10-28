@@ -10,7 +10,8 @@ const V6 = join(dirname(fileURLToPath(import.meta.url)), "..");
 const NAMES = { de: "German", pl: "Polish", fr: "French", it: "Italian", es: "Spanish (Spain)", cs: "Czech" };
 const PATHS = ["/about/", "/about/leadership/", "/services/", "/services/hospital-specialty-services/", "/services/medical-tourism-facilitation/", "/services/emergency-urgent-care/", "/services/wellness-longevity-aesthetic-care/", "/services/corporate-healthcare-solutions/", "/services/elite-medical-concierge/", "/services/accreditation-training/", "/maritime-cruise-healthcare/", "/partner/", "/partner/insurance-assistance-companies/", "/partner/embassies-government/", "/partner/hotels-and-resorts/", "/partner/tour-operators-travel-agencies/", "/partner/healthcare-providers/", "/partner/corporate-international-organisations/", "/contacts/", "/blog/", "/group/", "/network/", "/trust/", "/press/"];
 const LIVE_DE = { "/about/": "/ueber-uns/", "/services/": "/leistungen/", "/contacts/": "/kontakt/" };
-const CHUNK = 30000;
+const CHUNK = Number(process.env.CHUNK || 30000);
+const START = Number(process.env.START || 1); // first job number (re-runs get fresh names)
 
 const langs = process.argv.slice(2);
 const dir = join(V6, "i18n", "jobs");
@@ -26,9 +27,9 @@ for (const lang of langs) {
     size += s.length;
   }
   chunks.forEach((c, i) => {
-    const n = i + 1;
+    const n = i + START;
     writeFileSync(join(dir, `${lang}-${n}.json`), JSON.stringify(c, null, 1));
-    const slugs = n === 1 ? `
+    const slugs = i === 0 ? `
 
 ALSO, in the same reply, translate these page addresses into ${NAMES[lang]} URL slugs (lowercase ASCII letters,
 digits and hyphens only, no accents: transliterate, e.g. German ä to ae, ü to ue, ß to ss; short, natural, the words a
@@ -62,7 +63,7 @@ Rules (all of them matter):
 7. Place names: use the usual ${NAMES[lang]} name for cities and countries (for example Venice, Egypt).
 
 Reply format: ONE JSON object and nothing else, no code fences, no comments:
-{"t": [ ...exactly ${c.length} translated strings, in the same order as the input array... ]${n === 1 ? `, "slugs": { "/about/": "/.../", ... }` : ""}}
+{"t": [ ...exactly ${c.length} translated strings, in the same order as the input array... ]${i === 0 ? `, "slugs": { "/about/": "/.../", ... }` : ""}}
 The "t" array must have exactly ${c.length} entries. Check the count before you answer.${slugs}
 `);
   });

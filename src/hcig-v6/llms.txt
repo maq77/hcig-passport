@@ -44,6 +44,7 @@ HCIG is the Official Partner of Global Healthcare Accreditation (GHA) and the Ge
 
 - en: https://healthcareig.com/
 - de: https://healthcareig.com/de/
+- pl: https://healthcareig.com/pl/
 - fr: https://healthcareig.com/fr/
 - es: https://healthcareig.com/es/
 - cs: https://healthcareig.com/cs/

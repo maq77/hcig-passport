@@ -102,5 +102,31 @@
   "/network/": "/reseau/",
   "/trust/": "/confiance/",
   "/press/": "/presse/"
+ },
+ "pl": {
+  "/about/": "/o-nas/",
+  "/about/leadership/": "/o-nas/zarzad/",
+  "/services/": "/uslugi/",
+  "/services/hospital-specialty-services/": "/uslugi/uslugi-szpitalne-i-specjalistyczne/",
+  "/services/medical-tourism-facilitation/": "/uslugi/turystyka-medyczna/",
+  "/services/emergency-urgent-care/": "/uslugi/pomoc-nagla-i-dorazna/",
+  "/services/wellness-longevity-aesthetic-care/": "/uslugi/wellness-longevity-i-medycyna-estetyczna/",
+  "/services/corporate-healthcare-solutions/": "/uslugi/opieka-medyczna-dla-firm/",
+  "/services/elite-medical-concierge/": "/uslugi/concierge-medyczny/",
+  "/services/accreditation-training/": "/uslugi/akredytacje-i-szkolenia/",
+  "/maritime-cruise-healthcare/": "/medycyna-morska-i-statki-wycieczkowe/",
+  "/partner/": "/partnerzy/",
+  "/partner/insurance-assistance-companies/": "/partnerzy/ubezpieczyciele-i-assistance/",
+  "/partner/embassies-government/": "/partnerzy/ambasady-i-instytucje-rzadowe/",
+  "/partner/hotels-and-resorts/": "/partnerzy/hotele-i-resorty/",
+  "/partner/tour-operators-travel-agencies/": "/partnerzy/touroperatorzy-i-biura-podrozy/",
+  "/partner/healthcare-providers/": "/partnerzy/placowki-medyczne/",
+  "/partner/corporate-international-organisations/": "/partnerzy/korporacje-i-organizacje-miedzynarodowe/",
+  "/contacts/": "/kontakt/",
+  "/blog/": "/blog/",
+  "/group/": "/grupa/",
+  "/network/": "/siec/",
+  "/trust/": "/zaufanie-i-standardy/",
+  "/press/": "/prasa/"
  }
 }
