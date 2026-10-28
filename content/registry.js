@@ -478,7 +478,7 @@ const COMPANIES = [
         slug: 'group-website',
         name: 'healthcareig.com, rebuilt from zero',
         status: 'draft',
-        updated: '2026-10-19',
+        updated: '2026-10-28',
         summary: 'The group site rebuilt for B2B partners and the group hub. Luxury feel, seven languages, built to rank and to be named by AI tools.',
         detail: [
           'Planned 2026-10-18 after six question rounds. 24 decisions are in the spec.',
@@ -489,6 +489,11 @@ const COMPANIES = [
           'Spec approved by Mohamed on 2026-10-18. Technical plan and 106 tasks written the same day.',
           'Design, section by section, hero first. v3 is a photo hero, v4 a video hero, v5 a scroll-driven film from Earth to the Red Sea. The first canvas of three plain directions was turned down as too minimal.',
           'v3 hero canvas, 2026-10-19: twelve options, desktop and phone, the live hero words only, the DMWV and GHA marks as on the live banner, ten new photos made with Gemini and four of the group’s own.',
+          'v3 set aside on 2026-10-22. v6 rebuilt from scratch on 2026-10-26 (Next.js), keeping Hero B and the group section.',
+          'English complete on the preview, 2026-10-27: home, about, leadership, services and seven service pages, maritime and cruise, partners and six partner pages, contact, blog and 15 posts, the group hub and eight brand pages, where we operate, trust and standards, press room.',
+          'Search, 2026-10-27: canonical and hreflang on every page, a sitemap per language, robots, llms.txt, and schema for the group, its brands, services, people and news.',
+          'Languages, 2026-10-28: German, French, Spanish and Czech on the preview with their own addresses (the live German addresses kept). Italian and Polish follow. First drafts by Gemini, every line checked.',
+          'Legal pages (imprint, privacy, cookies) held back at Mohamed’s word on 2026-10-27.',
         ],
         checklist: [
           { text: 'Approve the spec', done: true, who: 'Mohamed' },
@@ -497,7 +502,14 @@ const COMPANIES = [
           { text: 'Invisible fixes and tracking on the live site', done: false, who: 'Us' },
           { text: 'Design canvas: the v3 hero, twelve options', done: true, who: 'Us' },
           { text: 'Pick the v3 hero on the canvas (B, 19 October)', done: true, who: 'Mohamed' },
-          { text: 'Review B night and day on the canvas (press the sun)', done: false, who: 'Mohamed' },
+          { text: 'Review B night and day on the canvas (press the sun)', done: true, who: 'Mohamed' },
+          { text: 'English site built on the preview', done: true, who: 'Us' },
+          { text: 'Eight brand pages and the press room', done: true, who: 'Us' },
+          { text: 'Search pass: canonical, hreflang, sitemaps, schema', done: true, who: 'Us' },
+          { text: 'German, French, Spanish, Czech', done: true, who: 'Us' },
+          { text: 'Italian and Polish', done: false, who: 'Us' },
+          { text: 'Review the English preview and new labels', done: false, who: 'Mohamed' },
+          { text: 'Irina reviews the finished preview', done: false, who: 'Irina' },
         ],
         stages: [
           {
@@ -514,6 +526,7 @@ const COMPANIES = [
             name: 'Design',
             note: 'Every look is chosen on a canvas before anything is built.',
             items: [
+              { slug: 'v6-preview', name: 'v6 preview, all pages', kind: 'link', href: 'https://hcig-passport.vercel.app/hcig/v6', status: 'draft', note: 'The new site in English, German, French, Spanish and Czech. Not indexed; forms do not send' },
               { slug: 'hero-v3', name: 'v3 hero: B night and day, plus all twelve', kind: 'link', href: 'https://claude.ai/artifact/7qpdZsdWL3TwVNyrB6NzTm', status: 'review', note: 'Private canvas. He picked B; a sun and moon switch turns the Earth from night to day with a sunrise sweep' },
             ],
           },
