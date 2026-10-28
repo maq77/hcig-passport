@@ -27,7 +27,8 @@ for (const [w, h] of SIZES) {
   const errs = [];
   pg.on("pageerror", (e) => errs.push(String(e).slice(0, 120)));
   pg.on("console", (m) => { if (m.type() === "error" && !/Failed to load resource/.test(m.text())) errs.push(m.text().slice(0, 120)); });
-  await pg.goto(`http://127.0.0.1:${s.address().port}/hcig/v6/${lang}${path}`, { waitUntil: "networkidle" });
+  await pg.goto(`http://127.0.0.1:${s.address().port}/hcig/v6/${lang}${path}`, { waitUntil: "load", timeout: 60000 });
+  await pg.waitForTimeout(1200);
   await pg.evaluate(async () => { const H = document.documentElement.scrollHeight; for (let y = 0; y < H; y += 500) { scrollTo(0, y); await new Promise((r) => setTimeout(r, 40)); } scrollTo(0, 0); });
   await pg.waitForTimeout(700);
   const r = await pg.evaluate(() => {
