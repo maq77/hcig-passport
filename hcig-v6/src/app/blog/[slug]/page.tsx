@@ -3,6 +3,7 @@ import { POSTS } from "@/content/blog.mjs";
 import { Shell } from "@/components/site/Shell";
 import { PageHero } from "@/components/site/PageHero";
 import { PostBody, type Post } from "@/components/site/Blog";
+import { moreCards, postBySlug } from "@/lib/posts";
 import { ClosingBand } from "@/components/home/Lower";
 import { T } from "@/content/home.mjs";
 
@@ -35,7 +36,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
           image={p.img ?? undefined}
           imageAlt={p.alt}
         />
-        <PostBody slug={slug} />
+        <PostBody post={postBySlug(slug)} more={moreCards(slug)} />
         <ClosingBand />
       </main>
     </Shell>

@@ -10,11 +10,11 @@
   },
   "flows-night": {
     "src": "hcig-v3/material/hero-assets/flows-night.png",
-    "keep": true
+    "note": "light paths of the hero (a mask); WebP with alpha since 2026-10-28 (was a 147 KB PNG)"
   },
   "flows-day": {
     "src": "hcig-v3/material/hero-assets/flows-day.png",
-    "keep": true
+    "note": "light paths of the hero (a mask); WebP with alpha since 2026-10-28 (was a 147 KB PNG)"
   },
   "logo-h-white": {
     "src": "hcig-v3/material/hero-assets/logo-h-white.png",
@@ -525,5 +525,10 @@
     "src": "hcig-v6/material/media/generated/film-cover.png",
     "width": 1920,
     "note": "designed cover for the film (never a frame from it): the white HCIG logo on Dim Gray with a turquoise glow; poster and VideoObject thumbnail"
+  },
+  "promo-thumb": {
+    "src": "hcig-v6/material/media/video/promo/promo-thumb.mp4",
+    "video": true,
+    "note": "the film, silent, 384 px wide: the hero thumbnail only (217 KB instead of the 1.6 MB preview)"
   }
 }

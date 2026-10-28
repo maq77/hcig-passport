@@ -31,6 +31,19 @@ const local = (l, en) => (l === "en" ? en : localPath(SLUGS[l] || {}, en));
 const live = (l, en) => `${SITE}${prefix(l)}${local(l, en)}`;
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
+// srcset: photos with smaller copies (manifest "v") get them as candidates; sizes assume full width on phones plus a
+// tenth for parallax, so a 3x iPhone (390 px, about 1,290 pixels) takes the 1,600 copy and large or retina screens still
+// take the original. The hero Earths are left alone (they are drawn wider than the screen on phones).
+const MANIFEST = JSON.parse(readFileSync(join(V6, "public/media/manifest.json"), "utf8"));
+const SIZES = "(max-width: 900px) 110vw, 100vw";
+function srcsets(h) {
+  return h.replace(/<img\b([^>]*?)\ssrc="([^"]*\/media\/)([a-z0-9-]+)\.webp"([^>]*?)\/?>/g, (tag, pre, dir, key, post) => {
+    const m = MANIFEST[key];
+    if (!m || !m.v || /srcset=/i.test(tag) || /class="th-[ld]"/.test(tag)) return tag;
+    const set = [...m.v.map((w) => `${dir}${key}-${w}.webp ${w}w`), `${dir}${key}.webp ${m.w}w`].join(", ");
+    return tag.replace(/\s*\/?>$/, ` srcSet="${set}" sizes="${SIZES}"/>`);
+  });
+}
 let tagged = 0;
 for (const l of built) {
   for (const en of EN) {
@@ -70,6 +83,7 @@ for (const l of built) {
       `<meta name="twitter:card" content="summary_large_image"/>`,
     ].filter(Boolean).join("");
     h = h.replace("</head>", `${tags}</head>`);
+    h = srcsets(h);
     writeFileSync(f, h);
     tagged++;
   }

@@ -1,7 +1,7 @@
 "use client";
 // Hero B ("Night Network"), approved by the owner. The day/night switch changes ONLY the hero (his answer 2026-10-26);
 // every section below is always day, and the hero's foot melts into the day page in both modes.
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { HERO, T } from "@/content/home.mjs";
 import { asset, href } from "@/lib/site";
@@ -20,19 +20,16 @@ export function HeroB() {
   const { night, sw } = useTheme();
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  // phones keep the hero still while scrolling: the drift of the globe and the words felt unsteady on a small screen
-  const [phone, setPhone] = useState(false);
+  // the hero stays still while scrolling (owner, 2026-10-28: the moving background felt laggy); the night Earth is
+  // fetched once the page is idle, or at once when the visitor switches to night, so a day visit loads one Earth
+  const [loadNight, setLoadNight] = useState(false);
   useEffect(() => {
-    const mq = matchMedia("(max-width: 900px)");
-    const on = () => setPhone(mq.matches);
-    on();
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  const still = reduce || phone;
-  const stageY = useTransform(scrollYProgress, [0, 1], [0, still ? 0 : 140]);
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, still ? 0 : -50]);
+    if (night) { setLoadNight(true); return; }
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+    const go = () => setLoadNight(true);
+    const id = w.requestIdleCallback ? w.requestIdleCallback(go, { timeout: 4000 }) : window.setTimeout(go, 2500);
+    return () => { if (!w.requestIdleCallback) clearTimeout(id); };
+  }, [night]);
 
   const words = HERO.h1.text.split(" ");
   const vars = { "--flows-n": `url('${asset("flows-night")}')`, "--flows-d": `url('${asset("flows-day")}')` } as CSSProperties;
@@ -40,9 +37,9 @@ export function HeroB() {
   return (
     <section ref={ref} className={`hero ${night ? "theme-night" : "theme-day"}${sw ? " sw" : ""}`} style={vars}>
       <div className="in">
-        <motion.div className="bg" style={{ y: stageY }}>
+        <div className="bg">
           <div className="stage">
-            <img className="th-d" src={asset("earth-night")} alt="" width={1376} height={768} fetchPriority="low" decoding="async" />
+            {loadNight ? <img className="th-d" src={asset("earth-night")} alt="" width={1376} height={768} fetchPriority="low" decoding="async" /> : null}
             {/* day is the default theme, so the day Earth is the first image a visitor sees: it loads first */}
             <img className="th-l" src={asset("earth-day")} alt="" width={2048} height={1143} fetchPriority="high" />
             <div className="flow fl-n" />
@@ -50,13 +47,13 @@ export function HeroB() {
             <span className="hub hub-n" style={{ left: "73.8%", top: "61.2%" }} />
             <span className="hub hub-d" style={{ left: "75.4%", top: "59.9%" }} />
           </div>
-        </motion.div>
+        </div>
         <div className="shades">
           <div className="th-d"><div className="shade shade-n" /></div>
           <div className="th-l"><div className="shade shade-d" /></div>
         </div>
         <div className="fx" aria-hidden="true"><div className="band" /><div className="flare" /></div>
-        <motion.div className="body" style={{ y: copyY }}>
+        <div className="body">
           <div className="copy">
             {/* Irina, 2026-10-28 (his pick K2): the GHA and DMWV partnership opens the hero, seals large, the live
                 sentence in bold with the partners' names heavier, a turquoise rule under it */}
@@ -85,7 +82,7 @@ export function HeroB() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
         <HeroFilm />
       </div>
       <div className="hero-melt" aria-hidden="true" />

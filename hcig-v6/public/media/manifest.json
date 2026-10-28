@@ -9,19 +9,24 @@
     "file": "earth-day.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 197
+    "kb": 197,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "flows-night": {
-    "file": "flows-night.png",
+    "file": "flows-night.webp",
     "w": 1376,
     "h": 768,
-    "kb": 89
+    "kb": 50
   },
   "flows-day": {
-    "file": "flows-day.png",
+    "file": "flows-day.webp",
     "w": 2048,
     "h": 1143,
-    "kb": 147
+    "kb": 75
   },
   "logo-h-white": {
     "file": "logo-h-white.png",
@@ -255,37 +260,67 @@
     "file": "svc-hospital.webp",
     "w": 2048,
     "h": 1374,
-    "kb": 138
+    "kb": 138,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "svc-tourism": {
     "file": "svc-tourism.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 171
+    "kb": 171,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "svc-urgent": {
     "file": "svc-urgent.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 115
+    "kb": 115,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "svc-wellness": {
     "file": "svc-wellness.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 173
+    "kb": 173,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "svc-corporate": {
     "file": "svc-corporate.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 156
+    "kb": 156,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "svc-concierge": {
     "file": "svc-concierge.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 161
+    "kb": 161,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "svc-accreditation": {
     "file": "svc-accreditation.webp",
@@ -303,13 +338,23 @@
     "file": "maritime-hero.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 254
+    "kb": 254,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "cta-bg": {
     "file": "cta-bg.webp",
     "w": 2400,
     "h": 1340,
-    "kb": 146
+    "kb": 146,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "moment-itic-stage": {
     "file": "moment-itic-stage.webp",
@@ -434,91 +479,166 @@
     "file": "about-band.webp",
     "w": 2528,
     "h": 1696,
-    "kb": 255
+    "kb": 255,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "traveller-centre": {
     "file": "traveller-centre.webp",
     "w": 2752,
     "h": 1548,
-    "kb": 278
+    "kb": 278,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "onboard-clinic": {
     "file": "onboard-clinic.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 135
+    "kb": 135,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "ship-to-shore": {
     "file": "ship-to-shore.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 226
+    "kb": 226,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "yacht-marina": {
     "file": "yacht-marina.webp",
     "w": 2752,
     "h": 1548,
-    "kb": 506
+    "kb": 506,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "coordination-desk": {
     "file": "coordination-desk.webp",
     "w": 2752,
     "h": 1548,
-    "kb": 290
+    "kb": 290,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "built-multilingual": {
     "file": "built-multilingual.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 95
+    "kb": 95,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "built-global": {
     "file": "built-global.webp",
     "w": 2528,
     "h": 1696,
-    "kb": 186
+    "kb": 186,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "built-insurance": {
     "file": "built-insurance.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 75
+    "kb": 75,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "built-training": {
     "file": "built-training.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 150
+    "kb": 150,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "built-hospitality": {
     "file": "built-hospitality.webp",
     "w": 2048,
     "h": 1144,
-    "kb": 193
+    "kb": 193,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "built-operations": {
     "file": "built-operations.webp",
     "w": 2528,
     "h": 1696,
-    "kb": 340
+    "kb": 340,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "mar-deck": {
     "file": "mar-deck.webp",
     "w": 2528,
     "h": 1696,
-    "kb": 282
+    "kb": 282,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "mar-consult": {
     "file": "mar-consult.webp",
     "w": 2528,
     "h": 1696,
-    "kb": 169
+    "kb": 169,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "mar-clinic": {
     "file": "mar-clinic.webp",
     "w": 2048,
     "h": 1170,
-    "kb": 142
+    "kb": 142,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "lead-mostafa": {
     "file": "lead-mostafa.webp",
@@ -548,13 +668,23 @@
     "file": "about-hub.webp",
     "w": 1800,
     "h": 1200,
-    "kb": 190
+    "kb": 190,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "medpark-hospital": {
     "file": "medpark-hospital.webp",
     "w": 1920,
     "h": 1280,
-    "kb": 233
+    "kb": 233,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "post-15": {
     "file": "post-15.webp",
@@ -656,37 +786,67 @@
     "file": "mar-recruit.webp",
     "w": 2528,
     "h": 1696,
-    "kb": 242
+    "kb": 242,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "mar-medevac": {
     "file": "mar-medevac.webp",
     "w": 2528,
     "h": 1696,
-    "kb": 305
+    "kb": 305,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "fleet-ops": {
     "file": "fleet-ops.webp",
     "w": 2528,
     "h": 1696,
-    "kb": 238
+    "kb": 238,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "coord-bright": {
     "file": "coord-bright.webp",
     "w": 2528,
     "h": 1696,
-    "kb": 305
+    "kb": 305,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "embassy-meeting": {
     "file": "embassy-meeting.webp",
     "w": 2528,
     "h": 1696,
-    "kb": 229
+    "kb": 229,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "yacht-medical": {
     "file": "yacht-medical.webp",
     "w": 2528,
     "h": 1696,
-    "kb": 347
+    "kb": 347,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   },
   "promo-film": {
     "file": "promo-film.mp4",
@@ -713,6 +873,18 @@
     "file": "film-cover.webp",
     "w": 1920,
     "h": 1080,
-    "kb": 16
+    "kb": 16,
+    "v": [
+      800,
+      1200,
+      1600
+    ]
+  },
+  "promo-thumb": {
+    "file": "promo-thumb.mp4",
+    "w": 640,
+    "h": 360,
+    "kb": 967,
+    "video": true
   }
 }

@@ -6,6 +6,7 @@ import { Built, MissionVision, OurHealthcare, SystemWorks, Why } from "@/compone
 import { CeoQuote, ClosingBand, Impact, Insurers, Maritime, Testimonials, WhoWeWorkWith } from "@/components/home/Lower";
 import { Shell } from "@/components/site/Shell";
 import { MoreNews } from "@/components/site/Blog";
+import { postCards } from "@/lib/posts";
 import { FilmBand } from "@/components/site/Film";
 import { SilkDivider } from "@/components/ui/Silk";
 import { CONTACT, GROUP, HERO, NEWS, SOCIAL_LINKS, UI } from "@/content/home.mjs";
@@ -57,7 +58,7 @@ export default function Home() {
         <Insurers />
         <WhoWeWorkWith />
         <Impact />
-        <MoreNews title={NEWS.heading.text} cta={UI.allNews.text} />
+        <MoreNews title={NEWS.heading.text} cta={UI.allNews.text} posts={postCards(3)} />
         <ClosingBand />
       </main>
     </Shell>

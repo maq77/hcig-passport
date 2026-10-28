@@ -2,7 +2,6 @@
 // Group hub, Network and Trust: live lines and the approved fact sheet only.
 import { CONTACT, GROUP } from "@/content/home.mjs";
 import { GROUP_PAGE, NETWORK_PAGE, TRUST_PAGE } from "@/content/pages.mjs";
-import { POSTS } from "@/content/blog.mjs";
 import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { Item, Reveal, Stagger } from "@/components/ui/Motion";
@@ -11,7 +10,7 @@ import { BRANDS, BRAND_UI } from "@/content/brands.mjs";
 
 type Brand = { short: string; name: string; line: string; url: string; logo: string };
 type Post = { n: number; slug: string; title: string; dateline: string; img: string | null; alt: string };
-const post = (n: number) => (POSTS as Post[]).find((p) => p.n === n) as Post;
+
 
 // ---------------- Group ----------------
 export function BrandGrid() {
@@ -81,7 +80,8 @@ export function NetworkBody() {
 }
 
 // ---------------- Trust ----------------
-export function TrustBody() {
+export function TrustBody({ posts }: { posts: Post[] }) {
+  const post = (n: number) => posts.find((p) => p.n === n) as Post;
   const T = TRUST_PAGE;
   const uca = post(T.uca.post);
   return (

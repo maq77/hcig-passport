@@ -3,6 +3,7 @@ import { PRESS_PAGE } from "@/content/pages.mjs";
 import { Shell } from "@/components/site/Shell";
 import { PageHero } from "@/components/site/PageHero";
 import { PressBody } from "@/components/site/Press";
+import { postCards } from "@/lib/posts";
 import { ClosingBand } from "@/components/home/Lower";
 import { T } from "@/content/home.mjs";
 
@@ -20,7 +21,7 @@ export default function PressPage() {
           image="moment-itic-stage"
           imageAlt={T.alt.itic}
         />
-        <PressBody />
+        <PressBody posts={postCards(3)} />
         <ClosingBand />
       </main>
     </Shell>

@@ -3,6 +3,7 @@ import { TRUST_PAGE } from "@/content/pages.mjs";
 import { Shell } from "@/components/site/Shell";
 import { PageHero } from "@/components/site/PageHero";
 import { TrustBody } from "@/components/site/GroupPages";
+import { postCards } from "@/lib/posts";
 import { Insurers, Testimonials, ClosingBand } from "@/components/home/Lower";
 import { T } from "@/content/home.mjs";
 
@@ -20,7 +21,7 @@ export default function TrustPage() {
           image="svc-accreditation"
           imageAlt={T.alt.gha}
         />
-        <TrustBody />
+        <TrustBody posts={postCards()} />
         <Insurers />
         <Testimonials />
         <ClosingBand />

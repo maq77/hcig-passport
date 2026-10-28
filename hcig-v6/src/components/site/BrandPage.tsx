@@ -4,7 +4,6 @@
 import { GROUP, HEALTHCARE, WHO } from "@/content/home.mjs";
 import { BRANDS, BRAND_UI } from "@/content/brands.mjs";
 import { PARTNER_TYPES } from "@/content/pages.mjs";
-import { POSTS } from "@/content/blog.mjs";
 import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { Item, Reveal, Stagger } from "@/components/ui/Motion";
@@ -25,7 +24,7 @@ export function BrandPlate({ b }: { b: Brand }) {
   );
 }
 
-export function BrandBody({ b }: { b: Brand }) {
+export function BrandBody({ b, post }: { b: Brand; post?: Post }) {
   const g = groupOf(b);
   const U = BRAND_UI;
   const points = b.points as Point[];
@@ -36,7 +35,6 @@ export function BrandBody({ b }: { b: Brand }) {
     const t = PARTNER_TYPES.find((p) => p.slug === s);
     return w && t ? { ...w, icon: t.icon as IconName } : null;
   }).filter(Boolean) as (Who & { icon: IconName })[];
-  const post = b.post ? (POSTS as Post[]).find((p) => p.n === b.post) : undefined;
   const others = (BRANDS as Brand[]).filter((x) => x.slug !== b.slug);
 
   return (

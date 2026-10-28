@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Shell } from "@/components/site/Shell";
 import { PageHero } from "@/components/site/PageHero";
 import { BlogIndex } from "@/components/site/Blog";
+import { postCards } from "@/lib/posts";
 import { ClosingBand } from "@/components/home/Lower";
 import { T } from "@/content/home.mjs";
 
@@ -13,7 +14,7 @@ export default function BlogPage() {
     <Shell>
       <main id="main">
         <PageHero crumbs={[{ label: T.home, path: "/" }, { label: T.blog, path: "/blog/" }]} title={T.blog} />
-        <BlogIndex />
+        <BlogIndex posts={postCards()} />
         <ClosingBand />
       </main>
     </Shell>

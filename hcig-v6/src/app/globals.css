@@ -2588,3 +2588,74 @@ html:not([lang="en"]) :is(h1, h2, h3, h4, b, strong) { overflow-wrap: anywhere; 
 .hero .cred .plate { overflow: hidden; }
 .hero .cred .plate:first-child { padding: 3px; }
 .hero .cred .plate:first-child img { transform: none; }
+
+/* =====================================================================================
+   Smoothness pass (owner, 2026-10-28: the hero background lagged when moving, the day and night switch should feel
+   smooth, everything on the home should move smoothly). Every running animation now moves with transform or opacity
+   only, which the graphics card does on its own; nothing repaints the page on every frame any more.
+   ===================================================================================== */
+/* Hero globe: the slow first zoom stays, on its own layer; the background no longer drifts on scroll (HeroB.tsx) */
+.hero .stage { will-change: transform; backface-visibility: hidden; }
+/* Light pulses on the flows: they used to slide their background (a full repaint of four masked, blended layers on
+   every frame); now each pulse is a wide layer that slides */
+.hero .flow { overflow: hidden; isolation: isolate; }
+.hero .flow::before, .hero .flow::after { inset: 0 auto 0 0; width: 320%; background-size: 100% 100%; animation-name: runT; will-change: transform; }
+@keyframes runT { from { transform: translate3d(-68.75%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
+/* Day and night: the two Earths crossfade (was a gradient mask animated over the large photo, repainted every frame),
+   while the light band still sweeps across */
+.hero .bg .th-l { -webkit-mask-image: none; mask-image: none; transition: opacity 1.6s var(--ease-sweep) .25s; opacity: 0; will-change: opacity; }
+.hero.theme-day .bg .th-l { opacity: 1; }
+.hero .bg .th-d { transition: opacity 1.6s var(--ease-sweep) .25s; }
+.hero .band { will-change: transform, opacity; }
+.hero .flare { will-change: transform, opacity; }
+/* the melt under the hero no longer animates its height (that moved the whole page during the switch); the hero and
+   its melt still add up to one screen, and the night fade crossfades in */
+.hero .hero-melt, .hero.theme-day .hero-melt { transition: none; }
+
+/* About route: the light running along the line slides instead of moving its left edge */
+.about-signal .ln::after { left: 0; transform: translate3d(-100%, 0, 0); animation-name: pulseRunT; will-change: transform; }
+@keyframes pulseRunT { 0% { transform: translate3d(-100%, 0, 0); } 60%, 100% { transform: translate3d(250%, 0, 0); } }
+
+/* Ecosystem route dot: a full-size layer carrying the dot slides across (was its left or top edge moving) */
+.route::after { top: 0; left: 0; width: 100%; height: 100%; margin: 0; border-radius: 0; box-shadow: none; background: radial-gradient(circle at 22.5px 21.5px, var(--turq) 0 3.5px, rgba(18, 192, 198, .5) 5px, rgba(18, 192, 198, 0) 13px); animation-name: glideT; will-change: transform; pointer-events: none; }
+@keyframes glideT { 0%, 8% { transform: translate3d(0, 0, 0); } 42%, 50% { transform: translate3d(33.3%, 0, 0); } 84%, 100% { transform: translate3d(66.6%, 0, 0); } }
+@container page (max-width: 760px) {
+  .route::after { background: radial-gradient(circle at 21.5px 21.5px, var(--turq) 0 3.5px, rgba(18, 192, 198, .5) 5px, rgba(18, 192, 198, 0) 13px); animation-name: glideYT; }
+}
+@keyframes glideYT { 0%, 8% { transform: translate3d(0, 0, 0); } 42%, 50% { transform: translate3d(0, calc(50% - 22px), 0); } 84%, 100% { transform: translate3d(0, calc(100% - 44px), 0); } }
+
+/* Maritime journey dot: the same, horizontal on desktop and vertical on phones */
+.mj-flow ol::after { top: 0; left: 0; width: 100%; height: 100%; margin: 0; border-radius: 0; box-shadow: none; background: radial-gradient(circle at 10% 31.5px, var(--turq) 0 3.5px, rgba(18, 192, 198, .5) 5px, rgba(18, 192, 198, 0) 14px); animation-name: mjRunT; will-change: transform; pointer-events: none; }
+@keyframes mjRunT { 0% { transform: translate3d(0, 0, 0); } 90%, 100% { transform: translate3d(80%, 0, 0); } }
+@container page (max-width: 900px) {
+  .mj-flow ol::after { background: radial-gradient(circle at 31.5px 31.5px, var(--turq) 0 3.5px, rgba(18, 192, 198, .5) 5px, rgba(18, 192, 198, 0) 14px); animation-name: mjRunYT; }
+}
+@keyframes mjRunYT { 0% { transform: translate3d(0, 0, 0); } 90%, 100% { transform: translate3d(0, calc(100% - 64px), 0); } }
+
+/* The film: the muted previews fade in once they really play (no jump from the cover); the player eases in and out */
+.film-loop { opacity: 0; transition: opacity .8s var(--ease); }
+.film-loop.on { opacity: 1; }
+.hf-tv, .fb-card { background: #1c1d1f center / cover no-repeat; }
+.film-dlg[open] { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; display: grid; place-items: center; background: transparent; overflow: hidden; }
+.film-dlg::backdrop { background: rgba(0, 0, 0, 0); -webkit-backdrop-filter: blur(0); backdrop-filter: blur(0); transition: background-color .45s var(--ease), backdrop-filter .45s var(--ease), -webkit-backdrop-filter .45s var(--ease); }
+.film-dlg.in::backdrop { background: rgba(0, 0, 0, .86); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.film-dlg video { width: min(92vw, calc(84dvh * 16 / 9), 1440px); height: auto; aspect-ratio: 16 / 9; max-width: none; max-height: none; border-radius: 18px; background: #000; box-shadow: 0 60px 140px -40px rgba(0, 0, 0, .9); opacity: 0; transform: translate3d(0, 18px, 0) scale(.965); transition: opacity .45s var(--ease), transform .55s var(--ease); }
+.film-dlg.in video { opacity: 1; transform: none; }
+.film-dlg .dlg-close { position: fixed; top: 22px; right: 22px; z-index: 2; opacity: 0; transition: opacity .35s var(--ease) .1s; }
+.film-dlg.in .dlg-close { opacity: 1; }
+@container page (max-width: 900px) { .film-dlg video { width: 100vw; border-radius: 0; } }
+@media (max-width: 900px) { .film-dlg video { width: 100vw; border-radius: 0; } }
+/* the testimonial player had the same top-left placement on desktop: centred the same way */
+.lightbox[open] { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; display: grid; place-items: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .film-loop { transition: none; }
+  .film-dlg video, .film-dlg::backdrop, .film-dlg .dlg-close { transition: none; }
+}
+.route, .mj-flow ol, .about-signal .ln { overflow-x: clip; }
+/* the ecosystem orbit: the light travels by rotating the ring (was a dash pattern redrawn every frame under a glow) */
+.ring-orbit .orb-run { animation: orbitT 14s linear infinite; transform-box: fill-box; transform-origin: center; will-change: transform; }
+@keyframes orbitT { to { transform: rotate(360deg); } }
+/* desktop header: the capsule arrives with its own fade and lift; its height switches at once instead of animating
+   while the page starts to scroll */
+@media (min-width: 1081px) { .hd-in { transition: none; } }

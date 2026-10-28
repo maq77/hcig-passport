@@ -6,6 +6,7 @@ import { Shell } from "@/components/site/Shell";
 import { PageHero } from "@/components/site/PageHero";
 import { BrandBody, BrandPlate } from "@/components/site/BrandPage";
 import { brandBySlug, brandPath, groupOf } from "@/lib/brands";
+import { postCards } from "@/lib/posts";
 import { ClosingBand } from "@/components/home/Lower";
 import { Icon } from "@/components/ui/Icon";
 
@@ -52,7 +53,7 @@ export default async function BrandRoute({ params }: { params: Promise<{ slug: s
             <a className="btn2" href={href("/partner/")}>{CTA.primary}</a>
           </>}
         />
-        <BrandBody b={b} />
+        <BrandBody b={b} post={b.post ? postCards().find((p) => p.n === b.post) : undefined} />
         <ClosingBand />
       </main>
     </Shell>

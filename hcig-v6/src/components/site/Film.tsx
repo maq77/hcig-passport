@@ -16,17 +16,27 @@ export const openFilm = () => window.dispatchEvent(new Event(OPEN));
 export function FilmDialog() {
   const dlg = useRef<HTMLDialogElement>(null);
   const [src, setSrc] = useState<string | null>(null);
+  const reduce = useReducedMotion();
   useEffect(() => {
     const open = () => {
       setSrc(asset(innerWidth < 900 ? "promo-film-720" : "promo-film"));
-      dlg.current?.showModal();
+      const d = dlg.current;
+      if (!d) return;
+      d.showModal();
+      requestAnimationFrame(() => requestAnimationFrame(() => d.classList.add("in")));
     };
     addEventListener(OPEN, open);
     return () => removeEventListener(OPEN, open);
   }, []);
-  const close = () => { dlg.current?.close(); setSrc(null); };
+  // fade out, then close (Esc and the backdrop take the same way out)
+  const close = () => {
+    const d = dlg.current;
+    if (!d || !d.open) return;
+    d.classList.remove("in");
+    window.setTimeout(() => { d.close(); setSrc(null); }, reduce ? 0 : 420);
+  };
   return (
-    <dialog ref={dlg} className="lightbox film-dlg" aria-label={FILM.title.text} onClose={() => setSrc(null)} onClick={(e) => { if (e.target === dlg.current) close(); }}>
+    <dialog ref={dlg} className="lightbox film-dlg" aria-label={FILM.title.text} onCancel={(e) => { e.preventDefault(); close(); }} onClose={() => setSrc(null)} onClick={(e) => { if (e.target === dlg.current) close(); }}>
       <button type="button" className="dlg-close" onClick={close} aria-label={UI.close.text}><Icon name="close" size={22} /></button>
       {src ? <video src={src} poster={asset("film-cover")} controls autoPlay playsInline /> : null}
     </dialog>
@@ -34,17 +44,27 @@ export function FilmDialog() {
 }
 
 /** The silent preview: plays only while on screen (and never under reduced motion, which shows the cover). */
-function FilmLoop() {
+function FilmLoop({ clip = "promo-loop", late = false }: { clip?: string; late?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   const reduce = useReducedMotion();
   useEffect(() => {
     const v = ref.current;
     if (!v || reduce) return;
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }, { threshold: 0.25 });
+    const on = () => v.classList.add("on");
+    v.addEventListener("playing", on);
+    let seen = false, ready = !late, t = 0;
+    const go = () => { if (seen && ready) v.play().catch(() => {}); };
+    // late: wait until the page has painted and settled, so the clip never competes with the first screen
+    if (late) {
+      const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number };
+      const start = () => { ready = true; go(); };
+      t = w.requestIdleCallback ? w.requestIdleCallback(start, { timeout: 3500 }) : window.setTimeout(start, 2500);
+    }
+    const io = new IntersectionObserver(([e]) => { seen = e.isIntersecting; if (seen) go(); else v.pause(); }, { threshold: 0.25 });
     io.observe(v);
-    return () => io.disconnect();
+    return () => { io.disconnect(); v.removeEventListener("playing", on); if (late && !(window as Window & { requestIdleCallback?: unknown }).requestIdleCallback) clearTimeout(t); };
   }, [reduce]);
-  return <video ref={ref} className="film-loop" src={asset("promo-loop")} poster={asset("film-cover")} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} />;
+  return <video ref={ref} className="film-loop" src={asset(clip)} poster={asset("film-cover")} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} />;
 }
 
 /** Hero: a living thumbnail floating over the globe on desktop, a compact chip on the globe on phones. */
@@ -52,7 +72,7 @@ export function HeroFilm() {
   return (
     <>
       <button type="button" className="hf-thumb" onClick={openFilm} aria-label={`${FILM.watch.text}, ${FILM.dur}`}>
-        <span className="hf-tv"><FilmLoop /><span className="hf-play" aria-hidden="true"><Icon name="play" size={18} /></span></span>
+        <span className="hf-tv" style={{ backgroundImage: `url(${asset("film-cover")})` }}><FilmLoop clip="promo-thumb" late /><span className="hf-play" aria-hidden="true"><Icon name="play" size={18} /></span></span>
         <span className="hf-txt">{FILM.watch.text}<small>{FILM.dur}</small></span>
       </button>
       <button type="button" className="hf-chip" onClick={openFilm} aria-label={`${FILM.watch.text}, ${FILM.dur}`}>
@@ -85,7 +105,7 @@ export function FilmBand({ schema = true }: { schema?: boolean }) {
     <section className="sec film-band" aria-labelledby="film-h">
       {schema ? <FilmSchema /> : null}
       <div className="wrap">
-        <Reveal className="fb-card">
+        <Reveal className="fb-card" style={{ backgroundImage: `url(${asset("film-cover")})` }}>
           <FilmLoop />
           <div className="fb-in">
             <div>

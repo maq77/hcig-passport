@@ -23,6 +23,7 @@ const probe = (file) => {
 const fresh = (src, out) => existsSync(out) && statSync(out).mtimeMs >= statSync(src).mtimeMs;
 
 const manifest = {};
+const variants = {};
 const missing = [];
 for (const [key, m] of Object.entries(media)) {
   if (key.startsWith("_")) continue;
@@ -40,12 +41,24 @@ for (const [key, m] of Object.entries(media)) {
     if (!fresh(src, out)) {
       const { w } = probe(src);
       const width = Math.min(m.width || w, w || m.width);
-      execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-i", src, "-vf", `scale=${width}:-2:flags=lanczos`, "-c:v", "libwebp", "-quality", "82", "-compression_level", "6", out]);
+      const lossless = /^flows/.test(key);
+      execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-i", src, "-vf", lossless ? "null" : `scale=${width}:-2:flags=lanczos`, "-c:v", "libwebp", ...(lossless ? ["-lossless", "1"] : ["-quality", "82"]), "-compression_level", "6", out]);
+    }
+    // smaller copies for smaller screens, made from the original master at the same quality (never from the web file,
+    // which would compress twice); srcset hands each screen one at least as sharp as it can show
+    const { w: outW } = probe(out);
+    if (outW > 1700 && !/^(flows|logo|mark)/.test(key)) {
+      variants[key] = [];
+      for (const vw of [800, 1200, 1600]) {
+        const vf = join(OUT, `${key}-${vw}.webp`);
+        if (!fresh(src, vf)) execFileSync("ffmpeg", ["-loglevel", "error", "-y", "-i", src, "-vf", `scale=${vw}:-2:flags=lanczos`, "-c:v", "libwebp", "-quality", "82", "-compression_level", "6", vf]);
+        variants[key].push(vw);
+      }
     }
   }
   const out = join(OUT, file);
   const dims = ext === ".svg" || ext === ".woff2" ? { w: 0, h: 0 } : probe(out);
-  manifest[key] = { file, w: dims.w, h: dims.h, kb: Math.round(statSync(out).size / 1024), ...(m.alt ? { alt: m.alt } : {}), ...(m.video ? { video: true } : {}) };
+  manifest[key] = { file, w: dims.w, h: dims.h, kb: Math.round(statSync(out).size / 1024), ...(m.alt ? { alt: m.alt } : {}), ...(m.video ? { video: true } : {}), ...(variants[key] ? { v: variants[key] } : {}) };
 }
 writeFileSync(join(OUT, "manifest.json"), JSON.stringify(manifest, null, 2) + "\n");
 const total = Object.values(manifest).reduce((a, b) => a + b.kb, 0);

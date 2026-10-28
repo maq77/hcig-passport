@@ -31,7 +31,7 @@ function CopyBlock({ label, text }: { label: string; text: string }) {
   );
 }
 
-export function PressBody() {
+export function PressBody({ posts }: { posts: Omit<import("@/components/site/Blog").Post, "blocks">[] }) {
   return (
     <>
       <section className="sec pr-glance" aria-labelledby="pr-g">
@@ -55,7 +55,7 @@ export function PressBody() {
 
       <FilmBand />
 
-      <MoreNews title={NEWS.heading.text} cta={UI.allNews.text} />
+      <MoreNews title={NEWS.heading.text} cta={UI.allNews.text} posts={posts} />
 
       <section className="sec pr-kit" aria-labelledby="pr-k">
         <div className="wrap">
