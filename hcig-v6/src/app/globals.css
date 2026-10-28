@@ -2292,3 +2292,21 @@ html:not([lang="en"]) :is(.about-glass .about-statement .acc, .built-close .bc-a
 .ceo-copy figcaption .ceo-role + .ceo-role { color: var(--white); opacity: .8; }
 /* long button labels (the maritime form) wrap inside the pill instead of being cut */
 .ct-submit .btn { white-space: normal; text-align: center; justify-content: center; line-height: 1.3; padding-block: 14px; max-width: 100%; }
+
+/* Hero K2 (his pick 2026-10-28, Irina's note): the GHA and DMWV partnership first, seals large, the sentence bold */
+.hero .cred { position: relative; display: grid; gap: 14px; max-width: 640px; margin-bottom: clamp(18px, 2.2vw, 28px); padding-bottom: 18px; }
+.hero .cred::after { content: ""; position: absolute; left: 0; bottom: 0; width: 72px; height: 2px; background: var(--turq); }
+.hero .cred .plates { gap: 10px; }
+.hero .cred .plate { width: 64px; height: 64px; }
+.hero .cred .plate-w { width: 88px; }
+.hero .cred p { margin: 0; font: 500 clamp(15.5px, .9rem + .25vw, 17px)/1.5 var(--font-sans); color: var(--ink); opacity: .86; }
+.hero .cred p b { font-weight: 700; opacity: 1; }
+@container page (max-width: 760px) {
+  .hero .cred { gap: 12px; padding-bottom: 16px; }
+  .hero .cred .plate { width: 54px; height: 54px; border-radius: 12px; padding: 5px; }
+  .hero .cred .plate-w { width: 76px; }
+}
+
+/* K2 polish: air under the header on desktop; the DMWV mark carries wide margins of its own */
+@container page (min-width: 761px) { .hero .cred { margin-top: clamp(20px, 3.4vh, 40px); } }
+.hero .cred .plate:first-child img { transform: scale(1.22); }

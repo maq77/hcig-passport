@@ -37,9 +37,12 @@ async function strings() {
   return [...seen];
 }
 
+// the Gemini dictionary, then Claude's hand fixes from i18n/overrides.json on top (they always win)
 const dictOf = (lang) => {
   const f = join(V6, "i18n", `${lang}.json`);
-  return existsSync(f) ? JSON.parse(readFileSync(f, "utf8")) : {};
+  const o = join(V6, "i18n", "overrides.json");
+  const d = existsSync(f) ? JSON.parse(readFileSync(f, "utf8")) : {};
+  return { ...d, ...(existsSync(o) ? JSON.parse(readFileSync(o, "utf8"))[lang] || {} : {}) };
 };
 
 const [, , cmd, lang] = process.argv;

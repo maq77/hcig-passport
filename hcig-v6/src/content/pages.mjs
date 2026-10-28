@@ -134,7 +134,7 @@ export const CONTACT_PAGE = {
 // The six partner types: words from the live home (Who We Work With) and the live partner page; slugs from the URL contract
 export const PARTNER_TYPES = [
   { slug: "insurance-assistance-companies", icon: "shield", img: "built-insurance" },
-  { slug: "embassies-government", icon: "embassy", img: "coordination-desk" },
+  { slug: "embassies-government", icon: "embassy", img: "embassy-meeting" },
   { slug: "hotels-and-resorts", icon: "hotel", img: "built-hospitality", maritime: true },
   { slug: "tour-operators-travel-agencies", icon: "plane", img: "traveller-centre" },
   { slug: "healthcare-providers", icon: "hospital", img: "built-training" },

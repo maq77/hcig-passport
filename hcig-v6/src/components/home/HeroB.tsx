@@ -11,6 +11,10 @@ import { useTheme } from "./Theme";
 
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
+// the partners' names (the same in every language) and "Official Partner" carry the heavier weight
+const STRONG = /(Official Partner|Global Healthcare Accreditation™ \(GHA\)|German Medical Wellness Association \(DMWV\))/;
+const strong = (t: string) => t.split(STRONG).map((x, i) => (i % 2 ? <b key={i}>{x}</b> : x));
+
 export function HeroB() {
   const { night, sw } = useTheme();
   const ref = useRef<HTMLElement>(null);
@@ -42,6 +46,15 @@ export function HeroB() {
         <div className="fx" aria-hidden="true"><div className="band" /><div className="flare" /></div>
         <motion.div className="body" style={{ y: copyY }}>
           <div className="copy">
+            {/* Irina, 2026-10-28 (his pick K2): the GHA and DMWV partnership opens the hero, seals large, the live
+                sentence in bold with the partners' names heavier, a turquoise rule under it */}
+            <div className="cred f" style={d(150)}>
+              <div className="plates">
+                <span className="plate"><img src={asset("dmwv")} alt={T.alt.dmwv} width={310} height={281} /></span>
+                <span className="plate plate-w"><img src={asset("gha")} alt={T.alt.ghaLogo} width={391} height={235} /></span>
+              </div>
+              <p>{strong(HERO.partner.text)}</p>
+            </div>
             <h1 className="h1 rise" aria-label={HERO.h1.text}>
               {words.map((w, i) => (
                 <span key={i}>
@@ -59,13 +72,6 @@ export function HeroB() {
                 <a href={href("/partner/")} className="btn2">{HERO.ctaSecondary.text}</a>
               </div>
             </div>
-          </div>
-          <div className="seals seals-row f" style={d(1400)}>
-            <div className="plates">
-              <span className="plate"><img src={asset("dmwv")} alt={T.alt.dmwv} width={310} height={281} /></span>
-              <span className="plate plate-w"><img src={asset("gha")} alt={T.alt.ghaLogo} width={391} height={235} /></span>
-            </div>
-            <p>{HERO.partner.text}</p>
           </div>
         </motion.div>
       </div>

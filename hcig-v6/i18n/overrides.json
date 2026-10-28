@@ -1,0 +1,13 @@
+{
+ "_note": "Hand fixes by Claude after review. They win over the Gemini dictionaries (i18n-gen applies them last), so a re-merge never undoes them.",
+ "de": {
+  "Maritime & Cruise Healthcare Solutions": "Gesundheitslösungen für Schifffahrt und Kreuzfahrt",
+  "MARITIME & CRUISE HEALTHCARE SOLUTIONS": "GESUNDHEITSLÖSUNGEN FÜR SCHIFFFAHRT UND KREUZFAHRT",
+  "Press Room": "Presse",
+  "What they do": "Leistungsspektrum",
+  "Breadcrumb": "Navigationspfad",
+  "Turquoise": "Türkis"
+ },
+ "cs": { "Media kit": "Mediální sada" },
+ "pl": { "Turquoise": "Turkusowy" }
+}

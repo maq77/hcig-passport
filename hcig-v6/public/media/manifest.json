@@ -432,9 +432,9 @@
   },
   "about-band": {
     "file": "about-band.webp",
-    "w": 2400,
-    "h": 1340,
-    "kb": 223
+    "w": 2528,
+    "h": 1696,
+    "kb": 255
   },
   "traveller-centre": {
     "file": "traveller-centre.webp",
@@ -474,9 +474,9 @@
   },
   "built-global": {
     "file": "built-global.webp",
-    "w": 2048,
-    "h": 1144,
-    "kb": 139
+    "w": 2528,
+    "h": 1696,
+    "kb": 186
   },
   "built-insurance": {
     "file": "built-insurance.webp",
@@ -498,15 +498,15 @@
   },
   "built-operations": {
     "file": "built-operations.webp",
-    "w": 2048,
-    "h": 1144,
-    "kb": 123
+    "w": 2528,
+    "h": 1696,
+    "kb": 340
   },
   "mar-deck": {
     "file": "mar-deck.webp",
-    "w": 2400,
-    "h": 1214,
-    "kb": 178
+    "w": 2528,
+    "h": 1696,
+    "kb": 282
   },
   "mar-consult": {
     "file": "mar-consult.webp",
@@ -651,5 +651,41 @@
     "w": 1080,
     "h": 1346,
     "kb": 177
+  },
+  "mar-recruit": {
+    "file": "mar-recruit.webp",
+    "w": 2528,
+    "h": 1696,
+    "kb": 242
+  },
+  "mar-medevac": {
+    "file": "mar-medevac.webp",
+    "w": 2528,
+    "h": 1696,
+    "kb": 305
+  },
+  "fleet-ops": {
+    "file": "fleet-ops.webp",
+    "w": 2528,
+    "h": 1696,
+    "kb": 238
+  },
+  "coord-bright": {
+    "file": "coord-bright.webp",
+    "w": 2528,
+    "h": 1696,
+    "kb": 305
+  },
+  "embassy-meeting": {
+    "file": "embassy-meeting.webp",
+    "w": 2528,
+    "h": 1696,
+    "kb": 229
+  },
+  "yacht-medical": {
+    "file": "yacht-medical.webp",
+    "w": 2528,
+    "h": 1696,
+    "kb": 347
   }
 }

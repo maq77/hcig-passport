@@ -14,7 +14,8 @@ import { SectionHead } from "@/components/ui/SectionHead";
 import type { IconName } from "@/lib/icons";
 
 const M = MARITIME_PAGE;
-const CAP_IMG = ["mar-clinic", "mar-consult", "coordination-desk", "ship-to-shore", "maritime-hero", "yacht-marina"];
+// each capability shows its own work (Irina, 2026-10-28): clinic, recruiting doctors, fleet desk, port, medevac, yacht
+const CAP_IMG = ["mar-clinic", "mar-recruit", "fleet-ops", "ship-to-shore", "mar-medevac", "yacht-medical"];
 const CAP_ALT = [
   "An onboard medical clinic on a cruise ship",
   "A ship doctor with a passenger in the onboard medical centre",

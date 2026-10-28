@@ -22,7 +22,7 @@ export default function ServicesPage() {
           eyebrow={S.eyebrow}
           title={S.title}
           lead={S.lead}
-          image="coordination-desk"
+          image="coord-bright"
           imageAlt={T.alt.coordRoom}
           actions={<SheetLink className="btn">{S.cta}<Icon name="arrow" /></SheetLink>}
           note={S.note}

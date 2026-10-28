@@ -296,8 +296,8 @@
   },
   "about-band": {
     "src": "hcig-v6/material/media/upscaled/about-band.png",
-    "width": 2400,
-    "note": "Nano Banana (route A) 2026-10-26; a mood image, not a real HCIG clinic; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+    "width": 2528,
+    "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "traveller-centre": {
     "src": "hcig-v6/material/media/upscaled/traveller-centre.png",
@@ -331,8 +331,8 @@
   },
   "built-global": {
     "src": "hcig-v6/material/media/upscaled/built-global.png",
-    "width": 2048,
-    "note": "Nano Banana route A 2026-10-26 (his pick B1); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+    "width": 2528,
+    "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "built-insurance": {
     "src": "hcig-v6/material/media/upscaled/built-insurance.png",
@@ -351,13 +351,13 @@
   },
   "built-operations": {
     "src": "hcig-v6/material/media/upscaled/built-operations.png",
-    "width": 2048,
-    "note": "Nano Banana route A 2026-10-26 (his pick B1); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+    "width": 2528,
+    "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "mar-deck": {
     "src": "hcig-v6/material/media/upscaled/mar-deck.png",
-    "width": 2400,
-    "note": "his photo 2026-10-27; Gemini star cropped off; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+    "width": 2528,
+    "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "mar-consult": {
     "src": "hcig-v6/material/media/upscaled/mar-consult.png",
@@ -475,5 +475,35 @@
     "src": "247clinic-v4/public/img/new-medical-care.jpg",
     "width": 1080,
     "note": "real photo from 24/7 Clinic's own site: a 24/7 doctor caring for a guest on a resort beach"
+  },
+  "mar-recruit": {
+    "src": "hcig-v6/material/media/upscaled/mar-recruit.png",
+    "width": 2528,
+    "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); Maritime 02 Medical Recruitment & Staffing: an HR manager interviewing a doctor; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+  },
+  "mar-medevac": {
+    "src": "hcig-v6/material/media/upscaled/mar-medevac.png",
+    "width": 2528,
+    "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); Maritime 05 Evacuation: a medical helicopter at a cruise ship helipad; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+  },
+  "fleet-ops": {
+    "src": "hcig-v6/material/media/upscaled/fleet-ops.png",
+    "width": 2528,
+    "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); Maritime 03 Fleet Management: a bright fleet medical desk; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+  },
+  "coord-bright": {
+    "src": "hcig-v6/material/media/upscaled/coord-bright.png",
+    "width": 2528,
+    "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); Services hero: a bright coordination centre; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+  },
+  "embassy-meeting": {
+    "src": "hcig-v6/material/media/upscaled/embassy-meeting.png",
+    "width": 2528,
+    "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); Who We Work With, Embassies: a coordinator with two diplomats (no flags); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+  },
+  "yacht-medical": {
+    "src": "hcig-v6/material/media/upscaled/yacht-medical.png",
+    "width": 2528,
+    "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); Maritime 06 Yachting: a doctor checking a guest on a superyacht deck; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   }
 }
