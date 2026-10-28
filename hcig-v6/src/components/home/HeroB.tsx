@@ -31,8 +31,9 @@ export function HeroB() {
       <div className="in">
         <motion.div className="bg" style={{ y: stageY }}>
           <div className="stage">
-            <img className="th-d" src={asset("earth-night")} alt="" width={1376} height={768} fetchPriority="high" />
-            <img className="th-l" src={asset("earth-day")} alt="" width={2048} height={1143} />
+            <img className="th-d" src={asset("earth-night")} alt="" width={1376} height={768} fetchPriority="low" decoding="async" />
+            {/* day is the default theme, so the day Earth is the first image a visitor sees: it loads first */}
+            <img className="th-l" src={asset("earth-day")} alt="" width={2048} height={1143} fetchPriority="high" />
             <div className="flow fl-n" />
             <div className="flow fl-d" />
             <span className="hub hub-n" style={{ left: "73.8%", top: "61.2%" }} />

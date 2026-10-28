@@ -2310,3 +2310,113 @@ html:not([lang="en"]) :is(.about-glass .about-statement .acc, .built-close .bc-a
 /* K2 polish: air under the header on desktop; the DMWV mark carries wide margins of its own */
 @container page (min-width: 761px) { .hero .cred { margin-top: clamp(20px, 3.4vh, 40px); } }
 .hero .cred .plate:first-child img { transform: scale(1.22); }
+
+/* =====================================================================================
+   Hero fits the first screen (owner, 2026-10-28): on every phone and desktop the hero is exactly one screen tall,
+   the last button ends just above the bottom edge, and the first scroll goes straight into About.
+   svh is the small viewport (phone browser bars shown), so nothing hides behind the address bar.
+   ===================================================================================== */
+/* Desktop and tablets in landscape: one screen, the words centred between the header and the bottom edge */
+.hero .in { min-height: max(600px, 100svh); padding-top: 0; }
+.hero .body { justify-content: center; gap: 0; padding: calc(96px + clamp(8px, 2svh, 28px)) var(--gutter) clamp(28px, 5svh, 64px); }
+.hero .copy { gap: clamp(14px, 2.2svh, 22px); }
+.hero .h1 { font-size: clamp(38px, min(4.4vw, 7svh), 66px); }
+.hero .cred { margin-top: 0; margin-bottom: clamp(6px, 1.4svh, 16px); }
+@container page (min-width: 761px) { .hero .cred { margin-top: 0; } }
+/* short laptop screens (1366 x 768, 1280 x 720): the seals sit beside the sentence, everything a step tighter */
+@media (min-width: 901px) and (max-height: 860px) {
+  .hero .cred { grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: 16px; padding-bottom: 14px; }
+  .hero .cred .plate { width: 52px; height: 52px; } .hero .cred .plate-w { width: 72px; }
+  .hero .cred p { font-size: 14.5px; }
+  .hero .sub { font-size: 17px; } .hero .lead { font-size: 15.5px; }
+}
+
+/* Phones and portrait tablets: the globe fills whatever the words leave above them; the words sit at the bottom */
+@container page (max-width: 900px) {
+  .hero .in { min-height: 100svh; display: grid; grid-template-rows: minmax(158px, 1fr) auto; padding-top: 0; }
+  .hero .bg { position: relative; grid-row: 1; grid-column: 1; inset: auto; height: auto; min-height: 100%; }
+  .hero .stage { width: 197%; height: auto; aspect-ratio: 1376 / 768; left: -67%; top: calc(64% - 67.3cqi); min-width: 0; translate: none; }
+  .hero .body { grid-row: 2; grid-column: 1; justify-content: flex-end; padding: 0 var(--gutter) max(16px, env(safe-area-inset-bottom)); margin-top: -28px; }
+  .hero .copy { gap: clamp(10px, 1.5svh, 14px); }
+  .hero .cred { gap: 10px; padding-bottom: 12px; margin-bottom: 2px; }
+  .hero .cred .plate { width: 46px; height: 46px; border-radius: 11px; padding: 4px; } .hero .cred .plate-w { width: 66px; }
+  .hero .cred p { font-size: 13.5px; line-height: 1.45; }
+  .hero .h1 { font-size: clamp(27px, min(8.7cqi, 4.4svh), 38px); line-height: 1.1; }
+  .hero .sub { font-size: clamp(15px, 2svh, 17px); line-height: 1.4; }
+  .hero .lead { font-size: clamp(14px, 1.9svh, 16px); line-height: 1.55; }
+  .hero .ctas { gap: 10px; }
+  .hero .ctas .btn, .hero .ctas .btn2 { min-height: clamp(46px, 6svh, 52px); }
+}
+/* portrait tablets: more room, so the words breathe and the globe stays large */
+@container page (min-width: 600px) and (max-width: 900px) {
+  .hero .body { padding-bottom: max(40px, 4svh); }
+  .hero .copy { max-width: 620px; gap: 18px; }
+  .hero .h1 { font-size: clamp(40px, 6.4cqi, 54px); }
+  .hero .cred p { font-size: 15px; }
+  .hero .ctas { display: flex; } .hero .ctas > * { width: auto; }
+}
+
+/* the melt under the hero counts inside the one screen, by day (a hairline) and by night (a longer fade) */
+.hero { --melt: clamp(8px, 1.5vw, 24px); }
+.hero.theme-night { --melt: clamp(72px, 9vw, 150px); }
+.hero .hero-melt, .hero.theme-day .hero-melt { height: var(--melt); margin-bottom: 0; }
+.hero .in { min-height: max(600px, calc(100svh - var(--melt))); }
+@container page (max-width: 900px) {
+  .hero.theme-night { --melt: 40px; }
+  .hero .in { min-height: calc(100svh - var(--melt)); }
+}
+/* short phones (iPhone SE, 667 tall): one more step tighter so both buttons stay on the first screen */
+@media (max-width: 900px) and (max-height: 720px) {
+  .hero .in { grid-template-rows: minmax(132px, 1fr) auto; }
+  .hero .copy { gap: 8px; }
+  .hero .cred { gap: 8px; padding-bottom: 10px; }
+  .hero .cred .plate { width: 40px; height: 40px; border-radius: 10px; } .hero .cred .plate-w { width: 58px; }
+  .hero .cred p { font-size: 12.5px; line-height: 1.42; }
+  .hero .h1 { font-size: 26px; }
+  .hero .sub { font-size: 14.5px; }
+  .hero .lead { font-size: 13.5px; line-height: 1.5; }
+  .hero .ctas { gap: 8px; }
+  .hero .ctas .btn, .hero .ctas .btn2 { min-height: 44px; }
+}
+/* large screens (1920 and up): the hero grows with the screen instead of floating small in it */
+@media (min-width: 1800px) {
+  .hero .copy { max-width: 880px; }
+  .hero .h1 { font-size: clamp(66px, min(3.9vw, 7svh), 96px); }
+  .hero .cred { max-width: 760px; }
+  .hero .cred p { font-size: 18px; }
+  .hero .cred .plate { width: 74px; height: 74px; } .hero .cred .plate-w { width: 102px; }
+  .hero .sub { font-size: 22px; max-width: 34ch; } .hero .lead { font-size: 18.5px; max-width: 58ch; }
+  .hero .ctas .btn, .hero .ctas .btn2 { min-height: 62px; padding-inline: 34px; font-size: 16px; }
+}
+/* the Built closing line keeps its one line per phrase on the smallest phones (it pushed 360 px screens sideways) */
+@container page (max-width: 400px) {
+  .built-close { font-size: min(24px, 6.2cqi); }
+  .built-close .bc-b { font-size: min(27px, 6.9cqi); }
+}
+
+/* fit pass 3: the headline follows the screen height a step sooner, and the compact seals reach 920 px tall screens */
+@media (min-width: 901px) { .hero .h1 { font-size: clamp(38px, min(4.4vw, 6.3svh), 66px); } }
+@media (min-width: 901px) and (max-height: 920px) {
+  .hero .cred { grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: 16px; padding-bottom: 14px; }
+  .hero .cred .plate { width: 52px; height: 52px; } .hero .cred .plate-w { width: 72px; }
+  .hero .cred p { font-size: 14.5px; }
+}
+@media (min-width: 1800px) { .hero .copy { max-width: 1060px; } .hero .h1 { font-size: clamp(66px, min(3.6vw, 6.6svh), 92px); } }
+/* portrait tablets: the two hero buttons side by side */
+@container page (min-width: 600px) and (max-width: 900px) { .hero .ctas .btn, .hero .ctas .btn2 { width: auto; flex: 0 0 auto; } }
+/* the night fade scales with the screen height, so short screens keep both buttons on the first screen */
+.hero.theme-night { --melt: clamp(48px, min(9vw, 11svh), 150px); }
+@container page (max-width: 900px) { .hero.theme-night { --melt: clamp(20px, 3svh, 40px); } }
+/* the longer languages (German, Polish, French...) on phones: the globe band may shrink further and the words a step
+   smaller, so the buttons still end on the first screen */
+@container page (max-width: 900px) {
+  .hero .in { grid-template-rows: minmax(116px, 1fr) auto; }
+  html:not([lang="en"]) .hero .h1 { font-size: clamp(24px, min(7.4cqi, 3.75svh), 34px); line-height: 1.12; }
+  html:not([lang="en"]) .hero .sub { font-size: clamp(14.5px, 1.85svh, 16px); }
+  html:not([lang="en"]) .hero .lead { font-size: clamp(13.5px, 1.72svh, 15px); line-height: 1.5; }
+  html:not([lang="en"]) .hero .cred p { font-size: 12.8px; }
+}
+@media (max-width: 900px) and (max-height: 720px) { html:not([lang="en"]) .hero .h1 { font-size: 23px; } html:not([lang="en"]) .hero .copy { gap: 6px; } }
+/* languages the browser cannot hyphenate (Polish on most systems): a word longer than its box may break */
+html:not([lang="en"]) :is(h1, h2, h3, h4, b, strong) { overflow-wrap: anywhere; }
+@container page (min-width: 600px) and (max-width: 900px) { .hero .ctas { flex-direction: row; flex-wrap: wrap; } }
