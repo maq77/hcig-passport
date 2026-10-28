@@ -2,7 +2,7 @@
 // Hero B ("Night Network"), approved by the owner. The day/night switch changes ONLY the hero (his answer 2026-10-26);
 // every section below is always day, and the hero's foot melts into the day page in both modes.
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useRef, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { HERO, T } from "@/content/home.mjs";
 import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
@@ -21,8 +21,18 @@ export function HeroB() {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const stageY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 140]);
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -50]);
+  // phones keep the hero still while scrolling: the drift of the globe and the words felt unsteady on a small screen
+  const [phone, setPhone] = useState(false);
+  useEffect(() => {
+    const mq = matchMedia("(max-width: 900px)");
+    const on = () => setPhone(mq.matches);
+    on();
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+  const still = reduce || phone;
+  const stageY = useTransform(scrollYProgress, [0, 1], [0, still ? 0 : 140]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, still ? 0 : -50]);
 
   const words = HERO.h1.text.split(" ");
   const vars = { "--flows-n": `url('${asset("flows-night")}')`, "--flows-d": `url('${asset("flows-day")}')` } as CSSProperties;
@@ -50,7 +60,7 @@ export function HeroB() {
           <div className="copy">
             {/* Irina, 2026-10-28 (his pick K2): the GHA and DMWV partnership opens the hero, seals large, the live
                 sentence in bold with the partners' names heavier, a turquoise rule under it */}
-            <div className="cred f" style={d(150)}>
+            <div className="cred f" style={d(0)}>
               <div className="plates">
                 <span className="plate"><img src={asset("dmwv")} alt={T.alt.dmwv} width={310} height={281} /></span>
                 <span className="plate plate-w"><img src={asset("gha")} alt={T.alt.ghaLogo} width={391} height={235} /></span>
@@ -66,9 +76,9 @@ export function HeroB() {
                 </span>
               ))}
             </h1>
-            <p className="sub f" style={d(850)}>{HERO.sub.text}</p>
-            <p className="lead f" style={d(1000)}>{HERO.lead.text}</p>
-            <div className="f" style={d(1150)}>
+            <p className="sub f" style={d(420)}>{HERO.sub.text}</p>
+            <p className="lead f" style={d(500)}>{HERO.lead.text}</p>
+            <div className="f" style={d(580)}>
               <div className="ctas">
                 <SheetLink className="btn">{HERO.ctaPrimary.text}<Icon name="arrow" /></SheetLink>
                 <a href={href("/partner/")} className="btn2">{HERO.ctaSecondary.text}</a>
