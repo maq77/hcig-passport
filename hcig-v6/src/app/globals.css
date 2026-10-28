@@ -2420,3 +2420,10 @@ html:not([lang="en"]) :is(.about-glass .about-statement .acc, .built-close .bc-a
 /* languages the browser cannot hyphenate (Polish on most systems): a word longer than its box may break */
 html:not([lang="en"]) :is(h1, h2, h3, h4, b, strong) { overflow-wrap: anywhere; }
 @container page (min-width: 600px) and (max-width: 900px) { .hero .ctas { flex-direction: row; flex-wrap: wrap; } }
+/* the longer languages on desktop: a wider column and a slightly smaller headline keep it to four lines, so the
+   night fade still fits inside the first screen */
+@media (min-width: 901px) {
+  html:not([lang="en"]) .hero .copy { max-width: 780px; }
+  html:not([lang="en"]) .hero .h1 { font-size: clamp(34px, min(3.8vw, 5.5svh), 60px); }
+}
+@media (min-width: 1800px) { html:not([lang="en"]) .hero .copy { max-width: 1120px; } html:not([lang="en"]) .hero .h1 { font-size: clamp(60px, min(3.3vw, 6svh), 86px); } }
