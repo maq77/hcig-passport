@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Images now and new</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+@font-face { font-family: 'Helma'; src: url('/_blob/c002ba327633cc3513ea200bac9e6b8d') format('woff2'); font-weight: 400; font-display: swap; }
+body { margin: 0; }
+.ph { --black:#000; --b80:#333; --dim:#565759; --d60:#9A9A9C; --d40:#BBBCBE; --d20:#DDDDDF; --d06:#F6F6F6;
+  --t:#12C0C6; --t60:#71D9DD; --t40:#A0E6E8; --t20:#D0F2F4; --t08:#EDFAFA; --w:#FFF; --ease: cubic-bezier(.16,1,.3,1);
+  position: relative; font: 400 16px/1.6 'Inter', system-ui, sans-serif; color: var(--black); background: var(--w); -webkit-font-smoothing: antialiased; box-sizing: border-box; overflow: hidden; }
+.ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
+.ph img { display: block; max-width: 100%; }
+.ph p { margin: 0; }
+.tag { position: absolute; top: 10px; right: 10px; z-index: 30; padding: 5px 10px; border-radius: 999px; background: var(--black); color: var(--w); font: 600 11px/1 'Inter', sans-serif; letter-spacing: .08em; }
+.sec { position: relative; padding: 44px 20px 40px; }
+.soft { background: var(--d06); }
+.hd2 { margin: 0 0 24px; text-align: center; }
+.hd2 h2 { margin: 0; font: 400 32px/1.1 'Helma', Georgia, serif; text-wrap: balance; }
+.hd2 h2::after { content: ""; display: block; width: 56px; height: 1px; margin: 16px auto 0; background: var(--black); }
+.hd2 p { margin-top: 14px; color: var(--dim); font-size: 15px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 500 11.5px/1 'Inter', sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
+.eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--t); color: var(--black); font: 600 14px/1 'Inter', sans-serif; }
+.cbtn { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--d20); background: var(--w); color: var(--black); flex: none; }
+.cbtn.l svg { transform: scaleX(-1); }
+.rv { padding: 48px 56px 56px; background: #fff; }
+.rv h2 { margin: 0 0 6px; font: 400 40px/1.1 'Helma', serif; } .rv > p { margin: 0 0 30px; color: var(--dim); max-width: 70ch; }
+.row { display: grid; grid-template-columns: 300px 1fr 1fr; gap: 22px; align-items: center; padding: 22px 0; border-top: 1px solid var(--d20); }
+.row b { display: block; font: 600 15px/1.35 'Inter', sans-serif; } .row small { display: block; margin-top: 8px; color: var(--dim); font-size: 13.5px; line-height: 1.5; }
+.row figure { margin: 0; position: relative; aspect-ratio: 3 / 2; border-radius: 16px; overflow: hidden; } .row img { width: 100%; height: 100%; object-fit: cover; }
+.row figcaption { position: absolute; left: 10px; top: 10px; padding: 5px 10px; border-radius: 999px; background: rgba(0,0,0,.65); color: #fff; font: 600 11px/1 'Inter', sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+.row .new figcaption { background: var(--t); color: #000; }
+.m .row { grid-template-columns: 1fr 1fr; gap: 10px; } .m .row > div { grid-column: 1 / -1; } .m.rv { padding: 28px 18px; } .m.rv h2 { font-size: 28px; }</style>
+</helmet>
+<div class="ph rv" style="width:1440px"><h2>New photos, each one meaning its place</h2><p>Irina's notes, 2026-10-28. Ten slots change; every other photo already fits its section and stays. Generated photos are mood images, never shown as named staff or patients; no invented logos.</p><div class="row"><div><b>01. About Us band (home) and About page</b><small>Same scene, no logo on the coat (Irina: no need any logo)</small></div><figure><img src="/_blob/cf395b7c02874cfa0145ca00586bd6e0" alt=""><figcaption>Now</figcaption></figure><figure class="new"><img src="/_blob/689e460efecb0e78d127ac7596c062aa" alt=""><figcaption>New</figcaption></figure></div><div class="row"><div><b>02. Maritime: page hero, home block and the Maritime card</b><small>One doctor and one nurse, as on a real ship (Irina)</small></div><figure><img src="/_blob/9dac040c5b388823d5984cad29160a42" alt=""><figcaption>Now</figcaption></figure><figure class="new"><img src="/_blob/6eda1bee7f6c2b6bbea5206336238799" alt=""><figcaption>New</figcaption></figure></div><div class="row"><div><b>03. Maritime 02: Medical Recruitment &amp; Staffing</b><small>An HR manager interviewing a doctor for an onboard post (Irina: recruit doctors)</small></div><figure><img src="/_blob/4693ee97ee4dfb569ad8dae71838b617" alt=""><figcaption>Now</figcaption></figure><figure class="new"><img src="/_blob/85e048b0bd78c0529b30e3d4215ab386" alt=""><figcaption>New</figcaption></figure></div><div class="row"><div><b>04. Maritime 05: Insurance, Medical Evacuation &amp; Repatriation</b><small>A medical helicopter at a cruise ship helipad, paramedics ready (Irina's example)</small></div><figure><img src="/_blob/ed66a9f4ff8b68f5d59121b7b04d09ec" alt=""><figcaption>Now</figcaption></figure><figure class="new"><img src="/_blob/3a82d384027d77b38c52f07e81c7995c" alt=""><figcaption>New</figcaption></figure></div><div class="row"><div><b>05. Maritime 03: Onboard Medical Operations &amp; Fleet Management</b><small>A bright fleet medical desk: a ship medical officer, the fleet on screen, a cruise ship in port</small></div><figure><img src="/_blob/7e461657d60736461199d767d6ead5c7" alt=""><figcaption>Now</figcaption></figure><figure class="new"><img src="/_blob/1317a4d191c4bd63ce8b3759468dfdd6" alt=""><figcaption>New</figcaption></figure></div><div class="row"><div><b>06. Services page hero</b><small>The dark room replaced by a bright coordination centre (Irina: too dark)</small></div><figure><img src="/_blob/7e461657d60736461199d767d6ead5c7" alt=""><figcaption>Now</figcaption></figure><figure class="new"><img src="/_blob/25dc80bd0266636671322f1ac19de815" alt=""><figcaption>New</figcaption></figure></div><div class="row"><div><b>07. Who We Work With: Embassies &amp; Government Institutions</b><small>A coordinator presenting a medical support plan to two diplomats</small></div><figure><img src="/_blob/7e461657d60736461199d767d6ead5c7" alt=""><figcaption>Now</figcaption></figure><figure class="new"><img src="/_blob/013a8213bf2478b97d81deddcd5560d3" alt=""><figcaption>New</figcaption></figure></div><div class="row"><div><b>08. Maritime 06: Yachting, Superyachts &amp; Marina Healthcare</b><small>A doctor with a medical bag boarding a superyacht at the marina</small></div><figure><img src="/_blob/d7e6dad9f1680c5d7e28b3ef36856674" alt=""><figcaption>Now</figcaption></figure><figure class="new"><img src="/_blob/95fe6ecd4d32f2c533f2b889cd5081de" alt=""><figcaption>New</figcaption></figure></div><div class="row"><div><b>09. Built: Operational Control &amp; Scalability</b><small>The same idea in daylight, to match the set</small></div><figure><img src="/_blob/f96e971b4f20776a7d07021105e33d30" alt=""><figcaption>Now</figcaption></figure><figure class="new"><img src="/_blob/8035a5170199159fce59ed56a0419ba7" alt=""><figcaption>New</figcaption></figure></div><div class="row"><div><b>10. Built: Global Presence &amp; Network, and the For Partners hero</b><small>Partners around a light world map, in daylight, to match the set</small></div><figure><img src="/_blob/a6a3060922ebef4c5e471a9a3afd8422" alt=""><figcaption>Now</figcaption></figure><figure class="new"><img src="/_blob/1a2462813d103a3f8a822fbc2552c138" alt=""><figcaption>New</figcaption></figure></div></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":4000}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

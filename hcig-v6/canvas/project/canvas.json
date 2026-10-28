@@ -1,568 +1,612 @@
 {
   "v": 3,
-  "createdOnFiles": {
-    "v": 1,
-    "at": "2026-10-26T14:36:44.005Z"
-  },
-  "title": "HCIG v6",
-  "launch": {
-    "view": "canvas",
-    "page": "home"
-  },
-  "pages": [
-    {
-      "id": "home",
-      "name": "Home"
-    },
-    {
-      "id": "r8",
-      "name": "Round 8: final silk and blog card (pick)"
-    },
-    {
-      "id": "r5",
-      "name": "Round 5: modals and phone (pick)"
-    },
-    {
-      "id": "r4",
-      "name": "Phone round 4 (pick)"
-    },
-    {
-      "id": "hd",
-      "name": "Header (pick)"
-    },
-    {
-      "id": "r3",
-      "name": "Phone round 3 (pick)"
-    },
-    {
-      "id": "parts",
-      "name": "Source boards"
-    }
-  ],
+  "attachments": {},
   "boards": {
+    "HDD1.dc.html": {
+      "h": 560,
+      "is_interactive": true,
+      "page": "hd",
+      "title": "Header D1 desktop: floating glass capsule: clear over the hero, a centred glass pill once you scroll",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "HDD2.dc.html": {
+      "h": 560,
+      "is_interactive": true,
+      "page": "hd",
+      "title": "Header D2 desktop: full-width glass bar: tall and clear at the top, then a slim frosted bar with a hairline",
+      "w": 1440,
+      "x": 0,
+      "y": 620
+    },
+    "HDD3.dc.html": {
+      "h": 560,
+      "is_interactive": true,
+      "page": "hd",
+      "title": "Header D3 desktop: three islands: logo chip, centred glass nav pill, call to action; on scroll the islands tighten",
+      "w": 1440,
+      "x": 0,
+      "y": 1240
+    },
+    "HDM1.dc.html": {
+      "h": 812,
+      "is_interactive": true,
+      "page": "hd",
+      "title": "Phone menu M1: full-screen white menu: big Helma links rise one by one, numbered; Talk to our team pinned at the bottom",
+      "w": 828,
+      "x": 1520,
+      "y": 0
+    },
+    "HDM2.dc.html": {
+      "h": 812,
+      "is_interactive": true,
+      "page": "hd",
+      "title": "Phone menu M2: bottom sheet in thumb reach: the page dims and blurs, a sheet slides up with a 2 x 4 grid of links, langu",
+      "w": 828,
+      "x": 2400,
+      "y": 0
+    },
+    "HDM3.dc.html": {
+      "h": 812,
+      "is_interactive": true,
+      "page": "hd",
+      "title": "Phone menu M3: Dim Gray glass panel from the right: white Helma links, quick contact row (WhatsApp, call, email), the pa",
+      "w": 828,
+      "x": 3280,
+      "y": 0
+    },
+    "Home.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "parts",
+      "title": "Home source (edit here)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "HomePhone.dc.html": {
+      "h": 1000,
+      "is_interactive": true,
+      "page": "home",
+      "title": "Home, phone 390",
+      "w": 390,
+      "x": 1520,
+      "y": 0
+    },
     "Main.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "home",
+      "title": "Home, desktop (day; press the moon for night)",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "R3About1d.dc.html": {
+      "h": 460,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "About band, option A1 desktop: light editorial: white to turquoise wash, black Helma, the route with one gliding light (",
+      "w": 1280,
+      "x": 1320,
+      "y": 0
+    },
+    "R3About1m.dc.html": {
+      "h": 680,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "About band, option A1 phone",
+      "w": 390,
+      "x": 2640,
+      "y": 0
+    },
+    "R3About2d.dc.html": {
+      "h": 460,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "About band, option A2 desktop: image-led: the photo fills the card, the words sit on a frosted glass panel",
+      "w": 1280,
+      "x": 1320,
+      "y": 760
+    },
+    "R3About2m.dc.html": {
+      "h": 680,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "About band, option A2 phone",
+      "w": 390,
+      "x": 2640,
+      "y": 760
+    },
+    "R3About3d.dc.html": {
+      "h": 460,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "About band, option A3 desktop: deep and calm: Black to Dim Gray with a soft turquoise horizon, numbered route, framed ph",
+      "w": 1280,
+      "x": 1320,
+      "y": 1520
+    },
+    "R3About3m.dc.html": {
+      "h": 680,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "About band, option A3 phone",
+      "w": 390,
+      "x": 2640,
+      "y": 1520
+    },
+    "R3Built1.dc.html": {
+      "h": 820,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "Built, option B1: image tiles in two rows (tap opens the text); images shown are stand-ins",
+      "w": 390,
+      "x": 0,
+      "y": 840
+    },
+    "R3Built2.dc.html": {
+      "h": 820,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "Built, option B2: editorial spec sheet, the guideline's black hairlines, two per page, auto pages",
+      "w": 390,
+      "x": 430,
+      "y": 840
+    },
+    "R3Built3.dc.html": {
+      "h": 820,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "Built, option B3: square tiles, 2 x 2 per page on a turquoise wash, tap opens the text",
+      "w": 390,
+      "x": 860,
+      "y": 840
+    },
+    "R3Care1.dc.html": {
+      "h": 1180,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "Our Healthcare, option H1: bento, all seven at once, tap a tile for its page",
+      "w": 390,
+      "x": 0,
+      "y": 1700
+    },
+    "R3Care2.dc.html": {
+      "h": 980,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "Our Healthcare, option H2: image accordion, all seven titles at once, one opens with its text",
+      "w": 390,
+      "x": 430,
+      "y": 1700
+    },
+    "R3Care3.dc.html": {
+      "h": 820,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "Our Healthcare, option H3: one featured service rotates on its own (story bars); seven thumbnails jump to any",
+      "w": 390,
+      "x": 860,
+      "y": 1700
+    },
+    "R3Upgrades.dc.html": {
+      "h": 1700,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "Other phone upgrades: Mission & Vision tabs, journey line, maritime chips, impact tiles",
+      "w": 390,
+      "x": 3080,
+      "y": 0
+    },
+    "R3Why1.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "Why, option W1: two-row deck with a peek (auto slides one column)",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "R3Why2.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "Why, option W2: Dim Gray band, two rows gliding opposite ways; tap a card to read it",
+      "w": 390,
+      "x": 430,
+      "y": 0
+    },
+    "R3Why3.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "page": "r3",
+      "title": "Why, option W3: numbered index cards, story progress bar, tap opens the text below",
+      "w": 390,
+      "x": 860,
+      "y": 0
+    },
+    "R4Built.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "page": "r4",
+      "title": "Built, minimal: the same two rows that slide on their own, icon tiles instead of photos (light turquoise and dark)",
+      "w": 390,
+      "x": 1700,
+      "y": 840
+    },
+    "R4Tst1.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "page": "r4",
+      "title": "Testimonials T1 (your spec): portrait stories, arrows on the videos, Swipe for more; third video cropped to portrait; ta",
+      "w": 796,
+      "x": 0,
+      "y": 0
+    },
+    "R4Tst2.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "page": "r4",
+      "title": "Testimonials T2: the centre story large, the others smaller and dimmed behind it, arrows on the videos, Swipe for more;",
+      "w": 796,
+      "x": 860,
+      "y": 0
+    },
+    "R4Who1.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "page": "r4",
+      "title": "Who W1: choose your path; six rows like a menu, tap one to see its line and go to its page (no sliding)",
+      "w": 390,
+      "x": 0,
+      "y": 2000
+    },
+    "R4Who2.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "page": "r4",
+      "title": "Who W2: a stacked deck; swipe the top card away to reveal the next (the motion is shown looping)",
+      "w": 390,
+      "x": 430,
+      "y": 2000
+    },
+    "R4Who3.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "page": "r4",
+      "title": "Who W3: a row of partner chips like tabs; tapping one swaps the dark panel under it",
+      "w": 390,
+      "x": 860,
+      "y": 2000
+    },
+    "R4Why1.dc.html": {
+      "h": 800,
+      "is_interactive": true,
+      "page": "r4",
+      "title": "Why Y1: a numbered index on the guideline's hairlines; all seven titles at a glance, tap one to read it",
+      "w": 390,
+      "x": 0,
+      "y": 840
+    },
+    "R4Why2.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "r4",
+      "title": "Why Y2: bento; the first reason as a dark lead card with its text, the six others in a clean 2 x 3 grid, tap any for its",
+      "w": 390,
+      "x": 430,
+      "y": 840
+    },
+    "R4Why3.dc.html": {
+      "h": 1100,
+      "is_interactive": true,
+      "page": "r4",
+      "title": "Why Y3: a vertical spine with icons, title and a two-line reason each; reads straight down, nothing hidden behind taps",
+      "w": 390,
+      "x": 860,
+      "y": 840
+    },
+    "R5BuiltBento.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "Built on phones, option A, bento: a wide dark tile first and last, four light tiles between; the closing line on two lin",
+      "w": 390,
+      "x": 2000,
+      "y": 0
+    },
+    "R5BuiltGrid.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "Built on phones, option B, 2 x 3: six equal tiles in a light and dark checker; the closing line on two lines, left align",
+      "w": 390,
+      "x": 2430,
+      "y": 0
+    },
+    "R5MarCollage.dc.html": {
+      "h": 1500,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "Maritime on phones, option B, collage: three of your photos as a collage first, then the eyebrow, title and paragraphs,",
+      "w": 390,
+      "x": 3330,
+      "y": 0
+    },
+    "R5MarCover.dc.html": {
+      "h": 1500,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "Maritime on phones, option A, cover story: your deck photo full bleed with the title on it, the two paragraphs, the serv",
+      "w": 390,
+      "x": 2900,
+      "y": 0
+    },
+    "R5ModalBuilt.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "Modal, Built (desktop): image-led; the photo carries the title, the text sits under it; step through all six (the Built",
+      "w": 1440,
+      "x": 0,
+      "y": 940
+    },
+    "R5ModalBuiltP.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "Modal, Built (phone): a tall sheet with the photo on top; swipe sideways for the next one",
+      "w": 390,
+      "x": 1500,
+      "y": 940
+    },
+    "R5ModalCare.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "Modal, Our Healthcare (desktop): side by side, the photo full height; the text, a Read more to the service page, and the",
+      "w": 1440,
+      "x": 0,
+      "y": 1880
+    },
+    "R5ModalCareP.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "Modal, Our Healthcare (phone): a sheet with the photo on top, the text and Read more",
+      "w": 390,
+      "x": 1500,
+      "y": 1880
+    },
+    "R5ModalWhy.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "Modal, Why (desktop): a split card; the Dim Gray panel carries the number and a large hairline icon now, and becomes the",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "R5ModalWhyP.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "Modal, Why (phone): a bottom sheet that slides up; drag it down or tap the X to close",
+      "w": 390,
+      "x": 1500,
+      "y": 0
+    },
+    "R5RingClock.dc.html": {
+      "h": 760,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "How Our System Works on phones, option A, the clock: the twelve services as icons around the traveller; one lights up at",
+      "w": 390,
+      "x": 2000,
+      "y": 940
+    },
+    "R5RingLegend.dc.html": {
+      "h": 900,
+      "is_interactive": true,
+      "page": "r5",
+      "title": "How Our System Works on phones, option B, clock and key: the same ring with numbered icons, and a two-column key of all",
+      "w": 390,
+      "x": 2430,
+      "y": 940
+    },
+    "R8Card1.dc.html": {
+      "h": 780,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Blog card C1 desktop: portrait editorial: an open 4:5 photo with rounded corners (the newest posts are portrait, nothing",
+      "w": 1440,
+      "x": 0,
+      "y": 1500
+    },
+    "R8Card1m.dc.html": {
+      "h": 820,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Blog card C1 phone (slides on its own)",
+      "w": 390,
+      "x": 1500,
+      "y": 1500
+    },
+    "R8Card2.dc.html": {
+      "h": 780,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Blog card C2 desktop: story cover: the 4:5 photo fills the card, the title sits on a soft dark fade at the bottom, the p",
+      "w": 1440,
+      "x": 0,
+      "y": 2420
+    },
+    "R8Card2m.dc.html": {
+      "h": 820,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Blog card C2 phone (slides on its own)",
+      "w": 390,
+      "x": 1500,
+      "y": 2420
+    },
+    "R8Card3.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Blog card C3 desktop: news desk: the newest post as a tall 4:5 cover on the left, the next two as rows with a small port",
+      "w": 1440,
+      "x": 0,
+      "y": 3340
+    },
+    "R8Card3m.dc.html": {
+      "h": 820,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Blog card C3 phone",
+      "w": 390,
+      "x": 1500,
+      "y": 3340
+    },
+    "R8Silk1.dc.html": {
+      "h": 300,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Silk S1 desktop: hairline silk: seven fine lines crossing slowly, the Mission & Vision lines grown up; the calmest",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "R8Silk1m.dc.html": {
+      "h": 400,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Silk S1 phone",
+      "w": 390,
+      "x": 1500,
+      "y": 0
+    },
+    "R8Silk2.dc.html": {
+      "h": 300,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Silk S2 desktop: satin ribbon: one folded band of turquoise fabric over a soft grey fold, a white sheen gliding along it",
+      "w": 1440,
+      "x": 0,
+      "y": 360
+    },
+    "R8Silk2m.dc.html": {
+      "h": 400,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Silk S2 phone",
+      "w": 390,
+      "x": 1500,
+      "y": 460
+    },
+    "R8Silk3.dc.html": {
+      "h": 300,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Silk S3 desktop: silk and threads: a pale satin band with five hairlines riding its edges, the centre one turquoise",
+      "w": 1440,
+      "x": 0,
+      "y": 720
+    },
+    "R8Silk3m.dc.html": {
+      "h": 400,
+      "is_interactive": true,
+      "page": "r8",
+      "title": "Silk S3 phone",
+      "w": 390,
+      "x": 1500,
+      "y": 920
+    },
+    "R9Cred1.dc.html": {
       "x": 0,
       "y": 0,
       "w": 1440,
-      "h": 900,
-      "title": "Home, desktop (day; press the moon for night)",
-      "page": "home",
+      "h": 860,
+      "title": "Hero K1 desktop: glass credential capsule: the two seals and the full sentence in bold, opening the hero above the title",
+      "page": "r9",
       "is_interactive": true
     },
-    "HomePhone.dc.html": {
+    "R9Cred1m.dc.html": {
       "x": 1520,
       "y": 0,
       "w": 390,
       "h": 1000,
-      "title": "Home, phone 390",
-      "page": "home",
+      "title": "Hero K1 phone",
+      "page": "r9",
       "is_interactive": true
     },
-    "Home.dc.html": {
+    "R9Cred2.dc.html": {
       "x": 0,
-      "y": 0,
+      "y": 940,
       "w": 1440,
-      "h": 900,
-      "title": "Home source (edit here)",
-      "page": "parts",
+      "h": 860,
+      "title": "Hero K2 desktop: seals first, large, then the sentence with its key words in heavy bold and a turquoise rule; the title follows",
+      "page": "r9",
       "is_interactive": true
     },
-    "R3Why1.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 390,
-      "h": 760,
-      "title": "Why, option W1: two-row deck with a peek (auto slides one column)",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3Why2.dc.html": {
-      "x": 430,
-      "y": 0,
-      "w": 390,
-      "h": 760,
-      "title": "Why, option W2: Dim Gray band, two rows gliding opposite ways; tap a card to read it",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3Why3.dc.html": {
-      "x": 860,
-      "y": 0,
-      "w": 390,
-      "h": 760,
-      "title": "Why, option W3: numbered index cards, story progress bar, tap opens the text below",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3Built1.dc.html": {
-      "x": 0,
-      "y": 840,
-      "w": 390,
-      "h": 820,
-      "title": "Built, option B1: image tiles in two rows (tap opens the text); images shown are stand-ins",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3Built2.dc.html": {
-      "x": 430,
-      "y": 840,
-      "w": 390,
-      "h": 820,
-      "title": "Built, option B2: editorial spec sheet, the guideline's black hairlines, two per page, auto pages",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3Built3.dc.html": {
-      "x": 860,
-      "y": 840,
-      "w": 390,
-      "h": 820,
-      "title": "Built, option B3: square tiles, 2 x 2 per page on a turquoise wash, tap opens the text",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3Care1.dc.html": {
-      "x": 0,
-      "y": 1700,
-      "w": 390,
-      "h": 1180,
-      "title": "Our Healthcare, option H1: bento, all seven at once, tap a tile for its page",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3Care2.dc.html": {
-      "x": 430,
-      "y": 1700,
-      "w": 390,
-      "h": 980,
-      "title": "Our Healthcare, option H2: image accordion, all seven titles at once, one opens with its text",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3Care3.dc.html": {
-      "x": 860,
-      "y": 1700,
-      "w": 390,
-      "h": 820,
-      "title": "Our Healthcare, option H3: one featured service rotates on its own (story bars); seven thumbnails jump to any",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3About1d.dc.html": {
-      "x": 1320,
-      "y": 0,
-      "w": 1280,
-      "h": 460,
-      "title": "About band, option A1 desktop: light editorial: white to turquoise wash, black Helma, the route with one gliding light (no pulsing)",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3About1m.dc.html": {
-      "x": 2640,
-      "y": 0,
-      "w": 390,
-      "h": 680,
-      "title": "About band, option A1 phone",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3About2d.dc.html": {
-      "x": 1320,
-      "y": 760,
-      "w": 1280,
-      "h": 460,
-      "title": "About band, option A2 desktop: image-led: the photo fills the card, the words sit on a frosted glass panel",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3About2m.dc.html": {
-      "x": 2640,
-      "y": 760,
-      "w": 390,
-      "h": 680,
-      "title": "About band, option A2 phone",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3About3d.dc.html": {
-      "x": 1320,
-      "y": 1520,
-      "w": 1280,
-      "h": 460,
-      "title": "About band, option A3 desktop: deep and calm: Black to Dim Gray with a soft turquoise horizon, numbered route, framed photo",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3About3m.dc.html": {
-      "x": 2640,
-      "y": 1520,
-      "w": 390,
-      "h": 680,
-      "title": "About band, option A3 phone",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "R3Upgrades.dc.html": {
-      "x": 3080,
-      "y": 0,
-      "w": 390,
-      "h": 1700,
-      "title": "Other phone upgrades: Mission & Vision tabs, journey line, maritime chips, impact tiles",
-      "page": "r3",
-      "is_interactive": true
-    },
-    "HDD1.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 1440,
-      "h": 560,
-      "title": "Header D1 desktop: floating glass capsule: clear over the hero, a centred glass pill once you scroll",
-      "page": "hd",
-      "is_interactive": true
-    },
-    "HDD2.dc.html": {
-      "x": 0,
-      "y": 620,
-      "w": 1440,
-      "h": 560,
-      "title": "Header D2 desktop: full-width glass bar: tall and clear at the top, then a slim frosted bar with a hairline",
-      "page": "hd",
-      "is_interactive": true
-    },
-    "HDD3.dc.html": {
-      "x": 0,
-      "y": 1240,
-      "w": 1440,
-      "h": 560,
-      "title": "Header D3 desktop: three islands: logo chip, centred glass nav pill, call to action; on scroll the islands tighten",
-      "page": "hd",
-      "is_interactive": true
-    },
-    "HDM1.dc.html": {
+    "R9Cred2m.dc.html": {
       "x": 1520,
-      "y": 0,
-      "w": 828,
-      "h": 812,
-      "title": "Phone menu M1: full-screen white menu: big Helma links rise one by one, numbered; Talk to our team pinned at the bottom",
-      "page": "hd",
-      "is_interactive": true
-    },
-    "HDM2.dc.html": {
-      "x": 2400,
-      "y": 0,
-      "w": 828,
-      "h": 812,
-      "title": "Phone menu M2: bottom sheet in thumb reach: the page dims and blurs, a sheet slides up with a 2 x 4 grid of links, languages and the call",
-      "page": "hd",
-      "is_interactive": true
-    },
-    "HDM3.dc.html": {
-      "x": 3280,
-      "y": 0,
-      "w": 828,
-      "h": 812,
-      "title": "Phone menu M3: Dim Gray glass panel from the right: white Helma links, quick contact row (WhatsApp, call, email), the page slides a little left behind it",
-      "page": "hd",
-      "is_interactive": true
-    },
-    "R4Tst1.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 796,
-      "h": 760,
-      "title": "Testimonials T1 (your spec): portrait stories, arrows on the videos, Swipe for more; third video cropped to portrait; tap opens it full screen in its original shape",
-      "page": "r4",
-      "is_interactive": true
-    },
-    "R4Tst2.dc.html": {
-      "x": 860,
-      "y": 0,
-      "w": 796,
-      "h": 760,
-      "title": "Testimonials T2: the centre story large, the others smaller and dimmed behind it, arrows on the videos, Swipe for more; tap opens full screen",
-      "page": "r4",
-      "is_interactive": true
-    },
-    "R4Why1.dc.html": {
-      "x": 0,
-      "y": 840,
+      "y": 1080,
       "w": 390,
-      "h": 800,
-      "title": "Why Y1: a numbered index on the guideline's hairlines; all seven titles at a glance, tap one to read it",
-      "page": "r4",
+      "h": 1000,
+      "title": "Hero K2 phone",
+      "page": "r9",
       "is_interactive": true
     },
-    "R4Why2.dc.html": {
-      "x": 430,
-      "y": 840,
-      "w": 390,
-      "h": 900,
-      "title": "Why Y2: bento; the first reason as a dark lead card with its text, the six others in a clean 2 x 3 grid, tap any for its text",
-      "page": "r4",
-      "is_interactive": true
-    },
-    "R4Why3.dc.html": {
-      "x": 860,
-      "y": 840,
-      "w": 390,
-      "h": 1100,
-      "title": "Why Y3: a vertical spine with icons, title and a two-line reason each; reads straight down, nothing hidden behind taps",
-      "page": "r4",
-      "is_interactive": true
-    },
-    "R4Who1.dc.html": {
-      "x": 0,
-      "y": 2000,
-      "w": 390,
-      "h": 760,
-      "title": "Who W1: choose your path; six rows like a menu, tap one to see its line and go to its page (no sliding)",
-      "page": "r4",
-      "is_interactive": true
-    },
-    "R4Who2.dc.html": {
-      "x": 430,
-      "y": 2000,
-      "w": 390,
-      "h": 760,
-      "title": "Who W2: a stacked deck; swipe the top card away to reveal the next (the motion is shown looping)",
-      "page": "r4",
-      "is_interactive": true
-    },
-    "R4Who3.dc.html": {
-      "x": 860,
-      "y": 2000,
-      "w": 390,
-      "h": 760,
-      "title": "Who W3: a row of partner chips like tabs; tapping one swaps the dark panel under it",
-      "page": "r4",
-      "is_interactive": true
-    },
-    "R4Built.dc.html": {
-      "x": 1700,
-      "y": 840,
-      "w": 390,
-      "h": 760,
-      "title": "Built, minimal: the same two rows that slide on their own, icon tiles instead of photos (light turquoise and dark)",
-      "page": "r4",
-      "is_interactive": true
-    },
-    "R5ModalWhy.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 1440,
-      "h": 860,
-      "title": "Modal, Why (desktop): a split card; the Dim Gray panel carries the number and a large hairline icon now, and becomes the image later; step through all seven inside",
-      "page": "r5",
-      "is_interactive": true
-    },
-    "R5ModalWhyP.dc.html": {
-      "x": 1500,
-      "y": 0,
-      "w": 390,
-      "h": 844,
-      "title": "Modal, Why (phone): a bottom sheet that slides up; drag it down or tap the X to close",
-      "page": "r5",
-      "is_interactive": true
-    },
-    "R5ModalBuilt.dc.html": {
-      "x": 0,
-      "y": 940,
-      "w": 1440,
-      "h": 860,
-      "title": "Modal, Built (desktop): image-led; the photo carries the title, the text sits under it; step through all six (the Built photos come back here)",
-      "page": "r5",
-      "is_interactive": true
-    },
-    "R5ModalBuiltP.dc.html": {
-      "x": 1500,
-      "y": 940,
-      "w": 390,
-      "h": 844,
-      "title": "Modal, Built (phone): a tall sheet with the photo on top; swipe sideways for the next one",
-      "page": "r5",
-      "is_interactive": true
-    },
-    "R5ModalCare.dc.html": {
+    "R9Cred3.dc.html": {
       "x": 0,
       "y": 1880,
       "w": 1440,
       "h": 860,
-      "title": "Modal, Our Healthcare (desktop): side by side, the photo full height; the text, a Read more to the service page, and the seven services as thumbnails",
-      "page": "r5",
+      "title": "Hero K3 desktop: a full-width ribbon right under the header: the seals and the bold sentence in white on Dim Gray glass, seen first on every visit",
+      "page": "r9",
       "is_interactive": true
     },
-    "R5ModalCareP.dc.html": {
-      "x": 1500,
-      "y": 1880,
+    "R9Cred3m.dc.html": {
+      "x": 1520,
+      "y": 2160,
       "w": 390,
-      "h": 844,
-      "title": "Modal, Our Healthcare (phone): a sheet with the photo on top, the text and Read more",
-      "page": "r5",
+      "h": 1000,
+      "title": "Hero K3 phone",
+      "page": "r9",
       "is_interactive": true
     },
-    "R5BuiltBento.dc.html": {
-      "x": 2000,
-      "y": 0,
-      "w": 390,
-      "h": 860,
-      "title": "Built on phones, option A, bento: a wide dark tile first and last, four light tiles between; the closing line on two lines under a hairline; tap a tile for its modal",
-      "page": "r5",
-      "is_interactive": true
-    },
-    "R5BuiltGrid.dc.html": {
-      "x": 2430,
-      "y": 0,
-      "w": 390,
-      "h": 860,
-      "title": "Built on phones, option B, 2 x 3: six equal tiles in a light and dark checker; the closing line on two lines, left aligned, small then large",
-      "page": "r5",
-      "is_interactive": true
-    },
-    "R5RingClock.dc.html": {
-      "x": 2000,
-      "y": 940,
-      "w": 390,
-      "h": 760,
-      "title": "How Our System Works on phones, option A, the clock: the twelve services as icons around the traveller; one lights up at a time and its name shows under the ring; tap any icon",
-      "page": "r5",
-      "is_interactive": true
-    },
-    "R5RingLegend.dc.html": {
-      "x": 2430,
-      "y": 940,
-      "w": 390,
-      "h": 900,
-      "title": "How Our System Works on phones, option B, clock and key: the same ring with numbered icons, and a two-column key of all twelve names under it",
-      "page": "r5",
-      "is_interactive": true
-    },
-    "R5MarCover.dc.html": {
-      "x": 2900,
-      "y": 0,
-      "w": 390,
-      "h": 1500,
-      "title": "Maritime on phones, option A, cover story: your deck photo full bleed with the title on it, the two paragraphs, the services in a swipe row, two of your photos, the call",
-      "page": "r5",
-      "is_interactive": true
-    },
-    "R5MarCollage.dc.html": {
-      "x": 3330,
-      "y": 0,
-      "w": 390,
-      "h": 1500,
-      "title": "Maritime on phones, option B, collage: three of your photos as a collage first, then the eyebrow, title and paragraphs, the five services as tiles (the last one dark), the call",
-      "page": "r5",
-      "is_interactive": true
-    },
-    "R8Silk1.dc.html": {
-      "x": 0,
+    "R9Images.dc.html": {
+      "x": 2100,
       "y": 0,
       "w": 1440,
-      "h": 300,
-      "title": "Silk S1 desktop: hairline silk: seven fine lines crossing slowly, the Mission & Vision lines grown up; the calmest",
-      "page": "r8",
+      "h": 4000,
+      "title": "Images: now and new, ten slots (Irina's notes)",
+      "page": "r9",
       "is_interactive": true
     },
-    "R8Silk1m.dc.html": {
-      "x": 1500,
+    "R9Imagesm.dc.html": {
+      "x": 3620,
       "y": 0,
       "w": 390,
-      "h": 400,
-      "title": "Silk S1 phone",
-      "page": "r8",
-      "is_interactive": true
-    },
-    "R8Silk2.dc.html": {
-      "x": 0,
-      "y": 360,
-      "w": 1440,
-      "h": 300,
-      "title": "Silk S2 desktop: satin ribbon: one folded band of turquoise fabric over a soft grey fold, a white sheen gliding along it; no threads",
-      "page": "r8",
-      "is_interactive": true
-    },
-    "R8Silk2m.dc.html": {
-      "x": 1500,
-      "y": 460,
-      "w": 390,
-      "h": 400,
-      "title": "Silk S2 phone",
-      "page": "r8",
-      "is_interactive": true
-    },
-    "R8Silk3.dc.html": {
-      "x": 0,
-      "y": 720,
-      "w": 1440,
-      "h": 300,
-      "title": "Silk S3 desktop: silk and threads: a pale satin band with five hairlines riding its edges, the centre one turquoise",
-      "page": "r8",
-      "is_interactive": true
-    },
-    "R8Silk3m.dc.html": {
-      "x": 1500,
-      "y": 920,
-      "w": 390,
-      "h": 400,
-      "title": "Silk S3 phone",
-      "page": "r8",
-      "is_interactive": true
-    },
-    "R8Card1.dc.html": {
-      "x": 0,
-      "y": 1500,
-      "w": 1440,
-      "h": 780,
-      "title": "Blog card C1 desktop: portrait editorial: an open 4:5 photo with rounded corners (the newest posts are portrait, nothing is cut), the dateline and a Helma title under it, no box",
-      "page": "r8",
-      "is_interactive": true
-    },
-    "R8Card1m.dc.html": {
-      "x": 1500,
-      "y": 1500,
-      "w": 390,
-      "h": 820,
-      "title": "Blog card C1 phone (slides on its own)",
-      "page": "r8",
-      "is_interactive": true
-    },
-    "R8Card2.dc.html": {
-      "x": 0,
-      "y": 2420,
-      "w": 1440,
-      "h": 780,
-      "title": "Blog card C2 desktop: story cover: the 4:5 photo fills the card, the title sits on a soft dark fade at the bottom, the place as a glass chip on top",
-      "page": "r8",
-      "is_interactive": true
-    },
-    "R8Card2m.dc.html": {
-      "x": 1500,
-      "y": 2420,
-      "w": 390,
-      "h": 820,
-      "title": "Blog card C2 phone (slides on its own)",
-      "page": "r8",
-      "is_interactive": true
-    },
-    "R8Card3.dc.html": {
-      "x": 0,
-      "y": 3340,
-      "w": 1440,
-      "h": 860,
-      "title": "Blog card C3 desktop: news desk: the newest post as a tall 4:5 cover on the left, the next two as rows with a small portrait photo, the place and the title, divided by hairlines",
-      "page": "r8",
-      "is_interactive": true
-    },
-    "R8Card3m.dc.html": {
-      "x": 1500,
-      "y": 3340,
-      "w": 390,
-      "h": 820,
-      "title": "Blog card C3 phone",
-      "page": "r8",
+      "h": 5200,
+      "title": "Images: now and new, phone view",
+      "page": "r9",
       "is_interactive": true
     }
   },
+  "createdOnFiles": {
+    "at": "2026-10-26T14:36:44.005Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "page": "home",
+    "view": "canvas"
+  },
+  "notes": {},
   "order": [
     "Main.dc.html",
     "HomePhone.dc.html",
@@ -621,8 +665,49 @@
     "R8Card2.dc.html",
     "R8Card2m.dc.html",
     "R8Card3.dc.html",
-    "R8Card3m.dc.html"
+    "R8Card3m.dc.html",
+    "R9Cred1.dc.html",
+    "R9Cred1m.dc.html",
+    "R9Cred2.dc.html",
+    "R9Cred2m.dc.html",
+    "R9Cred3.dc.html",
+    "R9Cred3m.dc.html",
+    "R9Images.dc.html",
+    "R9Imagesm.dc.html"
   ],
-  "notes": {},
-  "designSystems": []
+  "pages": [
+    {
+      "id": "home",
+      "name": "Home"
+    },
+    {
+      "id": "r9",
+      "name": "Round 9: GHA and DMWV first in the hero (pick)"
+    },
+    {
+      "id": "r8",
+      "name": "Round 8: final silk and blog card (pick)"
+    },
+    {
+      "id": "r5",
+      "name": "Round 5: modals and phone (pick)"
+    },
+    {
+      "id": "r4",
+      "name": "Phone round 4 (pick)"
+    },
+    {
+      "id": "hd",
+      "name": "Header (pick)"
+    },
+    {
+      "id": "r3",
+      "name": "Phone round 3 (pick)"
+    },
+    {
+      "id": "parts",
+      "name": "Source boards"
+    }
+  ],
+  "title": "HCIG v6"
 }

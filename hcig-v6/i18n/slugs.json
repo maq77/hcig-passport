@@ -128,5 +128,31 @@
   "/network/": "/siec/",
   "/trust/": "/zaufanie-i-standardy/",
   "/press/": "/prasa/"
+ },
+ "it": {
+  "/about/": "/chi-siamo/",
+  "/about/leadership/": "/chi-siamo/leadership/",
+  "/services/": "/servizi/",
+  "/services/hospital-specialty-services/": "/servizi/servizi-ospedalieri-e-specialistici/",
+  "/services/medical-tourism-facilitation/": "/servizi/turismo-medicale/",
+  "/services/emergency-urgent-care/": "/servizi/pronto-soccorso-e-cure-urgenti/",
+  "/services/wellness-longevity-aesthetic-care/": "/servizi/benessere-longevita-e-estetica/",
+  "/services/corporate-healthcare-solutions/": "/servizi/soluzioni-sanitarie-aziendali/",
+  "/services/elite-medical-concierge/": "/servizi/concierge-medico-elite/",
+  "/services/accreditation-training/": "/servizi/accreditamento-e-formazione/",
+  "/maritime-cruise-healthcare/": "/assistenza-sanitaria-marittima-e-crociere/",
+  "/partner/": "/partner/",
+  "/partner/insurance-assistance-companies/": "/partner/assicurazioni-e-compagnie-di-assistenza/",
+  "/partner/embassies-government/": "/partner/ambasciate-e-governo/",
+  "/partner/hotels-and-resorts/": "/partner/hotel-e-resort/",
+  "/partner/tour-operators-travel-agencies/": "/partner/tour-operator-e-agenzie-di-viaggio/",
+  "/partner/healthcare-providers/": "/partner/strutture-sanitarie/",
+  "/partner/corporate-international-organisations/": "/partner/aziende-e-organizzazioni-internazionali/",
+  "/contacts/": "/contatti/",
+  "/blog/": "/blog/",
+  "/group/": "/gruppo/",
+  "/network/": "/rete/",
+  "/trust/": "/fiducia-e-standard/",
+  "/press/": "/stampa/"
  }
 }

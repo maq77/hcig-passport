@@ -61,14 +61,19 @@ export function Item({ as = "div", children, ...rest }: { as?: "div" | "li" | "a
 }
 
 /** Counts from 0 to the real number (already in the HTML) when it enters the screen. */
-export function CountUp({ to, duration = 1.6 }: { to: number; duration?: number }) {
+// Irina's note (2026-10-28): the figures count up slower and smoothly so the eye catches them. The number rests at 0
+// from the first paint (the final figure stays in the HTML for search and no-script), then climbs over 2.8 s on a soft
+// ease-out once it is well in view.
+const COUNT_EASE = [0.25, 0.1, 0.25, 1] as const;
+export function CountUp({ to, duration = 2.8 }: { to: number; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "0px 0px -10% 0px" });
+  const inView = useInView(ref, { once: true, margin: "0px 0px -18% 0px" });
   const reduce = useReducedMotion();
   const [v, setV] = useState(to);
+  useEffect(() => { if (!reduce) setV(0); }, [reduce]);
   useEffect(() => {
     if (!inView || reduce) return;
-    const c = animate(0, to, { duration, ease: EASE, onUpdate: (x) => setV(Math.round(x)) });
+    const c = animate(0, to, { duration, ease: COUNT_EASE, onUpdate: (x) => setV(Math.round(x)) });
     return () => c.stop();
   }, [inView, reduce, to, duration]);
   return <span ref={ref}>{v}</span>;

@@ -38,5 +38,18 @@
   "svc-urgent-2": "db620b7f521eccb6a780db7403bd91a4",
   "post-15": "4c06ee222a949b5fac097f94a6e87b76",
   "post-14": "5a04e46f538cba6d470ff0d1c6779d5f",
-  "post-13": "0e934f7cd18a5de92173b5e5cd80ff77"
+  "post-13": "0e934f7cd18a5de92173b5e5cd80ff77",
+  "about-band-v2": "689e460efecb0e78d127ac7596c062aa",
+  "built-global-v2": "1a2462813d103a3f8a822fbc2552c138",
+  "built-operations-v2": "8035a5170199159fce59ed56a0419ba7",
+  "coord-bright": "25dc80bd0266636671322f1ac19de815",
+  "embassy-meeting": "013a8213bf2478b97d81deddcd5560d3",
+  "fleet-ops": "1317a4d191c4bd63ce8b3759468dfdd6",
+  "mar-deck-v2": "6eda1bee7f6c2b6bbea5206336238799",
+  "mar-medevac": "3a82d384027d77b38c52f07e81c7995c",
+  "mar-recruit": "85e048b0bd78c0529b30e3d4215ab386",
+  "yacht-medical": "95fe6ecd4d32f2c533f2b889cd5081de",
+  "mar-deck": "9dac040c5b388823d5984cad29160a42",
+  "mar-consult": "4693ee97ee4dfb569ad8dae71838b617",
+  "built-operations": "f96e971b4f20776a7d07021105e33d30"
 }

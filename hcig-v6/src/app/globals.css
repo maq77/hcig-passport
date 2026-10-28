@@ -2286,3 +2286,9 @@ html:not([lang="en"]) :is(.about-glass .about-statement .acc, .built-close .bc-a
 
 /* the other languages run longer in the header: the "talk to our team" button waits for a wide screen (the menu keeps Contact and the hero carries the same call) */
 @media (max-width: 1560px) { html:is([lang="de"], [lang="fr"], [lang="es"], [lang="pl"], [lang="it"]) .hd-tools .btn { display: none; } }
+
+/* Irina 2026-10-28: "Group CEO" then "Healthcare International Group" on its own line, phone and desktop */
+.ceo-copy figcaption .ceo-role { display: block; white-space: nowrap; }
+.ceo-copy figcaption .ceo-role + .ceo-role { color: var(--white); opacity: .8; }
+/* long button labels (the maritime form) wrap inside the pill instead of being cut */
+.ct-submit .btn { white-space: normal; text-align: center; justify-content: center; line-height: 1.3; padding-block: 14px; max-width: 100%; }

@@ -220,7 +220,7 @@ export function CeoQuote() {
             </blockquote>
             <figcaption>
               <Reveal className="ceo-avatar"><img src={asset("ceo")} alt={CEO.name} loading="lazy" /></Reveal>
-              <span><b>{CEO.name}</b><span>{CEO.role}</span></span>
+              <span><b>{CEO.name}</b>{CEO.role.split(", ").map((r: string) => <span key={r} className="ceo-role">{r}</span>)}</span>
             </figcaption>
           </figure>
         </div>
