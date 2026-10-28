@@ -2552,3 +2552,17 @@ html:not([lang="en"]) :is(h1, h2, h3, h4, b, strong) { overflow-wrap: anywhere; 
 @media (min-width: 901px) and (min-height: 760px) and (max-width: 1799px) { .hero .ctas .btn, .hero .ctas .btn2 { min-height: clamp(50px, 6.2svh, 58px); padding-inline: 28px; font-size: 15px; } }
 /* short desktops (720 to 760 tall): the two large steps a little tighter, so the night hero fits too */
 @media (min-width: 901px) and (max-height: 760px) { .hero .cred { margin-bottom: 22px; } .hero .copy > .f:last-child { margin-top: 22px; } }
+
+/* Phone menu fix (owner, 2026-10-28: "Talk to our team doesn't show unless I scroll"): on the heights phones really
+   show (toolbars take 100 to 300 px), the menu ran 49 to 150 px past the screen and hid the button at its foot.
+   Now the menu is exactly the visible screen (dvh), the links scale with that height, the foot (languages, social,
+   Talk to our team) stays pinned at the bottom, and only the link list scrolls if it ever has to. */
+.menu { height: 100dvh; bottom: auto; overflow: hidden; padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+.menu-bar { flex: none; margin-bottom: clamp(4px, 1.4dvh, 14px); }
+.menu-nav { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.menu-links a { font-size: clamp(22px, min(7.6vw, 4.6dvh), 40px); padding-block: clamp(5px, 1.15dvh, 10px); }
+.menu-foot { flex: none; margin-top: 0; padding-top: clamp(12px, 2.2dvh, 22px); gap: clamp(10px, 1.6dvh, 16px); background: var(--white); }
+.menu-cta { min-height: clamp(48px, 6.6dvh, 56px); }
+@media (max-height: 600px) { .menu-soc a { width: 40px; height: 40px; } .menu-langs a { padding: 6px 10px; } }
+.menu-links a { font-size: clamp(20px, min(7.6vw, 4.2dvh), 40px); padding-block: clamp(4px, 1dvh, 10px); }
+@media (max-height: 640px) { .menu-langs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -22px; padding-inline: 22px; } .menu-langs::-webkit-scrollbar { display: none; } .menu-langs a { flex: none; } }

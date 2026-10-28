@@ -361,8 +361,8 @@
   },
   "mar-consult": {
     "src": "hcig-v6/material/media/upscaled/mar-consult.png",
-    "width": 2048,
-    "note": "his photo 2026-10-27; NCL plaque replaced by a framed HC mark, sign made plain, upscaled 2x; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+    "width": 2528,
+    "note": "Nano Banana route A 2026-10-28 (owner: a better, meaningful photo, no HCIG logo): a ship doctor and a nurse with a passenger in a bright onboard medical centre, porthole to the sea; no logos or text; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "mar-clinic": {
     "src": "hcig-v6/material/media/upscaled/mar-clinic.png",

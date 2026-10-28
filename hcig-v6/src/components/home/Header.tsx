@@ -167,7 +167,7 @@ export function Header() {
               </a>
               <button type="button" className="menu-x" onClick={() => close()} aria-label={UI.close.text}><Icon name="close" size={22} /></button>
             </div>
-            <nav aria-label={UI.mainNav.text}>
+            <nav className="menu-nav" aria-label={UI.mainNav.text}>
               <ol className="menu-links">
                 {NAV.map((n, i) => (
                   <motion.li
