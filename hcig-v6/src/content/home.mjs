@@ -352,6 +352,7 @@ export const T = {
     network: "Where We Operate",
     trust: "Trust and Standards",
     press: "Press Room",
+    film: "The HCIG film",
   },
   alt: {
     hubAmbulance: "MedPark Health Hub on Sahl Hasheesh Road, Hurghada, with its ambulance",
@@ -369,4 +370,17 @@ export const T = {
     dmwv: "German Medical Wellness Association (DMWV)",
     ghaLogo: "Global Healthcare Accreditation (GHA)",
   },
+};
+
+// The HCIG promo film (owner, 2026-10-28; his picks round 10: the hero thumbnail, a band after About, the About page,
+// the Press room and its own page). Labels new, approved on the canvas ("as shown").
+export const FILM = {
+  watch: { text: "Watch our film", src: "new" },
+  title: { text: "The HCIG film", src: "new" },
+  line: { text: "One group, from first contact to case closure.", src: "new (the v6 brief)" },
+  sound: { text: "Watch with sound", src: "new" },
+  dur: "1:11",
+  durIso: "PT1M11S",
+  uploaded: "2026-10-28",
+  meta: { text: "The HCIG film | Healthcare International Group", src: "new" },
 };

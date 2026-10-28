@@ -12,7 +12,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const V6 = join(dirname(fileURLToPath(import.meta.url)), "..");
 export const MODULES = ["home", "pages", "maritime", "blog", "brands"];
 // keys whose values are never shown as words (ids, files, links, sources, codes)
-const SKIP_KEYS = new Set(["src", "slug", "img", "icon", "logo", "url", "path", "key", "short", "code", "hex", "file", "href", "id", "video", "poster", "accentFrom", "ground", "keep", "lang", "v", "countriesSrc", "factsSrc", "whatsapp", "email", "phones", "offices"]);
+const SKIP_KEYS = new Set(["src", "slug", "img", "icon", "logo", "url", "path", "key", "short", "code", "hex", "file", "href", "id", "video", "poster", "accentFrom", "ground", "keep", "lang", "v", "countriesSrc", "factsSrc", "whatsapp", "email", "phones", "offices", "durIso", "uploaded"]);
 const SKIP_EXPORTS = new Set(["LANGS", "SOCIAL_LINKS", "SITE_URL"]);
 const isWord = (s) => /\p{L}/u.test(s) && !/^[a-z0-9-]+$/.test(s) && !/^(https?:|mailto:|tel:|\/|#)/.test(s);
 

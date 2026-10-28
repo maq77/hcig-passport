@@ -8,6 +8,7 @@ import { asset, href } from "@/lib/site";
 import { Icon } from "@/components/ui/Icon";
 import { SheetLink } from "@/components/ui/Sheet";
 import { useTheme } from "./Theme";
+import { HeroFilm } from "@/components/site/Film";
 
 const d = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
@@ -75,6 +76,7 @@ export function HeroB() {
             </div>
           </div>
         </motion.div>
+        <HeroFilm />
       </div>
       <div className="hero-melt" aria-hidden="true" />
     </section>

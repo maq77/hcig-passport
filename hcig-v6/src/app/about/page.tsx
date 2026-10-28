@@ -8,6 +8,7 @@ import { About } from "@/components/home/About";
 import { MissionVision, OurHealthcare, Why } from "@/components/home/Middle";
 import { ClosingBand, Insurers } from "@/components/home/Lower";
 import { SheetLink } from "@/components/ui/Sheet";
+import { FilmBand } from "@/components/site/Film";
 import { Icon } from "@/components/ui/Icon";
 
 export const metadata: Metadata = { title: ABOUT_PAGE.meta.title, description: ABOUT.paras[0] };
@@ -27,6 +28,7 @@ export default function AboutPage() {
           note={ABOUT_PAGE.note}
         />
         <About page />
+        <FilmBand />
         <BoardTeaser />
         <MissionVision />
         <Why />

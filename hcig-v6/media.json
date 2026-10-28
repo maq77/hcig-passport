@@ -505,5 +505,25 @@
     "src": "hcig-v6/material/media/upscaled/yacht-medical.png",
     "width": 2528,
     "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); Maritime 06 Yachting: a doctor checking a guest on a superyacht deck; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+  },
+  "promo-film": {
+    "src": "hcig-v6/material/media/video/promo/promo-1080.mp4",
+    "video": true,
+    "note": "HCIG promo film (owner, 2026-10-28), 1080p H.264 + AAC, faststart; plays with sound in the player"
+  },
+  "promo-film-720": {
+    "src": "hcig-v6/material/media/video/promo/promo-720.mp4",
+    "video": true,
+    "note": "the same film at 720p for phones"
+  },
+  "promo-loop": {
+    "src": "hcig-v6/material/media/video/promo/promo-loop-720.mp4",
+    "video": true,
+    "note": "the same film, silent, 720p: the muted previews (hero thumbnail, film band)"
+  },
+  "film-cover": {
+    "src": "hcig-v6/material/media/generated/film-cover.png",
+    "width": 1920,
+    "note": "designed cover for the film (never a frame from it): the white HCIG logo on Dim Gray with a turquoise glow; poster and VideoObject thumbnail"
   }
 }

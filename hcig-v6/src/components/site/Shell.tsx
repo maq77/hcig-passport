@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Header } from "@/components/home/Header";
 import { ThemeProvider } from "@/components/home/Theme";
 import { ContactSheet, Footer } from "@/components/home/Footer";
+import { FilmDialog } from "@/components/site/Film";
 
 export function Shell({ children }: { children: ReactNode }) {
   return (
@@ -14,6 +15,7 @@ export function Shell({ children }: { children: ReactNode }) {
         {children}
         <Footer />
         <ContactSheet />
+        <FilmDialog />
       </div>
     </ThemeProvider>
   );

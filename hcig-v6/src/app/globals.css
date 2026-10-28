@@ -2427,3 +2427,128 @@ html:not([lang="en"]) :is(h1, h2, h3, h4, b, strong) { overflow-wrap: anywhere; 
   html:not([lang="en"]) .hero .h1 { font-size: clamp(34px, min(3.8vw, 5.5svh), 60px); }
 }
 @media (min-width: 1800px) { html:not([lang="en"]) .hero .copy { max-width: 1120px; } html:not([lang="en"]) .hero .h1 { font-size: clamp(60px, min(3.3vw, 6svh), 86px); } }
+
+/* =====================================================================================
+   The HCIG film (his picks, round 10, 2026-10-28)
+   ===================================================================================== */
+/* hero, desktop: a living thumbnail floating over the globe, bottom right; it never adds height to the hero */
+.hf-thumb, .hf-chip { position: absolute; z-index: calc(var(--z-content) + 1); border: 0; cursor: pointer; font-family: var(--font-sans); color: var(--ink); }
+.hf-thumb { right: var(--gutter); bottom: clamp(36px, 6svh, 72px); display: inline-flex; align-items: center; gap: 14px; padding: 8px 20px 8px 8px; border-radius: 20px; background: rgba(255, 255, 255, .8); -webkit-backdrop-filter: blur(16px) saturate(150%); backdrop-filter: blur(16px) saturate(150%); box-shadow: 0 24px 50px -28px rgba(0, 0, 0, .55), inset 0 0 0 1px rgba(255, 255, 255, .7); text-align: left; transition: translate .35s var(--ease), box-shadow .35s var(--ease); }
+.hf-thumb:hover { translate: 0 -3px; box-shadow: 0 30px 60px -28px rgba(0, 0, 0, .6), inset 0 0 0 1px var(--turq-60); }
+.hf-tv { position: relative; width: clamp(150px, 13vw, 220px); aspect-ratio: 16 / 9; border-radius: 13px; overflow: hidden; background: #1c1d1f; flex: none; }
+.film-loop { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hf-play { position: absolute; left: 50%; top: 50%; width: 42px; height: 42px; margin: -21px 0 0 -21px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, .92); color: var(--black); box-shadow: 0 0 0 6px rgba(18, 192, 198, .28); transition: scale .3s var(--ease); }
+.hf-thumb:hover .hf-play { scale: 1.08; }
+.hf-txt { display: grid; gap: 5px; font: 600 15px/1.2 var(--font-sans); }
+.hf-txt small, .hf-chip small { font: 500 12px/1 var(--font-sans); letter-spacing: .08em; color: var(--ink-2); }
+.hf-chip { display: none; }
+.hero.theme-night .hf-thumb, .hero.theme-night .hf-chip { background: rgba(20, 22, 24, .72); color: var(--white); box-shadow: 0 24px 50px -28px rgba(0, 0, 0, .8), inset 0 0 0 1px rgba(255, 255, 255, .16); }
+.hero.theme-night .hf-txt small, .hero.theme-night .hf-chip small { color: var(--dim-20); }
+/* tablets and phones: a compact chip on the globe band, under the header */
+@container page (max-width: 900px) {
+  .hf-thumb { display: none; }
+  .hf-chip { display: inline-flex; align-items: center; gap: 9px; top: 84px; right: var(--gutter); padding: 5px 14px 5px 5px; border-radius: 999px; background: rgba(255, 255, 255, .86); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 14px 30px -18px rgba(0, 0, 0, .55); font: 600 13px/1 var(--font-sans); min-height: 44px; }
+  .hf-dot { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--black); color: var(--white); }
+  .hero.theme-night .hf-dot { background: var(--turq); color: var(--black); }
+}
+@media (max-width: 900px) and (max-height: 720px) { .hf-chip { top: 78px; min-height: 40px; } .hf-dot { width: 30px; height: 30px; } }
+
+/* the film band: the film plays muted in a large card; the button opens it with sound */
+.film-band { padding-block: clamp(28px, 4vw, 56px); }
+.fb-card { position: relative; aspect-ratio: 16 / 9; max-height: 82svh; margin-inline: auto; border-radius: 28px; overflow: hidden; background: #1c1d1f; box-shadow: 0 50px 90px -50px rgba(0, 0, 0, .6); }
+.fb-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0, 0, 0, .72) 0%, rgba(0, 0, 0, .18) 42%, transparent 60%); pointer-events: none; }
+.fb-in { position: absolute; z-index: 2; left: clamp(20px, 3vw, 44px); right: clamp(20px, 3vw, 44px); bottom: clamp(18px, 3vw, 40px); display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; color: var(--white); }
+.fb-eyebrow { color: rgba(255, 255, 255, .85); }
+.fb-line { margin: 12px 0 0; font: 400 clamp(24px, 1rem + 1.6vw, 40px)/1.12 var(--font-display); color: var(--white); max-width: 20ch; text-wrap: balance; }
+.fb-btn { flex: none; display: inline-flex; align-items: center; gap: 12px; min-height: 56px; padding: 6px 22px 6px 6px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .94); color: var(--black); font: 600 15px/1 var(--font-sans); cursor: pointer; white-space: nowrap; transition: translate .3s var(--ease); }
+.fb-btn:hover { translate: 0 -2px; }
+.fb-btn small { margin-left: 2px; font-weight: 500; color: var(--ink-2); }
+.fb-dot { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; background: var(--turq); color: var(--black); flex: none; }
+@container page (max-width: 760px) {
+  .fb-card { aspect-ratio: 4 / 5; border-radius: 22px; }
+  .fb-in { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .fb-line { font-size: clamp(22px, 6.4cqi, 28px); }
+  .fb-btn { min-height: 50px; font-size: 14px; } .fb-dot { width: 40px; height: 40px; }
+}
+
+/* the film page: the film itself, the designed cover until it plays */
+.film-stage { position: relative; aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; background: #1c1d1f; box-shadow: 0 50px 90px -50px rgba(0, 0, 0, .55); }
+.film-stage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
+.fs-cover { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 14px; border: 0; cursor: pointer; background: #1c1d1f center / cover no-repeat; color: var(--white); }
+.fs-cover .fb-dot { width: 72px; height: 72px; box-shadow: 0 0 0 10px rgba(18, 192, 198, .22); transition: scale .3s var(--ease); }
+.fs-cover:hover .fb-dot { scale: 1.06; }
+.fs-label { display: grid; justify-items: center; gap: 6px; font: 600 15px/1 var(--font-sans); } .fs-label small { font-weight: 500; opacity: .8; }
+.ph-hero:has(.film-stage) .ph-in { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+@container page (max-width: 900px) { .ph-hero:has(.film-stage) .ph-in { grid-template-columns: minmax(0, 1fr); } .film-stage { border-radius: 18px; } }
+.film-dlg video { aspect-ratio: 16 / 9; }
+/* the film page cover: the play control sits bottom left, the logo in the cover stays clear */
+.fs-cover { place-items: end start; align-content: end; justify-content: start; padding: clamp(18px, 3vw, 32px); grid-auto-flow: column; gap: 14px; }
+.fs-cover .fb-dot { width: 60px; height: 60px; }
+.fs-label { justify-items: start; text-align: left; }
+@container page (max-width: 760px) { .fs-cover .fb-dot { width: 48px; height: 48px; } }
+
+/* =====================================================================================
+   Hero rhythm (owner, 2026-10-28: "more organized and structured, proper spacing, not crowded"). One spacing scale
+   with three groups instead of equal gaps: the credential, then the message (headline with its sub-line and
+   paragraph close together), then the actions after a clear step. Line heights set per role: display 1.08,
+   sub-line 1.4, reading text 1.6. Every step scales with the screen height, so short screens tighten in proportion
+   and the hero still fits one screen (scripts/hero-fit.mjs).
+   ===================================================================================== */
+.hero .copy { display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
+.hero .copy > * { margin: 0; }
+/* credential: the seals, the sentence, the turquoise rule; then the largest step */
+.hero .cred { gap: 12px; padding-bottom: 18px; margin-bottom: clamp(26px, 4.2svh, 44px); }
+.hero .cred p { line-height: 1.55; max-width: 60ch; }
+/* the message */
+.hero .copy > .h1 { line-height: 1.08; letter-spacing: -.005em; }
+.hero .copy > .sub { margin-top: clamp(16px, 2.6svh, 26px); line-height: 1.4; font-weight: 600; max-width: 36ch; }
+.hero .copy > .lead { margin-top: clamp(8px, 1.3svh, 12px); line-height: 1.65; max-width: 54ch; color: var(--ink-2); }
+/* the actions, after a clear step */
+.hero .copy > .f:last-child { margin-top: clamp(24px, 4svh, 40px); }
+.hero .ctas { gap: 12px; }
+
+/* short laptops: the seals beside the sentence keep the credential to one calm row */
+@media (min-width: 901px) and (max-height: 920px) {
+  .hero .cred { column-gap: 16px; row-gap: 0; padding-bottom: 16px; }
+}
+
+/* phones and portrait tablets: the same three groups, in phone proportions */
+@container page (max-width: 900px) {
+  .hero .cred { gap: 10px; padding-bottom: 14px; margin-bottom: clamp(18px, 2.8svh, 26px); }
+  .hero .cred p { font-size: 13px; line-height: 1.55; }
+  .hero .copy > .h1 { line-height: 1.1; }
+  .hero .copy > .sub { margin-top: clamp(12px, 1.8svh, 16px); font-size: clamp(15px, 1.95svh, 17px); line-height: 1.42; }
+  .hero .copy > .lead { margin-top: clamp(6px, 1svh, 8px); font-size: clamp(14px, 1.8svh, 15.5px); line-height: 1.6; }
+  .hero .copy > .f:last-child { margin-top: clamp(18px, 2.8svh, 26px); width: 100%; }
+  .hero .ctas { gap: 10px; }
+}
+@container page (min-width: 600px) and (max-width: 900px) {
+  .hero .copy > .sub { margin-top: 18px; } .hero .copy > .lead { margin-top: 10px; }
+  .hero .copy > .f:last-child { margin-top: 30px; width: auto; }
+}
+/* the smallest phones (iPhone SE): the same order of steps, each one tighter */
+@media (max-width: 900px) and (max-height: 720px) {
+  .hero .cred { gap: 8px; padding-bottom: 11px; margin-bottom: 14px; }
+  .hero .cred p { font-size: 12.5px; line-height: 1.5; }
+  .hero .copy > .sub { margin-top: 10px; font-size: 14.5px; }
+  .hero .copy > .lead { margin-top: 5px; font-size: 13.5px; line-height: 1.55; }
+  .hero .copy > .f:last-child { margin-top: 14px; }
+  .hero .ctas { gap: 8px; }
+}
+/* large screens: more air everywhere */
+@media (min-width: 1800px) {
+  .hero .cred { margin-bottom: 48px; }
+  .hero .copy > .sub { margin-top: 28px; } .hero .copy > .lead { margin-top: 14px; }
+  .hero .copy > .f:last-child { margin-top: 44px; }
+}
+/* the longer languages keep the same steps; their phone text sizes stay the tighter ones set before */
+@container page (max-width: 900px) {
+  html:not([lang="en"]) .hero .copy > .sub { font-size: clamp(14.5px, 1.85svh, 16px); }
+  html:not([lang="en"]) .hero .copy > .lead { font-size: clamp(13.5px, 1.72svh, 15px); }
+  html:not([lang="en"]) .hero .cred p { font-size: 12.8px; }
+}
+@container page (min-width: 600px) and (max-width: 900px) { .hero .cred p { font-size: 15px; } }
+/* desktop: the two hero buttons carry weight in proportion to the headline */
+@media (min-width: 901px) and (min-height: 760px) and (max-width: 1799px) { .hero .ctas .btn, .hero .ctas .btn2 { min-height: clamp(50px, 6.2svh, 58px); padding-inline: 28px; font-size: 15px; } }
+/* short desktops (720 to 760 tall): the two large steps a little tighter, so the night hero fits too */
+@media (min-width: 901px) and (max-height: 760px) { .hero .cred { margin-bottom: 22px; } .hero .copy > .f:last-child { margin-top: 22px; } }

@@ -9,6 +9,7 @@ import { Item, Reveal, Stagger } from "@/components/ui/Motion";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { SheetLink } from "@/components/ui/Sheet";
 import { MoreNews } from "@/components/site/Blog";
+import { FilmBand } from "@/components/site/Film";
 
 const P = PRESS_PAGE;
 
@@ -51,6 +52,8 @@ export function PressBody() {
           </Stagger>
         </div>
       </section>
+
+      <FilmBand />
 
       <MoreNews title={NEWS.heading.text} cta={UI.allNews.text} />
 

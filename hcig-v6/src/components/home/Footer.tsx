@@ -15,6 +15,7 @@ const MORE = [
   { label: T.more.network, path: "/network/" },
   { label: T.more.trust, path: "/trust/" },
   { label: T.more.press, path: "/press/" },
+  { label: T.more.film, path: "/film/" },
 ];
 
 const tel = (p: string) => "tel:" + p.replace(/[^\d+]/g, ""); // "+2 01001828828" dials +20 100 182 8828

@@ -6,6 +6,7 @@ import { Built, MissionVision, OurHealthcare, SystemWorks, Why } from "@/compone
 import { CeoQuote, ClosingBand, Impact, Insurers, Maritime, Testimonials, WhoWeWorkWith } from "@/components/home/Lower";
 import { Shell } from "@/components/site/Shell";
 import { MoreNews } from "@/components/site/Blog";
+import { FilmBand } from "@/components/site/Film";
 import { SilkDivider } from "@/components/ui/Silk";
 import { CONTACT, GROUP, HERO, NEWS, SOCIAL_LINKS, UI } from "@/content/home.mjs";
 import { SITE, abs, absAsset } from "@/lib/site";
@@ -42,6 +43,7 @@ export default function Home() {
       <HeroB />
       <main id="main">
         <About />
+        <FilmBand />
         <Premises />
         <MissionVision />
         <Why />

@@ -687,5 +687,32 @@
     "w": 2528,
     "h": 1696,
     "kb": 347
+  },
+  "promo-film": {
+    "file": "promo-film.mp4",
+    "w": 1920,
+    "h": 1080,
+    "kb": 7087,
+    "video": true
+  },
+  "promo-film-720": {
+    "file": "promo-film-720.mp4",
+    "w": 1280,
+    "h": 720,
+    "kb": 3279,
+    "video": true
+  },
+  "promo-loop": {
+    "file": "promo-loop.mp4",
+    "w": 1280,
+    "h": 720,
+    "kb": 1604,
+    "video": true
+  },
+  "film-cover": {
+    "file": "film-cover.webp",
+    "w": 1920,
+    "h": 1080,
+    "kb": 16
   }
 }
