@@ -525,75 +525,147 @@
       "y": 920
     },
     "R9Cred1.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "r9",
+      "title": "Hero K1 desktop: glass credential capsule: the two seals and the full sentence in bold, opening the hero above the title",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "R9Cred1m.dc.html": {
+      "h": 1000,
+      "is_interactive": true,
+      "page": "r9",
+      "title": "Hero K1 phone",
+      "w": 390,
+      "x": 1520,
+      "y": 0
+    },
+    "R9Cred2.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "r9",
+      "title": "Hero K2 desktop: seals first, large, then the sentence with its key words in heavy bold and a turquoise rule; the title",
+      "w": 1440,
+      "x": 0,
+      "y": 940
+    },
+    "R9Cred2m.dc.html": {
+      "h": 1000,
+      "is_interactive": true,
+      "page": "r9",
+      "title": "Hero K2 phone",
+      "w": 390,
+      "x": 1520,
+      "y": 1080
+    },
+    "R9Cred3.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "r9",
+      "title": "Hero K3 desktop: a full-width ribbon right under the header: the seals and the bold sentence in white on Dim Gray glass,",
+      "w": 1440,
+      "x": 0,
+      "y": 1880
+    },
+    "R9Cred3m.dc.html": {
+      "h": 1000,
+      "is_interactive": true,
+      "page": "r9",
+      "title": "Hero K3 phone",
+      "w": 390,
+      "x": 1520,
+      "y": 2160
+    },
+    "R9Images.dc.html": {
+      "h": 4000,
+      "is_interactive": true,
+      "page": "r9",
+      "title": "Images: now and new, ten slots (Irina's notes)",
+      "w": 1440,
+      "x": 2100,
+      "y": 0
+    },
+    "R9Imagesm.dc.html": {
+      "h": 5200,
+      "is_interactive": true,
+      "page": "r9",
+      "title": "Images: now and new, phone view",
+      "w": 390,
+      "x": 3620,
+      "y": 0
+    },
+    "R10Hero1.dc.html": {
       "x": 0,
       "y": 0,
       "w": 1440,
       "h": 860,
-      "title": "Hero K1 desktop: glass credential capsule: the two seals and the full sentence in bold, opening the hero above the title",
-      "page": "r9",
+      "title": "F1 hero, desktop: \"Watch our film\" as a living thumbnail floating over the globe, bottom right (the film plays muted inside it); press it and the film opens full screen with sound",
+      "page": "r10",
       "is_interactive": true
     },
-    "R9Cred1m.dc.html": {
+    "R10Hero1m.dc.html": {
       "x": 1520,
       "y": 0,
       "w": 390,
-      "h": 1000,
-      "title": "Hero K1 phone",
-      "page": "r9",
+      "h": 844,
+      "title": "F1 hero, phone: a small \"Watch our film\" chip on the globe, so the hero still fits the first screen",
+      "page": "r10",
       "is_interactive": true
     },
-    "R9Cred2.dc.html": {
+    "R10Hero2.dc.html": {
       "x": 0,
       "y": 940,
       "w": 1440,
       "h": 860,
-      "title": "Hero K2 desktop: seals first, large, then the sentence with its key words in heavy bold and a turquoise rule; the title follows",
-      "page": "r9",
+      "title": "F1b hero, desktop, quieter: a text play link next to the two buttons",
+      "page": "r10",
       "is_interactive": true
     },
-    "R9Cred2m.dc.html": {
-      "x": 1520,
-      "y": 1080,
-      "w": 390,
-      "h": 1000,
-      "title": "Hero K2 phone",
-      "page": "r9",
-      "is_interactive": true
-    },
-    "R9Cred3.dc.html": {
+    "R10Band.dc.html": {
       "x": 0,
       "y": 1880,
       "w": 1440,
-      "h": 860,
-      "title": "Hero K3 desktop: a full-width ribbon right under the header: the seals and the bold sentence in white on Dim Gray glass, seen first on every visit",
-      "page": "r9",
+      "h": 980,
+      "title": "F2 desktop: the film as its own band right after About Us; it plays muted on its own, \"Watch with sound\" opens it full screen",
+      "page": "r10",
       "is_interactive": true
     },
-    "R9Cred3m.dc.html": {
+    "R10Bandm.dc.html": {
       "x": 1520,
-      "y": 2160,
+      "y": 1880,
       "w": 390,
-      "h": 1000,
-      "title": "Hero K3 phone",
-      "page": "r9",
+      "h": 360,
+      "title": "F2 phone: the same band, the card fits the screen width",
+      "page": "r10",
       "is_interactive": true
     },
-    "R9Images.dc.html": {
-      "x": 2100,
-      "y": 0,
+    "R10After.dc.html": {
+      "x": 0,
+      "y": 2940,
       "w": 1440,
-      "h": 4000,
-      "title": "Images: now and new, ten slots (Irina's notes)",
-      "page": "r9",
+      "h": 1100,
+      "title": "F3 desktop: the film band directly under the hero, before About Us (the strongest place, but About is no longer the first scroll)",
+      "page": "r10",
       "is_interactive": true
     },
-    "R9Imagesm.dc.html": {
-      "x": 3620,
-      "y": 0,
+    "R10Player.dc.html": {
+      "x": 0,
+      "y": 4120,
+      "w": 1440,
+      "h": 810,
+      "title": "The player all options open: full screen, with sound, the film's own controls, close with X or Esc",
+      "page": "r10",
+      "is_interactive": true
+    },
+    "R10Playerm.dc.html": {
+      "x": 1520,
+      "y": 4120,
       "w": 390,
-      "h": 5200,
-      "title": "Images: now and new, phone view",
-      "page": "r9",
+      "h": 844,
+      "title": "The player on a phone: the film edge to edge; turn the phone for full screen",
+      "page": "r10",
       "is_interactive": true
     }
   },
@@ -673,12 +745,24 @@
     "R9Cred3.dc.html",
     "R9Cred3m.dc.html",
     "R9Images.dc.html",
-    "R9Imagesm.dc.html"
+    "R9Imagesm.dc.html",
+    "R10Hero1.dc.html",
+    "R10Hero1m.dc.html",
+    "R10Hero2.dc.html",
+    "R10Band.dc.html",
+    "R10Bandm.dc.html",
+    "R10After.dc.html",
+    "R10Player.dc.html",
+    "R10Playerm.dc.html"
   ],
   "pages": [
     {
       "id": "home",
       "name": "Home"
+    },
+    {
+      "id": "r10",
+      "name": "Round 10: the HCIG film (pick)"
     },
     {
       "id": "r9",
