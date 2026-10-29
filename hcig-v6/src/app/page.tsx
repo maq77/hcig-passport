@@ -30,7 +30,7 @@ const ORG = {
         { "@type": "PostalAddress", streetAddress: "123 Hassan ElMaamoun St., Sixth Floor, Suite 604, Nasr City", addressLocality: "Cairo", addressCountry: "EG" },
         { "@type": "PostalAddress", streetAddress: "2251 Drew St, Suite A", addressLocality: "Clearwater", addressRegion: "FL", postalCode: "33765", addressCountry: "US" },
       ],
-      subOrganization: brands.map((b) => ({ "@type": "MedicalOrganization", name: b.name, url: b.url })),
+      subOrganization: brands.map((b) => ({ "@type": "MedicalOrganization", name: b.name, ...(b.url ? { url: b.url } : {}) })),
       sameAs: SOCIAL_LINKS.map((x) => x.url),
     },
     { "@type": "WebSite", "@id": `${SITE}/#website`, url: abs("/"), name: "Healthcare International Group (HCIG)", publisher: { "@id": `${SITE}/#org` }, inLanguage: process.env.NEXT_PUBLIC_LANG ?? "en" },

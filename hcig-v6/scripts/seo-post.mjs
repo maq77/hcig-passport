@@ -67,8 +67,9 @@ for (const l of built) {
       h = h.replace(`<meta name="description" content="${desc}"`, `<meta name="description" content="${short}"`);
       desc = short;
     }
-    const hero = (h.match(/<img[^>]*fetchPriority="high"[^>]*src="([^"]+)"/i) || h.match(/<img[^>]*src="([^"]+)"[^>]*fetchPriority="high"/i) || [])[1];
-    const img = hero && hero.startsWith(ROOT + "/media/") ? SITE + hero.slice(ROOT.length) : `${SITE}/media/cta-bg.webp`;
+    // one share image for every page and language (his pick S4, 2026-10-30): the glass map, the line, the GHA, DMWV
+    // and UCA seals and the nine group brands; made by canvas/og-local.mjs from the approved canvas board
+    const img = `${SITE}/og-hcig.jpg`;
     const tags = [
       `<link rel="canonical" href="${live(l, en)}"/>`,
       ...built.map((x) => `<link rel="alternate" hreflang="${x}" href="${live(x, en)}"/>`),
@@ -80,6 +81,9 @@ for (const l of built) {
       `<meta property="og:title" content="${title}"/>`,
       desc ? `<meta property="og:description" content="${desc}"/>` : "",
       `<meta property="og:image" content="${esc(img)}"/>`,
+      `<meta property="og:image:type" content="image/jpeg"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/>`,
+      `<meta property="og:image:alt" content="Healthcare International Group: integrated healthcare group all over the world"/>`,
+      `<meta name="twitter:image" content="${esc(img)}"/>`,
       `<meta name="twitter:card" content="summary_large_image"/>`,
     ].filter(Boolean).join("");
     h = h.replace("</head>", `${tags}</head>`);
@@ -109,5 +113,5 @@ const titleOf = (en) => {
 const KEY = ["/", "/about/", "/services/", "/maritime-cruise-healthcare/", "/partner/", "/group/", "/network/", "/trust/", "/about/leadership/", "/press/", "/contacts/", "/blog/"];
 const home = readFileSync(join(dirOf("en"), "index.html"), "utf8");
 const lead = ((home.match(/<meta name="description" content="([^"]*)"/) || [])[1] || "").replace(/&amp;/g, "&");
-writeFileSync(join(dirOf("en"), "llms.txt"), `# Healthcare International Group (HCIG)\n\n> ${lead}\n\nHCIG is the Official Partner of Global Healthcare Accreditation (GHA) and the German Medical Wellness Association (DMWV) in Egypt. 40+ Years of Experience. 600K+ Patients Served. 700+ Medical Professionals. 150+ On-Site Clinics Across Egypt. Contact: partner@healthcareig.com\n\n## Main pages\n\n${KEY.map((en) => `- [${titleOf(en)}](${live("en", en)})`).join("\n")}\n\n## Services\n\n${EN.filter((p) => /^\/services\/.+/.test(p)).map((en) => `- [${titleOf(en)}](${live("en", en)})`).join("\n")}\n\n## Group brands\n\n${EN.filter((p) => /^\/group\/.+/.test(p)).map((en) => `- [${titleOf(en)}](${live("en", en)})`).join("\n")}\n\n## Languages\n\n${built.map((l) => `- ${l}: ${SITE}${prefix(l)}/`).join("\n")}\n`);
+writeFileSync(join(dirOf("en"), "llms.txt"), `# Healthcare International Group (HCIG)\n\n> ${lead}\n\nHCIG is the Official Partner of Global Healthcare Accreditation (GHA) and the German Medical Wellness Association (DMWV) in Egypt. Founder of UCA MENA, the official representative of the Urgent Care Association in the Middle East & North Africa. 40+ Years of Experience. 600K+ Patients Served. 700+ Medical Professionals. 150+ On-Site Clinics Across Egypt. Contact: partner@healthcareig.com\n\n## Main pages\n\n${KEY.map((en) => `- [${titleOf(en)}](${live("en", en)})`).join("\n")}\n\n## Services\n\n${EN.filter((p) => /^\/services\/.+/.test(p)).map((en) => `- [${titleOf(en)}](${live("en", en)})`).join("\n")}\n\n## Group brands\n\n${EN.filter((p) => /^\/group\/.+/.test(p)).map((en) => `- [${titleOf(en)}](${live("en", en)})`).join("\n")}\n- Ma Vie Clinique: Wellness, Longevity & Aesthetic Care\n\n## Languages\n\n${built.map((l) => `- ${l}: ${SITE}${prefix(l)}/`).join("\n")}\n`);
 console.log(`seo: ${tagged} pages tagged in ${built.join(", ")}; ${files.length} sitemaps, robots.txt (${target}), llms.txt`);

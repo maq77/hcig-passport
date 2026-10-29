@@ -69,8 +69,9 @@
     "width": 640
   },
   "brand-scmg": {
-    "src": "hcig material/scmg.png",
-    "width": 480
+    "src": "hcig-v6/material/media/generated/r11/scmg-logo-trimmed.png",
+    "keep": true,
+    "note": "the live SCMG logo with its wide white margins trimmed (2026-10-30), so it reads at the same size as the others"
   },
   "brand-uca": {
     "src": "hcig-v6/incoming/V6-012/uca.png",
@@ -532,5 +533,10 @@
   "svc-training": {
     "src": "hcig-v6/material/media/generated/r11/training-his.jpg",
     "note": "His pick 2026-10-29 (his Gemini Pro), Irina's note: a training photo, a group and a speaker. Doctors and nurses taking notes, a raised hand, CPR practice with an instructor, sea view; blank screen, no text or logos"
+  },
+  "brand-mavie": {
+    "src": "hcig-v6/material/media/generated/r11/mavie-logo-2x.png",
+    "keep": true,
+    "note": "Ma Vie Clinique logo, cut from the company profile slide 9 with its PDF soft mask, Real-ESRGAN 2x (owner 2026-10-30; ask for the original file)"
   }
 }

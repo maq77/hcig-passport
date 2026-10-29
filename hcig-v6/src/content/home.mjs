@@ -90,7 +90,7 @@ export const GROUP = {
   line: { text: "Integrated healthcare group all over the world", src: "approved" },
   soundOn: { text: "Play with sound", src: "approved" },
   soundOff: { text: "Sound off", src: "approved" },
-  filmLabel: { text: "The HCIG group film: the HC mark opens into the eight group brands", src: "approved" },
+  filmLabel: { text: "The HCIG group film: the HC mark opens into the nine group brands", src: "approved" },
   listLabel: { text: "The group brands", src: "approved" },
   brands: [
     { short: "24/7 Clinic", name: "24/7 Clinic", line: "On-Site Urgent Care & Emergency Services in Hotels & Resorts", url: "https://247clinic.net", logo: "brand-247" },
@@ -99,6 +99,9 @@ export const GROUP = {
     { short: "TMASI", name: "TMASI GLOBAL", line: "International Medical Assistance & Case Coordination", url: "https://tmasi.net", logo: "brand-tmasi" },
     { short: "One Medical Center", name: "One Medical Center (Florida - USA)", line: "Urgent Care & Outpatient Medical Services", url: "https://onemedicalcenters.com", logo: "brand-onemedical" },
     { short: "One Medical Spa", name: "One Medical Spa (Florida - USA)", line: "Aesthetic & Medical Wellness Services", url: "https://onemedspa.net", logo: "brand-onespa" },
+    // Ma Vie Clinique (owner 2026-10-30: "ma vie is part of our group too"): company profile slide 9 (logo) and slide 12
+    // (its line); no website yet, so no link
+    { short: "Ma Vie", name: "Ma Vie Clinique", line: "Wellness, Longevity & Aesthetic Care", url: "", logo: "brand-mavie", src: "profile" },
     { short: "SCMG", name: "Shakankiry Clinics Medical Group", line: "Travel Medical Services", url: "https://scmg-egypt.com", logo: "brand-scmg" },
     { short: "UCA MENA", name: "UCA MENA", line: "Urgent Care Association Egypt & MENA", url: "https://ucamena.org", logo: "brand-uca" },
   ],

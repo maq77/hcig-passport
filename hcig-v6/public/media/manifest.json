@@ -107,10 +107,10 @@
     "kb": 19
   },
   "brand-scmg": {
-    "file": "brand-scmg.webp",
-    "w": 480,
-    "h": 480,
-    "kb": 6
+    "file": "brand-scmg.png",
+    "w": 239,
+    "h": 267,
+    "kb": 46
   },
   "brand-uca": {
     "file": "brand-uca.webp",
@@ -444,14 +444,14 @@
     "file": "film-day-wide.mp4",
     "w": 1280,
     "h": 720,
-    "kb": 2223,
+    "kb": 2471,
     "video": true
   },
   "film-day-tall": {
     "file": "film-day-tall.mp4",
     "w": 720,
     "h": 1280,
-    "kb": 1984,
+    "kb": 2214,
     "video": true
   },
   "testimonial-1": {
@@ -897,5 +897,11 @@
       1200,
       1600
     ]
+  },
+  "brand-mavie": {
+    "file": "brand-mavie.png",
+    "w": 438,
+    "h": 388,
+    "kb": 77
   }
 }

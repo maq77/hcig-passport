@@ -2659,3 +2659,15 @@ html:not([lang="en"]) :is(h1, h2, h3, h4, b, strong) { overflow-wrap: anywhere; 
 /* desktop header: the capsule arrives with its own fade and lift; its height switches at once instead of animating
    while the page starts to scroll */
 @media (min-width: 1081px) { .hd-in { transition: none; } }
+
+/* Ma Vie Clinique joins the group (2026-10-30): nine brands. A brand without a website or page is shown, not linked;
+   the hub grid is 3 by 3 on desktop, and on phones a lone last card or row item sits centred. */
+.gf-brands .gf-nolink { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--ink-2); font: 500 15px/1 var(--font-sans); cursor: default; outline-offset: 4px; }
+.brand-card-in { display: grid; align-content: start; gap: 10px; height: 100%; padding: 24px 22px 22px; border-radius: 22px; background: var(--white); box-shadow: 0 0 0 1px var(--line); }
+.brand-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@container page (max-width: 1000px) { .brand-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .brand-grid > :last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 8px); } }
+@container page (max-width: 640px) { .brand-card-in { padding: 16px 14px; gap: 6px; } }
+@container page (max-width: 700px) {
+  .gf-brands .gf-nolink { min-height: 60px; border-bottom: 1px solid var(--line); width: 100%; }
+  .gf-brands > li:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 8px); }
+}

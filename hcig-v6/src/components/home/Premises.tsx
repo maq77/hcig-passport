@@ -1,5 +1,5 @@
 "use client";
-// Our Premises and Facilities: the approved group section (film, eight brands, hover logos), always day now
+// Our Premises and Facilities: the approved group section (film, nine brands, hover logos), always day now
 // (only the hero switches), and the group-logo marquee that closes the section (his note 2026-10-26).
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
@@ -61,10 +61,17 @@ export function Premises() {
         <ul className="gf-brands" aria-label={GROUP.listLabel.text}>
           {brands.map((x) => (
             <li key={x.short}>
-              <a href={x.url} target="_blank" rel="noopener">
-                <span className="gf-chip" aria-hidden="true"><img src={asset(x.logo)} alt="" loading="lazy" /></span>
-                <span>{x.short}</span>
-              </a>
+              {x.url ? (
+                <a href={x.url} target="_blank" rel="noopener">
+                  <span className="gf-chip" aria-hidden="true"><img src={asset(x.logo)} alt="" loading="lazy" /></span>
+                  <span>{x.short}</span>
+                </a>
+              ) : (
+                <span className="gf-nolink" tabIndex={0}>
+                  <span className="gf-chip" aria-hidden="true"><img src={asset(x.logo)} alt="" loading="lazy" /></span>
+                  <span>{x.short}</span>
+                </span>
+              )}
               <span className="gf-card" aria-hidden="true">
                 <img src={asset(x.logo)} alt="" loading="lazy" />
                 <b>{x.name}</b>
@@ -77,9 +84,15 @@ export function Premises() {
       <Reveal className="gf-marquee">
         <Marquee duration={48} label={GROUP.listLabel.text}>
           {brands.map((x) => (
-            <a key={x.short} className="logo-tile logo-tile-lg" href={x.url} target="_blank" rel="noopener">
-              <img src={asset(x.logo)} alt={x.name} loading="lazy" />
-            </a>
+            x.url ? (
+              <a key={x.short} className="logo-tile logo-tile-lg" href={x.url} target="_blank" rel="noopener">
+                <img src={asset(x.logo)} alt={x.name} loading="lazy" />
+              </a>
+            ) : (
+              <span key={x.short} className="logo-tile logo-tile-lg">
+                <img src={asset(x.logo)} alt={x.name} loading="lazy" />
+              </span>
+            )
           ))}
         </Marquee>
       </Reveal>

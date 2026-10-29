@@ -40,7 +40,7 @@ const spring = (k, w = 9) => (k <= 0 ? 0 : 1 - Math.exp(-w * k) * (1 + w * k)); 
 const sineInOut = (k) => -(Math.cos(Math.PI * k) - 1) / 2;
 
 // ---------- assets ----------
-const BRANDS = ["247", "medpark", "medone", "tmasi", "onemedical", "onespa", "scmg", "uca"];   // a patient's path
+const BRANDS = ["247", "medpark", "medone", "tmasi", "onemedical", "onespa", "mavie", "scmg", "uca"];   // a patient's path (Ma Vie Clinique joined 2026-10-30, company profile slide 9)
 const IMG = {};
 const load = (k, src) => new Promise((res) => { const i = new Image(); i.onload = () => { IMG[k] = i; res(); }; i.onerror = () => { console.error("missing", src); res(); }; i.src = src; });
 let GLOBE = null;
@@ -77,7 +77,7 @@ function logo(k, x, y, h, alpha = 1, scale = 1) {
   const hh = h * scale, ww = hh * im.width / im.height;
   g.globalAlpha = alpha; g.drawImage(im, x - ww / 2, y - hh / 2, ww, hh); g.globalAlpha = 1;
 }
-const LOGO_H = { "247": 140, medpark: 118, medone: 120, tmasi: 96, onemedical: 70, onespa: 72, scmg: 140, uca: 140 };   // optical sizes at 1080p
+const LOGO_H = { "247": 140, medpark: 118, medone: 120, tmasi: 96, onemedical: 70, onespa: 72, mavie: 132, scmg: 140, uca: 140 };   // optical sizes at 1080p
 function dot(x, y, r, color, a = 1) { g.globalAlpha = a; g.fillStyle = color; g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); g.globalAlpha = 1; }
 function line(pts, w, color, a = 1, from = 0, to = 1) {
   if (pts.length < 2 || to <= from) return;
@@ -114,10 +114,11 @@ function rot(v, lon, lat) { // rotate a unit vector: around Y by -lon, then arou
 const globeLon = (t) => GLOBE.lon0 + 150 * (1 - expoInOut(seg(t, 15.2, 18.6)));
 function gproj(v, t, r) { const [x, y, z] = rot(v, globeLon(t), GLOBE.lat0); const s = F / (F - z * r); return [G_CX + x * r * s, G_CY + y * r * s, z]; }
 // where each brand rests by the globe: Florida on the left, Egypt on the right, TMASI by its offices
-const PIN_OF = { "247": "hurghada", medpark: "hurghada", medone: "hurghada", tmasi: "munich", onemedical: "clearwater", onespa: "clearwater", scmg: "hurghada", uca: "hurghada" };
+const PIN_OF = { "247": "hurghada", medpark: "hurghada", medone: "hurghada", tmasi: "munich", onemedical: "clearwater", onespa: "clearwater", mavie: "hurghada", scmg: "hurghada", uca: "hurghada" };
 function restPos(b) {
-  if (PORTRAIT) { const i = BRANDS.indexOf(b); return [CX + (i % 2 ? 200 : -200) * K, G_CY + G_R + 150 * K + Math.floor(i / 2) * 150 * K]; }
-  const S = { onemedical: [-640, -70], onespa: [-640, 70], tmasi: [560, -250], "247": [560, -100], medpark: [760, -100], medone: [560, 50], scmg: [760, 50], uca: [660, 200] }[b];
+  // phone: nine brands in three rows of three under the globe
+  if (PORTRAIT) { const i = BRANDS.indexOf(b); return [CX + ((i % 3) - 1) * 300 * K, G_CY + G_R + 150 * K + Math.floor(i / 3) * 160 * K]; }
+  const S = { onemedical: [-640, -70], onespa: [-640, 70], tmasi: [560, -250], "247": [560, -100], medpark: [760, -100], medone: [560, 50], scmg: [760, 50], uca: [560, 200], mavie: [760, 200] }[b];
   return [CX + S[0] * K, CY + S[1] * K];
 }
 

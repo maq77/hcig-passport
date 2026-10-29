@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>R11OgC</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+<style>
+@font-face { font-family: 'Helma'; src: url('/_blob/c002ba327633cc3513ea200bac9e6b8d') format('woff2'); font-weight: 400; font-display: swap; }
+body { margin: 0; }
+.ph { --black:#000; --b80:#333; --dim:#565759; --d60:#9A9A9C; --d40:#BBBCBE; --d20:#DDDDDF; --d06:#F6F6F6;
+  --t:#12C0C6; --t60:#71D9DD; --t40:#A0E6E8; --t20:#D0F2F4; --t08:#EDFAFA; --w:#FFF; --ease: cubic-bezier(.16,1,.3,1);
+  position: relative; font: 400 16px/1.6 'Inter', system-ui, sans-serif; color: var(--black); background: var(--w); -webkit-font-smoothing: antialiased; box-sizing: border-box; overflow: hidden; }
+.ph *, .ph *::before, .ph *::after { box-sizing: border-box; }
+.ph img { display: block; max-width: 100%; }
+.ph p { margin: 0; }
+.tag { position: absolute; top: 10px; right: 10px; z-index: 30; padding: 5px 10px; border-radius: 999px; background: var(--black); color: var(--w); font: 600 11px/1 'Inter', sans-serif; letter-spacing: .08em; }
+.sec { position: relative; padding: 44px 20px 40px; }
+.soft { background: var(--d06); }
+.hd2 { margin: 0 0 24px; text-align: center; }
+.hd2 h2 { margin: 0; font: 400 32px/1.1 'Helma', Georgia, serif; text-wrap: balance; }
+.hd2 h2::after { content: ""; display: block; width: 56px; height: 1px; margin: 16px auto 0; background: var(--black); }
+.hd2 p { margin-top: 14px; color: var(--dim); font-size: 15px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 500 11.5px/1 'Inter', sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
+.eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+.btn { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 22px; border-radius: 999px; background: var(--t); color: var(--black); font: 600 14px/1 'Inter', sans-serif; }
+.cbtn { width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--d20); background: var(--w); color: var(--black); flex: none; }
+.cbtn.l svg { transform: scaleX(-1); }
+
+@font-face { font-family: 'Helma'; src: url('/_blob/c002ba327633cc3513ea200bac9e6b8d') format('woff2'); font-weight: 400; }
+.og { --t:#12C0C6; --dim:#565759; --d20:#DDDDDF; position: relative; width: 1200px; height: 630px; overflow: hidden; box-sizing: border-box;
+  background: #fff; color: #000; font: 400 16px/1.5 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.og *, .og *::before, .og *::after { box-sizing: border-box; } .og p { margin: 0; } .og img { display: block; }
+.og .bg { position: absolute; inset: 0; background-size: cover; background-position: right center; }
+.og .bg::after { content: ""; position: absolute; inset: 0; }
+.og .in { position: absolute; left: 64px; top: 54px; bottom: 50px; width: 560px; display: flex; flex-direction: column; }
+.og .lg { height: 50px; width: auto; align-self: flex-start; }
+.og h1 { margin: 44px 0 0; font: 400 50px/1.06 'Helma', Georgia, serif; letter-spacing: -.005em; }
+.og .rule { width: 56px; height: 2px; margin: 26px 0 26px; background: var(--t); }
+.og .seals { display: flex; gap: 14px; }
+.og .seal { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px; width: 176px; }
+.og .seal .pl { width: 58px; height: 58px; display: grid; place-items: center; border-radius: 14px; background: #fff; padding: 6px;
+  box-shadow: 0 10px 22px -14px rgba(0,0,0,.45), inset 0 0 0 1px var(--d20); }
+.og .seal .pl img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.og .seal b { display: block; font: 700 13px/1.1 'Inter', sans-serif; letter-spacing: .06em; }
+.og .seal span { display: block; margin-top: 3px; font: 500 11.5px/1.25 'Inter', sans-serif; color: var(--dim); }
+.og .dom { margin-top: auto; font: 600 12px/1 'Inter', sans-serif; letter-spacing: .26em; text-transform: uppercase; color: var(--dim); }
+.og .cap { font: 600 10.5px/1 'Inter', sans-serif; letter-spacing: .24em; text-transform: uppercase; color: var(--dim); }
+/* glass that holds the group */
+.og .glass { background: rgba(255,255,255,.6); -webkit-backdrop-filter: blur(16px) saturate(1.15); backdrop-filter: blur(16px) saturate(1.15);
+  border: 1px solid rgba(255,255,255,.85); box-shadow: 0 30px 60px -36px rgba(0,40,45,.45); }
+.og .tile { display: grid; place-items: center; border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1px rgba(0,0,0,.05); }
+.og .tile img { max-height: 46px; max-width: 74%; object-fit: contain; }
+/* panel on the right: 2 x 4 */
+.og .panel { position: absolute; right: 52px; top: 52px; bottom: 52px; width: 420px; border-radius: 24px; padding: 20px; display: grid; grid-template-rows: auto 1fr; gap: 14px; }
+.og .panel .grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 1fr); gap: 10px; }
+/* strip along the bottom: 8 in a row */
+.og .strip { position: absolute; left: 40px; right: 40px; bottom: 34px; height: 104px; border-radius: 22px; padding: 12px 14px 14px; display: grid; grid-template-rows: auto 1fr; gap: 9px; }
+.og .strip .row { display: grid; grid-template-columns: repeat(9, 1fr); gap: 7px; }
+.og .strip .tile img { max-height: 40px; max-width: 80%; }
+.og.has-strip .in { bottom: 166px; } .og.s4 .dom { margin-bottom: 16px; } .og.has-strip h1 { margin-top: 30px; } .og.has-strip .rule { margin: 20px 0; }
+
+/* S1 silk: the silk flows behind the glass */
+.og.s1 .bg { background-image: url('/_blob/de88b0a6aaa7cf07fd118a8f35f4aa34'); }
+/* S4 map: his glass world map, the routes meet in Egypt */
+.og.s4 .bg { background-image: url('/_blob/0f06eaf29b18700f5f3e85b3b8e32570'); }
+.og.s4 .bg::after { background: linear-gradient(90deg, rgba(255,255,255,.95) 0, rgba(255,255,255,.86) 34%, rgba(255,255,255,.25) 54%, rgba(255,255,255,0) 66%); }
+/* S2 and S3 coast: the sea melts into white under the words */
+.og.s2 .bg, .og.s3 .bg { background-image: url('/_blob/a9894da15b237bb7cb67c38936c3e03c'); }
+.og.s2 .bg::after { background: linear-gradient(90deg, rgba(255,255,255,.97) 0, rgba(255,255,255,.93) 36%, rgba(255,255,255,.45) 56%, rgba(255,255,255,0) 74%),
+  linear-gradient(0deg, rgba(255,255,255,.55) 0, rgba(255,255,255,0) 30%); }
+.og.s3 .bg::after { background: linear-gradient(90deg, rgba(255,255,255,.97) 0, rgba(255,255,255,.9) 38%, rgba(255,255,255,.2) 60%, rgba(255,255,255,0) 72%); }
+
+.tag { position: absolute; top: 10px; right: 10px; z-index: 30; padding: 5px 10px; border-radius: 999px; background: #000; color: #fff; font: 600 11px/1 'Inter', sans-serif; letter-spacing: .08em; }
+.share { width: 1240px; padding: 40px; background: #ECE5DD; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; font: 400 14px/1.4 'Inter', sans-serif; }
+.msg { background: #fff; border-radius: 12px; padding: 6px; box-shadow: 0 1px 2px rgba(0,0,0,.15); }
+.msg .th { width: 100%; aspect-ratio: 1200 / 630; overflow: hidden; border-radius: 8px; position: relative; }
+.msg .th > .og { transform: scale(.2967); transform-origin: 0 0; position: absolute; left: 0; top: 0; }
+.msg p { padding: 8px 6px 4px; color: #111; font-weight: 600; } .msg small { display: block; padding: 0 6px 6px; color: #667; }
+</style>
+</helmet>
+<div style="position:relative;width:1200px;height:630px"><div class="og s3"><div class="bg"></div><div class="in"><img class="lg" src="/_blob/e75f69f004965bb11048edb52632e687" alt="Healthcare International Group"><h1>Integrated healthcare group all over the world</h1><span class="rule"></span><div class="seals"><div class="seal"><span class="pl"><img src="/_blob/8b76cc59ce43836093814e46ee1a436f" alt="Global Healthcare Accreditation (GHA)"></span><div><b>GHA</b><span>Official Partner in Egypt</span></div></div><div class="seal"><span class="pl"><img src="/_blob/b439f43cf913e266753a455089e070fb" alt="German Medical Wellness Association (DMWV)"></span><div><b>DMWV</b><span>Partner</span></div></div><div class="seal"><span class="pl"><img src="/_blob/7b8045c1678bb0312c8782543c1c9515" alt="Urgent Care Association (UCA)"></span><div><b>UCA</b><span>Founder of UCA MENA</span></div></div></div><p class="dom">healthcareig.com</p></div><div class="panel glass"><p class="cap">The group brands</p><div class="grid"><span class="tile"><img src="/_blob/49f8334d59aa763109273e924d0a05f6" alt="24/7 Clinic"></span><span class="tile"><img src="/_blob/72413da7b4f9a625dc6c7dfa30203748" alt="MedPark Health Group"></span><span class="tile"><img src="/_blob/7193671f7ba61c91ae5dc489448d1b01" alt="MedOne Group"></span><span class="tile"><img src="/_blob/742a1ced92f037a38a925add369ad170" alt="TMASI GLOBAL"></span><span class="tile"><img src="/_blob/7651baa627d4b78ab963148edf80b6f2" alt="One Medical Center"></span><span class="tile"><img src="/_blob/32c0a795732100376d0616e23a9444a8" alt="One Medical Spa"></span><span class="tile"><img src="/_blob/12ba7932cf7f478b67442510b3b38387" alt="Ma Vie Clinique"></span><span class="tile"><img src="/_blob/4ab1e80e3438c3b7dd80ddaf95455c2e" alt="Shakankiry Clinics Medical Group"></span><span class="tile"><img src="/_blob/f1ba96b5ab4ef06253bc7b8b03ef9c4b" alt="UCA MENA"></span></div></div></div><span class="tag">S3</span></div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1200,"height":630}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -20,16 +20,23 @@ export function BrandGrid() {
       <div className="wrap">
         <SectionHead id="brands-h" title={GROUP.listLabel.text.replace(/^The g/, "G")} />
         <Stagger className="brand-grid" gap={0.06}>
-          {brands.map((b) => (
-            <Item as="article" className="brand-card" key={b.short}>
-              <a href={href(`/group/${(BRANDS.find((x) => x.key === b.short) as { slug: string }).slug}/`)}>
+          {brands.map((b) => {
+            // a brand with its own page opens it; Ma Vie has no page or website yet, so its card is not a link
+            const page = (BRANDS as { key: string; slug: string }[]).find((x) => x.key === b.short);
+            const inner = (
+              <>
                 <span className="brand-logo"><img src={asset(b.logo)} alt={b.name} loading="lazy" /></span>
                 <h3>{b.name}</h3>
                 <p>{b.line}</p>
-                <span className="brand-visit">{BRAND_UI.discover.text}<Icon name="arrow" size={15} /></span>
-              </a>
-            </Item>
-          ))}
+                {page ? <span className="brand-visit">{BRAND_UI.discover.text}<Icon name="arrow" size={15} /></span> : null}
+              </>
+            );
+            return (
+              <Item as="article" className="brand-card" key={b.short}>
+                {page ? <a href={href(`/group/${page.slug}/`)}>{inner}</a> : <div className="brand-card-in">{inner}</div>}
+              </Item>
+            );
+          })}
         </Stagger>
       </div>
     </section>

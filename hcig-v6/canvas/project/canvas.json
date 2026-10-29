@@ -83,6 +83,123 @@
       "x": 0,
       "y": 0
     },
+    "R10After.dc.html": {
+      "h": 1100,
+      "is_interactive": true,
+      "page": "r10",
+      "title": "F3 desktop: the film band directly under the hero, before About Us (the strongest place, but About is no longer the firs",
+      "w": 1440,
+      "x": 0,
+      "y": 2940
+    },
+    "R10Band.dc.html": {
+      "h": 980,
+      "is_interactive": true,
+      "page": "r10",
+      "title": "F2 desktop: the film as its own band right after About Us; it plays muted on its own, \"Watch with sound\" opens it full s",
+      "w": 1440,
+      "x": 0,
+      "y": 1880
+    },
+    "R10Bandm.dc.html": {
+      "h": 360,
+      "is_interactive": true,
+      "page": "r10",
+      "title": "F2 phone: the same band, the card fits the screen width",
+      "w": 390,
+      "x": 1520,
+      "y": 1880
+    },
+    "R10Hero1.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "r10",
+      "title": "F1 hero, desktop: \"Watch our film\" as a living thumbnail floating over the globe, bottom right (the film plays muted ins",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "R10Hero1m.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "r10",
+      "title": "F1 hero, phone: a small \"Watch our film\" chip on the globe, so the hero still fits the first screen",
+      "w": 390,
+      "x": 1520,
+      "y": 0
+    },
+    "R10Hero2.dc.html": {
+      "h": 860,
+      "is_interactive": true,
+      "page": "r10",
+      "title": "F1b hero, desktop, quieter: a text play link next to the two buttons",
+      "w": 1440,
+      "x": 0,
+      "y": 940
+    },
+    "R10Player.dc.html": {
+      "h": 810,
+      "is_interactive": true,
+      "page": "r10",
+      "title": "The player all options open: full screen, with sound, the film's own controls, close with X or Esc",
+      "w": 1440,
+      "x": 0,
+      "y": 4120
+    },
+    "R10Playerm.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "page": "r10",
+      "title": "The player on a phone: the film edge to edge; turn the phone for full screen",
+      "w": 390,
+      "x": 1520,
+      "y": 4120
+    },
+    "R11OgA.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1200,
+      "h": 630,
+      "title": "S4, his pick: glass map, profile slide 8 labels, UCA seal, nine group brands with Ma Vie Clinique",
+      "page": "r11",
+      "is_interactive": true
+    },
+    "R11OgB.dc.html": {
+      "x": 1280,
+      "y": 0,
+      "w": 1200,
+      "h": 630,
+      "title": "S2 Red Sea coast: the sea melts into white under the words; the group on a glass strip",
+      "page": "r11",
+      "is_interactive": true
+    },
+    "R11OgC.dc.html": {
+      "x": 2560,
+      "y": 0,
+      "w": 1200,
+      "h": 630,
+      "title": "S3 Red Sea coast: the group in a glass panel over the resort",
+      "page": "r11",
+      "is_interactive": true
+    },
+    "R11OgD.dc.html": {
+      "x": 3840,
+      "y": 0,
+      "w": 1200,
+      "h": 630,
+      "title": "S1 silk: the silk flows behind the glass panel of the group",
+      "page": "r11",
+      "is_interactive": true
+    },
+    "R11Share.dc.html": {
+      "x": 0,
+      "y": 720,
+      "w": 1240,
+      "h": 330,
+      "title": "How S4, S2 and S1 look when a link is shared on a phone (WhatsApp size)",
+      "page": "r11",
+      "is_interactive": true
+    },
     "R3About1d.dc.html": {
       "h": 460,
       "is_interactive": true,
@@ -595,78 +712,6 @@
       "w": 390,
       "x": 3620,
       "y": 0
-    },
-    "R10Hero1.dc.html": {
-      "x": 0,
-      "y": 0,
-      "w": 1440,
-      "h": 860,
-      "title": "F1 hero, desktop: \"Watch our film\" as a living thumbnail floating over the globe, bottom right (the film plays muted inside it); press it and the film opens full screen with sound",
-      "page": "r10",
-      "is_interactive": true
-    },
-    "R10Hero1m.dc.html": {
-      "x": 1520,
-      "y": 0,
-      "w": 390,
-      "h": 844,
-      "title": "F1 hero, phone: a small \"Watch our film\" chip on the globe, so the hero still fits the first screen",
-      "page": "r10",
-      "is_interactive": true
-    },
-    "R10Hero2.dc.html": {
-      "x": 0,
-      "y": 940,
-      "w": 1440,
-      "h": 860,
-      "title": "F1b hero, desktop, quieter: a text play link next to the two buttons",
-      "page": "r10",
-      "is_interactive": true
-    },
-    "R10Band.dc.html": {
-      "x": 0,
-      "y": 1880,
-      "w": 1440,
-      "h": 980,
-      "title": "F2 desktop: the film as its own band right after About Us; it plays muted on its own, \"Watch with sound\" opens it full screen",
-      "page": "r10",
-      "is_interactive": true
-    },
-    "R10Bandm.dc.html": {
-      "x": 1520,
-      "y": 1880,
-      "w": 390,
-      "h": 360,
-      "title": "F2 phone: the same band, the card fits the screen width",
-      "page": "r10",
-      "is_interactive": true
-    },
-    "R10After.dc.html": {
-      "x": 0,
-      "y": 2940,
-      "w": 1440,
-      "h": 1100,
-      "title": "F3 desktop: the film band directly under the hero, before About Us (the strongest place, but About is no longer the first scroll)",
-      "page": "r10",
-      "is_interactive": true
-    },
-    "R10Player.dc.html": {
-      "x": 0,
-      "y": 4120,
-      "w": 1440,
-      "h": 810,
-      "title": "The player all options open: full screen, with sound, the film's own controls, close with X or Esc",
-      "page": "r10",
-      "is_interactive": true
-    },
-    "R10Playerm.dc.html": {
-      "x": 1520,
-      "y": 4120,
-      "w": 390,
-      "h": 844,
-      "title": "The player on a phone: the film edge to edge; turn the phone for full screen",
-      "page": "r10",
-      "is_interactive": true
     }
   },
   "createdOnFiles": {
@@ -753,12 +798,21 @@
     "R10Bandm.dc.html",
     "R10After.dc.html",
     "R10Player.dc.html",
-    "R10Playerm.dc.html"
+    "R10Playerm.dc.html",
+    "R11OgA.dc.html",
+    "R11OgB.dc.html",
+    "R11OgC.dc.html",
+    "R11Share.dc.html",
+    "R11OgD.dc.html"
   ],
   "pages": [
     {
       "id": "home",
       "name": "Home"
+    },
+    {
+      "id": "r11",
+      "name": "Round 11: share image (pick)"
     },
     {
       "id": "r10",

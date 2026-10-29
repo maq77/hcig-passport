@@ -1,0 +1,45 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"><style>body{margin:0}
+@font-face { font-family: 'Helma'; src: url('file:///D:/Healthcare%20international%20group/hcig-v6/public/media/helma.woff2') format('woff2'); font-weight: 400; }
+.og { --t:#12C0C6; --dim:#565759; --d20:#DDDDDF; position: relative; width: 1200px; height: 630px; overflow: hidden; box-sizing: border-box;
+  background: #fff; color: #000; font: 400 16px/1.5 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.og *, .og *::before, .og *::after { box-sizing: border-box; } .og p { margin: 0; } .og img { display: block; }
+.og .bg { position: absolute; inset: 0; background-size: cover; background-position: right center; }
+.og .bg::after { content: ""; position: absolute; inset: 0; }
+.og .in { position: absolute; left: 64px; top: 54px; bottom: 50px; width: 560px; display: flex; flex-direction: column; }
+.og .lg { height: 50px; width: auto; align-self: flex-start; }
+.og h1 { margin: 44px 0 0; font: 400 50px/1.06 'Helma', Georgia, serif; letter-spacing: -.005em; }
+.og .rule { width: 56px; height: 2px; margin: 26px 0 26px; background: var(--t); }
+.og .seals { display: flex; gap: 14px; }
+.og .seal { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px; width: 176px; }
+.og .seal .pl { width: 58px; height: 58px; display: grid; place-items: center; border-radius: 14px; background: #fff; padding: 6px;
+  box-shadow: 0 10px 22px -14px rgba(0,0,0,.45), inset 0 0 0 1px var(--d20); }
+.og .seal .pl img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.og .seal b { display: block; font: 700 13px/1.1 'Inter', sans-serif; letter-spacing: .06em; }
+.og .seal span { display: block; margin-top: 3px; font: 500 11.5px/1.25 'Inter', sans-serif; color: var(--dim); }
+.og .dom { margin-top: auto; font: 600 12px/1 'Inter', sans-serif; letter-spacing: .26em; text-transform: uppercase; color: var(--dim); }
+.og .cap { font: 600 10.5px/1 'Inter', sans-serif; letter-spacing: .24em; text-transform: uppercase; color: var(--dim); }
+/* glass that holds the group */
+.og .glass { background: rgba(255,255,255,.6); -webkit-backdrop-filter: blur(16px) saturate(1.15); backdrop-filter: blur(16px) saturate(1.15);
+  border: 1px solid rgba(255,255,255,.85); box-shadow: 0 30px 60px -36px rgba(0,40,45,.45); }
+.og .tile { display: grid; place-items: center; border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1px rgba(0,0,0,.05); }
+.og .tile img { max-height: 46px; max-width: 74%; object-fit: contain; }
+/* panel on the right: 2 x 4 */
+.og .panel { position: absolute; right: 52px; top: 52px; bottom: 52px; width: 420px; border-radius: 24px; padding: 20px; display: grid; grid-template-rows: auto 1fr; gap: 14px; }
+.og .panel .grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 1fr); gap: 10px; }
+/* strip along the bottom: 8 in a row */
+.og .strip { position: absolute; left: 40px; right: 40px; bottom: 34px; height: 104px; border-radius: 22px; padding: 12px 14px 14px; display: grid; grid-template-rows: auto 1fr; gap: 9px; }
+.og .strip .row { display: grid; grid-template-columns: repeat(9, 1fr); gap: 7px; }
+.og .strip .tile img { max-height: 40px; max-width: 80%; }
+.og.has-strip .in { bottom: 166px; } .og.s4 .dom { margin-bottom: 16px; } .og.has-strip h1 { margin-top: 30px; } .og.has-strip .rule { margin: 20px 0; }
+
+/* S1 silk: the silk flows behind the glass */
+.og.s1 .bg { background-image: url('file:///D:/Healthcare%20international%20group/hcig-v6/canvas/og-assets/og-silk.webp'); }
+/* S4 map: his glass world map, the routes meet in Egypt */
+.og.s4 .bg { background-image: url('file:///D:/Healthcare%20international%20group/hcig-v6/canvas/og-assets/og-map.webp'); }
+.og.s4 .bg::after { background: linear-gradient(90deg, rgba(255,255,255,.95) 0, rgba(255,255,255,.86) 34%, rgba(255,255,255,.25) 54%, rgba(255,255,255,0) 66%); }
+/* S2 and S3 coast: the sea melts into white under the words */
+.og.s2 .bg, .og.s3 .bg { background-image: url('file:///D:/Healthcare%20international%20group/hcig-v6/canvas/og-assets/og-coast.webp'); }
+.og.s2 .bg::after { background: linear-gradient(90deg, rgba(255,255,255,.97) 0, rgba(255,255,255,.93) 36%, rgba(255,255,255,.45) 56%, rgba(255,255,255,0) 74%),
+  linear-gradient(0deg, rgba(255,255,255,.55) 0, rgba(255,255,255,0) 30%); }
+.og.s3 .bg::after { background: linear-gradient(90deg, rgba(255,255,255,.97) 0, rgba(255,255,255,.9) 38%, rgba(255,255,255,.2) 60%, rgba(255,255,255,0) 72%); }
+</style></head><body><div class="og s4 has-strip"><div class="bg"></div><div class="in"><img class="lg" src="file:///D:/Healthcare%20international%20group/hcig-v6/public/media/logo-h-black.png" alt="Healthcare International Group"><h1>Integrated healthcare group all over the world</h1><span class="rule"></span><div class="seals"><div class="seal"><span class="pl"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/public/media/gha.webp" alt="Global Healthcare Accreditation (GHA)"></span><div><b>GHA</b><span>Official Partner in Egypt</span></div></div><div class="seal"><span class="pl"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/canvas/og-assets/og-dmwv.png" alt="German Medical Wellness Association (DMWV)"></span><div><b>DMWV</b><span>Partner</span></div></div><div class="seal"><span class="pl"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/canvas/og-assets/og-uca-seal.png" alt="Urgent Care Association (UCA)"></span><div><b>UCA</b><span>Founder of UCA MENA</span></div></div></div><p class="dom">healthcareig.com</p></div><div class="strip glass"><p class="cap">The group brands</p><div class="row"><span class="tile"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/public/media/brand-247.svg" alt="24/7 Clinic"></span><span class="tile"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/public/media/brand-medpark.png" alt="MedPark Health Group"></span><span class="tile"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/public/media/brand-medone.webp" alt="MedOne Group"></span><span class="tile"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/public/media/brand-tmasi.webp" alt="TMASI GLOBAL"></span><span class="tile"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/public/media/brand-onemedical.svg" alt="One Medical Center"></span><span class="tile"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/public/media/brand-onespa.webp" alt="One Medical Spa"></span><span class="tile"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/public/media/brand-mavie.png" alt="Ma Vie Clinique"></span><span class="tile"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/canvas/og-assets/og-scmg.png" alt="Shakankiry Clinics Medical Group"></span><span class="tile"><img src="file:///D:/Healthcare%20international%20group/hcig-v6/canvas/og-assets/og-uca.png" alt="UCA MENA"></span></div></div></div></body></html>

@@ -21,8 +21,12 @@ organisations. Patients are routed to the group brands.
 
 **Facts we may use (the live site is the single source of truth):** 40+ Years of Experience; 600K+ Patients Served;
 700+ Medical Professionals; 150+ On-Site Clinics Across Egypt (Irina, 2026-10-29; were 350+ and 135+); 24/7 Medical Coverage in Key Travel Destinations; Direct
-Partnerships with Global Insurers; Official Partner of Global Healthcare Accreditation (GHA) and the German Medical
-Wellness Association (DMWV) in Egypt. **Never write "accredited by" about HCIG.**
+Partnerships with Global Insurers. **Partners and accreditation (owner, 2026-10-29):** Official Partner of Global
+Healthcare Accreditation (GHA); Official Partner of **and accredited by** the German Medical Wellness Association (DMWV); official partner and
+representative of the Urgent Care Association (UCA, American), represented in MENA by our group company UCA MENA.
+"Accredited by" is used for DMWV only; never "accredited by GHA or UCA" about HCIG, never "certified by". The live
+partner line ("...the Official Partner of Global Healthcare Accreditation™ (GHA) and the German Medical Wellness
+Association (DMWV) in Egypt") stays word for word everywhere (owner, "dont change"); UCA is added beside it.
 
 **The eight group brands (live lines):**
 | Brand | Line |
@@ -34,6 +38,7 @@ Wellness Association (DMWV) in Egypt. **Never write "accredited by" about HCIG.*
 | One Medical Center (Florida - USA) | Urgent Care & Outpatient Medical Services |
 | One Medical Spa (Florida - USA) | Aesthetic & Medical Wellness Services |
 | UCA MENA | Urgent Care Association Egypt & MENA |
+| Ma Vie Clinique | Wellness, Longevity & Aesthetic Care (company profile slides 9 and 12; joined the site 2026-10-30; no website yet) |
 | Shakankiry Clinics Medical Group | Travel Medical Services |
 
 ## 2. Hard rules (break one and the work is thrown away)
