@@ -80,7 +80,7 @@ export const ABOUT = {
   stats: [
     { n: 40, suffix: "+", label: "Years of Experience" },
     { n: 600, suffix: "K+", label: "Patients Served" },
-    { n: 350, suffix: "+", label: "Medical Professionals" },
+    { n: 700, suffix: "+", label: "Medical Professionals" }, // Irina 2026-10-29: around 700 (was 350+)
   ],
   src: "live",
 };
@@ -200,7 +200,7 @@ export const HEALTHCARE = {
     { title: "Wellness, Longevity & Aesthetic Care", text: "Preventive, recovery, and lifestyle-focused medical services designed to support long-term health, wellbeing, and performance.", img: "svc-wellness", path: "/services/wellness-longevity-aesthetic-care/" },
     { title: "Corporate Healthcare Solutions", text: "Tailored healthcare programs for organizations, insurers, and international partners. Ensuring access, continuity, and efficient care management across global operations.", img: "svc-corporate", path: "/services/corporate-healthcare-solutions/" },
     { title: "Elite Medical Concierge Service", text: "High-touch, personalized medical support with full coordination across all HCIG services, ensuring a seamless and stress-free patient experience.", img: "svc-concierge", path: "/services/elite-medical-concierge/" },
-    { title: "Accreditation & Training Services", text: "Supporting healthcare providers through training, operational consulting, and accreditation pathways to meet international standards and integrate into global medical networks.", img: "svc-accreditation", path: "/services/accreditation-training/" },
+    { title: "Accreditation & Training Services", text: "Supporting healthcare providers through training, operational consulting, and accreditation pathways to meet international standards and integrate into global medical networks.", img: "svc-training", path: "/services/accreditation-training/" },
   ],
   src: "live-fix",
 };
@@ -271,7 +271,7 @@ export const WHO = {
 export const IMPACT = {
   heading: "Our Impact",
   items: [
-    { stat: "135+", text: "On-Site Clinics Across Egypt" },
+    { stat: "150+", text: "On-Site Clinics Across Egypt" }, // Irina 2026-10-29: more than 150 (was 135+)
     { stat: "24/7", text: "Medical Coverage in Key Travel Destinations" },
     { stat: "", text: "Direct Partnerships with Global Insurers" },
     { stat: "", text: "Thousands of International Patients Managed Annually" },
@@ -295,7 +295,7 @@ export const CTA = {
 
 export const CONTACT = {
   heading: "Contact",
-  phones: ["+2 01001828828", "+2 01287766078"],
+  phones: ["+2 01001828828"], // the only official number (owner, 2026-10-29); +2 01287766078 removed everywhere
   email: "partner@healthcareig.com",
   offices: [
     "123 Hassan ElMaamoun St., Sixth Floor, Suite 604, Nasr City, Cairo, Egypt",

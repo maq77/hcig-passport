@@ -170,7 +170,7 @@ export const NETWORK_PAGE = {
   title: { text: "Where We Operate", src: "new" },
   lead: { text: "Operating across multiple markets, HCIG supports international patients, insurers, and global partners with structured, reliable, and scalable healthcare solutions.", src: "live-about" },
   countries: [
-    { name: "Egypt", note: "135+ On-Site Clinics Across Egypt", office: 0 },
+    { name: "Egypt", note: "150+ On-Site Clinics Across Egypt", office: 0 },
     { name: "United Arab Emirates" },
     { name: "Germany" },
     { name: "Spain" },
@@ -204,8 +204,8 @@ export const PRESS_PAGE = {
   facts: [
     { v: "40+", t: "Years of Experience" },
     { v: "600K+", t: "Patients Served" },
-    { v: "350+", t: "Medical Professionals" },
-    { v: "135+", t: "On-Site Clinics Across Egypt" },
+    { v: "700+", t: "Medical Professionals" },
+    { v: "150+", t: "On-Site Clinics Across Egypt" },
   ],
   factsSrc: "live",
   partner: { text: "Official Partner of Global Healthcare Accreditation (GHA) and the German Medical Wellness Association (DMWV) in Egypt", src: "live" },

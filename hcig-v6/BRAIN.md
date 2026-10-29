@@ -20,7 +20,7 @@ resorts and cruise lines; tour operators and travel agencies; healthcare provide
 organisations. Patients are routed to the group brands.
 
 **Facts we may use (the live site is the single source of truth):** 40+ Years of Experience; 600K+ Patients Served;
-350+ Medical Professionals; 135+ On-Site Clinics Across Egypt; 24/7 Medical Coverage in Key Travel Destinations; Direct
+700+ Medical Professionals; 150+ On-Site Clinics Across Egypt (Irina, 2026-10-29; were 350+ and 135+); 24/7 Medical Coverage in Key Travel Destinations; Direct
 Partnerships with Global Insurers; Official Partner of Global Healthcare Accreditation (GHA) and the German Medical
 Wellness Association (DMWV) in Egypt. **Never write "accredited by" about HCIG.**
 
