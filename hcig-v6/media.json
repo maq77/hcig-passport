@@ -179,9 +179,8 @@
     "note": "Nano Banana route A 2026-10-26 (round 3 image review); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "svc-urgent": {
-    "src": "hcig-v6/material/media/generated/r11/urgent-chrome.jpg",
-    "width": 2528,
-    "note": "Gemini (his Pro account in Chrome) 2026-10-29, Irina's note: no logo. A doctor dressing a guest's forearm in a resort clinic, a nurse with a sterile tray, sea and pool view; no logos or text; native 2528 px"
+    "src": "hcig-v6/material/media/generated/r11/urgent-his.jpg",
+    "note": "His pick 2026-10-29 (his Gemini Pro), Irina's note: no logo. A doctor dresses a guest's forearm, a nurse with a sterile tray, sea and pool view; no logos or text"
   },
   "svc-wellness": {
     "src": "hcig-v6/material/media/upscaled/svc-wellness.png",
@@ -482,9 +481,8 @@
     "note": "Nano Banana route A 2026-10-28 (Irina's image review, his approval round 9); Maritime 02 Medical Recruitment & Staffing: an HR manager interviewing a doctor; upscaled 2x (Real-ESRGAN x4plus, local GPU)"
   },
   "mar-medevac": {
-    "src": "hcig-v6/material/media/generated/r11/medevac-chrome.jpg",
-    "width": 2528,
-    "note": "Gemini (his Pro account in Chrome) 2026-10-29, Irina's note: the helicopter takes a patient from the ship; paramedics and a nurse wheel the patient on a stretcher to the landed helicopter; no text or logos; native 2528 px"
+    "src": "hcig-v6/material/media/generated/r11/medevac-his.jpg",
+    "note": "His pick 2026-10-29 (his Gemini Pro), Irina's note: the helicopter takes a patient from the ship; paramedics and a nurse wheel the patient on a stretcher to the helicopter; no text or logos"
   },
   "fleet-ops": {
     "src": "hcig-v6/material/media/upscaled/fleet-ops.png",
@@ -532,8 +530,7 @@
     "note": "the film, silent, 384 px wide: the hero thumbnail only (217 KB instead of the 1.6 MB preview)"
   },
   "svc-training": {
-    "src": "hcig-v6/material/media/upscaled/svc-training.png",
-    "width": 2528,
-    "note": "Nano Banana route A 2026-10-29 (Irina: training, a group and a speaker): a speaker presenting to doctors and nurses taking notes; no readable text or logos. The Trust page keeps its real GHA event photo (svc-accreditation); upscaled 2x (Real-ESRGAN x4plus, local GPU)"
+    "src": "hcig-v6/material/media/generated/r11/training-his.jpg",
+    "note": "His pick 2026-10-29 (his Gemini Pro), Irina's note: a training photo, a group and a speaker. Doctors and nurses taking notes, a raised hand, CPR practice with an instructor, sea view; blank screen, no text or logos"
   }
 }
