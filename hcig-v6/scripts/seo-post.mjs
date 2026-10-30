@@ -69,7 +69,8 @@ for (const l of built) {
     }
     // one share image for every page and language (his pick S4, 2026-10-30): the glass map, the line, the GHA, DMWV
     // and UCA seals and the nine group brands; made by canvas/og-local.mjs from the approved canvas board
-    const img = `${SITE}/og-hcig.jpg`;
+    // the image must open where the page is shared: the preview has its own copy (healthcareig.com gets it at go-live)
+    const img = target === "preview" ? "https://hcig-passport.vercel.app/hcig/v6/og-hcig.jpg" : `${SITE}/og-hcig.jpg`;
     const tags = [
       `<link rel="canonical" href="${live(l, en)}"/>`,
       ...built.map((x) => `<link rel="alternate" hreflang="${x}" href="${live(x, en)}"/>`),
