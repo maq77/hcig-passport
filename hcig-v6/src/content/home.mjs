@@ -382,8 +382,8 @@ export const FILM = {
   title: { text: "The HCIG film", src: "new" },
   line: { text: "One group, from first contact to case closure.", src: "new (the v6 brief)" },
   sound: { text: "Watch with sound", src: "new" },
-  dur: "1:11",
-  durIso: "PT1M11S",
-  uploaded: "2026-10-28",
+  dur: "1:22",
+  durIso: "PT1M22S",
+  uploaded: "2026-10-30", // v7 (owner, 2026-10-30), 81.7 s
   meta: { text: "The HCIG film | Healthcare International Group", src: "new" },
 };

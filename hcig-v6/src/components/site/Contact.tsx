@@ -6,6 +6,7 @@ import { CONTACT, UI, WHO } from "@/content/home.mjs";
 import { CONTACT_PAGE } from "@/content/pages.mjs";
 import { Icon } from "@/components/ui/Icon";
 import { Reveal } from "@/components/ui/Motion";
+import { sendLead } from "@/lib/lead";
 
 const tel = (p: string) => "tel:" + p.replace(/[^\d+]/g, "");
 const WA = `https://wa.me/${CONTACT.whatsapp.replace(/\D/g, "")}`;
@@ -34,7 +35,8 @@ export function ContactBody() {
           {sent ? (
             <div className="ct-done" role="status"><span className="ct-done-ico"><Icon name="check" size={28} /></span><p>{F.sent}</p></div>
           ) : (
-            <form className="ct-form" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+            <form className="ct-form" onSubmit={async (e) => { e.preventDefault(); if (await sendLead(e.currentTarget, "contact")) setSent(true); }}>
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hp" />
               <div className="field"><label htmlFor="c-name">{F.name}</label><input id="c-name" required autoComplete="name" /></div>
               <div className="field"><label htmlFor="c-company">{F.company}</label><input id="c-company" autoComplete="organization" /></div>
               <div className="field"><label htmlFor="c-mail">{F.mail}</label><input id="c-mail" type="email" required autoComplete="email" /></div>

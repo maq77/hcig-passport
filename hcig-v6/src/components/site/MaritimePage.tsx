@@ -12,6 +12,7 @@ import { Icon } from "@/components/ui/Icon";
 import { Item, Reveal, Stagger } from "@/components/ui/Motion";
 import { SectionHead } from "@/components/ui/SectionHead";
 import type { IconName } from "@/lib/icons";
+import { sendLead } from "@/lib/lead";
 
 const M = MARITIME_PAGE;
 // each capability shows its own work (Irina, 2026-10-28): clinic, recruiting doctors, fleet desk, port, medevac, yacht
@@ -170,7 +171,8 @@ export function MaritimeBody() {
             {sent ? (
               <div className="ct-done" role="status"><span className="ct-done-ico"><Icon name="check" size={28} /></span><p>{M.closing.line}</p></div>
             ) : (
-              <form className="ct-form" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+              <form className="ct-form" onSubmit={async (e) => { e.preventDefault(); if (await sendLead(e.currentTarget, "maritime")) setSent(true); }}>
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hp" />
                 {M.form.fields.map((f, i) => (
                   <div className={`field${i >= 2 ? " ct-wide" : ""}`} key={f}>
                     <label htmlFor={`mf-${i}`}>{f}</label>

@@ -852,21 +852,21 @@
     "file": "promo-film.mp4",
     "w": 1920,
     "h": 1080,
-    "kb": 7087,
+    "kb": 10598,
     "video": true
   },
   "promo-film-720": {
     "file": "promo-film-720.mp4",
     "w": 1280,
     "h": 720,
-    "kb": 3279,
+    "kb": 5129,
     "video": true
   },
   "promo-loop": {
     "file": "promo-loop.mp4",
     "w": 1280,
     "h": 720,
-    "kb": 1604,
+    "kb": 2279,
     "video": true
   },
   "film-cover": {
@@ -884,7 +884,7 @@
     "file": "promo-thumb.mp4",
     "w": 640,
     "h": 360,
-    "kb": 967,
+    "kb": 1023,
     "video": true
   },
   "svc-training": {

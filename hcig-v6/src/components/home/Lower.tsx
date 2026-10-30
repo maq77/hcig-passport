@@ -13,6 +13,7 @@ import { Marquee } from "@/components/ui/Marquee";
 import { Watermark } from "@/components/ui/Brand";
 import { Rail } from "@/components/ui/Rail";
 import type { IconName } from "@/lib/icons";
+import { sendLead } from "@/lib/lead";
 
 // ---------- Maritime & Cruise Healthcare (the manager's copy, word for word) ----------
 const CHIP_ICONS: IconName[] = ["hospital", "doctor", "ship", "anchor", "plane"];
@@ -337,7 +338,7 @@ export function ClosingBand() {
         <Reveal className="news" delay={120}>
           <form
             className={sent ? "sent" : ""}
-            onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+            onSubmit={async (e) => { e.preventDefault(); if (await sendLead(e.currentTarget, "newsletter")) setSent(true); }}
             aria-labelledby="news-l"
           >
             <p id="news-l" className="news-l">{CTA.newsletter.label.text}</p>

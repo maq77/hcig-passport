@@ -2681,3 +2681,6 @@ html:not([lang="en"]) :is(h1, h2, h3, h4, b, strong) { overflow-wrap: anywhere; 
 .net-end { margin-top: clamp(48px, 6vw, 80px); text-align: center; }
 .net-end h2 { margin: 0; font: 400 clamp(32px, 1rem + 2.6vw, 58px)/1.08 var(--font-display); color: var(--ink); text-wrap: balance; }
 .net-end .acc { color: var(--turq); }
+
+/* the forms' hidden bot trap (2026-10-30) */
+.hp { position: absolute !important; left: -10000px !important; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
