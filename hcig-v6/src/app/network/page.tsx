@@ -16,7 +16,7 @@ export default function NetworkPage() {
         <PageHero
           crumbs={[{ label: T.home, path: "/" }, { label: N.title.text, path: "/network/" }]}
           title={N.title.text}
-          lead={N.lead.text}
+          lead={N.sub.text}
           image="traveller-centre"
           imageAlt={T.alt.airport}
         />

@@ -352,7 +352,7 @@ export const T = {
   more: {
     group: "Our Premises and Facilities",
     leadership: "Board Members",
-    network: "Where We Operate",
+    network: "We Operate Globally", // footer label, his words 2026-10-30 (was "Where We Operate")
     trust: "Trust and Standards",
     press: "Press Room",
     film: "The HCIG film",

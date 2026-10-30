@@ -30,6 +30,8 @@ const ORG = {
         { "@type": "PostalAddress", streetAddress: "123 Hassan ElMaamoun St., Sixth Floor, Suite 604, Nasr City", addressLocality: "Cairo", addressCountry: "EG" },
         { "@type": "PostalAddress", streetAddress: "2251 Drew St, Suite A", addressLocality: "Clearwater", addressRegion: "FL", postalCode: "33765", addressCountry: "US" },
       ],
+      // owner 2026-10-30: the five countries are our main hubs; we operate globally and serve patients everywhere
+      areaServed: { "@type": "Place", name: "Worldwide" },
       subOrganization: brands.map((b) => ({ "@type": "MedicalOrganization", name: b.name, ...(b.url ? { url: b.url } : {}) })),
       sameAs: SOCIAL_LINKS.map((x) => x.url),
     },

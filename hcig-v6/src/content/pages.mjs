@@ -166,8 +166,9 @@ export const GROUP_PAGE = {
 };
 
 export const NETWORK_PAGE = {
-  meta: { title: "Where We Operate | Healthcare International Group", src: "new" },
-  title: { text: "Where We Operate", src: "new" },
+  meta: { title: "Our Main Hubs | Healthcare International Group", src: "owner" },
+  title: { text: "Our Main Hubs", src: "owner" }, // his words 2026-10-30 (was "Where We Operate")
+  sub: { text: "We operate globally and serve patients everywhere", src: "owner" }, // his words 2026-10-30
   lead: { text: "Operating across multiple markets, HCIG supports international patients, insurers, and global partners with structured, reliable, and scalable healthcare solutions.", src: "live-about" },
   countries: [
     { name: "Egypt", note: "150+ On-Site Clinics Across Egypt", office: 0 },
@@ -176,7 +177,7 @@ export const NETWORK_PAGE = {
     { name: "Spain" },
     { name: "United States", office: 1 },
   ],
-  countriesSrc: "fact-sheet (company profile, his answer 2026-10-26: five countries)",
+  countriesSrc: "fact-sheet (company profile, his answer 2026-10-26: five countries); 2026-10-30 he set them as our main hubs, not the only places we serve",
   officesTitle: { text: "Our offices", src: "new" },
 };
 
