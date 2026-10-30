@@ -68,8 +68,9 @@ export function NetworkBody() {
   const offices = CONTACT.offices as string[];
   return (
     <>
-      <section className="sec net-sec" aria-label={N.title.text}>
+      <section className="sec net-sec" aria-labelledby="net-h">
         <div className="wrap">
+          <SectionHead id="net-h" title={N.hubs.text} lead={N.hubsLead.text} />
           <Stagger as="ol" className="net-list" gap={0.08}>
             {N.countries.map((c, i) => (
               <Item as="li" key={c.name} className={c.office !== undefined ? "has-office" : undefined}>
@@ -80,6 +81,12 @@ export function NetworkBody() {
               </Item>
             ))}
           </Stagger>
+          <Reveal className="net-note">
+            <p><b>{N.anywhere.text}</b><span>{N.manage.text}</span></p>
+          </Reveal>
+          <Reveal className="net-end">
+            <h2>{N.end.text.replace(/ 24\/7$/, " ")}<span className="acc">24/7</span></h2>
+          </Reveal>
         </div>
       </section>
     </>

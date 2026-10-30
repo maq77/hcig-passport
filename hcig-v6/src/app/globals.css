@@ -2671,3 +2671,13 @@ html:not([lang="en"]) :is(h1, h2, h3, h4, b, strong) { overflow-wrap: anywhere; 
   .gf-brands .gf-nolink { min-height: 60px; border-bottom: 1px solid var(--line); width: 100%; }
   .gf-brands > li:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 8px); }
 }
+
+/* Our Main Hubs (his words, 2026-10-30): the note under the hubs and the closing line of the section */
+.net-note { margin-top: 36px; text-align: center; }
+.net-note p { display: grid; gap: 8px; justify-items: center; margin: 0; }
+.net-note b { font: 600 13px/1 var(--font-sans); letter-spacing: .2em; text-transform: uppercase; color: var(--ink); }
+.net-note b::before { content: ""; display: block; width: 40px; height: 2px; margin: 0 auto 16px; background: var(--turq); }
+.net-note span { max-width: 560px; font-size: 17px; line-height: 1.6; color: var(--ink-2); }
+.net-end { margin-top: clamp(48px, 6vw, 80px); text-align: center; }
+.net-end h2 { margin: 0; font: 400 clamp(32px, 1rem + 2.6vw, 58px)/1.08 var(--font-display); color: var(--ink); text-wrap: balance; }
+.net-end .acc { color: var(--turq); }

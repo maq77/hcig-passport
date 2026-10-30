@@ -179,6 +179,12 @@ export const NETWORK_PAGE = {
   ],
   countriesSrc: "fact-sheet (company profile, his answer 2026-10-26: five countries); 2026-10-30 he set them as our main hubs, not the only places we serve",
   officesTitle: { text: "Our offices", src: "new" },
+  // his words 2026-10-30, for the hubs section (spelling fixed only)
+  hubs: { text: "Our Main Hubs", src: "owner" },
+  hubsLead: { text: "We operate globally and serve patients everywhere all around the world", src: "owner" },
+  anywhere: { text: "Patients served anywhere", src: "owner" },
+  manage: { text: "We manage all our services around the world from our main hubs", src: "owner" },
+  end: { text: "Serving patients around the world 24/7", src: "owner" },
 };
 
 export const TRUST_PAGE = {
