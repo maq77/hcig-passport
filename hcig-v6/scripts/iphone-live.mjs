@@ -2,19 +2,21 @@
 // the screen area Safari really leaves with its bars shown, touch, the iPhone user agent and pixel density.
 // Checks the home hero (both buttons on the first screen), the menu (Talk to our team visible), the film (opens full
 // width, closes), the day and night switch, sideways overflow and errors.   node scripts/iphone-live.mjs [lang]
-import { webkit, devices } from "playwright-core";
+import { webkit, chromium, devices } from "playwright-core";
 import { join } from "node:path";
 
 const BASE = "https://hcig-passport.vercel.app/hcig/v6/";
 const lang = process.argv[2] && process.argv[2] !== "en" ? process.argv[2] + "/" : "";
 const OUT = process.env.SHOTS;
 const PHONES = ["iPhone SE (3rd gen)", "iPhone 13 mini", "iPhone 14", "iPhone 15", "iPhone 15 Pro Max"];
-const b = await webkit.launch();
+// ENGINE=chromium runs the same iPhone profiles in Chrome's engine when WebKit is not installed
+const b = process.env.ENGINE === "chromium" ? await chromium.launch({ executablePath: join(process.env.LOCALAPPDATA, "ms-playwright", "chromium-1243", "chrome-win64", "chrome.exe") }) : await webkit.launch();
 let bad = 0;
 for (const name of PHONES) {
   const d = devices[name];
   if (!d) { console.log(`${name}: no profile`); continue; }
-  const ctx = await b.newContext({ ...d });
+  const { defaultBrowserType: _t, ...prof } = d;
+  const ctx = await b.newContext(prof);
   const pg = await ctx.newPage();
   const errs = [];
   pg.on("pageerror", (e) => errs.push(String(e).slice(0, 120)));

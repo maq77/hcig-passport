@@ -903,5 +903,17 @@
     "w": 438,
     "h": 388,
     "kb": 77
+  },
+  "partner-providers": {
+    "file": "partner-providers.webp",
+    "w": 2848,
+    "h": 1504,
+    "kb": 176,
+    "alt": "Doctors and a nurse reviewing a case together on a tablet in a bright clinic lounge",
+    "v": [
+      800,
+      1200,
+      1600
+    ]
   }
 }

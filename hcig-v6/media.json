@@ -538,5 +538,10 @@
     "src": "hcig-v6/material/media/generated/r11/mavie-logo-2x.png",
     "keep": true,
     "note": "Ma Vie Clinique logo, cut from the company profile slide 9 with its PDF soft mask, Real-ESRGAN 2x (owner 2026-10-30; ask for the original file)"
+  },
+  "partner-providers": {
+    "src": "hcig-v6/material/media/generated/r11/partner-providers.jpg",
+    "alt": "Doctors and a nurse reviewing a case together on a tablet in a bright clinic lounge",
+    "note": "his image 2026-10-30, Who We Work With: Healthcare Providers"
   }
 }

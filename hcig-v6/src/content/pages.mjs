@@ -122,7 +122,7 @@ export const CONTACT_PAGE = {
   labels: { address: "Address", phone: "Phone", email: "E-mail" }, // live
   form: {
     // new, for his review: plain form labels
-    name: "Full name", company: "Company", mail: "Work email", phone: "Phone", type: "I am a", message: "Your message",
+    name: "Full name", company: "Company", mail: "Work email", phone: "Phone", type: "Choose your category", message: "Your message",
     send: "Send message", sent: "Thank you. Our team will reply within 24 hours.", privacy: "Secure & confidential communication",
     src: "new",
   },
@@ -137,7 +137,7 @@ export const PARTNER_TYPES = [
   { slug: "embassies-government", icon: "embassy", img: "embassy-meeting" },
   { slug: "hotels-and-resorts", icon: "hotel", img: "built-hospitality", maritime: true },
   { slug: "tour-operators-travel-agencies", icon: "plane", img: "traveller-centre" },
-  { slug: "healthcare-providers", icon: "hospital", img: "built-training" },
+  { slug: "healthcare-providers", icon: "hospital", img: "partner-providers" }, // his image 2026-10-30
   { slug: "corporate-international-organisations", icon: "corporate", img: "svc-corporate" },
 ];
 

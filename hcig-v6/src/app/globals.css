@@ -2455,7 +2455,7 @@ html:not([lang="en"]) :is(h1, h2, h3, h4, b, strong) { overflow-wrap: anywhere; 
 
 /* the film band: the film plays muted in a large card; the button opens it with sound */
 .film-band { padding-block: clamp(28px, 4vw, 56px); }
-.fb-card { position: relative; aspect-ratio: 16 / 9; max-height: 82svh; margin-inline: auto; border-radius: 28px; overflow: hidden; background: #1c1d1f; box-shadow: 0 50px 90px -50px rgba(0, 0, 0, .6); }
+.fb-card { position: relative; aspect-ratio: 16 / 9; max-height: 82svh; margin-inline: auto; border-radius: 28px; overflow: hidden; background: #1c1d1f center / cover no-repeat; box-shadow: 0 50px 90px -50px rgba(0, 0, 0, .6); }
 .fb-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(0, 0, 0, .72) 0%, rgba(0, 0, 0, .18) 42%, transparent 60%); pointer-events: none; }
 .fb-in { position: absolute; z-index: 2; left: clamp(20px, 3vw, 44px); right: clamp(20px, 3vw, 44px); bottom: clamp(18px, 3vw, 40px); display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; color: var(--white); }
 .fb-eyebrow { color: rgba(255, 255, 255, .85); }
@@ -2465,8 +2465,19 @@ html:not([lang="en"]) :is(h1, h2, h3, h4, b, strong) { overflow-wrap: anywhere; 
 .fb-btn small { margin-left: 2px; font-weight: 500; color: var(--ink-2); }
 .fb-dot { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; background: var(--turq); color: var(--black); flex: none; }
 @container page (max-width: 760px) {
-  .fb-card { aspect-ratio: 4 / 5; border-radius: 22px; }
-  .fb-in { flex-direction: column; align-items: flex-start; gap: 16px; }
+  /* phones (his note 2026-10-30): the whole 16:9 film shows on the card, the words sit under it on the dark card */
+  .fb-card { aspect-ratio: auto; max-height: none; border-radius: 22px; display: flex; flex-direction: column; background: #1c1d1f top center / 100% auto no-repeat; }
+  .fb-card::after { display: none; }
+  .fb-card .film-loop { position: relative; inset: auto; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
+  .fb-in { position: relative; left: auto; right: auto; bottom: auto; padding: 20px 20px 22px; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .fb-line { font-size: clamp(22px, 6.4cqi, 28px); }
+  .fb-btn { min-height: 50px; font-size: 14px; } .fb-dot { width: 40px; height: 40px; }
+}
+@media (max-width: 760px) {
+  .fb-card { aspect-ratio: auto; max-height: none; border-radius: 22px; display: flex; flex-direction: column; background: #1c1d1f top center / 100% auto no-repeat; }
+  .fb-card::after { display: none; }
+  .fb-card .film-loop { position: relative; inset: auto; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; }
+  .fb-in { position: relative; left: auto; right: auto; bottom: auto; padding: 20px 20px 22px; flex-direction: column; align-items: flex-start; gap: 16px; }
   .fb-line { font-size: clamp(22px, 6.4cqi, 28px); }
   .fb-btn { min-height: 50px; font-size: 14px; } .fb-dot { width: 40px; height: 40px; }
 }
@@ -2635,7 +2646,7 @@ html:not([lang="en"]) :is(h1, h2, h3, h4, b, strong) { overflow-wrap: anywhere; 
 /* The film: the muted previews fade in once they really play (no jump from the cover); the player eases in and out */
 .film-loop { opacity: 0; transition: opacity .8s var(--ease); }
 .film-loop.on { opacity: 1; }
-.hf-tv, .fb-card { background: #1c1d1f center / cover no-repeat; }
+.hf-tv { background: #1c1d1f center / cover no-repeat; }
 .film-dlg[open] { position: fixed; inset: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; display: grid; place-items: center; background: transparent; overflow: hidden; }
 .film-dlg::backdrop { background: rgba(0, 0, 0, 0); -webkit-backdrop-filter: blur(0); backdrop-filter: blur(0); transition: background-color .45s var(--ease), backdrop-filter .45s var(--ease), -webkit-backdrop-filter .45s var(--ease); }
 .film-dlg.in::backdrop { background: rgba(0, 0, 0, .86); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
