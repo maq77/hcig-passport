@@ -5,7 +5,7 @@
 #   bash scripts/golive-swap.sh rollback   undo: the v6 files go to ~/v6_rolledback, the old site moves back
 # Nothing is deleted. Each rename is instant; the site is mixed for a few seconds at most.
 set -e
-MODE="${1:-}"; OLD="old_site_2026-10-30"; LOG="$(dirname "$0")/../../.playwright-mcp/live"; mkdir -p "$LOG"
+MODE="${1:-}"; OLD="old_site_2026-10-31"; LOG="$(dirname "$0")/../../.playwright-mcp/live"; mkdir -p "$LOG"
 list() { printf 'ls -1a %s\n' "$1" | sftp -q -b - hcig 2>/dev/null | grep -v '^sftp>' | sed 's#.*/##' | grep -v -x -e '.' -e '..' ; }
 if [ "$MODE" = swap ]; then
   OLDLIST=$(list public_html | grep -v -x -e '.ftpquota' -e '.well-known' -e 'cgi-bin')
