@@ -1,6 +1,6 @@
 ---
 name: hive
-description: Run the HCIG Hive as the head. Plan a job, split it into tickets, route each to the right agent and model, dispatch Antigravity workers, watch them, review and merge. Use when the user says /hive, "split this up", "give this to agy", "use the agents", "run it in parallel", or hands over any job big enough to share across workers.
+description: FROZEN since 2026-10-19 (the user parked Hive; use agy-delegate instead). Do not use unless the user explicitly types /hive and asks to unfreeze. Before the freeze it was for this. Run the HCIG Hive as the head. Plan a job, split it into tickets, route each to the right agent and model, dispatch Antigravity workers, watch them, review and merge. Use when the user says /hive, "split this up", "give this to agy", "use the agents", "run it in parallel", or hands over any job big enough to share across workers.
 ---
 
 # /hive: plan, split, dispatch, watch, review

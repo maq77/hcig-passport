@@ -55,19 +55,17 @@ When a ticket in `TASK_BOARD.md` is marked `[NEEDS_REVIEW]`:
 
 ---
 
-## 5. HCIG Hive: how the head runs the fleet (live since 2026-09-18)
+## 5. HCIG Hive: FROZEN since 2026-10-19
 
-`hive/` holds the orchestration layer. `.hive/` holds its state (gitignored, never commit it).
-- **Start:** `hive.bat` (hub, dashboard at http://localhost:4400, terminal panes). Any Hive call also starts the hub.
-- **Tools (MCP server `hive`):** `hive_status`, `hive_create_task`, `hive_dispatch`, `hive_update_task`, `hive_run_log`, `hive_review`, `hive_merge`, `hive_kill`, `hive_inbox`, `hive_usage`, `hive_launch`, `hive_brain`, `hive_bestof` (same ticket on two best models), `hive_critic` (a different model reviews), `hive_analytics`. CLI twin: `node hive/cli.js`.
-- **Dashboard (v2, 2026-09-18):** React + TypeScript + Tailwind in `hive/web`, built into `hive/ui` (`npm run hive:build`). Views: Home, Board, List, Runs with replay, Analytics, Brain, Settings. Ctrl K palette, N new ticket, G then a letter to jump.
-- **Triage (v4):** tickets with no assignee go through `policy.rules` in `hive/config.json`; the reasoning is `hive/PLAYBOOK.md`. Past `policy.claudeOutputSoftLimit` the "unless busy" rules hand work to agy. Use `hive_consult` (the /delegate pattern, read-only, tracked) for answers; dispatch only when files must change. Settings from here: `hive_settings` or `node hive/cli.js set <path> <value>`.
-- **agy has every skill and MCP Claude has** (2026-09-18): `~/.gemini/config/skills.json` points at the Claude skill folders; `agy mcp list` shows 21st, playwright, hive. PowerShell 5.1 writes a BOM that breaks agy JSON configs: write them with node.
-- **Dependencies:** `dependsOn` + `autoDispatch` start a ticket by itself when what it waits on is done. **Budget:** daily worker-token cap in Settings; new workers pause at the limit.
-- **Check `hive_inbox` at the start of every session.** The user sends orders from the dashboard.
-- **Models:** the router in `hive/config.json` picks by task kind, best models only, effort high by default and never below medium, and falls back on quota. Watch `hive_usage`.
-- **Review gate:** a worker's `needs_review` means read `hive_review`, run `npm test` in its worktree, then `hive_merge` or send it back with a note.
-- **Deploy alerts** show on the dashboard in red. Workers have full access by the user's choice (2026-09-18), so check every alert.
+The user froze Hive: "i dont want to work on it for now, i have /agy-delegate now and claude is already doing
+what it needs and i am guiding it". Nothing is deleted; it is parked.
+- Do not start the hub, open the dashboard, call any `hive_*` tool, dispatch tickets or check `hive_inbox`.
+- The `hive` MCP server is switched off for Claude (`.claude/settings.local.json`) and for agy
+  (`~/.gemini/config/mcp_config.json`, backup beside it). The `/hive`, `/standup` and `/review-agent` skills are marked frozen.
+- Delegation runs through `agy-delegate` only (section 6). Claude does the work, the user guides it.
+- Still in use: the Stop and Notification hooks (`hive/hooks/claude-notify.js`) only pop the Windows "Claude finished"
+  toast; they do not start the hub.
+- The old section is kept word for word in `hive/FROZEN-CLAUDE-section-5.md`. Unfreeze only when the user asks.
 
 ---
 
@@ -82,7 +80,7 @@ Just do it and report what came back.
 Claude delegates to agy with `agy-delegate` (amElnagdy/delegate-skills v0.5.0, global).
 Our own old skill is frozen as `delegate-v1`: use it only on request or if the relay breaks.
 - Script: `node ~/.claude/skills/agy-delegate/scripts/relay.mjs --brief <file> --cd <repo>`.
-  Always add `--model gemini-3.1-pro-high --effort high`. Run it with `run_in_background`,
+  Always add `--model gemini-3.8-flash --effort high` (agy 1.4.5, 2026-10-22: gemini-3.1-pro-high is gone; models now Gemini 3.8 Flash High/Medium/Low). Run it with `run_in_background`,
   then read `result.json`. The brief goes in a file, never inline.
 - Questions, reviews, bulk reading: add `--read-only`. The sandbox throws away any write
   and `readOnlyViolation` proves it.
@@ -99,9 +97,8 @@ Our own old skill is frozen as `delegate-v1`: use it only on request or if the r
 3. **Boilerplate Claude would verify anyway:** first-pass meta titles and descriptions,
    alt-text batches, keyword clustering, DE/RU/PL/CS first-draft translation, link
    inventories, changelog text, test data.
-4. **Anything whose output is advice, not a file change.** Inside HCIG use
-   `hive_consult` (same pattern, read-only, tracked in the dashboard). Outside HCIG,
-   or when the hub is not running, use `agy-delegate --read-only` directly.
+4. **Anything whose output is advice, not a file change.** Use `agy-delegate --read-only`
+   (Hive and `hive_consult` are frozen since 2026-10-19, section 5).
 
 Model: `gemini-3.1-pro-high`. Use `gemini-3.8-flash-high` for cheap or throwaway passes.
 
@@ -121,8 +118,9 @@ Model: `gemini-3.1-pro-high`. Use `gemini-3.8-flash-high` for cheap or throwaway
 - If Gemini and Claude disagree, say so and give a recommendation.
 
 ### When the job is big enough to split
-Delegation answers questions. `hive` moves work. If files must change across several
-tickets, write tickets and dispatch workers instead of chaining delegations.
+Hive is frozen (section 5). Split the job into a task list, run each implementation piece
+through `agy-delegate` in a clean worktree, one brief per piece, and review and commit each
+one before the next. The user guides the order.
 
 ---
 
@@ -147,13 +145,12 @@ loads all ten skills.
    tickets before it.
 3. On yes, write `Status: approved` into the spec.
 4. `/speckit-plan`, then `/speckit-tasks`.
-5. Create Hive tickets from the task list, every one carrying `epic: "<NNN-slug>"`.
+5. Work the task list in order. Claude builds the important parts; `agy-delegate` takes
+   medium and low priority implementation; Claude reviews and commits every piece.
 
 ### The gate
-`hive_dispatch` refuses a ticket whose `epic` has no approved spec, and says which file
-and what to do. `kind: "spec"` tickets are never gated and always go to the head. No
-worker writes a spec. Turn the gate off only in Settings (`policy.specGate.enabled`),
-never by forcing ticket after ticket.
+The Hive gate is frozen with Hive. Keep the same rule by hand: nothing on an initiative is
+built or delegated before its spec says `Status: approved`, and no delegate writes a spec.
 
 ### Also available
 `/speckit-bug-assess`, `/speckit-bug-fix`, `/speckit-bug-test` after
@@ -175,12 +172,11 @@ pink runs the board.
 
 **Roles learn.** After a review finds something worth keeping:
 
-    node hive/cli.js lesson <role-id> "the rule that replaces the mistake"
+    append the rule to hive/agents/lessons/<role-id>.md, then run node hive/agents/sync.js
 
-or `hive_lesson` from chat. It appends to `hive/agents/lessons/<id>.md`, re-syncs, and
-from the next run both the Claude subagent and the agy worker carry it. The last 20
-lessons per role are folded in, newest last, above the shared rules. Read them back with
-`node hive/cli.js lessons [role-id]` or `hive_lesson` with no text.
+(`hive/cli.js lesson` and `hive_lesson` are frozen with Hive; `sync.js` is a plain script and needs no hub).
+From the next run both the Claude subagent and the agy worker carry it. The last 20
+lessons per role are folded in, newest last, above the shared rules. Read them back in the lessons files.
 
 Write a lesson when a review catches something real. Not praise, not anything already in
 the role body. A good lesson names the mistake and the rule that replaces it.

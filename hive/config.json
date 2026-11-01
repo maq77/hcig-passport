@@ -19,7 +19,7 @@
     "tiers": {
       "best": [
         "claude-opus-4-6-thinking",
-        "gemini-3.1-pro-high"
+        "gemini-3.8-flash-high"
       ],
       "strong": [
         "claude-sonnet-4-6"
@@ -48,13 +48,13 @@
       {
         "kind": "design",
         "match": "design|ui\\b|css|layout|visual|component|hero|landing|mockup|figma|canvas|animation|artifact",
-        "model": "gemini-3.1-pro-high",
+        "model": "gemini-3.8-flash-high",
         "effort": "high"
       },
       {
         "kind": "content",
         "match": "translat|copy|wording|german|polish|\\bde\\b|\\bpl\\b|article|meta description|seo text|content",
-        "model": "gemini-3.1-pro-high",
+        "model": "gemini-3.8-flash-high",
         "effort": "high"
       },
       {
@@ -72,13 +72,13 @@
       {
         "kind": "bulk",
         "match": "batch|convert|rename|resize|compress|bulk|mechanical|sync|copy files",
-        "model": "gemini-3.1-pro-high",
+        "model": "gemini-3.8-flash-high",
         "effort": "high"
       },
       {
         "kind": "research",
         "match": "research|read|summar|large|whole folder|pdf|log|measure|pagespeed|lighthouse|psi|inventory|list all|find all|count",
-        "model": "gemini-3.1-pro-high",
+        "model": "gemini-3.8-flash-high",
         "effort": "high"
       }
     ],
@@ -319,7 +319,7 @@
     ]
   },
   "consult": {
-    "model": "gemini-3.1-pro-high",
+    "model": "gemini-3.8-flash-high",
     "note": "Read-only questions to agy (the /delegate pattern). Sandboxed: can read, never write."
   },
   "watchdog": {

@@ -587,7 +587,7 @@ function steps(runId) {
 function consult({ question, files = [], model, account, timeoutMin = 10 }) {
   if (!question) return Promise.reject(new Error('Ask a question'));
   const acc = pickAccount(account);
-  const m = model || (S.config().consult || {}).model || 'gemini-3.1-pro-high';
+  const m = model || (S.config().consult || {}).model || 'gemini-3.8-flash-high';
   const prompt = [
     'You are consulted by Claude Code, the head of the HCIG Hive. Answer only; do not edit files or run commands that change anything.',
     // Headless --sandbox soft-denies every shell command (escalate_admin), and a

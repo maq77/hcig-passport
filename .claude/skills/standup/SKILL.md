@@ -1,6 +1,6 @@
 ---
 name: standup
-description: Daily standup for the HCIG Hive. What every agent did since the last standup, what is running, what is blocked, what waits for review, usage and quota. Use when the user says /standup, "what happened", "what did the agents do", "morning report", or at the start of a working day.
+description: FROZEN since 2026-10-19 with Hive. Do not use unless the user explicitly types /standup. Before the freeze it was for this. Daily standup for the HCIG Hive. What every agent did since the last standup, what is running, what is blocked, what waits for review, usage and quota. Use when the user says /standup, "what happened", "what did the agents do", "morning report", or at the start of a working day.
 ---
 
 # /standup

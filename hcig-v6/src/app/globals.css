@@ -1612,9 +1612,6 @@ html.modal-open { overflow: hidden; }
     margin: 0 auto;
     gap: 24px;
   }
-  .board-sec .pp-amr { order: 1; }
-  .board-sec .pp-mostafa { order: 2; }
-  .board-sec .pp-mohsen { order: 3; }
 }
 @media (max-width: 760px) {
   .board-sec .pp-grid.pp-three {
@@ -1623,9 +1620,6 @@ html.modal-open { overflow: hidden; }
     margin: 0 auto;
     gap: 24px;
   }
-  .board-sec .pp-amr { order: 1; }
-  .board-sec .pp-mostafa { order: 2; }
-  .board-sec .pp-mohsen { order: 3; }
 }
 
 /* ---------------- Contact ---------------- */

@@ -686,6 +686,1452 @@
       "is_interactive": true,
       "page": "parts"
     },
+    "N2HeroDay.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "1 Hero B with the group film · day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2HeroNight.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "1 Hero B with the group film · night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2HeroPhoneDay.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 390,
+      "h": 1050,
+      "title": "1 Hero B with the group film · phone day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2HeroPhoneNight.dc.html": {
+      "x": 3510,
+      "y": 0,
+      "w": 390,
+      "h": 1050,
+      "title": "1 Hero B with the group film · phone night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2NumbersDay.dc.html": {
+      "x": 0,
+      "y": 1420,
+      "w": 1440,
+      "h": 330,
+      "title": "2 The group in numbers · day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2NumbersNight.dc.html": {
+      "x": 1520,
+      "y": 1420,
+      "w": 1440,
+      "h": 330,
+      "title": "2 The group in numbers · night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2NumbersPhoneDay.dc.html": {
+      "x": 3040,
+      "y": 1420,
+      "w": 390,
+      "h": 380,
+      "title": "2 The group in numbers · phone day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2NumbersPhoneNight.dc.html": {
+      "x": 3510,
+      "y": 1420,
+      "w": 390,
+      "h": 380,
+      "title": "2 The group in numbers · phone night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2WhoDay.dc.html": {
+      "x": 0,
+      "y": 2170,
+      "w": 1440,
+      "h": 1560,
+      "title": "3 Who we are · day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2WhoNight.dc.html": {
+      "x": 1520,
+      "y": 2170,
+      "w": 1440,
+      "h": 1560,
+      "title": "3 Who we are · night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2WhoPhoneDay.dc.html": {
+      "x": 3040,
+      "y": 2170,
+      "w": 390,
+      "h": 1960,
+      "title": "3 Who we are · phone day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2WhoPhoneNight.dc.html": {
+      "x": 3510,
+      "y": 2170,
+      "w": 390,
+      "h": 1960,
+      "title": "3 Who we are · phone night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2GroupDay.dc.html": {
+      "x": 0,
+      "y": 4500,
+      "w": 1440,
+      "h": 1225,
+      "title": "4 Our Premises and Facilities · day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2GroupNight.dc.html": {
+      "x": 1520,
+      "y": 4500,
+      "w": 1440,
+      "h": 1225,
+      "title": "4 Our Premises and Facilities · night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2GroupPhoneDay.dc.html": {
+      "x": 3040,
+      "y": 4500,
+      "w": 390,
+      "h": 1290,
+      "title": "4 Our Premises and Facilities · phone day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2GroupPhoneNight.dc.html": {
+      "x": 3510,
+      "y": 4500,
+      "w": 390,
+      "h": 1290,
+      "title": "4 Our Premises and Facilities · phone night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2JourneyDay.dc.html": {
+      "x": 0,
+      "y": 6160,
+      "w": 1440,
+      "h": 780,
+      "title": "5 The patient journey · day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2JourneyNight.dc.html": {
+      "x": 1520,
+      "y": 6160,
+      "w": 1440,
+      "h": 780,
+      "title": "5 The patient journey · night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2JourneyPhoneDay.dc.html": {
+      "x": 3040,
+      "y": 6160,
+      "w": 390,
+      "h": 1740,
+      "title": "5 The patient journey · phone day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2JourneyPhoneNight.dc.html": {
+      "x": 3510,
+      "y": 6160,
+      "w": 390,
+      "h": 1740,
+      "title": "5 The patient journey · phone night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2DeliverDay.dc.html": {
+      "x": 0,
+      "y": 8270,
+      "w": 1440,
+      "h": 1180,
+      "title": "6 What we deliver · day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2DeliverNight.dc.html": {
+      "x": 1520,
+      "y": 8270,
+      "w": 1440,
+      "h": 1180,
+      "title": "6 What we deliver · night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2DeliverPhoneDay.dc.html": {
+      "x": 3040,
+      "y": 8270,
+      "w": 390,
+      "h": 1400,
+      "title": "6 What we deliver · phone day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2DeliverPhoneNight.dc.html": {
+      "x": 3510,
+      "y": 8270,
+      "w": 390,
+      "h": 1400,
+      "title": "6 What we deliver · phone night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2PartnersDay.dc.html": {
+      "x": 0,
+      "y": 10040,
+      "w": 1440,
+      "h": 1300,
+      "title": "7 For partners · day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2PartnersNight.dc.html": {
+      "x": 1520,
+      "y": 10040,
+      "w": 1440,
+      "h": 1300,
+      "title": "7 For partners · night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2PartnersPhoneDay.dc.html": {
+      "x": 3040,
+      "y": 10040,
+      "w": 390,
+      "h": 1680,
+      "title": "7 For partners · phone day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2PartnersPhoneNight.dc.html": {
+      "x": 3510,
+      "y": 10040,
+      "w": 390,
+      "h": 1680,
+      "title": "7 For partners · phone night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2ReachDay.dc.html": {
+      "x": 0,
+      "y": 12090,
+      "w": 1440,
+      "h": 1420,
+      "title": "8 Global reach · day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2ReachNight.dc.html": {
+      "x": 1520,
+      "y": 12090,
+      "w": 1440,
+      "h": 1420,
+      "title": "8 Global reach · night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2ReachPhoneDay.dc.html": {
+      "x": 3040,
+      "y": 12090,
+      "w": 390,
+      "h": 1250,
+      "title": "8 Global reach · phone day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2ReachPhoneNight.dc.html": {
+      "x": 3510,
+      "y": 12090,
+      "w": 390,
+      "h": 1250,
+      "title": "8 Global reach · phone night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2VoicesDay.dc.html": {
+      "x": 0,
+      "y": 13880,
+      "w": 1440,
+      "h": 1500,
+      "title": "9 Voices · day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2VoicesNight.dc.html": {
+      "x": 1520,
+      "y": 13880,
+      "w": 1440,
+      "h": 1500,
+      "title": "9 Voices · night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2VoicesPhoneDay.dc.html": {
+      "x": 3040,
+      "y": 13880,
+      "w": 390,
+      "h": 1450,
+      "title": "9 Voices · phone day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2VoicesPhoneNight.dc.html": {
+      "x": 3510,
+      "y": 13880,
+      "w": 390,
+      "h": 1450,
+      "title": "9 Voices · phone night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2CtaDay.dc.html": {
+      "x": 0,
+      "y": 15750,
+      "w": 1440,
+      "h": 1280,
+      "title": "10 Partner with us, and the footer · day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2CtaNight.dc.html": {
+      "x": 1520,
+      "y": 15750,
+      "w": 1440,
+      "h": 1280,
+      "title": "10 Partner with us, and the footer · night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2CtaPhoneDay.dc.html": {
+      "x": 3040,
+      "y": 15750,
+      "w": 390,
+      "h": 1860,
+      "title": "10 Partner with us, and the footer · phone day",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "N2CtaPhoneNight.dc.html": {
+      "x": 3510,
+      "y": 15750,
+      "w": 390,
+      "h": 1860,
+      "title": "10 Partner with us, and the footer · phone night",
+      "is_interactive": true,
+      "page": "home2"
+    },
+    "V2Numbers.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 330,
+      "title": "2 · The group in numbers, the component",
+      "is_interactive": true,
+      "page": "parts2"
+    },
+    "V2Who.dc.html": {
+      "x": 0,
+      "y": 700,
+      "w": 1440,
+      "h": 1560,
+      "title": "3 · Who we are, the component",
+      "is_interactive": true,
+      "page": "parts2"
+    },
+    "V2Journey.dc.html": {
+      "x": 0,
+      "y": 2630,
+      "w": 1440,
+      "h": 780,
+      "title": "5 · The patient journey, the component",
+      "is_interactive": true,
+      "page": "parts2"
+    },
+    "V2Deliver.dc.html": {
+      "x": 0,
+      "y": 3780,
+      "w": 1440,
+      "h": 1180,
+      "title": "6 · What we deliver, the component",
+      "is_interactive": true,
+      "page": "parts2"
+    },
+    "V2Partners.dc.html": {
+      "x": 0,
+      "y": 5330,
+      "w": 1440,
+      "h": 1300,
+      "title": "7 · For partners, the component",
+      "is_interactive": true,
+      "page": "parts2"
+    },
+    "V2Reach.dc.html": {
+      "x": 0,
+      "y": 7000,
+      "w": 1440,
+      "h": 1420,
+      "title": "8 · Global reach, the component",
+      "is_interactive": true,
+      "page": "parts2"
+    },
+    "V2Voices.dc.html": {
+      "x": 0,
+      "y": 8790,
+      "w": 1440,
+      "h": 1500,
+      "title": "9 · Voices, the component",
+      "is_interactive": true,
+      "page": "parts2"
+    },
+    "V2Cta.dc.html": {
+      "x": 0,
+      "y": 10660,
+      "w": 1440,
+      "h": 1280,
+      "title": "10 · Partner with us, and the footer, the component",
+      "is_interactive": true,
+      "page": "parts2"
+    },
+    "Sec08System.dc.html": {
+      "x": 0,
+      "y": 8190,
+      "w": 1440,
+      "h": 840,
+      "title": "8 · How Our System Works, the component",
+      "is_interactive": true,
+      "page": "parts"
+    },
+    "Sec09Care.dc.html": {
+      "x": 0,
+      "y": 9400,
+      "w": 1440,
+      "h": 1200,
+      "title": "9 · Our Healthcare, the component",
+      "is_interactive": true,
+      "page": "parts"
+    },
+    "Sec10Trust.dc.html": {
+      "x": 0,
+      "y": 10970,
+      "w": 1440,
+      "h": 1380,
+      "title": "10 · Testimonials and Trust, the component",
+      "is_interactive": true,
+      "page": "parts"
+    },
+    "Sec11WorkWith.dc.html": {
+      "x": 0,
+      "y": 12720,
+      "w": 1440,
+      "h": 980,
+      "title": "11 · Who We Work With, the component",
+      "is_interactive": true,
+      "page": "parts"
+    },
+    "Sec12Impact.dc.html": {
+      "x": 0,
+      "y": 14070,
+      "w": 1440,
+      "h": 540,
+      "title": "12 · Our Impact, the component",
+      "is_interactive": true,
+      "page": "parts"
+    },
+    "Sec13Cta.dc.html": {
+      "x": 0,
+      "y": 14980,
+      "w": 1440,
+      "h": 1200,
+      "title": "13 · Closing Call and Footer, the component",
+      "is_interactive": true,
+      "page": "parts"
+    },
+    "final-b-Home2BFilmNight.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero B with the Group Film (Watermark in Space) · night",
+      "file": "Home2BFilmNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-Home2BFilmDay.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero B with the Group Film (Watermark in Space) · day",
+      "file": "Home2BFilmDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-Home2BFilmPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 390,
+      "h": 1050,
+      "title": "Hero B with the Group Film (Watermark in Space) · phone night",
+      "file": "Home2BFilmPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-Home2BFilmPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 0,
+      "w": 390,
+      "h": 1050,
+      "title": "Hero B with the Group Film (Watermark in Space) · phone day",
+      "file": "Home2BFilmPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB3AboutNight.dc.html": {
+      "x": 0,
+      "y": 1420,
+      "w": 1440,
+      "h": 1300,
+      "title": "3 About (Network) · night",
+      "file": "HomeB3AboutNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB3AboutDay.dc.html": {
+      "x": 1520,
+      "y": 1420,
+      "w": 1440,
+      "h": 1300,
+      "title": "3 About (Network) · day",
+      "file": "HomeB3AboutDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB3AboutPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 1420,
+      "w": 390,
+      "h": 1600,
+      "title": "3 About (Network) · phone night",
+      "file": "HomeB3AboutPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB3AboutPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 1420,
+      "w": 390,
+      "h": 1600,
+      "title": "3 About (Network) · phone day",
+      "file": "HomeB3AboutPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-Home4GroupNight.dc.html": {
+      "x": 0,
+      "y": 3390,
+      "w": 1440,
+      "h": 1225,
+      "title": "4 Premises · night",
+      "file": "Home4GroupNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-Home4GroupDay.dc.html": {
+      "x": 1520,
+      "y": 3390,
+      "w": 1440,
+      "h": 1225,
+      "title": "4 Premises · day",
+      "file": "Home4GroupDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-Home4GroupPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 3390,
+      "w": 390,
+      "h": 1290,
+      "title": "4 Premises · phone night",
+      "file": "Home4GroupPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-Home4GroupPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 3390,
+      "w": 390,
+      "h": 1290,
+      "title": "4 Premises · phone day",
+      "file": "Home4GroupPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB5MissionNight.dc.html": {
+      "x": 0,
+      "y": 5050,
+      "w": 1440,
+      "h": 780,
+      "title": "5 Mission & Vision (Network) · night",
+      "file": "HomeB5MissionNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB5MissionDay.dc.html": {
+      "x": 1520,
+      "y": 5050,
+      "w": 1440,
+      "h": 780,
+      "title": "5 Mission & Vision (Network) · day",
+      "file": "HomeB5MissionDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB5MissionPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 5050,
+      "w": 390,
+      "h": 980,
+      "title": "5 Mission & Vision (Network) · phone night",
+      "file": "HomeB5MissionPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB5MissionPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 5050,
+      "w": 390,
+      "h": 980,
+      "title": "5 Mission & Vision (Network) · phone day",
+      "file": "HomeB5MissionPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB6WhyNight.dc.html": {
+      "x": 0,
+      "y": 6400,
+      "w": 1440,
+      "h": 1100,
+      "title": "6 Why Partners (Network) · night",
+      "file": "HomeB6WhyNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB6WhyDay.dc.html": {
+      "x": 1520,
+      "y": 6400,
+      "w": 1440,
+      "h": 1100,
+      "title": "6 Why Partners (Network) · day",
+      "file": "HomeB6WhyDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB6WhyPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 6400,
+      "w": 390,
+      "h": 1900,
+      "title": "6 Why Partners (Network) · phone night",
+      "file": "HomeB6WhyPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB6WhyPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 6400,
+      "w": 390,
+      "h": 1900,
+      "title": "6 Why Partners (Network) · phone day",
+      "file": "HomeB6WhyPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB7GlobalNight.dc.html": {
+      "x": 0,
+      "y": 8670,
+      "w": 1440,
+      "h": 1350,
+      "title": "7 Global Delivery (Network) · night",
+      "file": "HomeB7GlobalNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB7GlobalDay.dc.html": {
+      "x": 1520,
+      "y": 8670,
+      "w": 1440,
+      "h": 1350,
+      "title": "7 Global Delivery (Network) · day",
+      "file": "HomeB7GlobalDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB7GlobalPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 8670,
+      "w": 390,
+      "h": 1750,
+      "title": "7 Global Delivery (Network) · phone night",
+      "file": "HomeB7GlobalPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB7GlobalPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 8670,
+      "w": 390,
+      "h": 1750,
+      "title": "7 Global Delivery (Network) · phone day",
+      "file": "HomeB7GlobalPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB8SystemNight.dc.html": {
+      "x": 0,
+      "y": 10790,
+      "w": 1440,
+      "h": 600,
+      "title": "8 How System Works (Network) · night",
+      "file": "HomeB8SystemNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB8SystemDay.dc.html": {
+      "x": 1520,
+      "y": 10790,
+      "w": 1440,
+      "h": 600,
+      "title": "8 How System Works (Network) · day",
+      "file": "HomeB8SystemDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB8SystemPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 10790,
+      "w": 390,
+      "h": 900,
+      "title": "8 How System Works (Network) · phone night",
+      "file": "HomeB8SystemPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB8SystemPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 10790,
+      "w": 390,
+      "h": 900,
+      "title": "8 How System Works (Network) · phone day",
+      "file": "HomeB8SystemPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB9CareNight.dc.html": {
+      "x": 0,
+      "y": 12060,
+      "w": 1440,
+      "h": 880,
+      "title": "9 Our Healthcare (Network) · night",
+      "file": "HomeB9CareNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB9CareDay.dc.html": {
+      "x": 1520,
+      "y": 12060,
+      "w": 1440,
+      "h": 880,
+      "title": "9 Our Healthcare (Network) · day",
+      "file": "HomeB9CareDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB9CarePhoneNight.dc.html": {
+      "x": 3040,
+      "y": 12060,
+      "w": 390,
+      "h": 1150,
+      "title": "9 Our Healthcare (Network) · phone night",
+      "file": "HomeB9CarePhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB9CarePhoneDay.dc.html": {
+      "x": 3510,
+      "y": 12060,
+      "w": 390,
+      "h": 1150,
+      "title": "9 Our Healthcare (Network) · phone day",
+      "file": "HomeB9CarePhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB10TrustNight.dc.html": {
+      "x": 0,
+      "y": 13580,
+      "w": 1440,
+      "h": 1250,
+      "title": "10 Trust & Stories (Network) · night",
+      "file": "HomeB10TrustNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB10TrustDay.dc.html": {
+      "x": 1520,
+      "y": 13580,
+      "w": 1440,
+      "h": 1250,
+      "title": "10 Trust & Stories (Network) · day",
+      "file": "HomeB10TrustDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB10TrustPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 13580,
+      "w": 390,
+      "h": 1550,
+      "title": "10 Trust & Stories (Network) · phone night",
+      "file": "HomeB10TrustPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB10TrustPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 13580,
+      "w": 390,
+      "h": 1550,
+      "title": "10 Trust & Stories (Network) · phone day",
+      "file": "HomeB10TrustPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB11WorkWithNight.dc.html": {
+      "x": 0,
+      "y": 15500,
+      "w": 1440,
+      "h": 780,
+      "title": "11 Who We Work With (Network) · night",
+      "file": "HomeB11WorkWithNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB11WorkWithDay.dc.html": {
+      "x": 1520,
+      "y": 15500,
+      "w": 1440,
+      "h": 780,
+      "title": "11 Who We Work With (Network) · day",
+      "file": "HomeB11WorkWithDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB11WorkWithPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 15500,
+      "w": 390,
+      "h": 1250,
+      "title": "11 Who We Work With (Network) · phone night",
+      "file": "HomeB11WorkWithPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB11WorkWithPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 15500,
+      "w": 390,
+      "h": 1250,
+      "title": "11 Who We Work With (Network) · phone day",
+      "file": "HomeB11WorkWithPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB12ImpactNight.dc.html": {
+      "x": 0,
+      "y": 17120,
+      "w": 1440,
+      "h": 500,
+      "title": "12 Our Impact (Network) · night",
+      "file": "HomeB12ImpactNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB12ImpactDay.dc.html": {
+      "x": 1520,
+      "y": 17120,
+      "w": 1440,
+      "h": 500,
+      "title": "12 Our Impact (Network) · day",
+      "file": "HomeB12ImpactDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB12ImpactPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 17120,
+      "w": 390,
+      "h": 720,
+      "title": "12 Our Impact (Network) · phone night",
+      "file": "HomeB12ImpactPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB12ImpactPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 17120,
+      "w": 390,
+      "h": 720,
+      "title": "12 Our Impact (Network) · phone day",
+      "file": "HomeB12ImpactPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB13CtaNight.dc.html": {
+      "x": 0,
+      "y": 18210,
+      "w": 1440,
+      "h": 1050,
+      "title": "13 Closing & Footer (Network) · night",
+      "file": "HomeB13CtaNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB13CtaDay.dc.html": {
+      "x": 1520,
+      "y": 18210,
+      "w": 1440,
+      "h": 1050,
+      "title": "13 Closing & Footer (Network) · day",
+      "file": "HomeB13CtaDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB13CtaPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 18210,
+      "w": 390,
+      "h": 1450,
+      "title": "13 Closing & Footer (Network) · phone night",
+      "file": "HomeB13CtaPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-b-HomeB13CtaPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 18210,
+      "w": 390,
+      "h": 1450,
+      "title": "13 Closing & Footer (Network) · phone day",
+      "file": "HomeB13CtaPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-b"
+    },
+    "final-o-Home2ONight.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero O · The Polished Medical Original · night",
+      "file": "Home2ONight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-Home2ODay.dc.html": {
+      "x": 1520,
+      "y": 0,
+      "w": 1440,
+      "h": 900,
+      "title": "Hero O · The Polished Medical Original · day",
+      "file": "Home2ODay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-Home2OPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 390,
+      "h": 990,
+      "title": "Hero O · The Polished Medical Original · phone night",
+      "file": "Home2OPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-Home2OPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 0,
+      "w": 390,
+      "h": 990,
+      "title": "Hero O · The Polished Medical Original · phone day",
+      "file": "Home2OPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO3AboutNight.dc.html": {
+      "x": 0,
+      "y": 1360,
+      "w": 1440,
+      "h": 1250,
+      "title": "3 About (Clinical) · night",
+      "file": "HomeO3AboutNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO3AboutDay.dc.html": {
+      "x": 1520,
+      "y": 1360,
+      "w": 1440,
+      "h": 1250,
+      "title": "3 About (Clinical) · day",
+      "file": "HomeO3AboutDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO3AboutPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 1360,
+      "w": 390,
+      "h": 1550,
+      "title": "3 About (Clinical) · phone night",
+      "file": "HomeO3AboutPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO3AboutPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 1360,
+      "w": 390,
+      "h": 1550,
+      "title": "3 About (Clinical) · phone day",
+      "file": "HomeO3AboutPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-Home4GroupNight.dc.html": {
+      "x": 0,
+      "y": 3280,
+      "w": 1440,
+      "h": 1225,
+      "title": "4 Premises · night",
+      "file": "Home4GroupNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-Home4GroupDay.dc.html": {
+      "x": 1520,
+      "y": 3280,
+      "w": 1440,
+      "h": 1225,
+      "title": "4 Premises · day",
+      "file": "Home4GroupDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-Home4GroupPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 3280,
+      "w": 390,
+      "h": 1290,
+      "title": "4 Premises · phone night",
+      "file": "Home4GroupPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-Home4GroupPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 3280,
+      "w": 390,
+      "h": 1290,
+      "title": "4 Premises · phone day",
+      "file": "Home4GroupPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO5MissionNight.dc.html": {
+      "x": 0,
+      "y": 4940,
+      "w": 1440,
+      "h": 750,
+      "title": "5 Mission & Vision (Clinical) · night",
+      "file": "HomeO5MissionNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO5MissionDay.dc.html": {
+      "x": 1520,
+      "y": 4940,
+      "w": 1440,
+      "h": 750,
+      "title": "5 Mission & Vision (Clinical) · day",
+      "file": "HomeO5MissionDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO5MissionPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 4940,
+      "w": 390,
+      "h": 950,
+      "title": "5 Mission & Vision (Clinical) · phone night",
+      "file": "HomeO5MissionPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO5MissionPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 4940,
+      "w": 390,
+      "h": 950,
+      "title": "5 Mission & Vision (Clinical) · phone day",
+      "file": "HomeO5MissionPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO6WhyNight.dc.html": {
+      "x": 0,
+      "y": 6260,
+      "w": 1440,
+      "h": 1050,
+      "title": "6 Why Partners (Clinical) · night",
+      "file": "HomeO6WhyNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO6WhyDay.dc.html": {
+      "x": 1520,
+      "y": 6260,
+      "w": 1440,
+      "h": 1050,
+      "title": "6 Why Partners (Clinical) · day",
+      "file": "HomeO6WhyDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO6WhyPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 6260,
+      "w": 390,
+      "h": 1850,
+      "title": "6 Why Partners (Clinical) · phone night",
+      "file": "HomeO6WhyPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO6WhyPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 6260,
+      "w": 390,
+      "h": 1850,
+      "title": "6 Why Partners (Clinical) · phone day",
+      "file": "HomeO6WhyPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO7GlobalNight.dc.html": {
+      "x": 0,
+      "y": 8480,
+      "w": 1440,
+      "h": 1300,
+      "title": "7 Global Delivery (Clinical) · night",
+      "file": "HomeO7GlobalNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO7GlobalDay.dc.html": {
+      "x": 1520,
+      "y": 8480,
+      "w": 1440,
+      "h": 1300,
+      "title": "7 Global Delivery (Clinical) · day",
+      "file": "HomeO7GlobalDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO7GlobalPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 8480,
+      "w": 390,
+      "h": 1700,
+      "title": "7 Global Delivery (Clinical) · phone night",
+      "file": "HomeO7GlobalPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO7GlobalPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 8480,
+      "w": 390,
+      "h": 1700,
+      "title": "7 Global Delivery (Clinical) · phone day",
+      "file": "HomeO7GlobalPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO8SystemNight.dc.html": {
+      "x": 0,
+      "y": 10550,
+      "w": 1440,
+      "h": 640,
+      "title": "8 How System Works (Clinical) · night",
+      "file": "HomeO8SystemNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO8SystemDay.dc.html": {
+      "x": 1520,
+      "y": 10550,
+      "w": 1440,
+      "h": 640,
+      "title": "8 How System Works (Clinical) · day",
+      "file": "HomeO8SystemDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO8SystemPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 10550,
+      "w": 390,
+      "h": 920,
+      "title": "8 How System Works (Clinical) · phone night",
+      "file": "HomeO8SystemPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO8SystemPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 10550,
+      "w": 390,
+      "h": 920,
+      "title": "8 How System Works (Clinical) · phone day",
+      "file": "HomeO8SystemPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO9CareNight.dc.html": {
+      "x": 0,
+      "y": 11840,
+      "w": 1440,
+      "h": 920,
+      "title": "9 Our Healthcare (Clinical) · night",
+      "file": "HomeO9CareNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO9CareDay.dc.html": {
+      "x": 1520,
+      "y": 11840,
+      "w": 1440,
+      "h": 920,
+      "title": "9 Our Healthcare (Clinical) · day",
+      "file": "HomeO9CareDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO9CarePhoneNight.dc.html": {
+      "x": 3040,
+      "y": 11840,
+      "w": 390,
+      "h": 1200,
+      "title": "9 Our Healthcare (Clinical) · phone night",
+      "file": "HomeO9CarePhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO9CarePhoneDay.dc.html": {
+      "x": 3510,
+      "y": 11840,
+      "w": 390,
+      "h": 1200,
+      "title": "9 Our Healthcare (Clinical) · phone day",
+      "file": "HomeO9CarePhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO10TrustNight.dc.html": {
+      "x": 0,
+      "y": 13410,
+      "w": 1440,
+      "h": 1280,
+      "title": "10 Trust & Stories (Clinical) · night",
+      "file": "HomeO10TrustNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO10TrustDay.dc.html": {
+      "x": 1520,
+      "y": 13410,
+      "w": 1440,
+      "h": 1280,
+      "title": "10 Trust & Stories (Clinical) · day",
+      "file": "HomeO10TrustDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO10TrustPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 13410,
+      "w": 390,
+      "h": 1580,
+      "title": "10 Trust & Stories (Clinical) · phone night",
+      "file": "HomeO10TrustPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO10TrustPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 13410,
+      "w": 390,
+      "h": 1580,
+      "title": "10 Trust & Stories (Clinical) · phone day",
+      "file": "HomeO10TrustPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO11WorkWithNight.dc.html": {
+      "x": 0,
+      "y": 15360,
+      "w": 1440,
+      "h": 750,
+      "title": "11 Who We Work With (Clinical) · night",
+      "file": "HomeO11WorkWithNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO11WorkWithDay.dc.html": {
+      "x": 1520,
+      "y": 15360,
+      "w": 1440,
+      "h": 750,
+      "title": "11 Who We Work With (Clinical) · day",
+      "file": "HomeO11WorkWithDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO11WorkWithPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 15360,
+      "w": 390,
+      "h": 1200,
+      "title": "11 Who We Work With (Clinical) · phone night",
+      "file": "HomeO11WorkWithPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO11WorkWithPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 15360,
+      "w": 390,
+      "h": 1200,
+      "title": "11 Who We Work With (Clinical) · phone day",
+      "file": "HomeO11WorkWithPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO12ImpactNight.dc.html": {
+      "x": 0,
+      "y": 16930,
+      "w": 1440,
+      "h": 480,
+      "title": "12 Our Impact (Clinical) · night",
+      "file": "HomeO12ImpactNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO12ImpactDay.dc.html": {
+      "x": 1520,
+      "y": 16930,
+      "w": 1440,
+      "h": 480,
+      "title": "12 Our Impact (Clinical) · day",
+      "file": "HomeO12ImpactDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO12ImpactPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 16930,
+      "w": 390,
+      "h": 700,
+      "title": "12 Our Impact (Clinical) · phone night",
+      "file": "HomeO12ImpactPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO12ImpactPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 16930,
+      "w": 390,
+      "h": 700,
+      "title": "12 Our Impact (Clinical) · phone day",
+      "file": "HomeO12ImpactPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO13CtaNight.dc.html": {
+      "x": 0,
+      "y": 18000,
+      "w": 1440,
+      "h": 1000,
+      "title": "13 Closing & Footer (Clinical) · night",
+      "file": "HomeO13CtaNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO13CtaDay.dc.html": {
+      "x": 1520,
+      "y": 18000,
+      "w": 1440,
+      "h": 1000,
+      "title": "13 Closing & Footer (Clinical) · day",
+      "file": "HomeO13CtaDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO13CtaPhoneNight.dc.html": {
+      "x": 3040,
+      "y": 18000,
+      "w": 390,
+      "h": 1400,
+      "title": "13 Closing & Footer (Clinical) · phone night",
+      "file": "HomeO13CtaPhoneNight.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
+    "final-o-HomeO13CtaPhoneDay.dc.html": {
+      "x": 3510,
+      "y": 18000,
+      "w": 390,
+      "h": 1400,
+      "title": "13 Closing & Footer (Clinical) · phone day",
+      "file": "HomeO13CtaPhoneDay.dc.html",
+      "is_interactive": true,
+      "page": "final-o"
+    },
     "Home2BNight.dc.html": {
       "x": 0,
       "y": 0,
@@ -1045,6 +2491,69 @@
       "title": "7 Global delivery · phone day",
       "is_interactive": true,
       "page": "home"
+    },
+    "Sec03AboutA.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1400,
+      "title": "About · Option A (Architectural Split)",
+      "is_interactive": true,
+      "page": "about-day-options"
+    },
+    "Sec03AboutB.dc.html": {
+      "x": 1540,
+      "y": 0,
+      "w": 1440,
+      "h": 1350,
+      "title": "About · Option B (Sovereign Matrix)",
+      "is_interactive": true,
+      "page": "about-day-options"
+    },
+    "Sec03AboutC.dc.html": {
+      "x": 3080,
+      "y": 0,
+      "w": 1440,
+      "h": 1420,
+      "title": "About · Option C (Clinical Vanguard)",
+      "is_interactive": true,
+      "page": "about-day-options"
+    },
+    "Sec03AboutE1.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1650,
+      "title": "About · The 3-Tier Ecosystem Horizon",
+      "is_interactive": true,
+      "page": "about-brand-enhanced"
+    },
+    "Sec03AboutE2.dc.html": {
+      "x": 1540,
+      "y": 0,
+      "w": 1440,
+      "h": 1450,
+      "title": "About · Modernized Heritage Mosaic",
+      "is_interactive": true,
+      "page": "about-brand-enhanced"
+    },
+    "Sec03AboutAwwwards.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1400,
+      "title": "About · The HCIG Ecosystem (Clean Luxury Medical Tech)",
+      "is_interactive": true,
+      "page": "about-ecosystem-awwwards"
+    },
+    "Sec03AboutThreePillars.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1420,
+      "title": "About · 3-Pillar Synchronized Visual Storytelling",
+      "is_interactive": true,
+      "page": "about-three-pillars-page"
     }
   },
   "createdOnFiles": {
@@ -1335,6 +2844,308 @@
       "page": "final",
       "text": "The final page, my picks\n\n1. Hero: B, the Earth at night with the light flows. The group film plays in the picture where the flows meet, so HCIG and its eight brands are in the image itself.\n2. Below it: the group section, the full 30 second film with a sound button and the eight brands.\n3. One switch: the sun or the moon in the header turns the whole page, hero and section together.\n4. Brand colours only: Black, Dim Gray, Turquoise, White. At night the accent words are Turquoise; by day they are Black with a Turquoise line.\n5. Phones first: the photo strip melts into the page with no seam when you switch.\n\nThe four heroes, the film boards and the twelve stay on their pages."
     },
+    "h2row0": {
+      "x": 0,
+      "y": -250,
+      "text": "1 · Hero B with the group film (your pick)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home2"
+    },
+    "h2row1": {
+      "x": 0,
+      "y": 1170,
+      "text": "2 · The group in numbers",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home2"
+    },
+    "h2row2": {
+      "x": 0,
+      "y": 1920,
+      "text": "3 · Who we are",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home2"
+    },
+    "h2row3": {
+      "x": 0,
+      "y": 4250,
+      "text": "4 · Our Premises and Facilities (approved)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home2"
+    },
+    "h2row4": {
+      "x": 0,
+      "y": 5910,
+      "text": "5 · The patient journey",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home2"
+    },
+    "h2row5": {
+      "x": 0,
+      "y": 8020,
+      "text": "6 · What we deliver",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home2"
+    },
+    "h2row6": {
+      "x": 0,
+      "y": 9790,
+      "text": "7 · For partners",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home2"
+    },
+    "h2row7": {
+      "x": 0,
+      "y": 11840,
+      "text": "8 · Global reach",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home2"
+    },
+    "h2row8": {
+      "x": 0,
+      "y": 13630,
+      "text": "9 · Voices",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home2"
+    },
+    "h2row9": {
+      "x": 0,
+      "y": 15500,
+      "text": "10 · Partner with us, and the footer",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "home2"
+    },
+    "h2Note": {
+      "x": 4040,
+      "y": 0,
+      "w": 460,
+      "maxH": 1100,
+      "size": "m",
+      "fill": "yellow",
+      "page": "home2",
+      "text": "New home (v2)\n\nYour brief: less content, more structure, meaning; know us just by looking. Hero B with the film and the group section stay; every other section is remade.\n\nThe order: hero, the group in numbers, who we are, the group, the patient journey, what we deliver, for partners, global reach, voices, partner with us.\n\nEvery fact comes from the live site. Copy is shorter and edited. Brand colours and fonts only.\nPress Play on a board to see the motion."
+    },
+    "final-b-hero": {
+      "x": 0,
+      "y": -250,
+      "text": "1 · Hero B with the Group Film (Watermark in Space)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-sec3": {
+      "x": 0,
+      "y": 1170,
+      "text": "3 · About: Healthcare International Group",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-sec4": {
+      "x": 0,
+      "y": 3140,
+      "text": "4 · Our Premises and Facilities (8 Brand Cards & Hover Logos)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-sec-1": {
+      "x": 0,
+      "y": 4800,
+      "text": "5 · Our mission and our vision",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-sec-2": {
+      "x": 0,
+      "y": 6150,
+      "text": "6 · Why partners choose HCIG",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-sec-3": {
+      "x": 0,
+      "y": 8420,
+      "text": "7 · Built for Global Healthcare Delivery",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-sec-4": {
+      "x": 0,
+      "y": 10540,
+      "text": "8 · How Our System Works (6 Steps)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-sec-5": {
+      "x": 0,
+      "y": 11810,
+      "text": "9 · Our Healthcare (Clinical Divisions)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-sec-6": {
+      "x": 0,
+      "y": 13330,
+      "text": "10 · Testimonials and Trust (100% Cashless Network)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-sec-7": {
+      "x": 0,
+      "y": 15250,
+      "text": "11 · Who We Work With (6 Sectors)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-sec-8": {
+      "x": 0,
+      "y": 16870,
+      "text": "12 · Our Impact (Telemetry Scale)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-sec-9": {
+      "x": 0,
+      "y": 17960,
+      "text": "13 · Closing Call to Action & Command Center Footer",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-b"
+    },
+    "final-b-note": {
+      "x": 4040,
+      "y": 0,
+      "w": 480,
+      "maxH": 1400,
+      "size": "m",
+      "fill": "yellow",
+      "page": "final-b",
+      "text": "VERSION 1 · FINAL B (THE GLOBAL HEALTHCARE NETWORK)\n\nDesign Philosophy:\nHigh-tech global coordination ecosystem. Built for international insurers, assistance networks, and cross-border partners.\n\nAesthetic System:\nObsidian dark space grounds (#04070D), cyber-turquoise data lines (#12C0C6), frosted glassmorphic bento cards, and real-time telemetry route projection.\n\nAll 12 sections built with dedicated Version B components. 100% of live client wording preserved word for word."
+    },
+    "final-o-hero": {
+      "x": 0,
+      "y": -250,
+      "text": "1 · Hero O · The Polished Medical Original",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-sec3": {
+      "x": 0,
+      "y": 1110,
+      "text": "3 · About: Healthcare International Group",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-sec4": {
+      "x": 0,
+      "y": 3030,
+      "text": "4 · Our Premises and Facilities (8 Brand Cards & Hover Logos)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-sec-1": {
+      "x": 0,
+      "y": 4690,
+      "text": "5 · Our mission and our vision",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-sec-2": {
+      "x": 0,
+      "y": 6010,
+      "text": "6 · Why partners choose HCIG",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-sec-3": {
+      "x": 0,
+      "y": 8230,
+      "text": "7 · Built for Global Healthcare Delivery",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-sec-4": {
+      "x": 0,
+      "y": 10300,
+      "text": "8 · How Our System Works (Pathway Protocol)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-sec-5": {
+      "x": 0,
+      "y": 11590,
+      "text": "9 · Our Healthcare (Hospital Network)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-sec-6": {
+      "x": 0,
+      "y": 13160,
+      "text": "10 · Testimonials and Trust (Accreditation Seals)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-sec-7": {
+      "x": 0,
+      "y": 15110,
+      "text": "11 · Who We Work With (Institutional Alliances)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-sec-8": {
+      "x": 0,
+      "y": 16680,
+      "text": "12 · Our Impact (Institutional Pedigree)",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-sec-9": {
+      "x": 0,
+      "y": 17750,
+      "text": "13 · Closing Consultation & Hospital Directory Footer",
+      "kind": "title1",
+      "maxW": 3900,
+      "page": "final-o"
+    },
+    "final-o-note": {
+      "x": 4040,
+      "y": 0,
+      "w": 480,
+      "maxH": 1400,
+      "size": "m",
+      "fill": "yellow",
+      "page": "final-o",
+      "text": "VERSION 2 · FINAL ORIGINAL (THE MEDICAL INSTITUTION)\n\nDesign Philosophy:\n40-year clinical pedigree and institutional hospital excellence. Built for hospital boards, physicians, and private patients.\n\nAesthetic System:\nArchitectural alabaster (#FFFFFF), clinical navy (#0A2A4A), Helma serif display, genuine physician & facility photography, and formal GHA/DMWV accreditation seals.\n\nAll 12 sections built with dedicated Version O components. 100% of live client wording preserved word for word."
+    },
     "home0": {
       "x": 0,
       "y": -250,
@@ -1434,9 +3245,51 @@
       "fill": "orange",
       "page": "home",
       "text": "Open items from the live site\n\n1. The About heading is blank on the live site (a script breaks). Your pick: Healthcare International Group.\n2. The two closing buttons, Become a Partner and Request a Consultation, point nowhere.\n3. The insurer band shows 100% with an empty second line.\n4. The live footer reads 2026 Healthcare International Group. All Rights Reserved. without a ©."
+    },
+    "aboutOptionsNote": {
+      "x": 0,
+      "y": -300,
+      "w": 1200,
+      "maxH": 260,
+      "size": "m",
+      "fill": "blue",
+      "page": "about-day-options",
+      "text": "Section 3 · About: Three World-Class Day Designs\\n\\n100% of live content preserved word for word.\\nOption A: The Architectural Ledger (Refined Swiss Editorial Split)\\nOption B: The Sovereign Health Matrix (Modern B2B Bento with Dark Monolith)\\nOption C: The Clinical Vanguard (Interactive Operational Stage with Metric Pillars)\\n\\nPreview live at http://127.0.0.1:8765/canvas/heroes/preview/about-options.html"
+    },
+    "aboutBrandNote": {
+      "x": 0,
+      "y": -320,
+      "w": 1200,
+      "maxH": 280,
+      "size": "m",
+      "fill": "green",
+      "page": "about-brand-enhanced",
+      "text": "Section 3 · About: Brand-Informed Master Designs\\n\\nIncorporates the official HCIG Brand Guidelines (Helma typography, brand colors #000000, #565759, #12C0C6, #FFFFFF, GHA and DMWV official partner logos).\\n\\nDesign 1: The 3-Tier Ecosystem Horizon (Visualizes On-Site Resort Care, MedPark Hospital, and Global Coordination Desk).\\nDesign 2: The Modernized Heritage Mosaic (Elevates the original about.jpg collage with architectural framing and live beacons).\\n\\nPreview live: http://127.0.0.1:8765/canvas/heroes/preview/about-enhanced.html"
+    },
+    "awwwardsAboutNote": {
+      "x": 0,
+      "y": -280,
+      "w": 1200,
+      "maxH": 240,
+      "size": "m",
+      "fill": "cyan",
+      "page": "about-ecosystem-awwwards",
+      "text": "Section 3 · About Us: The HCIG Ecosystem (Awwwards Standard)\\n\\nClean Luxury Medical Tech (#F8FAFC to #FFFFFF, deep navy #0A192F, bioluminescent cyan #06B6D4).\\n\\nFeatures:\\n1. Interactive 3-Stage Connected Ecosystem Pipeline with animated SVG comet pulse.\\n2. 3D Floating Bento Collage with WebGL Global Medical Network Canvas.\\n3. Odometer impact counters (40+, 594K+, 346+) with easeOutExpo easing.\\n\\nPreview: http://127.0.0.1:8765/canvas/heroes/preview/about-awwwards.html"
+    },
+    "threePillarsAboutNote": {
+      "x": 0,
+      "y": -280,
+      "w": 1200,
+      "maxH": 240,
+      "size": "m",
+      "fill": "cyan",
+      "page": "about-three-pillars-page",
+      "text": "Section 3 · About Us: The HCIG Ecosystem (3-Pillar Synchronized)\\n\\nAuthentic Commercial Documentary Photography (zero sci-fi holograms):\\n1. Resort Doctor Care (pillar-1-resort-care.jpg)\\n2. Specialist Hospital Care (pillar-2-hospital-care.jpg)\\n3. Global Case Coordinator (pillar-3-global-coordination.jpg)\\n\\nFeatures:\\n- Synchronized auto-play cycle (4.5s) with progress bar and hover/click override.\\n- 3D depth-layered perspective stack with active card foregrounding.\\n- Live etched-glass HCIG watermark badge on every card.\\n\\nPreview: http://127.0.0.1:8765/canvas/heroes/preview/about-three-pillars.html"
     }
   },
   "order": [
+    "Sec03AboutThreePillars.dc.html",
+    "Sec03AboutAwwwards.dc.html",
     "HeroA.dc.html",
     "HeroAPhone.dc.html",
     "HeroB.dc.html",
@@ -1513,6 +3366,156 @@
     "Sec05Mission.dc.html",
     "Sec06Why.dc.html",
     "Sec07Global.dc.html",
+    "N2HeroDay.dc.html",
+    "N2HeroNight.dc.html",
+    "N2HeroPhoneDay.dc.html",
+    "N2HeroPhoneNight.dc.html",
+    "N2NumbersDay.dc.html",
+    "N2NumbersNight.dc.html",
+    "N2NumbersPhoneDay.dc.html",
+    "N2NumbersPhoneNight.dc.html",
+    "N2WhoDay.dc.html",
+    "N2WhoNight.dc.html",
+    "N2WhoPhoneDay.dc.html",
+    "N2WhoPhoneNight.dc.html",
+    "N2GroupDay.dc.html",
+    "N2GroupNight.dc.html",
+    "N2GroupPhoneDay.dc.html",
+    "N2GroupPhoneNight.dc.html",
+    "N2JourneyDay.dc.html",
+    "N2JourneyNight.dc.html",
+    "N2JourneyPhoneDay.dc.html",
+    "N2JourneyPhoneNight.dc.html",
+    "N2DeliverDay.dc.html",
+    "N2DeliverNight.dc.html",
+    "N2DeliverPhoneDay.dc.html",
+    "N2DeliverPhoneNight.dc.html",
+    "N2PartnersDay.dc.html",
+    "N2PartnersNight.dc.html",
+    "N2PartnersPhoneDay.dc.html",
+    "N2PartnersPhoneNight.dc.html",
+    "N2ReachDay.dc.html",
+    "N2ReachNight.dc.html",
+    "N2ReachPhoneDay.dc.html",
+    "N2ReachPhoneNight.dc.html",
+    "N2VoicesDay.dc.html",
+    "N2VoicesNight.dc.html",
+    "N2VoicesPhoneDay.dc.html",
+    "N2VoicesPhoneNight.dc.html",
+    "N2CtaDay.dc.html",
+    "N2CtaNight.dc.html",
+    "N2CtaPhoneDay.dc.html",
+    "N2CtaPhoneNight.dc.html",
+    "V2Numbers.dc.html",
+    "V2Who.dc.html",
+    "V2Journey.dc.html",
+    "V2Deliver.dc.html",
+    "V2Partners.dc.html",
+    "V2Reach.dc.html",
+    "V2Voices.dc.html",
+    "V2Cta.dc.html",
+    "Sec08System.dc.html",
+    "Sec09Care.dc.html",
+    "Sec10Trust.dc.html",
+    "Sec11WorkWith.dc.html",
+    "Sec12Impact.dc.html",
+    "Sec13Cta.dc.html",
+    "final-b-Home2BFilmNight.dc.html",
+    "final-b-Home2BFilmDay.dc.html",
+    "final-b-Home2BFilmPhoneNight.dc.html",
+    "final-b-Home2BFilmPhoneDay.dc.html",
+    "final-b-HomeB3AboutNight.dc.html",
+    "final-b-HomeB3AboutDay.dc.html",
+    "final-b-HomeB3AboutPhoneNight.dc.html",
+    "final-b-HomeB3AboutPhoneDay.dc.html",
+    "final-b-Home4GroupNight.dc.html",
+    "final-b-Home4GroupDay.dc.html",
+    "final-b-Home4GroupPhoneNight.dc.html",
+    "final-b-Home4GroupPhoneDay.dc.html",
+    "final-b-HomeB5MissionNight.dc.html",
+    "final-b-HomeB5MissionDay.dc.html",
+    "final-b-HomeB5MissionPhoneNight.dc.html",
+    "final-b-HomeB5MissionPhoneDay.dc.html",
+    "final-b-HomeB6WhyNight.dc.html",
+    "final-b-HomeB6WhyDay.dc.html",
+    "final-b-HomeB6WhyPhoneNight.dc.html",
+    "final-b-HomeB6WhyPhoneDay.dc.html",
+    "final-b-HomeB7GlobalNight.dc.html",
+    "final-b-HomeB7GlobalDay.dc.html",
+    "final-b-HomeB7GlobalPhoneNight.dc.html",
+    "final-b-HomeB7GlobalPhoneDay.dc.html",
+    "final-b-HomeB8SystemNight.dc.html",
+    "final-b-HomeB8SystemDay.dc.html",
+    "final-b-HomeB8SystemPhoneNight.dc.html",
+    "final-b-HomeB8SystemPhoneDay.dc.html",
+    "final-b-HomeB9CareNight.dc.html",
+    "final-b-HomeB9CareDay.dc.html",
+    "final-b-HomeB9CarePhoneNight.dc.html",
+    "final-b-HomeB9CarePhoneDay.dc.html",
+    "final-b-HomeB10TrustNight.dc.html",
+    "final-b-HomeB10TrustDay.dc.html",
+    "final-b-HomeB10TrustPhoneNight.dc.html",
+    "final-b-HomeB10TrustPhoneDay.dc.html",
+    "final-b-HomeB11WorkWithNight.dc.html",
+    "final-b-HomeB11WorkWithDay.dc.html",
+    "final-b-HomeB11WorkWithPhoneNight.dc.html",
+    "final-b-HomeB11WorkWithPhoneDay.dc.html",
+    "final-b-HomeB12ImpactNight.dc.html",
+    "final-b-HomeB12ImpactDay.dc.html",
+    "final-b-HomeB12ImpactPhoneNight.dc.html",
+    "final-b-HomeB12ImpactPhoneDay.dc.html",
+    "final-b-HomeB13CtaNight.dc.html",
+    "final-b-HomeB13CtaDay.dc.html",
+    "final-b-HomeB13CtaPhoneNight.dc.html",
+    "final-b-HomeB13CtaPhoneDay.dc.html",
+    "final-o-Home2ONight.dc.html",
+    "final-o-Home2ODay.dc.html",
+    "final-o-Home2OPhoneNight.dc.html",
+    "final-o-Home2OPhoneDay.dc.html",
+    "final-o-HomeO3AboutNight.dc.html",
+    "final-o-HomeO3AboutDay.dc.html",
+    "final-o-HomeO3AboutPhoneNight.dc.html",
+    "final-o-HomeO3AboutPhoneDay.dc.html",
+    "final-o-Home4GroupNight.dc.html",
+    "final-o-Home4GroupDay.dc.html",
+    "final-o-Home4GroupPhoneNight.dc.html",
+    "final-o-Home4GroupPhoneDay.dc.html",
+    "final-o-HomeO5MissionNight.dc.html",
+    "final-o-HomeO5MissionDay.dc.html",
+    "final-o-HomeO5MissionPhoneNight.dc.html",
+    "final-o-HomeO5MissionPhoneDay.dc.html",
+    "final-o-HomeO6WhyNight.dc.html",
+    "final-o-HomeO6WhyDay.dc.html",
+    "final-o-HomeO6WhyPhoneNight.dc.html",
+    "final-o-HomeO6WhyPhoneDay.dc.html",
+    "final-o-HomeO7GlobalNight.dc.html",
+    "final-o-HomeO7GlobalDay.dc.html",
+    "final-o-HomeO7GlobalPhoneNight.dc.html",
+    "final-o-HomeO7GlobalPhoneDay.dc.html",
+    "final-o-HomeO8SystemNight.dc.html",
+    "final-o-HomeO8SystemDay.dc.html",
+    "final-o-HomeO8SystemPhoneNight.dc.html",
+    "final-o-HomeO8SystemPhoneDay.dc.html",
+    "final-o-HomeO9CareNight.dc.html",
+    "final-o-HomeO9CareDay.dc.html",
+    "final-o-HomeO9CarePhoneNight.dc.html",
+    "final-o-HomeO9CarePhoneDay.dc.html",
+    "final-o-HomeO10TrustNight.dc.html",
+    "final-o-HomeO10TrustDay.dc.html",
+    "final-o-HomeO10TrustPhoneNight.dc.html",
+    "final-o-HomeO10TrustPhoneDay.dc.html",
+    "final-o-HomeO11WorkWithNight.dc.html",
+    "final-o-HomeO11WorkWithDay.dc.html",
+    "final-o-HomeO11WorkWithPhoneNight.dc.html",
+    "final-o-HomeO11WorkWithPhoneDay.dc.html",
+    "final-o-HomeO12ImpactNight.dc.html",
+    "final-o-HomeO12ImpactDay.dc.html",
+    "final-o-HomeO12ImpactPhoneNight.dc.html",
+    "final-o-HomeO12ImpactPhoneDay.dc.html",
+    "final-o-HomeO13CtaNight.dc.html",
+    "final-o-HomeO13CtaDay.dc.html",
+    "final-o-HomeO13CtaPhoneNight.dc.html",
+    "final-o-HomeO13CtaPhoneDay.dc.html",
     "Home2BNight.dc.html",
     "Home2BDay.dc.html",
     "Home2BPhoneNight.dc.html",
@@ -1552,12 +3555,45 @@
     "Home7GlobalNight.dc.html",
     "Home7GlobalDay.dc.html",
     "Home7GlobalPhoneNight.dc.html",
-    "Home7GlobalPhoneDay.dc.html"
+    "Home7GlobalPhoneDay.dc.html",
+    "Sec03AboutA.dc.html",
+    "Sec03AboutB.dc.html",
+    "Sec03AboutC.dc.html",
+    "Sec03AboutE1.dc.html",
+    "Sec03AboutE2.dc.html"
   ],
   "pages": [
     {
+      "id": "about-three-pillars-page",
+      "name": "Section 3: About (3-Pillar Interactive)"
+    },
+    {
+      "id": "about-ecosystem-awwwards",
+      "name": "Section 3: About (Awwwards Ecosystem)"
+    },
+    {
+      "id": "about-brand-enhanced",
+      "name": "Section 3: About (Brand-Informed)"
+    },
+    {
+      "id": "about-day-options",
+      "name": "Section 3: About (3 Day Designs)"
+    },
+    {
       "id": "home",
       "name": "Home, every section"
+    },
+    {
+      "id": "final-b",
+      "name": "Final B · Global Network"
+    },
+    {
+      "id": "final-o",
+      "name": "Final Original · Medical Institution"
+    },
+    {
+      "id": "home2",
+      "name": "New home (v2)"
     },
     {
       "id": "final",
@@ -1578,6 +3614,10 @@
     {
       "id": "twelve",
       "name": "All twelve heroes"
+    },
+    {
+      "id": "parts2",
+      "name": "Parts v2 (section components)"
     },
     {
       "id": "parts",

@@ -14,7 +14,7 @@ const local = {};
 for (const [name, url] of Object.entries(B)) local[url] = "/material/hero-assets/" + files.find((f) => f.replace(/\.[^.]+$/, "") === name);
 
 const jobs = [];
-for (const f of readdirSync(join(HERE, "project")).filter((f) => /^(Hero([A-Z]|B\d|BFilm)|GroupFilm|Sec\d+\w+|V2\w+)\.dc\.html$/.test(f))) {
+for (const f of readdirSync(join(HERE, "project")).filter((f) => /^(Hero([A-Z]|B\d|BFilm)|GroupFilm|Sec[BO]?\d+\w+|V2\w+)\.dc\.html$/.test(f))) {
   if (/\{\{themeCls\}\}|\{\{cls\}\}/.test(readFileSync(join(HERE, "project", f), "utf8"))) jobs.push([f, "dark", f.replace(".dc", "")], [f, "light", f.replace(".dc.html", "Light.html")]);
   else jobs.push([f, "", f.replace(".dc", "")]);
 }

@@ -1,6 +1,6 @@
 ---
 name: review-agent
-description: Review a Hive worker's finished ticket before it reaches main. Reads the diff, runs the checks in the worker's worktree, verifies against the acceptance criteria and HCIG rules, then merges or sends it back with exact notes. Use for any ticket in needs_review, when the user says /review-agent, "check what agy did", or "merge the agent's work".
+description: FROZEN since 2026-10-19 with Hive. Do not use unless the user explicitly types /review-agent. Before the freeze it was for this. Review a Hive worker's finished ticket before it reaches main. Reads the diff, runs the checks in the worker's worktree, verifies against the acceptance criteria and HCIG rules, then merges or sends it back with exact notes. Use for any ticket in needs_review, when the user says /review-agent, "check what agy did", or "merge the agent's work".
 ---
 
 # /review-agent <ID>

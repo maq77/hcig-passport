@@ -189,6 +189,11 @@ function analytics(days = 14) {
   return { days, since, models, perDay, perModel, kinds, topTickets, totals, budget: budget(), flow, hours, workload, status, consults };
 }
 
-function takesEffort(model) { return (S.config().models.effortFlag || ['gemini-']).some(p => model.startsWith(p)); }
+// A model whose name already ends in its effort (gemini-3.1-pro-high) refuses --effort: agy answers
+// "--effort is not supported for model" and the run dies at once (seen 2026-10-18 on T-053).
+function takesEffort(model) {
+  if (/-(low|medium|high|xhigh|max)$/.test(model)) return false;
+  return (S.config().models.effortFlag || ['gemini-']).some(p => model.startsWith(p));
+}
 
 module.exports = { budget, checkBudget, analytics, takesEffort, route, fallback, classify, clampEffort, markExhausted, recordUsage, usageSummary, allowed };
