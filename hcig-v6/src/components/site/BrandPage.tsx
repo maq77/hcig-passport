@@ -91,7 +91,7 @@ export function BrandBody({ b, post }: { b: Brand; post?: Post }) {
               <Reveal className="bp-founder">
                 <img src={asset(b.founder.img)} alt={b.founder.name} loading="lazy" />
                 <div><p className="eyebrow">{U.founder.text}</p><h2 className="bp-h">{b.founder.name}</h2><p>{b.founder.role}</p>
-                  <a className="bp-link" href={href("/about/leadership/")}>{U.leadership.text}<Icon name="arrow" size={15} /></a></div>
+                  <a className="bp-link" href={href("/about/")}>{U.leadership.text}<Icon name="arrow" size={15} /></a></div>
               </Reveal>
             ) : null}
             {post ? (

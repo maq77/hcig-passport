@@ -33,7 +33,9 @@ const POSTS = (await import(pathToFileURL(path.resolve("src/content/blog.mjs")).
 const R = [
   ["^(index|index1|indexnew|indexold)\\.php$|^inde\\.html$", "/"],
   ["^(about1|aboutold)\\.php$|^about\\.html$|^about/index(old)?\\.php$", "/about/"],
-  ["^group_(ceo|chairman|coo)\\.php$", "/about/leadership/"],
+  ["^group_(ceo|chairman|coo)\\.php$", "/about/"],
+  ["^about/leadership(/.*)?$", "/about/"],
+  ["^(de|pl|fr|it|es|cs)/(about/leadership|ueber-uns/fuehrung|o-nas/zarzad|a-propos/direction|chi-siamo/leadership|sobre-nosotros/liderazgo|o-nas/vedeni)(/.*)?$", "/$1/about/"],
   ["^(services|servis)\\.php$|^services/index\\.php$", "/services/"],
   ["^partner/index\\.php$", "/partner/"],
   ["^(contact|kontakty|contactconf)\\.php$|^contacts/index\\.php$", "/contacts/"],

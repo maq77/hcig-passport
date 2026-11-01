@@ -1,7 +1,6 @@
 {
  "cs": {
   "/about/": "/o-nas/",
-  "/about/leadership/": "/o-nas/vedeni/",
   "/services/": "/sluzby/",
   "/services/hospital-specialty-services/": "/sluzby/nemocnicni-a-specializovane-sluzby/",
   "/services/medical-tourism-facilitation/": "/sluzby/zprostredkovani-zdravotni-turistiky/",
@@ -27,7 +26,6 @@
  },
  "de": {
   "/about/": "/ueber-uns/",
-  "/about/leadership/": "/ueber-uns/fuehrung/",
   "/services/": "/leistungen/",
   "/services/hospital-specialty-services/": "/leistungen/krankenhaus-und-fachleistungen/",
   "/services/medical-tourism-facilitation/": "/leistungen/medizintourismus/",
@@ -53,7 +51,6 @@
  },
  "es": {
   "/about/": "/sobre-nosotros/",
-  "/about/leadership/": "/sobre-nosotros/liderazgo/",
   "/services/": "/servicios/",
   "/services/hospital-specialty-services/": "/servicios/servicios-hospitalarios-y-especialidades/",
   "/services/medical-tourism-facilitation/": "/servicios/facilitacion-de-turismo-medico/",
@@ -79,7 +76,6 @@
  },
  "fr": {
   "/about/": "/a-propos/",
-  "/about/leadership/": "/a-propos/direction/",
   "/services/": "/services/",
   "/services/hospital-specialty-services/": "/services/soins-hospitaliers-specialises/",
   "/services/medical-tourism-facilitation/": "/services/tourisme-medical/",
@@ -105,7 +101,6 @@
  },
  "pl": {
   "/about/": "/o-nas/",
-  "/about/leadership/": "/o-nas/zarzad/",
   "/services/": "/uslugi/",
   "/services/hospital-specialty-services/": "/uslugi/uslugi-szpitalne-i-specjalistyczne/",
   "/services/medical-tourism-facilitation/": "/uslugi/turystyka-medyczna/",
@@ -131,7 +126,6 @@
  },
  "it": {
   "/about/": "/chi-siamo/",
-  "/about/leadership/": "/chi-siamo/leadership/",
   "/services/": "/servizi/",
   "/services/hospital-specialty-services/": "/servizi/servizi-ospedalieri-e-specialistici/",
   "/services/medical-tourism-facilitation/": "/servizi/turismo-medicale/",

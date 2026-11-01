@@ -11,7 +11,6 @@ import { Ribbons, Watermark } from "@/components/ui/Brand";
 // the group pages reachable from every page (labels are the pages' own titles)
 const MORE = [
   { label: T.more.group, path: "/group/" },
-  { label: T.more.leadership, path: "/about/leadership/" },
   { label: T.more.network, path: "/network/" },
   { label: T.more.trust, path: "/trust/" },
   { label: T.more.press, path: "/press/" },

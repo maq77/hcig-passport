@@ -12,7 +12,7 @@ done <<'EOF'
 /index.php /
 /about1.php /about/
 /about/index.php /about/
-/group_ceo.php /about/leadership/
+/group_ceo.php /about/
 /services.php /services/
 /servis.php /services/
 /partner/index.php /partner/
