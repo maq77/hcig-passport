@@ -8,6 +8,11 @@ after, and how it was checked. Words on the site are never changed unless Mohame
 
 ## 2026-11-10
 
+### Phone titles keep every word whole (live)
+- Page titles on phones no longer split a word ("CHAL-LENGES" on the ITIC article, his ask). A title whose longest word cannot fit the line gets a smaller size instead; only the German "Versicherungsunterstützung" page uses it.
+- Fixed at the same time: the German services page ran 40px past a phone screen (a long German word widened the card grid).
+- Checked: every page with a title band in four languages at 320, 360 and 390px, no split word, no sideways scroll, nothing cut off; all 750 files on tmasi.net identical to the build. Backup and rollback in `tmasi-live/fix-titles-2026-11-10/`.
+
 ### New article live: "TMASI Global at ITIC 2026: Addressing the Real Challenges of International Medical Assistance"
 - Live on tmasi.net in English, German, Polish and Spanish: `/blog/itic-global-2026-medical-assistance-challenges/` and its three translations. First on every blog page and in the home news.
 - English text is Mohamed's word for word (only the dash in "1-5 November" made a plain hyphen). German, Polish and Spanish: Gemini first drafts, checked and corrected by Claude.
