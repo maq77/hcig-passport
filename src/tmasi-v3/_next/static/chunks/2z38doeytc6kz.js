@@ -1269,7 +1269,7 @@ Read more: https://nextjs.org/docs/messages/next-image-missing-loader`),"__NEXT_
           /* Phone and email links get a finger-sized tap area (44px) without moving the lines apart. */
           .hub-line a, .hub-name a { display: inline-block; padding: 11px 0; margin: -11px 0; }
         }
-      `}})]})}],81263)},70488,e=>{"use strict";var t=e.i(43476),i=e.i(57688),a=e.i(22016),s=e.i(68877),r=e.i(51757),n=e.i(96315),o=e.i(20865),l=e.i(75387),d=e.i(96199),h=e.i(70416),c=e.i(95612),p=e.i(82524),u=e.i(30085),m=e.i(55307),f=e.i(55786),g=e.i(77128),x=e.i(40844),b=e.i(67927),v=e.i(93209);function y({title:e,sub:s,crumbs:r,image:n="/img/glavbanner.jpg",eyebrow:o,soft:l=!1,imagePosition:d="center"}){return(0,t.jsxs)("section",{className:"ph",children:[(0,t.jsxs)("div",{className:`ph-bg${l?" ph-bg--soft":""}`,"aria-hidden":"true",children:[(0,t.jsx)(i.default,{src:(0,v.asset)(n),alt:"",fill:!0,priority:!0,sizes:"100vw",style:{objectFit:"cover",objectPosition:d}}),(0,t.jsx)("div",{className:"ph-shade"})]}),(0,t.jsxs)("div",{className:"lx-wrap ph-inner",children:[(0,t.jsx)("nav",{"aria-label":"Breadcrumb",children:(0,t.jsx)("ol",{className:"ph-crumbs",children:r.map((e,i)=>(0,t.jsxs)("li",{children:[e.href&&i<r.length-1?(0,t.jsx)(a.default,{href:e.href,children:e.label}):(0,t.jsx)("span",{"aria-current":"page",children:e.label}),i<r.length-1&&(0,t.jsx)(b.ChevronRight,{size:14,"aria-hidden":"true"})]},i))})}),o&&(0,t.jsx)("p",{className:"ph-eyebrow",children:o}),(0,t.jsx)("h1",{className:"ph-title",children:e}),s&&(0,t.jsx)("p",{className:"ph-sub",children:s})]}),(0,t.jsx)("style",{dangerouslySetInnerHTML:{__html:`
+      `}})]})}],81263)},70488,e=>{"use strict";var t=e.i(43476),i=e.i(57688),a=e.i(22016),s=e.i(68877),r=e.i(51757),n=e.i(96315),o=e.i(20865),l=e.i(75387),d=e.i(96199),h=e.i(70416),c=e.i(95612),p=e.i(82524),u=e.i(30085),m=e.i(55307),f=e.i(55786),g=e.i(77128),x=e.i(40844),b=e.i(67927),v=e.i(93209);function y({title:e,sub:s,crumbs:r,image:n="/img/glavbanner.jpg",eyebrow:o,soft:l=!1,imagePosition:d="center"}){return(0,t.jsxs)("section",{className:"ph",children:[(0,t.jsxs)("div",{className:`ph-bg${l?" ph-bg--soft":""}`,"aria-hidden":"true",children:[(0,t.jsx)(i.default,{src:(0,v.asset)(n),alt:"",fill:!0,priority:!0,sizes:"100vw",style:{objectFit:"cover",objectPosition:d}}),(0,t.jsx)("div",{className:"ph-shade"})]}),(0,t.jsxs)("div",{className:"lx-wrap ph-inner",children:[(0,t.jsx)("nav",{"aria-label":"Breadcrumb",children:(0,t.jsx)("ol",{className:"ph-crumbs",children:r.map((e,i)=>(0,t.jsxs)("li",{children:[e.href&&i<r.length-1?(0,t.jsx)(a.default,{href:e.href,children:e.label}):(0,t.jsx)("span",{"aria-current":"page",children:e.label}),i<r.length-1&&(0,t.jsx)(b.ChevronRight,{size:14,"aria-hidden":"true"})]},i))})}),o&&(0,t.jsx)("p",{className:"ph-eyebrow",children:o}),(0,t.jsx)("h1",{className:"ph-title",style:{"--ph-longest":Math.max(...e.split(/\s+/).map(e=>[...e].length))},children:e}),s&&(0,t.jsx)("p",{className:"ph-sub",children:s})]}),(0,t.jsx)("style",{dangerouslySetInnerHTML:{__html:`
         .ph { position: relative; overflow: hidden; background: #0F205C; color: #ffffff;
           padding: calc(112px + clamp(40px, 5vw, 72px)) 0 clamp(56px, 6vw, 88px); }
         .ph-bg { position: absolute; inset: 0; }
@@ -1285,9 +1285,12 @@ Read more: https://nextjs.org/docs/messages/next-image-missing-loader`),"__NEXT_
         .ph-eyebrow { margin: 0 0 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #7fe0e1; }
         .ph-title { margin: 0; max-width: 22ch; color: #ffffff; font-family: var(--font-display);
           font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.02; font-size: clamp(40px, 5.2vw, 68px); }
-        /* One-word German titles ("Versicherungsunterst\xfctzung") are wider than a phone: there they break with a
-           hyphen (2026-10-12). Wider screens keep the word whole on one line. */
-        @media (max-width: 699px) { .ph-title { -webkit-hyphens: auto; hyphens: auto; overflow-wrap: break-word; } }
+        /* Phones: words are never split ("CHAL-LENGES" was, 2026-11-10). A title whose longest word would not fit the
+           line ("Versicherungsunterst\xfctzung") gets a smaller size instead: the widest real words measure about 0.41 of
+           the font size per letter, so 0.42 x letters always fits. Normal titles stay 40px. */
+        @media (max-width: 699px) { .ph-title { -webkit-hyphens: manual; hyphens: manual; overflow-wrap: break-word;
+          font-size: min(40px, calc((100vw - 56px) / (var(--ph-longest, 10) * 0.42)));
+          max-width: max(22ch, calc(var(--ph-longest, 10) * 0.42em)); } }
         .ph-sub { margin: 18px 0 0; max-width: 62ch; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.65; color: rgba(255,255,255,0.88); }
         @media (max-width: 1239px) { .ph { padding-top: calc(96px + 40px); } }
       `}})]})}var w=e.i(76592);let j=e=>e.replace(/^Uber uns$/,"Über uns");function k(){let{live:e,links:t}=(0,w.useSite)(),i=e.shell.nav.map(j);return{home:{label:i[0],href:t.home},about:{label:i[1],href:t.about},services:{label:i[2],href:t.services},contact:{label:i[3],href:t.contact},blog:{label:i[4],href:t.blog||void 0}}}function S({items:e,columns:i=2}){return(0,t.jsx)("ul",{className:`ip-items ip-items--${i}`,children:e.map((e,i)=>(0,t.jsxs)("li",{className:"ip-item",children:[(0,t.jsx)(r.CheckCircle2,{size:20,"aria-hidden":"true",className:"ip-item-ico"}),(0,t.jsxs)("div",{children:[e.title&&(0,t.jsx)("h3",{className:"ip-item-title",children:e.title}),(0,t.jsx)("p",{className:"ip-item-text",children:e.text})]})]},i))})}function A({lines:e,tel:i,email:a}){return(0,t.jsx)("div",{className:"ip-office-lines",children:e.map((e,s)=>{let r=i.some(t=>e.replace(/\s/g,"").includes(t)),d=a.some(t=>e.includes(t)),h=r?l.Phone:d?n.Mail:o.MapPin;return(0,t.jsxs)("p",{className:"ip-office-line",children:[(0,t.jsx)(h,{size:16,"aria-hidden":"true"}),r?(0,t.jsx)("span",{children:e.split(/(\+[\d\s]{8,}\d)/).map((e,i)=>/^\+[\d\s]+$/.test(e)?(0,t.jsx)("a",{href:`tel:${e.replace(/\s/g,"")}`,children:e},i):e)}):d?(0,t.jsx)("span",{children:e.split(RegExp(`(${a.map(e=>e.replace(/[.]/g,"\\.")).join("|")})`)).map((e,i)=>a.includes(e)?(0,t.jsx)("a",{href:`mailto:${e}`,children:e},i):e)}):(0,t.jsx)("span",{children:e})]},s)})})}function T(){return(0,t.jsx)("style",{dangerouslySetInnerHTML:{__html:`
@@ -1398,7 +1401,9 @@ Read more: https://nextjs.org/docs/messages/next-image-missing-loader`),"__NEXT_
       .ip-back { padding-top: 12px; }
 
       @media (max-width: 900px) {
-        .ip-items--2, .ip-groups, .ip-contact, .ip-leader { grid-template-columns: 1fr; }
+        /* minmax(0, 1fr): a plain 1fr column grows to its longest word (German compounds pushed the services page
+           40px past a 360px phone, 2026-11-10). */
+        .ip-items--2, .ip-groups, .ip-contact, .ip-leader { grid-template-columns: minmax(0, 1fr); }
         .ip-leader-img { max-width: 360px; }
         .ip-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .ip-step-cell:not(:nth-child(3n+1)) { border-left: none; }

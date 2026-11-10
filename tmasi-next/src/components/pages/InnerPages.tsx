@@ -511,7 +511,9 @@ function InnerStyles() {
       .ip-back { padding-top: 12px; }
 
       @media (max-width: 900px) {
-        .ip-items--2, .ip-groups, .ip-contact, .ip-leader { grid-template-columns: 1fr; }
+        /* minmax(0, 1fr): a plain 1fr column grows to its longest word (German compounds pushed the services page
+           40px past a 360px phone, 2026-11-10). */
+        .ip-items--2, .ip-groups, .ip-contact, .ip-leader { grid-template-columns: minmax(0, 1fr); }
         .ip-leader-img { max-width: 360px; }
         .ip-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .ip-step-cell:not(:nth-child(3n+1)) { border-left: none; }

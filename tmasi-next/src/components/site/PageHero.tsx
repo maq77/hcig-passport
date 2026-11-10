@@ -32,7 +32,8 @@ export default function PageHero({ title, sub, crumbs, image = "/img/glavbanner.
           </ol>
         </nav>
         {eyebrow && <p className="ph-eyebrow">{eyebrow}</p>}
-        <h1 className="ph-title">{title}</h1>
+        {/* --ph-longest: letters in the title's longest word, so phones can size the title to keep every word whole. */}
+        <h1 className="ph-title" style={{ ["--ph-longest" as string]: Math.max(...title.split(/\s+/).map((w) => [...w].length)) }}>{title}</h1>
         {sub && <p className="ph-sub">{sub}</p>}
       </div>
 
@@ -52,9 +53,12 @@ export default function PageHero({ title, sub, crumbs, image = "/img/glavbanner.
         .ph-eyebrow { margin: 0 0 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #7fe0e1; }
         .ph-title { margin: 0; max-width: 22ch; color: #ffffff; font-family: var(--font-display);
           font-weight: 400; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.02; font-size: clamp(40px, 5.2vw, 68px); }
-        /* One-word German titles ("Versicherungsunterstützung") are wider than a phone: there they break with a
-           hyphen (2026-10-12). Wider screens keep the word whole on one line. */
-        @media (max-width: 699px) { .ph-title { -webkit-hyphens: auto; hyphens: auto; overflow-wrap: break-word; } }
+        /* Phones: words are never split ("CHAL-LENGES" was, 2026-11-10). A title whose longest word would not fit the
+           line ("Versicherungsunterstützung") gets a smaller size instead: the widest real words measure about 0.41 of
+           the font size per letter, so 0.42 x letters always fits. Normal titles stay 40px. */
+        @media (max-width: 699px) { .ph-title { -webkit-hyphens: manual; hyphens: manual; overflow-wrap: break-word;
+          font-size: min(40px, calc((100vw - 56px) / (var(--ph-longest, 10) * 0.42)));
+          max-width: max(22ch, calc(var(--ph-longest, 10) * 0.42em)); } }
         .ph-sub { margin: 18px 0 0; max-width: 62ch; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.65; color: rgba(255,255,255,0.88); }
         @media (max-width: 1239px) { .ph { padding-top: calc(96px + 40px); } }
       `}} />
