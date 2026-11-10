@@ -6,6 +6,15 @@ so the report and email at the end are complete and exact.
 How entries are written: one line per change, the page or URL, what it was before and
 after, and how it was checked. Words on the site are never changed unless Mohamed says so.
 
+## 2026-11-10
+
+### New article live: "TMASI Global at ITIC 2026: Addressing the Real Challenges of International Medical Assistance"
+- Live on tmasi.net in English, German, Polish and Spanish: `/blog/itic-global-2026-medical-assistance-challenges/` and its three translations. First on every blog page and in the home news.
+- English text is Mohamed's word for word (only the dash in "1-5 November" made a plain hyphen). German, Polish and Spanish: Gemini first drafts, checked and corrected by Claude.
+- Three ITIC Istanbul photos added as WebP (conference entrance, networking, Istanbul cultural evening) with descriptive alt text, plus a 1200 x 630 share image for LinkedIn, Facebook and WhatsApp previews.
+- SEO from the recommendation pack he sent: title "TMASI Global at ITIC 2026: Medical Assistance Challenges", meta description, share title and description, publish date and "News & Events" section for Google. Sitemap updated.
+- Checked: all four pages and blog lists 200 on tmasi.net, every uploaded file identical to the build, phone (360, 390) and desktop, no console errors, analytics running. Backup of the 466 replaced files and a one-step rollback kept in `tmasi-live/news7-2026-11-10/`.
+
 ## 2026-10-16
 
 ### v3 live on tmasi.net
