@@ -784,6 +784,14 @@
   "heading": "Latest News & Updates",
   "cards": [
    {
+    "image": "/blog/img/tmasi-itic-global-2026-istanbul.webp",
+    "date": "Istanbul, Türkiye · November 2026",
+    "title": "TMASI Global at ITIC 2026: Addressing the Real Challenges of International Medical Assistance",
+    "excerpt": "TMASI Global participated as an official sponsor of ITIC Global 2026 in Istanbul, engaging with international industry professionals on the operational challenges shaping medical assistance, from cost containment and access to care to effective local coordination and case management.",
+    "more": "Read more →",
+    "href": "news7.php"
+   },
+   {
     "image": "/blog/img/itic-global-2026-istanbul.jpg",
     "date": "Istanbul, Turkey · October 2026",
     "title": "TMASI Global Joins the International Travel & Health Insurance Conference (ITIC Global) 2026 as an Official Sponsor",
@@ -1146,6 +1154,80 @@
    "meta": {
     "title": "TMASI Global Joins the International Travel & Health Insurance Conference (ITIC Global) 2026 as an Official Sponsor",
     "description": "TMASI Global is proud to join the International Travel & Health Insurance Conference (ITIC Global) 2026 in Istanbul as an official sponsor, taking part in one of the leading international gatherings for the travel insurance, medical assistance, and global healthcare industries."
+   }
+  },
+  {
+   "source": "/blog/news7.php",
+   "title": "TMASI Global at ITIC 2026: Addressing the Real Challenges of International Medical Assistance",
+   "date": "Istanbul, Türkiye · November 2026",
+   "published": "2026-11-10",
+   "section": "News & Events",
+   "body": [
+    {
+     "img": "/blog/img/tmasi-itic-global-2026-istanbul.webp",
+     "alt": "ITIC Global 2026 international medical assistance conference in Istanbul"
+    },
+    {
+     "p": "As the international medical assistance industry continues to evolve, the challenges facing insurers, assistance companies and healthcare providers are becoming increasingly complex. Ensuring timely access to appropriate medical care, managing rising treatment costs, maintaining transparency and coordinating services across different healthcare systems require much more than an extensive international provider network.",
+     "cls": "news-paragraph news-lead"
+    },
+    {
+     "p": "These were among the important industry issues explored at ITIC Global 2026, held from 1-5 November in Istanbul, Türkiye, where TMASI Global participated as an official sponsor alongside international insurance, medical assistance and healthcare organisations.",
+     "cls": "news-paragraph"
+    },
+    {
+     "p": "One of the central questions facing the industry is how to balance cost containment with quality of care. While financial efficiency remains essential for insurers and assistance companies, decisions made purely on cost can introduce additional operational challenges, treatment delays and risks to patient experience.",
+     "cls": "news-paragraph"
+    },
+    {
+     "p": "Another important consideration is the difference between having a medical provider listed within a network and ensuring that appropriate care is actually available when a patient needs it. During periods of high demand, local healthcare capacity, appointment availability, administrative requirements and communication between multiple parties can significantly influence the outcome of a medical assistance case.",
+     "cls": "news-paragraph"
+    },
+    {
+     "p": "For international assistance organisations, these challenges highlight the importance of reliable local coordination, timely medical reporting, transparent authorisation procedures and continuous case management.",
+     "cls": "news-paragraph"
+    },
+    {
+     "p": "The discussions at ITIC also reflected the growing role of technology and digital solutions in medical assistance operations. While innovation can improve efficiency, communication and administrative processes, effective medical assistance still depends on informed decision-making, professional oversight and the ability to respond to unexpected situations on the ground.",
+     "cls": "news-paragraph"
+    },
+    {
+     "p": "Throughout the conference, TMASI Global engaged with industry professionals and international partners, exchanging perspectives on operational challenges, provider network efficiency, patient support and opportunities to strengthen cross-border cooperation.",
+     "cls": "news-paragraph"
+    },
+    {
+     "p": "For TMASI Global, these conversations are closely connected to our everyday operations. Working across different healthcare environments, we understand that successful medical assistance depends not only on identifying the right provider, but also on coordinating the entire process - from the initial request and medical arrangements to documentation, insurer communication, financial coordination and case resolution.",
+     "cls": "news-paragraph"
+    },
+    {
+     "p": "ITIC Global 2026 provided an important opportunity to exchange practical experience, examine the challenges shaping the industry’s future and strengthen relationships built around reliable service delivery.",
+     "cls": "news-paragraph"
+    },
+    {
+     "p": "As international travel continues to evolve, so do expectations for medical assistance. Meeting those expectations requires strong partnerships, operational flexibility and, above all, the ability to turn international coordination into effective local action.",
+     "cls": "news-paragraph"
+    },
+    {
+     "p": "TMASI Global - Where Global Meets Local.",
+     "cls": "news-paragraph news-closing"
+    },
+    {
+     "img": "/blog/img/itic-2026-medical-assistance-networking.webp",
+     "alt": "International insurance and medical assistance professionals networking at ITIC Global 2026"
+    },
+    {
+     "img": "/blog/img/itic-global-2026-istanbul-cultural-event.webp",
+     "alt": "Traditional Turkish cultural performance in Istanbul during ITIC Global 2026"
+    }
+   ],
+   "meta": {
+    "title": "TMASI Global at ITIC 2026: Medical Assistance Challenges",
+    "description": "TMASI Global explores key medical assistance challenges at ITIC Global 2026 in Istanbul, from cost containment and patient care to local coordination.",
+    "og": {
+     "title": "TMASI Global at ITIC 2026 | The Challenges Shaping Medical Assistance",
+     "description": "Beyond provider networks: TMASI Global joins international industry leaders at ITIC Global 2026 to explore operational challenges, patient care, cost containment and the future of medical assistance.",
+     "image": "/blog/img/tmasi-itic-global-2026-istanbul-og.jpg"
+    }
    }
   }
  ]

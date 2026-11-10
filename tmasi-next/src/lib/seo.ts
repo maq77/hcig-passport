@@ -54,7 +54,8 @@ function copied(lang: Lang, value: string | undefined, of: (l: Lang) => string |
 // ---------------------------------------------------------------------------------------------
 // Title, description and share image per page.
 
-export type PageSeo = { title: string; description: string; image?: string; article?: boolean };
+// share: a post's own Open Graph title, description and 1200x630 image (meta.og), when it has them.
+export type PageSeo = { title: string; description: string; image?: string; article?: boolean; share?: { title: string; description: string; image: string } };
 
 export function pageSeo(route: Route): PageSeo {
   const { lang } = route;
@@ -116,6 +117,7 @@ export function pageSeo(route: Route): PageSeo {
         description: clamp(matches && p.meta.description ? p.meta.description : firstP),
         image: p.image,
         article: true,
+        share: p.meta.og,
       };
     }
   }
@@ -131,7 +133,11 @@ export function pageMetadata(route: Route): Metadata {
   const languages: Record<string, string> = {};
   for (const l of LANGS) if (langs[l]) languages[l] = abs(langs[l]!);
   if (langs.en) languages["x-default"] = abs(langs.en);
-  const image = s.image
+  const shareTitle = s.share?.title || s.title;
+  const shareText = s.share?.description || s.description;
+  const image = s.share
+    ? { url: abs(s.share.image), width: OG_IMAGE.width, height: OG_IMAGE.height, alt: shareTitle }
+    : s.image
     ? { url: abs(s.image), alt: s.title }
     : { url: abs(OG_IMAGE.path), width: OG_IMAGE.width, height: OG_IMAGE.height, alt: BRAND };
   return {
@@ -143,13 +149,13 @@ export function pageMetadata(route: Route): Metadata {
       type: s.article ? "article" : "website",
       url,
       siteName: BRAND,
-      title: s.title,
-      description: s.description,
+      title: shareTitle,
+      description: shareText,
       locale: OG_LOCALE[route.lang],
       alternateLocale: LANGS.filter((l) => l !== route.lang && langs[l]).map((l) => OG_LOCALE[l]),
       images: [image],
     },
-    twitter: { card: "summary_large_image", title: s.title, description: s.description, images: [image.url] },
+    twitter: { card: "summary_large_image", title: shareTitle, description: shareText, images: [image.url] },
     robots: IS_PREVIEW
       ? { index: false, follow: false }
       : { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
@@ -382,6 +388,8 @@ export function pageJsonLd(route: Route) {
         description: s.description,
         image: images.length ? images : [abs(OG_IMAGE.path)],
         inLanguage: lang,
+        ...(p.published ? { datePublished: p.published } : {}),
+        ...(p.section ? { articleSection: p.section } : {}),
         author: { "@id": ORG_ID },
         publisher: { "@id": ORG_ID },
         mainEntityOfPage: { "@id": pageId },

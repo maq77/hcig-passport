@@ -52,6 +52,7 @@ const EN_POST_SLUGS: Record<string, string> = {
   news4: "itic-global-venice-2025-on-stage",
   news5: "hansa-medica-group-partnership-grand-egyptian-museum",
   news6: "itic-global-2026-istanbul-official-sponsor",
+  news7: "itic-global-2026-medical-assistance-challenges",
 };
 
 const TRANSLIT: Record<string, string> = { ä: "ae", ö: "oe", ü: "ue", ß: "ss", ł: "l", Ł: "l", æ: "ae", ø: "o" };
@@ -69,7 +70,7 @@ export function slugify(s: string, max = 80): string {
 // size: an image's own [width, height] (scripts/image-sizes.py), so it can be shown whole.
 export type Block = { p?: string; quote?: string; h?: string; li?: string; img?: string; alt?: string; cls?: string; size?: [number, number] };
 export type Post = {
-  key: string; // news1..news6, the same story in every language
+  key: string; // news1..news7, the same story in every language
   slug: string;
   title: string;
   date: string; // the post page's own dateline
@@ -77,11 +78,15 @@ export type Post = {
   excerpt: string;
   image: string;
   body: Block[];
-  meta: { title: string; description: string };
+  meta: PostMeta;
+  published?: string; // ISO date the post went up (news7 onward); older posts carry only a dateline
+  section?: string;
   draft?: boolean;
 };
 
-type RawPost = { source: string; title: string; date: string; body: Block[]; meta: { title: string; description: string }; draft?: boolean };
+// og: share title, description and 1200x630 image, when the post has its own.
+export type PostMeta = { title: string; description: string; og?: { title: string; description: string; image: string } };
+type RawPost = { source: string; title: string; date: string; body: Block[]; meta: PostMeta; published?: string; section?: string; draft?: boolean };
 const DRAFTS = draftsJson as unknown as Partial<Record<Lang, RawPost[]>>;
 const SIZES = imageSizes as unknown as Record<string, [number, number]>;
 const newsKey = (source: string) => (source.match(/news(\d)/) || [])[0] || source;
@@ -106,6 +111,8 @@ function buildPosts(lang: Lang): Post[] {
       image: card?.image || firstImg,
       body: r.body.map((b) => (b.img && SIZES[b.img] ? { ...b, size: SIZES[b.img] } : b)),
       meta: r.meta,
+      published: r.published,
+      section: r.section,
       draft: r.draft,
     } satisfies Post;
   });
