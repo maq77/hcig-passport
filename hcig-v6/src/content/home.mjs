@@ -70,7 +70,7 @@ export const ABOUT = {
     "Our ecosystem spans on-site medical services in hotels and resorts, advanced hospital care, and direct coordination with insurance and assistance partners.",
   ],
   ensureIntro: "This approach allows us to ensure:",
-  ensure: ["faster access to care", "clear responsibility across the case", "seamless patient management from first contact to resolution"],
+  ensure: ["Faster access to care", "Clear responsibility across the case", "Seamless patient management from first contact to resolution"],
   closing: "Operating across multiple markets, HCIG supports international patients, insurers, and global partners with structured, reliable, and scalable healthcare solutions.",
   // live: "We don’t just provide healthcare we manage it." Punctuation fix logged (same words).
   statement: { text: "We don’t just provide healthcare. We manage it.", src: "live-fix" },
