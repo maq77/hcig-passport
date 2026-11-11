@@ -180,9 +180,10 @@ const COMPANIES = [
         slug: 'site-audit',
         name: 'Site audit',
         status: 'live',
-        updated: '2026-09-18',
-        summary: 'Fixes going live. Colour contrast fixed site-wide on 18 September.',
+        updated: '2026-11-11',
+        summary: 'Fixes going live. Every booking button now opens WhatsApp, since 11 November.',
         detail: [
+          'Jotform removed from MedPark on 11 November. Every booking button (EN, DE, PL) opens WhatsApp, and the old form pages forward to WhatsApp.',
           'Contrast raised to the accessible minimum on grey text, the red emergency buttons and every WhatsApp button. Home page accessibility 95 to 98.',
           'Measured on five pages. Mobile speed 76 to 88. The El Quseir hero photo is next.',
         ],
