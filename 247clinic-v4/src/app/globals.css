@@ -990,3 +990,5 @@ html.js .rv.in { opacity: 1; transform: none; }
   .svc-feature-list li { font-size: 15.5px; }
 }
 .svc-feature-img { object-position: 72% 50%; }
+.stat-num { flex: none; white-space: nowrap; }
+@media (max-width: 767px) { .stat-num { min-width: 112px; } }
