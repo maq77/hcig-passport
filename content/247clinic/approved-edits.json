@@ -624,6 +624,14 @@
       "where": "home What We Can Treat On-Site",
       "to": "Prescription & Medication Delivery is card 04; IV Therapy, Wellness & Aesthetic Treatments is the bordeaux feature 07",
       "his_words": "i choose D , but switch 07 with 04"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "content",
+      "where": "For Hotels & Partners page (content/247clinic/en/for-hotels.json); Hotel Clinic Concept as its #model section",
+      "to": "see for-hotels.json",
+      "his_words": "the text i gave you , is for content update only ... hotel clinic concept is not a page but a concept that is applied on content of the website ... only update texts or content to match what i gave you"
     }
   ],
   "fromTheirSite": {

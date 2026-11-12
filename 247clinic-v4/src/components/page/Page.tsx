@@ -93,8 +93,8 @@ function Crumbs({ trail }: { trail: Crumb[] }) {
 }
 
 /* ---------- the page hero ---------- */
-export function PageHero({ eyebrow, title, lead, img, pos = "50% 50%", posM, trail, children }: {
-  eyebrow?: string; title: string; lead?: string[]; img: string; pos?: string; posM?: string; trail: Crumb[]; children?: React.ReactNode;
+export function PageHero({ eyebrow, title, sub, lead, close, img, pos = "50% 50%", posM, trail, children }: {
+  eyebrow?: string; title: string; sub?: string | null; lead?: string[]; close?: string; img: string; pos?: string; posM?: string; trail: Crumb[]; children?: React.ReactNode;
 }) {
   /* The last word group goes red, as on the home ("Urgent Medical Care / Right Inside Your Hotel"). */
   return (
@@ -107,7 +107,9 @@ export function PageHero({ eyebrow, title, lead, img, pos = "50% 50%", posM, tra
         <Crumbs trail={trail} />
         {eyebrow && <p className="ph-eyebrow">{eyebrow}</p>}
         <h1 id="ph-h">{title}</h1>
+        {sub && <p className="ph-sub">{sub}</p>}
         {lead?.map((p) => <p key={p} className="ph-lead">{p}</p>)}
+        {close && <p className="ph-close">{close}</p>}
         {children && <div className="cta-row ph-ctas">{children}</div>}
       </div>
     </section>
@@ -115,11 +117,11 @@ export function PageHero({ eyebrow, title, lead, img, pos = "50% 50%", posM, tra
 }
 
 /* ---------- a section with its heading ---------- */
-export function Band({ id, eyebrow, title, lead, tint, center, children, narrow }: {
-  id: string; eyebrow?: string; title?: string; lead?: React.ReactNode; tint?: boolean; center?: boolean; children?: React.ReactNode; narrow?: boolean;
+export function Band({ id, eyebrow, title, lead, tint, center, children, narrow, dark, anchor }: {
+  id: string; eyebrow?: string; title?: string; lead?: React.ReactNode; tint?: boolean; center?: boolean; children?: React.ReactNode; narrow?: boolean; dark?: boolean; anchor?: string;
 }) {
   return (
-    <section className={`section pg-band ${tint ? "bg-surface" : ""}`} aria-labelledby={title ? id : undefined}>
+    <section id={anchor} className={`section pg-band ${tint ? "bg-surface" : ""} ${dark ? "dark" : ""}`} aria-labelledby={title ? id : undefined}>
       <div className={`container ${narrow ? "pg-narrow" : ""}`}>
         {title && (
           <div className={`head ${center ? "center" : ""}`}>

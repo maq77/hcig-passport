@@ -1,92 +1,371 @@
 {
   "page": "for-hotels",
   "briefSections": [
-    24
+    24,
+    22
   ],
   "meta": null,
+  "source": "The user's B2B content brief, 2026-11-12 (For Hotels & Partners, with the Hotel Clinic Concept as its #model section). Two em dashes replaced (his no-dash rule).",
   "sections": [
     {
-      "id": "for-hotels",
+      "id": "hero",
       "briefSection": 24,
       "heading": "On-Site Medical Solutions for Hotels & Resorts",
-      "subheading": null,
+      "subheading": "Because Guest Safety Is Part of Your Hotel Experience.",
       "body": [
-        "A medical incident is part of the guest experience. When a guest becomes ill or injured, hotel teams need immediate access to professional medical support and a clear escalation process."
+        "A medical emergency should never become an operational crisis for your hotel. 24/7 Clinic brings professional urgent care directly into the hospitality environment, combining medical expertise with the service standards your guests expect.",
+        "From immediate medical response and multilingual assistance to insurance coordination and discreet VIP care, we take responsibility for the medical side of the guest experience, allowing your team to focus on hospitality.",
+        "Medicine is our responsibility. Your guests remain your priority."
       ],
-      "items": [
-        {
-          "title": "On-site hotel clinics",
-          "text": null
-        },
-        {
-          "title": "Doctors and medical staff",
-          "text": null
-        },
-        {
-          "title": "Medical room setup",
-          "text": null
-        },
-        {
-          "title": "24/7 case coordination",
-          "text": null
-        },
-        {
-          "title": "Guest medical assistance",
-          "text": null
-        },
-        {
-          "title": "Ambulance coordination",
-          "text": null
-        },
-        {
-          "title": "Hospital referral",
-          "text": null
-        },
-        {
-          "title": "Insurance coordination",
-          "text": null
-        },
-        {
-          "title": "Medical reporting",
-          "text": null
-        },
-        {
-          "title": "Emergency escalation procedures",
-          "text": null
-        },
-        {
-          "title": "Better Guest Experience",
-          "text": null
-        },
-        {
-          "title": "Faster Medical Response",
-          "text": null
-        },
-        {
-          "title": "Reduced Operational Pressure",
-          "text": null
-        },
-        {
-          "title": "Professional Medical Escalation",
-          "text": null
-        },
-        {
-          "title": "International Insurance Coordination",
-          "text": null
-        }
-      ],
+      "items": [],
       "ctas": [
         {
           "label": "Discuss a Hotel Medical Partnership",
-          "target": "B2B contact form or WhatsApp Business contact"
+          "target": "Business form"
+        },
+        {
+          "label": "Explore Our Hotel Clinic Model",
+          "target": "#model"
+        }
+      ]
+    },
+    {
+      "id": "challenges",
+      "briefSection": 24,
+      "heading": "When Medical Incidents Become Hotel Challenges",
+      "subheading": null,
+      "body": [
+        "Medicine is not your business.",
+        "But the consequences of a medical incident can become yours."
+      ],
+      "items": [
+        {
+          "title": "Medical Emergencies",
+          "text": "Unexpected illness and injuries requiring a fast, professional medical response."
+        },
+        {
+          "title": "Guest Anxiety & Complaints",
+          "text": "Uncertainty, delays and inadequate medical support can negatively affect the guest experience."
+        },
+        {
+          "title": "Staff Under Pressure",
+          "text": "Front-office, guest relations and security teams are often expected to handle situations beyond their medical expertise."
+        },
+        {
+          "title": "Operational & Reputational Risk",
+          "text": "Poorly managed medical incidents can affect guest satisfaction, online reviews and hotel reputation."
         }
       ],
-      "devNotes": [
-        "Recommended URL: /for-hotels",
-        "This should be a B2B landing page and should not dominate the B2C homepage.",
-        "This should lead to a B2B contact form or WhatsApp Business contact.",
-        "24/7 Clinic can provide:",
-        "Benefits:"
+      "ctas": []
+    },
+    {
+      "id": "advantage",
+      "briefSection": 24,
+      "heading": "More Than a Clinic. A Hospitality Advantage.",
+      "subheading": null,
+      "body": [
+        "For Hotel Management",
+        "For Hotel Owners & Operators",
+        "Your hotel delivers hospitality. We take care of the medicine."
+      ],
+      "items": [
+        {
+          "title": "Faster medical response when guests need assistance",
+          "text": null
+        },
+        {
+          "title": "Reduced pressure on front-office and security teams",
+          "text": null
+        },
+        {
+          "title": "Clear medical escalation and communication protocols",
+          "text": null
+        },
+        {
+          "title": "Multilingual medical and guest support",
+          "text": null
+        },
+        {
+          "title": "Coordination with international insurance and assistance companies",
+          "text": null
+        },
+        {
+          "title": "Discreet medical handling for VIP guests",
+          "text": null
+        },
+        {
+          "title": "Stronger guest safety and premium positioning",
+          "text": null
+        },
+        {
+          "title": "Greater appeal to families, senior travellers and long-stay guests",
+          "text": null
+        },
+        {
+          "title": "Reduced need for unnecessary external hospital transfers",
+          "text": null
+        },
+        {
+          "title": "Better continuity of the guest experience",
+          "text": null
+        },
+        {
+          "title": "Fully managed medical operations without developing an internal healthcare department",
+          "text": null
+        },
+        {
+          "title": "Flexible partnership models adapted to each property",
+          "text": null
+        }
+      ],
+      "ctas": []
+    },
+    {
+      "id": "services",
+      "briefSection": 24,
+      "heading": "Healthcare Designed Around the Guest Experience",
+      "subheading": "Medicine at Hospitality Level",
+      "body": [
+        "24/7 Clinic combines professional medical care with the expectations of modern hospitality. Our approach goes beyond treating patients. We provide a coordinated, discreet and guest-focused medical experience that integrates naturally with hotel operations."
+      ],
+      "items": [
+        {
+          "title": "24/7 Medical Assistance",
+          "text": null
+        },
+        {
+          "title": "Doctor On-Call & Hotel Room Visits",
+          "text": null
+        },
+        {
+          "title": "Multilingual Medical Teams",
+          "text": null
+        },
+        {
+          "title": "Medical Concierge Services",
+          "text": null
+        },
+        {
+          "title": "VIP & Discreet Patient Handling",
+          "text": null
+        },
+        {
+          "title": "Insurance & Assistance Coordination",
+          "text": null
+        },
+        {
+          "title": "Medical Transportation Coordination",
+          "text": null
+        },
+        {
+          "title": "Seamless Cooperation with Hotel Teams",
+          "text": null
+        }
+      ],
+      "ctas": []
+    },
+    {
+      "id": "model",
+      "briefSection": 24,
+      "heading": "Medical Clinics Inside Hotels & Resorts",
+      "subheading": "Urgent Care Meets Hospitality.",
+      "body": [
+        "More than a medical facility inside your hotel, 24/7 Clinic is a fully managed urgent care solution designed around the needs of international guests and hotel operations.",
+        "One medical partner. Less operational pressure. A better guest experience."
+      ],
+      "items": [],
+      "ctas": []
+    },
+    {
+      "id": "model-1",
+      "briefSection": 24,
+      "heading": "The American Urgent Care Model. Adapted for Hospitality.",
+      "subheading": "A Proven Model Adapted to Hospitality",
+      "body": [
+        "Our healthcare approach is inspired by the American urgent care model, with a focus on timely medical access, patient-centred service, efficient coordination and appropriate treatment without unnecessary hospital referrals.",
+        "A recognised healthcare model, adapted to the unique needs of hotels and resorts."
+      ],
+      "items": [
+        {
+          "title": "Fast-Access Urgent Care",
+          "text": null
+        },
+        {
+          "title": "Patient-Centred Approach",
+          "text": null
+        },
+        {
+          "title": "Reduced Dependency on External Hospitals",
+          "text": null
+        },
+        {
+          "title": "Operational Efficiency",
+          "text": null
+        }
+      ],
+      "ctas": []
+    },
+    {
+      "id": "model-2",
+      "briefSection": 24,
+      "heading": "Professional Medical Care Without Leaving the Resort",
+      "subheading": "What an On-Site Clinic Can Provide",
+      "body": [
+        "Our on-site clinics provide access to medical assessment, treatment and coordinated care within the hospitality environment, allowing guests to receive appropriate medical attention with greater convenience and less disruption to their stay.",
+        "All services are subject to clinical assessment, facility capabilities and applicable licensing requirements."
+      ],
+      "items": [
+        {
+          "title": "Urgent Medical Consultations",
+          "text": null
+        },
+        {
+          "title": "Treatment of Common Illnesses",
+          "text": null
+        },
+        {
+          "title": "Minor Injuries & Procedures",
+          "text": null
+        },
+        {
+          "title": "Injections & IV Therapy",
+          "text": null
+        },
+        {
+          "title": "Diagnostics & Laboratory Services",
+          "text": null
+        },
+        {
+          "title": "Short-Term Medical Observation, Where Licensed",
+          "text": null
+        },
+        {
+          "title": "Doctor Visits to Guest Rooms",
+          "text": null
+        },
+        {
+          "title": "Specialist Referrals & Hospital Transfers",
+          "text": null
+        }
+      ],
+      "ctas": []
+    },
+    {
+      "id": "model-3",
+      "briefSection": 24,
+      "heading": "Your Hotel Focuses on Hospitality. We Manage Healthcare.",
+      "subheading": "We Manage the Medical Operations",
+      "body": [
+        "24/7 Clinic offers a fully managed medical operating model designed to reduce the complexity of providing healthcare services within a hotel.",
+        "One dedicated healthcare partner. One coordinated operating model."
+      ],
+      "items": [
+        {
+          "title": "Clinic Setup & Operation",
+          "text": null
+        },
+        {
+          "title": "Qualified Medical Staffing",
+          "text": null
+        },
+        {
+          "title": "Medical Licensing & Compliance",
+          "text": null
+        },
+        {
+          "title": "Clinical Protocols & Quality Standards",
+          "text": null
+        },
+        {
+          "title": "Insurance & Assistance Coordination",
+          "text": null
+        },
+        {
+          "title": "Integration with Hotel Operations",
+          "text": null
+        }
+      ],
+      "ctas": []
+    },
+    {
+      "id": "model-4",
+      "briefSection": 24,
+      "heading": "A Partnership Model Built Around Your Property",
+      "subheading": "Simple & Hotel-Friendly Partnership",
+      "body": [
+        "We understand that every hotel operates differently. Our partnerships are structured according to the property’s location, capacity, guest profile, available space and medical service requirements.",
+        "Low complexity for your hotel. High value for your guests."
+      ],
+      "items": [
+        {
+          "title": "Flexible partnership structures",
+          "text": null
+        },
+        {
+          "title": "Tailored medical operating models",
+          "text": null
+        },
+        {
+          "title": "Integration with existing hotel procedures",
+          "text": null
+        },
+        {
+          "title": "Clear responsibilities and communication channels",
+          "text": null
+        },
+        {
+          "title": "Long-term cooperation and operational support",
+          "text": null
+        }
+      ],
+      "ctas": []
+    },
+    {
+      "id": "value",
+      "briefSection": 24,
+      "heading": "A Healthcare Partnership That Strengthens Your Hotel",
+      "subheading": "Financial & Brand Value",
+      "body": [
+        "Professional medical support is more than an operational necessity. It can strengthen guest confidence, support premium positioning and make your property more attractive to travellers who value safety, convenience and access to healthcare."
+      ],
+      "items": [
+        {
+          "title": "Stronger Safety & Premium Positioning",
+          "text": null
+        },
+        {
+          "title": "Greater Appeal to Families & Senior Guests",
+          "text": null
+        },
+        {
+          "title": "Enhanced Long-Stay Guest Experience",
+          "text": null
+        },
+        {
+          "title": "No Need to Manage Healthcare Operations Internally",
+          "text": null
+        },
+        {
+          "title": "Stronger Guest Confidence & Loyalty",
+          "text": null
+        }
+      ],
+      "ctas": []
+    },
+    {
+      "id": "cta",
+      "briefSection": 24,
+      "heading": "Let’s Build a Safer Hotel Together",
+      "subheading": null,
+      "body": [
+        "Every hotel has different operational needs, guest profiles and service standards. We develop flexible medical partnership models adapted to each property, from on-site urgent care clinics to coordinated medical support for hotel guests."
+      ],
+      "items": [],
+      "ctas": [
+        {
+          "label": "Discuss a Hotel Medical Partnership",
+          "target": "Business form"
+        }
       ]
     }
   ]

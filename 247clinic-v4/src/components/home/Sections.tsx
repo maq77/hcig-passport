@@ -31,6 +31,9 @@ import { StoryCarousel } from "./StoryRow";
 import { ClinicFinder } from "./ClinicFinder";
 import { Parallax } from "./Parallax";
 import { FaqList } from "./FaqList";
+import { DetailCard } from "@/components/ui/DetailCard";
+import { DetailBody, OpenMark } from "@/components/page/Detail";
+import { serviceDetail } from "@/components/page/Common";
 
 const href = (p: string) => `${BASE}${p}`;
 const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` });
@@ -181,19 +184,33 @@ export function Services() {
             const file = `${SVC_FILES[i]}.webp`;
             return (
               <li key={it.title} className="rv" style={d((i % 3) * 70)}>
-                <article className={`card svc ${slotFile(file) ? "has-img" : ""}`}>
-                  <div className="svc-media">
-                    <Slot file={file} purpose={`service card, ${it.title}`} px="1200 x 800" alt={it.title} ratio="3 / 2" />
-                    <span className="svc-n" aria-hidden="true">0{i + 1}</span>
-                  </div>
-                  <div className="svc-body">
-                    <span className="ico"><Ico size={22} aria-hidden="true" /></span>
-                    <div className="svc-text">
-                      <h3>{it.title}</h3>
-                      {it.text && <More text={it.text} label={it.title} />}
-                    </div>
-                  </div>
-                </article>
+                {/* The card opens into its full points (the user, 2026-11-12; canvas H6dARjuHkaTeYqcUUvwYdB). */}
+                <DetailCard label={it.title} trigger={
+                  <span className={`card svc ${slotFile(file) ? "has-img" : ""}`}>
+                    <span className="svc-media">
+                      <Slot file={file} purpose={`service card, ${it.title}`} px="1200 x 800" alt="" ratio="3 / 2" />
+                      <span className="svc-n" aria-hidden="true">0{i + 1}</span>
+                    </span>
+                    <span className="svc-body">
+                      <span className="ico"><Ico size={22} aria-hidden="true" /></span>
+                      <span className="svc-text">
+                        <h3>{it.title}</h3>
+                        {it.text && <span className="svc-quick">{it.text}</span>}
+                        <OpenMark label="Open" />
+                      </span>
+                    </span>
+                  </span>
+                }>
+                  {(() => {
+                    const det = serviceDetail(it.title);
+                    return (
+                      <DetailBody img={`/slots/${file}`} kicker="What we treat" title={it.title} text={it.text && /\.$/.test(it.text.trim()) ? it.text : det.text} points={det.points}>
+                        <WaButton placement="home-service-card">{BRIEF.waUs}</WaButton>
+                        <CallButton placement="home-service-card" />
+                      </DetailBody>
+                    );
+                  })()}
+                </DetailCard>
               </li>
             );
           })}

@@ -38,6 +38,7 @@ either carried over as a static page or 301s to its closest page. Decided in pha
 | `/clinics/{destination}` | `/{destination}` | parent of the hotel URLs |
 | `/insurance-cashless-care` | `/insurance` | the brief's suggested URL, in case it is linked |
 | `/accreditation` | `/international-accreditation` | short form |
+| `/hotel-clinics` | `/for-hotels#model` (301 to `/for-hotels`) | the user, 2026-11-12: the concept is a section of For Hotels, not a page |
 | `/for-insurance` | `/insurance-assistance-partners` | short form |
 | any `/path/` | `/path` | one form only |
 
