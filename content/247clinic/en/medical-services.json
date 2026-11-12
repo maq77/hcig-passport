@@ -27,8 +27,12 @@
           "text": "Medical examination, Laboratory testing, Basic diagnostic services, Referral for advanced diagnostics when required"
         },
         {
-          "title": "Medication & IV Treatment",
-          "text": "Doctor-prescribed medication, Injections, IV therapy when clinically indicated"
+          "title": "Prescription & Medication Delivery",
+          "text": "Prescription renewal, Replacement of forgotten or lost medication, Doctor consultation for prescriptions, Medication delivery to your hotel"
+        },
+        {
+          "title": "IV Therapy, Wellness & Aesthetic Treatments",
+          "text": "IV Therapy, Vitamin Infusions, Wellness Treatments, Botox Injections, Dermal Fillers, Biorevitalization, Skin Rejuvenation"
         },
         {
           "title": "Specialist Care",

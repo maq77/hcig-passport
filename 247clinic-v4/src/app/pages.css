@@ -204,3 +204,19 @@ main:has(> .ph) { padding-bottom: clamp(110px, 10.5vw, 146px); }
 body:has(.pg-cta-wrap) .site-footer .help-band { display: none; }
 body:has(.pg-cta-wrap) main { padding-bottom: 0; }
 body:has(.pg-cta-wrap) .site-footer { padding-top: clamp(36px, 5vw, 60px); }
+
+/* Seven services on the Services page and the clinic pages: first card wide on two columns,
+   first and last wide on three, photo beside the words. Phones stay one per row. */
+@media (min-width: 768px) and (max-width: 1099px) {
+  .svc-rows:not(.compact) > .svc-wide-first { grid-column: 1 / -1; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+}
+@media (min-width: 1100px) {
+  .svc-rows:not(.compact) > :is(.svc-wide-first, .svc-wide-last) { grid-column: span 2; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+}
+@media (min-width: 768px) {
+  .svc-rows.compact > :is(.svc-wide-first, .svc-wide-last) { grid-column: span 2; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+  .svc-rows > :is(.svc-wide-first, .svc-wide-last)[class*="svc-wide"] .svc-row-img { aspect-ratio: auto; height: 100%; }
+  .svc-rows > :is(.svc-wide-first, .svc-wide-last) .svc-row-img img { height: 100%; }
+  .svc-rows > :is(.svc-wide-first, .svc-wide-last) .svc-row-body { padding: 26px 28px; align-content: center; }
+}
+@media (min-width: 768px) and (max-width: 1099px) { .svc-rows:not(.compact) > .svc-wide-last { grid-template-columns: 1fr; } .svc-rows:not(.compact) > .svc-wide-last .svc-row-img { aspect-ratio: 16 / 9; height: auto; } .svc-rows:not(.compact) > .svc-wide-last .svc-row-body { padding: 4px 22px 24px; } }

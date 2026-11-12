@@ -6,7 +6,7 @@
    and logged in content/247clinic/approved-edits.json. Facts only from the brief or him. */
 import {
   Ambulance, ArrowUpRight, Award, Bandage, BedDouble, Check, CheckCheck, FlaskConical, Globe, HeartPulse, Hotel,
-  MapPin, ShieldCheck, Stethoscope, Syringe, Thermometer, UserRoundCheck, UsersRound,
+  MapPin, Pill, ShieldCheck, Stethoscope, Syringe, Thermometer, UserRoundCheck, UsersRound,
 } from "lucide-react";
 import { section, reviews } from "@/content/load";
 import { BRIEF, THEIRS } from "@/content/brief";
@@ -47,7 +47,7 @@ export function Hero() {
   const svc = section("home", "medical-services");
   const care = section("home", "what-is-247-clinic");
   const how = section("home", "how-it-works");
-  const captions = [svc.items[5]?.title, care.items[0]?.title, how.items[0]?.title, care.items[1]?.title];
+  const captions = [svc.items.find((x) => /hotel room/i.test(x.title))?.title, care.items[0]?.title, how.items[0]?.title, care.items[1]?.title];
   const slides = HERO_SLIDES
     .filter((sl) => (sl.slot ? slotFile(sl.slot) : true))
     .map((sl, k) => ({ ...sl, src: asset(sl.src), srcM: "srcM" in sl && sl.srcM ? asset(sl.srcM) : undefined, caption: captions[k] ?? "" }));
@@ -160,8 +160,8 @@ export function Facilities() {
 }
 
 /* ---------------- 4. what we treat (brief 10) ---------------- */
-const SVC_ICONS = [Thermometer, Bandage, FlaskConical, Syringe, UserRoundCheck, BedDouble];
-const SVC_FILES = ["svc-urgent", "svc-injuries", "svc-diagnostics", "svc-iv", "svc-specialist", "svc-room-visit"];
+const SVC_ICONS = [Thermometer, Bandage, FlaskConical, Pill, Syringe, UserRoundCheck, BedDouble];
+const SVC_FILES = ["svc-urgent", "svc-injuries", "svc-diagnostics", "svc-delivery", "svc-iv", "svc-specialist", "svc-room-visit"];
 export function Services() {
   const s = section("home", "medical-services");
   return (
@@ -177,7 +177,7 @@ export function Services() {
             const Ico = SVC_ICONS[i];
             const file = `${SVC_FILES[i]}.webp`;
             return (
-              <li key={it.title} className="rv" style={d((i % 3) * 70)}>
+              <li key={it.title} className={`rv ${i === 0 ? "svc-wide-first" : ""} ${i === s.items.length - 1 ? "svc-wide-last" : ""}`} style={d((i % 3) * 70)}>
                 <article className={`card svc ${slotFile(file) ? "has-img" : ""}`}>
                   <div className="svc-media">
                     <Slot file={file} purpose={`service card, ${it.title}`} px="1200 x 800" alt={it.title} ratio="3 / 2" />

@@ -8,7 +8,7 @@ import {
   Activity, Ambulance, Award, BadgeCheck, BedDouble, Briefcase, Building2, ClipboardCheck, ClipboardList, Clock,
   FileText, FlaskConical, Globe, HandHeart, HeartPulse, Hospital, Hotel, IdCard, Languages, Mail, MapPin, MessageCircle,
   Phone, PiggyBank, Plane, Receipt, ShieldCheck, Smile, Sparkles, Stethoscope, Syringe, Thermometer, UserRound,
-  UserRoundCheck, Users, Wallet, Zap, type LucideIcon, Bandage, Siren, Handshake, CircleCheck,
+  UserRoundCheck, Users, Wallet, Zap, type LucideIcon, Bandage, Siren, Handshake, CircleCheck, Pill,
 } from "lucide-react";
 import { asset, BASE, IS_PREVIEW } from "@/data/facts";
 import { More } from "@/components/ui/More";
@@ -25,6 +25,7 @@ export function pageMeta(title: string, description: string, path: string): Meta
 
 /* ---------- icons, picked by the words of each item ---------- */
 const ICONS: [RegExp, LucideIcon][] = [
+  [/prescription|delivery/i, Pill],
   [/ambulance/i, Ambulance],
   [/hospital|referral|escalation/i, Hospital],
   [/insurance|insurer|policy|gop|guarantee|billing|cashless/i, ShieldCheck],

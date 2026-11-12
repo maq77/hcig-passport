@@ -11,21 +11,24 @@ import { Marquee } from "@/components/ui/Marquee";
 import { ClinicFinder } from "@/components/home/ClinicFinder";
 import { iconFor } from "./Page";
 
-const SVC_IMG = ["svc-urgent", "svc-injuries", "svc-diagnostics", "svc-iv", "svc-specialist", "svc-room-visit"];
+/* By title, so a new or reordered service keeps its own photo. */
+const SVC_IMG: [RegExp, string][] = [[/urgent/i, "svc-urgent"], [/injur/i, "svc-injuries"], [/diagnos/i, "svc-diagnostics"], [/prescription|delivery/i, "svc-delivery"], [/iv |wellness|aesthetic|medication/i, "svc-iv"], [/specialist/i, "svc-specialist"], [/room/i, "svc-room-visit"]];
+const imgFor = (t: string) => SVC_IMG.find(([re]) => re.test(t))?.[1] ?? "svc-urgent";
 
 /* The six medical services of brief 17, each with its photo. A list of conditions
    becomes small chips (easy to scan); a sentence stays a sentence. */
 export function ServiceList({ compact }: { compact?: boolean }) {
   const s = section("medical-services", "medical-services");
-  const main = s.items.slice(0, 6);
+  /* The medical services; Dental Care and Beauty & Wellness stay secondary (brief 17, 29). */
+  const main = s.items.filter((it) => !/dental|beauty/i.test(it.title));
   return (
     <ul className={`svc-rows ${compact ? "compact" : ""}`}>
       {main.map((it, i) => {
         const Ico = iconFor(it.title);
         const list = it.text && !/\.$/.test(it.text.trim()) ? it.text.split(/,\s*/) : null;
         return (
-          <li key={it.title} className="svc-row rv" style={{ ["--d" as string]: `${(i % 2) * 80}ms` }}>
-            <span className="svc-row-img"><img src={asset(`/slots/${SVC_IMG[i]}.webp`)} alt="" width={1200} height={800} loading="lazy" /></span>
+          <li key={it.title} className={`svc-row rv ${i === 0 ? "svc-wide-first" : ""} ${i === main.length - 1 ? "svc-wide-last" : ""}`} style={{ ["--d" as string]: `${(i % 2) * 80}ms` }}>
+            <span className="svc-row-img"><img src={asset(`/slots/${imgFor(it.title)}.webp`)} alt="" width={1200} height={800} loading="lazy" /></span>
             <div className="svc-row-body">
               <div className="svc-row-head">
                 <span className="tile-ico" aria-hidden="true"><Ico size={20} /></span>

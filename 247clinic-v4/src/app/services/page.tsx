@@ -10,7 +10,7 @@ const s = section("medical-services", "medical-services");
 export const metadata = pageMeta(s.heading, s.body[0], "/services");
 
 export default function Services() {
-  const secondary = s.items.slice(6).map((it) => ({ title: it.title }));
+  const secondary = s.items.filter((it) => /dental|beauty/i.test(it.title)).map((it) => ({ title: it.title }));
   return (
     <>
       <PageHero eyebrow="What we treat" title={s.heading} lead={s.body} img="/slots/hero-desktop.webp" pos="64% 50%" posM="80% 40%"

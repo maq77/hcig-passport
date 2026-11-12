@@ -571,6 +571,42 @@
       "where": "all copy",
       "to": [],
       "his_words": "7- no \"GUIDE\" Word always say we will come to you we will take you and so on..."
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "Medical Services page, service 4",
+      "from": "Medication & IV Treatment: Doctor-prescribed medication, Injections, IV therapy when clinically indicated",
+      "to": "IV Therapy, Wellness & Aesthetic Treatments: IV Therapy, Vitamin Infusions, Wellness Treatments, Botox Injections, Dermal Fillers, Biorevitalization, Skin Rejuvenation",
+      "his_words": "in services add plz: Prescription & Medication Delivery ... and : IV Therapy, Wellness & Aesthetic Treatments ... replace content of one service and add another one , and remember add it in home too"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "Medical Services page, new service before it",
+      "from": null,
+      "to": "Prescription & Medication Delivery: Prescription renewal, Replacement of forgotten or lost medication, Doctor consultation for prescriptions, Medication delivery to your hotel",
+      "his_words": "in services add plz: Prescription & Medication Delivery ... and : IV Therapy, Wellness & Aesthetic Treatments ... replace content of one service and add another one , and remember add it in home too"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "home What We Can Treat On-Site, card 4",
+      "from": "IV Therapy & Medication: Doctor-prescribed medication, injections and IV therapy when medically indicated.",
+      "to": "IV Therapy, Wellness & Aesthetic Treatments: IV Therapy, Vitamin Infusions, Wellness Treatments, Botox Injections, Dermal Fillers, Biorevitalization, Skin Rejuvenation",
+      "his_words": "in services add plz: Prescription & Medication Delivery ... and : IV Therapy, Wellness & Aesthetic Treatments ... replace content of one service and add another one , and remember add it in home too"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "home What We Can Treat On-Site, new card",
+      "from": null,
+      "to": "Prescription & Medication Delivery: Prescription renewal, Replacement of forgotten or lost medication, Doctor consultation for prescriptions, Medication delivery to your hotel",
+      "his_words": "in services add plz: Prescription & Medication Delivery ... and : IV Therapy, Wellness & Aesthetic Treatments ... replace content of one service and add another one , and remember add it in home too"
     }
   ],
   "fromTheirSite": {
