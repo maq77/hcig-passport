@@ -15,7 +15,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /* pos frames the photo on tablet and desktop, posM on phones (the taller cinema-fade crop). */
-export type HeroSlide = { src: string; w: number; h: number; caption: string; pos?: string; posM?: string; slot?: string };
+export type HeroSlide = { src: string; srcM?: string; w: number; h: number; caption: string; pos?: string; posM?: string; slot?: string };
 
 /* Seconds each photo stays: 6.5 until 2026-09-24, then 5 ("a little faster"). */
 const SLIDE_MS = 5000;
@@ -107,6 +107,9 @@ export function HeroCarousel({ slides, label, labels }: {
             transition={reduce ? { duration: 0.25 } : { duration: 1.1, ease: EASE }}
           >
             {/* The picture moves against its frame, so the slide reads as a reveal. */}
+            {/* A slide may carry its own phone picture (srcM), framed for the cinema fade. */}
+            <picture className="hc-pic">
+            {s.srcM && <source media="(max-width: 767px)" srcSet={s.srcM} />}
             <motion.img
               src={s.src}
               data-slot={s.slot}
@@ -127,6 +130,7 @@ export function HeroCarousel({ slides, label, labels }: {
                 scale: { duration: SLIDE_MS / 1000 + 1.2, ease: [0.22, 1, 0.36, 1] },
               }}
             />
+            </picture>
           </motion.div>
         </AnimatePresence>
       </div>

@@ -23,7 +23,7 @@
       "id": "hero",
       "briefSection": 6,
       "heading": "Urgent Medical Care\nRight Inside Your Hotel",
-      "subheading": "24/7 Medical Care • Cashless Insurance • Multilingual Support",
+      "subheading": "24/7 Medical Care • Cashless Care for Insured Patients • Multilingual Support",
       "body": [
         "On-site urgent care inside hotels and resorts across Egypt’s top tourist destinations. Fast care, without unnecessary hospital visits."
       ],
@@ -217,8 +217,8 @@
           "text": "Tell us your hotel and what happened."
         },
         {
-          "title": "We Find the Nearest Medical Option",
-          "text": "If your hotel has a 24/7 Clinic, we direct you there. If not, our coordination team finds the most appropriate medical option nearby."
+          "title": "We Arrange Your Medical Visit",
+          "text": "If your hotel has a 24/7 Clinic, we direct you there. If not, we promptly send our agent to pick you up and take you to the nearest 24/7 Clinic."
         },
         {
           "title": "We Check Your Insurance",
@@ -335,6 +335,10 @@
           "text": "Use the Find a Clinic page or contact us on WhatsApp and send your hotel name."
         },
         {
+          "title": "Can a doctor come to my hotel room?",
+          "text": "Yes, of course! Just send us your hotel name and location on WhatsApp, and our doctor will come to your hotel room shortly."
+        },
+        {
           "title": "What should I send you on WhatsApp?",
           "text": "Please send your name, hotel, location, brief description of the medical problem and insurance information if available."
         },
@@ -352,7 +356,7 @@
         },
         {
           "title": "What if my hotel does not have a 24/7 Clinic?",
-          "text": "Contact our coordination team on WhatsApp and we will advise you about the nearest available medical solution."
+          "text": "No worries! Our team will arrange to pick you up from your hotel and take you to the nearest available clinic for medical care."
         }
       ],
       "ctas": [

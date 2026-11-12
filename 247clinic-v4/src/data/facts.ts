@@ -10,7 +10,7 @@ export const PHONE = {
 
 export const NUMBERS = [
   { value: 40, label: "Years of Healthcare Experience", source: "their own counter; the user 2026-09-28" },
-  { value: 130, label: "Hotel & Resort Clinics", source: "the user 2026-09-28; updated stats" },
+  { value: 150, suffix: "+", label: "Hotel & Resort Clinics", source: "the user 2026-11-12: \"130 ... to be 150+\"" },
   { value: 700, label: "Staff", source: "their own counter; the user 2026-09-28" },
 ] as const;
 

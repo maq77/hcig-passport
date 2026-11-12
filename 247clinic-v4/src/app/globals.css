@@ -952,3 +952,16 @@ html.js .rv.in { opacity: 1; transform: none; }
 .bg-surface-2 {
   background: var(--surface-2) !important;
 }
+
+/* 2026-11-12: "Cashless Care for Insured Patients" (his words) is longer than the old line.
+   On phones the two promises sit in two even columns, split by a hairline, each on up to
+   two lines, so the hero never looks crowded. */
+@media (max-width: 767px) {
+  .hero-facts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0; margin-top: 20px; padding: 12px 0; border-block: 1px solid rgba(255, 255, 255, 0.16); }
+  .hero-facts li { align-items: flex-start; gap: 9px; font-size: 13px; line-height: 1.35; padding-right: 12px; }
+  .hero-facts li + li { padding: 0 0 0 14px; border-left: 1px solid rgba(255, 255, 255, 0.16); }
+  .hero-facts svg { margin-top: 1px; }
+}
+/* the "+" of 150+ */
+.stat-plus { font-size: 0.62em; margin-left: 2px; vertical-align: 0.42em; }
+.hc-pic { display: contents; }

@@ -50,7 +50,7 @@ export function Hero() {
   const captions = [svc.items[5]?.title, care.items[0]?.title, how.items[0]?.title, care.items[1]?.title];
   const slides = HERO_SLIDES
     .filter((sl) => (sl.slot ? slotFile(sl.slot) : true))
-    .map((sl, k) => ({ ...sl, src: asset(sl.src), caption: captions[k] ?? "" }));
+    .map((sl, k) => ({ ...sl, src: asset(sl.src), srcM: "srcM" in sl && sl.srcM ? asset(sl.srcM) : undefined, caption: captions[k] ?? "" }));
   return (
     <section className="hero" aria-labelledby="hero-h">
       <div className="hero-media">
@@ -100,7 +100,7 @@ export function HotelBand() {
             return (
               <li key={n.label} className="stat rv" style={d(i * 90)}>
                 <span className="stat-ico" aria-hidden="true"><Ico size={22} /></span>
-                <span className="stat-num"><CountUp value={n.value} /></span>
+                <span className="stat-num"><CountUp value={n.value} suffix={"suffix" in n ? n.suffix : undefined} /></span>
                 <span className="stat-label">{n.label}</span>
               </li>
             );

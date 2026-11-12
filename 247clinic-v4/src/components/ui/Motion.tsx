@@ -55,7 +55,7 @@ export function Tracker() {
 }
 
 /* Count up once when seen. The final value is already in the HTML. */
-export function CountUp({ value }: { value: number }) {
+export function CountUp({ value, suffix }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLElement>(null);
   const [shown, setShown] = useState(value);
   useEffect(() => {
@@ -79,7 +79,7 @@ export function CountUp({ value }: { value: number }) {
     io.observe(el);
     return () => { io.disconnect(); cancelAnimationFrame(raf); };
   }, [value]);
-  return <b ref={ref}>{shown}</b>;
+  return <b ref={ref}>{shown}{suffix && <span className="stat-plus">{suffix}</span>}</b>;
 }
 
 /* A muted preview film that plays only while on screen, never under reduced motion. */

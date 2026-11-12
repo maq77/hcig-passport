@@ -15,7 +15,7 @@ export const BRIEF = {
 /* Changes he named, 2026-09-23 (logged with his words in content/247clinic/approved-edits.json). */
 export const APPROVED = {
   accredited: "Accredited by the Urgent Care Association",
-  partOf: "Part of Healthcare International Group",
+  partOf: "Powered by Healthcare International Group",
 };
 
 /* Lines taken from their live site, www.247clinic.net, with his leave (same file). */

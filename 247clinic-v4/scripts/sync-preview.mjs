@@ -16,7 +16,9 @@ if (!fs.readFileSync(index, "utf8").includes(`/247clinic/${slot}/`)) {
   console.error(`sync: out/ was not built for /247clinic/${slot}. Run npm run preview${slot === "v4" ? "" : `:${slot}`}.`);
   process.exit(1);
 }
-fs.rmSync(DEST, { recursive: true, force: true });
+/* Empty the folder rather than delete it: on Windows a shell or editor sitting in it
+   makes rmSync of the folder itself fail with EPERM (2026-11-12). */
+if (fs.existsSync(DEST)) for (const e of fs.readdirSync(DEST)) fs.rmSync(path.join(DEST, e), { recursive: true, force: true });
 fs.cpSync(OUT, DEST, { recursive: true });
 
 /* Draft photos the pages never name stay out of the committed copy (6.5 MB of unused hero

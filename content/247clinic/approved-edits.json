@@ -482,6 +482,95 @@
       "where": "247clinic-v4/src/content/ui-labels.json (2)",
       "from": "Premium Luxury ELite",
       "to": "Elite care"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "home hero line, desktop top bar and phone hero facts",
+      "from": "24/7 Medical Care • Cashless Insurance • Multilingual Support",
+      "to": "24/7 Medical Care • Cashless Care for Insured Patients • Multilingual Support",
+      "his_words": "5- change \"Cashless Insurance\" -> \"Cashless Care for Insured Patients\" but make it look better and good so it doesnt feel crowded"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "home How It Works, step 02",
+      "from": "We Find the Nearest Medical Option | If your hotel has a 24/7 Clinic, we direct you there. If not, our coordination team finds the most appropriate medical option nearby.",
+      "to": "We Arrange Your Medical Visit | If your hotel has a 24/7 Clinic, we direct you there. If not, we promptly send our agent to pick you up and take you to the nearest 24/7 Clinic.",
+      "his_words": "6- STEP 02 We Arrange Your Medical Visit ... (pasted)"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "home FAQ",
+      "from": "Contact our coordination team on WhatsApp and we will advise you about the nearest available medical solution.",
+      "to": "No worries! Our team will arrange to pick you up from your hotel and take you to the nearest available clinic for medical care.",
+      "his_words": "4- we need to keep wording like : What if my hotel does not have a 24/7 Clinic? No worries! ..."
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "home FAQ, added as question 02",
+      "from": null,
+      "to": "Yes, of course! Just send us your hotel name and location on WhatsApp, and our doctor will come to your hotel room shortly.",
+      "his_words": "in Can a doctor come to my hotel room? Yes, of course! ... we want to say that we can get to you at anywhere/any hotel"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "FAQ page, hotel pages \"Hotel Room Visits\"",
+      "from": "Hotel room medical visits may be arranged depending on location, availability and medical condition.",
+      "to": "Yes, of course! Just send us your hotel name and location on WhatsApp, and our doctor will come to your hotel room shortly.",
+      "his_words": "same"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "FAQ page",
+      "from": "Contact our coordination team on WhatsApp and we will advise you about the nearest available medical solution.",
+      "to": "No worries! Our team will arrange to pick you up from your hotel and take you to the nearest available clinic for medical care.",
+      "his_words": "same as home FAQ"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "Medical Services page, Hotel Room Visits",
+      "from": "Doctor attendance may be arranged in the patient’s hotel room depending on location and medical condition.",
+      "to": "Yes, of course! Just send us your hotel name and location on WhatsApp, and our doctor will come to your hotel room shortly.",
+      "his_words": "7- always say we will come to you we will take you"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "footer badge, About Us (brief.ts APPROVED.partOf)",
+      "from": "Part of Healthcare International Group",
+      "to": "Powered by Healthcare International Group",
+      "his_words": "3- Part of Healthcare International Group -> Powered by Healthcare International Group"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "home numbers (facts.ts)",
+      "from": "130 Hotel & Resort Clinics",
+      "to": "150+ Hotel & Resort Clinics",
+      "his_words": "1- 130 Hotel & Resort Clinics -> to be 150+"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "rule",
+      "where": "all copy",
+      "to": [],
+      "his_words": "7- no \"GUIDE\" Word always say we will come to you we will take you and so on..."
     }
   ],
   "fromTheirSite": {
