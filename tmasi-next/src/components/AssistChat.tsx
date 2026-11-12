@@ -233,6 +233,8 @@ export default function AssistChat() {
       body.append("mobile", s.f.phone.trim());
       body.append("subject", subject);
       body.append("msg", m);
+      // Marks a chat request: the live send.php mails these to marketing@healthcareig.com and marketing.hcig@gmail.com (his pick, 2026-11-12).
+      body.append("assist", "1");
       if (ENDPOINT.startsWith("/")) {
         const res = await fetch(ENDPOINT, { method: "POST", body });
         const text = await res.text();
