@@ -61,3 +61,14 @@ main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolu
   main .btn-wa::after, .site-footer .btn-wa::after, .svc-feature::before { animation: none; display: none; }
   .stat.in .stat-num b, .eyebrow.rv.in::before { animation: none; }
 }
+
+/* How it works, desktop: one arrow under the steps opens 02 and 03 together. */
+.steps-toggle { display: none; }
+.steps-toggle-btn { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; }
+@media (min-width: 1024px) {
+  .steps-toggle { display: flex; justify-content: center; margin-top: 18px; }
+  .steps-wrap .step .more-btn { display: none; }
+  .steps-wrap .step .more-body { interpolate-size: allow-keywords; transition: height 0.42s cubic-bezier(0.22, 1, 0.36, 1); }
+  .steps-wrap.all-open .step .more-body { height: auto !important; -webkit-mask-image: none !important; mask-image: none !important; }
+}
+.steps-wrap.all-open .steps-toggle-btn { background: var(--primary); border-color: var(--primary); color: #fff; }

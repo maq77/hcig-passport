@@ -31,6 +31,7 @@ import { StoryCarousel } from "./StoryRow";
 import { ClinicFinder } from "./ClinicFinder";
 import { Parallax } from "./Parallax";
 import { FaqList } from "./FaqList";
+import { StepsReveal } from "./StepsReveal";
 import { DetailCard } from "@/components/ui/DetailCard";
 import { DetailBody, OpenMark } from "@/components/page/Detail";
 import { serviceDetail } from "@/components/page/Common";
@@ -287,6 +288,7 @@ export function HowItWorks() {
     <section className="section how" aria-labelledby="how-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[54]}</div>
       <div className="container">
         <Head center eyebrow="How it works" id="how-h" title={s.heading} />
+        <StepsReveal>
         <ol className="steps" data-inview>
           <span className="rail" aria-hidden="true"><i /></span>
           {s.items.map((it, i) => {
@@ -303,6 +305,7 @@ export function HowItWorks() {
             );
           })}
         </ol>
+        </StepsReveal>
         <div className="cta-row center rv" style={{ marginTop: 32 }}>
           <WaButton placement="section-how">{s.ctas[0].label}</WaButton>
         </div>
