@@ -87,6 +87,7 @@ export default function AssistChat() {
   const listId = useId();
   const launcherRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLElement>(null);
+  const tlRef = useRef<HTMLDivElement>(null);
   const timers = useRef<number[]>([]);
   const alive = useRef(true);
   const gone = useRef(false); // bubble gone for the rest of the visit
@@ -191,6 +192,18 @@ export default function AssistChat() {
   const stepNo = step.t === "consent" ? T.lastStep : T.questionOf(Math.min(answered + 1, total), total);
   const msg = buildMessage(s.a, s.f);
   const waUrl = "https://api.whatsapp.com/send/?phone=" + WA_PHONE + "&text=" + encodeURIComponent(msg) + "&type=phone_number&app_absent=0";
+
+  // Each new question slides into view at the bottom of the timeline, and its first field takes the focus, so the
+  // guest never has to scroll or tap to reach the next answer (desktop, and phones once the keyboard is up).
+  useEffect(() => {
+    if (!s.open || !tlRef.current) return;
+    const tl = tlRef.current;
+    const raf = requestAnimationFrame(() => {
+      tl.scrollTo({ top: tl.scrollHeight, behavior: reduced() ? "auto" : "smooth" });
+      if (ready) tl.querySelector<HTMLInputElement>(".asc-qc input:not([type=checkbox])")?.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(raf);
+  }, [s.open, s.phase, s.cur, ready]);
 
   const answer = (value: string, text: string) => {
     const a = { ...s.a, [step.id]: value };
@@ -348,7 +361,7 @@ export default function AssistChat() {
           <button type="button" className="asc-x" onClick={close}><Cross size={16} />{T.close}</button>
         </div>
 
-        <div className="asc-tl" aria-live="polite">
+        <div className="asc-tl" ref={tlRef} aria-live="polite">
           {s.phase === "welcome" && (
             <div className="asc-wel">
               <h3>{T.welcomeTitle}</h3>

@@ -76,7 +76,6 @@ function Popup({ index, onClose, onStep }: { index: number; onClose: () => void;
 
 export default function Reviews() {
   const [open, setOpen] = useState(-1);
-  const [paused, setPaused] = useState(false);
   const close = useCallback(() => setOpen(-1), []);
   const step = useCallback((d: number) => setOpen((o) => (o + d + N) % N), []);
 
@@ -92,7 +91,7 @@ export default function Reviews() {
         </div>
       </Reveal>
 
-      <div className={`rvw-rows${paused ? " rvw-paused" : ""}`}>
+      <div className="rvw-rows">
         {ROWS.map((row, ri) => (
           <div key={ri} className={`rvw-row${ri ? " rvw-rev" : ""}`}>
             {[0, 1].map((copy) =>
@@ -128,17 +127,6 @@ export default function Reviews() {
         ))}
       </div>
 
-      <div className="rvw-ctl">
-        <button type="button" className="rvw-pp" onClick={() => setPaused((p) => !p)}>
-          {paused ? (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5l12 7-12 7z" /></svg>
-          ) : (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /></svg>
-          )}
-          {paused ? T.play : T.pause}
-        </button>
-      </div>
-
       {open >= 0 && <Popup index={open} onClose={close} onStep={step} />}
 
       <style dangerouslySetInnerHTML={{ __html: `
@@ -150,18 +138,18 @@ export default function Reviews() {
         .rvw-sub b { color: #0F205C; }
         .rvw-sub svg { width: 24px; height: 24px; flex: none; }
 
-        .rvw-rows { display: flex; flex-direction: column; gap: 20px;
+        .rvw-rows { --rvw-gap: 20px; display: flex; flex-direction: column; gap: var(--rvw-gap);
           -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-        .rvw-row { display: flex; gap: 20px; width: max-content; animation: rvw-mq 70s linear infinite; }
+        .rvw-row { display: flex; gap: var(--rvw-gap); width: max-content; animation: rvw-mq 70s linear infinite; }
         .rvw-row.rvw-rev { animation-direction: reverse; animation-duration: 80s; }
-        .rvw-rows:hover .rvw-row, .rvw-rows:focus-within .rvw-row, .rvw-paused .rvw-row { animation-play-state: paused; }
-        @keyframes rvw-mq { to { transform: translateX(calc(-50% - 10px)); } }
+        .rvw-rows:hover .rvw-row, .rvw-rows:focus-within .rvw-row { animation-play-state: paused; }
+        @keyframes rvw-mq { to { transform: translateX(calc(-50% - var(--rvw-gap) / 2)); } }
 
         .rvw-card { width: 380px; box-sizing: border-box; text-align: left; background: #fff; border: 1px solid #E2E8F0; border-radius: 20px; padding: 22px 22px 18px;
           display: flex; flex-direction: column; gap: 12px; cursor: pointer; font: inherit; color: inherit;
           box-shadow: 0 1px 3px rgba(15,32,92,0.04), 0 4px 14px rgba(15,32,92,0.06);
           transition: transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s cubic-bezier(.16,1,.3,1), border-color .3s; }
-        .rvw-card:hover { transform: translateY(-5px); border-color: #9ED9DA; box-shadow: 0 4px 12px rgba(15,32,92,0.08), 0 18px 40px rgba(15,32,92,0.12); }
+        @media (hover: hover) { .rvw-card:hover { transform: translateY(-5px); border-color: #9ED9DA; box-shadow: 0 4px 12px rgba(15,32,92,0.08), 0 18px 40px rgba(15,32,92,0.12); } }
         .rvw-card:focus-visible { outline: 3px solid #009A9C; outline-offset: 3px; }
         .rvw-top { display: flex; align-items: center; gap: 12px; }
         .rvw-mono { width: 42px; height: 42px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 14px; }
@@ -177,12 +165,7 @@ export default function Reviews() {
         .rvw-vchip svg { width: 15px; height: 15px; }
         .rvw-rd { color: #007AB5; font-weight: 600; }
 
-        .rvw-ctl { display: flex; justify-content: center; margin-top: 28px; }
-        .rvw-pp { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid #CBD5E1; background: #fff; color: #0F205C;
-          font: 600 14px var(--font-montserrat), Montserrat, sans-serif; cursor: pointer; transition: background .25s, color .25s; }
-        .rvw-pp:hover { background: #0F205C; color: #fff; }
-
-        .rvw-ov { position: fixed; inset: 0; z-index: 1000; background: rgba(8,17,51,0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+        .rvw-ov { position: fixed; inset: 0; z-index: 9500; background: rgba(8,17,51,0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
           display: flex; align-items: center; justify-content: center; padding: 32px; box-sizing: border-box; animation: rvw-fade .35s cubic-bezier(.23,1,.32,1); }
         @keyframes rvw-fade { from { opacity: 0; } }
         .rvw-mod { position: relative; width: min(640px, 100%); max-height: 100%; overflow-y: auto; box-sizing: border-box; background: #fff; border-radius: 24px; padding: 34px 34px 26px;
@@ -197,14 +180,14 @@ export default function Reviews() {
         .rvw-mnav button { min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #CBD5E1; background: #fff; color: #0F205C; font: 600 14px var(--font-montserrat), Montserrat, sans-serif; cursor: pointer; }
         .rvw-mnav button:hover { background: #0F205C; color: #fff; }
         .rvw-mod .rvw-nm, .rvw-mod .rvw-ct { font-family: inherit; }
+        .rvw-mod > .rvw-top { padding-right: 52px; }
 
         @media (max-width: 699px) {
           .rvw-section { padding: 64px 0 72px; }
           .rvw-head { padding: 0 20px; margin-bottom: 28px; }
           .rvw-head h2 { font-size: 40px; }
           .rvw-sub { font-size: 14px; text-align: left; }
-          .rvw-rows { gap: 14px; }
-          .rvw-row { gap: 14px; }
+          .rvw-rows { --rvw-gap: 14px; }
           .rvw-card { width: 286px; padding: 18px 18px 14px; }
           .rvw-q { font-size: 14.5px; }
           .rvw-ov { padding: 14px; align-items: flex-end; }

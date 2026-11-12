@@ -10,8 +10,6 @@ export const REVIEWS_TEXT = {
   read: "Read",
   translated: "Translated from Spanish",
   form: "Satisfaction form",
-  pause: "Pause",
-  play: "Play",
   prev: "Previous",
   next: "Next",
   close: "Close",
