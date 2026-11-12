@@ -26,6 +26,7 @@ export function pageMeta(title: string, description: string, path: string): Meta
 /* ---------- icons, picked by the words of each item ---------- */
 const ICONS: [RegExp, LucideIcon][] = [
   [/prescription|delivery/i, Pill],
+  [/wellness|aesthetic/i, Sparkles],
   [/ambulance/i, Ambulance],
   [/hospital|referral|escalation/i, Hospital],
   [/insurance|insurer|policy|gop|guarantee|billing|cashless/i, ShieldCheck],

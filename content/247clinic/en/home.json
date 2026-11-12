@@ -147,16 +147,16 @@
           "text": "Prescription renewal, Replacement of forgotten or lost medication, Doctor consultation for prescriptions, Medication delivery to your hotel"
         },
         {
-          "title": "IV Therapy, Wellness & Aesthetic Treatments",
-          "text": "IV Therapy, Vitamin Infusions, Wellness Treatments, Botox Injections, Dermal Fillers, Biorevitalization, Skin Rejuvenation"
-        },
-        {
           "title": "Specialist Consultation",
           "text": "Access to specialist physicians when further medical assessment is required."
         },
         {
           "title": "Hotel Room Doctor Visit",
           "text": "When appropriate, a doctor comes directly to your hotel room."
+        },
+        {
+          "title": "IV Therapy, Wellness & Aesthetic Treatments",
+          "text": "IV Therapy, Vitamin Infusions, Wellness Treatments, Botox Injections, Dermal Fillers, Biorevitalization, Skin Rejuvenation"
         }
       ],
       "ctas": [

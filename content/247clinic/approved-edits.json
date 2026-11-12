@@ -607,6 +607,23 @@
       "from": null,
       "to": "Prescription & Medication Delivery: Prescription renewal, Replacement of forgotten or lost medication, Doctor consultation for prescriptions, Medication delivery to your hotel",
       "his_words": "in services add plz: Prescription & Medication Delivery ... and : IV Therapy, Wellness & Aesthetic Treatments ... replace content of one service and add another one , and remember add it in home too"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "edit",
+      "where": "About Us, pull line",
+      "from": "Unlike traditional medical facilities, our model places medical care where international travelers are already staying. inside hotels and resorts.",
+      "to": "Unlike traditional medical facilities, our model places medical care where international travelers are already staying, inside hotels and resorts.",
+      "his_words": "add coma , as the text feels separated"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "order",
+      "where": "home What We Can Treat On-Site",
+      "to": "Prescription & Medication Delivery is card 04; IV Therapy, Wellness & Aesthetic Treatments is the bordeaux feature 07",
+      "his_words": "i choose D , but switch 07 with 04"
     }
   ],
   "fromTheirSite": {

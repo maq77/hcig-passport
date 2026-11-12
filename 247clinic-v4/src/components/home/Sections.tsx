@@ -6,7 +6,7 @@
    and logged in content/247clinic/approved-edits.json. Facts only from the brief or him. */
 import {
   Ambulance, ArrowUpRight, Award, Bandage, BedDouble, Check, CheckCheck, FlaskConical, Globe, HeartPulse, Hotel,
-  MapPin, Pill, ShieldCheck, Stethoscope, Syringe, Thermometer, UserRoundCheck, UsersRound,
+  MapPin, Pill, ShieldCheck, Sparkles, Stethoscope, Syringe, Thermometer, UserRoundCheck, UsersRound,
 } from "lucide-react";
 import { section, reviews } from "@/content/load";
 import { BRIEF, THEIRS } from "@/content/brief";
@@ -160,10 +160,13 @@ export function Facilities() {
 }
 
 /* ---------------- 4. what we treat (brief 10) ---------------- */
-const SVC_ICONS = [Thermometer, Bandage, FlaskConical, Pill, Syringe, UserRoundCheck, BedDouble];
-const SVC_FILES = ["svc-urgent", "svc-injuries", "svc-diagnostics", "svc-delivery", "svc-iv", "svc-specialist", "svc-room-visit"];
+/* Six cards in their old 3 x 2 / 2-column grid, then the seventh as a bordeaux feature
+   (the user, 2026-11-12: canvas option D, with 04 and 07 switched). */
+const SVC_ICONS = [Thermometer, Bandage, FlaskConical, Pill, UserRoundCheck, BedDouble];
+const SVC_FILES = ["svc-urgent", "svc-injuries", "svc-diagnostics", "svc-delivery", "svc-specialist", "svc-room-visit"];
 export function Services() {
   const s = section("home", "medical-services");
+  const feature = s.items[6];
   return (
     <section className="section services" aria-labelledby="svc-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[53]}</div>
       <div className="container">
@@ -173,11 +176,11 @@ export function Services() {
         </div>
         {/* Two columns on phones so all six show at once (the user, 2026-09-24), three on desktop. */}
         <ul className="svc-grid">
-          {s.items.map((it, i) => {
+          {s.items.slice(0, 6).map((it, i) => {
             const Ico = SVC_ICONS[i];
             const file = `${SVC_FILES[i]}.webp`;
             return (
-              <li key={it.title} className={`rv ${i === 0 ? "svc-wide-first" : ""} ${i === s.items.length - 1 ? "svc-wide-last" : ""}`} style={d((i % 3) * 70)}>
+              <li key={it.title} className="rv" style={d((i % 3) * 70)}>
                 <article className={`card svc ${slotFile(file) ? "has-img" : ""}`}>
                   <div className="svc-media">
                     <Slot file={file} purpose={`service card, ${it.title}`} px="1200 x 800" alt={it.title} ratio="3 / 2" />
@@ -195,6 +198,25 @@ export function Services() {
             );
           })}
         </ul>
+        {feature && (
+          <article className="svc-feature rv" aria-labelledby="svc-feature-h">
+            <div className="svc-feature-copy">
+              <div className="svc-feature-top">
+                {/* Not a needle: the user asked for a softer mark (2026-11-12). */}
+                <span className="svc-feature-ico" aria-hidden="true"><Sparkles size={22} /></span>
+                <span className="svc-feature-n" aria-hidden="true">07</span>
+              </div>
+              <h3 id="svc-feature-h">{feature.title}</h3>
+              <ul className="svc-feature-list">
+                {(feature.text ?? "").split(/,\s*/).map((x) => (
+                  <li key={x}><Check size={18} strokeWidth={2.4} aria-hidden="true" /><span>{x}</span></li>
+                ))}
+              </ul>
+              <div><WaButton placement="section-services-feature">{BRIEF.waUs}</WaButton></div>
+            </div>
+            <img className="svc-feature-img" src={asset("/slots/svc-iv.webp")} alt={feature.title} width={1200} height={800} loading="lazy" />
+          </article>
+        )}
         <div className="cta-row center rv" style={{ marginTop: 28 }}>
           <WaButton placement="section-services">{BRIEF.waUs}</WaButton>
           <CallButton placement="section-services" />

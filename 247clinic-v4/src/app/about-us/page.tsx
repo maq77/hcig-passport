@@ -33,7 +33,6 @@ export default function About() {
         <div className="group-card rv">
           <img src={asset("/logos/marks/hcig.png")} alt="" width={100} height={96} loading="lazy" />
           <div>
-            <p className="eyebrow">Healthcare International Group</p>
             <p className="group-line">{APPROVED.partOf}</p>
           </div>
         </div>
