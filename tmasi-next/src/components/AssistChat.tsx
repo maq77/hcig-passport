@@ -233,7 +233,8 @@ export default function AssistChat() {
       body.append("mobile", s.f.phone.trim());
       body.append("subject", subject);
       body.append("msg", m);
-      // Marks a chat request: the live send.php mails these to marketing@healthcareig.com and marketing.hcig@gmail.com (his pick, 2026-11-12).
+      // Marks a chat request: the live send.php mails these to marketing@healthcareig.com, marketing.hcig@gmail.com,
+      // adriatic@tmasi.net and operations@tmasi.net (his picks, 2026-11-12).
       body.append("assist", "1");
       if (ENDPOINT.startsWith("/")) {
         const res = await fetch(ENDPOINT, { method: "POST", body });
@@ -345,13 +346,6 @@ export default function AssistChat() {
           <img className="asc-fig" src={asset("/img/assist/avatar-half.webp")} alt="" width={487} height={560} />
           <div className="asc-tx"><b>{T.name}</b><span>{T.role}</span></div>
           <button type="button" className="asc-x" onClick={close}><Cross size={16} />{T.close}</button>
-        </div>
-        <div className="asc-sos" role="note">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flex: "none" }}>
-            <path d="M12 9v4M12 17h.01" />
-            <path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z" />
-          </svg>
-          <span><b>{T.sosBold}</b>{T.sosRest}</span>
         </div>
 
         <div className="asc-tl" aria-live="polite">
@@ -551,8 +545,6 @@ const CSS = `
 .asc-tx span{display:block;font-size:13px;color:rgba(255,255,255,.75);margin-top:4px;line-height:1.45}
 .asc-x{position:absolute;left:22px;bottom:16px;display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px 0 8px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s}
 .asc-x:hover{background:rgba(255,255,255,.18)}
-.asc-sos{display:flex;align-items:center;gap:10px;padding:10px 20px;background:#FEF3F2;color:#9A1C13;font-size:12.5px;line-height:1.4;border-bottom:1px solid #FECDCA}
-.asc-sos b{font-weight:700}
 .asc-tl{flex:1;overflow-y:auto;padding:20px 20px 14px;background:#F8FAFC}
 .asc-it{position:relative;padding:0 0 14px 34px;animation:asc-in .6s cubic-bezier(.16,1,.3,1) both}
 .asc-it:before{content:"";position:absolute;left:11px;top:26px;bottom:0;width:2px;background:#DCE5EE}

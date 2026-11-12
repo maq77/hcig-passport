@@ -54,8 +54,6 @@ export const ASSIST = {
   name: "Sofia",
   role: "TMASI medical assistance coordinator",
   close: "Close",
-  sosBold: "Life-threatening symptoms?",
-  sosRest: " Call local emergency services now: Egypt 123, Europe 112.",
   welcomeTitle: "Hi, I’m Sofia.",
   welcomeText: "I’ll ask a few short questions so our medical assistance coordinator can help you quickly.",
   ticks: ["About 1 minute", "Change any answer before you send", "Our coordinator answers on WhatsApp or phone"],
