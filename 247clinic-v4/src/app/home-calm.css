@@ -1,0 +1,63 @@
+/* =============================================================================
+   HOME, LESS CROWDED (the user picked canvas TjQpK2UK8BHFMtg5HG5NoA boards 1, 3, 4, 5, 12
+   on 2026-11-12). Loaded after globals.css.
+============================================================================= */
+
+/* 1. One even rhythm: 72px between sections on phones, 112px on desktop. */
+:root { --section: 56px; }
+@media (max-width: 767px) { :root { --section: 36px; } }
+[data-e-section="HotelBand"] > .proof { padding-bottom: 0; }
+
+/* 3. Numbers: three columns on phones. */
+@media (max-width: 767px) {
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 18px 4px; border-radius: 22px; }
+  .stat { flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 0 6px; }
+  .stat + .stat { border-top: 0; border-left: 1px solid var(--line); }
+  .stat-ico { width: 38px; height: 38px; border-radius: 12px; }
+  .stat-ico svg { width: 18px; height: 18px; }
+  .stat-num { min-width: 0 !important; }
+  .stat-num b { font-size: 36px; }
+  .stat-label { font-size: 12px; font-weight: 500; color: var(--ink-2); max-width: 13ch; }
+  .stat > .stat-ico { order: 0; } .stat > .stat-num { order: 1; } .stat > .stat-label { order: 2; }
+}
+
+/* 4. Accreditation: the four standards as one light row (2 x 2 on phones), thin dividers, no boxes. */
+.standards { margin: 22px 0 0; gap: 0; border-top: 1px solid var(--line-2); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.std { flex-direction: row; align-items: center; gap: 10px; padding: 14px 6px; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.std:hover { transform: none; box-shadow: none; }
+.std .ico { width: 34px; height: 34px; border-radius: 11px; background: transparent; }
+.std b { font-size: 13.5px; font-weight: 500; }
+.std:nth-child(even) { border-left: 1px solid var(--line-2); padding-left: 12px; }
+.std:nth-child(n + 3) { border-top: 1px solid var(--line-2); }
+@media (min-width: 900px) {
+  .standards { grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 28px 0 0; }
+  .std { justify-content: center; padding: 22px 12px; }
+  .std:nth-child(n + 3) { border-top: 0; }
+  .std + .std { border-left: 1px solid var(--line-2); padding-left: 12px; }
+  .std b { font-size: 15px; }
+}
+
+/* 5. Services on phones: photo, title and Open only (the full text is in the opening card);
+   the 07 items in two columns; no repeated button row under the feature. */
+@media (max-width: 639px) {
+  .svc .svc-quick { display: none; }
+  .svc h3 { min-height: 2.6em; }
+  .svc-feature-list { grid-template-columns: 1fr 1fr; gap: 9px 12px; }
+  .svc-feature-list li { font-size: 13.5px; gap: 7px; }
+  .services .cta-row { display: none; }
+}
+
+/* 12. Shimmer: a slow light sweep on the WhatsApp buttons and the bordeaux 07 card; the
+   numbers and the small red heading lines shine once when they appear. */
+@keyframes shSweep { 0%, 62% { transform: translateX(-130%) skewX(-18deg); } 100% { transform: translateX(240%) skewX(-18deg); } }
+@keyframes shText { from { background-position: 120% 0; } to { background-position: -20% 0; } }
+@keyframes shLine { from { background-position: 120% 0; } to { background-position: -40% 0; } }
+main .btn-wa, .site-footer .btn-wa { position: relative; overflow: hidden; isolation: isolate; }
+main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 45%; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(37, 211, 102, 0), rgba(37, 211, 102, 0.2), rgba(255, 255, 255, 0.65), rgba(37, 211, 102, 0.2), rgba(37, 211, 102, 0)); animation: shSweep 4.4s ease-in-out infinite; }
+.svc-feature::before { content: ""; position: absolute; top: -20%; bottom: -20%; left: 0; width: 40%; z-index: 0; pointer-events: none; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0)); animation: shSweep 5.6s ease-in-out infinite; }
+.stat.in .stat-num b { background: linear-gradient(100deg, var(--primary) 0%, var(--primary) 40%, #ff9a9a 50%, var(--primary) 60%, var(--primary) 100%); background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shText 1.6s ease-out 0.5s both; }
+.eyebrow.rv.in::before { background: linear-gradient(90deg, currentColor 0%, currentColor 35%, #ffc2c2 50%, currentColor 65%, currentColor 100%); background-size: 250% 100%; animation: shLine 1.4s ease-out 0.3s both; }
+@media (prefers-reduced-motion: reduce) {
+  main .btn-wa::after, .site-footer .btn-wa::after, .svc-feature::before { animation: none; display: none; }
+  .stat.in .stat-num b, .eyebrow.rv.in::before { animation: none; }
+}

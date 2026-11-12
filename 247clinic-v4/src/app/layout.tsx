@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "./pages.css";
 import "./detail.css";
+import "./home-calm.css";
 import { global, section } from "@/content/load";
 import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
 import { IS_PREVIEW } from "@/data/facts";

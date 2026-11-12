@@ -1,18 +1,6 @@
 /* Written by the home editor (npm run edit). Do not edit by hand: it is generated from
    src/content/home-layout.json and src/content/home-edits.json (editor/css.mjs). */
 
-@media (min-width: 768px) {
-  html:not(.e-live) [data-e-section="HotelBand"] > * { padding-top: 26px !important; padding-bottom: 10px !important; }
-  html:not(.e-live) [data-e-section="Facilities"] > * { padding-top: 26px !important; padding-bottom: 18px !important; }
-  html:not(.e-live) [data-e-section="Services"] > * { padding-top: 18px !important; padding-bottom: 42px !important; }
-  html:not(.e-live) [data-e-section="Intro"] > * { padding-top: 42px !important; padding-bottom: 20px !important; }
-  html:not(.e-live) [data-e-section="HowItWorks"] > * { padding-top: 20px !important; padding-bottom: 12px !important; }
-  html:not(.e-live) [data-e-section="Insurance"] > * { padding-top: 12px !important; padding-bottom: 52px !important; }
-  html:not(.e-live) [data-e-section="Stories"] > * { padding-top: 52px !important; padding-bottom: 0px !important; }
-  html:not(.e-live) [data-e-section="Posts"] > * { padding-top: 64px !important; padding-bottom: 64px !important; }
-  html:not(.e-live) [data-e-section="Finder"] > * { padding-top: 22px !important; padding-bottom: 6px !important; }
-  html:not(.e-live) [data-e-section="Hero"] > * { padding-bottom: 34px !important; }
-}
 @media (max-width: 767px) {
   html:not(.e-live) [data-e-section="Hero"] > section.hero > div.container > div.hero-copy > ul.hero-facts > li:nth-of-type(1) > span { color: #ffffff !important; }
   html:not(.e-live) [data-e-section="Hero"] > section.hero > div.container > div.hero-copy > ul.hero-facts > li:nth-of-type(2) > span { color: #ffffff !important; }

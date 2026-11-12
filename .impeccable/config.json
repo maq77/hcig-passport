@@ -53,6 +53,24 @@
         ],
         "createdAt": "2026-10-18T13:52:16.906Z",
         "reason": "Claude, 2026-10-18: static scan pairs dark-theme text tokens with the light ground; measured in a real browser, 776 text elements in light and 776 in dark, 0 below WCAG AA"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "docs/medpark-performance-report-2026-11-09.html"
+        ],
+        "createdAt": "2026-11-09T19:08:36.734Z",
+        "reason": "Claude: remaining pairs are dark-theme tokens (#E8F0F6, #B5C4D2, #8A9DB0) measured against white; in dark mode they sit on #0B1A2B. Light ink3 darkened to #566A7E."
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "247clinic-v4/src/app/home-calm.css"
+        ],
+        "createdAt": "2026-11-12T14:14:14.253Z",
+        "reason": "user confirmed: picked canvas TjQpK2UK8BHFMtg5HG5NoA board 12 (numbers shine once, ends solid red), 2026-11-12"
       }
     ]
   }
