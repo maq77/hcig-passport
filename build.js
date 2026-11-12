@@ -530,6 +530,13 @@ if (fs.existsSync(C7V4_SRC)) {
   fs.cpSync(C7V4_SRC, path.join(OUT, '247clinic', 'v4'), { recursive: true });
 }
 
+/* 24/7 Clinic v5: the premium-spacing pass on the v3 home, shown beside v3 for his
+   comparison before it replaces v3 (the user, 2026-11-12). Same noindex build. */
+const C7V5_SRC = path.join(__dirname, 'src', '247clinic-v5');
+if (fs.existsSync(C7V5_SRC)) {
+  fs.cpSync(C7V5_SRC, path.join(OUT, '247clinic', 'v5'), { recursive: true });
+}
+
 /* 24/7 Clinic v3 (spec 007): the Next.js static export in 247clinic-v3, synced into
    src/247clinic-v3 by its `npm run sync`, served at /247clinic/v3. The preview build
    carries its own robots noindex, nofollow on every page. */

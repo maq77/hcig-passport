@@ -21,7 +21,6 @@ import { Slot, slotFile } from "@/components/ui/Slot";
 import { WhatsAppGlyph } from "@/components/ui/Icon";
 import { CountUp, InViewVideo } from "@/components/ui/Motion";
 import { Marquee } from "@/components/ui/Marquee";
-import { More } from "@/components/ui/More";
 import { Watermark } from "@/components/ui/Watermark";
 import { SnapRow } from "@/components/ui/SnapRow";
 import { BigPlay, Watch } from "@/components/ui/Viewer";
@@ -181,13 +180,12 @@ export function Services() {
                 <article className={`card svc ${slotFile(file) ? "has-img" : ""}`}>
                   <div className="svc-media">
                     <Slot file={file} purpose={`service card, ${it.title}`} px="1200 x 800" alt={it.title} ratio="3 / 2" />
-                    <span className="svc-n" aria-hidden="true">0{i + 1}</span>
                   </div>
                   <div className="svc-body">
                     <span className="ico"><Ico size={22} aria-hidden="true" /></span>
                     <div className="svc-text">
                       <h3>{it.title}</h3>
-                      {it.text && <More text={it.text} label={it.title} />}
+                      {it.text && <p className="svc-p">{it.text}</p>}
                     </div>
                   </div>
                 </article>
@@ -228,7 +226,7 @@ export function Intro() {
                 <span className="care-n" aria-hidden="true">0{i + 1}</span>
                 <div className="care-text">
                   <h3>{it.title}</h3>
-                  {it.text && <More text={it.text} label={it.title} />}
+                  {it.text && <p>{it.text}</p>}
                 </div>
               </li>
             ))}
@@ -257,7 +255,7 @@ export function HowItWorks() {
                 <div className="step-text">
                   <span className="n">Step 0{i + 1}</span>
                   <h3>{it.title}</h3>
-                  {it.text && <More text={it.text} label={it.title} className="step-more" />}
+                  {it.text && <p className="step-p">{it.text}</p>}
                 </div>
               </li>
             );
@@ -275,7 +273,6 @@ export function HowItWorks() {
 export function Insurance({ insuranceMessage }: { insuranceMessage: string }) {
   const s = section("home", "insurance-cashless-care");
   const [p1, cashless] = s.body;
-  const half = Math.ceil(INSURERS.length / 2);
   return (
     <section className="section bg-surface insurance" aria-labelledby="ins-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[58]}</div>
       <div className="container split">
@@ -312,11 +309,8 @@ export function Insurance({ insuranceMessage }: { insuranceMessage: string }) {
       </div>
       <div className="band rv">
         <span className="band-label">{BRIEF.insurancePartners}</span>
-        <Marquee label={BRIEF.insurancePartners} bg="#faf7f5">
-          {INSURERS.slice(0, half).map((l) => <LogoTile key={l.name} l={l} />)}
-        </Marquee>
-        <Marquee label={BRIEF.insurancePartners} direction="right" bg="#faf7f5">
-          {INSURERS.slice(half).map((l) => <LogoTile key={l.name} l={l} />)}
+        <Marquee label={BRIEF.insurancePartners} bg="#faf7f5" speed={40}>
+          {INSURERS.map((l) => <LogoTile key={l.name} l={l} />)}
         </Marquee>
       </div>
     </section>
@@ -341,22 +335,18 @@ export function Stories() {
         ))}
       </StoryCarousel>
       
-      <div style={{ position: 'relative' }}>
-        <div data-e-block="edge-label" data-e-field="text" className="edge-label left" style={{ top: 0, transform: 'translateY(-50%) rotate(-90deg)' }}>
-          {UI.labels[55]}
-        </div>
-      </div>
+      <div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[55]}</div>
 
-      <div className="trusted-patients" style={{ marginTop: 64, paddingBottom: 32 }}>
-        <div className="container" style={{ marginBottom: 32 }}>
+      <div className="trusted-patients">
+        <div className="container">
           <Head center id="trusted-h" title="Trusted by Patients" />
         </div>
         <Marquee label="Trusted by Patients" speed={28} gap={16} bg="#fff">
           {TRUSTED_PHOTOS.map((p, i) => {
             const width = Math.round(320 * (p.w / p.h));
             return (
-              <li key={i} style={{ borderRadius: 12, overflow: 'hidden', height: 320, width, flexShrink: 0 }}>
-                <img src={asset(p.src)} alt="Trusted by patient" width={width} height={320} loading="lazy" style={{ objectFit: 'cover', display: 'block', width: '100%', height: '100%' }} />
+              <li key={i} className="trusted-ph" style={{ ["--w" as string]: `${p.w / p.h}` }}>
+                <img src={asset(p.src)} alt="Trusted by patient" width={width} height={320} loading="lazy" />
               </li>
             );
           })}
