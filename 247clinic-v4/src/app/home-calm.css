@@ -259,3 +259,52 @@ html.js .hw.in .w > span { transform: none; opacity: 1; filter: blur(0); }
 /* Trusted by Patients: a quieter heading and one row (the user, 2026-11-12: "make the heading less size ... only one row"). */
 .voices-moments .h2 { font-size: clamp(22px, 2vw, 28px); }
 .voices-moments .head { margin-bottom: 18px; }
+
+/* =============================================================================
+   INSURANCE, REWRITTEN (2026-11-12): one promise, three steps, one cashless line, one button, one logo row.
+============================================================================= */
+.ins2 .ins2-grid { display: grid; gap: 28px; align-items: center; }
+@media (min-width: 1024px) { .ins2 .ins2-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 72px; } }
+.ins2-sub { margin: 14px 0 0; font-size: clamp(17px, 1.5vw, 20px); font-weight: 500; color: var(--ink); line-height: 1.45; }
+.ins2-note { display: flex; align-items: flex-start; gap: 10px; margin: 18px 0 0; padding: 14px 16px; border-radius: 16px; background: #fff; border: 1px solid var(--line); color: var(--ink-2); font-size: 15px; line-height: 1.5; }
+.ins2-note svg { flex: none; margin-top: 1px; color: var(--primary); }
+.ins2-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 24px; }
+.ins2-steps { list-style: none; margin: 0; padding: 6px 24px; border-radius: 26px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm); counter-reset: none; }
+.ins2-steps li { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 14px; align-items: start; padding: 22px 0; }
+.ins2-steps li + li { border-top: 1px solid var(--line); }
+.ins2-steps .n { font: 700 22px/1.2 var(--font-display), serif; color: var(--primary); }
+.ins2-steps h3 { margin: 0; font-size: 17px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.ins2-steps p { margin: 6px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+@media (min-width: 1024px) { .ins2-steps { padding: 10px 36px; } .ins2-steps li { padding: 26px 0; } }
+.ins2-band { margin-top: clamp(40px, 5vw, 64px); }
+@media (max-width: 767px) {
+  .ins2 .ins2-grid { gap: 22px; }
+  .ins2-copy { display: contents; }
+  .ins2-copy .head { order: 1; }
+  .ins2-sub { order: 2; margin-top: -6px; }
+  .ins2-steps { order: 3; padding: 2px 18px; }
+  .ins2-steps li { grid-template-columns: 38px minmax(0, 1fr); padding: 18px 0; }
+  .ins2-note { order: 4; margin: 0; }
+  .ins2-ctas { order: 5; margin: 0; flex-direction: column; align-items: stretch; text-align: center; }
+  .ins2-ctas .link { justify-content: center; }
+  .ins2-band .logo-tile { transform: scale(0.82); }
+}
+
+/* =============================================================================
+   MOBILE FIRST PASS (2026-11-12, the user: "review mobile version, and make it mobile first and improve").
+============================================================================= */
+@media (max-width: 767px) {
+  /* Clinic list: two clear actions per clinic, the details as a quiet link (the map pins do "show on map"). */
+  .cl-actions { display: grid; grid-template-columns: 1.3fr 1fr; gap: 8px; }
+  .cl-wa, .cl-actions .cl-sec { padding: 0 10px; font-size: 12.5px; white-space: nowrap; }
+  .ins2-band .band-label { font-size: 10.5px; letter-spacing: 0.14em; }
+  .cl-actions button.cl-sec { display: none; }
+  .cl-wa, .cl-actions .cl-sec { justify-content: center; }
+  .cl-more { grid-column: 1 / -1; justify-content: flex-start; border: 0; padding: 0 2px; min-height: 30px; background: none; }
+  /* Footer: brand on top, Menu and Destinations side by side, Contact below. */
+  .foot { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
+  .foot > .brand, .foot > div:last-child { grid-column: 1 / -1; }
+  .foot .brand > img { width: 96px; height: auto; }
+  .foot li + li { margin-top: 8px; }
+  .foot a:not(.btn) { font-size: 15px; }
+}

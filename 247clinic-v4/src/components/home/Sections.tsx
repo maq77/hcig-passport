@@ -315,51 +315,35 @@ export function HowItWorks() {
 }
 
 /* ---------------- 7. insurance and cashless (brief 11) ---------------- */
-export function Insurance({ insuranceMessage }: { insuranceMessage: string }) {
+export function Insurance(_: { insuranceMessage: string }) {
+  /* Rewritten 2026-11-12 (the user: "rewrite and re make ... easy to understand ... better design and not crowded"):
+     one promise, three plain steps, one honest cashless line, one button, one quiet logo row. */
   const s = section("home", "insurance-cashless-care");
-  const [p1, cashless] = s.body;
-  const half = Math.ceil(INSURERS.length / 2);
   return (
-    <section className="section bg-surface insurance" aria-labelledby="ins-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[58]}</div>
-      <div className="container split">
-        <div className="stack">
+    <section className="section bg-surface insurance ins2" aria-labelledby="ins-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[58]}</div>
+      <div className="container ins2-grid">
+        <div className="ins2-copy">
           <Head eyebrow="Insurance & cashless" id="ins-h" title={s.heading} />
-          <p className="sub rv">{s.subheading}</p>
-          <p className="lead rv">{p1}</p>
-          <div className="cashless rv">
-            <p>{cashless}</p>
-            <ul className="checks">
-              {s.items.map((it) => (
-                <li key={it.title}><i aria-hidden="true"><Check size={13} strokeWidth={3.2} /></i>{it.title}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="cta-row rv" style={{ marginTop: 4 }}>
+          <p className="ins2-sub rv">{s.subheading}</p>
+          <p className="ins2-note rv"><ShieldCheck size={18} aria-hidden="true" /><span>{s.body[0]}</span></p>
+          <div className="ins2-ctas rv">
             <WaButton placement="section-insurance" ctx="insurance">{s.ctas[0].label}</WaButton>
-            <LinkButton href={href(ROUTES.insurance)} placement="section-insurance">{s.ctas[1].label}</LinkButton>
+            <TextLink href={href(ROUTES.insurance)} placement="section-insurance">{s.ctas[1].label}</TextLink>
           </div>
         </div>
-        <div className="rv chat-wrap" style={d(120)}>
-          <figure className="chat" aria-hidden="true">
-            <div className="chat-top">
-              <span className="av"><img src={asset("/logos/marks/247-mark.svg")} alt="" width={30} height={29} /></span>
-              <b>24/7 Clinic</b>
-              <WhatsAppGlyph size={22} />
-            </div>
-            <div className="chat-body">
-              <p className="bubble">{insuranceMessage}<CheckCheck className="ticks" size={16} /></p>
-              <span className="typing"><span /><span /><span /></span>
-            </div>
-          </figure>
-        </div>
+        <ol className="ins2-steps">
+          {s.items.map((it, i) => (
+            <li key={it.title} className="rv" style={d(i * 120)}>
+              <span className="n" aria-hidden="true">0{i + 1}</span>
+              <div><h3>{it.title}</h3>{it.text && <p>{it.text}</p>}</div>
+            </li>
+          ))}
+        </ol>
       </div>
-      <div className="band rv">
+      <div className="band ins2-band rv">
         <span className="band-label">{BRIEF.insurancePartners}</span>
-        <Marquee label={BRIEF.insurancePartners} bg="#faf7f5">
-          {INSURERS.slice(0, half).map((l) => <LogoTile key={l.name} l={l} />)}
-        </Marquee>
-        <Marquee label={BRIEF.insurancePartners} direction="right" bg="#faf7f5">
-          {INSURERS.slice(half).map((l) => <LogoTile key={l.name} l={l} />)}
+        <Marquee label={BRIEF.insurancePartners} bg="#faf7f5" speed={30}>
+          {INSURERS.map((l) => <LogoTile key={l.name} l={l} />)}
         </Marquee>
       </div>
     </section>

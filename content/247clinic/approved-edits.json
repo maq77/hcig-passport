@@ -645,6 +645,35 @@
         "Subscribe"
       ],
       "his_words": "add band for newsletter subscription at the end with great design (picked: Stay in Touch + one line; sign-ups by email to info@247clinic.net)"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "content",
+      "where": "Home, Insurance & cashless section (home.json insurance-cashless-care)",
+      "from": {
+        "subheading": "We Can Coordinate Directly With Your Insurer",
+        "body": [
+          "We work with international travel insurers and assistance companies worldwide.",
+          "Where approved, treatment is cashless, so you may not need to pay the full cost upfront and claim it back later."
+        ],
+        "items": [
+          {
+            "title": "Insurance verification",
+            "text": null
+          },
+          {
+            "title": "Guarantee of Payment coordination",
+            "text": null
+          },
+          {
+            "title": "Medical documentation",
+            "text": null
+          }
+        ]
+      },
+      "to": "see home.json",
+      "his_words": "rewrite and re make [the Insurance & cashless block], so it can be easy to understand and have better design and not crowded"
     }
   ],
   "fromTheirSite": {

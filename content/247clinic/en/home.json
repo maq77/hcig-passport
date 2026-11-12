@@ -174,23 +174,22 @@
       "id": "insurance-cashless-care",
       "briefSection": 11,
       "heading": "Travelling With Medical Insurance?",
-      "subheading": "We Can Coordinate Directly With Your Insurer",
+      "subheading": "We talk to your insurer for you.",
       "body": [
-        "We work with international travel insurers and assistance companies worldwide.",
-        "Where approved, treatment is cashless, so you may not need to pay the full cost upfront and claim it back later."
+        "Where approved, treatment is cashless: you may not need to pay upfront."
       ],
       "items": [
         {
-          "title": "Insurance verification",
-          "text": null
+          "title": "Send your insurance details",
+          "text": "Share your policy with us on WhatsApp."
         },
         {
-          "title": "Guarantee of Payment coordination",
-          "text": null
+          "title": "We check your cover",
+          "text": "We confirm it with your insurer and arrange the guarantee of payment."
         },
         {
-          "title": "Medical documentation",
-          "text": null
+          "title": "We handle the paperwork",
+          "text": "We prepare the medical reports your insurer needs."
         }
       ],
       "ctas": [
