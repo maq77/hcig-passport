@@ -17,6 +17,12 @@ export const REVIEWS_TEXT = {
 
 export type Review = { name: string; country: string; text: string; lang?: "es"; tr?: string };
 
+// Country flag per review (SVGs in public/img/flags/, from flag-icons, MIT; Spain is the plain civil flag because the
+// coat of arms cannot be read at 20px). His pick 2026-11-12: flags on every card, a row under the heading without
+// Israel, ending in a "+".
+export const FLAG: Record<string, string> = { UK: "gb", England: "gb-eng", USA: "us", Australia: "au", Israel: "il", Indonesia: "id", Spain: "es", "España": "es" };
+export const FLAG_ROW = ["gb", "gb-eng", "us", "au", "id", "es"];
+
 export const REVIEWS: Review[] = [
   { name: "John Mundell", country: "UK", text: "“We felt very well looked after in difficult circumstances which was very much appreciated.”" },
   { name: "Denise Bergeland", country: "USA", text: "“Care and professionalism was fantastic.  The team went above expectation.”" },

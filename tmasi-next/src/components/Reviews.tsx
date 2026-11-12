@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Reveal from "./Reveal";
-import { REVIEWS, REVIEWS_TEXT as T, type Review } from "@/content/reviews";
+import { FLAG, FLAG_ROW, REVIEWS, REVIEWS_TEXT as T, type Review } from "@/content/reviews";
+import { asset } from "@/lib/asset";
 
 // Home guest reviews (2026-11-12): canvas board "Reviews C. Moving wall", as he approved it.
 // Two rows of real guest reviews drift in opposite directions; a card opens the full review in a popup.
@@ -17,6 +18,14 @@ const initials = (name: string) => {
   return (p[0][0] + p[p.length - 1][0]).toUpperCase();
 };
 const pad = (n: number) => String(n).padStart(2, "0");
+const flagSrc = (code: string) => asset(`/img/flags/${code}.svg`);
+
+function Flag({ country }: { country: string }) {
+  const code = FLAG[country];
+  if (!code) return null;
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img className="rvw-flag" src={flagSrc(code)} alt="" width={20} height={15} />;
+}
 
 function Seal({ label }: { label?: string }) {
   return (
@@ -58,7 +67,7 @@ function Popup({ index, onClose, onStep }: { index: number; onClose: () => void;
           <span className={`rvw-mono rvw-t${index % 3}`} aria-hidden="true">{initials(r.name)}</span>
           <div>
             <div className="rvw-nm">{r.name}<Seal label={T.verified} /></div>
-            <div className="rvw-ct">{r.country} · {T.verified} · {T.form}</div>
+            <div className="rvw-ct rvw-cty"><Flag country={r.country} />{r.country} · {T.verified} · {T.form}</div>
           </div>
         </div>
         <p className="rvw-q rvw-q--full" lang={r.lang || "en"}>{r.text}</p>
@@ -88,6 +97,13 @@ export default function Reviews() {
             <Seal />
             <span><b>{T.count}</b> {T.source}</span>
           </div>
+          <div className="rvw-globe" aria-hidden="true">
+            {FLAG_ROW.map((c, k) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img key={c} src={flagSrc(c)} alt="" width={34} height={34} style={{ animationDelay: k * 80 + "ms" }} />
+            ))}
+            <span style={{ animationDelay: FLAG_ROW.length * 80 + "ms" }}>+</span>
+          </div>
         </div>
       </Reveal>
 
@@ -111,7 +127,7 @@ export default function Reviews() {
                       <span className={`rvw-mono rvw-t${i % 3}`} aria-hidden="true">{initials(r.name)}</span>
                       <span>
                         <span className="rvw-nm">{r.name}<Seal /></span>
-                        <span className="rvw-ct" style={{ display: "block" }}>{r.country}</span>
+                        <span className="rvw-ct rvw-cty"><Flag country={r.country} />{r.country}</span>
                       </span>
                     </span>
                     <span className="rvw-q" lang={r.lang || "en"}>{r.text}</span>
@@ -137,6 +153,17 @@ export default function Reviews() {
         .rvw-sub { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; font-size: 16px; color: #54606E; }
         .rvw-sub b { color: #0F205C; }
         .rvw-sub svg { width: 24px; height: 24px; flex: none; }
+
+        .rvw-cty { display: flex; align-items: center; gap: 7px; }
+        .rvw-flag { width: 20px; height: 15px; border-radius: 3px; object-fit: cover; flex: none; box-shadow: 0 0 0 1px rgba(15,32,92,0.14); }
+        .rvw-globe { display: flex; justify-content: center; margin-top: 22px; }
+        .rvw-globe img, .rvw-globe span { width: 34px; height: 34px; box-sizing: border-box; border-radius: 50%; border: 3px solid #fff; margin-left: -8px;
+          box-shadow: 0 4px 12px rgba(15,32,92,0.16); animation: rvw-fin .7s cubic-bezier(.16,1,.3,1) both; }
+        .rvw-globe img { object-fit: cover; transition: transform .4s cubic-bezier(.34,1.56,.64,1); }
+        .rvw-globe img:first-child { margin-left: 0; }
+        .rvw-globe span { background: #0F205C; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; line-height: 1; }
+        @media (hover: hover) { .rvw-globe img:hover { transform: translateY(-4px) scale(1.12); position: relative; z-index: 2; } }
+        @keyframes rvw-fin { from { opacity: 0; transform: translateY(10px) scale(.8); } }
 
         .rvw-rows { --rvw-gap: 20px; display: flex; flex-direction: column; gap: var(--rvw-gap);
           -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
@@ -197,6 +224,7 @@ export default function Reviews() {
         @media (prefers-reduced-motion: reduce) {
           .rvw-row { animation: none; }
           .rvw-card { transition: none; }
+          .rvw-globe img, .rvw-globe span { animation: none; }
           .rvw-rows { overflow-x: auto; }
           .rvw-row .rvw-card[aria-hidden="true"] { display: none; }
         }
