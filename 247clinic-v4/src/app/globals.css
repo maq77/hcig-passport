@@ -777,9 +777,8 @@ html.js .rv.in { opacity: 1; transform: none; }
       border: none !important;
     }
     .hero-veil {
-      background: linear-gradient(90deg, rgba(26, 20, 20, 0.98) 0%, rgba(60, 0, 10, 0.85) 35%, rgba(139, 0, 22, 0.4) 55%, transparent 75%) !important;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      /* his note 2026-11-12, "I don't like gradients": a flat ink veil, the photo stays sharp */
+      background: rgba(26, 20, 20, 0.5) !important;
       z-index: 2 !important;
     }
   }

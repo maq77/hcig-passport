@@ -72,3 +72,54 @@ main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolu
   .steps-wrap.all-open .step .more-body { height: auto !important; -webkit-mask-image: none !important; mask-image: none !important; }
 }
 .steps-wrap.all-open .steps-toggle-btn { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+/* =============================================================================
+   HIS REVIEW NOTES ON v3 (2026-11-12): "waves less", "I don't like gradients", no gradient on the What We Treat
+   image, at most 3 colours (red, ivory, ink; WhatsApp green stays on WhatsApp only). Dark areas are solid ink.
+   Kept on purpose: the shimmer light sweeps he picked, the marquee edge fades and the text-clamp fade in "More".
+============================================================================= */
+:root { --primary-tint: #f6f1ec; --primary-line: #e6ded6; }
+.bg-surface { background: var(--surface); }
+.stage-veil, .final::before { display: none; }
+.final-scrim { background: transparent; }
+.map-frame { background: var(--surface); }
+/* Hero: waves barely visible ("very low so it is not noticed but give a good touch"), no glowing orb, no gradient veil. */
+.hero::after { opacity: 0.32; }
+.hero::before { display: none !important; }
+@media (min-width: 1024px) {
+  .hero-veil { background: rgba(26, 20, 20, 0.5) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+}
+@media (max-width: 767px) {
+  .hero { background: #1a1414; }
+  .hero-media, .hc-stage { background: #1a1414; }
+  .hero-veil { background: none; }
+  .hero-inner { padding-top: calc(var(--hm) + 22px); }
+  .hero::after { top: calc(var(--hm) - 250px); }
+}
+/* The 07 feature card and every dark panel: solid ink, no bordeaux wash, no red glow. */
+.svc-feature { background: #1a1414; }
+.svc-feature::after { display: none; }
+.pg-cta { background: #1a1414; }
+.pg-cta::after { display: none; }
+.pg-band.dark { background: #1a1414; }
+.pg-band.dark .eyebrow { color: rgba(251, 248, 244, 0.82); }
+/* Page heroes (fixes the Medical Services "What We Treat" hero): no veil on the photo.
+   Phones: photo on top, words on solid ink below. Desktop: solid ink panel on the left, the photo clear on the right. */
+.ph { background: #1a1414; }
+.ph-veil, .ph::after { display: none; }
+.ph-in { margin-top: 0; padding-top: 26px; }
+.ph-eyebrow { color: rgba(251, 248, 244, 0.82); }
+.ph-eyebrow::before { background: #e20613; }
+@media (min-width: 900px) {
+  .ph-media { left: 47%; }
+  .ph-in { padding-top: 64px; }
+  .ph-in > * { max-width: min(560px, 40vw); }
+}
+/* Desktop home hero: words on solid ink at the left, the photo clear on the right (same as the page heroes). */
+@media (min-width: 1024px) {
+  .hero { background: #1a1414; }
+  .hero-media { left: 47%; }
+  .hero-veil { display: none !important; }
+  .hero-copy { max-width: min(520px, 38vw); }
+}
+.ph-sub { color: rgba(251, 248, 244, 0.88); }

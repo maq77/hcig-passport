@@ -25,9 +25,9 @@ export const STORIES: Film[] = [
 
 /* Pexels photographs (credits in docs/247clinic-v3-media-credits.md). */
 export const PHOTOS = {
-  why: { src: "/img/new-medical-care.jpg", w: 1080, h: 1346 },
-  whyResort: { src: "/img/why-resort.webp", w: 900, h: 602 },
-  resort: { src: "/img/resort-aerial-2400.webp", small: "/img/resort-aerial-1200.webp", w: 2400, h: 1600 },
+  why: { src: "/img/care-main.webp", w: 1264, h: 848 }, /* his note 2026-11-12: On-site photos "all should be changed" */
+  whyResort: { src: "/img/care-inset.webp", w: 900, h: 604 },
+  resort: { src: "/img/faq-room-2400.webp", small: "/img/faq-room-1200.webp", w: 2400, h: 1610 }, /* FAQ background: calm cream room (his note) */
 };
 
 /* The hero carousel (the user, 2026-09-24). Generated mood stills (Nano Banana): they
@@ -36,7 +36,7 @@ export const PHOTOS = {
 export const HERO_SLIDES = [
   { src: "/slots/hero-desktop.webp", slot: "hero-desktop.webp", w: 1376, h: 768, pos: "64% 50%", posM: "88% 50%" },
   /* Slide 02, the user 2026-11-12: a better picture of the same scene, generated (Nano Banana), cart with our real logo. */
-  { src: "/img/hero-cart.webp", srcM: "/img/hero-cart-m.webp", w: 1376, h: 648, pos: "100% 50%", posM: "50% 40%" },
+  { src: "/img/hero-cart.webp", srcM: "/img/hero-cart-m.webp", w: 1200, h: 1094, pos: "50% 50%", posM: "50% 40%" },
   { src: "/img/hero-message.webp", w: 1376, h: 768, pos: "72% 50%", posM: "100% 50%" },
   { src: "/img/hero-family.webp", w: 1376, h: 768, pos: "70% 50%", posM: "92% 50%" },
 ];

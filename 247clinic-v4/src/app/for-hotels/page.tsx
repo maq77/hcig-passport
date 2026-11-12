@@ -38,12 +38,22 @@ export default function ForHotels() {
   );
   return (
     <>
-      <PageHero eyebrow="For Hotels & Partners" title={hero.heading} sub={hero.subheading} lead={hero.body.slice(0, 2)} close={hero.body[2]}
+      <PageHero eyebrow="For Hotels & Partners" title={hero.heading} sub={hero.subheading}
         img="/img/hero-resort.webp" pos="62% 50%" posM="72% 50%"
         trail={[{ name: "Home", path: "/" }, { name: "For Hotels & Partners", path: "/for-hotels" }]}>
         <PartnerBtn />
         <a href="#model" className="btn btn-secondary"><span>{hero.ctas[1].label}</span><ArrowDown size={18} aria-hidden="true" /></a>
       </PageHero>
+
+      {/* His note 2026-11-12: the hero was "Very overcrowded"; its paragraph and pull line open the page instead. */}
+      <section className="section pg-band" aria-label={hero.heading}>
+        <div className="container pg-narrow">
+          <div className="pg-copy rv">
+            {hero.body.slice(0, 2).map((p) => <p key={p}>{p}</p>)}
+            {hero.body[2] && <p className="pg-pull">{hero.body[2]}</p>}
+          </div>
+        </div>
+      </section>
 
       <Band id="h-ch" title={ch.heading} center>
         {/* One short sentence each: shown whole, no arrow. */}

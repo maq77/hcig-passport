@@ -39,7 +39,8 @@
 .pg-narrow { max-width: 1000px; }
 .pg-copy { display: grid; gap: 14px; }
 .pg-copy p { font-size: 16.5px; line-height: 1.7; color: var(--ink-2); max-width: 64ch; }
-.pg-pull { font-family: var(--font-display), serif; font-size: clamp(21px, 2vw, 26px); line-height: 1.35; color: var(--ink); padding-left: 18px; border-left: 2px solid var(--primary); }
+.pg-pull { font-family: var(--font-display), serif; font-size: clamp(21px, 2vw, 26px); line-height: 1.35; color: var(--ink); padding-top: 18px; position: relative; }
+.pg-pull::before { content: ""; position: absolute; left: 0; top: 0; width: 28px; height: 1px; background: var(--primary); }
 .pg-note { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 16px; background: var(--primary-tint); border: 1px solid var(--primary-line); color: var(--ink); font-size: 14.5px; line-height: 1.55; }
 .pg-note svg { color: var(--primary); flex: none; margin-top: 2px; }
 .pg-sub { font-family: var(--font-display), serif; font-size: clamp(22px, 2.2vw, 28px); color: var(--ink); line-height: 1.2; margin-bottom: 14px; }

@@ -30,7 +30,7 @@
 .dc-pts svg { flex: none; margin-top: 1px; color: var(--primary); }
 .dc-note { display: flex; gap: 10px; align-items: flex-start; margin: 0; padding: 11px 14px; border-radius: 14px; background: var(--primary-tint); border: 1px solid var(--primary-line); font-size: 13.5px; line-height: 1.5; color: var(--ink); }
 .dc-note svg { flex: none; margin-top: 1px; color: var(--primary); }
-.dc-closing { margin: 0; font-family: var(--font-display), serif; font-style: italic; font-size: 21px; line-height: 1.3; color: var(--ink); }
+.dc-closing { margin: 0; font-family: var(--font-display), serif; font-style: normal; font-size: 21px; line-height: 1.3; color: var(--ink); }
 .dc-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
 @media (max-width: 767px) {
   .dc-scrim { place-items: end stretch; padding: 0; }
@@ -71,9 +71,9 @@
 .pg-statement { margin: clamp(40px, 5vw, 64px) auto 0; max-width: 820px; text-align: center; font-family: var(--font-display), serif; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.3; color: var(--ink); }
 .pg-statement::before { content: ""; display: block; width: 56px; height: 2px; background: var(--primary); margin: 0 auto 22px; }
 .pg-statement em { color: var(--primary); }
-.pg-closing { margin: clamp(32px, 4vw, 48px) 0 0; text-align: center; font-family: var(--font-display), serif; font-style: italic; font-size: clamp(21px, 2.2vw, 28px); color: var(--ink); }
-.pg-sub2 { margin: 0; font-family: var(--font-display), serif; font-style: italic; font-size: clamp(20px, 1.9vw, 25px); color: var(--primary); }
-.ph-sub { margin: 0; font-family: var(--font-display), serif; font-style: italic; font-size: clamp(20px, 1.9vw, 26px); line-height: 1.3; color: #ffb3b3; }
+.pg-closing { margin: clamp(32px, 4vw, 48px) 0 0; text-align: center; font-family: var(--font-display), serif; font-style: normal; font-size: clamp(21px, 2.2vw, 28px); color: var(--ink); }
+.pg-sub2 { margin: 0; font-family: var(--font-display), serif; font-style: normal; font-size: clamp(20px, 1.9vw, 25px); color: var(--primary); }
+.ph-sub { margin: 0; font-family: var(--font-display), serif; font-style: normal; font-size: clamp(20px, 1.9vw, 26px); line-height: 1.3; color: #ffb3b3; }
 .ph-close { margin: 4px 0 0; padding-left: 16px; border-left: 2px solid #e8121c; font-size: 16px; font-weight: 600; color: #fff; }
 .pg-band.dark { background: linear-gradient(160deg, #1a1012 0%, #2a0a10 60%, #3c000a 100%); color: #fff; }
 .pg-band.dark .h2 { color: #fff; font-weight: 400; }
