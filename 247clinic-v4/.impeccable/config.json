@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "src/app/home-calm.css"
+        ],
+        "createdAt": "2026-11-12T14:38:17.312Z",
+        "reason": "Claude: click-only expand of two short step paragraphs on desktop, same height reveal the site's More arrows already use; the user asked for this arrow 2026-11-12"
+      }
+    ]
+  }
+}
