@@ -191,3 +191,68 @@ main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolu
   .news-form button { justify-content: center; }
 }
 @media (prefers-reduced-motion: reduce) { .news-rings .news-orbit { animation: none; } .voices-stage > li { transition: none; } }
+
+/* =============================================================================
+   PREMIUM PACE (the user, 2026-11-12: "make everything smooth and takes its time so it give that premium feel ...
+   shimmer and loading state and loading animation ... animation and motion for section heading").
+============================================================================= */
+/* 1. Opening curtain, once per visit: the red logo settles out of a blur, a red hairline draws, 0 to 100, then the
+      ivory curtain lifts. Pure CSS, so it ends even if scripts are slow. */
+@property --intro-n { syntax: "<integer>"; initial-value: 0; inherits: false; }
+.oc { display: none; }
+html.js:not(.intro-seen) .oc { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; background: #fbf8f4; animation: introLift 0.95s cubic-bezier(0.76, 0, 0.24, 1) 1.95s forwards; }
+.oc-in { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.oc img { width: 132px; height: auto; opacity: 0; transform: scale(0.94); filter: blur(8px); animation: introLogo 1s var(--ease) 0.1s forwards; }
+.oc-line { width: 220px; height: 1px; background: var(--primary); transform: scaleX(0); animation: introLine 0.9s var(--ease) 0.75s forwards; }
+.oc-n { font: 700 12px var(--font-display), serif; letter-spacing: 0.24em; color: var(--ink-3); animation: introCount 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both; }
+.oc-n::before { counter-reset: n var(--intro-n); content: counter(n); }
+@keyframes introLogo { to { opacity: 1; transform: none; filter: none; } }
+@keyframes introLine { to { transform: scaleX(1); } }
+@keyframes introCount { from { --intro-n: 0; } to { --intro-n: 100; } }
+@keyframes introLift { to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
+/* the hero copy rises as the curtain lifts */
+html.js:not(.intro-seen) .hero-copy > * { animation-delay: 2.05s; }
+html.js:not(.intro-seen) .hero-copy > :nth-child(2) { animation-delay: 2.15s; }
+html.js:not(.intro-seen) .hero-copy > :nth-child(3) { animation-delay: 2.25s; }
+html.js:not(.intro-seen) .hero-copy > :nth-child(4) { animation-delay: 2.35s; }
+html.js:not(.intro-seen) .hero-copy > :nth-child(5) { animation-delay: 2.45s; }
+
+/* 2. Shimmer while a photo "loads", then a slow blur-up (MediaShimmer adds the classes). */
+html.js .shim { background-color: #efe9e3 !important; background-image: linear-gradient(110deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.65) 46%, rgba(255, 255, 255, 0) 62%) !important; background-size: 220% 100% !important; background-repeat: no-repeat !important; animation: shimmer 1.6s linear infinite; }
+@keyframes shimmer { from { background-position: 130% 0; } to { background-position: -130% 0; } }
+html.js img.shim-i { opacity: 0; filter: blur(14px); transition: opacity 1.2s var(--ease), filter 1.5s var(--ease); }
+html.js img.shim-i.ld { opacity: 1; filter: blur(0); }
+
+/* 3. Slower, smoother reveals everywhere. */
+html.js .rv { transform: translateY(34px); transition: opacity 1.15s var(--ease), transform 1.15s var(--ease); transition-delay: var(--d, 0ms); }
+
+/* 4. Section headings: the eyebrow's red line draws and its letters settle, then the heading rises word by word
+      out of a soft blur, then the lead. */
+html.js .eyebrow.rv { letter-spacing: 0.34em; transition: opacity 1.15s var(--ease), transform 1.15s var(--ease), letter-spacing 1.5s var(--ease); }
+html.js .eyebrow.rv.in { letter-spacing: 0.18em; }
+html.js .eyebrow.rv::before, html.js .head.center .eyebrow.rv::after { transform: scaleX(0); transition: transform 1s var(--ease) 0.25s; }
+html.js .eyebrow.rv::before { transform-origin: right; }
+html.js .head.center .eyebrow.rv::after { transform-origin: left; }
+html.js .eyebrow.rv.in::before, html.js .head.center .eyebrow.rv.in::after { transform: scaleX(1); }
+html.js .h2.hw.rv { opacity: 1; transform: none; }
+.hw .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+.hw .w > span { display: inline-block; }
+html.js .hw .w > span { transform: translateY(102%); opacity: 0; filter: blur(6px); transition: transform 1.15s var(--ease), opacity 1s var(--ease), filter 1.15s var(--ease); transition-delay: calc(var(--i, 0) * 85ms + 120ms); }
+html.js .hw.in .w > span { transform: none; opacity: 1; filter: blur(0); }
+@media (max-width: 767px) { html.js .eyebrow.rv.in { letter-spacing: 0.16em; } }
+
+/* 5. Trusted by Patients: two slim rows, gliding in opposite directions. */
+.voices-moments { margin-top: clamp(48px, 6vw, 80px); }
+.voices-moments .head { margin-bottom: 26px; }
+.voices-moments .mq + .mq { margin-top: 2px; }
+.moment { height: 190px; aspect-ratio: var(--ar, 3 / 4); border-radius: 16px; overflow: hidden; background: var(--surface-2); }
+.moment img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s var(--ease); }
+.moment:hover img { transform: scale(1.05); }
+@media (max-width: 767px) { .moment { height: 140px; border-radius: 12px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .oc { display: none !important; }
+  html.js img.shim-i { opacity: 1; filter: none; }
+  html.js .hw .w > span { transform: none; opacity: 1; filter: none; }
+  html.js .eyebrow.rv { letter-spacing: 0.18em; }
+}

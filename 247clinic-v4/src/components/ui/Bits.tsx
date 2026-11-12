@@ -1,14 +1,22 @@
+import { Fragment } from "react";
 import { ImagePlus } from "lucide-react";
 
 /* Section heading: our eyebrow (a UI label) + the brief's heading. */
+/* Section headings rise word by word out of a soft blur (the user, 2026-11-12: "adding animation and motion for
+   section heading ... takes its time so it feel more premium"). The words stay one sentence for readers and search. */
+export function Words({ text }: { text: string }) {
+  const words = text.split(" ");
+  return <>{words.map((w, i) => <Fragment key={i}><span className="w" style={{ ["--i" as string]: i }}><span>{w}</span></span>{i < words.length - 1 ? " " : null}</Fragment>)}</>;
+}
+
 export function Head({ eyebrow, title, id, lead, center, as: As = "h2" }: {
   eyebrow?: string; title: string; id?: string; lead?: React.ReactNode; center?: boolean; as?: "h2" | "h1";
 }) {
   return (
     <div className={`head ${center ? "center" : ""}`}>
       {eyebrow && <span className="eyebrow rv">{eyebrow}</span>}
-      <As id={id} className="h2 rv" style={{ ["--d" as string]: "60ms" }}>{title}</As>
-      {lead && <div className="lead rv" style={{ ["--d" as string]: "120ms" }}>{lead}</div>}
+      <As id={id} className="h2 rv hw"><Words text={title} /></As>
+      {lead && <div className="lead rv" style={{ ["--d" as string]: "380ms" }}>{lead}</div>}
     </div>
   );
 }

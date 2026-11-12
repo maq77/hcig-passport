@@ -27,7 +27,6 @@ import { SnapRow } from "@/components/ui/SnapRow";
 import { BigPlay, Watch } from "@/components/ui/Viewer";
 import { Drift } from "@/components/ui/ScrollFx";
 import { HeroCarousel } from "./HeroCarousel";
-import { ReviewCarousel } from "./ReviewCarousel";
 import { StoryCarousel } from "./StoryRow";
 import { ClinicFinder } from "./ClinicFinder";
 import { Parallax } from "./Parallax";
@@ -368,12 +367,10 @@ export function Insurance({ insuranceMessage }: { insuranceMessage: string }) {
 }
 
 /* ---------------- 8. what our patients say + trusted by patients, one section (brief 15) ----------------
-   The user, 2026-11-12: "make better design for Patient stories, What Our Patients Say and Trusted by Patients,
-   as one section ... structured great". Three layers of proof, in order: their films (watch), their words (the
-   published guest reviews, quoted exactly) and their faces (the Trusted by Patients photos as a quiet wall). */
+   The user, 2026-11-12: one section, films first, then Trusted by Patients as two slim auto-sliding rows
+   (the guest-review quotes were removed at his request). */
 export function Stories() {
   const s = section("home", "reviews-testimonials");
-  const voices = reviews().map((r) => ({ ...r, flag: FLAGS[r.country] }));
   return (
     <section className="section stories voices" aria-labelledby="st-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[55]}</div>
       <div className="container">
@@ -389,20 +386,19 @@ export function Stories() {
         ))}
       </StoryCarousel>
 
-      <div className="container voices-grid">
-        <div className="voices-words rv">
-          <ReviewCarousel voices={voices} flagBase={asset("/logos/marks")} />
-        </div>
-        <div className="voices-faces">
-          <h3 className="voices-title rv" id="trusted-h">Trusted by Patients</h3>
-          <ul className="voices-wall" aria-labelledby="trusted-h">
-            {TRUSTED_PHOTOS.map((p, i) => (
-              <li key={p.src} className="rv" style={d(i * 70)}>
+      {/* Trusted by Patients: two slim rows that glide on their own in opposite directions
+          (the user, 2026-11-12: "auto carousel ... like 247 Happy Moments ... less height ... two rows"). */}
+      <div className="voices-moments">
+        <div className="container"><Head center id="trusted-h" title="Trusted by Patients" /></div>
+        {[TRUSTED_PHOTOS, [...TRUSTED_PHOTOS].reverse()].map((row, r) => (
+          <Marquee key={r} label="Trusted by Patients" speed={r ? 22 : 26} direction={r ? "right" : "left"} gap={14} bg="#fff">
+            {row.map((p) => (
+              <li key={p.src} className="moment" style={{ ["--ar" as string]: `${p.w} / ${p.h}` }}>
                 <img src={asset(p.src)} alt="Trusted by patient" width={p.w} height={p.h} loading="lazy" />
               </li>
             ))}
-          </ul>
-        </div>
+          </Marquee>
+        ))}
       </div>
     </section>
   );

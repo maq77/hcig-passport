@@ -3,6 +3,7 @@
    melts into bordeaux, as the phone home hero does), then ivory sections of few words,
    icon tiles instead of paragraphs, and one call to action per page.
    Every word is the brief's (scripts/check-brief.mjs checks the built pages). */
+import { Words } from "@/components/ui/Bits";
 import type { Metadata } from "next";
 import {
   Activity, Ambulance, Award, BadgeCheck, BedDouble, Briefcase, Building2, ClipboardCheck, ClipboardList, Clock,
@@ -126,7 +127,7 @@ export function Band({ id, eyebrow, title, lead, tint, center, children, narrow,
         {title && (
           <div className={`head ${center ? "center" : ""}`}>
             {eyebrow && <span className="eyebrow rv">{eyebrow}</span>}
-            <h2 id={id} className="h2 rv">{title}</h2>
+            <h2 id={id} className="h2 rv hw"><Words text={title} /></h2>
             {lead && <div className="lead rv">{lead}</div>}
           </div>
         )}
