@@ -386,12 +386,12 @@ export function Stories() {
         ))}
       </StoryCarousel>
 
-      {/* Trusted by Patients: two slim rows that glide on their own in opposite directions
+      {/* Trusted by Patients: one slim row that glides on its own
           (the user, 2026-11-12: "auto carousel ... like 247 Happy Moments ... less height ... two rows"). */}
       <div className="voices-moments">
         <div className="container"><Head center id="trusted-h" title="Trusted by Patients" /></div>
-        {[TRUSTED_PHOTOS, [...TRUSTED_PHOTOS].reverse()].map((row, r) => (
-          <Marquee key={r} label="Trusted by Patients" speed={r ? 22 : 26} direction={r ? "right" : "left"} gap={14} bg="#fff">
+        {[TRUSTED_PHOTOS].map((row, r) => (
+          <Marquee key={r} label="Trusted by Patients" speed={26} gap={14} bg="#fff">
             {row.map((p) => (
               <li key={p.src} className="moment" style={{ ["--ar" as string]: `${p.w} / ${p.h}` }}>
                 <img src={asset(p.src)} alt="Trusted by patient" width={p.w} height={p.h} loading="lazy" />

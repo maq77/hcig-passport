@@ -35,7 +35,6 @@
   html:not(.e-live) [data-e-section="HowItWorks"] > section.section > div.edge-label { zoom: 2.35 !important; margin-top: 76px !important; }
   html:not(.e-live) [data-e-section="Insurance"] > section.section > div.edge-label { zoom: 2.20 !important; margin-top: 26px !important; }
   html:not(.e-live) [data-e-section="Stories"] > section.section > div.edge-label { margin-top: 76px !important; zoom: 2.30 !important; }
-  html:not(.e-live) #trusted-h { zoom: 1.45 !important; margin-top: -12px !important; }
   html:not(.e-live) [data-e-section="Insurance"] > section.section > div.band { margin-bottom: -6px !important; zoom: 0.65 !important; }
   html:not(.e-live) [data-e-section="Stories"] > section.section > div:nth-of-type(3) > div.edge-label { margin-top: 26px !important; }
   html:not(.e-live) #st-h { zoom: 1.10 !important; }

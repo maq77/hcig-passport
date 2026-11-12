@@ -200,14 +200,6 @@
     },
     {
       "media": "desktop",
-      "selector": "#trusted-h",
-      "props": {
-        "zoom": "1.45",
-        "margin-top": "-12px"
-      }
-    },
-    {
-      "media": "desktop",
       "selector": "[data-e-section=\"Insurance\"] > section.section > div.band",
       "props": {
         "margin-bottom": "-6px",
