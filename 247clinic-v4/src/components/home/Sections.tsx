@@ -25,7 +25,7 @@ import { More } from "@/components/ui/More";
 import { Watermark } from "@/components/ui/Watermark";
 import { SnapRow } from "@/components/ui/SnapRow";
 import { BigPlay, Watch } from "@/components/ui/Viewer";
-import { Drift, Grow, HeroDepth } from "@/components/ui/ScrollFx";
+import { Drift } from "@/components/ui/ScrollFx";
 import { HeroCarousel } from "./HeroCarousel";
 import { StoryCarousel } from "./StoryRow";
 import { ClinicFinder } from "./ClinicFinder";
@@ -57,11 +57,12 @@ export function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-h">
       <div className="hero-media">
-        <HeroDepth className="hero-pic">
+        {/* Fixed in place: no parallax (the user, 2026-11-12: "stop the zooming, make it normal, fixed place"). */}
+        <div className="hero-pic">
           {slides.length
             ? <HeroCarousel slides={slides} label="Photos" labels={{ prev: "Previous", next: "Next", show: "Show photo" }} />
             : <Slot file="hero-desktop.webp" purpose="hero image" px="2400 x 1350" />}
-        </HeroDepth>
+        </div>
       </div>
       <div className="container hero-inner">
         <div className="hero-copy">
@@ -128,7 +129,7 @@ export function Facilities() {
       <div className="container">
         <Head center eyebrow="Accreditation" id="fac-h" title={s.heading} lead={<p>{s.body[0]}</p>} />
         <div className="stage-wrap">
-          <Grow className="stage">
+          <div className="stage">
             <InViewVideo src={asset("/media/hero.mp4")} className="stage-film" />
             <div className="stage-veil" aria-hidden="true" />
             <BigPlay src="/media/commercial.mp4" label="Watch video" />
@@ -141,7 +142,7 @@ export function Facilities() {
                 <b>Urgent Care Association</b>
               </span>
             </div>
-          </Grow>
+          </div>
         </div>
         <ul className="standards">
           {s.items.map((it, i) => {

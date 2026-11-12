@@ -122,12 +122,11 @@ export function HeroCarousel({ slides, label, labels }: {
               style={{ ["--pos" as string]: s.pos, ["--pos-m" as string]: s.posM ?? s.pos }}
               custom={dir}
               variants={{
-                enter: (d: number) => (reduce ? {} : { x: d > 0 ? "-55%" : "55%", scale: 1.14 }),
-                center: { x: "0%", scale: 1 },
+                enter: (d: number) => (reduce ? {} : { x: d > 0 ? "-55%" : "55%" }),
+                center: { x: "0%" },
               }}
               transition={reduce ? { duration: 0 } : {
                 x: { duration: 1.1, ease: EASE },
-                scale: { duration: SLIDE_MS / 1000 + 1.2, ease: [0.22, 1, 0.36, 1] },
               }}
             />
             </picture>
