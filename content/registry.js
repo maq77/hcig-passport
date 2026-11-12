@@ -672,13 +672,14 @@ const COMPANIES = [
         slug: 'website-v3',
         name: 'Website v3, rebuilt from scratch',
         status: 'live',
-        updated: '2026-11-10',
+        updated: '2026-11-12',
         summary: 'The new tmasi.net is live: the same words in a new design, in English, German, Polish and Spanish.',
         detail: [
           'Live on tmasi.net since 2026-10-16, in English, German, Polish and Spanish (76 pages). French, Italian and Czech come next.',
           'Every old .php address redirects in one step to its new page. Google Analytics, Tag Manager and Yandex Metrica carried over.',
           'The old site is kept whole in a private folder on the server, so a rollback is one step.',
           'New article live 2026-11-10 in all four languages: TMASI Global at ITIC 2026, the real challenges of international medical assistance.',
+          'Live 2026-11-12: guest reviews under the trust section (9 reviews from the satisfaction form, with flags) and Sofia, the new assistance chat that replaced Jotform and sends each request to WhatsApp and four team inboxes.',
         ],
         checklist: [
           { text: 'Answer the open decisions', done: true, who: 'Mohamed' },
@@ -687,6 +688,7 @@ const COMPANIES = [
           { text: 'Trust section on the home', done: true, who: 'Us' },
           { text: 'Go live on tmasi.net', done: true, who: 'Us' },
           { text: 'ITIC 2026 article live in four languages', done: true, who: 'Us' },
+          { text: 'Guest reviews and Sofia assistance chat live', done: true, who: 'Us' },
           { text: 'Search Console access to watch the moved pages', done: false, who: 'Pulse' },
           { text: 'French, Italian and Czech', done: false, who: 'Us' },
         ],
@@ -695,6 +697,7 @@ const COMPANIES = [
             name: 'Plan',
             items: [
               { slug: 'spec', name: 'What v3 is, and every decision', kind: 'md', src: 'specs/008-tmasi-website/spec.md', status: 'approved', note: 'Approved 26 Sep' },
+              { slug: 'reviews-chat-canvas', name: 'Reviews and chatbot design canvas', kind: 'link', href: 'https://claude.ai/artifact/MjQBQie2WXTstSDNy1o4fC', status: 'approved', note: 'Picked 12 Nov: Reviews C with flags, Chatbot C' },
             ],
           },
           {

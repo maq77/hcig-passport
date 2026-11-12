@@ -6,6 +6,14 @@ so the report and email at the end are complete and exact.
 How entries are written: one line per change, the page or URL, what it was before and
 after, and how it was checked. Words on the site are never changed unless Mohamed says so.
 
+## 2026-11-12
+
+### Guest reviews and the Sofia assistance chat (live on tmasi.net)
+- New section "What Our Guests Say" under the trust section on the home page, in all four languages: the nine reviews from the guest satisfaction form, word for word, names and countries as sent. Each card has a blue "Verified guest" mark and the guest's country flag; a row of flags under the heading ends in a "+". The rows drift slowly and stop under the mouse; a card opens the full review.
+- The Jotform chat is gone. In its place is Sofia, TMASI's own assistance chat, bottom right: Mohamed's intake questions (who needs help, patient name, location, kind of assistance, insurance and insurer, phone), consent, then the request opens in WhatsApp to +382 68 939 565, ready to send. Urgent and cruise ship cases are marked at the top of the message.
+- Each request is also emailed at once to marketing@healthcareig.com, marketing.hcig@gmail.com, adriatic@tmasi.net and operations@tmasi.net. The quote and contact forms are unchanged.
+- Designed on a canvas first (three review designs, three chat designs); Mohamed picked, then removed the emergency line and the pause button and added the flags. Checked on desktop and two phone sizes before and after going live. Every replaced file was backed up first and a one-step rollback is ready.
+
 ## 2026-11-10
 
 ### Phone titles keep every word whole (live)
