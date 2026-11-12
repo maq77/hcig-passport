@@ -12,7 +12,9 @@
     "Finder",
     "FinalCta"
   ],
-  "hidden": [],
+  "hidden": [
+    "Posts"
+  ],
   "styles": {},
   "blocks": {}
 }

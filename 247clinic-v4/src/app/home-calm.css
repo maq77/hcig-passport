@@ -123,3 +123,71 @@ main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolu
   .hero-copy { max-width: min(520px, 38vw); }
 }
 .ph-sub { color: rgba(251, 248, 244, 0.88); }
+
+/* Side words: desktop only (the user, 2026-11-12: "remove the words ... only remove on mobile version, keep it on desktop"). */
+@media (max-width: 767px) { .edge-label { display: none !important; } }
+
+/* =============================================================================
+   PATIENT STORIES + TRUSTED BY PATIENTS, ONE SECTION (2026-11-12): films, then guest words beside the photo wall.
+============================================================================= */
+.voices .trusted-patients { display: none; }
+.voices-grid { display: grid; gap: 40px; margin-top: 48px; }
+@media (min-width: 1024px) { .voices-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; margin-top: 64px; } }
+.voices-quotes { position: relative; padding: 34px 28px 24px; border-radius: 28px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm); overflow: hidden; }
+@media (min-width: 1024px) { .voices-quotes { padding: 44px 44px 30px; position: sticky; top: calc(var(--hdr, 96px) + 24px); } }
+.voices-mark { width: 46px; height: 34px; fill: var(--primary); opacity: 0.16; }
+.voices-stage { display: grid; margin-top: 14px; min-height: 190px; }
+.voices-stage > li { grid-area: 1 / 1; opacity: 0; transform: translateY(12px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); pointer-events: none; }
+.voices-stage > li.on { opacity: 1; transform: none; pointer-events: auto; }
+.voices-stage blockquote { margin: 0; }
+.voices-stage blockquote p { margin: 0; font-family: var(--font-display), serif; font-size: clamp(20px, 1.9vw, 25px); line-height: 1.45; color: var(--ink); }
+.voices-who { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
+.voices-who img { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #fff; box-shadow: var(--shadow-sm); object-fit: cover; }
+.voices-who b { display: block; font-size: 15px; font-weight: 600; color: var(--ink); }
+.voices-who small { display: block; font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+.voices-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); }
+.voices-dots { display: flex; gap: 6px; }
+.voices-dots i { width: 6px; height: 6px; border-radius: 6px; background: var(--line-2); transition: width 0.5s var(--ease), background 0.5s var(--ease); }
+.voices-dots i.on { width: 20px; background: var(--primary); }
+.voices-arrows { display: flex; gap: 8px; }
+.voices-arrows button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line-2); background: #fff; color: var(--ink); display: grid; place-items: center; cursor: pointer; transition: background 0.3s var(--ease), color 0.3s, border-color 0.3s; }
+.voices-arrows button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+.voices-title { margin: 0 0 20px; font-family: var(--font-display), serif; font-weight: 700; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; color: var(--ink); display: flex; align-items: center; gap: 14px; }
+.voices-title::before { content: ""; width: 28px; height: 1px; background: var(--primary); }
+.voices-wall { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; padding-bottom: 32px; }
+.voices-wall li { border-radius: 18px; overflow: hidden; aspect-ratio: 3 / 4; background: var(--surface-2); box-shadow: var(--shadow-sm); }
+.voices-wall li:nth-child(4n + 2), .voices-wall li:nth-child(4n + 4) { transform: translateY(32px); }
+.voices-wall img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s var(--ease); }
+.voices-wall li:hover img { transform: scale(1.05); }
+@media (max-width: 767px) {
+  .voices-wall { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter) 6px; scrollbar-width: none; }
+  .voices-wall::-webkit-scrollbar { display: none; }
+  .voices-wall li { flex: 0 0 62%; scroll-snap-align: start; }
+  .voices-wall li:nth-child(n) { transform: none; }
+  .voices-stage { min-height: 210px; }
+}
+
+/* =============================================================================
+   NEWSLETTER BAND at the end of every page (2026-11-12): solid ink, slow orbit rings, one line, one field.
+============================================================================= */
+.news-band { position: relative; overflow: hidden; isolation: isolate; display: grid; gap: 22px; margin: 28px 0 8px; padding: 34px 24px; border-radius: 28px; background: #1a1414; color: #fff; }
+@media (min-width: 900px) { .news-band { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: 48px; padding: 52px 56px; } }
+.news-rings { position: absolute; right: -120px; top: 50%; width: 420px; height: 420px; transform: translateY(-50%); z-index: -1; fill: none; stroke: rgba(255, 255, 255, 0.09); }
+.news-rings .news-orbit { transform-origin: 200px 200px; animation: newsSpin 70s linear infinite; }
+.news-rings .news-orbit circle:first-child { stroke: rgba(226, 6, 19, 0.45); }
+.news-rings .dot { fill: #e20613; stroke: none; }
+@keyframes newsSpin { to { transform: rotate(360deg); } }
+.news-copy .h2 { margin: 0; color: #fff; font-weight: 400; }
+.news-copy p { margin: 10px 0 0; color: rgba(255, 255, 255, 0.78); font-size: 16px; line-height: 1.6; }
+.news-form { display: flex; gap: 8px; padding: 6px; border-radius: 999px; background: #fff; }
+.news-form input { flex: 1; min-width: 0; border: 0; background: transparent; padding: 0 18px; font: inherit; font-size: 15px; color: var(--ink); outline: none; }
+.news-form input::placeholder { color: var(--ink-3); }
+.news-form button { flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 50px; padding: 0 22px; border: 0; border-radius: 999px; background: var(--primary); color: #fff; font-weight: 600; font-size: 15px; cursor: pointer; transition: background 0.3s var(--ease), transform 0.3s var(--ease); }
+.news-form button:hover { background: var(--primary-deep); transform: translateY(-1px); }
+.news-form:focus-within { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25); }
+@media (max-width: 479px) {
+  .news-form { flex-direction: column; border-radius: 22px; padding: 8px; }
+  .news-form input { min-height: 48px; }
+  .news-form button { justify-content: center; }
+}
+@media (prefers-reduced-motion: reduce) { .news-rings .news-orbit { animation: none; } .voices-stage > li { transition: none; } }

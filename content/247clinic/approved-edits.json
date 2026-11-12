@@ -632,6 +632,19 @@
       "where": "For Hotels & Partners page (content/247clinic/en/for-hotels.json); Hotel Clinic Concept as its #model section",
       "to": "see for-hotels.json",
       "his_words": "the text i gave you , is for content update only ... hotel clinic concept is not a page but a concept that is applied on content of the website ... only update texts or content to match what i gave you"
+    },
+    {
+      "date": "2026-11-12",
+      "by": "the user",
+      "kind": "content",
+      "where": "Newsletter band at the end of every page (footer)",
+      "to": [
+        "Stay in Touch",
+        "Subscribe for news from 24/7 Clinic.",
+        "Email address",
+        "Subscribe"
+      ],
+      "his_words": "add band for newsletter subscription at the end with great design (picked: Stay in Touch + one line; sign-ups by email to info@247clinic.net)"
     }
   ],
   "fromTheirSite": {

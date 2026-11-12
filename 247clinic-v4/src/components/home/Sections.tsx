@@ -27,6 +27,7 @@ import { SnapRow } from "@/components/ui/SnapRow";
 import { BigPlay, Watch } from "@/components/ui/Viewer";
 import { Drift } from "@/components/ui/ScrollFx";
 import { HeroCarousel } from "./HeroCarousel";
+import { ReviewCarousel } from "./ReviewCarousel";
 import { StoryCarousel } from "./StoryRow";
 import { ClinicFinder } from "./ClinicFinder";
 import { Parallax } from "./Parallax";
@@ -366,11 +367,15 @@ export function Insurance({ insuranceMessage }: { insuranceMessage: string }) {
   );
 }
 
-/* ---------------- 8. what our patients say (brief 15) ---------------- */
+/* ---------------- 8. what our patients say + trusted by patients, one section (brief 15) ----------------
+   The user, 2026-11-12: "make better design for Patient stories, What Our Patients Say and Trusted by Patients,
+   as one section ... structured great". Three layers of proof, in order: their films (watch), their words (the
+   published guest reviews, quoted exactly) and their faces (the Trusted by Patients photos as a quiet wall). */
 export function Stories() {
   const s = section("home", "reviews-testimonials");
+  const voices = reviews().map((r) => ({ ...r, flag: FLAGS[r.country] }));
   return (
-    <section className="section stories" aria-labelledby="st-h">
+    <section className="section stories voices" aria-labelledby="st-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[55]}</div>
       <div className="container">
         <Head eyebrow="Patient stories" id="st-h" title={s.heading} />
       </div>
@@ -383,27 +388,21 @@ export function Stories() {
           </li>
         ))}
       </StoryCarousel>
-      
-      <div style={{ position: 'relative' }}>
-        <div data-e-block="edge-label" data-e-field="text" className="edge-label left" style={{ top: 0, transform: 'translateY(-50%) rotate(-90deg)' }}>
-          {UI.labels[55]}
-        </div>
-      </div>
 
-      <div className="trusted-patients" style={{ marginTop: 64, paddingBottom: 32 }}>
-        <div className="container" style={{ marginBottom: 32 }}>
-          <Head center id="trusted-h" title="Trusted by Patients" />
+      <div className="container voices-grid">
+        <div className="voices-words rv">
+          <ReviewCarousel voices={voices} flagBase={asset("/logos/marks")} />
         </div>
-        <Marquee label="Trusted by Patients" speed={28} gap={16} bg="#fff">
-          {TRUSTED_PHOTOS.map((p, i) => {
-            const width = Math.round(320 * (p.w / p.h));
-            return (
-              <li key={i} style={{ borderRadius: 12, overflow: 'hidden', height: 320, width, flexShrink: 0 }}>
-                <img src={asset(p.src)} alt="Trusted by patient" width={width} height={320} loading="lazy" style={{ objectFit: 'cover', display: 'block', width: '100%', height: '100%' }} />
+        <div className="voices-faces">
+          <h3 className="voices-title rv" id="trusted-h">Trusted by Patients</h3>
+          <ul className="voices-wall" aria-labelledby="trusted-h">
+            {TRUSTED_PHOTOS.map((p, i) => (
+              <li key={p.src} className="rv" style={d(i * 70)}>
+                <img src={asset(p.src)} alt="Trusted by patient" width={p.w} height={p.h} loading="lazy" />
               </li>
-            );
-          })}
-        </Marquee>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

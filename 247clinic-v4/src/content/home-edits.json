@@ -200,52 +200,6 @@
     },
     {
       "media": "desktop",
-      "selector": "[data-e-section=\"Stories\"] > section.section > div.carousel",
-      "props": {
-        "margin-bottom": "191px"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "[data-e-section=\"Stories\"] > section.section > div.carousel > ul.row",
-      "props": {
-        "margin-bottom": "2px",
-        "margin-top": "34px"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "[data-e-section=\"Stories\"] > section.section > div.carousel > div.car-dots",
-      "props": {
-        "margin-bottom": "-95px"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "[data-e-section=\"Stories\"] > section.section > div:nth-of-type(3) > div",
-      "props": {
-        "zoom": "2.60",
-        "margin-bottom": "-8px",
-        "letter-spacing": "1px"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "[data-e-section=\"Stories\"] > section.section > div:nth-of-type(3)",
-      "props": {
-        "margin-bottom": "38px",
-        "zoom": "0.85"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "[data-e-section=\"Stories\"] > section.section > div.trusted-patients > div.container",
-      "props": {
-        "margin-top": "48px"
-      }
-    },
-    {
-      "media": "desktop",
       "selector": "#trusted-h",
       "props": {
         "zoom": "1.45",

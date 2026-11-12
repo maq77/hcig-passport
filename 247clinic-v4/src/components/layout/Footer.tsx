@@ -11,6 +11,7 @@ import { section } from "@/content/load";
 import { CallButton, WaButton } from "@/components/ui/Buttons";
 import { WhatsAppGlyph } from "@/components/ui/Icon";
 import { telHref, waHref } from "@/lib/wa";
+import { NewsletterBand } from "./NewsletterBand";
 
 export function Footer({ nav, footerOnly }: { nav: string[]; footerOnly: string[] }) {
   const year = new Date().getFullYear();
@@ -29,6 +30,8 @@ export function Footer({ nav, footerOnly }: { nav: string[]; footerOnly: string[
             <CallButton placement="footer-band" />
           </div>
         </div>
+
+        <NewsletterBand email={THEIRS.email} title="Stay in Touch" line="Subscribe for news from 24/7 Clinic." label="Email address" button="Subscribe" />
 
         <div className="foot">
           <div className="brand">

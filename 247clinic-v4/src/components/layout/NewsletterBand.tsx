@@ -1,0 +1,40 @@
+"use client";
+
+/* Newsletter band at the end of every page (the user, 2026-11-12: "add band for newsletter subscription at the
+   end with great design"). His words: "Stay in Touch" and "Subscribe for news from 24/7 Clinic.". No newsletter
+   service is connected yet, so Subscribe opens the visitor's email with a ready message to info@247clinic.net
+   (his choice); nothing is stored on the site. */
+import { useState } from "react";
+import { ArrowRight, Check } from "lucide-react";
+
+export function NewsletterBand({ email, title, line, label, button }: { email: string; title: string; line: string; label: string; button: string }) {
+  const [sent, setSent] = useState(false);
+  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const v = (new FormData(e.currentTarget).get("email") as string || "").trim();
+    if (!v) return;
+    const subject = encodeURIComponent("Newsletter subscription");
+    const body = encodeURIComponent(`Please subscribe ${v} to the 24/7 Clinic newsletter.`);
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    setSent(true);
+  };
+  return (
+    <section className="news-band rv" aria-labelledby="news-h">
+      <svg className="news-rings" viewBox="0 0 400 400" aria-hidden="true">
+        <circle cx="200" cy="200" r="90" /><circle cx="200" cy="200" r="140" /><circle cx="200" cy="200" r="190" />
+        <g className="news-orbit"><circle cx="200" cy="200" r="165" strokeDasharray="2 10" /><circle cx="365" cy="200" r="4" className="dot" /></g>
+      </svg>
+      <div className="news-copy">
+        <h2 id="news-h" className="h2">{title}</h2>
+        <p>{line}</p>
+      </div>
+      <form className="news-form" onSubmit={submit}>
+        <label htmlFor="news-email" className="sr-only">{label}</label>
+        <input id="news-email" name="email" type="email" required autoComplete="email" placeholder={label} />
+        <button type="submit" className="btn btn-primary">
+          {sent ? <Check size={18} aria-hidden="true" /> : null}<span>{button}</span>{sent ? null : <ArrowRight size={18} aria-hidden="true" />}
+        </button>
+      </form>
+    </section>
+  );
+}
