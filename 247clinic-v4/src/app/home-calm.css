@@ -147,8 +147,8 @@ main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolu
 .voices-who small { display: block; font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
 .voices-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); }
 .voices-dots { display: flex; gap: 6px; }
-.voices-dots i { width: 6px; height: 6px; border-radius: 6px; background: var(--line-2); transition: width 0.5s var(--ease), background 0.5s var(--ease); }
-.voices-dots i.on { width: 20px; background: var(--primary); }
+.voices-dots i { width: 6px; height: 6px; border-radius: 6px; background: var(--line-2); transition: transform 0.5s var(--ease), background 0.5s var(--ease); }
+.voices-dots i.on { transform: scale(1.6); background: var(--primary); }
 .voices-arrows { display: flex; gap: 8px; }
 .voices-arrows button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line-2); background: #fff; color: var(--ink); display: grid; place-items: center; cursor: pointer; transition: background 0.3s var(--ease), color 0.3s, border-color 0.3s; }
 .voices-arrows button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
