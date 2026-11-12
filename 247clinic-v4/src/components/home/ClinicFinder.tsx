@@ -133,6 +133,7 @@ export function ClinicFinder({ clinics, labels, base }: { clinics: FinderClinic[
 
   const list = useMemo(() => (sel ? clinics.filter((c) => c.destination === sel) : clinics), [sel, clinics]);
   const dest = DESTINATIONS.find((d) => d.id === sel);
+  const usedDests = useMemo(() => DESTINATIONS.filter((d) => clinics.some((c) => c.destination === d.id)), [clinics]);
   const focused = clinics.find((c) => c.hotel === focus);
 
   const popup = useCallback((c: FinderClinic) => {
@@ -222,17 +223,20 @@ export function ClinicFinder({ clinics, labels, base }: { clinics: FinderClinic[
   return (
     <div className="finder-grid">
       <div className="finder-side">
+        {/* Only destinations that have clinics in this list; one destination needs no chips. */}
+        {usedDests.length > 1 && (
         <div className="chips" role="group" aria-label={labels.mapLabel}>
           <button type="button" className="chip-btn" aria-pressed={!sel} onClick={() => pick(null)}>
             {labels.all}<span className="chip-n">{clinics.length}</span>
           </button>
-          {DESTINATIONS.map((d) => (
+          {usedDests.map((d) => (
             <button key={d.id} type="button" className="chip-btn" aria-pressed={sel === d.id} onClick={() => pick(d.id)}>
               <MapPin size={15} aria-hidden="true" />{d.name}
               <span className="chip-n">{clinics.filter((c) => c.destination === d.id).length}</span>
             </button>
           ))}
         </div>
+        )}
         <ul className="clinic-list" aria-live="polite">
           <AnimatePresence initial={false} mode="popLayout">
             {list.map((c) => (

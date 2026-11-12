@@ -61,12 +61,29 @@ function chunks(html) {
   return out;
 }
 
+/* The brief's own templates (sections 20 and 21): "[Hotel Name]", "[Destination]" and its
+   example "Hurghada". A line passes when, with a real hotel or destination name put back
+   to the template word, it is the brief's. Names come from the clinic data only. */
+const DEST_NAMES = [...clinics.matchAll(/\{ id: "[a-z-]+", name: "([^"]+)" \}/g)].map((m) => norm(m[1]));
+const NOT_NAMES = /^([a-z]+(-[a-z]+)*|checked|theirs|placeholder)$/;
+const HOTEL_NAMES = [...clinics.matchAll(/\bc\(([^)]*)\)/g)]
+  .flatMap((m) => [...m[1].matchAll(/"([^"]+)"/g)].map((x) => x[1]).filter((x) => !NOT_NAMES.test(x)).map(norm))
+  .sort((a, b) => b.length - a.length);
+const templated = (n) => {
+  const out = [];
+  for (const h of HOTEL_NAMES) if (n.includes(h)) { out.push(n.split(h).join("hotel name")); break; }
+  const base = out.length ? [...out] : [n];
+  for (const s of base) for (const d of DEST_NAMES) if (s.includes(d)) { out.push(s.split(d).join("destination"), s.split(d).join("hurghada")); }
+  return out;
+};
+
 const ok = (s) => {
   const n = norm(s);
   if (!n) return true;
   if (patterns.some((re) => re.test(s.trim()))) return true;
   if (labels.has(n)) return true;
-  return corpus.includes(` ${n} `);
+  if (corpus.includes(` ${n} `)) return true;
+  return templated(n).some((t) => labels.has(t) || corpus.includes(` ${t} `));
 };
 
 /* ---- run ---- */

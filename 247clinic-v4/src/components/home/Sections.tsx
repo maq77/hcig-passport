@@ -9,7 +9,7 @@ import {
   MapPin, ShieldCheck, Stethoscope, Syringe, Thermometer, UserRoundCheck, UsersRound,
 } from "lucide-react";
 import { section, reviews } from "@/content/load";
-import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
+import { BRIEF, THEIRS } from "@/content/brief";
 import UI from "@/content/ui-labels.json";
 import { asset, BASE, NUMBERS } from "@/data/facts";
 import { CLINICS, clinicPath } from "@/data/clinics";
@@ -129,17 +129,16 @@ export function Facilities() {
             <InViewVideo src={asset("/media/hero.mp4")} className="stage-film" />
             <div className="stage-veil" aria-hidden="true" />
             <BigPlay src="/media/commercial.mp4" label="Watch video" />
+            {/* The accreditation sits on the film on every screen (the user, 2026-11-12:
+                "on mobile ... like on the video like on desktop"); the HCIG chip is gone here. */}
+            <div className="uca-badge">
+              <span className="uca-logo"><img src={asset("/logos/marks/uca.png")} alt="" width={48} height={48} /></span>
+              <span className="uca-text">
+                <small>Accreditation</small>
+                <b>Urgent Care Association</b>
+              </span>
+            </div>
           </Grow>
-          <div className="stage-chips">
-            <div className="stage-chip rv" style={d(200)}>
-              <img src={asset("/logos/marks/uca.png")} alt="" width={48} height={48} />
-              <span>Urgent Care Association</span>
-            </div>
-            <div className="stage-chip rv" style={d(300)}>
-              <img src={asset("/logos/marks/hcig.png")} alt="" width={50} height={48} />
-              <span>{APPROVED.partOf}</span>
-            </div>
-          </div>
         </div>
         <ul className="standards">
           {s.items.map((it, i) => {
@@ -368,11 +367,11 @@ export function Stories() {
 }
 
 /* ---------------- 9. their blog (from their site, with his leave) ---------------- */
-export function Posts() {
+export function Posts({ noHead }: { noHead?: boolean } = {}) {
   return (
-    <section className="section bg-surface" aria-labelledby="blog-h">
+    <section className="section bg-surface" aria-labelledby={noHead ? undefined : "blog-h"} aria-label={noHead ? THEIRS.blog : undefined}>
       <div className="container">
-        <Head center id="blog-h" title={THEIRS.blog} />
+        {!noHead && <Head center id="blog-h" title={THEIRS.blog} />}
         <SnapRow className="posts-row" gridFrom={768} label={THEIRS.blog} labels={{ prev: "Previous", next: "Next" }}>
           {POSTS.map((p, i) => (
             <li key={p.href} className="rv" style={d(i * 90)}>

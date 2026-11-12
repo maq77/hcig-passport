@@ -5,7 +5,7 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { asset, BASE, PHONE } from "@/data/facts";
 import { DESTINATIONS } from "@/data/clinics";
-import { FOOTER_ONLY, NAV } from "@/data/nav";
+import { FOOTER_ONLY, MORE_PAGES, NAV } from "@/data/nav";
 import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
 import { section } from "@/content/load";
 import { CallButton, WaButton } from "@/components/ui/Buttons";
@@ -45,7 +45,7 @@ export function Footer({ nav, footerOnly }: { nav: string[]; footerOnly: string[
           </nav>
           <div>
             <h4>Destinations</h4>
-            <ul>{DESTINATIONS.map((d) => <li key={d.id}><a href={`${BASE}/#clinics-${d.id}`}>{d.name}</a></li>)}</ul>
+            <ul>{DESTINATIONS.map((d) => <li key={d.id}><a href={`${BASE}/${d.id}`}>{d.name}</a></li>)}</ul>
           </div>
           <div>
             <h4>Contact</h4>
@@ -60,7 +60,10 @@ export function Footer({ nav, footerOnly }: { nav: string[]; footerOnly: string[
 
         <div className="foot-base">
           <span>&copy; {year} 24/7 Clinic. {THEIRS.rights}</span>
-          <ul>{FOOTER_ONLY.map((n, i) => <li key={n.path}><a href={`${BASE}${n.path}`}>{footerOnly[i]}</a></li>)}</ul>
+          <ul>
+            {FOOTER_ONLY.map((n, i) => <li key={n.path}><a href={`${BASE}${n.path}`}>{footerOnly[i]}</a></li>)}
+            {MORE_PAGES.map((n) => <li key={n.path}><a href={`${BASE}${n.path}`}>{n.name}</a></li>)}
+          </ul>
         </div>
       </div>
     </footer>

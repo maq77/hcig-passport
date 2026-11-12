@@ -1,0 +1,78 @@
+{
+  "page": "beauty-treatments",
+  "source": "Quoted exactly from https://www.247clinic.net/beauty-wellness on 2026-11-12, carried over with the user's leave (2026-09-23: 'you can get sections that feels good if we add from original website'). Brief section 29: do not remove the page.",
+  "labels": {
+    "indications": "Indications:"
+  },
+  "items": [
+    {
+      "title": "Mesotherapy",
+      "text": "This is a minimally invasive procedure by which the skin is saturated with a complex of vitamins, minerals, amino acids and other beneficial substances. Such products in cosmetology are called meso-cocktails. Their main task is to replenish the deficiency of substances in the body and launch the internal processes of renewal, regeneration and healing.",
+      "indications": [
+        "Prevention of facial skin aging",
+        "Fine wrinkles and other signs of skin aging",
+        "Atrophic, hypertrophic and keloid scars",
+        "Porous and oily skin",
+        "Cuperosis"
+      ]
+    },
+    {
+      "title": "Biorevitalization",
+      "text": "Invasive procedure for comprehensive skin hydration and renovation using injections based on hyaluronic acid",
+      "indications": [
+        "Deep wrinkles, facial folds",
+        "Visible dryness and dehydration of the skin",
+        "Flabbiness of the skin",
+        "Disorders of the sebaceous glands, enlarged pores",
+        "Pigmentation",
+        "Cell restoration after plastic surgery, resurfacing, peeling",
+        "Prevention of the negative effects of ultraviolet radiation 2 weeks before and after vacation"
+      ]
+    },
+    {
+      "title": "Bioreparation & Skin Boosters",
+      "text": "A procedure for biological restoration of skin, which is rightfully considered a stage in the evolution of the biorevitalization procedure. Bioreparants are complex preparations based on hyaluronic acid, additionally containing peptides, amino acids, vitamins, minerals, growth factors and coenzymes. Bioreparation is the newest method of restoring youth to the skin using intradermal microinjections",
+      "indications": [
+        "Decreased skin tone (flabbiness, sagging skin)",
+        "Wrinkles: mimic and age-related, dermal creases",
+        "Dryness and dehydration of the skin of the face, hands, neck, décolleté, body",
+        "Signs of photoaging, pigmentation, freckles",
+        "Cuperosis",
+        "Acne, post-acne spots",
+        "Violation of skin texture, scars, stretch marks (stretch marks)",
+        "Dull complexion, smoker's skin, dark circles under the eyes",
+        "Preparation and rehabilitation of the skin after aggressive procedures (laser resurfacing, peelings)",
+        "Decreased skin hydration and elasticity"
+      ]
+    },
+    {
+      "title": "Contour Plastic",
+      "text": "One of the most popular procedures for combating signs of aging, voluminous modeling of the oval of the face with fillers without surgery. Contour plastic surgery is carried out using fillers based on biodegradable hyaluronic acid and other active components. Filler in the form of a highly purified dense gel is injected into the tissue, correcting lost volumes.",
+      "indications": [
+        "Moderate age-related changes",
+        "Deterioration of the oval contour of the face",
+        "Facial asymmetry",
+        "Lack of volume in the lip area",
+        "Deep nasolabial folds",
+        "Nasolacrimal grooves",
+        "Wrinkles between the eyebrows",
+        "Imperfect chin shape and cheekbone line",
+        "Wrinkles around the eyes",
+        "Atrophic changes in facial skin",
+        "Wrinkles on the neck"
+      ]
+    },
+    {
+      "title": "Botulinum therapy",
+      "text": "Injection of botulinum toxin to eliminate facial wrinkles and hyperhidrosis",
+      "indications": [
+        "Expression wrinkles of the face",
+        "Age-related changes in the décolleté area, cords on the neck",
+        "Drooping corners of lips",
+        "Facial asymmetry",
+        "Hyperhidrosis",
+        "Cuperosis, rosacea"
+      ]
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./pages.css";
 import { global, section } from "@/content/load";
 import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
 import { IS_PREVIEW } from "@/data/facts";

@@ -59,7 +59,12 @@
     "Experience",
     "WORLD-CLASS CLINICS",
     "Elite Care",
-    "PROFESSIONALISM"
+    "PROFESSIONALISM",
+    "Breadcrumb",
+    "Message",
+    "Send",
+    "WhatsApp",
+    "About Us"
   ],
   "patterns": [
     "^Call \\+20 122 222 8247$",

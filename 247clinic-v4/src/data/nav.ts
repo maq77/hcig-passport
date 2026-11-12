@@ -13,6 +13,13 @@ export const NAV = [
 
 export const FOOTER_ONLY = [{ path: "/beauty-wellness" }, { path: "/blog" }, { path: "/faqs" }];
 
+/* The brief's new pages (sections 22, 23, 25), linked from the footer. Names are the brief's. */
+export const MORE_PAGES = [
+  { path: "/hotel-clinics", name: "Hotel Clinic Concept" },
+  { path: "/international-accreditation", name: "International Accreditation" },
+  { path: "/insurance-assistance-partners", name: "For Insurance & Assistance Companies" },
+];
+
 export const ROUTES = {
   services: "/services",
   insurance: "/insurance",

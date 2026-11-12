@@ -5,6 +5,7 @@
    sticky main bar (logo, the brief's seven nav items, red call, green WhatsApp).
    Phone: logo, green "Need a Doctor?", menu. The menu slides in from the right. */
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Clock, Globe, Mail, Menu, Phone, ShieldCheck, X } from "lucide-react";
 import { CallButton, WaButton } from "@/components/ui/Buttons";
@@ -39,7 +40,17 @@ export function Header({ labels }: { labels: Labels }) {
     return () => { clearTimeout(t); document.body.style.overflow = ""; window.removeEventListener("keydown", onKey); menuRef.current?.focus(); };
   }, [open]);
 
-  const links = NAV.map((n, i) => ({ href: `${BASE}${n.path}`, label: labels.nav[i], home: n.path === "/" }));
+  /* The menu item of the page you are on (inner pages, 2026-11-12). Clinic and destination
+     pages sit under Find a Clinic; the B2B pages under For Hotels & Partners. */
+  const path = (usePathname() || "/").replace(/\/$/, "") || "/";
+  const section = (p: string) =>
+    p === "/" ? "/" :
+    /^\/(our-clinics|clinics|hurghada|sahl-hasheesh|soma-bay|marsa-alam|el-quseir|north-coast)(\/|$)/.test(p) ? "/our-clinics" :
+    /^\/(for-hotels|hotel-clinics|insurance-assistance-partners)(\/|$)/.test(p) ? "/for-hotels" :
+    /^\/(services|beauty-wellness)(\/|$)/.test(p) ? "/services" :
+    /^\/(about-us|international-accreditation)(\/|$)/.test(p) ? "/about-us" : p;
+  const here = section(path);
+  const links = NAV.map((n, i) => ({ href: `${BASE}${n.path}`, label: labels.nav[i], home: n.path === here }));
 
   return (
     <>
