@@ -1,0 +1,95 @@
+/* 24/7 Clinic v6 design tokens (specs/015-247clinic-v6-luxury-system/spec.md section 1).
+   Ivory ground, ink type, red as an accent only. Every other tone is an ink opacity.
+   Phone first: the base values are the phone, min-width queries add the rest. */
+:root {
+  /* colour */
+  --ivory: #FBF8F4;
+  --ink: #1A1414;
+  --red: #C00000;
+  --red-on-ink: #E8121C; /* red text on ink, for contrast */
+  --white: #FFFFFF;
+  --wa: #25D366; /* the WhatsApp frame */
+  --wa-glyph: #1DA851;
+  --wa-ink: #0B7A3A; /* WhatsApp text on white */
+
+  --ink-100: var(--ink);
+  --ink-78: rgba(26, 20, 20, 0.78);
+  --ink-62: rgba(26, 20, 20, 0.62);
+  --line-2: rgba(26, 20, 20, 0.24);
+  --line: rgba(26, 20, 20, 0.12);
+  --tint: rgba(26, 20, 20, 0.04);
+  --tint-2: rgba(26, 20, 20, 0.07);
+  /* ivory on ink */
+  --on-ink: var(--ivory);
+  --on-ink-78: rgba(251, 248, 244, 0.78);
+  --on-ink-62: rgba(251, 248, 244, 0.62);
+  --on-ink-line: rgba(251, 248, 244, 0.16);
+  --on-ink-line-2: rgba(251, 248, 244, 0.32);
+  --on-ink-tint: rgba(251, 248, 244, 0.06);
+
+  /* names the rest of the code (and the home editor) already uses */
+  --primary: var(--red);
+  --primary-deep: var(--ink);
+  --ink-2: var(--ink-78);
+  --ink-3: var(--ink-62);
+  --canvas: var(--ivory);
+  --surface: var(--tint);
+
+  /* type */
+  --font-body: var(--font-sans), "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  --font-head: var(--font-lux), "Cormorant Garamond", Georgia, serif;
+  --font-num: var(--font-display), "Book Antiqua", Palatino, Georgia, serif;
+  --fs-body: 16px;
+  --fs-label: 12px;
+  --fs-h1: clamp(44px, 6.4vw, 92px);
+  --fs-h2: clamp(34px, 4.4vw, 60px);
+  --fs-h3: clamp(24px, 2vw, 28px);
+  --side-word: 26px; /* the vertical side words, desktop only (his edge label zooms) */
+  --side-drop: clamp(40px, 12vh, 160px); /* he pulled every side word below the middle */
+  --measure: 60ch;
+
+  /* shape */
+  --r-tag: 4px;
+  --r-card: 10px;
+  --r-photo: 16px;
+  --r-sheet: 24px;
+  --r-pill: 999px;
+  --hair: 1px;
+  --rule-w: 40px;
+  --shadow-float: 0 18px 48px rgba(26, 20, 20, 0.16);
+
+  /* motion */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-curtain: cubic-bezier(0.76, 0, 0.24, 1);
+  --t1: 180ms;
+  --t2: 400ms;
+  --t3: 900ms;
+  --t4: 1400ms;
+
+  /* rhythm */
+  --gutter: clamp(16px, 4.4vw, 64px);
+  --section: clamp(64px, 8vw, 120px);
+  --wrap: 1280px;
+  --wrap-compact: 1040px; /* his 0.8 container zooms */
+  --topbar: 0px;
+  --hdr: 60px;
+  --header-h: var(--hdr);
+  color-scheme: light;
+}
+@media (min-width: 1024px) { :root { --fs-body: 17px; --fs-label: 15px; } }
+@media (min-width: 1200px) { :root { --topbar: 36px; --hdr: 88px; } }
+
+/* Tailwind utilities read the same tokens. */
+@theme inline {
+  --color-ivory: var(--ivory);
+  --color-ink: var(--ink);
+  --color-red: var(--red);
+  --color-line: var(--line);
+  --font-serif: var(--font-head);
+  --radius-tag: var(--r-tag);
+  --radius-card: var(--r-card);
+  --radius-photo: var(--r-photo);
+  --radius-sheet: var(--r-sheet);
+  --ease-lux: var(--ease);
+}

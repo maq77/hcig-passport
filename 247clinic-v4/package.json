@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "edit": "node editor/start.mjs",
-    "build": "next build && node scripts/flatten-rsc.mjs && node scripts/check-brief.mjs",
+    "build": "next build && node scripts/flatten-rsc.mjs && node scripts/check-brief.mjs && node scripts/audit-design.mjs",
+    "audit": "node scripts/audit-design.mjs",
     "check": "node scripts/check-brief.mjs",
     "media": "node scripts/media.mjs",
     "fonts": "node scripts/fonts.mjs",

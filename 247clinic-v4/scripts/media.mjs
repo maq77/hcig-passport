@@ -51,11 +51,11 @@ const INTRO = "247 clinic video intro - where you are in your hotel.mp4";
 
 if (!only || only === "hero") {
   for (const old of ["hero.webm", "hero-m.mp4", "hero-m.webm"]) fs.rmSync(path.join(OUT, old), { force: true });
-  copyLoop(HERO, "hero", 14);
+  loop(HERO, "hero", { secs: 14, w: 1280, crf: 28 }); // re-encoded (was stream copy, 2.6 MB)
   full(HERO, "commercial"); // the whole film with sound, for Watch in the facilities section
 }
 if (!only || only === "intro") {
-  loop(INTRO, "intro-prev", { secs: 10, w: 540, crf: 23 });
+  loop(INTRO, "intro-prev", { secs: 10, w: 540, crf: 26 });
   full(INTRO, "intro");
 }
 if (!only || only === "stories") {

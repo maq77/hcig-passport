@@ -9,8 +9,8 @@ import {
   MapPin, Pill, ShieldCheck, Sparkles, Stethoscope, Syringe, Thermometer, UserRoundCheck, UsersRound,
 } from "lucide-react";
 import { section, reviews } from "@/content/load";
-import { BRIEF, THEIRS } from "@/content/brief";
-import UI from "@/content/ui-labels.json";
+import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
+import { preload } from "react-dom";
 import { asset, BASE, NUMBERS } from "@/data/facts";
 import { CLINICS, clinicPath } from "@/data/clinics";
 import { FLAGS, HERO_SLIDES, HOTEL_BRANDS, INSURERS, INTRO, PHOTOS, POSTS, STORIES, TRUSTED_PHOTOS, type Logo } from "@/data/media";
@@ -22,14 +22,11 @@ import { WhatsAppGlyph } from "@/components/ui/Icon";
 import { CountUp, InViewVideo } from "@/components/ui/Motion";
 import { Marquee } from "@/components/ui/Marquee";
 import { More } from "@/components/ui/More";
-import { Watermark } from "@/components/ui/Watermark";
 import { SnapRow } from "@/components/ui/SnapRow";
 import { BigPlay, Watch } from "@/components/ui/Viewer";
-import { Drift } from "@/components/ui/ScrollFx";
 import { HeroCarousel } from "./HeroCarousel";
 import { StoryCarousel } from "./StoryRow";
 import { ClinicFinder } from "./ClinicFinder";
-import { Parallax } from "./Parallax";
 import { FaqList } from "./FaqList";
 import { StepsReveal } from "./StepsReveal";
 import { DetailCard } from "@/components/ui/DetailCard";
@@ -38,15 +35,30 @@ import { serviceDetail } from "@/components/page/Common";
 
 const href = (p: string) => `${BASE}${p}`;
 const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` });
+const k = (n: number) => ({ ["--k" as string]: n });
 
-/* ---------------- 1. hero ---------------- */
+/* The side words beside each section, desktop only. The same strings as in src/content/ui-labels.json,
+   named here instead of read by index (that file is append only). */
+const SIDE = {
+  hotelBand: "Partner",
+  services: " Luxury   Premium  ELite ",
+  howItWorks: "Fast Procedures",
+  stories: "Experience",
+  facilities: "WORLD-CLASS CLINICS",
+  intro: "Elite Care",
+  insurance: "PROFESSIONALISM",
+} as const;
+
+/* ---------------- 1. hero ----------------
+   v6 (spec 015): desktop, the ink panel left (44%) and the photo right (56%); phones, the photo
+   on top and the ink panel below with stacked buttons. Two tiers in Cormorant (his 0.9 / 0.8 edit),
+   one foot row: the approved accreditation line with the UCA mark, and the slide counter. */
 export function Hero() {
   const s = section("home", "hero");
   /* Two lines, the second in red. A line break in the heading splits them; older content
-     split at the full stop. Nothing is added to the words (the user removed the full stops
-     in the editor, 2026-09-24). */
+     split at the full stop. Nothing is added to the words. */
   const [first, ...rest] = s.heading.includes("\n") ? s.heading.split("\n") : s.heading.split(/(?<=\.)\s+/);
-  const [live, ...tags] = (s.subheading ?? "").split("•").map((t) => t.trim()).filter(Boolean);
+  const [live] = (s.subheading ?? "").split("•").map((t) => t.trim()).filter(Boolean);
   /* Each slide is captioned with the title of what it shows, further down the page. */
   const svc = section("home", "medical-services");
   const care = section("home", "what-is-247-clinic");
@@ -54,36 +66,33 @@ export function Hero() {
   const captions = [svc.items.find((x) => /hotel room/i.test(x.title))?.title, care.items[0]?.title, how.items[0]?.title, care.items[1]?.title];
   const slides = HERO_SLIDES
     .filter((sl) => (sl.slot ? slotFile(sl.slot) : true))
-    .map((sl, k) => ({ ...sl, src: asset(sl.src), srcM: "srcM" in sl && sl.srcM ? asset(sl.srcM) : undefined, caption: captions[k] ?? "" }));
+    .map((sl, n) => ({ ...sl, src: asset(sl.src), srcM: "srcM" in sl && sl.srcM ? asset(sl.srcM) : undefined, caption: captions[n] ?? "" }));
+  /* The first photo is the largest paint: ask for it before the page does. */
+  if (slides[0]) preload(slides[0].src, { as: "image", fetchPriority: "high" });
   return (
     <section className="hero" aria-labelledby="hero-h">
       <div className="hero-media">
-        {/* Fixed in place: no parallax (the user, 2026-11-12: "stop the zooming, make it normal, fixed place"). */}
-        <div className="hero-pic">
-          {slides.length
-            ? <HeroCarousel slides={slides} label="Photos" labels={{ prev: "Previous", next: "Next", show: "Show photo" }} />
-            : <Slot file="hero-desktop.webp" purpose="hero image" px="2400 x 1350" />}
-        </div>
+        {slides.length
+          ? <HeroCarousel slides={slides} label="Photos" labels={{ prev: "Previous", next: "Next", show: "Show photo" }} />
+          : <Slot file="hero-desktop.webp" purpose="hero image" px="2400 x 1350" />}
       </div>
-      <div className="container hero-inner">
+      <div className="hero-panel on-ink">
         <div className="hero-copy">
-          <p className="live"><span className="pulse" aria-hidden="true" />{live}</p>
+          <p className="hero-k label" style={k(0)}><span className="rule" aria-hidden="true" />{live}</p>
           <h1 id="hero-h">
-            <span className="ln">{first}</span>
-            <span className="ln accent">{rest.join(" ")}</span>
+            <span className="ln"><span>{first}</span></span>
+            <span className="ln accent"><span>{rest.join(" ")}</span></span>
           </h1>
-          <p className="hero-text">{s.body[0]}</p>
-          <div className="cta-row hero-ctas">
+          <p className="hero-text" style={k(1)}>{s.body[0]}</p>
+          <div className="cta-row hero-ctas" style={k(2)}>
             <WaButton placement="hero">{s.ctas[0].label}</WaButton>
             <LinkButton href={href(ROUTES.clinics)} placement="hero" ev="find_clinic_click">{s.ctas[1].label}</LinkButton>
           </div>
-          {/* On phones the black top bar is hidden, so its promises sit here instead. */}
-          <ul className="hero-facts">
-            {tags.map((t, i) => (
-              <li key={t}>{i === 0 ? <ShieldCheck size={17} aria-hidden="true" /> : <Globe size={17} aria-hidden="true" />}<span>{t}</span></li>
-            ))}
-          </ul>
         </div>
+        <p className="hero-foot" style={k(3)}>
+          <span className="hero-uca"><img src={asset("/logos/marks/uca.png")} alt="" width={30} height={30} /></span>
+          <span>{APPROVED.accredited}</span>
+        </p>
       </div>
     </section>
   );
@@ -97,7 +106,7 @@ function LogoTile({ l }: { l: Logo }) {
 export function HotelBand() {
   return (
     <section className="proof" aria-label={BRIEF.hotelClinics}>
-      <div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[52]}</div>
+      <div data-e-block="edge-label" data-e-field="text" className="edge-label left">{SIDE.hotelBand}</div>
       <div className="container">
         <ul className="stats">
           {NUMBERS.map((n, i) => {
@@ -126,13 +135,12 @@ const POINT_ICONS = [Globe, ShieldCheck, Stethoscope, Award];
 export function Facilities() {
   const s = section("home", "accreditation-block");
   return (
-    <section className="section bg-surface facilities" aria-labelledby="fac-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[56]}</div>
+    <section className="section bg-surface facilities" aria-labelledby="fac-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{SIDE.facilities}</div>
       <div className="container">
         <Head center eyebrow="Accreditation" id="fac-h" title={s.heading} lead={<p>{s.body[0]}</p>} />
         <div className="stage-wrap">
           <div className="stage">
             <InViewVideo src={asset("/media/hero.mp4")} className="stage-film" />
-            <div className="stage-veil" aria-hidden="true" />
             <BigPlay src="/media/commercial.mp4" label="Watch video" />
             {/* The accreditation sits on the film on every screen (the user, 2026-11-12:
                 "on mobile ... like on the video like on desktop"); the HCIG chip is gone here. */}
@@ -156,7 +164,7 @@ export function Facilities() {
             );
           })}
         </ul>
-        <div className="cta-row center rv" style={{ marginTop: 20 }}>
+        <div className="cta-row center rv">
           <TextLink href={href(ROUTES.accreditation)} placement="accreditation">{s.ctas[0].label}</TextLink>
         </div>
       </div>
@@ -165,7 +173,7 @@ export function Facilities() {
 }
 
 /* ---------------- 4. what we treat (brief 10) ---------------- */
-/* Six cards in their old 3 x 2 / 2-column grid, then the seventh as a bordeaux feature
+/* Six cards in their old 3 x 2 / 2-column grid, then the seventh as a solid ink feature
    (the user, 2026-11-12: canvas option D, with 04 and 07 switched). */
 const SVC_ICONS = [Thermometer, Bandage, FlaskConical, Pill, UserRoundCheck, BedDouble];
 const SVC_FILES = ["svc-urgent", "svc-injuries", "svc-diagnostics", "svc-delivery", "svc-specialist", "svc-room-visit"];
@@ -173,7 +181,7 @@ export function Services() {
   const s = section("home", "medical-services");
   const feature = s.items[6];
   return (
-    <section className="section services" aria-labelledby="svc-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[53]}</div>
+    <section className="section services" aria-labelledby="svc-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{SIDE.services}</div>
       <div className="container">
         <div className="head-row">
           <Head eyebrow="What we treat" id="svc-h" title={s.heading} />
@@ -236,7 +244,7 @@ export function Services() {
             <img className="svc-feature-img" src={asset("/slots/svc-iv.webp")} alt={feature.title} width={1200} height={800} loading="lazy" />
           </article>
         )}
-        <div className="cta-row center rv" style={{ marginTop: 28 }}>
+        <div className="cta-row center rv">
           <WaButton placement="section-services">{BRIEF.waUs}</WaButton>
           <CallButton placement="section-services" />
         </div>
@@ -249,17 +257,16 @@ export function Services() {
 export function Intro() {
   const s = section("home", "what-is-247-clinic");
   return (
-    <section className="section bg-surface intro" aria-labelledby="intro-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[57]}</div>
-      <Watermark />
+    <section className="section bg-surface intro" aria-labelledby="intro-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{SIDE.intro}</div>
       <div className="container intro-grid">
         <div className="intro-media rv">
-          <Drift speed={0.04} className="wv-main">
+          <div className="wv-main drift">
             <img src={asset(PHOTOS.why.src)} alt="" width={PHOTOS.why.w} height={PHOTOS.why.h} loading="lazy" />
             <Watch src={INTRO.full} label="Watch video" />
-          </Drift>
-          <Drift speed={-0.1} className="wv-sub">
+          </div>
+          <div className="wv-sub drift back">
             <img src={asset(PHOTOS.whyResort.src)} alt="" width={PHOTOS.whyResort.w} height={PHOTOS.whyResort.h} loading="lazy" />
-          </Drift>
+          </div>
         </div>
         <div className="intro-copy">
           <Head eyebrow="On-site care" id="intro-h" title={s.heading} lead={<p>{s.body[0]}</p>} />
@@ -285,7 +292,7 @@ const STEP_ICONS: React.ComponentType<{ size?: number }>[] = [WhatsAppGlyph, Map
 export function HowItWorks() {
   const s = section("home", "how-it-works");
   return (
-    <section className="section how" aria-labelledby="how-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[54]}</div>
+    <section className="section how" aria-labelledby="how-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{SIDE.howItWorks}</div>
       <div className="container">
         <Head center eyebrow="How it works" id="how-h" title={s.heading} />
         <StepsReveal>
@@ -306,7 +313,7 @@ export function HowItWorks() {
           })}
         </ol>
         </StepsReveal>
-        <div className="cta-row center rv" style={{ marginTop: 32 }}>
+        <div className="cta-row center rv">
           <WaButton placement="section-how">{s.ctas[0].label}</WaButton>
         </div>
       </div>
@@ -320,7 +327,7 @@ export function Insurance(_: { insuranceMessage: string }) {
      one promise, three plain steps, one honest cashless line, one button, one quiet logo row. */
   const s = section("home", "insurance-cashless-care");
   return (
-    <section className="section bg-surface insurance ins2" aria-labelledby="ins-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[58]}</div>
+    <section className="section bg-surface insurance ins2" aria-labelledby="ins-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{SIDE.insurance}</div>
       <div className="container ins2-grid">
         <div className="ins2-copy">
           <Head eyebrow="Insurance & cashless" id="ins-h" title={s.heading} />
@@ -342,7 +349,7 @@ export function Insurance(_: { insuranceMessage: string }) {
       </div>
       <div className="band ins2-band rv">
         <span className="band-label">{BRIEF.insurancePartners}</span>
-        <Marquee label={BRIEF.insurancePartners} bg="#faf7f5" speed={30}>
+        <Marquee label={BRIEF.insurancePartners} speed={30}>
           {INSURERS.map((l) => <LogoTile key={l.name} l={l} />)}
         </Marquee>
       </div>
@@ -356,7 +363,7 @@ export function Insurance(_: { insuranceMessage: string }) {
 export function Stories() {
   const s = section("home", "reviews-testimonials");
   return (
-    <section className="section stories voices" aria-labelledby="st-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[55]}</div>
+    <section className="section stories voices" aria-labelledby="st-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{SIDE.stories}</div>
       <div className="container">
         <Head eyebrow="Patient stories" id="st-h" title={s.heading} />
       </div>
@@ -375,7 +382,7 @@ export function Stories() {
       <div className="voices-moments">
         <div className="container"><Head center id="trusted-h" title="Trusted by Patients" /></div>
         {[TRUSTED_PHOTOS].map((row, r) => (
-          <Marquee key={r} label="Trusted by Patients" speed={26} gap={14} bg="#fff">
+          <Marquee key={r} label="Trusted by Patients" speed={26} gap={14}>
             {row.map((p) => (
               <li key={p.src} className="moment" style={{ ["--ar" as string]: `${p.w} / ${p.h}` }}>
                 <img src={asset(p.src)} alt="Trusted by patient" width={p.w} height={p.h} loading="lazy" />
@@ -425,7 +432,7 @@ export function Finder() {
           clinics={CLINICS.map((c) => ({ hotel: c.hotel, destination: c.destination, lat: c.lat, lng: c.lng, mappable: c.coord !== "placeholder", href: clinicPath(c) }))}
           labels={{ all: THEIRS.all, waClinic: "WhatsApp This Clinic", directions: "Directions", clinics: BRIEF.hotelClinics, mapLabel: s.heading, showOnMap: "Show on map", moreDetails: "More details" }}
         />
-        <div className="cta-row center rv" style={{ marginTop: 24 }}>
+        <div className="cta-row center rv">
           <LinkButton href={href(ROUTES.clinics)} placement="finder" ev="find_clinic_click">{s.ctas[0].label}</LinkButton>
         </div>
       </div>
@@ -448,8 +455,10 @@ export function FinalCta() {
   };
   return (
     <section className="final" aria-labelledby="faq-h">
-      <Parallax src={asset(PHOTOS.resort.src)} small={asset(PHOTOS.resort.small)} />
-      <div className="final-scrim" aria-hidden="true" />
+      {/* His cream room photo, fixed; a slow CSS drift on fine pointers only. */}
+      <div className="final-photo" aria-hidden="true">
+        <img className="drift" src={asset(PHOTOS.resort.src)} srcSet={`${asset(PHOTOS.resort.small)} 1200w, ${asset(PHOTOS.resort.src)} 2400w`} sizes="100vw" alt="" loading="lazy" width={PHOTOS.resort.w} height={PHOTOS.resort.h} />
+      </div>
       <div className="container final-in">
         <div className="faq-grid">
           <div className="faq-side">

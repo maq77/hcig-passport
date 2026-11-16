@@ -1,6 +1,6 @@
 /* Inner pages (spec 007 phases 8 and 9, the user 2026-11-12: "finish making all other
-   pages"). One quiet system on the home's look: a short cinematic page hero (the photo
-   melts into bordeaux, as the phone home hero does), then ivory sections of few words,
+   pages"). One quiet system on the home's look: a page hero as a solid ink panel beside the photo
+   (v6: no veil, no orb), then ivory sections of few words,
    icon tiles instead of paragraphs, and one call to action per page.
    Every word is the brief's (scripts/check-brief.mjs checks the built pages). */
 import { Words } from "@/components/ui/Bits";
@@ -103,7 +103,6 @@ export function PageHero({ eyebrow, title, sub, lead, close, img, pos = "50% 50%
       <div className="ph-media" aria-hidden="true">
         <img src={asset(img)} alt="" style={{ ["--pos" as string]: pos, ["--pos-m" as string]: posM ?? pos }} fetchPriority="high" />
       </div>
-      <div className="ph-veil" aria-hidden="true" />
       <div className="container ph-in">
         <Crumbs trail={trail} />
         {eyebrow && <p className="ph-eyebrow">{eyebrow}</p>}

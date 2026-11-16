@@ -5,16 +5,21 @@
    make like hovering effect ... animated ... framer motion and tailwind").
    Every description reserves the same two lines, so cards stay the same size. The full
    text is always in the page: without JS it simply shows whole (html:not(.js) rules). */
-import { useEffect, useId, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useId, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { ChevronDown } from "lucide-react";
+
+/* Set by a parent that opens every description at once (How it works on desktop). */
+export const AllOpen = createContext(false);
 
 export function More({ text, label, lines = 2, center = false, className = "" }: {
   text: string; label: string; lines?: number; center?: boolean; className?: string;
 }) {
   const id = useId();
   const body = useRef<HTMLDivElement>(null);
-  const [open, setOpen] = useState(false);
+  const [own, setOpen] = useState(false);
+  const all = useContext(AllOpen);
+  const open = own || all;
   /* The two-line height and the full height, in px, once measured. Animating between two
      numbers is exact both ways ("auto" loses track on the way back). */
   const [dims, setDims] = useState<{ closed: number; full: number } | null>(null);
@@ -62,12 +67,11 @@ export function More({ text, label, lines = 2, center = false, className = "" }:
           aria-controls={id}
           aria-label={`${open ? "Show less" : "Show more"}: ${label}`}
           onClick={() => setOpen((o) => !o)}
-          whileHover={reduce ? undefined : { scale: 1.1, y: -1 }}
-          whileTap={reduce ? undefined : { scale: 0.92 }}
-          transition={{ type: "spring", stiffness: 420, damping: 24 }}
+          whileTap={reduce ? undefined : { scale: 0.96 }}
+          transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
         >
-          <motion.span className="grid" animate={{ rotate: open ? 180 : 0 }} transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 20 }}>
-            <ChevronDown size={18} strokeWidth={2.4} aria-hidden="true" />
+          <motion.span className="grid" animate={{ rotate: open ? 180 : 0 }} transition={reduce ? { duration: 0 } : { duration: 0.4, ease: [0.16, 1, 0.3, 1] }}>
+            <ChevronDown size={18} aria-hidden="true" />
           </motion.span>
         </motion.button>
       )}

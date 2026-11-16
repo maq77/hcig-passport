@@ -166,10 +166,10 @@ export function InsurerBand() {
   return (
     <div className="band rv">
       <span className="band-label">{BRIEF.insurancePartners}</span>
-      <Marquee label={BRIEF.insurancePartners} bg="#faf7f5">
+      <Marquee label={BRIEF.insurancePartners}>
         {INSURERS.slice(0, half).map((l) => <li key={l.name} className="logo-tile"><img src={asset(l.src)} alt={l.name} width={l.w} height={l.h} loading="lazy" /></li>)}
       </Marquee>
-      <Marquee label={BRIEF.insurancePartners} direction="right" bg="#faf7f5">
+      <Marquee label={BRIEF.insurancePartners} direction="right">
         {INSURERS.slice(half).map((l) => <li key={l.name} className="logo-tile"><img src={asset(l.src)} alt={l.name} width={l.w} height={l.h} loading="lazy" /></li>)}
       </Marquee>
     </div>

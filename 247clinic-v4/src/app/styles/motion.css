@@ -1,0 +1,73 @@
+/* Motion (spec 015 section 1). Out (.16,1,.3,1), in-out (.65,0,.35,1), curtain (.76,0,.24,1);
+   180, 400, 900 and 1400ms. Transform, opacity and clip-path only. Content is visible without
+   JS (the v2 lesson): every hidden start state hangs on html.js, which the inline gate removes
+   again after 3s if the app never marks itself ready. No wheel hijack, cursor, grain or sound. */
+
+/* ---------- text rises 16px with a fade, 900ms ---------- */
+html.js .rv { opacity: 0; transform: translateY(16px); transition: opacity var(--t3) var(--ease), transform var(--t3) var(--ease); transition-delay: var(--d, 0ms); }
+html.js .rv.in { opacity: 1; transform: none; }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes riseLine { from { transform: translateY(105%); } to { transform: none; } }
+@keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* ---------- headings rise word by word out of a clip mask ---------- */
+.hw .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.18em; margin-bottom: -0.18em; }
+.hw .w > span { display: inline-block; }
+html.js .h2.hw.rv { opacity: 1; transform: none; }
+html.js .hw .w > span { transform: translateY(105%); transition: transform var(--t3) var(--ease); transition-delay: calc(var(--i, 0) * 70ms + 80ms); }
+html.js .hw.in .w > span { transform: none; }
+
+/* ---------- the eyebrow's red rule draws in ---------- */
+html.js .eyebrow.rv::before, html.js .head.center .eyebrow.rv::after { transform: scaleX(0); transition: transform var(--t3) var(--ease) 200ms; }
+html.js .eyebrow.rv::before { transform-origin: right center; }
+html.js .head.center .eyebrow.rv::after { transform-origin: left center; }
+html.js .eyebrow.rv.in::before, html.js .head.center .eyebrow.rv.in::after { transform: scaleX(1); }
+
+/* ---------- photos open: a shimmer block, then a clip wipe with a scale from 1.05 (MediaShimmer) ---------- */
+/* The wipe runs only once the file is in: a clipped image would never start its lazy load. */
+html.js .shim:not(.svc-feature) { background-color: var(--tint-2); }
+html.js img.shim-i { opacity: 0; transform: scale(1.05); transition: opacity var(--t2) var(--ease), transform 1100ms var(--ease); }
+html.js img.shim-i.ld { opacity: 1; transform: none; animation: wipe 1100ms var(--ease-io) both; }
+@keyframes wipe { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
+
+/* ---------- a slow drift on fine pointers only, at most 4%, driven by the page's own scroll ---------- */
+@keyframes drift { from { transform: translateY(4%); } to { transform: translateY(-4%); } }
+@keyframes driftBack { from { transform: translateY(-3%); } to { transform: translateY(3%); } }
+@supports (animation-timeline: view()) {
+  @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .drift { animation: drift linear both; animation-timeline: view(); animation-range: cover; }
+    .drift.back { animation-name: driftBack; }
+  }
+}
+
+/* ---------- the opening curtain, once per visit: 1.2s, ivory, the logo, a red rule, then a clip lift ---------- */
+.oc { display: none; }
+html.js:not(.intro-seen) .oc { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; background: var(--ivory); clip-path: inset(0 0 0 0); animation: ocLift 500ms var(--ease-curtain) 700ms forwards; }
+.oc-in { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.oc img { width: 120px; height: auto; opacity: 0; transform: scale(0.96); animation: ocLogo 500ms var(--ease) forwards; }
+.oc-line { width: 160px; height: var(--hair); background: var(--red); transform: scaleX(0); animation: draw 500ms var(--ease-io) 200ms forwards; }
+@keyframes ocLogo { to { opacity: 1; transform: none; } }
+@keyframes ocLift { to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
+
+/* ---------- the hero: lines rise from their mask, the rest follows at 70ms ---------- */
+html.js .hero h1 .ln > span { animation: riseLine var(--t3) var(--ease) both; }
+html.js .hero h1 .ln + .ln > span { animation-delay: 70ms; }
+html.js :is(.hero-copy > :not(h1), .hero-foot) { animation: rise var(--t3) var(--ease) both; animation-delay: calc(var(--k, 0) * 70ms + 140ms); }
+html.js:not(.intro-seen) .hero h1 .ln > span { animation-delay: 760ms; }
+html.js:not(.intro-seen) .hero h1 .ln + .ln > span { animation-delay: 830ms; }
+html.js:not(.intro-seen) :is(.hero-copy > :not(h1), .hero-foot) { animation-delay: calc(var(--k, 0) * 70ms + 900ms); }
+
+/* ---------- reduced motion: the one block. Everything shows at once, nothing travels. ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; transition-delay: 0ms !important; scroll-behavior: auto !important; }
+  .oc { display: none !important; }
+  html.js .rv, html.js .hw .w > span, html.js img.shim-i { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+  html.js .eyebrow.rv::before, html.js .head.center .eyebrow.rv::after { transform: none !important; }
+  .wa-float::before, .bigplay .ring, .news-rings .news-orbit { display: none !important; }
+  .rail i { transform: none !important; }
+  /* the phone menu becomes a 200ms fade */
+  .menu { clip-path: none !important; opacity: 0; transition: opacity 200ms linear, visibility 0s linear 200ms !important; }
+  .menu.open { opacity: 1; transition: opacity 200ms linear, visibility 0s !important; }
+  .menu li { opacity: 1 !important; transform: none !important; }
+  .site-header { transform: none !important; }
+}
