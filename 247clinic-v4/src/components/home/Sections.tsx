@@ -4,7 +4,7 @@
    Without Leaving Your Resort" (brief 8) says, so the two are one section now.
    The words come from content/247clinic/en/home.json, rewritten on his instruction
    and logged in content/247clinic/approved-edits.json. Facts only from the brief or him. */
-import { Ambulance, ArrowUpRight, Award, Check, Globe, HeartPulse, MapPin, ShieldCheck, Stethoscope } from "lucide-react";
+import { Ambulance, ArrowUpRight, Award, Check, Globe, ShieldCheck, Stethoscope } from "lucide-react";
 import { section, reviews } from "@/content/load";
 import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
 import { preload } from "react-dom";
@@ -15,7 +15,6 @@ import { ROUTES } from "@/data/nav";
 import { CallButton, LinkButton, TextLink, WaButton } from "@/components/ui/Buttons";
 import { Head, Words } from "@/components/ui/Bits";
 import { Slot, slotFile } from "@/components/ui/Slot";
-import { WhatsAppGlyph } from "@/components/ui/Icon";
 import { CountUp, InViewVideo } from "@/components/ui/Motion";
 import { Marquee } from "@/components/ui/Marquee";
 import { More } from "@/components/ui/More";
@@ -25,7 +24,6 @@ import { HeroCarousel } from "./HeroCarousel";
 import { StoryCarousel } from "./StoryRow";
 import { ClinicFinder } from "./ClinicFinder";
 import { FaqList } from "./FaqList";
-import { StepsReveal } from "./StepsReveal";
 import { StepsLine } from "./StepsLine";
 import { GuestWords } from "./GuestWords";
 import { DetailCard } from "@/components/ui/DetailCard";
@@ -275,40 +273,6 @@ export function Intro() {
             <h3 className="how-line-h rv" id="how-h">{how.heading}</h3>
           </div>
           <StepsLine steps={how.items.map((it) => ({ title: it.title, text: it.text }))} labels={{ more: "Show more", less: "Show less" }} />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- 6. how it works (brief 12) ---------------- */
-const STEP_ICONS: React.ComponentType<{ size?: number }>[] = [WhatsAppGlyph, MapPin, ShieldCheck, HeartPulse];
-export function HowItWorks() {
-  const s = section("home", "how-it-works");
-  return (
-    <section className="section how" aria-labelledby="how-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{SIDE.howItWorks}</div>
-      <div className="container">
-        <Head center eyebrow="How it works" id="how-h" title={s.heading} />
-        <StepsReveal>
-        <ol className="steps" data-inview>
-          <span className="rail" aria-hidden="true"><i /></span>
-          {s.items.map((it, i) => {
-            const Ico = STEP_ICONS[i];
-            return (
-              <li key={it.title} className={`step rv ${i === 0 ? "first" : ""}`} style={d(i * 120)}>
-                <span className="dot" aria-hidden="true"><Ico size={24} /></span>
-                <div className="step-text">
-                  <span className="n">Step 0{i + 1}</span>
-                  <h3>{it.title}</h3>
-                  {it.text && <More text={it.text} label={it.title} className="step-more" />}
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-        </StepsReveal>
-        <div className="cta-row center rv">
-          <WaButton placement="section-how">{s.ctas[0].label}</WaButton>
         </div>
       </div>
     </section>

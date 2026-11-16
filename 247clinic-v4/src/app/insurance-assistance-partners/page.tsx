@@ -1,4 +1,5 @@
-/* For Insurance & Assistance Companies (brief 25), a B2B page. */
+/* For Insurance & Assistance Companies (brief 25), a B2B page.
+   v6: the split hero, the position as one pull line, the services as hairline rows, the insurers, one call. */
 import { section } from "@/content/load";
 import { BASE } from "@/data/facts";
 import { LinkButton, WaButton } from "@/components/ui/Buttons";
@@ -13,20 +14,16 @@ export default function InsurancePartners() {
   const cta = s.ctas[0].label;
   return (
     <>
-      <PageHero eyebrow="Insurance & cashless" title={s.heading} lead={[opening]} img="/slots/svc-specialist.webp" pos="50% 50%" posM="40% 50%"
+      <PageHero eyebrow="Insurance & cashless" title={s.heading} line={opening} img="/slots/svc-specialist.webp" pos="50% 50%" posM="40% 50%"
         trail={[{ name: "Home", path: "/" }, { name: "For Hotels & Partners", path: "/for-hotels" }, { name: "For Insurance & Assistance Companies", path: "/insurance-assistance-partners" }]}>
         <LinkButton href={`${BASE}/contact-us#business`} placement="insurers-hero">{cta}</LinkButton>
       </PageHero>
 
-      <Band id="p-position" narrow>
+      <Band id="p-services" title="Services may include">
         <p className="pg-pull rv">{position}</p>
+        <div className="mt-cta"><Tiles items={s.items} cols={3} /></div>
+        <InsurerBand />
       </Band>
-
-      <Band id="p-services" title="Services may include" tint>
-        <Tiles items={s.items} cols={4} />
-      </Band>
-
-      <InsurerBand />
 
       <CtaPanel title={cta}>
         <LinkButton href={`${BASE}/contact-us#business`} placement="insurers-cta">General & Business Enquiries</LinkButton>

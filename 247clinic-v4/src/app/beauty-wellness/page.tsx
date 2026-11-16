@@ -1,6 +1,7 @@
 /* Beauty & Wellness (brief 29: keep the page, out of the main menu, never competing
    with urgent care). The brief gives it no words, so the treatments are their own, quoted
-   exactly from www.247clinic.net/beauty-wellness (content/247clinic/en/beauty-treatments.json). */
+   exactly from www.247clinic.net/beauty-wellness (content/247clinic/en/beauty-treatments.json).
+   v6: the split hero, then each treatment as a hairline row whose words open on More. */
 import fs from "node:fs";
 import path from "node:path";
 import { BRIEF } from "@/content/brief";
@@ -19,7 +20,7 @@ export default function Beauty() {
         trail={[{ name: "Home", path: "/" }, { name: "Medical Services", path: "/services" }, { name: "Beauty & Wellness", path: "/beauty-wellness" }]}>
         <WaButton placement="beauty-hero">{BRIEF.waUs}</WaButton>
       </PageHero>
-      <Band id="b-list">
+      <Band id="b-list" label="Beauty & Wellness">
         <Tiles items={data.items.map((t) => ({ title: t.title, text: t.text }))} cols={3} />
         <div className="cta-row mt-cta rv">
           <LinkButton href={`${BASE}/services`} placement="beauty-list">Medical Services</LinkButton>

@@ -1,4 +1,6 @@
-/* Insurance & Cashless Care (brief 18). Kept at the live URL /insurance. */
+/* Insurance & Cashless Care (brief 18). Kept at the live URL /insurance.
+   v6: the split hero with one line, then how cashless works (one pull line and its condition), what we
+   coordinate as hairline rows, what we need beside two offset photos, the insurers, one call to action. */
 import { Info } from "lucide-react";
 import { section } from "@/content/load";
 import { BASE } from "@/data/facts";
@@ -16,26 +18,26 @@ export default function Insurance() {
   const [needLead, needList] = (need.text ?? "").split(/:\s*/);
   return (
     <>
-      <PageHero eyebrow="Insurance & cashless" title={s.heading} lead={[opening, works]} img="/img/hero-message.webp" pos="72% 50%" posM="92% 50%"
+      <PageHero eyebrow="Insurance & cashless" title={s.heading} line={opening} img="/img/hero-message.webp" pos="72% 50%" posM="92% 50%"
         trail={[{ name: "Home", path: "/" }, { name: "Insurance & Cashless Care", path: "/insurance" }]}>
         <WaButton placement="insurance-hero" ctx="insurance">{s.ctas[0].label}</WaButton>
       </PageHero>
 
-      <Band id="ins-how" title={howTitle} narrow>
+      <Band id="ins-how" title={howTitle} lead={<p>{works}</p>}>
         <div className="pg-copy rv">
           <p className="pg-pull">{how}</p>
           <p className="pg-note"><Info size={18} aria-hidden="true" /><span>{disclaimer}</span></p>
         </div>
+        <InsurerBand />
       </Band>
-
-      <InsurerBand />
 
       <Band id="ins-coord" title={coordTitle} tint>
-        <Tiles items={coordinate} cols={4} />
+        <Tiles items={coordinate} cols={2} />
       </Band>
 
-      <Band id="ins-need" title={need.title}>
-        <Split img="/img/why-bedside.webp" rev>
+      <Band id="ins-need" label={need.title}>
+        <Split img="/img/why-bedside.webp" img2="/img/hero-message.webp" pos2="80% 50%" rev>
+          <h2 className="h2 rv">{need.title}</h2>
           <Checks title={`${needLead}:`} items={needList.replace(/\.\s*$/, "").split(/,\s*/)} />
           <div className="cta-row rv">
             <WaButton placement="insurance-need" ctx="insurance">{s.ctas[0].label}</WaButton>

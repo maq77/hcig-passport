@@ -57,7 +57,7 @@ function changesOf(rules: Draft["rules"]) {
 
 const NAMES: Record<string, string> = {
   Hero: "Hero", HotelBand: "Numbers and hotels", Facilities: "Accreditation film", Services: "Services",
-  Intro: "Care in your resort", HowItWorks: "How it works", Insurance: "Insurance", Stories: "Patient stories",
+  Intro: "Care in your resort", Insurance: "Insurance", Stories: "Patient stories",
   Posts: "Blog posts", Finder: "Find a clinic", FinalCta: "FAQs on the photo", Ceo: "CEO quote", Destinations: "Destinations",
 };
 const DEVICE_LABEL: Record<string, string> = { desktop: "Desktop", tablet: "Tablet", phone: "Phone" };

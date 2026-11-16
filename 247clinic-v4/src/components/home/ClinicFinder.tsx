@@ -135,6 +135,8 @@ export function ClinicFinder({ clinics, labels, base }: { clinics: FinderClinic[
   const dest = DESTINATIONS.find((d) => d.id === sel);
   const usedDests = useMemo(() => DESTINATIONS.filter((d) => clinics.some((c) => c.destination === d.id)), [clinics]);
   const focused = clinics.find((c) => c.hotel === focus);
+  /* One destination (a destination page): the map card names it instead of All. */
+  const shownDest = dest ?? (usedDests.length === 1 ? usedDests[0] : undefined);
 
   const popup = useCallback((c: FinderClinic) => {
     const div = document.createElement("div");
@@ -221,22 +223,21 @@ export function ClinicFinder({ clinics, labels, base }: { clinics: FinderClinic[
   }, [pick, mapState]);
 
   return (
-    <div className="finder-grid">
-      <div className="finder-side">
-        {/* Only destinations that have clinics in this list; one destination needs no chips. */}
-        {usedDests.length > 1 && (
-        <div className="chips" role="group" aria-label={labels.mapLabel}>
-          <button type="button" className="chip-btn" aria-pressed={!sel} onClick={() => pick(null)}>
-            {labels.all}<span className="chip-n">{clinics.length}</span>
+    <div className={`finder-grid ${usedDests.length > 1 ? "has-nav" : ""}`}>
+      {/* v6: the destination names are the navigation above the map (Bvlgari). Only destinations that have
+          clinics in this list; one destination needs no navigation. */}
+      {usedDests.length > 1 && (
+        <div className="fd-nav" role="group" aria-label={labels.mapLabel}>
+          <button type="button" className="fd-dest" aria-pressed={!sel} onClick={() => pick(null)}>
+            <span className="fd-name">{labels.all}</span><span className="fd-n num">{clinics.length}</span>
           </button>
           {usedDests.map((d) => (
-            <button key={d.id} type="button" className="chip-btn" aria-pressed={sel === d.id} onClick={() => pick(d.id)}>
-              <MapPin size={15} aria-hidden="true" />{d.name}
-              <span className="chip-n">{clinics.filter((c) => c.destination === d.id).length}</span>
+            <button key={d.id} type="button" className="fd-dest" aria-pressed={sel === d.id} onClick={() => pick(d.id)}>
+              <span className="fd-name">{d.name}</span><span className="fd-n num">{clinics.filter((c) => c.destination === d.id).length}</span>
             </button>
           ))}
         </div>
-        )}
+      )}
         <ul className="clinic-list" aria-live="polite">
           <AnimatePresence initial={false} mode="popLayout">
             {list.map((c) => (
@@ -269,7 +270,6 @@ export function ClinicFinder({ clinics, labels, base }: { clinics: FinderClinic[
             ))}
           </AnimatePresence>
         </ul>
-      </div>
 
       <div className="map-frame">
         <div ref={box} className="map-canvas" role="application" aria-label={labels.mapLabel} />
@@ -278,8 +278,8 @@ export function ClinicFinder({ clinics, labels, base }: { clinics: FinderClinic[
           <span className="ring-ic"><MapPin size={18} aria-hidden="true" /></span>
           <div className="mc-text">
             <AnimatePresence mode="wait" initial={false}>
-              <motion.b key={focus ?? dest?.id ?? "all"} initial={reduce ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.25 }}>
-                {focus ?? dest?.name ?? labels.all}
+              <motion.b key={focus ?? shownDest?.id ?? "all"} initial={reduce ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.25 }}>
+                {focus ?? shownDest?.name ?? labels.all}
               </motion.b>
             </AnimatePresence>
             <span>{focused ? DESTINATIONS.find((d) => d.id === focused.destination)?.name : <><em className="mc-n">{list.length}</em> {labels.clinics}</>}</span>
@@ -302,7 +302,10 @@ function LeafletFallback({ clinics }: { clinics: FinderClinic[] }) {
   useEffect(() => {
     let map: import("leaflet").Map | undefined;
     let gone = false; // the effect may be cleaned up before the import resolves
-    (async () => {
+    const el = ref.current;
+    if (!el) return;
+    /* Leaflet loads only when the map nears the screen. */
+    const start = async () => {
       const L = (await import("leaflet")).default;
       if (gone || !ref.current) return;
       map = L.map(ref.current, { scrollWheelZoom: false, attributionControl: false });
@@ -311,8 +314,10 @@ function LeafletFallback({ clinics }: { clinics: FinderClinic[] }) {
       const g = L.featureGroup(clinics.filter((c) => c.mappable).map((c) =>
         L.circleMarker([c.lat, c.lng], { radius: 7, color: "#fff", weight: 2, fillColor: "#C00000", fillOpacity: 1 }).bindTooltip(c.hotel))).addTo(map);
       map.fitBounds(g.getBounds(), { padding: [36, 36] });
-    })();
-    return () => { gone = true; map?.remove(); };
+    };
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { io.disconnect(); start(); } }, { rootMargin: "300px" });
+    io.observe(el);
+    return () => { gone = true; io.disconnect(); map?.remove(); };
   }, [clinics]);
   return <div ref={ref} className="map-canvas" />;
 }

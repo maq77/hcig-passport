@@ -13,9 +13,14 @@ html.js .rv.in { opacity: 1; transform: none; }
 /* ---------- headings rise word by word out of a clip mask ---------- */
 .hw .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.18em; margin-bottom: -0.18em; }
 .hw .w > span { display: inline-block; }
-html.js .h2.hw.rv { opacity: 1; transform: none; }
+html.js .hw.rv { opacity: 1; transform: none; }
 html.js .hw .w > span { transform: translateY(105%); transition: transform var(--t3) var(--ease); transition-delay: calc(var(--i, 0) * 70ms + 80ms); }
 html.js .hw.in .w > span { transform: none; }
+
+/* ---------- the page hero photo opens with the clip wipe, from a 1.05 scale ---------- */
+html.js .ph-media img { animation: phOpen 1100ms var(--ease-io) 80ms both; }
+@keyframes phOpen { from { clip-path: inset(0 0 0 100%); transform: scale(1.05); } to { clip-path: inset(0); transform: none; } }
+@media (max-width: 1023px) { @keyframes phOpen { from { clip-path: inset(0 0 100% 0); transform: scale(1.05); } to { clip-path: inset(0); transform: none; } } }
 
 /* ---------- the eyebrow's red rule draws in ---------- */
 html.js .eyebrow.rv::before, html.js .head.center .eyebrow.rv::after { transform: scaleX(0); transition: transform var(--t3) var(--ease) 200ms; }
@@ -66,7 +71,8 @@ html.js:not(.intro-seen) :is(.hero-copy > :not(h1), .hero-foot) { animation-dela
   .wa-float::before, .bigplay .ring { display: none !important; }
   html.js .ceo-ring circle { stroke-dashoffset: 0 !important; }
   html.js .ceo-rule, html.js .ceo-who, html.js .sl-step.rv::before { opacity: 1 !important; transform: none !important; }
-  .rail i { transform: none !important; }
+  html.js .pg-cta.rv .rule { transform: none !important; }
+  html.js .ph-media img { clip-path: none !important; transform: none !important; }
   /* the phone menu becomes a 200ms fade */
   .menu { clip-path: none !important; opacity: 0; transition: opacity 200ms linear, visibility 0s linear 200ms !important; }
   .menu.open { opacity: 1; transition: opacity 200ms linear, visibility 0s !important; }

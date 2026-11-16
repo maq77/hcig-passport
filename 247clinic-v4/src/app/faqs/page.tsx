@@ -1,5 +1,5 @@
 /* FAQs (brief 28), at the live URL /faqs. The eleven questions, one open at a time,
-   with FAQPage data for search and AI answers. */
+   with FAQPage data for search and AI answers. v6: the quiet hero, then the home's hairline accordion. */
 import { section } from "@/content/load";
 import { BRIEF } from "@/content/brief";
 import { BASE } from "@/data/facts";
@@ -20,12 +20,12 @@ export default function Faqs() {
   };
   return (
     <>
-      <PageHero eyebrow="FAQ" title={home.heading} lead={home.body} img="/img/why-bedside.webp" pos="50% 50%" posM="62% 50%"
+      <PageHero quiet eyebrow="FAQ" title={home.heading} line={home.body[0]}
         trail={[{ name: "Home", path: "/" }, { name: "FAQs", path: "/faqs" }]}>
         <WaButton placement="faq-hero">{BRIEF.waUs}</WaButton>
       </PageHero>
-      <Band id="f-list">
-        <div className="pg-faq"><FaqList items={items} /></div>
+      <Band id="f-list" label={home.heading}>
+        <div className="pg-faq center"><FaqList items={items} /></div>
         <div className="cta-row center mt-cta rv">
           <LinkButton href={`${BASE}/our-clinics`} placement="faq-page" ev="find_clinic_click">Find Your Nearest Clinic</LinkButton>
         </div>

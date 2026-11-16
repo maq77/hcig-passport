@@ -1,4 +1,4 @@
-import { Facilities, FinalCta, Finder, Hero, HotelBand, HowItWorks, Insurance, Intro, Posts, Services, Stories } from "@/components/home/Sections";
+import { Facilities, FinalCta, Finder, Hero, HotelBand, Insurance, Intro, Posts, Services, Stories } from "@/components/home/Sections";
 import { CeoQuote } from "@/components/home/CeoQuote";
 import { Destinations } from "@/components/home/Destinations";
 import { WA_MESSAGES } from "@/lib/wa";
@@ -25,7 +25,7 @@ const EditorOverlay = process.env.NODE_ENV === "development"
   : () => null;
 
 const SECTIONS: Record<string, FC> = {
-  Hero, HotelBand, Facilities, Services, Intro, HowItWorks, Ceo: CeoQuote,
+  Hero, HotelBand, Facilities, Services, Intro, Ceo: CeoQuote,
   Insurance: () => <Insurance insuranceMessage={WA_MESSAGES.insurance} />,
   Stories, Posts, Finder, Destinations, FinalCta,
 };

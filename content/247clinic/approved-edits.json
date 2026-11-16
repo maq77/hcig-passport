@@ -687,6 +687,37 @@
       ],
       "note": "Approved for the group sites 2026-10-18 (hcig memory org.md); placed on the 24/7 home by his decision 2026-11-16.",
       "his_words": "he asked whether a CEO quote with a round portrait is good and left the decision to Claude (2026-11-16)"
+    },
+    {
+      "date": "2026-11-16",
+      "by": "Claude, under his standing permission for v6 (spec 015)",
+      "kind": "trim",
+      "where": "For Hotels & Partners (/for-hotels): the advantage band and the value band are one band now (spec 015 section 5, five bands down to four); Find a Clinic (/our-clinics) hero",
+      "rule": "Duplicates merged only. The twelve advantage lines stay word for word as one hairline list, followed by the one value line that says something new. Nothing else was cut.",
+      "removed": {
+        "for-hotels advantage, the two list titles (one list now)": [
+          "For Hotel Management",
+          "For Hotel Owners & Operators"
+        ],
+        "for-hotels value band, heading and opening": [
+          "A Healthcare Partnership That Strengthens Your Hotel",
+          "Financial & Brand Value",
+          "Professional medical support is more than an operational necessity. It can strengthen guest confidence, support premium positioning and make your property more attractive to travellers who value safety, convenience and access to healthcare."
+        ],
+        "for-hotels value items merged into the advantage line that already says them": {
+          "Stronger Safety & Premium Positioning": "Stronger guest safety and premium positioning",
+          "Greater Appeal to Families & Senior Guests": "Greater appeal to families, senior travellers and long-stay guests",
+          "Enhanced Long-Stay Guest Experience": "Greater appeal to families, senior travellers and long-stay guests",
+          "No Need to Manage Healthcare Operations Internally": "Fully managed medical operations without developing an internal healthcare department"
+        },
+        "our-clinics hero, its second sentence (the hero shows one line; the WhatsApp button says it)": [
+          "Find the nearest clinic or contact our 24/7 coordination team for assistance."
+        ]
+      },
+      "kept": [
+        "Stronger Guest Confidence & Loyalty (added to the end of the advantage list)"
+      ],
+      "his_words": "even if you want to re write or remove or add or edit or use content or designs ... dont ask me any questions"
     }
   ],
   "fromTheirSite": {
