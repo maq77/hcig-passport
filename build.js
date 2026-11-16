@@ -537,6 +537,13 @@ if (fs.existsSync(C7V5_SRC)) {
   fs.cpSync(C7V5_SRC, path.join(OUT, '247clinic', 'v5'), { recursive: true });
 }
 
+/* 24/7 Clinic v6 (spec 014): the elegant luxury remake with the 3-colour, 3-font design
+   system, built from 247clinic-v4 with `node scripts/preview-slot.mjs v6` (the user, 2026-11-12). */
+const C7V6_SRC = path.join(__dirname, 'src', '247clinic-v6');
+if (fs.existsSync(C7V6_SRC)) {
+  fs.cpSync(C7V6_SRC, path.join(OUT, '247clinic', 'v6'), { recursive: true });
+}
+
 /* 24/7 Clinic v3 (spec 007): the Next.js static export in 247clinic-v3, synced into
    src/247clinic-v3 by its `npm run sync`, served at /247clinic/v3. The preview build
    carries its own robots noindex, nofollow on every page. */
