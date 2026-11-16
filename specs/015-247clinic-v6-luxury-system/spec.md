@@ -269,3 +269,8 @@ He asked whether crowded sections can go and whether a CEO quote with a round po
 - Words, exact, approved for the group sites 2026-10-18 (hcig memory org.md): "Success isn't measured only by the number of visitors a destination attracts. It's measured by how well those visitors are cared for when they need help the most." Dr. Amr Abbass, CEO, Healthcare International Group. Log the quote, name and title in content/247clinic/approved-edits.json so check-brief passes.
 - Portrait: his real black and white studio portrait, `public/img/ceo-amr.webp` (from hcig-v6 lead-amr.webp). Never generated.
 - Design: an ivory band, centered. A round portrait (112px phone, 144px desktop) inside a 1px red ring that draws as a circle on view (SVG stroke-dashoffset, 1400ms in-out). Below it, the quote in Cormorant 300 at clamp(26px, 3.2vw, 44px), max 24ch per line, rising word by word through the clip mask. Then a 40px red rule draws, then name in Poppins 600 and title in label type. No quote-mark clip art; one large hairline quotation mark in Cormorant at 10% ink behind the first line. Reduced motion: everything static and visible.
+
+## Amendment 2 (speed, 2026-11-16)
+Live phone LCP on the home was 4.7s against v3's 2.7s; extra font files competed with the hero photo. Fonts now load the
+latin subset only (Cormorant 300/400, Poppins 400/500/600, Calisto 400). When the DE/PL/RU pages go live, add latin-ext
+(Polish) and cyrillic (Russian) back for those locales only.

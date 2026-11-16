@@ -11,15 +11,14 @@ import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { MediaShimmer } from "@/components/ui/MediaShimmer";
 import { RevealObserver, Tracker } from "@/components/ui/Motion";
 
-const sans = Poppins({ subsets: ["latin", "latin-ext"], weight: ["400", "500", "600"], variable: "--font-sans", display: "swap" });
+const sans = Poppins({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-sans", display: "swap" });
 /* Cormorant Garamond for h1, h2 and large quotes (spec 015): 300 and 400, upright only. */
-const lux = Cormorant_Garamond({ subsets: ["latin", "latin-ext", "cyrillic"], weight: ["300", "400"], style: ["normal"], variable: "--font-lux", display: "swap" });
+const lux = Cormorant_Garamond({ subsets: ["latin"], weight: ["300", "400"], style: ["normal"], variable: "--font-lux", display: "swap" });
 /* Calisto MT, licensed, supplied by the user 2026-09-23. Latin subsets built by scripts/fonts.mjs.
    Numbers, step numerals and the tagline only (the .num role). */
 const display = localFont({
   src: [
     { path: "../fonts/calisto-400.woff2", weight: "400", style: "normal" },
-    { path: "../fonts/calisto-700.woff2", weight: "700", style: "normal" },
   ],
   variable: "--font-display",
   display: "swap",
