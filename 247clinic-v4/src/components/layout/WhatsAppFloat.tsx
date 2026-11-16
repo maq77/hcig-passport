@@ -18,6 +18,9 @@ export function WhatsAppFloat({ prompts, sub, aria }: { prompts: string[]; sub: 
   const reduce = useReducedMotion();
   const [i, setI] = useState(0);
   const [small, setSmall] = useState(false);
+  /* Phones: the header already carries WhatsApp, so the float waits until the hero has mostly scrolled away
+     (it covered the hero's words on a 390px screen). */
+  const [away, setAway] = useState(false);
   const pill = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -42,6 +45,8 @@ export function WhatsAppFloat({ prompts, sub, aria }: { prompts: string[]; sub: 
     const read = () => {
       raf = 0;
       setSmall(window.scrollY > OPEN_ABOVE || overHeroFoot());
+      const hero = document.querySelector<HTMLElement>(".hero, .ph");
+      setAway(window.innerWidth < 768 && !!hero && hero.getBoundingClientRect().bottom > window.innerHeight * 0.55);
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(read); };
     read();
@@ -53,7 +58,7 @@ export function WhatsAppFloat({ prompts, sub, aria }: { prompts: string[]; sub: 
   const label = prompts[i];
 
   return (
-    <a href={waHref("homepage")} target="_blank" rel="noopener" className={`wa-float ${small ? "small" : ""}`} aria-label={aria}
+    <a href={waHref("homepage")} target="_blank" rel="noopener" className={`wa-float ${small ? "small" : ""} ${away ? "away" : ""}`} aria-label={aria}
       data-ev="whatsapp_medical_click" data-placement="floating">
       <span ref={pill} className="wa-pill" aria-hidden="true">
         <span className="t">

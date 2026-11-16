@@ -151,7 +151,7 @@ body:has(.pg-cta-wrap, .final-close) .site-footer .help-band { display: none; }
 .wa-float::before { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: 50%; border: 2px solid var(--wa); pointer-events: none; animation: waRing 2.8s ease-out infinite; }
 .wa-float:not(.small)::before { opacity: 0; animation: none; }
 @keyframes waRing { from { transform: scale(1); opacity: 0.6; } to { transform: scale(1.45); opacity: 0; } }
-body.has-layer .wa-float { opacity: 0; visibility: hidden; transform: translateY(12px); pointer-events: none; transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease), visibility 0s linear var(--t2); }
+.wa-float.away, body.has-layer .wa-float { opacity: 0; visibility: hidden; transform: translateY(12px); pointer-events: none; transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease), visibility 0s linear var(--t2); }
 @media (max-width: 640px) {
   .wa-float { right: 16px; bottom: 18px; }
   .wa-pill { display: none; }

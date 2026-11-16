@@ -1,5 +1,5 @@
 :HL["/247clinic/v6/_next/static/chunks/2f8x5b215gik9.css","style"]
-:HL["/247clinic/v6/_next/static/chunks/0y1aql-n0u9k5.css","style"]
+:HL["/247clinic/v6/_next/static/chunks/2pq3s9onasf_x.css","style"]
 :HL["/247clinic/v6/_next/static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/247clinic/v6/_next/static/media/8e6fa89aa22d24ec-s.p.2o7m9ogm38dql.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/247clinic/v6/_next/static/media/a218039a3287bcfd-s.p.43zbiuwnnoiok.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
@@ -8,4 +8,4 @@
 :HL["/247clinic/v6/_next/static/chunks/0n8kzvw2z_6as.css","style"]
 :HL["/247clinic/v6/logos/marks/247-logo.svg","image"]
 :HL["/247clinic/v6/img/dest-marsa-alam-1200.webp","image",{"fetchPriority":"high"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"clinics","param":null,"prefetchHints":4160,"slots":{"children":{"name":"destination","param":{"type":"d","key":"marsa-alam","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"hotel","param":{"type":"d","key":"steigenberger-alaya-marsa-alam-clinic","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}}}},"staleTime":300,"buildId":"aEL4FvYy6oOrC843Xf5Vg"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"clinics","param":null,"prefetchHints":4160,"slots":{"children":{"name":"destination","param":{"type":"d","key":"marsa-alam","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"hotel","param":{"type":"d","key":"steigenberger-alaya-marsa-alam-clinic","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}}}},"staleTime":300,"buildId":"2owuKfVTee-v7WFgdp5-v"}
