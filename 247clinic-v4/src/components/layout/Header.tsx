@@ -71,6 +71,7 @@ export function Header({ labels }: { labels: Labels }) {
     const body = document.body;
     const prev = body.style.overflow;
     body.style.overflow = "hidden";
+    body.classList.add("has-layer");
     const t = window.setTimeout(() => closeBtn.current?.focus(), 60);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") { e.preventDefault(); setOpen(false); return; }
@@ -85,6 +86,7 @@ export function Header({ labels }: { labels: Labels }) {
     return () => {
       window.clearTimeout(t);
       body.style.overflow = prev;
+      body.classList.remove("has-layer");
       window.removeEventListener("keydown", onKey);
       burger?.focus({ preventScroll: true });
     };

@@ -1,7 +1,7 @@
 "use client";
 
 /* The home FAQs (the user, 2026-09-24: "add FAQs with good styling and design").
-   One open at a time, the first open on arrival. Answers are always in the page, so
+   One open at a time, the first open on arrival. v6: hairline rows, the plus turns to an x, 400ms. Answers are always in the page, so
    search engines and AI answers read them; closed ones are only folded to zero height.
    Without JS every answer shows (html:not(.js) rule in globals.css). */
 import { useEffect, useId, useRef, useState } from "react";
@@ -42,15 +42,15 @@ function FaqItem({ n, q, a, open, reduce, onToggle }: {
         <button type="button" aria-expanded={open} aria-controls={id} onClick={onToggle}>
           <span className="faq-n" aria-hidden="true">{String(n).padStart(2, "0")}</span>
           <span className="faq-text">{q}</span>
-          <motion.span className="faq-ico" aria-hidden="true" animate={{ rotate: open ? 135 : 0 }}
-            transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 320, damping: 22 }}>
-            <Plus size={18} strokeWidth={2.4} />
+          <motion.span className="faq-ico" aria-hidden="true" animate={{ rotate: open ? 45 : 0 }}
+            transition={reduce ? { duration: 0 } : { duration: 0.4, ease: [0.16, 1, 0.3, 1] }}>
+            <Plus size={18} />
           </motion.span>
         </button>
       </h3>
       <motion.div id={id} role="region" className="faq-a" initial={false}
         animate={h === null ? undefined : { height: open ? h : 0, opacity: open ? 1 : 0 }}
-        transition={reduce ? { duration: 0 } : { duration: open ? 0.4 : 0.28, ease: [0.22, 1, 0.36, 1] }}>
+        transition={reduce ? { duration: 0 } : { duration: 0.4, ease: [0.16, 1, 0.3, 1] }}>
         <div ref={inner}><p>{a}</p></div>
       </motion.div>
     </li>

@@ -674,6 +674,19 @@
       },
       "to": "see home.json",
       "his_words": "rewrite and re make [the Insurance & cashless block], so it can be easy to understand and have better design and not crowded"
+    },
+    {
+      "date": "2026-11-16",
+      "by": "Claude, on the user's decision",
+      "kind": "add",
+      "where": "home, new CEO quote section (spec 015 Amendment 1)",
+      "text": [
+        "Success isn't measured only by the number of visitors a destination attracts. It's measured by how well those visitors are cared for when they need help the most.",
+        "Dr. Amr Abbass",
+        "CEO, Healthcare International Group"
+      ],
+      "note": "Approved for the group sites 2026-10-18 (hcig memory org.md); placed on the 24/7 home by his decision 2026-11-16.",
+      "his_words": "he asked whether a CEO quote with a round portrait is good and left the decision to Claude (2026-11-16)"
     }
   ],
   "fromTheirSite": {

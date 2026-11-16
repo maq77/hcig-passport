@@ -19,6 +19,7 @@
   --line: rgba(26, 20, 20, 0.12);
   --tint: rgba(26, 20, 20, 0.04);
   --tint-2: rgba(26, 20, 20, 0.07);
+  --ink-10: rgba(26, 20, 20, 0.1); /* the hairline quotation mark behind the CEO quote */
   /* ivory on ink */
   --on-ink: var(--ivory);
   --on-ink-78: rgba(251, 248, 244, 0.78);

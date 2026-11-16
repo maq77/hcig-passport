@@ -21,7 +21,8 @@ function useViewer() {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
-    return () => { clearTimeout(t); window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; btn.current?.focus(); };
+    document.body.classList.add("has-layer");
+    return () => { clearTimeout(t); window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; document.body.classList.remove("has-layer"); btn.current?.focus(); };
   }, [open]);
   return { open, setOpen, mounted, btn, close };
 }

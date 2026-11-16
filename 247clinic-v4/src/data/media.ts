@@ -98,14 +98,15 @@ export const POSTS = [
 ];
 
 
-/* Photos provided by user for "Trusted by Patients" gallery */
+/* Photos provided by user for "Trusted by Patients" gallery: his real photos, converted to WebP at 1200px
+   (spec 015 section 6); the PNG and JPEG originals were removed from public/img. */
 export const TRUSTED_PHOTOS = [
-  { src: "/img/trusted-main.jpg", w: 967, h: 1280 },
-  { src: "/img/trusted-1.jpeg", w: 969, h: 1280 },
-  { src: "/img/trusted-2.png", w: 1536, h: 2048 },
-  { src: "/img/trusted-3.png", w: 1600, h: 1200 },
-  { src: "/img/trusted-4.jpeg", w: 1019, h: 1280 },
-  { src: "/img/trusted-5.jpeg", w: 1042, h: 1280 },
-  { src: "/img/trusted-6.jpeg", w: 1038, h: 1280 },
-  { src: "/img/trusted-7.jpeg", w: 973, h: 1280 },
+  { src: "/img/trusted-main.webp", w: 907, h: 1200 },
+  { src: "/img/trusted-1.webp", w: 908, h: 1200 },
+  { src: "/img/trusted-2.webp", w: 900, h: 1200 },
+  { src: "/img/trusted-3.webp", w: 1200, h: 900 },
+  { src: "/img/trusted-4.webp", w: 955, h: 1200 },
+  { src: "/img/trusted-5.webp", w: 977, h: 1200 },
+  { src: "/img/trusted-6.webp", w: 973, h: 1200 },
+  { src: "/img/trusted-7.webp", w: 912, h: 1200 },
 ];

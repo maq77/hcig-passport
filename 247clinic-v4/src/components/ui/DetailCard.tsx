@@ -23,6 +23,13 @@ export function DetailCard({ trigger, children, label, className = "" }: {
     window.setTimeout(() => { setState("closed"); btn.current?.focus(); }, reduce ? 0 : 260);
   }, []);
 
+  /* The body class hides the WhatsApp float while the card is up. */
+  useEffect(() => {
+    if (state === "closed") return;
+    document.body.classList.add("has-layer");
+    return () => document.body.classList.remove("has-layer");
+  }, [state]);
+
   useEffect(() => {
     if (state !== "open") return;
     const prev = document.body.style.overflow;

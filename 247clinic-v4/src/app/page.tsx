@@ -1,4 +1,6 @@
 import { Facilities, FinalCta, Finder, Hero, HotelBand, HowItWorks, Insurance, Intro, Posts, Services, Stories } from "@/components/home/Sections";
+import { CeoQuote } from "@/components/home/CeoQuote";
+import { Destinations } from "@/components/home/Destinations";
 import { WA_MESSAGES } from "@/lib/wa";
 import layout from "@/content/home-layout.json";
 import Block from "@/components/editor/Block";
@@ -23,9 +25,9 @@ const EditorOverlay = process.env.NODE_ENV === "development"
   : () => null;
 
 const SECTIONS: Record<string, FC> = {
-  Hero, HotelBand, Facilities, Services, Intro, HowItWorks,
+  Hero, HotelBand, Facilities, Services, Intro, HowItWorks, Ceo: CeoQuote,
   Insurance: () => <Insurance insuranceMessage={WA_MESSAGES.insurance} />,
-  Stories, Posts, Finder, FinalCta,
+  Stories, Posts, Finder, Destinations, FinalCta,
 };
 
 type Layout = {

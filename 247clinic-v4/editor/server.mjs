@@ -41,7 +41,7 @@ const SOURCES = [
 const SECTION_IDS = {
   Hero: ["hero"], HotelBand: ["trust-numbers"], Facilities: ["accreditation-block"], Services: ["medical-services"],
   Intro: ["what-is-247-clinic"], HowItWorks: ["how-it-works"], Insurance: ["insurance-cashless-care"],
-  Stories: ["reviews-testimonials"], Finder: ["find-a-clinic"], FinalCta: ["faq-home", "final-cta"],
+  Stories: ["reviews-testimonials"], Finder: ["find-a-clinic"], Destinations: ["find-a-clinic"], Ceo: [], FinalCta: ["faq-home", "final-cta"],
 };
 
 const rel = (f) => relative(ROOT, f).replace(/\\/g, "/");

@@ -63,7 +63,9 @@ html.js:not(.intro-seen) :is(.hero-copy > :not(h1), .hero-foot) { animation-dela
   .oc { display: none !important; }
   html.js .rv, html.js .hw .w > span, html.js img.shim-i { opacity: 1 !important; transform: none !important; clip-path: none !important; }
   html.js .eyebrow.rv::before, html.js .head.center .eyebrow.rv::after { transform: none !important; }
-  .wa-float::before, .bigplay .ring, .news-rings .news-orbit { display: none !important; }
+  .wa-float::before, .bigplay .ring { display: none !important; }
+  html.js .ceo-ring circle { stroke-dashoffset: 0 !important; }
+  html.js .ceo-rule, html.js .ceo-who, html.js .sl-step.rv::before { opacity: 1 !important; transform: none !important; }
   .rail i { transform: none !important; }
   /* the phone menu becomes a 200ms fade */
   .menu { clip-path: none !important; opacity: 0; transition: opacity 200ms linear, visibility 0s linear 200ms !important; }
