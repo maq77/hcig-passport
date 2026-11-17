@@ -236,14 +236,16 @@
 .sl-n { position: relative; z-index: 1; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: var(--hair) solid var(--line-2); background: var(--ivory); font-size: 15px; color: var(--red); }
 .sl-plus { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: var(--hair) solid var(--line-2); color: var(--ink); transition: transform var(--t2) var(--ease), border-color var(--t2) var(--ease); }
 .sl-q button:hover .sl-plus { border-color: var(--ink); }
-.sl-step.is-open .sl-plus { transform: rotate(45deg); }
+.sl-step[data-open] .sl-plus { transform: rotate(45deg); }
 .sl-a { overflow: hidden; }
-html.js .sl-step:not(.is-open) .sl-a { height: 0; opacity: 0; }
+html.js .sl-step:not([data-open]) .sl-a { height: 0; opacity: 0; }
 html:not(.js) .sl-a { height: auto; opacity: 1; }
 .sl-a > div { padding: 0 0 14px 50px; }
 .sl-a p { font-size: 15px; line-height: 1.65; color: var(--ink-78); max-width: 46ch; }
 .sline-all { display: none; }
 @media (min-width: 1024px) {
+  .how-line { margin-top: clamp(104px, 9vw, 150px); }
+  .intro { padding-bottom: clamp(56px, 6vw, 88px); }
   .how-line { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); align-items: start; gap: clamp(32px, 4vw, 64px); }
   .sline-wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: start; }
   .sline { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 28px; border-top: var(--hair) solid var(--line-2); }

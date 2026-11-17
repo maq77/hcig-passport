@@ -45,7 +45,7 @@ function StepItem({ n, step, open, reduce, onToggle }: { n: number; step: Step; 
     return () => ro.disconnect();
   }, []);
   return (
-    <li className={`sl-step rv ${open ? "is-open" : ""}`} style={{ ["--d" as string]: `${(n - 1) * 90}ms` }}>
+    <li className="sl-step rv" data-open={open ? "" : undefined} style={{ ["--d" as string]: `${(n - 1) * 90}ms` }}>
       <h3 className="sl-q">
         <button type="button" aria-expanded={open} aria-controls={id} onClick={onToggle}>
           <span className="sl-n num" aria-hidden="true">{String(n).padStart(2, "0")}</span>
