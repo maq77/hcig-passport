@@ -6,12 +6,7 @@
   --ivory: #FBF8F4;
   --ink: #1A1414;
   --red: #C00000;
-  --red-on-ink: #F7B7B7; /* light brand red tint: red accents on the burgundy panels (>= 4.5:1 on every stop) */
-  /* burgundy sampled from the logo swoosh. It replaces black for every dark area (stakeholders 2026-11-17). */
-  --burgundy: #5F0008;
-  --burgundy-hi: #86020D;
-  --burgundy-lo: #3A0006;
-  --panel: linear-gradient(160deg, #86020D 0%, #5F0008 55%, #3A0006 100%);
+  --red-on-ink: #E8121C; /* red text on ink, for contrast */
   --white: #FFFFFF;
   --wa: #25D366; /* the WhatsApp frame */
   --wa-glyph: #1DA851;
@@ -26,8 +21,8 @@
   --tint-2: rgba(26, 20, 20, 0.07);
   /* ivory on ink */
   --on-ink: var(--ivory);
-  --on-ink-78: rgba(251, 248, 244, 0.88);
-  --on-ink-62: rgba(251, 248, 244, 0.72);
+  --on-ink-78: rgba(251, 248, 244, 0.78);
+  --on-ink-62: rgba(251, 248, 244, 0.62);
   --on-ink-line: rgba(251, 248, 244, 0.16);
   --on-ink-line-2: rgba(251, 248, 244, 0.32);
   --on-ink-tint: rgba(251, 248, 244, 0.06);
