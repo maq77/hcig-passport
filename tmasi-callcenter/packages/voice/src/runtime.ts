@@ -54,6 +54,8 @@ export interface AgentSpec {
   defaultLang: string;
   languages: string[];
   languageDetection: boolean;
+  /** Words the speech recognition should expect (company and place names). */
+  asrKeywords?: string[];
   /** Voice used when nothing else is chosen (the default persona's voice). */
   defaultVoiceId: string | null;
   /** Used ONLY for the woman and man switch (R4a). Never per language. */

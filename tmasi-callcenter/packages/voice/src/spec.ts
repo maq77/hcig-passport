@@ -25,6 +25,7 @@ export interface AgentConfigLike {
   defaultLang: string;
   languages: string[];
   languageDetection: boolean;
+  asrKeywords?: string[];
   keepVoiceOnLanguageSwitch: boolean;
   clientTools: { name: string; waitForResponse: boolean }[];
   dynamicVariables: Record<string, string>;
@@ -194,6 +195,7 @@ export function buildAgentSpec(i: BuildSpecInput): AgentSpec {
     defaultLang: config.defaultLang,
     languages: config.languages,
     languageDetection: config.languageDetection,
+    asrKeywords: config.asrKeywords ?? [],
     defaultVoiceId,
     supportedVoices,
     // ElevenLabs refuses a first_message session override (live test 2026-11-17: close 1008 "Override for field

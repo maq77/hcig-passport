@@ -95,6 +95,8 @@ export function rawAgentPatch(spec: AgentSpec) {
   }
   return {
     conversation_config: {
+      // keywords are sent here too, in case the SDK drops them like the fields below
+      asr: { keywords: spec.asrKeywords ?? [] },
       agent: {
         dynamic_variables: { dynamic_variable_placeholders: spec.dynamicVariables },
         prompt: { built_in_tools: builtIn },
@@ -133,6 +135,7 @@ export function buildAgentBody(spec: AgentSpec): {
   }));
 
   const conversationConfig: ElevenLabs.ConversationalConfig = {
+    asr: { keywords: spec.asrKeywords ?? [] },
     turn: {
       turnEagerness: spec.turn.eagerness,
       turnTimeout: spec.turn.silenceRepromptSeconds,

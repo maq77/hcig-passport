@@ -14,6 +14,7 @@ export interface AgentConfig {
   languages: Lang[];
   languageDetection: boolean;
   keepVoiceOnLanguageSwitch: boolean;
+  asrKeywords: string[];
   files: {
     basePrompt: string;
     firstMessages: string;
@@ -36,6 +37,8 @@ const config: AgentConfig = {
   languages: ['en', 'de', 'ru', 'pl', 'ar-EG', 'ar-AE', 'es', 'it', 'fr', 'cs'],
   languageDetection: true, // R5 and FR-002a: switch at any moment, any direction
   keepVoiceOnLanguageSwitch: true, // R4a and FR-006a: language presets carry NO voice override; voice changes only on a man/woman request
+  // his test 2026-11-17: "Tmasi" said as a word was heard as "Timothy". Names the recognition should expect.
+  asrKeywords: ['TMASI', 'Tmasi', 'TMASI Global', 'Hurghada', 'Marsa Alam', 'El Gouna', 'Sharm El Sheikh', 'Hansa Medica', 'ITIC'],
   files: {
     basePrompt: 'agent/prompts/base.md',
     firstMessages: 'agent/prompts/first-messages.json',
