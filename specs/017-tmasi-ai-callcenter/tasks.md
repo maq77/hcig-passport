@@ -347,7 +347,13 @@ Nothing ships before the demo. Every change below must pass the same gate (92%+ 
 - [ ] T085 (Opus) Trim prompt and retrieval: base prompt plus core facts are 11,273 characters, and RAG chunks are sent each turn. Measure tokens per turn before and after.
 - [ ] T086 (Sonnet) Post-call grading of bulk test runs through the Message Batches API (50% off); live calls stay immediate.
 - [ ] T087 (later, phase 4 only) Cache pre-rendered audio for the greeting, fillers, emergency line and read-back templates per voice and language. This only pays when speech is billed per character (own pipeline); on ElevenLabs Agents the bill is per minute.
+- [ ] T088 (Opus, after the demo) Side-by-side cost test of an own pipeline on the same calls: Soniox or Scribe listening, Claude, and ElevenLabs v4 Turbo TTS billed per character. His pasted price list (2026-11-17, Business tier starting prices): v4 Turbo $0.04 per 1K characters; v4 and v3 $0.08; v3 Conversational $0.04. His full pricing pages (pasted the same day) show the unit prices are the same on every plan (plans are prepaid usage): Agents $0.08 a minute plus LLM; text messages $0.003 from Starter up; v4 Turbo TTS $0.04 per 1K characters; Scribe v3 Live $0.22 an hour. Own pipeline for his 4-minute call: about $0.17 instead of $0.32 (about 47% less). That is about $40 a month saved at 1,000 minutes and about $490 at 10,000, minus our hosting and the engineering of turn-taking, interruptions and latency. Only in that pipeline do T087 phrase caching and a soft character limit (about 10 to 20% fewer characters) save money. Decide by real volume.
+- [ ] T089 (Opus, after the demo) Shorter replies: 2 short sentences by default, offer more instead of listing everything. Agent speech was 153 of 241 seconds in his test (64% of the call), so this is the biggest live saving (about 10 to 15%). A/B with his ear and the gate.
+- [ ] T090 (Opus, after the demo) Shorter greeting that keeps the AI disclosure and the recording question (about 2 to 3 s per call). New wording in every language goes to him before it ships.
+- [ ] T091 (Sonnet, after the demo) Spike protection: 10-minute call cap with a polite wrap-up (conversation max duration), and calls never above the plan's concurrency so burst pricing ($0.16/min) never applies.
+- [ ] T092 (his decision) Black Friday yearly plan at half price for the first year (Creator or Pro, until 2026-12-01), if the project continues after the demo.
 - Not planned: turning off speculative turns (saves about 2% of a call, costs reply speed).
+- His answer 2026-11-17: "Nothing until after the demo". Every item above waits.
 
 ## Dependencies and order
 
