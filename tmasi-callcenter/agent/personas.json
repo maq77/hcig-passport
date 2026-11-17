@@ -1,0 +1,25 @@
+{
+  "note": "The persona that answers keeps its name and voice for the whole call, through every language switch (his order 2026-11-17, FR-006a). The line language only decides WHICH persona answers. Every voice must sound natural in all 10 tuned languages. One woman and one man persona per line language. Names are placeholders until he names them in the dashboard (is_placeholder true). el_voice_id is filled from the Phase 0 voice shortlist (tasks T002). Labels are the supported_voices labels the agent uses to switch voice.",
+  "personas": [
+    { "lang": "en", "gender": "female", "label": "EN_F", "display_name": "Emma", "el_voice_id": "", "is_default": true, "is_placeholder": true },
+    { "lang": "en", "gender": "male", "label": "EN_M", "display_name": "James", "el_voice_id": "", "is_default": false, "is_placeholder": true },
+    { "lang": "de", "gender": "female", "label": "DE_F", "display_name": "Lena", "el_voice_id": "", "is_default": true, "is_placeholder": true },
+    { "lang": "de", "gender": "male", "label": "DE_M", "display_name": "Jonas", "el_voice_id": "", "is_default": false, "is_placeholder": true },
+    { "lang": "ru", "gender": "female", "label": "RU_F", "display_name": "Alina", "el_voice_id": "", "is_default": true, "is_placeholder": true },
+    { "lang": "ru", "gender": "male", "label": "RU_M", "display_name": "Maxim", "el_voice_id": "", "is_default": false, "is_placeholder": true },
+    { "lang": "pl", "gender": "female", "label": "PL_F", "display_name": "Zofia", "el_voice_id": "", "is_default": true, "is_placeholder": true },
+    { "lang": "pl", "gender": "male", "label": "PL_M", "display_name": "Jakub", "el_voice_id": "", "is_default": false, "is_placeholder": true },
+    { "lang": "ar-EG", "gender": "female", "label": "AREG_F", "display_name": "Nour", "el_voice_id": "", "is_default": true, "is_placeholder": true },
+    { "lang": "ar-EG", "gender": "male", "label": "AREG_M", "display_name": "Omar", "el_voice_id": "", "is_default": false, "is_placeholder": true },
+    { "lang": "ar-AE", "gender": "female", "label": "ARAE_F", "display_name": "Mariam", "el_voice_id": "", "is_default": true, "is_placeholder": true },
+    { "lang": "ar-AE", "gender": "male", "label": "ARAE_M", "display_name": "Khalid", "el_voice_id": "", "is_default": false, "is_placeholder": true },
+    { "lang": "es", "gender": "female", "label": "ES_F", "display_name": "Lucia", "el_voice_id": "", "is_default": true, "is_placeholder": true },
+    { "lang": "es", "gender": "male", "label": "ES_M", "display_name": "Pablo", "el_voice_id": "", "is_default": false, "is_placeholder": true },
+    { "lang": "it", "gender": "female", "label": "IT_F", "display_name": "Giulia", "el_voice_id": "", "is_default": true, "is_placeholder": true },
+    { "lang": "it", "gender": "male", "label": "IT_M", "display_name": "Marco", "el_voice_id": "", "is_default": false, "is_placeholder": true },
+    { "lang": "fr", "gender": "female", "label": "FR_F", "display_name": "Camille", "el_voice_id": "", "is_default": true, "is_placeholder": true },
+    { "lang": "fr", "gender": "male", "label": "FR_M", "display_name": "Louis", "el_voice_id": "", "is_default": false, "is_placeholder": true },
+    { "lang": "cs", "gender": "female", "label": "CS_F", "display_name": "Tereza", "el_voice_id": "", "is_default": true, "is_placeholder": true },
+    { "lang": "cs", "gender": "male", "label": "CS_M", "display_name": "Tomas", "el_voice_id": "", "is_default": false, "is_placeholder": true }
+  ]
+}

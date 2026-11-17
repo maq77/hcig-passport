@@ -1,0 +1,23 @@
+{
+  "note": "First turn per persona label: AI disclosure plus recording consent (FR-003). {{persona_name}} is filled at session start. The agent continues with 'How can I help you today?' in the same language after the answer.",
+  "EN_F": "Hello, I'm {{persona_name}}, the AI assistant of TMASI Global. Before we start, is it okay if I record this call so our coordinators can follow up with you?",
+  "EN_M": "Hello, I'm {{persona_name}}, the AI assistant of TMASI Global. Before we start, is it okay if I record this call so our coordinators can follow up with you?",
+  "DE_F": "Hallo, ich bin {{persona_name}}, die KI-Assistentin von TMASI Global. Bevor wir beginnen: Darf ich dieses Gespräch aufzeichnen, damit unsere Koordinatoren sich danach um Sie kümmern können?",
+  "DE_M": "Hallo, ich bin {{persona_name}}, der KI-Assistent von TMASI Global. Bevor wir beginnen: Darf ich dieses Gespräch aufzeichnen, damit unsere Koordinatoren sich danach um Sie kümmern können?",
+  "RU_F": "Здравствуйте, я {{persona_name}}, ИИ-ассистент TMASI Global. Прежде чем мы начнём: вы не против, если я запишу этот разговор, чтобы наши координаторы потом могли вам помочь?",
+  "RU_M": "Здравствуйте, я {{persona_name}}, ИИ-ассистент TMASI Global. Прежде чем мы начнём: вы не против, если я запишу этот разговор, чтобы наши координаторы потом могли вам помочь?",
+  "PL_F": "Dzień dobry, jestem {{persona_name}}, asystentka AI firmy TMASI Global. Zanim zaczniemy: czy mogę nagrać tę rozmowę, aby nasi koordynatorzy mogli się potem Panem lub Panią zająć?",
+  "PL_M": "Dzień dobry, jestem {{persona_name}}, asystent AI firmy TMASI Global. Zanim zaczniemy: czy mogę nagrać tę rozmowę, aby nasi koordynatorzy mogli się potem Panem lub Panią zająć?",
+  "AREG_F": "أهلاً بحضرتك، أنا {{persona_name}}، مساعدة ذكاء اصطناعي من TMASI Global. قبل ما نبدأ، ينفع أسجّل المكالمة دي عشان المنسقين بتوعنا يتابعوا مع حضرتك بعد كده؟",
+  "AREG_M": "أهلاً بحضرتك، أنا {{persona_name}}، مساعد ذكاء اصطناعي من TMASI Global. قبل ما نبدأ، ينفع أسجّل المكالمة دي عشان المنسقين بتوعنا يتابعوا مع حضرتك بعد كده؟",
+  "ARAE_F": "هلا وغلا، أنا {{persona_name}}، مساعدة ذكاء اصطناعي من TMASI Global. قبل لا نبدأ، عندك مانع إذا سجّلت المكالمة عشان المنسقين عندنا يتابعون وياك بعدين؟",
+  "ARAE_M": "هلا وغلا، أنا {{persona_name}}، مساعد ذكاء اصطناعي من TMASI Global. قبل لا نبدأ، عندك مانع إذا سجّلت المكالمة عشان المنسقين عندنا يتابعون وياك بعدين؟",
+  "ES_F": "Hola, soy {{persona_name}}, la asistente de inteligencia artificial de TMASI Global. Antes de empezar, ¿puedo grabar esta llamada para que nuestros coordinadores puedan darle seguimiento?",
+  "ES_M": "Hola, soy {{persona_name}}, el asistente de inteligencia artificial de TMASI Global. Antes de empezar, ¿puedo grabar esta llamada para que nuestros coordinadores puedan darle seguimiento?",
+  "IT_F": "Buongiorno, sono {{persona_name}}, l'assistente virtuale con intelligenza artificiale di TMASI Global. Prima di iniziare, posso registrare questa chiamata, così i nostri coordinatori potranno seguirla dopo?",
+  "IT_M": "Buongiorno, sono {{persona_name}}, l'assistente virtuale con intelligenza artificiale di TMASI Global. Prima di iniziare, posso registrare questa chiamata, così i nostri coordinatori potranno seguirla dopo?",
+  "FR_F": "Bonjour, je suis {{persona_name}}, l'assistante IA de TMASI Global. Avant de commencer, puis-je enregistrer cet appel afin que nos coordinateurs puissent assurer le suivi ?",
+  "FR_M": "Bonjour, je suis {{persona_name}}, l'assistant IA de TMASI Global. Avant de commencer, puis-je enregistrer cet appel afin que nos coordinateurs puissent assurer le suivi ?",
+  "CS_F": "Dobrý den, jsem {{persona_name}}, AI asistentka společnosti TMASI Global. Než začneme, mohu tento hovor nahrát, aby se vám naši koordinátoři mohli později ozvat?",
+  "CS_M": "Dobrý den, jsem {{persona_name}}, AI asistent společnosti TMASI Global. Než začneme, mohu tento hovor nahrát, aby se vám naši koordinátoři mohli později ozvat?"
+}
