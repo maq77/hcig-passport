@@ -9,6 +9,7 @@ import "./home-calm.css";
 /* v6 layout of the home sections (the user, 2026-11-17: "same spacing and layout in v3"). */
 import "./v6-layout.css";
 import "./v6-chrome.css";
+import "./phone-motion.css";
 import { global, section } from "@/content/load";
 import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
 import { IS_PREVIEW } from "@/data/facts";

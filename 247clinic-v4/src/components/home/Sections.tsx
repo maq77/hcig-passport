@@ -30,6 +30,7 @@ import { Parallax } from "./Parallax";
 import { FaqList } from "./FaqList";
 import { StepsLine } from "./StepsLine";
 import { GuestWords } from "./GuestWords";
+import { CarePhone, HowPhone, InsurancePhone } from "./PhoneSections";
 import { DetailCard } from "@/components/ui/DetailCard";
 import { DetailBody, OpenMark } from "@/components/page/Detail";
 import { serviceDetail } from "@/components/page/Common";
@@ -243,8 +244,10 @@ export function Services() {
 export function Intro() {
   const s = section("home", "what-is-247-clinic");
   const how = section("home", "how-it-works");
+  /* Phones get their own motion layout (PhoneSections, the owner's Set 1, 2026-11-17); this one is desktop's. */
   return (
-    <section className="section bg-surface intro" aria-labelledby="intro-h">
+    <>
+    <section className="section bg-surface intro pm-d" aria-labelledby="intro-h">
       <Watermark />
       <div className="container intro-grid">
         <div className="intro-label">
@@ -279,6 +282,9 @@ export function Intro() {
         <StepsLine steps={how.items.map((it) => ({ title: it.title, text: it.text }))} labels={{ more: "Show more", less: "Show less" }} />
       </div>
     </section>
+    <CarePhone />
+    <HowPhone />
+    </>
   );
 }
 
@@ -288,7 +294,8 @@ export function Insurance(_: { insuranceMessage: string }) {
      one promise, three plain steps, one honest cashless line, one button, one quiet logo row. */
   const s = section("home", "insurance-cashless-care");
   return (
-    <section className="section bg-surface insurance ins2" aria-labelledby="ins-h">
+    <>
+    <section className="section bg-surface insurance ins2 pm-d" aria-labelledby="ins-h">
       <div className="container ins2-grid">
         <div className="ins2-copy">
           <Head eyebrow="Insurance & cashless" id="ins-h" title={s.heading} />
@@ -315,6 +322,8 @@ export function Insurance(_: { insuranceMessage: string }) {
         </Marquee>
       </div>
     </section>
+    <InsurancePhone />
+    </>
   );
 }
 
