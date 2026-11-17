@@ -1,5 +1,5 @@
-:HL["/247clinic/v3/_next/static/chunks/0ya65vofyje4l.css","style"]
-:HL["/247clinic/v3/_next/static/chunks/42vmyisrfv0v3.css","style"]
+:HL["/247clinic/v3/_next/static/chunks/21ogelta5l6oq.css","style"]
+:HL["/247clinic/v3/_next/static/chunks/0_ey3ur7d3o8t.css","style"]
 :HL["/247clinic/v3/_next/static/media/0da9c7f357bd9d4d-s.p.1975l3y3401x_.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/247clinic/v3/_next/static/media/47fe1b7cd6e6ed85-s.p.3bh2vc0w-r-ll.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/247clinic/v3/_next/static/media/5f9d24ebef5d5292-s.p.19xuq3td7fwu_.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
@@ -12,4 +12,4 @@
 :HL["/247clinic/v3/_next/static/media/e2334d715941921e-s.p.3o_v2fun1jzxk.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/247clinic/v3/_next/static/chunks/0n8kzvw2z_6as.css","style"]
 :HL["/247clinic/v3/slots/hero-desktop.webp","image",{"fetchPriority":"high"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"clinics","param":null,"prefetchHints":4160,"slots":{"children":{"name":"destination","param":{"type":"d","key":"north-coast","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"hotel","param":{"type":"d","key":"jaz-tamerina-clinic","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}}}},"staleTime":300,"buildId":"AAwIXgFUGLavE5SgQTowj"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"clinics","param":null,"prefetchHints":4160,"slots":{"children":{"name":"destination","param":{"type":"d","key":"north-coast","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"hotel","param":{"type":"d","key":"jaz-tamerina-clinic","siblings":[]},"prefetchHints":4192,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}}}}}},"staleTime":300,"buildId":"aOwkhEIRItL3K1XceI-iu"}

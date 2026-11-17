@@ -1,3 +1,3 @@
-:HL["/247clinic/v3/_next/static/chunks/0ya65vofyje4l.css","style"]
-:HL["/247clinic/v3/_next/static/chunks/42vmyisrfv0v3.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"AAwIXgFUGLavE5SgQTowj"}
+:HL["/247clinic/v3/_next/static/chunks/21ogelta5l6oq.css","style"]
+:HL["/247clinic/v3/_next/static/chunks/0_ey3ur7d3o8t.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"aOwkhEIRItL3K1XceI-iu"}
