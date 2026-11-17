@@ -144,13 +144,6 @@ html.js [data-e-section] .eyebrow.rv.in { letter-spacing: 0.2em; }
 [data-e-section="Stories"] .voices-moments { margin-top: clamp(52px, 6vw, 88px); }
 [data-e-section="Stories"] .voices-moments > .container { margin-bottom: 0; }
 [data-e-section="Stories"] .voices-sub { margin-bottom: 16px; }
-
-/* ---------- 9. destinations: v6's gaps ---------- */
-[data-e-section="Destinations"] .dest-grid { gap: 28px 12px; }
-@media (min-width: 900px) { [data-e-section="Destinations"] .dest-grid { gap: 48px 24px; } }
-[data-e-section="Destinations"] .dest-name { font-size: 22px; line-height: 1.1; }
-@media (min-width: 900px) { [data-e-section="Destinations"] .dest-name { font-size: 28px; } }
-
 /* ---------- 10. FAQ on the photograph: one panel, the heading left and a hairline accordion right ---------- */
 [data-e-section="FinalCta"] .final { padding-block: clamp(56px, 8vw, 120px); }
 [data-e-section="FinalCta"] .faq-panel { display: grid; gap: 24px; padding: 28px 20px 12px; border-radius: 16px; }

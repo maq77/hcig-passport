@@ -364,44 +364,51 @@ html:not(.js) .sl-a { height: auto; opacity: 1; }
 @media (min-width: 768px) { .moment { height: 168px; } }
 
 /* 6. Destinations: six photo tiles, the name in Calisto and the clinic count in red. */
-.dest-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
+.dest-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 12px; }
 .dest-grid > li { min-width: 0; }
-.dest { display: flex; flex-direction: column; gap: 12px; color: var(--ink); }
-.dest-media { display: block; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 20px; background: var(--surface-2); box-shadow: var(--shadow-sm); transition: box-shadow 0.4s var(--ease); }
+.dest { display: flex; flex-direction: column; gap: 10px; color: var(--ink); }
+.dest-media { display: block; overflow: hidden; aspect-ratio: 5 / 4; border-radius: 12px; background: var(--surface-2); }
 .dest-pic { display: block; width: 100%; height: 100%; transition: transform 1.2s var(--ease); }
-.dest-pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.dest:hover .dest-media { box-shadow: var(--shadow-md); }
+.dest-pic img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left bottom; }
 .dest:hover .dest-pic, .dest:focus-visible .dest-pic { transform: scale(1.04); }
-.dest:focus-visible { outline: 2.5px solid var(--primary); outline-offset: 4px; border-radius: 20px; }
-.dest-meta { display: flex; flex-direction: column; gap: 6px; padding-top: 10px; border-top: 1.5px solid var(--line-2); }
-.dest-name { font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 700; font-size: 20px; line-height: 1.15; color: var(--ink); transition: color 0.3s var(--ease); }
+.dest:focus-visible { outline: 2.5px solid var(--primary); outline-offset: 4px; border-radius: 12px; }
+.dest-cap { display: contents; }
+.dest-name { font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 700; font-size: 21px; line-height: 1.15; color: var(--ink); transition: color 0.3s var(--ease); }
 .dest:hover .dest-name { color: var(--primary); }
-.dest-n { display: inline-flex; align-items: baseline; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); }
+.dest-ct { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1.5px solid var(--line-2); }
+.dest-n { display: inline-flex; align-items: baseline; gap: 6px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); }
 .dest-n b { font-family: var(--font-display), serif; font-size: 20px; font-weight: 700; letter-spacing: 0; color: var(--primary); }
-@media (min-width: 900px) {
-  .dest-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; }
-  .dest-media { aspect-ratio: 5 / 4; border-radius: 24px; }
-  .dest-meta { flex-direction: row; align-items: baseline; justify-content: space-between; gap: 16px; padding-top: 14px; }
+.dest-go { display: grid; place-items: center; flex: none; width: 24px; height: 24px; color: var(--primary); transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease); }
+.dest-go svg { width: 14px; height: 14px; }
+@media (min-width: 640px) {
+  .dest-grid { gap: 32px 20px; }
+  .dest-media { border-radius: 14px; }
   .dest-name { font-size: 26px; }
+  .dest-n { font-size: 12px; }
   .dest-n b { font-size: 24px; }
 }
-
+@media (min-width: 900px) {
+  .dest-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px 28px; }
+  .dest-s6 { grid-column: span 6; }
+  .dest-s3 { grid-column: span 3; }
+  .dest { gap: 14px; }
+  .dest-media { aspect-ratio: auto; height: clamp(240px, 21.5vw, 310px); border-radius: 16px; }
+  .dest:focus-visible { border-radius: 16px; }
+  .dest-cap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 12px; border-top: 1.5px solid var(--line-2); }
+  .dest-name { font-size: 28px; line-height: 1.1; }
+  .dest-ct { gap: 16px; padding-top: 0; border-top: 0; }
+  .dest-n { font-size: 11px; }
+  .dest-go { width: 40px; height: 40px; border: 1.5px solid var(--line-2); border-radius: 50%; color: var(--ink); }
+  .dest-go svg { width: 16px; height: 16px; }
+  .dest:hover .dest-go, .dest:focus-visible .dest-go { background: var(--primary); border-color: var(--primary); color: #fff; }
+  /* the narrow tiles stack the name above the count row, the wide ones keep one line */
+  .dest-s3 .dest-cap, .dest-grid.five > li:nth-child(-n+3) .dest-cap { flex-direction: column; align-items: stretch; gap: 8px; }
+  /* destination pages show the other five: 4 / 4 / 4, then 6 / 6 */
+  .dest-grid.five > li { grid-column: span 4; }
+  .dest-grid.five > li:nth-child(n+4) { grid-column: span 6; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .gw-q, .sl-plus, .sline-all svg, .dest-pic { transition: none !important; }
   html.js .sl-step.rv::before { transform: none; transition: none; }
-}
-
-/* Destination covers (the owner's finished cover designs, headline baked in): 5/4 tiles, never cropped on the
-   headline side (object-position left bottom), name kept for screen readers only. Phone: a snap row with the
-   next tile peeking; from 640px a grid. */
-.dest-snap .snap-track > li { flex: 0 0 86%; }
-.dest-snap .dest-media { aspect-ratio: 5 / 4; }
-.dest-snap .dest-pic img { object-position: left bottom; }
-.dest-snap .dest-meta { flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 16px; padding-top: 12px; }
-@media (min-width: 640px) {
-  .dest-snap .snap-track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; overflow: visible; margin: 0; padding: 0; }
-}
-@media (min-width: 900px) {
-  .dest-snap .snap-track { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 24px; }
 }
