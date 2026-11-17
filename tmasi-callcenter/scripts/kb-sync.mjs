@@ -3,12 +3,56 @@
 // delete removed ones. A second run with no changes reports 0 changed.
 import "./_env.mjs";
 import { eq, sql } from "drizzle-orm";
-import { MISSING_KEY, hasElevenLabsKey } from "./_env.mjs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { ACCOUNT, MISSING_KEY, hasElevenLabsKey, kbMapFileName } from "./_env.mjs";
+import { dataDir } from "@tc/db";
 import { closeDb, getDb, knowledgeChunks, knowledgeDocs, writeAudit } from "@tc/db";
 import { ElevenLabsRuntime } from "@tc/voice";
 import { chunkMarkdown, embedPassages, readDocBody, readManifest, upsertChunks, upsertDoc } from "@tc/kb";
 
+/** Account 2: upload the same documents to that account, ids kept in data/kb-account-2.json. The local index is shared. */
+async function mirror() {
+  const manifest = readManifest();
+  const remote = new ElevenLabsRuntime();
+  const file = join(dataDir(), kbMapFileName());
+  const map = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
+  const key = (path, lang) => `${path}|${lang}`;
+  const seen = new Set();
+  const counts = { uploaded: 0, unchanged: 0, removed: 0, failed: 0 };
+  for (const entry of manifest.docs) {
+    if (entry.kind === "core_facts") continue; // in the system prompt, never attached
+    const k = key(entry.source_path, entry.lang);
+    seen.add(k);
+    const cur = map[k];
+    if (cur && cur.hash === entry.content_hash && cur.usageMode === entry.usage_mode) {
+      counts.unchanged++;
+      continue;
+    }
+    try {
+      if (cur?.elDocId) await remote.deleteKnowledge(cur.elDocId).catch(() => {});
+      const elDocId = await remote.uploadKnowledgeText(`${entry.title} (${entry.lang})`, readDocBody(entry));
+      map[k] = { elDocId, hash: entry.content_hash, title: entry.title, lang: entry.lang, usageMode: entry.usage_mode, kind: entry.kind };
+      counts.uploaded++;
+    } catch (e) {
+      counts.failed++;
+      console.error(`Upload failed for ${entry.slug}: ${e?.message ?? e}`);
+    }
+  }
+  for (const k of Object.keys(map)) {
+    if (seen.has(k)) continue;
+    await remote.deleteKnowledge(map[k].elDocId).catch(() => {});
+    delete map[k];
+    counts.removed++;
+  }
+  writeFileSync(file, JSON.stringify(map, null, 2) + "\n");
+  console.log("");
+  console.log(`kb:sync account ${ACCOUNT}  uploaded ${counts.uploaded}  unchanged ${counts.unchanged}  removed ${counts.removed}  failed ${counts.failed}`);
+  return counts.failed ? 1 : 0;
+}
+
 async function main() {
+  if (ACCOUNT !== "1") return mirror();
   const manifest = readManifest();
   const db = await getDb();
   const remote = hasElevenLabsKey() ? new ElevenLabsRuntime() : null;

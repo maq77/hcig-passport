@@ -12,6 +12,7 @@ import {
   voiceIdFor,
 } from "../../../../lib/server/personas.ts";
 import { getRuntime } from "../../../../lib/server/runtime.ts";
+import { accountForNewCall } from "../../../../lib/server/accounts.ts";
 import { mintToolToken } from "../../../../lib/server/tool-auth.ts";
 
 export const runtime = "nodejs";
@@ -22,8 +23,10 @@ const body = z.object({ lang: z.string().min(2).max(12).default(DEFAULT_LANG), g
 /** Start a test call: pick the persona, mint the ElevenLabs token server side, create the calls row and the per-call tool token. */
 export const POST = handle(async (req: Request) => {
   const input = body.parse(await readJsonObject(req));
-  const rt = getRuntime(); // 503 with the clear message when the key is missing
-  const agentId = readAgentId();
+  // key 1 until its credits run low, then key 2 (switch persisted in data/active-account.json)
+  const pick = await accountForNewCall();
+  const rt = getRuntime(pick.account); // 503 with the clear message when the key is missing
+  const agentId = readAgentId(pick.account);
   const persona = pickPersona(input.lang, input.gender);
   const access = await rt.getConversationToken(agentId);
 
@@ -41,7 +44,7 @@ export const POST = handle(async (req: Request) => {
     status: "live",
     startedAt: new Date(),
   });
-  await writeAudit(null, "call.start", "calls", callId, null, { persona: persona.label, lang: input.lang });
+  await writeAudit(null, "call.start", "calls", callId, null, { persona: persona.label, lang: input.lang, account: pick.account, switched: pick.switched, reason: pick.reason ?? null });
 
   return json({
     ok: true,
@@ -49,6 +52,8 @@ export const POST = handle(async (req: Request) => {
     callId,
     toolToken: mintToolToken(callId),
     agentId,
+    account: pick.account,
+    ...(pick.switched ? { accountNote: pick.reason } : {}),
     persona: { label: persona.label, displayName: persona.display_name, voiceId: voiceIdFor(persona), lang: persona.lang },
     firstMessage: firstMessageFor(persona.label, persona.display_name),
     dynamicVariables: { persona_name: persona.display_name, emergency_line: EMERGENCY_LINE, greeting: firstMessageFor(persona.label, persona.display_name) },

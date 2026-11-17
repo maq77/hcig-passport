@@ -7,7 +7,7 @@ import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { and, desc, eq, isNotNull } from "drizzle-orm";
-import { ROOT, MISSING_KEY, hasElevenLabsKey } from "./_env.mjs";
+import { ROOT, MISSING_KEY, hasElevenLabsKey, ACCOUNT, agentFileName, kbMapFileName } from "./_env.mjs";
 import { closeDb, dataDir, getDb, writeAudit, agentVersions, evalRuns, knowledgeDocs } from "@tc/db";
 import { ElevenLabsRuntime, buildAgentSpec, allVoiceIdsEmpty } from "@tc/voice";
 import config from "../agent/agent.config.ts";
@@ -75,23 +75,44 @@ async function main() {
   }
 
   // knowledge documents already synced by kb:sync
-  const db = await getDb();
+  // account 2 never opens the local database, so it can be pushed while the dev server runs
+  const db = ACCOUNT === "1" ? await getDb() : null;
   let docs = [];
-  try {
-    docs = await db.select().from(knowledgeDocs).where(isNotNull(knowledgeDocs.elDocId));
-  } catch (e) {
-    console.error(`Cannot read knowledge_docs (${e.message}). Run "npm run migrate" first.`);
-    return 1;
+  if (db) {
+    try {
+      docs = await db.select().from(knowledgeDocs).where(isNotNull(knowledgeDocs.elDocId));
+    } catch (e) {
+      console.error(`Cannot read knowledge_docs (${e.message}). Run "npm run migrate" first.`);
+      return 1;
+    }
   }
   // Core facts already sit in the system prompt (composeSystemPrompt), so they are not attached again:
   // a second copy would cost tokens and time on every turn.
-  const knowledge = docs
+  let knowledge = docs
     .filter((d) => d.sourceKind !== "core_facts")
     .map((d) => ({ elDocId: d.elDocId, name: `${d.title} (${d.lang})`, usageMode: d.usageMode }));
+  if (ACCOUNT !== "1") {
+    // account 2 has its own copies of the documents (npm run kb:sync -- --account 2)
+    const mf = join(data, kbMapFileName());
+    const map = existsSync(mf) ? readJson(mf) : {};
+    knowledge = Object.values(map).map((d) => ({ elDocId: d.elDocId, name: `${d.title} (${d.lang})`, usageMode: d.usageMode }));
+  }
   if (knowledge.length === 0) console.log("No synced knowledge documents yet (run npm run kb:sync). Core facts are in the prompt.");
 
   const spec = buildAgentSpec({ config, basePrompt, coreFacts, firstMessages, personas, voiceFallback, knowledge });
   const fingerprint = sha(JSON.stringify(spec));
+
+  if (ACCOUNT !== "1") {
+    // a mirror of the current config on the second account: same prompt, voices, tools; no version rows (account 1 is the record)
+    const f2 = join(data, agentFileName());
+    const existing2 = existsSync(f2) ? readJson(f2).agentId : null;
+    const res2 = await runtime.pushAgent(spec, existing2 || null);
+    writeFileSync(f2, JSON.stringify({ agentId: res2.agentId, account: ACCOUNT, fingerprint, updatedAt: new Date().toISOString() }, null, 2) + "\n");
+    console.log("");
+    console.log(`Account ${ACCOUNT}: agent ${res2.created ? "created" : "updated"}: ${res2.agentId}`);
+    console.log(`Knowledge documents attached: ${knowledge.length}. Mirror of the current config (versions are tracked on account 1).`);
+    return 0;
+  }
   const coreFactsHash = sha(JSON.stringify(coreFacts));
   const kbSnapshotHash = sha(JSON.stringify(knowledge.map((k) => [k.elDocId, k.usageMode]).sort()));
 
@@ -112,7 +133,7 @@ async function main() {
     if (runs.length === 0) console.warn("WARNING: --force-demo publishes without a passed eval run. Use it for the first demo only.");
   }
 
-  const agentFile = join(data, "agent.json");
+  const agentFile = join(data, agentFileName());
   const existing = existsSync(agentFile) ? readJson(agentFile).agentId : process.env.ELEVENLABS_AGENT_ID || null;
   const res = await runtime.pushAgent(spec, existing || null);
   writeFileSync(agentFile, JSON.stringify({ agentId: res.agentId, updatedAt: new Date().toISOString() }, null, 2) + "\n");

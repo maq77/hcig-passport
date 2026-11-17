@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 import { agentVersions, getDb } from "@tc/db";
 import { readAgentId } from "../../../../lib/server/agent-id.ts";
+import { activeAccount } from "../../../../lib/server/accounts.ts";
 import { handle, json } from "../../../../lib/server/http.ts";
 
 export const runtime = "nodejs";
@@ -23,5 +24,5 @@ export const GET = handle(async () => {
   } catch {
     version = null;
   }
-  return json({ ready, version });
+  return json({ ready, version, account: activeAccount() });
 });

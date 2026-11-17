@@ -19,7 +19,8 @@
     "kb:sync": "tsx scripts/kb-sync.mjs",
     "agent:push": "tsx scripts/agent-push.mjs",
     "eval": "tsx scripts/eval-run.mjs",
-    "import:call": "tsx scripts/import-call.mjs"
+    "import:call": "tsx scripts/import-call.mjs",
+    "key:use": "tsx scripts/key-use.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "1.9.0",

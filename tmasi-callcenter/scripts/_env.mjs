@@ -22,4 +22,23 @@ for (const name of [".env.local", ".env"]) {
   }
 }
 
+// Two accounts: `--account 2` makes this script use ELEVENLABS_API_KEY_2 and account 2's own agent and knowledge files.
+export const KEY_1 = process.env.ELEVENLABS_API_KEY;
+const ai = process.argv.indexOf("--account");
+export const ACCOUNT = ai > -1 ? String(process.argv[ai + 1] ?? "") : "1";
+if (ACCOUNT !== "1" && ACCOUNT !== "2") {
+  console.error("--account must be 1 or 2");
+  process.exit(1);
+}
+if (ACCOUNT === "2") {
+  if (!process.env.ELEVENLABS_API_KEY_2) {
+    console.error("Add ELEVENLABS_API_KEY_2 to tmasi-callcenter/.env.local");
+    process.exit(1);
+  }
+  process.env.ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY_2;
+}
+export const agentFileName = (a = ACCOUNT) => (a === "1" ? "agent.json" : `agent-${a}.json`);
+/** Account 2 keeps its knowledge doc ids in a file; account 1 keeps them in knowledge_docs.el_doc_id. */
+export const kbMapFileName = (a = ACCOUNT) => `kb-account-${a}.json`;
+
 export const hasElevenLabsKey = () => Boolean(process.env.ELEVENLABS_API_KEY);
