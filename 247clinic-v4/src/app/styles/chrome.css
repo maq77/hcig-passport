@@ -3,7 +3,7 @@
 /* ---------- top bar: ink, 36px, desktop ---------- */
 .topbar { display: none; }
 @media (min-width: 1200px) {
-  .topbar { display: block; height: var(--topbar); background: var(--ink); font-size: 13px; color: var(--on-ink-78); }
+  .topbar { display: block; height: var(--topbar); background: var(--panel); font-size: 13px; color: var(--on-ink-78); }
   .topbar-in { max-width: 1440px; margin-inline: auto; padding: 0 32px; height: 100%; display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; }
   .promises, .topbar-contact { display: flex; align-items: center; gap: 28px; }
   .promises li, .topbar-contact a { display: inline-flex; align-items: center; gap: 8px; font-weight: 400; letter-spacing: 0.02em; }
@@ -94,7 +94,7 @@
 .help-band { border-top: var(--hair) solid var(--line); }
 /* a page that ends with its own call to action, and the home (its FAQ ends with the line), do not repeat it */
 body:has(.pg-cta-wrap, .final-close) .site-footer .help-band { display: none; }
-.foot-ink { padding-block: clamp(52px, 6vw, 96px) 28px; background: var(--ink); color: var(--on-ink-78); }
+.foot-ink { padding-block: clamp(52px, 6vw, 96px) 28px; background: var(--panel); color: var(--on-ink-78); }
 .foot-top { display: grid; gap: 32px; padding-bottom: clamp(36px, 4vw, 56px); border-bottom: var(--hair) solid var(--on-ink-line); }
 .foot-top .brand > img { display: block; width: 104px; height: auto; }
 .foot-top .brand > p { max-width: 42ch; margin: 18px 0 0; font-size: 15px; line-height: 1.65; color: var(--on-ink-78); }
