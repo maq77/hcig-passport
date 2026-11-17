@@ -51,7 +51,7 @@
     },
     {
       "media": "desktop",
-      "selector": "[data-e-section=\"HowItWorks\"] > section.section > div.container > div.head > span.eyebrow",
+      "selector": "[data-e-section=\"Intro\"] > section.section > div.container.how-line > div.how-line-head > span.eyebrow",
       "props": {
         "zoom": "1.4"
       }
@@ -79,16 +79,9 @@
     },
     {
       "media": "desktop",
-      "selector": "#clinics > div.container > div.head > span.eyebrow",
+      "selector": "[data-e-section=\"Destinations\"] > section.section > div.container > div.head-row > div.head > span.eyebrow",
       "props": {
         "zoom": "1.3"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "#clinics > div.container > div.finder-grid > div.finder-side > div.chips",
-      "props": {
-        "text-align": "left"
       }
     },
     {
@@ -142,60 +135,9 @@
     },
     {
       "media": "desktop",
-      "selector": "[data-e-section=\"Facilities\"] > section.section > div.edge-label",
-      "props": {
-        "zoom": "2.25",
-        "margin-top": "104px"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "[data-e-section=\"Services\"] > section.section > div.edge-label",
-      "props": {
-        "zoom": "3.00",
-        "margin-top": "122px",
-        "line-height": "1.35",
-        "letter-spacing": "5.5px",
-        "margin-bottom": "26px"
-      }
-    },
-    {
-      "media": "desktop",
       "selector": "[data-e-section=\"Services\"] > section.section",
       "props": {
         "margin-top": "-2px"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "[data-e-section=\"Intro\"] > section.section > div.edge-label",
-      "props": {
-        "zoom": "3.00",
-        "margin-top": "52px"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "[data-e-section=\"HowItWorks\"] > section.section > div.edge-label",
-      "props": {
-        "zoom": "2.35",
-        "margin-top": "76px"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "[data-e-section=\"Insurance\"] > section.section > div.edge-label",
-      "props": {
-        "zoom": "2.20",
-        "margin-top": "26px"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "[data-e-section=\"Stories\"] > section.section > div.edge-label",
-      "props": {
-        "margin-top": "76px",
-        "zoom": "2.30"
       }
     },
     {
@@ -204,13 +146,6 @@
       "props": {
         "margin-bottom": "-6px",
         "zoom": "0.65"
-      }
-    },
-    {
-      "media": "desktop",
-      "selector": "[data-e-section=\"Stories\"] > section.section > div:nth-of-type(3) > div.edge-label",
-      "props": {
-        "margin-top": "26px"
       }
     },
     {

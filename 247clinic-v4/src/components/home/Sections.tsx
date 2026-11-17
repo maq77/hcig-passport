@@ -5,20 +5,17 @@
    The words come from content/247clinic/en/home.json, rewritten on his instruction
    and logged in content/247clinic/approved-edits.json. Facts only from the brief or him. */
 import {
-  Ambulance, ArrowUpRight, Award, Bandage, BedDouble, Check, CheckCheck, FlaskConical, Globe, HeartPulse, Hotel,
-  MapPin, Pill, ShieldCheck, Sparkles, Stethoscope, Syringe, Thermometer, UserRoundCheck, UsersRound,
+  Ambulance, ArrowUpRight, Award, Bandage, BedDouble, Check, FlaskConical, Globe, Hotel,
+  Pill, ShieldCheck, Sparkles, Stethoscope, Thermometer, UserRoundCheck, UsersRound,
 } from "lucide-react";
 import { section, reviews } from "@/content/load";
 import { BRIEF, THEIRS } from "@/content/brief";
-import UI from "@/content/ui-labels.json";
 import { asset, BASE, NUMBERS } from "@/data/facts";
-import { CLINICS, clinicPath } from "@/data/clinics";
 import { FLAGS, HERO_SLIDES, HOTEL_BRANDS, INSURERS, INTRO, PHOTOS, POSTS, STORIES, TRUSTED_PHOTOS, type Logo } from "@/data/media";
 import { ROUTES } from "@/data/nav";
 import { CallButton, LinkButton, TextLink, WaButton } from "@/components/ui/Buttons";
 import { Head } from "@/components/ui/Bits";
 import { Slot, slotFile } from "@/components/ui/Slot";
-import { WhatsAppGlyph } from "@/components/ui/Icon";
 import { CountUp, InViewVideo } from "@/components/ui/Motion";
 import { Marquee } from "@/components/ui/Marquee";
 import { More } from "@/components/ui/More";
@@ -28,13 +25,14 @@ import { BigPlay, Watch } from "@/components/ui/Viewer";
 import { Drift } from "@/components/ui/ScrollFx";
 import { HeroCarousel } from "./HeroCarousel";
 import { StoryCarousel } from "./StoryRow";
-import { ClinicFinder } from "./ClinicFinder";
 import { Parallax } from "./Parallax";
 import { FaqList } from "./FaqList";
-import { StepsReveal } from "./StepsReveal";
+import { StepsLine } from "./StepsLine";
+import { GuestWords } from "./GuestWords";
 import { DetailCard } from "@/components/ui/DetailCard";
 import { DetailBody, OpenMark } from "@/components/page/Detail";
 import { serviceDetail } from "@/components/page/Common";
+export { Destinations } from "./Destinations";
 
 const href = (p: string) => `${BASE}${p}`;
 const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` });
@@ -97,7 +95,6 @@ function LogoTile({ l }: { l: Logo }) {
 export function HotelBand() {
   return (
     <section className="proof" aria-label={BRIEF.hotelClinics}>
-      <div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[52]}</div>
       <div className="container">
         <ul className="stats">
           {NUMBERS.map((n, i) => {
@@ -126,7 +123,7 @@ const POINT_ICONS = [Globe, ShieldCheck, Stethoscope, Award];
 export function Facilities() {
   const s = section("home", "accreditation-block");
   return (
-    <section className="section bg-surface facilities" aria-labelledby="fac-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[56]}</div>
+    <section className="section bg-surface facilities" aria-labelledby="fac-h">
       <div className="container">
         <Head center eyebrow="Accreditation" id="fac-h" title={s.heading} lead={<p>{s.body[0]}</p>} />
         <div className="stage-wrap">
@@ -173,7 +170,7 @@ export function Services() {
   const s = section("home", "medical-services");
   const feature = s.items[6];
   return (
-    <section className="section services" aria-labelledby="svc-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[53]}</div>
+    <section className="section services" aria-labelledby="svc-h">
       <div className="container">
         <div className="head-row">
           <Head eyebrow="What we treat" id="svc-h" title={s.heading} />
@@ -245,11 +242,15 @@ export function Services() {
   );
 }
 
-/* ---------------- 5. care without leaving the resort (brief 8 and 9, one section) ---------------- */
+/* ---------------- 5. care without leaving the resort (brief 8 and 9), how it works at its foot (brief 12) ----------------
+   As on v6 (spec 015 Amendment 1): the four steps of How it works are one slim numbered row under On-site
+   care, not a section of their own (the Insurance section right after has its own three steps).
+   The user, 2026-11-17: "in v3 re organize sections and, merge like you did on v6". */
 export function Intro() {
   const s = section("home", "what-is-247-clinic");
+  const how = section("home", "how-it-works");
   return (
-    <section className="section bg-surface intro" aria-labelledby="intro-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[57]}</div>
+    <section className="section bg-surface intro" aria-labelledby="intro-h">
       <Watermark />
       <div className="container intro-grid">
         <div className="intro-media rv">
@@ -276,67 +277,12 @@ export function Intro() {
           </ol>
         </div>
       </div>
-    </section>
-  );
-}
-
-/* ---------------- 5b. the CEO's words (the user, 2026-11-16: "on v3 add CEO quote") ----------------
-   His quote approved for the group sites on 2026-10-18, logged in approved-edits.json. */
-const CEO = {
-  quote: "Success isn't measured only by the number of visitors a destination attracts. It's measured by how well those visitors are cared for when they need help the most.",
-  name: "Dr. Amr Abbass",
-  role: "CEO, Healthcare International Group",
-};
-export function Ceo() {
-  return (
-    <section className="section ceo" aria-labelledby="ceo-name">
-      <div className="container">
-        <figure className="ceo-fig">
-          <div className="ceo-portrait rv">
-            <svg className="ceo-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="49" pathLength={1} /></svg>
-            <img src={asset("/img/ceo-amr.webp")} alt={CEO.name} width={899} height={914} loading="lazy" />
-          </div>
-          <blockquote className="ceo-quote rv" style={d(140)}><p>{CEO.quote}</p></blockquote>
-          <span className="ceo-rule rv" style={d(280)} aria-hidden="true" />
-          <figcaption className="ceo-who rv" style={d(360)}>
-            <b id="ceo-name">{CEO.name}</b>
-            <span>{CEO.role}</span>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- 6. how it works (brief 12) ---------------- */
-const STEP_ICONS: React.ComponentType<{ size?: number }>[] = [WhatsAppGlyph, MapPin, ShieldCheck, HeartPulse];
-export function HowItWorks() {
-  const s = section("home", "how-it-works");
-  return (
-    <section className="section how" aria-labelledby="how-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[54]}</div>
-      <div className="container">
-        <Head center eyebrow="How it works" id="how-h" title={s.heading} />
-        <StepsReveal>
-        <ol className="steps" data-inview>
-          <span className="rail" aria-hidden="true"><i /></span>
-          {s.items.map((it, i) => {
-            const Ico = STEP_ICONS[i];
-            return (
-              <li key={it.title} className={`step rv ${i === 0 ? "first" : ""}`} style={d(i * 120)}>
-                <span className="dot" aria-hidden="true"><Ico size={24} /></span>
-                <div className="step-text">
-                  <span className="n">Step 0{i + 1}</span>
-                  <h3>{it.title}</h3>
-                  {it.text && <More text={it.text} label={it.title} className="step-more" />}
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-        </StepsReveal>
-        <div className="cta-row center rv" style={{ marginTop: 32 }}>
-          <WaButton placement="section-how">{s.ctas[0].label}</WaButton>
+      <div className="container how-line">
+        <div className="how-line-head">
+          <span className="eyebrow rv">How it works</span>
+          <h3 className="how-line-h rv" id="how-h">{how.heading}</h3>
         </div>
+        <StepsLine steps={how.items.map((it) => ({ title: it.title, text: it.text }))} labels={{ more: "Show more", less: "Show less" }} />
       </div>
     </section>
   );
@@ -348,7 +294,7 @@ export function Insurance(_: { insuranceMessage: string }) {
      one promise, three plain steps, one honest cashless line, one button, one quiet logo row. */
   const s = section("home", "insurance-cashless-care");
   return (
-    <section className="section bg-surface insurance ins2" aria-labelledby="ins-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{UI.labels[58]}</div>
+    <section className="section bg-surface insurance ins2" aria-labelledby="ins-h">
       <div className="container ins2-grid">
         <div className="ins2-copy">
           <Head eyebrow="Insurance & cashless" id="ins-h" title={s.heading} />
@@ -378,27 +324,35 @@ export function Insurance(_: { insuranceMessage: string }) {
   );
 }
 
-/* ---------------- 8. what our patients say + trusted by patients, one section (brief 15) ----------------
-   The user, 2026-11-12: one section, films first, then Trusted by Patients as two slim auto-sliding rows
-   (the guest-review quotes were removed at his request). */
+/* ---------------- 8. guests: the films, their words, then Trusted by Patients, one section (brief 15) ----------------
+   As on v6 (spec 015 Amendment 1): desktop, the films rail left and one guest quote at a time right
+   (GuestWords: their published reviews, each in its own language, no stars); phones stack them. Then the
+   slim Trusted by Patients row (the user, 2026-11-16: "merge both trusted by and videos in one section"). */
 export function Stories() {
   const s = section("home", "reviews-testimonials");
   return (
-    <section className="section stories voices" aria-labelledby="st-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{UI.labels[55]}</div>
+    <section className="section stories voices" aria-labelledby="st-h">
       <div className="container">
         <Head eyebrow="Patient stories" id="st-h" title={s.heading} />
       </div>
-      <StoryCarousel label={s.heading} count={STORIES.length}>
-        {STORIES.map((f) => (
-          /* Every card is the same portrait frame (the user, 2026-11-16: "make them all one: portraits");
-             a landscape film fills it with object-fit: cover. The full film opens in its own shape. */
-          <li key={f.id} className="story" data-shape={f.shape} style={f.pos ? { ["--pos" as string]: f.pos } : undefined}>
-            <InViewVideo src={asset(f.preview)} />
-            {f.flag && <span className="flag" aria-hidden="true"><img src={asset(`/logos/marks/flag-${f.flag}.svg`)} alt="" /></span>}
-            <Watch src={f.full} />
-          </li>
-        ))}
-      </StoryCarousel>
+      <div className="container guests">
+        <div className="guests-films">
+          <StoryCarousel label={s.heading} count={STORIES.length}>
+            {STORIES.map((f) => (
+              /* Every card is the same portrait frame (the user, 2026-11-16: "make them all one: portraits");
+                 a landscape film fills it with object-fit: cover. The full film opens in its own shape. */
+              <li key={f.id} className="story" data-shape={f.shape} style={f.pos ? { ["--pos" as string]: f.pos } : undefined}>
+                <InViewVideo src={asset(f.preview)} />
+                {f.flag && <span className="flag" aria-hidden="true"><img src={asset(`/logos/marks/flag-${f.flag}.svg`)} alt="" /></span>}
+                <Watch src={f.full} />
+              </li>
+            ))}
+          </StoryCarousel>
+        </div>
+        <div className="guests-words rv">
+          <GuestWords reviews={reviews()} flags={FLAGS} base={BASE} labels={{ prev: "Previous", next: "Next" }} labelledBy="st-h" />
+        </div>
+      </div>
 
       {/* Trusted by Patients: one slim row that glides on its own, part of the same section under a small
           sub label (the user, 2026-11-16: "merge both trusted by and videos in one section"). */}
@@ -438,26 +392,6 @@ export function Posts({ noHead }: { noHead?: boolean } = {}) {
             </li>
           ))}
         </SnapRow>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- 10. find a clinic (brief 13), Medcierge's explorer ---------------- */
-export function Finder() {
-  const s = section("home", "find-a-clinic");
-  return (
-    <section className="section finder" id="clinics" aria-labelledby="find-h">
-      <div className="container">
-        <Head eyebrow="Find a clinic" id="find-h" title={s.heading} />
-        <ClinicFinder
-          base={BASE}
-          clinics={CLINICS.map((c) => ({ hotel: c.hotel, destination: c.destination, lat: c.lat, lng: c.lng, mappable: c.coord !== "placeholder", href: clinicPath(c) }))}
-          labels={{ all: THEIRS.all, waClinic: "WhatsApp This Clinic", directions: "Directions", clinics: BRIEF.hotelClinics, mapLabel: s.heading, showOnMap: "Show on map", moreDetails: "More details" }}
-        />
-        <div className="cta-row center rv" style={{ marginTop: 24 }}>
-          <LinkButton href={href(ROUTES.clinics)} placement="finder" ev="find_clinic_click">{s.ctas[0].label}</LinkButton>
-        </div>
       </div>
     </section>
   );

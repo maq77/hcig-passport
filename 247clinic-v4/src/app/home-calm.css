@@ -62,17 +62,6 @@ main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolu
   .stat.in .stat-num b, .eyebrow.rv.in::before { animation: none; }
 }
 
-/* How it works, desktop: one arrow under the steps opens 02 and 03 together. */
-.steps-toggle { display: none; }
-.steps-toggle-btn { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; }
-@media (min-width: 1024px) {
-  .steps-toggle { display: flex; justify-content: center; margin-top: 18px; }
-  .steps-wrap .step .more-btn { display: none; }
-  .steps-wrap .step .more-body { interpolate-size: allow-keywords; transition: height 0.42s cubic-bezier(0.22, 1, 0.36, 1); }
-  .steps-wrap.all-open .step .more-body { height: auto !important; -webkit-mask-image: none !important; mask-image: none !important; }
-}
-.steps-wrap.all-open .steps-toggle-btn { background: var(--primary); border-color: var(--primary); color: #fff; }
-
 /* =============================================================================
    HIS REVIEW NOTES ON v3 (2026-11-12): "waves less", "I don't like gradients", no gradient on the What We Treat
    image, at most 3 colours (red, ivory, ink; WhatsApp green stays on WhatsApp only). Dark areas are solid ink.
@@ -124,8 +113,6 @@ main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolu
 }
 .ph-sub { color: rgba(251, 248, 244, 0.88); }
 
-/* Side words: desktop only (the user, 2026-11-12: "remove the words ... only remove on mobile version, keep it on desktop"). */
-@media (max-width: 767px) { .edge-label { display: none !important; } }
 
 /* =============================================================================
    PATIENT STORIES + TRUSTED BY PATIENTS, ONE SECTION (2026-11-12): films, then guest words beside the photo wall.
@@ -346,28 +333,154 @@ html.js .hw.in .w > span { transform: none; opacity: 1; filter: blur(0); }
 html.js .voices-sub.rv::after { transform: scaleX(0); transform-origin: left; transition: transform 1s var(--ease) 0.25s; }
 html.js .voices-sub.rv.in::after { transform: scaleX(1); }
 .voices-moments .mq-viewport { padding-block: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  html.js .voices-sub.rv::after { transform: none; transition: none; }
+}
 
 /* =============================================================================
-   CEO QUOTE after On-site care (the user, 2026-11-16: "on v3 add CEO quote"). Round portrait in a thin red
-   ring that draws on view, the words in the display face, a short red rule, then his name and role.
+   v6's ORDER, RHYTHM AND WIDTHS ON v3 (the user, 2026-11-17: "same organizing and spacing and width and
+   height of v6 and same sections"). Only the structure follows v6 (specs/015 section 4 and Amendment 1):
+   its section rhythm, heading gaps, grids and card sizes. v3 keeps its own look: Calisto and Poppins,
+   its reds, its rounded cards and buttons. Scoped to the home ([data-e-section]); inner pages keep theirs.
 ============================================================================= */
-.ceo { background: #fff; }
-.ceo-fig { margin: 0 auto; max-width: 880px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-/* the photo is 112px on phones, 140px on desktop; the ring sits 8 to 10px outside it */
-.ceo-portrait { position: relative; width: 128px; height: 128px; }
-.ceo-portrait img { position: absolute; inset: 8px; width: calc(100% - 16px); height: calc(100% - 16px); border-radius: 50%; object-fit: cover; object-position: 50% 20%; background: var(--surface-2); }
-.ceo-ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
-.ceo-ring circle { fill: none; stroke: var(--primary); stroke-width: 1.5px; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 0; }
-html.js .ceo-portrait.rv .ceo-ring circle { stroke-dashoffset: 1; transition: stroke-dashoffset 1.8s var(--ease) 0.35s; }
-html.js .ceo-portrait.rv.in .ceo-ring circle { stroke-dashoffset: 0; }
-.ceo-quote { margin: clamp(22px, 2.4vw, 30px) 0 0; }
-.ceo-quote p { margin: 0; font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.5vw, 34px); line-height: 1.38; color: var(--ink); text-wrap: balance; }
-.ceo-rule { display: block; width: 44px; height: 1.5px; margin-top: clamp(22px, 2.4vw, 30px); background: var(--primary); border-radius: 2px; }
-.ceo-who { margin-top: 16px; display: flex; flex-direction: column; gap: 4px; }
-.ceo-who b { font-size: 16px; font-weight: 600; color: var(--ink); }
-.ceo-who span { font-size: 13.5px; color: var(--ink-3); letter-spacing: 0.02em; }
-@media (min-width: 768px) { .ceo-portrait { width: 160px; height: 160px; } .ceo-portrait img { inset: 10px; width: calc(100% - 20px); height: calc(100% - 20px); } }
+/* 1. Section rhythm: v6's --section, 64px on phones to 120px on wide screens. */
+[data-e-section] > .section { padding-block: clamp(64px, 8vw, 120px); }
+[data-e-section="HotelBand"] > .proof { padding-block: clamp(44px, 6vw, 80px) clamp(16px, 2vw, 28px); }
+@media (min-width: 768px) { [data-e-section="HotelBand"] > .proof { padding-top: clamp(44px, 6vw, 80px); } }
+[data-e-section="HotelBand"] > .proof .mq { margin-top: clamp(28px, 4vw, 52px); }
+
+/* 2. Headings: v6's sizes and gaps, set for Calisto (wider and heavier than v6's face, so a touch smaller). */
+[data-e-section] .h2 { font-size: clamp(32px, 4vw, 56px); line-height: 1.06; }
+[data-e-section] .head { gap: 16px; margin-bottom: clamp(28px, 3vw, 48px); }
+[data-e-section] .head-row { margin-bottom: clamp(28px, 3vw, 48px); }
+[data-e-section] .head-row .head { margin: 0; }
+[data-e-section] .lead { max-width: 60ch; }
+
+/* 3. Services: v6's grid gaps for the six cards. */
+@media (min-width: 640px) { [data-e-section="Services"] .svc-grid { gap: 18px; } }
+@media (min-width: 1024px) {
+  [data-e-section="Services"] .svc-grid { gap: 28px 24px; }
+  [data-e-section="Services"] .svc-feature { margin-top: 48px; }
+}
+
+/* 4. On-site care: v6's column gap; then How it works as one slim numbered row at its foot. */
+@media (min-width: 1024px) { .intro .intro-grid { column-gap: clamp(48px, 5vw, 96px); } }
+.how-line { position: relative; display: grid; gap: 22px; margin-top: clamp(56px, 7vw, 104px); }
+.how-line-head { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.how-line-h { margin: 0; font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 700; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.15; color: var(--ink); text-wrap: balance; }
+.sline-wrap { position: relative; }
+.sline { position: relative; display: grid; }
+.sline::before { content: ""; position: absolute; left: 20px; top: 30px; bottom: 30px; width: 1.5px; background: var(--line-2); }
+.sl-step { position: relative; }
+.sl-q { margin: 0; font: inherit; }
+.sl-q button { width: 100%; display: grid; grid-template-columns: 40px minmax(0, 1fr) 36px; align-items: center; gap: 14px; min-height: 60px; padding: 10px 0; text-align: left; font-family: var(--font-sans), sans-serif; font-size: 16px; font-weight: 600; line-height: 1.35; color: var(--ink); cursor: pointer; }
+.sl-n { position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--line-2); background: #fff; font-family: var(--font-display), serif; font-weight: 700; font-size: 16px; color: var(--primary); }
+.sl-step:first-child .sl-n { border-color: var(--primary); }
+.sl-plus { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--line-2); background: #fff; color: var(--ink); transition: transform 0.4s var(--ease), background-color 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease); }
+.sl-q button:hover .sl-plus { background: var(--primary); border-color: var(--primary); color: #fff; }
+.sl-step.is-open .sl-plus { transform: rotate(45deg); background: var(--primary); border-color: var(--primary); color: #fff; }
+.sl-a { overflow: hidden; }
+html.js .sl-step:not(.is-open) .sl-a { height: 0; opacity: 0; }
+html:not(.js) .sl-a { height: auto; opacity: 1; }
+.sl-a > div { padding: 0 0 14px 54px; }
+.sl-a p { font-size: 15px; line-height: 1.65; color: var(--ink-2); max-width: 46ch; }
+.sline-all { display: none; }
+@media (min-width: 1024px) {
+  .how-line { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); align-items: start; gap: clamp(32px, 4vw, 64px); }
+  .sline-wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: start; }
+  .sline { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 28px; border-top: 1.5px solid var(--line-2); }
+  .sline::before { display: none; }
+  .sl-step::before { content: ""; position: absolute; left: 0; top: -1.5px; width: 28px; height: 1.5px; background: var(--primary); transform-origin: left center; }
+  html.js .sl-step.rv::before { transform: scaleX(0); transition: transform 1s var(--ease) calc(var(--d, 0ms) + 200ms); }
+  html.js .sl-step.rv.in::before { transform: none; }
+  .sl-q button { grid-template-columns: 1fr; align-items: start; gap: 10px; min-height: 0; padding: 22px 0 0; }
+  .sl-n { width: auto; height: auto; border: 0; background: none; justify-items: start; font-size: 24px; line-height: 1; }
+  .sl-plus { display: none; }
+  .sl-t { font-size: 17px; }
+  .sl-a > div { padding: 10px 0 0; }
+  .sline-all { display: grid; place-items: center; width: 44px; height: 44px; margin-top: 14px; border-radius: 50%; border: 1.5px solid var(--line-2); background: #fff; color: var(--ink); cursor: pointer; transition: background-color 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease); }
+  .sline-all:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .sline-all svg { transition: transform 0.4s var(--ease); }
+  .sline-wrap.all-open .sline-all { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .sline-wrap.all-open .sline-all svg { transform: rotate(180deg); }
+}
+
+/* 5. Guests: the films and one guest's words side by side on desktop (7 : 5), stacked on phones. */
+.stories.voices > .container > .head { margin-bottom: clamp(28px, 3vw, 48px); }
+.guests { display: grid; gap: 32px; }
+.guests > * { min-width: 0; }
+.guests-films { position: relative; min-width: 0; margin-inline: calc(-1 * var(--gutter)); }
+@media (min-width: 1024px) {
+  .guests { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(40px, 5vw, 88px); align-items: center; }
+  .guests-films { margin-inline: 0; }
+  .guests-films .row { padding-inline: 0; scroll-padding-inline: 0; -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent 100%); mask-image: linear-gradient(90deg, #000 82%, transparent 100%); }
+  .guests-films .car-arrow.prev { left: 12px; }
+  .guests-films .car-arrow.next { right: 12px; }
+}
+/* one guest's words at a time, on a v3 card */
+.guests-words { padding: 28px 22px 22px; border-radius: 24px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+@media (min-width: 1024px) { .guests-words { padding: 40px 40px 30px; border-radius: 28px; } }
+.gw { display: grid; gap: 24px; }
+.gw-stage { display: grid; }
+.gw-q { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 22px; margin: 0; opacity: 0; transform: translateY(12px); visibility: hidden; transition: opacity 0.4s var(--ease), transform 0s linear 0.4s, visibility 0s linear 0.4s; }
+.gw-q.on { opacity: 1; transform: none; visibility: visible; transition: opacity 0.9s var(--ease) 160ms, transform 0.9s var(--ease) 160ms, visibility 0s; }
+.gw.still .gw-q { transition: none; }
+.gw blockquote { margin: 0; }
+.gw blockquote p { margin: 0; font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 400; font-size: clamp(21px, 2vw, 28px); line-height: 1.42; color: var(--ink); text-wrap: pretty; }
+.gw-who { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 14px; line-height: 1.3; }
+.gw-who img { width: 28px; height: 28px; flex: none; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: var(--shadow-sm); }
+.gw-name { font-weight: 600; color: var(--ink); }
+.gw-country { display: inline-flex; align-items: center; gap: 10px; color: var(--ink-3); }
+.gw-country::before { content: ""; width: 14px; height: 1.5px; background: var(--line-2); }
+.gw-ctrl { display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+.gw-count { min-width: 5.4ch; font-family: var(--font-display), serif; font-size: 15px; letter-spacing: 0.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.gw-line { position: relative; flex: 1; height: 2px; overflow: hidden; border-radius: 2px; background: var(--line); }
+.gw-line i { position: absolute; inset: 0; background: var(--primary); transform-origin: left center; animation-name: gwLine; animation-timing-function: linear; animation-fill-mode: forwards; }
+.gw-line i.held { animation-play-state: paused; }
+@keyframes gwLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.gw-btn { display: grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 50%; border: 1px solid var(--line-2); background: #fff; color: var(--ink); cursor: pointer; transition: background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease); }
+.gw-btn:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
+.gw-btn:active { transform: scale(0.98); }
+/* Trusted by Patients: v6's spacing and row height */
+.voices-moments { margin-top: clamp(52px, 6vw, 88px); }
+.moment { height: 128px; }
+@media (min-width: 768px) { .moment { height: 168px; } }
+
+/* 6. Destinations: six photo tiles, the name in Calisto and the clinic count in red. */
+.dest-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
+.dest-grid > li { min-width: 0; }
+.dest { display: flex; flex-direction: column; gap: 12px; color: var(--ink); }
+.dest-media { display: block; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 20px; background: var(--surface-2); box-shadow: var(--shadow-sm); transition: box-shadow 0.4s var(--ease); }
+.dest-pic { display: block; width: 100%; height: 100%; transition: transform 1.2s var(--ease); }
+.dest-pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.dest:hover .dest-media { box-shadow: var(--shadow-md); }
+.dest:hover .dest-pic, .dest:focus-visible .dest-pic { transform: scale(1.04); }
+.dest:focus-visible { outline: 2.5px solid var(--primary); outline-offset: 4px; border-radius: 20px; }
+.dest-meta { display: flex; flex-direction: column; gap: 6px; padding-top: 10px; border-top: 1.5px solid var(--line-2); }
+.dest-name { font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 700; font-size: 20px; line-height: 1.15; color: var(--ink); transition: color 0.3s var(--ease); }
+.dest:hover .dest-name { color: var(--primary); }
+.dest-n { display: inline-flex; align-items: baseline; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); }
+.dest-n b { font-family: var(--font-display), serif; font-size: 20px; font-weight: 700; letter-spacing: 0; color: var(--primary); }
+@media (min-width: 900px) {
+  .dest-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; }
+  .dest-media { aspect-ratio: 5 / 4; border-radius: 24px; }
+  .dest-meta { flex-direction: row; align-items: baseline; justify-content: space-between; gap: 16px; padding-top: 14px; }
+  .dest-name { font-size: 26px; }
+  .dest-n b { font-size: 24px; }
+}
+
+/* 7. Hero headline: "Urgent Medical Care" on one line and "Right Inside Your Hotel" on the next on
+   desktop, at v6's width and line spacing (the user, 2026-11-17). Both lines are about 7.8 times the
+   heading size wide in Calisto at his 0.9 and 0.8 line sizes, so the heading is sized to the ink panel
+   (47% of the screen, less the left edge of the content) and each line stays whole. */
+@media (min-width: 1024px) {
+  .hero { --hero-left: max(var(--gutter), calc((100vw - 1280px) / 2 + var(--gutter))); }
+  .hero-copy { max-width: min(600px, calc(47vw - var(--hero-left) - 24px)); }
+  .hero h1 { font-size: min(68px, calc((47vw - var(--hero-left) - 32px) / 7.9)); }
+  .hero h1 .ln { white-space: nowrap; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html.js .ceo-portrait.rv .ceo-ring circle { stroke-dashoffset: 0; transition: none; }
-  html.js .voices-sub.rv::after { transform: none; transition: none; }
+  .gw-q, .sl-plus, .sline-all svg, .dest-pic { transition: none !important; }
+  html.js .sl-step.rv::before { transform: none; transition: none; }
 }

@@ -687,6 +687,24 @@
       ],
       "note": "Quote approved for the group sites 2026-10-18; on the 24/7 home by his request 2026-11-16.",
       "his_words": "on v3 add CEO quote"
+    },
+    {
+      "date": "2026-11-17",
+      "by": "the user",
+      "kind": "structure",
+      "where": "v3 home (247clinic-v4 on branch 247clinic-v3): src/components/home/Sections.tsx, Destinations.tsx, StepsLine.tsx, GuestWords.tsx; src/content/home-layout.json",
+      "text": [
+        "Clinic",
+        "Clinics"
+      ],
+      "removed": [
+        "The side words on the background (ui-labels 52 to 58: Partner, Luxury Premium ELite, Fast Procedures, Experience, WORLD-CLASS CLINICS, Elite Care, PROFESSIONALISM); the labels stay in ui-labels.json, unused on the page",
+        "The CEO quote section (its three strings above stay logged)",
+        "The How it works section as its own section and its WhatsApp button; its heading and four steps now sit as one slim row at the foot of On-site care",
+        "The clinic map section on the home (it stays on /our-clinics); Destinations takes its place with the same find-a-clinic heading and button"
+      ],
+      "note": "v6 order and merges brought to v3: Hero, HotelBand, Facilities, Services, Intro (with How it works), Insurance, Stories (films, one guest review at a time from reviews.json in its own language, Trusted by Patients), Destinations, FinalCta. New words are only the destination tile count labels Clinic and Clinics, as on v6. No other new or trimmed wording.",
+      "his_words": "in v3 re organize sections and, merge like you did on v6 ... remove the words that are on the background like Professionalism and World class clinics and Partner etc ... remove CEO Quote from v3"
     }
   ],
   "fromTheirSite": {

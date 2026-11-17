@@ -5,13 +5,11 @@
     "Facilities",
     "Services",
     "Intro",
-    "Ceo",
-    "HowItWorks",
     "Insurance",
     "Stories",
-    "Posts",
-    "Finder",
-    "FinalCta"
+    "Destinations",
+    "FinalCta",
+    "Posts"
   ],
   "hidden": [
     "Posts"

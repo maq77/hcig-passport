@@ -1,4 +1,4 @@
-import { Ceo, Facilities, FinalCta, Finder, Hero, HotelBand, HowItWorks, Insurance, Intro, Posts, Services, Stories } from "@/components/home/Sections";
+import { Destinations, Facilities, FinalCta, Hero, HotelBand, Insurance, Intro, Posts, Services, Stories } from "@/components/home/Sections";
 import { WA_MESSAGES } from "@/lib/wa";
 import layout from "@/content/home-layout.json";
 import Block from "@/components/editor/Block";
@@ -13,6 +13,10 @@ import "./theme-overrides.css";
    what is this, can I trust it, what do you treat, why here, how do I start, who pays,
    who else used it, where are you. Find a Clinic stays last before the final call
    (his rule of 2026-09-19).
+   2026-11-17 (the user: "in v3 re organize sections and, merge like you did on v6"; "remove CEO Quote
+   from v3"): v6's order and merges. How it works sits at the foot of On-site care, the guests' films,
+   words and Trusted by Patients are one section, and Destinations replaces the clinic map (the map stays
+   on /our-clinics).
    The order, hidden sections, spacing and added blocks live in home-layout.json, which
    the dev-only editor writes (npm run edit, then ?edit=1). Production builds strip it. */
 /* In development hidden sections still render (with the hidden attribute) so the
@@ -23,9 +27,9 @@ const EditorOverlay = process.env.NODE_ENV === "development"
   : () => null;
 
 const SECTIONS: Record<string, FC> = {
-  Hero, HotelBand, Facilities, Services, Intro, Ceo, HowItWorks,
+  Hero, HotelBand, Facilities, Services, Intro,
   Insurance: () => <Insurance insuranceMessage={WA_MESSAGES.insurance} />,
-  Stories, Posts, Finder, FinalCta,
+  Stories, Destinations, FinalCta, Posts,
 };
 
 type Layout = {

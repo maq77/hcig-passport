@@ -40,8 +40,8 @@ const SOURCES = [
 /* Which home.json sections each page section draws its words from. */
 const SECTION_IDS = {
   Hero: ["hero"], HotelBand: ["trust-numbers"], Facilities: ["accreditation-block"], Services: ["medical-services"],
-  Intro: ["what-is-247-clinic"], HowItWorks: ["how-it-works"], Insurance: ["insurance-cashless-care"],
-  Stories: ["reviews-testimonials"], Finder: ["find-a-clinic"], FinalCta: ["faq-home", "final-cta"],
+  Intro: ["what-is-247-clinic", "how-it-works"], Insurance: ["insurance-cashless-care"],
+  Stories: ["reviews-testimonials"], Destinations: ["find-a-clinic"], FinalCta: ["faq-home", "final-cta"],
 };
 
 const rel = (f) => relative(ROOT, f).replace(/\\/g, "/");

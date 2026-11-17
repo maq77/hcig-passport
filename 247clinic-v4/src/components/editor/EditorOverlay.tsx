@@ -57,8 +57,8 @@ function changesOf(rules: Draft["rules"]) {
 
 const NAMES: Record<string, string> = {
   Hero: "Hero", HotelBand: "Numbers and hotels", Facilities: "Accreditation film", Services: "Services",
-  Intro: "Care in your resort", Ceo: "CEO quote", HowItWorks: "How it works", Insurance: "Insurance", Stories: "Patient stories",
-  Posts: "Blog posts", Finder: "Find a clinic", FinalCta: "FAQs on the photo",
+  Intro: "Care in your resort", Insurance: "Insurance", Stories: "Patient stories",
+  Posts: "Blog posts", Destinations: "Destinations", FinalCta: "FAQs on the photo",
 };
 const DEVICE_LABEL: Record<string, string> = { desktop: "Desktop", tablet: "Tablet", phone: "Phone" };
 const blockType = (name: string) => BLOCK_TYPES.find((b) => name.startsWith(`${b.type}-`));

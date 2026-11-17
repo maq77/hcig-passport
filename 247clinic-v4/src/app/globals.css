@@ -354,10 +354,15 @@ html:not(.js) .more-btn { display: none; }
 /* ---------- care without leaving the resort: the moving 24/7 ---------- */
 .intro { overflow: hidden; isolation: isolate; }
 .wm { position: absolute; inset: 0; z-index: -1; display: flex; flex-direction: column; justify-content: center; pointer-events: none; overflow: hidden; }
-.wm-row { white-space: nowrap; will-change: transform; }
-.wm-glide { display: inline-flex; gap: 0.3em; font-family: var(--font-display), serif; font-weight: 700; font-size: clamp(150px, 26vw, 400px); line-height: 0.9; animation: wmGlide 42s linear infinite alternate; }
+/* Its own pace, not the scroll (the user, 2026-11-17): each row sits at a fixed offset and glides on a
+   slow keyframe loop, the two rows in opposite directions. Transform only; still under reduced motion. */
+.wm-row { white-space: nowrap; }
+.wm-fill { transform: translateX(-6%); }
+.wm-line { transform: translateX(-16%); }
+.wm-glide { display: inline-flex; gap: 0.3em; font-family: var(--font-display), serif; font-weight: 700; font-size: clamp(150px, 26vw, 400px); line-height: 0.9; will-change: transform; animation: wmGlide 52s linear infinite alternate; }
 .wm-glide.rev { animation-direction: alternate-reverse; }
-@keyframes wmGlide { from { transform: translateX(0); } to { transform: translateX(-14%); } }
+@keyframes wmGlide { from { transform: translateX(0); } to { transform: translateX(-20%); } }
+@media (prefers-reduced-motion: reduce) { .wm-glide { animation: none !important; } }
 .wm-fill .wm-glide { color: rgba(192, 0, 0, 0.05); }
 .wm-line .wm-glide { color: transparent; -webkit-text-stroke: 1.5px rgba(192, 0, 0, 0.16); }
 .intro-grid { display: grid; gap: clamp(28px, 4vw, 64px); align-items: center; }
@@ -903,43 +908,12 @@ html.js .rv.in { opacity: 1; transform: none; }
 }
 @media (max-width: 767px) and (prefers-reduced-motion: reduce) { .hero::before, .hero::after { animation: none; } }
 
-/* -----------------------------------------------------------------------------
-   FULL SITE LUXURY TYPOGRAPHY (2026-09-28)
-   UI/UX Pro Max: Vertical Edge Labels (Book Spine Aesthetic)
------------------------------------------------------------------------------ */
-/* 1. Ensure all sections create a stacking context */
-.proof, .facilities, .services, .intro, .how, .insurance, .stories {
+/* Every home section is its own stacking context and clips its own overflow (kept when the side words
+   were removed, 2026-11-17: the user, "remove the words that are on the background"). */
+.proof, .facilities, .services, .intro, .insurance, .stories, .dests {
   position: relative;
   overflow: hidden;
   z-index: 1;
-}
-
-/* 2. Base Typography Style for Small, Noticeable Edge Labels */
-.edge-label {
-  position: absolute;
-  top: 50%;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.35em;
-  color: rgba(192, 0, 0, 0.25); /* 24/7 Clinic Red at 25% opacity */
-  white-space: nowrap;
-  z-index: -1;
-  pointer-events: auto; /* Allow clicks for the visual editor */
-  text-transform: uppercase;
-}
-
-/* 3. Left Side Labels (Read bottom-to-top) */
-.edge-label.left { 
-  left: 12px; 
-  transform: translateY(-50%) rotate(-90deg); 
-  transform-origin: left center; 
-}
-
-/* 4. Right Side Labels (Read top-to-bottom) */
-.edge-label.right { 
-  right: 12px; 
-  transform: translateY(-50%) rotate(90deg); 
-  transform-origin: right center; 
 }
 
 /* Revert the frosted transparency on sections since we don't have watermarks underneath anymore */
