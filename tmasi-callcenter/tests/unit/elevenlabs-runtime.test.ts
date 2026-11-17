@@ -154,8 +154,13 @@ describe("ElevenLabsRuntime with a mocked SDK client", () => {
       },
       voices: { search: vi.fn().mockResolvedValue({ voices: [{ voiceId: "v1", name: "Ana", labels: { gender: "female" }, category: "premade", verifiedLanguages: [{ language: "en" }, { language: "de" }, { language: "ru" }] }], hasMore: false, totalCount: 1 }) },
     };
-    const rt = new ElevenLabsRuntime({ client: client as never });
+    const fetchImpl = vi.fn().mockResolvedValue(new Response("{}", { status: 200 }));
+    const rt = new ElevenLabsRuntime({ client: client as never, apiKey: "test-key", fetchImpl: fetchImpl as never });
     expect(await rt.pushAgent(spec())).toEqual({ agentId: "agent_new", created: true });
+    // the raw PATCH carries what the SDK drops: language detection, end_call and the dynamic variable defaults
+    const patch = JSON.parse(fetchImpl.mock.calls[0]![1].body);
+    expect(Object.keys(patch.conversation_config.agent.prompt.built_in_tools).sort()).toEqual(["end_call", "language_detection"]);
+    expect(patch.conversation_config.agent.dynamic_variables.dynamic_variable_placeholders).toBeTypeOf("object");
     expect(create).toHaveBeenCalledOnce();
     expect(await rt.pushAgent(spec(), "agent_new")).toEqual({ agentId: "agent_new", created: false });
     expect(update).toHaveBeenCalledWith("agent_new", expect.objectContaining({ name: "TMASI Call Center" }));

@@ -30,6 +30,8 @@ export type ElevenLabsLike = Pick<ElevenLabsClient, "conversationalAi" | "voices
 export interface ElevenLabsRuntimeOptions {
   apiKey?: string;
   client?: ElevenLabsLike;
+  /** Injected in tests for the raw PATCH; defaults to the global fetch. */
+  fetchImpl?: typeof fetch;
 }
 
 /** "ar-EG" and "ar-AE" both map to the platform language "ar". */
@@ -69,6 +71,35 @@ function clientToolConfig(t: ClientToolSpec): ElevenLabs.PromptAgentApiModelOutp
     description: t.description,
     parameters: toToolParameters(t.parameters) as ElevenLabs.ObjectJsonSchemaPropertyOutput,
     expectsResponse: t.waitForResponse,
+  };
+}
+
+/** The fields the SDK drops, in wire (snake_case) form: system tools and dynamic variable defaults. Exported for tests. */
+export function rawAgentPatch(spec: AgentSpec) {
+  const builtIn: Record<string, unknown> = {
+    // the agent must be able to hang up: after the goodbye, and right after the emergency line (FR-014)
+    end_call: {
+      type: "system",
+      name: "end_call",
+      description: "End the call when the caller's needs are covered and the goodbye is said, or right after the emergency line.",
+      params: { system_tool_type: "end_call" },
+    },
+  };
+  if (spec.languageDetection) {
+    builtIn.language_detection = {
+      type: "system",
+      name: "language_detection",
+      description: "Switch the reply language whenever the caller speaks another language. The voice and the persona name stay the same.",
+      params: { system_tool_type: "language_detection" },
+    };
+  }
+  return {
+    conversation_config: {
+      agent: {
+        dynamic_variables: { dynamic_variable_placeholders: spec.dynamicVariables },
+        prompt: { built_in_tools: builtIn },
+      },
+    },
   };
 }
 
@@ -265,9 +296,11 @@ async function readAll(stream: ReadableStream<Uint8Array>): Promise<Buffer> {
 export class ElevenLabsRuntime implements VoiceRuntime {
   private client: ElevenLabsLike | null;
   private readonly apiKey: string | undefined;
+  private readonly fetchImpl: typeof fetch;
 
   constructor(opts: ElevenLabsRuntimeOptions = {}) {
     this.apiKey = opts.apiKey ?? process.env.ELEVENLABS_API_KEY;
+    this.fetchImpl = opts.fetchImpl ?? fetch;
     this.client = opts.client ?? null;
   }
 
@@ -285,12 +318,29 @@ export class ElevenLabsRuntime implements VoiceRuntime {
   async pushAgent(spec: AgentSpec, existingAgentId?: string | null): Promise<{ agentId: string; created: boolean }> {
     const agents = this.sdk().conversationalAi.agents;
     const body = buildAgentBody(spec);
+    let agentId: string;
+    let created = false;
     if (existingAgentId) {
       await agents.update(existingAgentId, body);
-      return { agentId: existingAgentId, created: false };
+      agentId = existingAgentId;
+    } else {
+      agentId = (await agents.create(body)).agentId;
+      created = true;
     }
-    const res = await agents.create(body);
-    return { agentId: res.agentId, created: true };
+    // The SDK (2.79.0) drops built_in_tools and dynamic_variable_placeholders on the way out (seen on the live
+    // agent 2026-11-17: both came back empty). A raw PATCH merges them in; verified to keep prompt, tools and KB.
+    await this.patchRaw(agentId, rawAgentPatch(spec));
+    return { agentId, created };
+  }
+
+  private async patchRaw(agentId: string, patch: unknown): Promise<void> {
+    if (!this.apiKey) throw new MissingApiKeyError();
+    const res = await this.fetchImpl(`https://api.elevenlabs.io/v1/convai/agents/${encodeURIComponent(agentId)}`, {
+      method: "PATCH",
+      headers: { "xi-api-key": this.apiKey, "content-type": "application/json" },
+      body: JSON.stringify(patch),
+    });
+    if (!res.ok) throw new Error(`Agent patch failed: ${res.status} ${(await res.text()).slice(0, 300)}`);
   }
 
   async getConversationToken(agentId: string): Promise<ConversationAccess> {
