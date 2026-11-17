@@ -174,7 +174,7 @@ export function buildAgentBody(spec: AgentSpec): {
   if (spec.allowSessionOverrides) {
     platformSettings.overrides = {
       conversationConfigOverride: {
-        agent: { firstMessage: true, language: true },
+        agent: { language: true },
         tts: { voiceId: true },
       },
     };

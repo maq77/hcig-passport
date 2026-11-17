@@ -80,9 +80,11 @@ describe("buildAgentBody (vendor mapping)", () => {
       { type: "text", name: "Core facts (en)", id: "doc_core", usageMode: "prompt" },
       { type: "text", name: "News (de)", id: "doc_news", usageMode: "auto" },
     ]);
-    expect(c.agent!.dynamicVariables).toEqual({ dynamicVariablePlaceholders: { persona_name: "Emma", emergency_line: expect.any(String) } });
+    // the greeting is a dynamic variable (ElevenLabs refuses a first_message session override)
+    expect(c.agent!.firstMessage).toBe("{{greeting}}");
+    expect(c.agent!.dynamicVariables).toEqual({ dynamicVariablePlaceholders: { persona_name: "Emma", emergency_line: expect.any(String), greeting: expect.stringContaining("Emma") } });
     expect(body.platformSettings.overrides!.conversationConfigOverride).toEqual({
-      agent: { firstMessage: true, language: true },
+      agent: { language: true },
       tts: { voiceId: true },
     });
   });

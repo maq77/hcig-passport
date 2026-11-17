@@ -6,3 +6,7 @@ node_modules
 *.log
 *.tsbuildinfo
 apps/web/AGENTS.md
+
+tests/e2e/screens/
+test-results/
+playwright-report/

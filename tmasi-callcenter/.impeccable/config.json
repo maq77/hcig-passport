@@ -1,0 +1,20 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(.2, .9, .3, 1.25)",
+        "createdAt": "2026-11-17T19:48:52.318Z",
+        "reason": "Claude: part of the canvas board A2-Live he approved with 'Build it exactly' (new language chip springs onto the timeline)"
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(.2, .9, .3, 1.15)",
+        "createdAt": "2026-11-17T19:48:52.530Z",
+        "reason": "Claude: transcript bubble entrance from the approved canvas boards A2-Live and C (his 'Build it exactly')"
+      }
+    ]
+  }
+}

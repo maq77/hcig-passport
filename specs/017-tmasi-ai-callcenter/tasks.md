@@ -332,6 +332,23 @@ description: "Task list for spec 017, TMASI AI Call Center V1 (local demo)"
 
 ---
 
+## After the manager demo: cost optimisation (his order 2026-11-17: "i want to make it but after i make the demo with my manager because right now is perfect and i dont want to lose the quality")
+
+**Measured on his 4-minute test call** (conv_4101..., 241 s, 3,227 credits, about $0.32):
+- Voice platform: 2,674 credits (83%), $0.067 a minute, billed per call minute.
+- LLM: 553 credits (17%). Claude Haiku 4.5 prompt caching is already active (94.7k cache-read tokens against 21.2k uncached input).
+- Speculative generation adds about 15% of the LLM charge.
+
+Nothing ships before the demo. Every change below must pass the same gate (92%+ per language, 100% safety, median reply under 1.0 s).
+
+- [ ] T082 (Sonnet) Eval runner in text-only mode for every non-voice item (about $0.003 a message instead of voice minutes); voice only for voice and switch items, in `packages/evals/src/run.ts`.
+- [ ] T083 (Opus) Shorter call tails: agent ends right after the goodbye (end_call is on) and `turn.maxSilenceEndSeconds` goes from 20 to 10 in `agent/agent.config.ts`. Check the CSAT question still gets answered.
+- [ ] T084 (Opus) A/B the live LLM: Claude Haiku 5.5 when ElevenLabs offers it (about 10 times cheaper input than Haiku 4.5), and Gemini Flash. Keep it only if the gate passes.
+- [ ] T085 (Opus) Trim prompt and retrieval: base prompt plus core facts are 11,273 characters, and RAG chunks are sent each turn. Measure tokens per turn before and after.
+- [ ] T086 (Sonnet) Post-call grading of bulk test runs through the Message Batches API (50% off); live calls stay immediate.
+- [ ] T087 (later, phase 4 only) Cache pre-rendered audio for the greeting, fillers, emergency line and read-back templates per voice and language. This only pays when speech is billed per character (own pipeline); on ElevenLabs Agents the bill is per minute.
+- Not planned: turning off speculative turns (saves about 2% of a call, costs reply speed).
+
 ## Dependencies and order
 
 - **Phase 0:**

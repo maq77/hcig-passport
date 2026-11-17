@@ -51,6 +51,6 @@ export const POST = handle(async (req: Request) => {
     agentId,
     persona: { label: persona.label, displayName: persona.display_name, voiceId: voiceIdFor(persona), lang: persona.lang },
     firstMessage: firstMessageFor(persona.label, persona.display_name),
-    dynamicVariables: { persona_name: persona.display_name, emergency_line: EMERGENCY_LINE },
+    dynamicVariables: { persona_name: persona.display_name, emergency_line: EMERGENCY_LINE, greeting: firstMessageFor(persona.label, persona.display_name) },
   });
 });

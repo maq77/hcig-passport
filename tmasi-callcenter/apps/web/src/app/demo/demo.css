@@ -1,0 +1,54 @@
+/* Test line: class rules and keyframes copied from the six approved boards (design/test-line). */
+.tl-root{margin:0;background:#F4F7F8;color:#0B1220;min-height:100dvh;display:flex;flex-direction:column}
+.tl-root a{color:#00797B}.tl-root a:hover{color:#0F205C}
+.tl-root button,.tl-root select,.tl-root [role="slider"],.tl-root a{outline:none}
+.tl-root button:focus-visible,.tl-root select:focus-visible,.tl-root [role="slider"]:focus-visible,.tl-root a:focus-visible{outline:2px solid #009A9C;outline-offset:2px}
+.tl-root button{cursor:pointer}
+.tl-root button:disabled{cursor:not-allowed;opacity:.55}
+
+.ring{position:absolute;inset:0;border-radius:50%;border:2px solid #009A9C}
+.speaking .r1{animation:out 2.4s ease-out infinite}
+.speaking .r2{animation:out 2.4s ease-out .8s infinite}
+.speaking .r3{animation:out 2.4s ease-out 1.6s infinite}
+.listening .r1{animation:in 2.2s ease-in infinite}
+.listening .r2{animation:in 2.2s ease-in .73s infinite}
+.listening .r3{animation:in 2.2s ease-in 1.46s infinite}
+.core{animation:breathe 4s ease-in-out infinite}
+.thinking .core{animation:breathe 1.6s ease-in-out infinite}
+.phone .speaking .r1,.phone .speaking .r2,.phone .speaking .r3{animation-name:outp}
+@keyframes out{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.7);opacity:0}}
+@keyframes outp{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.6);opacity:0}}
+@keyframes in{0%{transform:scale(1.7);opacity:0}100%{transform:scale(1);opacity:.55}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+.word{animation:rise .5s ease-out both}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.chipnew{animation:pop .5s cubic-bezier(.2,.9,.3,1.25) both}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.tick{animation:slide .45s ease-out both}
+@keyframes slide{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.draw{stroke-dasharray:500;stroke-dashoffset:500;animation:draw 1.6s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.mic span{display:inline-block;width:3px;border-radius:2px;background:#009A9C;animation:lv .9s ease-in-out infinite}
+.mic.big span{width:4px}
+.mic.live span{animation:none;transition:transform .08s linear}
+@keyframes lv{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.inL{animation:inL .45s cubic-bezier(.2,.9,.3,1.15) both}
+.inR{animation:inR .45s cubic-bezier(.2,.9,.3,1.15) both}
+@keyframes inL{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+@keyframes inR{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+.halo{animation:halo 4.5s ease-in-out infinite}
+.start .core{animation:breathe2 4.5s ease-in-out infinite}
+@keyframes breathe2{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@keyframes halo{0%,100%{transform:scale(1);opacity:.25}50%{transform:scale(1.12);opacity:.1}}
+.up{animation:up .6s ease-out both}
+.after .up{animation-duration:.55s}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.after .up{animation-name:upa}
+.phone.after .up{animation-name:upp}
+@keyframes upa{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes upp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.ring,.core,.word,.chipnew,.tick,.draw,.mic span,.inL,.inR,.halo,.up{animation:none !important;stroke-dashoffset:0}}
+
+/* review 2026-11-17: the rings grow to 1.7x as in the board; text stays above them */
+.ring{pointer-events:none}
+.above-orb{position:relative;z-index:1}

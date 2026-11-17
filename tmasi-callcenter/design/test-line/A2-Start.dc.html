@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Test line, before the call</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#00797B}a:hover{color:#0F205C}
+.core{animation:breathe 4.5s ease-in-out infinite}
+.halo{animation:halo 4.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@keyframes halo{0%,100%{transform:scale(1);opacity:.25}50%{transform:scale(1.12);opacity:.1}}
+.mic span{display:inline-block;width:4px;border-radius:2px;background:#009A9C;animation:lv .9s ease-in-out infinite}
+@keyframes lv{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.up{animation:up .6s ease-out both}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.core,.halo,.mic span,.up{animation:none !important}}
+</style>
+</helmet>
+<div style="min-height: 900px; background: #F4F7F8; font-family: Poppins, system-ui, sans-serif; color: #0B1220; display: flex; flex-direction: column">
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; flex-wrap: wrap; gap: 12px">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 10px; background: #0F205C"></div>
+      <div>
+        <div style="font-weight: 600; font-size: 17px">TMASI Test Line</div>
+        <div style="font-size: 12px; color: #5B6474">Private, runs on this laptop</div>
+      </div>
+    </div>
+    <span style="padding: 8px 14px; border-radius: 999px; background: #FFFFFF; border: 1px solid #DCE3E6; font-size: 13px; color: #344054">Agent ready · v0.1.0</span>
+  </header>
+
+  <main style="flex: 1; display: flex; flex-wrap: wrap; gap: 24px; padding: 0 32px 32px; max-width: 1440px; width: 100%; box-sizing: border-box; margin: 0 auto; align-items: stretch">
+    <section aria-label="Start a call" style="flex: 999 1 640px; min-width: 0; background: #FFFFFF; border-radius: 28px; border: 1px solid #E4EAED; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px 32px; gap: 28px">
+      <div style="position: relative; width: 200px; height: 200px">
+        <span class="halo" aria-hidden="true" style="position: absolute; inset: -20px; border-radius: 50%; background: #009A9C"></span>
+        <div class="core" style="position: absolute; inset: 0; border-radius: 50%; background: #009A9C; display: flex; align-items: center; justify-content: center; box-shadow: 0 24px 60px rgba(0,154,156,.25)">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10v1a7 7 0 0 0 14 0v-1"></path><path d="M12 18v4"></path></svg>
+        </div>
+      </div>
+      <div class="up" style="text-align: center; display: flex; flex-direction: column; gap: 8px">
+        <h1 style="margin: 0; font-size: 34px; font-weight: 600; letter-spacing: -.3px">Talk to the TMASI assistant</h1>
+        <p style="margin: 0; font-size: 15px; color: #5B6474">Pick the language the call starts in and a voice. Switch language any time during the call.</p>
+      </div>
+
+      <div class="up" style="display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; animation-delay: .15s">
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #5B6474">Starting language
+          <select style="height: 52px; min-width: 220px; border-radius: 14px; border: 1px solid #DCE3E6; padding: 0 14px; font-family: inherit; font-size: 15px; color: #0B1220; background: #FFFFFF">
+            <option>English</option><option>Deutsch</option><option>Русский</option><option>Polski</option><option>العربية مصر</option><option>العربية الخليج</option><option>Español</option><option>Italiano</option><option>Français</option><option>Čeština</option>
+          </select>
+        </label>
+        <fieldset style="border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px">
+          <legend style="font-size: 13px; color: #5B6474; padding: 0; margin-bottom: 6px">Voice</legend>
+          <div style="display: flex; gap: 10px">
+            <button type="button" aria-pressed="true" style="width: 150px; height: 52px; border-radius: 14px; border: 2px solid #009A9C; background: #E3F4F4; font-family: inherit; font-size: 15px; font-weight: 600; color: #00585B">Woman · Emma</button>
+            <button type="button" aria-pressed="false" style="width: 150px; height: 52px; border-radius: 14px; border: 1px solid #DCE3E6; background: #FFFFFF; font-family: inherit; font-size: 15px; color: #344054">Man · James</button>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="up" style="display: flex; flex-direction: column; align-items: center; gap: 12px; animation-delay: .3s">
+        <button type="button" style="height: 60px; padding: 0 44px; border-radius: 999px; border: 0; background: #009A9C; color: #FFFFFF; font-family: inherit; font-weight: 600; font-size: 17px; box-shadow: 0 14px 30px rgba(0,154,156,.3)">Start call</button>
+        <span style="display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: #344054">
+          <span class="mic" aria-hidden="true" style="display: inline-flex; align-items: center; gap: 3px; height: 18px"><span style="height: 8px"></span><span style="height: 16px; animation-delay: .15s"></span><span style="height: 11px; animation-delay: .3s"></span><span style="height: 18px; animation-delay: .45s"></span><span style="height: 9px; animation-delay: .6s"></span></span>
+          Microphone ready
+        </span>
+      </div>
+    </section>
+
+    <aside aria-label="Help and recent calls" style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+      <div style="background: #FFFFFF; border-radius: 24px; border: 1px solid #E4EAED; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+        <h2 style="margin: 0; font-size: 15px; font-weight: 600">Things to try</h2>
+        <sc-for list="{{tips}}" as="t" hint-placeholder-count="5">
+          <div style="display: flex; gap: 10px; font-size: 14px; line-height: 1.45">
+            <span aria-hidden="true" style="flex: none; width: 22px; height: 22px; border-radius: 50%; background: #E3F4F4; color: #00797B; font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{t.n}}</span>
+            <span>{{t.text}}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background: #FFFFFF; border-radius: 24px; border: 1px solid #E4EAED; padding: 20px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; justify-content: space-between; align-items: center">
+          <h2 style="margin: 0; font-size: 15px; font-weight: 600">Recent calls</h2>
+          <span style="font-size: 12px; color: #5B6474">On this laptop</span>
+        </div>
+        <sc-for list="{{recent}}" as="r" hint-placeholder-count="3">
+          <a href="A2-After.dc.html" style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 14px; background: #F4F7F8; color: #0B1220; text-decoration: none">
+            <span style="display: flex; flex-direction: column">
+              <span style="font-size: 14px; font-weight: 500">{{r.title}}</span>
+              <span style="font-size: 12px; color: #5B6474">{{r.meta}}</span>
+            </span>
+            <span style="font-size: 12px; font-weight: 600; color: {{r.color}}">{{r.result}}</span>
+          </a>
+        </sc-for>
+      </div>
+      <div style="padding: 14px 16px; border-radius: 16px; background: #FFF6E5; color: #7A4B00; font-size: 13px; line-height: 1.5">Only invited testers for now. The assistant answers from TMASI's own information and says it is an AI at the start of every call.</div>
+    </aside>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      tips: [
+        { n: '1', text: 'Ask what TMASI does and where the offices are.' },
+        { n: '2', text: 'Switch language during the call, for example from English to Arabic.' },
+        { n: '3', text: 'Say "Can I speak to a man?" to change the voice.' },
+        { n: '4', text: 'Leave your name and phone, then listen for the read-back.' },
+        { n: '5', text: 'Ask a price: it should offer a coordinator, never guess.' }
+      ],
+      recent: [
+        { title: 'Sara · Check-up in Hurghada', meta: 'Today · 03:12 · EN, AR', result: 'Case created', color: '#00797B' },
+        { title: 'Test · Dubai office question', meta: 'Today · 01:05 · AR', result: 'Answered', color: '#00797B' },
+        { title: 'Test · Price question', meta: 'Today · 00:58 · RU', result: '1 question to answer', color: '#9A5B00' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

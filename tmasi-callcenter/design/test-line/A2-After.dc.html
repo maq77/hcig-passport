@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Test line, after the call</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Noto+Sans+Arabic:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#00797B}a:hover{color:#0F205C}
+.up{animation:up .55s ease-out both}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.up{animation:none !important}}
+</style>
+</helmet>
+<div style="min-height: 1000px; background: #F4F7F8; font-family: Poppins, system-ui, sans-serif; color: #0B1220; display: flex; flex-direction: column">
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; flex-wrap: wrap; gap: 12px">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <div aria-hidden="true" style="width: 36px; height: 36px; border-radius: 10px; background: #0F205C"></div>
+      <div>
+        <div style="font-weight: 600; font-size: 17px">Call ended · 03:12</div>
+        <div style="font-size: 12px; color: #5B6474">Emma · English and Arabic · today</div>
+      </div>
+    </div>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap">
+      <button type="button" style="height: 44px; padding: 0 18px; border-radius: 12px; border: 1px solid #DCE3E6; background: #FFFFFF; font-family: inherit; font-size: 14px; color: #344054">Download transcript</button>
+      <a href="A2-Start.dc.html" style="height: 44px; padding: 0 20px; border-radius: 12px; background: #009A9C; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center">Start a new call</a>
+    </div>
+  </header>
+
+  <main style="flex: 1; display: flex; flex-wrap: wrap; gap: 20px; padding: 0 32px 32px; max-width: 1440px; width: 100%; box-sizing: border-box; margin: 0 auto; align-content: flex-start">
+    <div style="flex: 999 1 620px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+      <section class="up" aria-label="Summary" style="background: #FFFFFF; border-radius: 24px; border: 1px solid #E4EAED; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">Summary</h2>
+          <span style="font-size: 12px; color: #5B6474">Written by Claude after the call</span>
+        </div>
+        <p style="margin: 0; font-size: 15px; line-height: 1.65">Sara from Germany wants a check-up in Hurghada next month. Emma explained the medical tourism service and offered a coordinator. Sara gave her phone number for a call back. Open point: the price of the check-up.</p>
+        <p dir="rtl" style="margin: 0; font-family: 'Noto Sans Arabic', Poppins, sans-serif; font-size: 15px; line-height: 1.8; color: #344054">سارة من ألمانيا عايزة تعمل check-up في الغردقة الشهر الجاي، واتفقنا إن منسق يكلمها.</p>
+      </section>
+
+      <section class="up" aria-label="Recording" style="background: #FFFFFF; border-radius: 24px; border: 1px solid #E4EAED; padding: 20px 24px; display: flex; align-items: center; gap: 16px; animation-delay: .1s">
+        <button type="button" aria-label="Play recording" style="flex: none; width: 52px; height: 52px; border-radius: 50%; border: 0; background: #009A9C; display: flex; align-items: center; justify-content: center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+        </button>
+        <div aria-hidden="true" style="flex: 1; display: flex; align-items: center; gap: 3px; height: 40px; overflow: hidden">
+          <sc-for list="{{wave}}" as="w" hint-placeholder-count="60">
+            <span style="flex: 1; min-width: 2px; height: {{w.h}}; border-radius: 2px; background: {{w.c}}"></span>
+          </sc-for>
+        </div>
+        <span style="flex: none; font-size: 13px; color: #5B6474">00:58 / 03:12</span>
+      </section>
+
+      <section class="up" aria-label="Transcript" style="background: #FFFFFF; border-radius: 24px; border: 1px solid #E4EAED; padding: 22px; display: flex; flex-direction: column; gap: 12px; animation-delay: .2s">
+        <h2 style="margin: 0; font-size: 16px; font-weight: 600">Transcript</h2>
+        <sc-for list="{{lines}}" as="l" hint-placeholder-count="4">
+          <div style="display: flex; flex-direction: column; gap: 5px; align-items: {{l.align}}">
+            <div dir="auto" style="max-width: 72%; padding: 11px 15px; border-radius: 16px; background: {{l.bg}}; color: {{l.fg}}; font-size: 14px; line-height: 1.55">{{l.text}}</div>
+            <span style="font-size: 11px; color: #5B6474">{{l.meta}}</span>
+          </div>
+        </sc-for>
+      </section>
+    </div>
+
+    <aside style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+      <section class="up" aria-label="Quality" style="background: #FFFFFF; border-radius: 24px; border: 1px solid #E4EAED; padding: 22px; display: flex; flex-direction: column; gap: 12px; animation-delay: .1s">
+        <div style="display: flex; justify-content: space-between; align-items: center">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">Quality check</h2>
+          <span style="padding: 6px 12px; border-radius: 999px; background: #E3F4F4; color: #00585B; font-size: 13px; font-weight: 600">Passed</span>
+        </div>
+        <sc-for list="{{checks}}" as="c" hint-placeholder-count="6">
+          <div style="display: flex; align-items: center; gap: 10px; font-size: 13px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00797B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
+            <span>{{c}}</span>
+          </div>
+        </sc-for>
+      </section>
+
+      <section class="up" aria-label="Case" style="background: #0F205C; color: #FFFFFF; border-radius: 24px; padding: 22px; display: flex; flex-direction: column; gap: 10px; animation-delay: .2s">
+        <div style="display: flex; justify-content: space-between; align-items: center">
+          <h2 style="margin: 0; font-size: 16px; font-weight: 600">Case created</h2>
+          <span style="padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.14); font-size: 12px">New</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px">
+          <div style="display: flex; justify-content: space-between; gap: 10px"><span style="color: #C9D3EA">Name</span><span>Sara</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 10px"><span style="color: #C9D3EA">Country</span><span>Germany</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 10px"><span style="color: #C9D3EA">Need</span><span>Check-up in Hurghada</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 10px"><span style="color: #C9D3EA">Dates</span><span>Next month</span></div>
+          <div style="display: flex; justify-content: space-between; gap: 10px"><span style="color: #C9D3EA">Phone</span><span>+49 ··· ··· 21</span></div>
+        </div>
+      </section>
+
+      <section class="up" aria-label="Numbers" style="background: #FFFFFF; border-radius: 24px; border: 1px solid #E4EAED; padding: 22px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; animation-delay: .3s">
+        <div><div style="font-size: 12px; color: #5B6474">Reply speed</div><div style="font-size: 22px; font-weight: 600">0.7 s</div></div>
+        <div><div style="font-size: 12px; color: #5B6474">Languages</div><div style="font-size: 22px; font-weight: 600">2</div></div>
+        <div><div style="font-size: 12px; color: #5B6474">Turns</div><div style="font-size: 22px; font-weight: 600">14</div></div>
+        <div><div style="font-size: 12px; color: #5B6474">Caller rating</div><div style="font-size: 22px; font-weight: 600">5 of 5</div></div>
+      </section>
+
+      <section class="up" aria-label="Questions to answer" style="background: #FFF6E5; border-radius: 24px; padding: 20px 22px; display: flex; flex-direction: column; gap: 8px; animation-delay: .4s">
+        <h2 style="margin: 0; font-size: 15px; font-weight: 600; color: #6B4100">Questions Emma could not answer</h2>
+        <div style="font-size: 14px; color: #6B4100">"How much is a check-up?"</div>
+        <div style="font-size: 12px; color: #7A4B00">Waiting for TMASI prices. Approve an answer once and Emma uses it on the next call.</div>
+      </section>
+    </aside>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const hs = [10, 22, 30, 18, 34, 26, 14, 28, 36, 20, 12, 24, 32, 16, 28];
+    const wave = Array.from({ length: 60 }, (_, i) => ({ h: hs[i % hs.length] + 'px', c: i < 18 ? '#009A9C' : '#D0D8DC' }));
+    const emma = { align: 'flex-start', bg: '#F1F5F6', fg: '#1D2939' };
+    const caller = { align: 'flex-end', bg: '#009A9C', fg: '#FFFFFF' };
+    return {
+      wave,
+      checks: ['Said it is an AI in the first turn', 'Asked to record, caller agreed', 'Every fact found in TMASI information', 'Replied in the caller\'s language every time', 'Same voice after the language switch', 'Never asked the same thing twice'],
+      lines: [
+        { ...caller, meta: 'Caller · AR', text: 'عايزة أعمل check-up في الغردقة الشهر الجاي' },
+        { ...emma, meta: 'Emma · AR · 0.8 s', text: 'تمام يا سارة، فريقنا في الغردقة يقدر يرتّب لك check-up كامل.' },
+        { ...caller, meta: 'Caller · EN', text: 'How much is it?' },
+        { ...emma, meta: 'Emma · EN · 0.7 s', text: 'A coordinator will send you the exact details. Shall I take your phone number?' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

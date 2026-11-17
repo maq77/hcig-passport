@@ -196,9 +196,15 @@ export function buildAgentSpec(i: BuildSpecInput): AgentSpec {
     languageDetection: config.languageDetection,
     defaultVoiceId,
     supportedVoices,
-    firstMessage: i.firstMessages[defaultPersona?.label ?? ""] ?? "",
+    // ElevenLabs refuses a first_message session override (live test 2026-11-17: close 1008 "Override for field
+    // 'first_message' is not allowed by config", although the platform setting says allowed). The greeting is therefore
+    // a dynamic variable: each session sends its persona's greeting, in its language and gender form.
+    firstMessage: "{{greeting}}",
     clientTools: clientToolSpecs(config),
-    dynamicVariables: config.dynamicVariables,
+    dynamicVariables: {
+      ...config.dynamicVariables,
+      greeting: (i.firstMessages[defaultPersona?.label ?? ""] ?? "").replaceAll("{{persona_name}}", defaultPersona?.display_name ?? ""),
+    },
     knowledge: i.knowledge,
     evaluation,
     dataCollection,
