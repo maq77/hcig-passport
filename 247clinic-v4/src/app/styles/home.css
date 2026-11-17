@@ -360,35 +360,50 @@ html:not(.js) .sl-a { height: auto; opacity: 1; }
 /* =============================================================================
    DESTINATIONS: six photo tiles, the name in Cormorant and the clinic count in Calisto
 ============================================================================= */
-.dest-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 12px; }
+/* Destination covers (the owner's finished cover designs, headline baked in; his pick: desktop bento, phone 2 x 3).
+   Never cropped on the headline side (object-position left bottom). Caption under every cover: name in the display
+   serif, count as a red numeral with its label, and a round hairline arrow. Phone and tablet: a plain 2-column grid. */
+.dest-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 12px; }
 .dest-grid > li { min-width: 0; }
-.dest { display: flex; flex-direction: column; gap: 12px; color: var(--ink); }
-.dest-media { display: block; overflow: hidden; aspect-ratio: 4 / 5; border-radius: var(--r-photo); background: var(--tint-2); }
+.dest { display: flex; flex-direction: column; gap: 10px; color: var(--ink); }
+.dest-media { display: block; overflow: hidden; aspect-ratio: 5 / 4; border-radius: 12px; background: var(--tint-2); }
 .dest-pic { display: block; width: 100%; height: 100%; transition: transform 1.2s var(--ease); }
-.dest-pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.dest-pic img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left bottom; }
 .dest:hover .dest-pic, .dest:focus-visible .dest-pic { transform: scale(1.04); }
-.dest:focus-visible { outline: 1.5px solid var(--red); outline-offset: 4px; border-radius: var(--r-photo); }
-.dest-meta { display: flex; flex-direction: column; gap: 6px; padding-top: 10px; border-top: var(--hair) solid var(--line-2); }
-.dest-name { font-family: var(--font-head); font-weight: 400; font-size: 22px; line-height: 1.1; }
-.dest-n { display: inline-flex; align-items: baseline; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-62); }
+.dest:focus-visible { outline: 1.5px solid var(--red); outline-offset: 4px; border-radius: 12px; }
+.dest-cap { display: contents; }
+.dest-name { font-family: var(--font-head); font-weight: 400; font-size: 21px; line-height: 1.15; }
+.dest-ct { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: var(--hair) solid var(--line-2); }
+.dest-n { display: inline-flex; align-items: baseline; gap: 6px; font-size: 10.5px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-62); }
 .dest-n b { font-size: 20px; font-weight: 400; letter-spacing: 0; color: var(--red); }
-@media (min-width: 900px) {
-  .dest-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 24px; }
-  .dest-media { aspect-ratio: 5 / 4; }
-  .dest-meta { flex-direction: row; align-items: baseline; justify-content: space-between; gap: 16px; padding-top: 14px; }
-  .dest-name { font-size: 28px; }
+.dest-go { display: grid; place-items: center; flex: none; width: 24px; height: 24px; color: var(--red); transition: background var(--t2) var(--ease), color var(--t2) var(--ease), border-color var(--t2) var(--ease); }
+.dest-go svg { width: 14px; height: 14px; }
+@media (min-width: 640px) {
+  .dest-grid { gap: 32px 20px; }
+  .dest-media { border-radius: 14px; }
+  .dest-name { font-size: 26px; }
+  .dest-n { font-size: 12px; }
   .dest-n b { font-size: 24px; }
 }
-
-@media (max-width: 1023px) {
-  .dest-grid.five > li:first-child { grid-column: 1 / -1; }
-  .dest-grid.five > li:first-child .dest-media { aspect-ratio: 16 / 10; }
-}
-@media (min-width: 1024px) {
-  .dest-grid.five { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 24px 18px; }
-  .dest-grid.five .dest-media { aspect-ratio: 4 / 5; }
-  .dest-grid.five .dest-meta { flex-direction: column; align-items: flex-start; gap: 6px; }
-  .dest-grid.five .dest-name { font-size: 24px; }
+@media (min-width: 900px) {
+  .dest-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px 28px; }
+  .dest-s6 { grid-column: span 6; }
+  .dest-s3 { grid-column: span 3; }
+  .dest { gap: 14px; }
+  .dest-media { aspect-ratio: auto; height: clamp(240px, 21.5vw, 310px); border-radius: var(--r-photo); }
+  .dest:focus-visible { border-radius: var(--r-photo); }
+  .dest-cap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 12px; border-top: var(--hair) solid var(--line-2); }
+  .dest-name { font-size: 28px; line-height: 1.1; }
+  .dest-ct { gap: 16px; padding-top: 0; border-top: 0; }
+  .dest-n { font-size: 11px; }
+  .dest-go { width: 40px; height: 40px; border: var(--hair) solid var(--line-2); border-radius: 50%; color: var(--ink); }
+  .dest-go svg { width: 16px; height: 16px; }
+  .dest:hover .dest-go, .dest:focus-visible .dest-go { background: var(--red); border-color: var(--red); color: var(--white); }
+  /* destination pages show the other five: 4 / 4 / 4, then 6 / 6 */
+  /* the narrow tiles stack the name above the count row, the wide ones keep one line */
+  .dest-s3 .dest-cap, .dest-grid.five > li:nth-child(-n+3) .dest-cap { flex-direction: column; align-items: stretch; gap: 8px; }
+  .dest-grid.five > li { grid-column: span 4; }
+  .dest-grid.five > li:nth-child(n+4) { grid-column: span 6; }
 }
 
 /* =============================================================================
@@ -508,18 +523,4 @@ html:not(.js) .faq-a { height: auto; opacity: 1; }
   .cl-wa, .cl-actions .cl-sec { justify-content: center; padding: 0 10px; font-size: 12.5px; white-space: nowrap; }
   .cl-actions button.cl-sec { display: none; }
   .cl-more { grid-column: 1 / -1; justify-content: flex-start; border: 0; padding: 0 2px; }
-}
-
-/* Destination covers (the owner's finished cover designs, headline baked in): 5/4 tiles, never cropped on the
-   headline side (object-position left bottom), name kept for screen readers only. Phone: a snap row with the
-   next tile peeking; from 640px a grid. */
-.dest-snap .snap-track > li { flex: 0 0 86%; }
-.dest-snap .dest-media { aspect-ratio: 5 / 4; }
-.dest-snap .dest-pic img { object-position: left bottom; }
-.dest-snap .dest-meta { flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 16px; padding-top: 12px; }
-@media (min-width: 640px) {
-  .dest-snap .snap-track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; overflow: visible; margin: 0; padding: 0; }
-}
-@media (min-width: 900px) {
-  .dest-snap .snap-track { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 24px; }
 }

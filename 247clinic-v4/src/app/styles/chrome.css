@@ -163,3 +163,6 @@ body:has(.pg-cta-wrap, .final-close) .site-footer .help-band { display: none; }
 /* "Powered by Pulse Marketing" sits in the copyright line, in the same type (his ask 2026-11-17). */
 .copy .powered { white-space: nowrap; }
 .copy .powered::before { content: "|"; margin-inline: 10px; opacity: 0.5; }
+
+/* Header call button: a black frame around the red disc, to match the brand (his ask 2026-11-17). */
+.hdr .hdr-call { border: 2px solid #000000; box-sizing: border-box; }
