@@ -160,3 +160,6 @@ body:has(.pg-cta-wrap, .final-close) .site-footer .help-band { display: none; }
   .wa-float .g svg { width: 32px; height: 32px; }
   .foot-ink { padding-bottom: 100px; }
 }
+/* "Powered by Pulse Marketing" sits in the copyright line, in the same type (his ask 2026-11-17). */
+.copy .powered { white-space: nowrap; }
+.copy .powered::before { content: "|"; margin-inline: 10px; opacity: 0.5; }

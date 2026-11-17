@@ -76,7 +76,7 @@ export function Footer({ nav, footerOnly }: { nav: string[]; footerOnly: string[
               <li><span className="badge-plate"><img src={asset("/logos/marks/uca.png")} alt="" width={48} height={48} loading="lazy" /></span><span>{APPROVED.accredited}</span></li>
               <li><span className="badge-plate"><img src={asset("/logos/marks/hcig.png")} alt="" width={50} height={48} loading="lazy" /></span><span>{APPROVED.partOf}</span></li>
             </ul>
-            <span className="copy">&copy; {year} 24/7 Clinic. {THEIRS.rights}</span>
+            <span className="copy">&copy; {year} 24/7 Clinic. {THEIRS.rights} <span className="powered">Powered by Pulse Marketing</span></span>
           </div>
         </div>
       </div>
