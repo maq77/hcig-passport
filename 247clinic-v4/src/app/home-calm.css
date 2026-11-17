@@ -196,26 +196,7 @@ main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolu
    PREMIUM PACE (the user, 2026-11-12: "make everything smooth and takes its time so it give that premium feel ...
    shimmer and loading state and loading animation ... animation and motion for section heading").
 ============================================================================= */
-/* 1. Opening curtain, once per visit: the red logo settles out of a blur, a red hairline draws, 0 to 100, then the
-      ivory curtain lifts. Pure CSS, so it ends even if scripts are slow. */
-@property --intro-n { syntax: "<integer>"; initial-value: 0; inherits: false; }
-.oc { display: none; }
-html.js:not(.intro-seen) .oc { position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; background: #fbf8f4; animation: introLift 0.95s cubic-bezier(0.76, 0, 0.24, 1) 1.95s forwards; }
-.oc-in { display: flex; flex-direction: column; align-items: center; gap: 22px; }
-.oc img { width: 132px; height: auto; opacity: 0; transform: scale(0.94); filter: blur(8px); animation: introLogo 1s var(--ease) 0.1s forwards; }
-.oc-line { width: 220px; height: 1px; background: var(--primary); transform: scaleX(0); animation: introLine 0.9s var(--ease) 0.75s forwards; }
-.oc-n { font: 700 12px var(--font-display), serif; letter-spacing: 0.24em; color: var(--ink-3); animation: introCount 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both; }
-.oc-n::before { counter-reset: n var(--intro-n); content: counter(n); }
-@keyframes introLogo { to { opacity: 1; transform: none; filter: none; } }
-@keyframes introLine { to { transform: scaleX(1); } }
-@keyframes introCount { from { --intro-n: 0; } to { --intro-n: 100; } }
-@keyframes introLift { to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
-/* the hero copy rises as the curtain lifts */
-html.js:not(.intro-seen) .hero-copy > * { animation-delay: 2.05s; }
-html.js:not(.intro-seen) .hero-copy > :nth-child(2) { animation-delay: 2.15s; }
-html.js:not(.intro-seen) .hero-copy > :nth-child(3) { animation-delay: 2.25s; }
-html.js:not(.intro-seen) .hero-copy > :nth-child(4) { animation-delay: 2.35s; }
-html.js:not(.intro-seen) .hero-copy > :nth-child(5) { animation-delay: 2.45s; }
+/* 1. The opening curtain was removed (the user, 2026-11-16: "remove the loader that runs before page loads"); the hero copy rises at once. */
 
 /* 2. Shimmer while a photo "loads", then a slow blur-up (MediaShimmer adds the classes). */
 html.js .shim { background-color: #efe9e3 !important; background-image: linear-gradient(110deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.65) 46%, rgba(255, 255, 255, 0) 62%) !important; background-size: 220% 100% !important; background-repeat: no-repeat !important; animation: shimmer 1.6s linear infinite; }
@@ -251,7 +232,6 @@ html.js .hw.in .w > span { transform: none; opacity: 1; filter: blur(0); }
 @media (max-width: 767px) { .moment { height: 140px; border-radius: 12px; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .oc { display: none !important; }
   html.js img.shim-i { opacity: 1; filter: none; }
   html.js .hw .w > span { transform: none; opacity: 1; filter: none; }
   html.js .eyebrow.rv { letter-spacing: 0.18em; }
@@ -307,4 +287,87 @@ html.js .hw.in .w > span { transform: none; opacity: 1; filter: blur(0); }
   .foot .brand > img { width: 96px; height: auto; }
   .foot li + li { margin-top: 8px; }
   .foot a:not(.btn) { font-size: 15px; }
+}
+
+/* =============================================================================
+   HERO FITS ONE SCREEN (the user, 2026-11-16: "make hero fit to screen like either mobile or desktop ...
+   the hero should end at Find your clinic button"). The hero is exactly the first screen under the header;
+   the photo takes whatever the words leave (never under about a quarter of the screen) and the hero ends at
+   the Find Your Clinic button. Never clipped: min-height only, so a very short screen just scrolls.
+============================================================================= */
+@media (max-width: 767px) {
+  .hero { min-height: calc(100svh - var(--hdr)); height: auto; justify-content: flex-start; }
+  .hero-media { position: relative; flex: 1 0 0; height: auto; min-height: max(26svh, 150px); container-type: size; }
+  /* photo on top, the words on solid ink under it (his 2026-11-12 notes), so no overlap */
+  .hero-inner { flex: none; margin-top: 0; padding: 22px 20px 24px; }
+  .hc-arrow { top: max(calc(50cqh - 28px), 76px); }
+  .hero::before { top: auto; bottom: 0; }
+  .hero::after { top: auto; bottom: 120px; }
+  /* nothing under the Find Your Clinic button */
+  .hero-facts { order: 1; }
+  .hero-ctas { order: 2; margin-top: 18px; gap: 12px; }
+}
+/* Short phones: the promises go first (the black top bar carries them on desktop), then the paragraph. */
+@media (max-width: 767px) and (max-height: 740px) {
+  .hero-facts { display: none !important; }
+  .hero-ctas { margin-top: 16px; }
+}
+@media (max-width: 767px) and (max-height: 600px) {
+  .hero-text { display: none; }
+  .hero h1 { margin-top: 12px; }
+}
+@media (min-width: 768px) {
+  .hero { min-height: clamp(520px, calc(100svh - var(--hdr)), 1000px); align-items: flex-end; }
+  .hero-inner { padding-block: clamp(40px, 7vh, 80px); }
+  /* the numbers card no longer rises into the hero, so the first screen ends at the buttons */
+  [data-e-section="HotelBand"] > .proof { margin-top: 0; padding-top: clamp(28px, 3vw, 44px); }
+}
+@media (min-width: 1200px) {
+  /* the black top bar (40px) sits above the header */
+  .hero { min-height: clamp(560px, calc(100svh - var(--hdr) - 40px), 1000px); }
+}
+
+/* =============================================================================
+   PATIENT STORIES + TRUSTED BY PATIENTS AS ONE SECTION (the user, 2026-11-16: "merge both trusted by and
+   videos in one section ... good spacing"; "the patients videos, make them all one: portraits").
+   One heading, the films, then Trusted by Patients as a small sub label over its photo row. One background.
+============================================================================= */
+.stories.voices { background: #fff; }
+.stories.voices > .container > .head { margin-bottom: clamp(18px, 2vw, 26px); }
+.stories .row { gap: clamp(12px, 1.4vw, 18px); padding-top: 4px; padding-bottom: 14px; }
+.story, .story.portrait, .story.landscape { width: auto; aspect-ratio: 9 / 16; height: clamp(340px, 46vh, 440px); }
+.story video { object-fit: cover; object-position: var(--pos, 50% 50%); }
+@media (max-width: 767px) { .story, .story.portrait, .story.landscape { height: min(420px, 60svh); } }
+.stories .car-dots { margin-top: 6px; }
+.voices-moments { margin-top: clamp(36px, 4.4vw, 56px); }
+.voices-moments > .container { display: flex; justify-content: center; }
+.voices-sub { margin: 0 0 clamp(14px, 1.6vw, 20px); }
+.voices-sub::after { content: ""; width: 28px; height: 1.5px; background: currentColor; border-radius: 2px; }
+html.js .voices-sub.rv::after { transform: scaleX(0); transform-origin: left; transition: transform 1s var(--ease) 0.25s; }
+html.js .voices-sub.rv.in::after { transform: scaleX(1); }
+.voices-moments .mq-viewport { padding-block: 4px; }
+
+/* =============================================================================
+   CEO QUOTE after On-site care (the user, 2026-11-16: "on v3 add CEO quote"). Round portrait in a thin red
+   ring that draws on view, the words in the display face, a short red rule, then his name and role.
+============================================================================= */
+.ceo { background: #fff; }
+.ceo-fig { margin: 0 auto; max-width: 880px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+/* the photo is 112px on phones, 140px on desktop; the ring sits 8 to 10px outside it */
+.ceo-portrait { position: relative; width: 128px; height: 128px; }
+.ceo-portrait img { position: absolute; inset: 8px; width: calc(100% - 16px); height: calc(100% - 16px); border-radius: 50%; object-fit: cover; object-position: 50% 20%; background: var(--surface-2); }
+.ceo-ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.ceo-ring circle { fill: none; stroke: var(--primary); stroke-width: 1.5px; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 0; }
+html.js .ceo-portrait.rv .ceo-ring circle { stroke-dashoffset: 1; transition: stroke-dashoffset 1.8s var(--ease) 0.35s; }
+html.js .ceo-portrait.rv.in .ceo-ring circle { stroke-dashoffset: 0; }
+.ceo-quote { margin: clamp(22px, 2.4vw, 30px) 0 0; }
+.ceo-quote p { margin: 0; font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.5vw, 34px); line-height: 1.38; color: var(--ink); text-wrap: balance; }
+.ceo-rule { display: block; width: 44px; height: 1.5px; margin-top: clamp(22px, 2.4vw, 30px); background: var(--primary); border-radius: 2px; }
+.ceo-who { margin-top: 16px; display: flex; flex-direction: column; gap: 4px; }
+.ceo-who b { font-size: 16px; font-weight: 600; color: var(--ink); }
+.ceo-who span { font-size: 13.5px; color: var(--ink-3); letter-spacing: 0.02em; }
+@media (min-width: 768px) { .ceo-portrait { width: 160px; height: 160px; } .ceo-portrait img { inset: 10px; width: calc(100% - 20px); height: calc(100% - 20px); } }
+@media (prefers-reduced-motion: reduce) {
+  html.js .ceo-portrait.rv .ceo-ring circle { stroke-dashoffset: 0; transition: none; }
+  html.js .voices-sub.rv::after { transform: none; transition: none; }
 }

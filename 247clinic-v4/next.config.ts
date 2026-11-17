@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
      127.0.0.1:3000; this lets live reload connect from there. */
   allowedDevOrigins: ["127.0.0.1"],
   env: { NEXT_PUBLIC_BASE_PATH: basePath, NEXT_PUBLIC_TARGET: target },
+  /* A git worktree whose node_modules is a junction to the main repo's needs a wider root
+     (TURBOPACK_ROOT=<repo root>); unset, Next detects the root as before. */
+  ...(process.env.TURBOPACK_ROOT ? { turbopack: { root: process.env.TURBOPACK_ROOT } } : {}),
 };
 
 export default nextConfig;

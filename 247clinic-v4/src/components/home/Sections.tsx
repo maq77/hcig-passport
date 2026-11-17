@@ -280,6 +280,34 @@ export function Intro() {
   );
 }
 
+/* ---------------- 5b. the CEO's words (the user, 2026-11-16: "on v3 add CEO quote") ----------------
+   His quote approved for the group sites on 2026-10-18, logged in approved-edits.json. */
+const CEO = {
+  quote: "Success isn't measured only by the number of visitors a destination attracts. It's measured by how well those visitors are cared for when they need help the most.",
+  name: "Dr. Amr Abbass",
+  role: "CEO, Healthcare International Group",
+};
+export function Ceo() {
+  return (
+    <section className="section ceo" aria-labelledby="ceo-name">
+      <div className="container">
+        <figure className="ceo-fig">
+          <div className="ceo-portrait rv">
+            <svg className="ceo-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="49" pathLength={1} /></svg>
+            <img src={asset("/img/ceo-amr.webp")} alt={CEO.name} width={899} height={914} loading="lazy" />
+          </div>
+          <blockquote className="ceo-quote rv" style={d(140)}><p>{CEO.quote}</p></blockquote>
+          <span className="ceo-rule rv" style={d(280)} aria-hidden="true" />
+          <figcaption className="ceo-who rv" style={d(360)}>
+            <b id="ceo-name">{CEO.name}</b>
+            <span>{CEO.role}</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+  );
+}
+
 /* ---------------- 6. how it works (brief 12) ---------------- */
 const STEP_ICONS: React.ComponentType<{ size?: number }>[] = [WhatsAppGlyph, MapPin, ShieldCheck, HeartPulse];
 export function HowItWorks() {
@@ -362,7 +390,9 @@ export function Stories() {
       </div>
       <StoryCarousel label={s.heading} count={STORIES.length}>
         {STORIES.map((f) => (
-          <li key={f.id} className={`story ${f.shape}`}>
+          /* Every card is the same portrait frame (the user, 2026-11-16: "make them all one: portraits");
+             a landscape film fills it with object-fit: cover. The full film opens in its own shape. */
+          <li key={f.id} className="story" data-shape={f.shape} style={f.pos ? { ["--pos" as string]: f.pos } : undefined}>
             <InViewVideo src={asset(f.preview)} />
             {f.flag && <span className="flag" aria-hidden="true"><img src={asset(`/logos/marks/flag-${f.flag}.svg`)} alt="" /></span>}
             <Watch src={f.full} />
@@ -370,10 +400,10 @@ export function Stories() {
         ))}
       </StoryCarousel>
 
-      {/* Trusted by Patients: one slim row that glides on its own
-          (the user, 2026-11-12: "auto carousel ... like 247 Happy Moments ... less height ... two rows"). */}
+      {/* Trusted by Patients: one slim row that glides on its own, part of the same section under a small
+          sub label (the user, 2026-11-16: "merge both trusted by and videos in one section"). */}
       <div className="voices-moments">
-        <div className="container"><Head center id="trusted-h" title="Trusted by Patients" /></div>
+        <div className="container"><h3 className="eyebrow voices-sub rv" id="trusted-h">Trusted by Patients</h3></div>
         {[TRUSTED_PHOTOS].map((row, r) => (
           <Marquee key={r} label="Trusted by Patients" speed={26} gap={14} bg="#fff">
             {row.map((p) => (

@@ -7,6 +7,7 @@ export type Film = {
   preview: string; // short silent loop for the card
   full: string; // the whole film with sound (stream copy, his original quality)
   flag?: string; // only where his file name names the country
+  pos?: string; // object-position of the film in the portrait card (default centre)
 };
 
 /* The first 14 s of the Le Reve commercial, stream-copied: his file's own quality. */
