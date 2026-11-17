@@ -7,7 +7,7 @@
    Without JS or with reduced motion the photos simply show. */
 import { useEffect } from "react";
 
-const SKIP = ".hero, .mq, .flag, .badges, .uca-plate, .logo, .hdr, .menu, [aria-hidden='true']";
+const SKIP = ".hero, .mq, .flag, .badges, .uca-plate, .logo, .hdr, .menu, .pm-scene, .pm-chat, [aria-hidden='true']";
 const HOLD = 900;
 
 export function MediaShimmer() {

@@ -726,6 +726,28 @@
       "where": "Footer, the copyright line (every page)",
       "to": "Powered by Pulse Marketing",
       "note": "His words: 'add powered by pulse marketing at the footer but make it like: © 2026 24/7 Clinic. All Rights Reserved'."
+    },
+    {
+      "date": "2026-11-17",
+      "by": "the user",
+      "kind": "trim",
+      "where": "home on phones only: On-site care points and How it works replies (the phone design Set 1; desktop keeps the full lines)",
+      "rule": "Each line is the brief's own sentence, shortened. Nothing added.",
+      "from": {
+        "Inside Your Resort": "No searching for an unfamiliar medical facility across the city. Care is already where you are staying.",
+        "Treated On-Site": "Many urgent and primary care conditions are assessed and treated right here, with consultation, diagnostics and treatment close to your room.",
+        "Hospital Only When Needed": "If you need more, our team arranges the right hospital, ambulance or next medical step.",
+        "We Arrange Your Medical Visit": "If your hotel has a 24/7 Clinic, we direct you there. If not, we promptly send our agent to pick you up and take you to the nearest 24/7 Clinic.",
+        "We Check Your Insurance": "Send us your insurance details and, where applicable, we coordinate directly with your insurer."
+      },
+      "to": [
+        "Care is already where you are staying.",
+        "Consultation, diagnostics and treatment close to your room.",
+        "Our team arranges the right hospital, ambulance or next medical step.",
+        "If your hotel has a 24/7 Clinic, we direct you there. If not, we promptly send our agent to pick you up.",
+        "Where applicable, we coordinate directly with your insurer."
+      ],
+      "note": "The owner approved phone Set 1 on 2026-11-17 (canvas M1)."
     }
   ],
   "fromTheirSite": {

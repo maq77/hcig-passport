@@ -65,7 +65,8 @@
     "Send",
     "WhatsApp",
     "About Us",
-    "Open"
+    "Open",
+    "You"
   ],
   "patterns": [
     "^Call \\+20 122 222 8247$",
