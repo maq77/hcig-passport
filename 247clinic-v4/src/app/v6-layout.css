@@ -106,6 +106,7 @@ html.js [data-e-section] .eyebrow.rv.in { letter-spacing: 0.2em; }
   [data-e-section="Intro"] .care-list { grid-area: list; }
 }
 [data-e-section="Intro"] .how-line { gap: 22px; margin-top: clamp(56px, 7vw, 104px); }
+@media (min-width: 1024px) { [data-e-section="Intro"] .how-line { margin-top: clamp(104px, 9vw, 150px); } [data-e-section="Intro"] > .section { padding-bottom: clamp(56px, 6vw, 88px); } }
 [data-e-section="Intro"] .sl-q button { grid-template-columns: 36px minmax(0, 1fr) 32px; min-height: 56px; }
 [data-e-section="Intro"] .sl-n { width: 36px; height: 36px; font-size: 15px; }
 [data-e-section="Intro"] .sl-plus { width: 32px; height: 32px; }
