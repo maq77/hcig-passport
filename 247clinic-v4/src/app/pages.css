@@ -195,16 +195,11 @@
 
 /* The footer's help card rises over the end of the page (as on the home, where the FAQ
    photo leaves room for it). Inner pages leave the same room, so it never covers content. */
-main:has(> .ph) { padding-bottom: clamp(110px, 10.5vw, 146px); }
 /* Tiles that carry a sentence read in one column on phones. */
 @media (max-width: 639px) { .tiles.has-text { grid-template-columns: 1fr; } .tiles.has-text .tile { flex-direction: row; align-items: flex-start; } }
+/* The footer overlap rules moved out with v3's footer (v6 footer, 2026-11-17). */
 /* phones: a calmer hero paragraph */
 @media (max-width: 899px) { .ph-lead { font-size: 15px; line-height: 1.55; } .ph-lead + .ph-lead { display: none; } }
-.foot-base li { flex: none; }
-/* A page that ends with its own call to action does not repeat the footer's. */
-body:has(.pg-cta-wrap) .site-footer .help-band { display: none; }
-body:has(.pg-cta-wrap) main { padding-bottom: 0; }
-body:has(.pg-cta-wrap) .site-footer { padding-top: clamp(36px, 5vw, 60px); }
 
 /* Seven services on the Services page and the clinic pages: first card wide on two columns,
    first and last wide on three, photo beside the words. Phones stay one per row. */

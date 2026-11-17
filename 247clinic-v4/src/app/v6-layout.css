@@ -1,0 +1,238 @@
+/* =============================================================================
+   v6's LAYOUT ON THE v3 HOME (the user, 2026-11-17: "i like layout and spacing and width and height of v6, i want
+   them on v3 ... i want same spacing and layout in v3"). Copied from 247clinic-v4/src/app/styles/home.css and
+   system.css (main, 0e6c95bca): section rhythm, the compact 1040px width, grids and column counts, photo ratios and
+   heights, gaps, heading spacing, the hairline rows. v3 keeps its colours and its type (Calisto headings and numerals,
+   Poppins text, its reds, its photo radius). Where v6 sets a box open (hairline rows instead of cards), v3 follows,
+   so the boxes measure the same. The editor zooms these sizes came from are baked into v6 and were retired from
+   home-edits.json. Loaded after home-calm.css, before v6-chrome.css. Home only ([data-e-section]).
+============================================================================= */
+
+/* ---------- headings: v6's label size, gaps and spacing ---------- */
+[data-e-section] .eyebrow { gap: 14px; font-size: 12px; font-weight: 500; letter-spacing: 0.2em; line-height: 1.2; }
+html.js [data-e-section] .eyebrow.rv.in { letter-spacing: 0.2em; }
+[data-e-section] .eyebrow::before, [data-e-section] .head.center .eyebrow::after { width: 40px; }
+@media (min-width: 1024px) { [data-e-section] .eyebrow { font-size: 15px; } }
+/* Calisto runs about 12% wider than v6’s Cormorant at one size, so the heading is 0.88 of v6’s (clamp(34px, 4.4vw, 60px))
+   with a 1.2 line: each line then takes the same width and height as on v6. */
+[data-e-section] .h2 { font-size: clamp(30px, 3.85vw, 53px); line-height: 1.2; }
+[data-e-section] .link { min-height: 44px; }
+[data-e-section] .lead { font-size: 16px; line-height: 1.7; max-width: 60ch; }
+@media (min-width: 1024px) { [data-e-section] .lead { font-size: 18px; } }
+
+/* ---------- 2. the numbers: three open columns with hairline dividers, then one logo row (v6 PROOF) ---------- */
+[data-e-section="HotelBand"] > .proof { margin-top: 0; padding-block: clamp(44px, 6vw, 80px) clamp(16px, 2vw, 28px); }
+[data-e-section="HotelBand"] > .proof > .container { max-width: 1040px; }
+[data-e-section="HotelBand"] .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: none; margin: 0; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }
+[data-e-section="HotelBand"] .stat { flex-direction: column; align-items: center; justify-content: flex-start; gap: 12px; padding: 6px; text-align: center; }
+[data-e-section="HotelBand"] .stat + .stat { border-top: 0; border-left: 1px solid var(--line-2); }
+[data-e-section="HotelBand"] .stat-num { min-width: 0 !important; }
+[data-e-section="HotelBand"] .stat-num b { font-size: 38px; line-height: 1; }
+[data-e-section="HotelBand"] .stat-label { max-width: 15ch; font-size: 12.5px; font-weight: 500; line-height: 1.4; }
+[data-e-section="HotelBand"] .proof .mq { margin-top: clamp(28px, 4vw, 52px); }
+[data-e-section="HotelBand"] .proof .logo-tile { height: 56px; min-width: 120px; padding: 0 20px; }
+[data-e-section="HotelBand"] .proof .logo-tile img { max-height: 28px; max-width: 120px; }
+@media (min-width: 768px) {
+  [data-e-section="HotelBand"] > .proof { padding-top: clamp(44px, 6vw, 80px); }
+  [data-e-section="HotelBand"] .stat { gap: 16px; padding: 10px 24px; }
+  [data-e-section="HotelBand"] .stat-num b { font-size: clamp(48px, 4.6vw, 64px); }
+  [data-e-section="HotelBand"] .stat-label { max-width: 24ch; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; line-height: 1.5; color: var(--ink-2); }
+}
+
+/* ---------- 3. accreditation: the film capped at 1040px, the standards as one hairline row ---------- */
+[data-e-section="Facilities"] > .section > .container { max-width: 1040px; }
+[data-e-section="Facilities"] .stage { aspect-ratio: 4 / 3.4; }
+[data-e-section="Facilities"] .standards { margin-top: 28px; border-bottom: 1px solid var(--line-2); }
+[data-e-section="Facilities"] .std { gap: 10px; padding: 16px 4px; }
+[data-e-section="Facilities"] .std:nth-child(even) { padding-left: 14px; }
+[data-e-section="Facilities"] .std .ico { width: 20px; height: 20px; border: 0; border-radius: 0; }
+[data-e-section="Facilities"] .cta-row { margin-top: 24px; }
+@media (min-width: 900px) {
+  [data-e-section="Facilities"] .stage { aspect-ratio: 21 / 9; }
+  [data-e-section="Facilities"] .standards { margin-top: 32px; }
+  [data-e-section="Facilities"] .std { justify-content: center; padding: 24px 12px; }
+  [data-e-section="Facilities"] .std + .std { padding-left: 12px; }
+}
+
+/* ---------- 4. what we treat: photo then words, 2 x 3 on phones, three columns on desktop; 07 as one panel ---------- */
+[data-e-section="Services"] .svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 12px; }
+[data-e-section="Services"] .svc { overflow: visible; border: 0; border-radius: 0; background: none; box-shadow: none; }
+[data-e-section="Services"] .svc:hover { transform: none; box-shadow: none; }
+[data-e-section="Services"] .svc-media { display: block; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 16px; background: var(--surface-2); }
+[data-e-section="Services"] .svc .slot, [data-e-section="Services"] .svc .slot-img { width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; }
+[data-e-section="Services"] .svc-body { gap: 6px; padding: 12px 0 0; }
+[data-e-section="Services"] .svc-body .ico { display: none; }
+[data-e-section="Services"] .svc-text { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+[data-e-section="Services"] .svc h3 { min-height: 0; }
+[data-e-section="Services"] .svc .dc-open { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); }
+@media (min-width: 640px) { [data-e-section="Services"] .svc-grid { gap: 36px 18px; } }
+@media (min-width: 1024px) {
+  [data-e-section="Services"] .svc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 24px; }
+  [data-e-section="Services"] .svc-media { aspect-ratio: 4 / 3; }
+  [data-e-section="Services"] .svc-body { gap: 8px; padding: 16px 0 0; }
+}
+[data-e-section="Services"] .svc-feature { gap: 20px; margin-top: 36px; padding: 14px 14px 26px; border-radius: 16px; }
+[data-e-section="Services"] .svc-feature-copy { align-items: flex-start; gap: 16px; padding: 0 8px; }
+[data-e-section="Services"] .svc-feature-copy > div { width: 100%; }
+[data-e-section="Services"] .svc-feature-ico { display: none; }
+[data-e-section="Services"] .svc-feature-n { font-size: 22px; line-height: 1; letter-spacing: 0; }
+[data-e-section="Services"] .svc-feature-img { aspect-ratio: 16 / 10; border-radius: 10px; }
+[data-e-section="Services"] .svc-feature-list { grid-template-columns: 1fr 1fr; gap: 0 14px; width: 100%; border-top: 1px solid rgba(251, 248, 244, 0.16); }
+[data-e-section="Services"] .svc-feature-list li { gap: 8px; padding: 10px 0; border-bottom: 1px solid rgba(251, 248, 244, 0.16); font-size: 13.5px; }
+@media (min-width: 900px) {
+  [data-e-section="Services"] .svc-feature { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 56px; margin-top: 48px; padding: 48px; }
+  [data-e-section="Services"] .svc-feature-img { height: 380px; aspect-ratio: auto; border-radius: 16px; }
+  [data-e-section="Services"] .svc-feature-copy { gap: 20px; padding: 0; }
+  [data-e-section="Services"] .svc-feature-list { gap: 0 28px; }
+  [data-e-section="Services"] .svc-feature-list li { gap: 10px; font-size: 15px; }
+}
+
+/* ---------- 5. on-site care: the label column, two offset photos, three numbered hairline rows ---------- */
+[data-e-section="Intro"] .intro-grid { display: grid; gap: 32px; }
+[data-e-section="Intro"] .intro-label .head { margin-bottom: 0; }
+[data-e-section="Intro"] .intro-media { padding: 0 0 36px 28px; }
+[data-e-section="Intro"] .wv-main { aspect-ratio: 4 / 3; border-radius: 16px; }
+[data-e-section="Intro"] .wv-sub { width: 44%; aspect-ratio: 3 / 2; border-radius: 10px; border-width: 6px; }
+[data-e-section="Intro"] .care-list { gap: 0; border-top: 1px solid var(--line-2); }
+[data-e-section="Intro"] .care { grid-template-columns: 44px minmax(0, 1fr); gap: 12px; padding: 20px 0 18px; border: 0; border-bottom: 1px solid var(--line-2); border-radius: 0; background: none; box-shadow: none; }
+[data-e-section="Intro"] .care:hover { transform: none; box-shadow: none; }
+[data-e-section="Intro"] .care-n { font-size: 22px; line-height: 1.2; }
+@media (min-width: 640px) { [data-e-section="Intro"] .intro-media { padding: 0 0 48px 48px; } }
+@media (min-width: 1024px) {
+  [data-e-section="Intro"] .intro-grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-areas: "label media" "list media"; column-gap: clamp(48px, 5vw, 96px); row-gap: 36px; align-items: start; }
+  [data-e-section="Intro"] .intro-label { grid-area: label; }
+  [data-e-section="Intro"] .intro-media { grid-area: media; padding: 0 0 72px 72px; }
+  [data-e-section="Intro"] .wv-main { aspect-ratio: 4 / 3.3; }
+  [data-e-section="Intro"] .care-list { grid-area: list; }
+}
+[data-e-section="Intro"] .how-line { gap: 22px; margin-top: clamp(56px, 7vw, 104px); }
+[data-e-section="Intro"] .sl-q button { grid-template-columns: 36px minmax(0, 1fr) 32px; min-height: 56px; }
+[data-e-section="Intro"] .sl-n { width: 36px; height: 36px; font-size: 15px; }
+[data-e-section="Intro"] .sl-plus { width: 32px; height: 32px; }
+[data-e-section="Intro"] .sline::before { left: 18px; top: 28px; bottom: 28px; }
+[data-e-section="Intro"] .sl-a > div { padding: 0 0 14px 50px; }
+@media (min-width: 1024px) {
+  [data-e-section="Intro"] .sl-q button { grid-template-columns: 1fr; min-height: 0; }
+  [data-e-section="Intro"] .sl-n { width: auto; height: auto; font-size: 22px; }
+  [data-e-section="Intro"] .sl-a > div { padding: 10px 0 0; }
+}
+
+/* ---------- 7. insurance: one promise, three hairline steps, the cashless line, one quiet logo row ---------- */
+[data-e-section="Insurance"] .ins2-note { margin-top: 22px; padding: 0; border: 0; border-radius: 0; background: none; }
+[data-e-section="Insurance"] .ins2-ctas { margin-top: 26px; }
+[data-e-section="Insurance"] .ins2-steps { padding: 0; border: 0; border-top: 1px solid var(--line-2); border-radius: 0; background: none; box-shadow: none; }
+[data-e-section="Insurance"] .ins2-steps li { padding: 22px 0; border-bottom: 1px solid var(--line-2); }
+[data-e-section="Insurance"] .ins2-steps li + li { border-top: 0; }
+@media (min-width: 1024px) { [data-e-section="Insurance"] .ins2-steps li { padding: 26px 0; } }
+[data-e-section="Insurance"] .ins2-band { margin-top: clamp(40px, 5vw, 64px); }
+[data-e-section="Insurance"] .ins2-band .logo-tile { height: 48px; min-width: 104px; padding: 0 16px; transform: none; }
+[data-e-section="Insurance"] .ins2-band .logo-tile img { max-height: 28px; max-width: 104px; }
+@media (max-width: 767px) {
+  [data-e-section="Insurance"] .ins2-copy .head { margin-bottom: 0; }
+  [data-e-section="Insurance"] .ins2-steps { padding: 0; }
+  [data-e-section="Insurance"] .ins2-steps li { grid-template-columns: 38px minmax(0, 1fr); padding: 18px 0; }
+}
+
+/* ---------- 8. guests: the films beside one guest's words, then the slim Trusted by Patients row ---------- */
+[data-e-section="Stories"] .guests { gap: 36px; }
+[data-e-section="Stories"] .story, [data-e-section="Stories"] .story.portrait, [data-e-section="Stories"] .story.landscape { height: 360px; }
+@media (min-width: 768px) { [data-e-section="Stories"] .story, [data-e-section="Stories"] .story.portrait, [data-e-section="Stories"] .story.landscape { height: clamp(320px, 44vh, 430px); } }
+[data-e-section="Stories"] .stories .row { gap: 14px; padding-top: 8px; padding-bottom: 18px; }
+[data-e-section="Stories"] .guests-words { padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }
+[data-e-section="Stories"] .gw { gap: 26px; }
+[data-e-section="Stories"] .gw blockquote p { font-size: clamp(22px, 2.6vw, 32px); line-height: 1.3; }
+[data-e-section="Stories"] .voices-moments { margin-top: clamp(52px, 6vw, 88px); }
+[data-e-section="Stories"] .voices-moments > .container { margin-bottom: 0; }
+[data-e-section="Stories"] .voices-sub { margin-bottom: 16px; }
+
+/* ---------- 9. destinations: v6's gaps ---------- */
+[data-e-section="Destinations"] .dest-grid { gap: 28px 12px; }
+@media (min-width: 900px) { [data-e-section="Destinations"] .dest-grid { gap: 48px 24px; } }
+[data-e-section="Destinations"] .dest-name { font-size: 22px; line-height: 1.1; }
+@media (min-width: 900px) { [data-e-section="Destinations"] .dest-name { font-size: 28px; } }
+
+/* ---------- 10. FAQ on the photograph: one panel, the heading left and a hairline accordion right ---------- */
+[data-e-section="FinalCta"] .final { padding-block: clamp(56px, 8vw, 120px); }
+[data-e-section="FinalCta"] .faq-panel { display: grid; gap: 24px; padding: 28px 20px 12px; border-radius: 16px; }
+[data-e-section="FinalCta"] .faq-side { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+[data-e-section="FinalCta"] .faq-side .head { margin: 0; }
+[data-e-section="FinalCta"] .faq-list { gap: 0; border-top: 1px solid var(--line-2); }
+[data-e-section="FinalCta"] .faq-item, [data-e-section="FinalCta"] .final .faq-item { border: 0; border-bottom: 1px solid var(--line-2); border-radius: 0; background: none; box-shadow: none; }
+[data-e-section="FinalCta"] .faq-item:hover, [data-e-section="FinalCta"] .final .faq-item.is-open, [data-e-section="FinalCta"] .final .faq-item:hover { transform: none; box-shadow: none; }
+[data-e-section="FinalCta"] .faq-q button { gap: 14px; min-height: 56px; padding: 18px 0; font-size: 16px; line-height: 1.4; }
+[data-e-section="FinalCta"] .faq-a > div { padding: 0 50px 20px 40px; }
+@media (max-width: 1023px) { [data-e-section="FinalCta"] .faq-side { display: flex; } }
+@media (max-width: 767px) {
+  [data-e-section="FinalCta"] .faq-q button { gap: 12px; padding: 16px 0; font-size: 15.5px; }
+  [data-e-section="FinalCta"] .faq-a > div { padding: 0 0 18px 38px; }
+}
+@media (min-width: 1024px) {
+  [data-e-section="FinalCta"] .faq-panel { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(40px, 5vw, 80px); align-items: start; padding: clamp(36px, 4vw, 56px); }
+  [data-e-section="FinalCta"] .faq-side { position: sticky; top: calc(var(--hdr) + 32px); gap: 14px; }
+}
+/* the closing line under the FAQ, as on v6 (the footer's help band is then left out on the home) */
+[data-e-section="FinalCta"] .final-close { padding-block: clamp(64px, 8vw, 120px); background: #fff; text-align: center; }
+[data-e-section="FinalCta"] .final-close-in { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+[data-e-section="FinalCta"] .final-close .rule { display: block; width: 40px; height: 1px; background: var(--primary); }
+[data-e-section="FinalCta"] .final-close .h2 { max-width: 600px; } /* v6 says 18ch in Cormorant (about 515px); Calisto needs the room to break the same way */
+[data-e-section="FinalCta"] .final-close .lead { margin-inline: auto; }
+[data-e-section="FinalCta"] .final-close .cta-row { margin-top: 10px; }
+
+/* ---------- the small band labels over the logo rows: v6's label size (his 1.4 zoom, baked in as in v6) ---------- */
+[data-e-section] .band-label { gap: 14px; font-size: 12px; letter-spacing: 0.2em; line-height: 1.2; text-align: center; }
+@media (min-width: 1024px) { [data-e-section] .band-label { font-size: 15px; } }
+
+/* =============================================================================
+   INNER PAGE TEMPLATES: v6's layout (pages.css) on v3's markup (Page.tsx). The page hero at v6's height and split,
+   v6's section rhythm, the label column on desktop (heading in 4 of 12 columns, the content in 8), the tiles as
+   hairline rows in v6's columns. v3 keeps its colours and type.
+============================================================================= */
+/* the page hero: the photo at 40svh on phones, then the ink panel; from 1024px the panel left (44%), the photo right */
+.ph-media { height: 40svh; min-height: 220px; max-height: 380px; }
+.ph-in { margin-top: 0; padding-block: 22px 36px; gap: 14px; }
+.ph h1 { font-size: clamp(32px, 9.2vw, 40px); line-height: 1.1; }
+@media (min-width: 900px) and (max-width: 1023px) {
+  .ph { display: block; min-height: 0; }
+  .ph-media { position: relative; inset: auto; left: auto; height: 40svh; }
+  .ph-in { padding-top: 22px; }
+  .ph-in > * { max-width: none; }
+}
+@media (min-width: 1024px) {
+  .ph { display: flex; align-items: center; min-height: clamp(480px, 38vw, 560px); }
+  .ph-media { position: absolute; inset: 0 0 0 44%; height: auto; min-height: 0; max-height: none; }
+  .ph-in { padding-block: clamp(28px, 4vh, 44px) clamp(32px, 5vh, 52px); gap: 18px; }
+  .ph-in > * { max-width: min(560px, calc(44vw - max(var(--gutter), (100vw - 1280px) / 2 + var(--gutter)) - 40px)); }
+  .ph h1 { font-size: clamp(42px, 3.7vw, 58px); max-width: 14ch; }
+  .ph-ctas { align-self: flex-start; }
+  .ph-ctas .btn { padding-inline: 22px; }
+}
+
+/* sections: v6's rhythm, then the label column on desktop */
+.pg-band { padding-block: clamp(64px, 8vw, 120px); }
+.pg-band .head { margin-bottom: clamp(24px, 2.8vw, 40px); }
+@media (min-width: 1024px) {
+  .pg-band > .container:has(> .head:not(.center)):not(:has(.svc-rows, .svc-grid, .dest-grid, .finder-grid, .map-frame, .pg-split)) {
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(24px, 2.4vw, 40px); align-items: start;
+  }
+  .pg-band > .container:has(> .head:not(.center)):not(:has(.svc-rows, .svc-grid, .dest-grid, .finder-grid, .map-frame, .pg-split)) > .head {
+    grid-column: 1 / span 4; grid-row: 1 / span 6; position: sticky; top: calc(var(--hdr) + 32px); margin-bottom: 0; padding-right: 8px;
+  }
+  .pg-band > .container:has(> .head:not(.center)):not(:has(.svc-rows, .svc-grid, .dest-grid, .finder-grid, .map-frame, .pg-split)) > .head .h2 { font-size: clamp(32px, 2.8vw, 42px); }
+  .pg-band > .container:has(> .head:not(.center)):not(:has(.svc-rows, .svc-grid, .dest-grid, .finder-grid, .map-frame, .pg-split)) > :not(.head) { grid-column: 5 / -1; min-width: 0; }
+}
+
+/* tiles: hairline rows in v6's columns */
+.tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; border-top: 1px solid var(--line-2); }
+.tiles.has-text { grid-template-columns: minmax(0, 1fr); }
+.tile { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: 12px; height: auto; padding: 20px 0 22px; border: 0; border-bottom: 1px solid var(--line-2); border-radius: 0; background: none; box-shadow: none; }
+.tile:hover { transform: none; box-shadow: none; border-color: var(--line-2); }
+.tiles.has-text .tile { grid-template-columns: 34px minmax(0, 1fr); gap: 14px; }
+.tile-ico { width: auto; height: auto; justify-content: start; border-radius: 0; background: none; line-height: 0; }
+.tile:hover .tile-ico { background: none; color: var(--primary); }
+@media (min-width: 640px) {
+  .tiles, .tiles.has-text { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+  .tile, .tiles.has-text .tile { grid-template-columns: 36px minmax(0, 1fr); gap: 16px; padding: 24px 0; }
+}
+@media (min-width: 1100px) { .tiles.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.pg-band.dark .tiles, .pg-band.dark .tile { border-color: rgba(251, 248, 244, 0.16); }
+.glass-tiles .tile-ico { background: none; border: 0; }

@@ -52,13 +52,13 @@
 @keyframes shSweep { 0%, 62% { transform: translateX(-130%) skewX(-18deg); } 100% { transform: translateX(240%) skewX(-18deg); } }
 @keyframes shText { from { background-position: 120% 0; } to { background-position: -20% 0; } }
 @keyframes shLine { from { background-position: 120% 0; } to { background-position: -40% 0; } }
-main .btn-wa, .site-footer .btn-wa { position: relative; overflow: hidden; isolation: isolate; }
-main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 45%; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(37, 211, 102, 0), rgba(37, 211, 102, 0.2), rgba(255, 255, 255, 0.65), rgba(37, 211, 102, 0.2), rgba(37, 211, 102, 0)); animation: shSweep 4.4s ease-in-out infinite; }
+main .btn-wa { position: relative; overflow: hidden; isolation: isolate; }
+main .btn-wa::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 45%; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(37, 211, 102, 0), rgba(37, 211, 102, 0.2), rgba(255, 255, 255, 0.65), rgba(37, 211, 102, 0.2), rgba(37, 211, 102, 0)); animation: shSweep 4.4s ease-in-out infinite; }
 .svc-feature::before { content: ""; position: absolute; top: -20%; bottom: -20%; left: 0; width: 40%; z-index: 0; pointer-events: none; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0)); animation: shSweep 5.6s ease-in-out infinite; }
 .stat.in .stat-num b { background: linear-gradient(100deg, var(--primary) 0%, var(--primary) 40%, #ff9a9a 50%, var(--primary) 60%, var(--primary) 100%); background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shText 1.6s ease-out 0.5s both; }
 .eyebrow.rv.in::before { background: linear-gradient(90deg, currentColor 0%, currentColor 35%, #ffc2c2 50%, currentColor 65%, currentColor 100%); background-size: 250% 100%; animation: shLine 1.4s ease-out 0.3s both; }
 @media (prefers-reduced-motion: reduce) {
-  main .btn-wa::after, .site-footer .btn-wa::after, .svc-feature::before { animation: none; display: none; }
+  main .btn-wa::after, .svc-feature::before { animation: none; display: none; }
   .stat.in .stat-num b, .eyebrow.rv.in::before { animation: none; }
 }
 
@@ -72,19 +72,6 @@ main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolu
 .stage-veil, .final::before { display: none; }
 .final-scrim { background: transparent; }
 .map-frame { background: var(--surface); }
-/* Hero: waves barely visible ("very low so it is not noticed but give a good touch"), no glowing orb, no gradient veil. */
-.hero::after { opacity: 0.32; }
-.hero::before { display: none !important; }
-@media (min-width: 1024px) {
-  .hero-veil { background: rgba(26, 20, 20, 0.5) !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
-}
-@media (max-width: 767px) {
-  .hero { background: #1a1414; }
-  .hero-media, .hc-stage { background: #1a1414; }
-  .hero-veil { background: none; }
-  .hero-inner { padding-top: calc(var(--hm) + 22px); }
-  .hero::after { top: calc(var(--hm) - 250px); }
-}
 /* The 07 feature card and every dark panel: solid ink, no bordeaux wash, no red glow. */
 .svc-feature { background: #1a1414; }
 .svc-feature::after { display: none; }
@@ -103,13 +90,6 @@ main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolu
   .ph-media { left: 47%; }
   .ph-in { padding-top: 64px; }
   .ph-in > * { max-width: min(560px, 40vw); }
-}
-/* Desktop home hero: words on solid ink at the left, the photo clear on the right (same as the page heroes). */
-@media (min-width: 1024px) {
-  .hero { background: #1a1414; }
-  .hero-media { left: 47%; }
-  .hero-veil { display: none !important; }
-  .hero-copy { max-width: min(520px, 38vw); }
 }
 .ph-sub { color: rgba(251, 248, 244, 0.88); }
 
@@ -154,30 +134,8 @@ main .btn-wa::after, .site-footer .btn-wa::after { content: ""; position: absolu
   .voices-stage { min-height: 210px; }
 }
 
-/* =============================================================================
-   NEWSLETTER BAND at the end of every page (2026-11-12): solid ink, slow orbit rings, one line, one field.
-============================================================================= */
-.news-band { position: relative; overflow: hidden; isolation: isolate; display: grid; gap: 22px; margin: 28px 0 8px; padding: 34px 24px; border-radius: 28px; background: #1a1414; color: #fff; }
-@media (min-width: 900px) { .news-band { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: 48px; padding: 52px 56px; } }
-.news-rings { position: absolute; right: -120px; top: 50%; width: 420px; height: 420px; transform: translateY(-50%); z-index: -1; fill: none; stroke: rgba(255, 255, 255, 0.09); }
-.news-rings .news-orbit { transform-origin: 200px 200px; animation: newsSpin 70s linear infinite; }
-.news-rings .news-orbit circle:first-child { stroke: rgba(226, 6, 19, 0.45); }
-.news-rings .dot { fill: #e20613; stroke: none; }
-@keyframes newsSpin { to { transform: rotate(360deg); } }
-.news-copy .h2 { margin: 0; color: #fff; font-weight: 400; }
-.news-copy p { margin: 10px 0 0; color: rgba(255, 255, 255, 0.78); font-size: 16px; line-height: 1.6; }
-.news-form { display: flex; gap: 8px; padding: 6px; border-radius: 999px; background: #fff; }
-.news-form input { flex: 1; min-width: 0; border: 0; background: transparent; padding: 0 18px; font: inherit; font-size: 15px; color: var(--ink); outline: none; }
-.news-form input::placeholder { color: var(--ink-3); }
-.news-form button { flex: none; display: inline-flex; align-items: center; gap: 8px; min-height: 50px; padding: 0 22px; border: 0; border-radius: 999px; background: var(--primary); color: #fff; font-weight: 600; font-size: 15px; cursor: pointer; transition: background 0.3s var(--ease), transform 0.3s var(--ease); }
-.news-form button:hover { background: var(--primary-deep); transform: translateY(-1px); }
-.news-form:focus-within { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25); }
-@media (max-width: 479px) {
-  .news-form { flex-direction: column; border-radius: 22px; padding: 8px; }
-  .news-form input { min-height: 48px; }
-  .news-form button { justify-content: center; }
-}
-@media (prefers-reduced-motion: reduce) { .news-rings .news-orbit { animation: none; } .voices-stage > li { transition: none; } }
+/* The v3 newsletter band and footer rules were replaced by v6 (src/app/v6-chrome.css, 2026-11-17). */
+@media (prefers-reduced-motion: reduce) { .voices-stage > li { transition: none; } }
 
 /* =============================================================================
    PREMIUM PACE (the user, 2026-11-12: "make everything smooth and takes its time so it give that premium feel ...
@@ -268,51 +226,10 @@ html.js .hw.in .w > span { transform: none; opacity: 1; filter: blur(0); }
   .cl-actions button.cl-sec { display: none; }
   .cl-wa, .cl-actions .cl-sec { justify-content: center; }
   .cl-more { grid-column: 1 / -1; justify-content: flex-start; border: 0; padding: 0 2px; min-height: 30px; background: none; }
-  /* Footer: brand on top, Menu and Destinations side by side, Contact below. */
-  .foot { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
-  .foot > .brand, .foot > div:last-child { grid-column: 1 / -1; }
-  .foot .brand > img { width: 96px; height: auto; }
-  .foot li + li { margin-top: 8px; }
-  .foot a:not(.btn) { font-size: 15px; }
 }
 
-/* =============================================================================
-   HERO FITS ONE SCREEN (the user, 2026-11-16: "make hero fit to screen like either mobile or desktop ...
-   the hero should end at Find your clinic button"). The hero is exactly the first screen under the header;
-   the photo takes whatever the words leave (never under about a quarter of the screen) and the hero ends at
-   the Find Your Clinic button. Never clipped: min-height only, so a very short screen just scrolls.
-============================================================================= */
-@media (max-width: 767px) {
-  .hero { min-height: calc(100svh - var(--hdr)); height: auto; justify-content: flex-start; }
-  .hero-media { position: relative; flex: 1 0 0; height: auto; min-height: max(26svh, 150px); container-type: size; }
-  /* photo on top, the words on solid ink under it (his 2026-11-12 notes), so no overlap */
-  .hero-inner { flex: none; margin-top: 0; padding: 22px 20px 24px; }
-  .hc-arrow { top: max(calc(50cqh - 28px), 76px); }
-  .hero::before { top: auto; bottom: 0; }
-  .hero::after { top: auto; bottom: 120px; }
-  /* nothing under the Find Your Clinic button */
-  .hero-facts { order: 1; }
-  .hero-ctas { order: 2; margin-top: 18px; gap: 12px; }
-}
-/* Short phones: the promises go first (the black top bar carries them on desktop), then the paragraph. */
-@media (max-width: 767px) and (max-height: 740px) {
-  .hero-facts { display: none !important; }
-  .hero-ctas { margin-top: 16px; }
-}
-@media (max-width: 767px) and (max-height: 600px) {
-  .hero-text { display: none; }
-  .hero h1 { margin-top: 12px; }
-}
-@media (min-width: 768px) {
-  .hero { min-height: clamp(520px, calc(100svh - var(--hdr)), 1000px); align-items: flex-end; }
-  .hero-inner { padding-block: clamp(40px, 7vh, 80px); }
-  /* the numbers card no longer rises into the hero, so the first screen ends at the buttons */
-  [data-e-section="HotelBand"] > .proof { margin-top: 0; padding-top: clamp(28px, 3vw, 44px); }
-}
-@media (min-width: 1200px) {
-  /* the black top bar (40px) sits above the header */
-  .hero { min-height: clamp(560px, calc(100svh - var(--hdr) - 40px), 1000px); }
-}
+/* The v3 hero rules were replaced by v6 (src/app/v6-chrome.css, 2026-11-17). The numbers no longer rise into the hero. */
+@media (min-width: 768px) { [data-e-section="HotelBand"] > .proof { margin-top: 0; padding-top: clamp(28px, 3vw, 44px); } }
 
 /* =============================================================================
    PATIENT STORIES + TRUSTED BY PATIENTS AS ONE SECTION (the user, 2026-11-16: "merge both trusted by and
@@ -469,16 +386,6 @@ html:not(.js) .sl-a { height: auto; opacity: 1; }
   .dest-n b { font-size: 24px; }
 }
 
-/* 7. Hero headline: "Urgent Medical Care" on one line and "Right Inside Your Hotel" on the next on
-   desktop, at v6's width and line spacing (the user, 2026-11-17). Both lines are about 7.8 times the
-   heading size wide in Calisto at his 0.9 and 0.8 line sizes, so the heading is sized to the ink panel
-   (47% of the screen, less the left edge of the content) and each line stays whole. */
-@media (min-width: 1024px) {
-  .hero { --hero-left: max(var(--gutter), calc((100vw - 1280px) / 2 + var(--gutter))); }
-  .hero-copy { max-width: min(600px, calc(47vw - var(--hero-left) - 24px)); }
-  .hero h1 { font-size: min(68px, calc((47vw - var(--hero-left) - 32px) / 7.9)); }
-  .hero h1 .ln { white-space: nowrap; }
-}
 
 @media (prefers-reduced-motion: reduce) {
   .gw-q, .sl-plus, .sline-all svg, .dest-pic { transition: none !important; }

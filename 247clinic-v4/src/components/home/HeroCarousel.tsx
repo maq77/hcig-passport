@@ -2,24 +2,22 @@
 
 /* The hero's image carousel (the user, 2026-09-24: "add image carousel ... great ux buttons
    and animations ... auto scrolls and great transitions in and out ... perfect and smooth").
-   - A new slide slides over from the side it comes from, its picture moving against the
-     frame (a parallax reveal) and zooming gently to rest; the old one drifts back beneath.
-     Transform only, so it stays smooth everywhere.
-   - The progress bars are the timer: the active bar fills, and when it ends the next slide
-     comes. Pausing freezes the bar, so nothing jumps on resume.
-   - Keeps playing on hover and on tap (the user, 2026-09-24); it only waits while off
-     screen or in a hidden tab. A click on an arrow or a bar starts that slide fresh.
-     No autoplay and no motion under reduced motion; arrows, bars and swipe still work. */
+   v6 (spec 015): 6.5s per photo, the slide-over kept, no zoom. A new slide slides over from the
+   side it comes from while its picture moves against the frame; the old one drifts back beneath.
+   Transform only. The foot is one quiet row: the counter and caption, thin hairline progress
+   bars (the timer), and two hairline circle arrows. Pausing freezes the bar, so nothing jumps.
+   It waits while off screen or in a hidden tab. No autoplay and no motion under reduced motion;
+   arrows, bars and swipe still work. */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-/* pos frames the photo on tablet and desktop, posM on phones (the taller cinema-fade crop). */
+/* pos frames the photo on tablet and desktop, posM on phones. */
 export type HeroSlide = { src: string; srcM?: string; w: number; h: number; caption: string; pos?: string; posM?: string; slot?: string };
 
-/* Seconds each photo stays: 6.5 until 2026-09-24, then 5 ("a little faster"). */
-const SLIDE_MS = 5000;
+const SLIDE_MS = 6500;
 const EASE = [0.76, 0, 0.24, 1] as const;
+const pad = (n: number) => String(n).padStart(2, "0");
 
 export function HeroCarousel({ slides, label, labels }: {
   slides: HeroSlide[]; label: string; labels: { prev: string; next: string; show: string };
@@ -49,7 +47,7 @@ export function HeroCarousel({ slides, label, labels }: {
     return () => { io.disconnect(); document.removeEventListener("visibilitychange", vis); };
   }, []);
 
-  /* Warm the next picture so its wipe never waits on the network. */
+  /* Warm the next picture so its slide never waits on the network. */
   useEffect(() => {
     if (n < 2) return;
     const img = new Image();
@@ -59,9 +57,7 @@ export function HeroCarousel({ slides, label, labels }: {
   const auto = !reduce && n > 1;
   const running = auto && onScreen;
 
-  const onPointerDown = (e: React.PointerEvent) => {
-    start.current = { x: e.clientX, y: e.clientY };
-  };
+  const onPointerDown = (e: React.PointerEvent) => { start.current = { x: e.clientX, y: e.clientY }; };
   const onPointerUp = (e: React.PointerEvent) => {
     const s = start.current;
     start.current = null;
@@ -78,16 +74,14 @@ export function HeroCarousel({ slides, label, labels }: {
       role="region"
       aria-roledescription="carousel"
       aria-label={label}
-      onPointerLeave={() => { start.current = null; }}
-      onPointerDown={onPointerDown}
-      onPointerUp={onPointerUp}
-      onPointerCancel={() => { start.current = null; }}
       onKeyDown={(e) => {
         if (e.key === "ArrowRight") { e.preventDefault(); next(); }
         if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
       }}
     >
-      <div className="hc-stage" aria-live={running ? "off" : "polite"}>
+      <div className="hc-stage" aria-live={running ? "off" : "polite"}
+        onPointerDown={onPointerDown} onPointerUp={onPointerUp}
+        onPointerLeave={() => { start.current = null; }} onPointerCancel={() => { start.current = null; }}>
         <AnimatePresence initial={false} custom={dir}>
           <motion.div
             key={i}
@@ -104,92 +98,88 @@ export function HeroCarousel({ slides, label, labels }: {
             initial="enter"
             animate="center"
             exit="exit"
-            transition={reduce ? { duration: 0.25 } : { duration: 1.1, ease: EASE }}
+            transition={reduce ? { duration: 0.2 } : { duration: 1.1, ease: EASE }}
           >
-            {/* The picture moves against its frame, so the slide reads as a reveal. */}
-            {/* A slide may carry its own phone picture (srcM), framed for the cinema fade. */}
+            {/* The picture moves against its frame, so the slide reads as a reveal. A slide may carry its own phone picture. */}
             <picture className="hc-pic">
-            {s.srcM && <source media="(max-width: 767px)" srcSet={s.srcM} />}
-            <motion.img
-              src={s.src}
-              data-slot={s.slot}
-              alt=""
-              width={s.w}
-              height={s.h}
-              draggable={false}
-              fetchPriority={i === 0 ? "high" : "auto"}
-              decoding="async"
-              style={{ ["--pos" as string]: s.pos, ["--pos-m" as string]: s.posM ?? s.pos }}
-              custom={dir}
-              variants={{
-                enter: (d: number) => (reduce ? {} : { x: d > 0 ? "-55%" : "55%" }),
-                center: { x: "0%" },
-              }}
-              transition={reduce ? { duration: 0 } : {
-                x: { duration: 1.1, ease: EASE },
-              }}
-            />
+              {s.srcM && <source media="(max-width: 767px)" srcSet={s.srcM} />}
+              <motion.img
+                src={s.src}
+                data-slot={s.slot}
+                alt=""
+                width={s.w}
+                height={s.h}
+                draggable={false}
+                fetchPriority={i === 0 ? "high" : "auto"}
+                loading="eager"
+                decoding={i === 0 ? "sync" : "async"}
+                style={{ ["--pos" as string]: s.pos, ["--pos-m" as string]: s.posM ?? s.pos }}
+                custom={dir}
+                variants={{
+                  enter: (d: number) => (reduce ? {} : { x: d > 0 ? "-55%" : "55%" }),
+                  center: { x: "0%" },
+                }}
+                transition={reduce ? { duration: 0 } : { x: { duration: 1.1, ease: EASE } }}
+              />
             </picture>
           </motion.div>
         </AnimatePresence>
       </div>
-      {/* The white wash that keeps the headline readable on desktop, under the controls. */}
-      <div className="hero-veil" aria-hidden="true" />
 
-      {/* The caption crossfades: the old one rises out while the new one rises in, so it
-          always names the slide on screen. */}
-      <div className="hc-cap">
-        <AnimatePresence mode="popLayout" initial={false}>
-          <motion.p
-            key={i}
-            className="hc-caption"
-            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span className="hc-count">{String(i + 1).padStart(2, "0")}</span>
-            {s.caption}
-          </motion.p>
-        </AnimatePresence>
-      </div>
-
-      {n > 1 && (
-        <div className="hc-controls">
-          <motion.button type="button" className="hc-arrow" aria-label={labels.prev} onClick={prev}
-            whileHover={reduce ? undefined : { scale: 1.08 }} whileTap={reduce ? undefined : { scale: 0.9 }}>
-            <ChevronLeft size={20} strokeWidth={2.4} aria-hidden="true" />
-          </motion.button>
-          <ol className="hc-bars">
-            {slides.map((sl, k) => (
-              <li key={sl.src}>
-                <button
-                  type="button"
-                  className={`hc-bar ${k < i ? "done" : ""} ${k === i ? "on" : ""}`}
-                  aria-label={`${labels.show} ${k + 1}: ${sl.caption}`}
-                  aria-current={k === i ? "true" : undefined}
-                  onClick={() => go(k, k >= i ? 1 : -1)}
-                >
-                  <span className="hc-track">
-                    <span
-                      key={`${k}-${i}`}
-                      className={`hc-fill ${k === i && auto ? "run" : ""}`}
-                      style={k === i && auto
-                        ? { animationDuration: `${SLIDE_MS}ms`, animationPlayState: running ? "running" : "paused" }
-                        : undefined}
-                      onAnimationEnd={k === i && auto ? next : undefined}
-                    />
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ol>
-          <motion.button type="button" className="hc-arrow" aria-label={labels.next} onClick={next}
-            whileHover={reduce ? undefined : { scale: 1.08 }} whileTap={reduce ? undefined : { scale: 0.9 }}>
-            <ChevronRight size={20} strokeWidth={2.4} aria-hidden="true" />
-          </motion.button>
+      <div className="hc-foot">
+        {/* The caption crossfades, so it always names the slide on screen. */}
+        <div className="hc-cap">
+          <AnimatePresence mode="popLayout" initial={false}>
+            <motion.p
+              key={i}
+              className="hc-caption"
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduce ? { opacity: 0 } : { opacity: 0, y: -10 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="hc-count">{`${pad(i + 1)} / ${pad(n)}`}</span>
+              <span>{s.caption}</span>
+            </motion.p>
+          </AnimatePresence>
         </div>
-      )}
+        {n > 1 && (
+          <>
+            <ol className="hc-bars">
+              {slides.map((sl, k) => (
+                <li key={sl.src}>
+                  <button
+                    type="button"
+                    className={`hc-bar ${k < i ? "done" : ""} ${k === i ? "on" : ""}`}
+                    aria-label={`${labels.show} ${k + 1}: ${sl.caption}`}
+                    aria-current={k === i ? "true" : undefined}
+                    onClick={() => go(k, k >= i ? 1 : -1)}
+                  >
+                    <span className="hc-track">
+                      <span
+                        key={`${k}-${i}`}
+                        className={`hc-fill ${k === i && auto ? "run" : ""}`}
+                        style={k === i && auto
+                          ? { animationDuration: `${SLIDE_MS}ms`, animationPlayState: running ? "running" : "paused" }
+                          : undefined}
+                        onAnimationEnd={k === i && auto ? next : undefined}
+                      />
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+            <div className="hc-arrows">
+              <button type="button" className="hc-arrow" aria-label={labels.prev} onClick={prev}>
+                <ChevronLeft size={20} aria-hidden="true" />
+              </button>
+              <button type="button" className="hc-arrow" aria-label={labels.next} onClick={next}>
+                <ChevronRight size={20} aria-hidden="true" />
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

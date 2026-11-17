@@ -705,6 +705,14 @@
       ],
       "note": "v6 order and merges brought to v3: Hero, HotelBand, Facilities, Services, Intro (with How it works), Insurance, Stories (films, one guest review at a time from reviews.json in its own language, Trusted by Patients), Destinations, FinalCta. New words are only the destination tile count labels Clinic and Clinics, as on v6. No other new or trimmed wording.",
       "his_words": "in v3 re organize sections and, merge like you did on v6 ... remove the words that are on the background like Professionalism and World class clinics and Partner etc ... remove CEO Quote from v3"
+    },
+    {
+      "date": "2026-11-17",
+      "by": "the user",
+      "kind": "add",
+      "where": "Footer, the copyright line (every page)",
+      "to": "Powered by Pulse Marketing",
+      "note": "His words: 'add powered by pulse marketing at the footer but make it like: © 2026 24/7 Clinic. All Rights Reserved'."
     }
   ],
   "fromTheirSite": {

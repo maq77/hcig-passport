@@ -1,10 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { Cormorant_Garamond, Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./pages.css";
 import "./detail.css";
 import "./home-calm.css";
+/* v6 header, hero, footer and WhatsApp float (the user, 2026-11-17: "copy the hero and header and footer of v6 to v3"). Last, so it wins. */
+/* v6 layout of the home sections (the user, 2026-11-17: "same spacing and layout in v3"). */
+import "./v6-layout.css";
+import "./v6-chrome.css";
 import { global, section } from "@/content/load";
 import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
 import { IS_PREVIEW } from "@/data/facts";
@@ -15,6 +19,8 @@ import { MediaShimmer } from "@/components/ui/MediaShimmer";
 import { RevealObserver, Tracker } from "@/components/ui/Motion";
 
 const sans = Poppins({ subsets: ["latin", "latin-ext"], weight: ["400", "500", "600", "700"], variable: "--font-sans", display: "swap" });
+/* Cormorant Garamond for the v6 header menu, hero and footer headings: 300 and 400, upright only. */
+const lux = Cormorant_Garamond({ subsets: ["latin"], weight: ["300", "400"], style: ["normal"], variable: "--font-lux", display: "swap" });
 /* Calisto MT, licensed, supplied by the user 2026-09-23. Latin subsets built by scripts/fonts.mjs. */
 const display = localFont({
   src: [
@@ -48,7 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const g = global();
   const nav = g.nav.map((n) => n.title);
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${lux.variable} ${display.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: JS_GATE }} />
         <script src="https://www.medparkhospitals.com/dashboard/t.js?s=247clinic" defer />
