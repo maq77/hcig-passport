@@ -1,4 +1,4 @@
-:HL["/247clinic/v6/_next/static/chunks/3oqn8bg77stt_.css","style"]
+:HL["/247clinic/v6/_next/static/chunks/3cwv-54jz59id.css","style"]
 :HL["/247clinic/v6/_next/static/media/01e4147cff8141ee-s.p.3huc2loe0ie8a.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/247clinic/v6/_next/static/media/8e6fa89aa22d24ec-s.p.2o7m9ogm38dql.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/247clinic/v6/_next/static/media/a218039a3287bcfd-s.p.43zbiuwnnoiok.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
@@ -12,4 +12,4 @@
 :HL["/247clinic/v6/logos/marks/flag-pl.svg","image"]
 :HL["/247clinic/v6/logos/marks/flag-it.svg","image"]
 :HL["/247clinic/v6/logos/marks/flag-ro.svg","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4224,"slots":null}}},"staleTime":300,"buildId":"oCQNUFV7vK_twZ9VYGSD6"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4224,"slots":null}}},"staleTime":300,"buildId":"-RmQFOLNfU_KvmncSGY8e"}

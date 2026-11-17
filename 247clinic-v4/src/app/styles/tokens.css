@@ -7,6 +7,9 @@
   --ink: #1A1414;
   --red: #C00000;
   --red-on-ink: #E8121C; /* red text on ink, for contrast */
+  /* The home hero only (his ask 2026-11-17, Irina: black alone reads aggressive): the guideline's red to black
+     gradient, starting at the logo swoosh burgundy. */
+  --panel-hero: linear-gradient(165deg, #86020D 0%, #5F0008 34%, #3A0006 66%, #000000 100%);
   --white: #FFFFFF;
   --wa: #25D366; /* the WhatsApp frame */
   --wa-glyph: #1DA851;

@@ -1,7 +1,7 @@
 /* The design gate (spec 015 section 3). Runs after check-brief in `npm run build`.
    Scans src/app/**\/*.css (not the two files the home editor writes) and the inline styles of
    src/**\/*.tsx (not the editor itself, a development tool). It fails on:
-   - a colour gradient: any gradient( outside a mask-image declaration
+   - a colour gradient: any gradient( outside a mask-image declaration, except the --panel token built from the burgundy stops
    - !important outside a @media (prefers-reduced-motion: reduce) block
    - more than three font families (the sans, lux and display variables; generic fallbacks are fine)
    and warns on a hex colour that is not one of the tokens. Prints a short report. */
@@ -11,7 +11,7 @@ import path from "node:path";
 const ROOT = path.resolve(".");
 const SKIP_CSS = new Set(["editor-overrides.css", "theme-overrides.css"]);
 const SKIP_DIRS = new Set(["editor", "node_modules"]);
-const ALLOWED_HEX = new Set(["#fbf8f4", "#1a1414", "#c00000", "#e8121c", "#25d366", "#0b7a3a", "#1da851", "#ffffff", "#fff", "#000", "#000000"]);
+const ALLOWED_HEX = new Set(["#fbf8f4", "#1a1414", "#c00000", "#e8121c", "#25d366", "#0b7a3a", "#1da851", "#5f0008", "#86020d", "#3a0006", "#f7b7b7", "#ffffff", "#fff", "#000", "#000000"]);
 const GENERIC = new Set(["serif", "sans-serif", "system-ui", "-apple-system", "monospace", "cursive", "fantasy", "ui-sans-serif", "ui-serif", "inherit", "initial", "unset", "segoe ui", "arial", "georgia", "book antiqua", "palatino", "cormorant garamond", "helvetica"]);
 
 function walk(dir, test, out = []) {
@@ -63,6 +63,15 @@ function familyOf(value) {
   return first;
 }
 
+/* The one allowed colour gradient: the brand panel, a custom property named --panel* whose stops are
+   only the burgundy hexes sampled from the logo (never black, never another colour). */
+const PANEL_HEX = new Set(["#86020d", "#5f0008", "#3a0006", "#000000"]);
+function brandPanel(prop, value) {
+  if (!/^--panel[\w-]*$/.test(prop)) return false;
+  const hexes = value.match(/#[0-9a-fA-F]{3,8}\b/g) || [];
+  return hexes.length >= 2 && hexes.every((h) => PANEL_HEX.has(h.toLowerCase())) && !/rgba?\(|hsl|var\(/i.test(value);
+}
+
 function check(file, src, { css }) {
   scanned++;
   const ranges = css ? reducedRanges(src) : [];
@@ -70,7 +79,7 @@ function check(file, src, { css }) {
   const { clean, out } = declarations(src);
 
   for (const [prop, value, i] of out) {
-    if (/gradient\(/i.test(value) && !/^(-webkit-)?mask(-image)?$/.test(prop)) {
+    if (/gradient\(/i.test(value) && !/^(-webkit-)?mask(-image)?$/.test(prop) && !brandPanel(prop, value)) {
       fails.push(`${rel(file)}:${lineOf(src, i)} colour gradient in ${prop}`);
     }
     if (prop === "font-family" || prop === "font") {

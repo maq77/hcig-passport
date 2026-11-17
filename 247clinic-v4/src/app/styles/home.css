@@ -11,7 +11,7 @@
    header (560px to 1000px). One foot row at the bottom of the screen: the accreditation on the
    panel, the slide counter on an ink plate at the photo's corner.
 ============================================================================= */
-.hero { position: relative; background: var(--ink); color: var(--ivory); }
+.hero { position: relative; background: var(--ink); background-image: var(--panel-hero); color: var(--ivory); --red-on-ink: #F7B7B7; }
 .hero-media { position: relative; }
 .hc { position: relative; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
 .hc-stage { position: relative; height: 56svh; min-height: 300px; max-height: 560px; overflow: hidden; background: var(--ink); }
