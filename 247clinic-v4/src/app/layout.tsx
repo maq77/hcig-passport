@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { global, section } from "@/content/load";
 import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
-import { asset, IS_PREVIEW } from "@/data/facts";
+import { IS_PREVIEW } from "@/data/facts";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
@@ -41,8 +41,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 
 /* Adds `js` so reveals may start hidden, and takes it away again after 3 s if the
    app never marked itself ready. Content can never stay hidden (the v2 lesson). */
-/* js gate + the opening curtain once per visit (sessionStorage), never under reduced motion. */
-const JS_GATE = `(function(d){d.classList.add('js');try{if(sessionStorage.getItem('c7intro')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('intro-seen');else sessionStorage.setItem('c7intro','1')}catch(e){d.classList.add('intro-seen')}setTimeout(function(){if(!d.classList.contains('rv-ready'))d.classList.remove('js')},3000)})(document.documentElement)`;
+const JS_GATE = `(function(d){d.classList.add('js');setTimeout(function(){if(!d.classList.contains('rv-ready'))d.classList.remove('js')},3000)})(document.documentElement)`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const g = global();
@@ -54,14 +53,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script src="https://www.medparkhospitals.com/dashboard/t.js?s=247clinic" defer />
       </head>
       <body>
-        {/* Opening curtain, once per visit (the user, 2026-11-12: "loading state ... loading animation even if it
-            doesnt take much time"). v6: 1.2s, ivory, the logo and a red rule draw, then a clip lift. */}
-        <div className="oc" aria-hidden="true">
-          <div className="oc-in">
-            <img src={asset("/logos/marks/247-logo.svg")} alt="" width={120} height={116} />
-            <span className="oc-line" />
-          </div>
-        </div>
         <a className="skip" href="#main">Skip to content</a>
         <Header labels={{ nav, waLong: BRIEF.waUs, waShort: BRIEF.needDoctor, promises: (hero.subheading ?? "").split("•").map((s) => s.trim()), email: THEIRS.email, address: THEIRS.address, accredited: APPROVED.accredited, partOf: APPROVED.partOf }} />
         <main id="main">{children}</main>

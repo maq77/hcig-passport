@@ -45,32 +45,18 @@ html.js img.shim-i.ld { opacity: 1; transform: none; animation: wipe 1100ms var(
   }
 }
 
-/* ---------- the opening curtain, once per visit: 1.2s, ivory, the logo, a red rule, then a clip lift ---------- */
-.oc { display: none; }
-html.js:not(.intro-seen) .oc { position: fixed; inset: 0; z-index: 500; display: grid; place-items: center; background: var(--ivory); clip-path: inset(0 0 0 0); animation: ocLift 500ms var(--ease-curtain) 700ms forwards; }
-.oc-in { display: flex; flex-direction: column; align-items: center; gap: 22px; }
-.oc img { width: 120px; height: auto; opacity: 0; transform: scale(0.96); animation: ocLogo 500ms var(--ease) forwards; }
-.oc-line { width: 160px; height: var(--hair); background: var(--red); transform: scaleX(0); animation: draw 500ms var(--ease-io) 200ms forwards; }
-@keyframes ocLogo { to { opacity: 1; transform: none; } }
-@keyframes ocLift { to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
-
 /* ---------- the hero: lines rise from their mask, the rest follows at 70ms ---------- */
 html.js .hero h1 .ln > span { animation: riseLine var(--t3) var(--ease) both; }
 html.js .hero h1 .ln + .ln > span { animation-delay: 70ms; }
 html.js :is(.hero-copy > :not(h1), .hero-foot) { animation: rise var(--t3) var(--ease) both; animation-delay: calc(var(--k, 0) * 70ms + 140ms); }
-html.js:not(.intro-seen) .hero h1 .ln > span { animation-delay: 760ms; }
-html.js:not(.intro-seen) .hero h1 .ln + .ln > span { animation-delay: 830ms; }
-html.js:not(.intro-seen) :is(.hero-copy > :not(h1), .hero-foot) { animation-delay: calc(var(--k, 0) * 70ms + 900ms); }
 
 /* ---------- reduced motion: the one block. Everything shows at once, nothing travels. ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; animation-delay: 0ms !important; transition-duration: 0.01ms !important; transition-delay: 0ms !important; scroll-behavior: auto !important; }
-  .oc { display: none !important; }
   html.js .rv, html.js .hw .w > span, html.js img.shim-i { opacity: 1 !important; transform: none !important; clip-path: none !important; }
   html.js .eyebrow.rv::before, html.js .head.center .eyebrow.rv::after { transform: none !important; }
   .wa-float::before, .bigplay .ring { display: none !important; }
-  html.js .ceo-ring circle { stroke-dashoffset: 0 !important; }
-  html.js .ceo-rule, html.js .ceo-who, html.js .sl-step.rv::before { opacity: 1 !important; transform: none !important; }
+  html.js .sl-step.rv::before { opacity: 1 !important; transform: none !important; }
   html.js .pg-cta.rv .rule { transform: none !important; }
   html.js .ph-media img { clip-path: none !important; transform: none !important; }
   /* the phone menu becomes a 200ms fade */

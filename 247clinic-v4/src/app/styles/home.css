@@ -263,37 +263,6 @@ html:not(.js) .sl-a { height: auto; opacity: 1; }
   .sline-wrap.all-open .sline-all svg { transform: rotate(180deg); }
 }
 
-/* =============================================================================
-   CEO: an ivory band, centred; the ring draws, the words rise, the red rule draws, then the name
-============================================================================= */
-.ceo-in { display: flex; flex-direction: column; align-items: center; gap: 28px; max-width: 980px; margin: 0 auto; text-align: center; }
-.ceo-face { position: relative; width: 112px; height: 112px; flex: none; }
-.ceo-pic { display: block; width: 100%; height: 100%; overflow: hidden; border-radius: 50%; background: var(--tint-2); }
-.ceo-pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
-/* the ring is 132px (phone) and 168px (desktop) for a viewBox of 100: the stroke width is set so it draws at 1px */
-.ceo-ring { position: absolute; inset: -10px; width: calc(100% + 20px); height: calc(100% + 20px); overflow: visible; transform: rotate(-90deg); fill: none; stroke: var(--red); stroke-width: 0.76; }
-.ceo-ring circle { stroke-dasharray: 1; stroke-dashoffset: 0; }
-html.js .ceo-ring circle { stroke-dashoffset: 1; transition: stroke-dashoffset var(--t4) var(--ease-io) 150ms; }
-html.js .ceo-in.in .ceo-ring circle { stroke-dashoffset: 0; }
-.ceo-q { position: relative; z-index: 0; max-width: 24ch; margin: 0 auto; font-family: var(--font-head); font-size: clamp(26px, 3.2vw, 44px); }
-.ceo-q p { font-weight: 400; line-height: 1.24; color: var(--ink); text-wrap: balance; }
-.ceo-mark { position: absolute; left: 0.05em; top: -0.5em; z-index: -1; font-size: 4em; font-weight: 300; line-height: 1; color: var(--ink-10); pointer-events: none; }
-html.js .ceo .hw .w > span { transition-delay: calc(var(--i, 0) * 40ms + 500ms); }
-html.js .ceo-in.in .hw .w > span { transform: none; }
-.ceo-rule { transform-origin: center; }
-html.js .ceo-rule { transform: scaleX(0); transition: transform var(--t3) var(--ease-io) 1800ms; }
-html.js .ceo-in.in .ceo-rule { transform: none; }
-.ceo-who { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.ceo-who b { font-size: 16px; font-weight: 600; color: var(--ink); }
-.ceo-who .label { color: var(--ink-62); }
-html.js .ceo-who { opacity: 0; transform: translateY(16px); transition: opacity var(--t3) var(--ease) 2000ms, transform var(--t3) var(--ease) 2000ms; }
-html.js .ceo-in.in .ceo-who { opacity: 1; transform: none; }
-@media (min-width: 1024px) {
-  .ceo-in { gap: 36px; }
-  .ceo-face { width: 144px; height: 144px; }
-  .ceo-ring { inset: -12px; width: calc(100% + 24px); height: calc(100% + 24px); stroke-width: 0.6; }
-}
-@media (min-width: 1280px) { .ceo-q p { font-weight: 300; } }
 
 /* =============================================================================
    INSURANCE (his rewritten words): one promise, three hairline steps, the cashless line with the red rule

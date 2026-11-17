@@ -34,18 +34,6 @@ const href = (p: string) => `${BASE}${p}`;
 const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` });
 const k = (n: number) => ({ ["--k" as string]: n });
 
-/* The side words beside each section, desktop only. The same strings as in src/content/ui-labels.json,
-   named here instead of read by index (that file is append only). */
-const SIDE = {
-  hotelBand: "Partner",
-  services: " Luxury   Premium  ELite ",
-  howItWorks: "Fast Procedures",
-  stories: "Experience",
-  facilities: "WORLD-CLASS CLINICS",
-  intro: "Elite Care",
-  insurance: "PROFESSIONALISM",
-} as const;
-
 /* ---------------- 1. hero ----------------
    v6 (spec 015): desktop, the ink panel left (44%) and the photo right (56%); phones, the photo
    on top and the ink panel below with stacked buttons. Two tiers in Cormorant (his 0.9 / 0.8 edit),
@@ -104,7 +92,7 @@ function LogoTile({ l }: { l: Logo }) {
 export function HotelBand() {
   return (
     <section className="proof" aria-label={BRIEF.hotelClinics}>
-      <div data-e-block="edge-label" data-e-field="text" className="edge-label left">{SIDE.hotelBand}</div>
+      
       <div className="container">
         <ul className="stats">
           {NUMBERS.map((n, i) => (
@@ -132,7 +120,7 @@ const POINT_ICONS = [Globe, ShieldCheck, Stethoscope, Award];
 export function Facilities() {
   const s = section("home", "accreditation-block");
   return (
-    <section className="section facilities" aria-labelledby="fac-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{SIDE.facilities}</div>
+    <section className="section facilities" aria-labelledby="fac-h">
       <div className="container">
         <Head center eyebrow="Accreditation" id="fac-h" title={s.heading} lead={<p>{s.body[0]}</p>} />
         <div className="stage rv">
@@ -174,7 +162,7 @@ export function Services() {
   const s = section("home", "medical-services");
   const feature = s.items[6];
   return (
-    <section className="section services" aria-labelledby="svc-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{SIDE.services}</div>
+    <section className="section services" aria-labelledby="svc-h">
       <div className="container">
         <div className="head-row">
           <Head eyebrow="What we treat" id="svc-h" title={s.heading} />
@@ -240,7 +228,7 @@ export function Intro() {
   const s = section("home", "what-is-247-clinic");
   const how = section("home", "how-it-works");
   return (
-    <section className="section bg-surface intro" aria-labelledby="intro-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{SIDE.intro}</div>
+    <section className="section bg-surface intro" aria-labelledby="intro-h">
       <div className="container">
         <div className="intro-grid">
           <div className="intro-label">
@@ -285,7 +273,7 @@ export function Intro() {
 export function Insurance(_: { insuranceMessage: string }) {
   const s = section("home", "insurance-cashless-care");
   return (
-    <section className="section bg-surface insurance ins2" aria-labelledby="ins-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label right">{SIDE.insurance}</div>
+    <section className="section bg-surface insurance ins2" aria-labelledby="ins-h">
       <div className="container ins2-grid">
         <div className="ins2-copy">
           <Head eyebrow="Insurance & cashless" id="ins-h" title={s.heading} />
@@ -321,7 +309,7 @@ export function Insurance(_: { insuranceMessage: string }) {
 export function Stories() {
   const s = section("home", "reviews-testimonials");
   return (
-    <section className="section stories" aria-labelledby="st-h"><div data-e-block="edge-label" data-e-field="text" className="edge-label left">{SIDE.stories}</div>
+    <section className="section stories" aria-labelledby="st-h">
       <div className="container">
         <Head eyebrow="Patient stories" id="st-h" title={s.heading} />
       </div>

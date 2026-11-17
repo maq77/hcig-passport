@@ -19,7 +19,6 @@
   --line: rgba(26, 20, 20, 0.12);
   --tint: rgba(26, 20, 20, 0.04);
   --tint-2: rgba(26, 20, 20, 0.07);
-  --ink-10: rgba(26, 20, 20, 0.1); /* the hairline quotation mark behind the CEO quote */
   /* ivory on ink */
   --on-ink: var(--ivory);
   --on-ink-78: rgba(251, 248, 244, 0.78);
@@ -45,8 +44,6 @@
   --fs-h1: clamp(44px, 6.4vw, 92px);
   --fs-h2: clamp(34px, 4.4vw, 60px);
   --fs-h3: clamp(24px, 2vw, 28px);
-  --side-word: 26px; /* the vertical side words, desktop only (his edge label zooms) */
-  --side-drop: clamp(40px, 12vh, 160px); /* he pulled every side word below the middle */
   --measure: 60ch;
 
   /* shape */
