@@ -391,3 +391,17 @@ html:not(.js) .sl-a { height: auto; opacity: 1; }
   .gw-q, .sl-plus, .sline-all svg, .dest-pic { transition: none !important; }
   html.js .sl-step.rv::before { transform: none; transition: none; }
 }
+
+/* Destination covers (the owner's finished cover designs, headline baked in): 5/4 tiles, never cropped on the
+   headline side (object-position left bottom), name kept for screen readers only. Phone: a snap row with the
+   next tile peeking; from 640px a grid. */
+.dest-snap .snap-track > li { flex: 0 0 86%; }
+.dest-snap .dest-media { aspect-ratio: 5 / 4; }
+.dest-snap .dest-pic img { object-position: left bottom; }
+.dest-snap .dest-meta { flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 16px; padding-top: 12px; }
+@media (min-width: 640px) {
+  .dest-snap .snap-track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; overflow: visible; margin: 0; padding: 0; }
+}
+@media (min-width: 900px) {
+  .dest-snap .snap-track { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 24px; }
+}

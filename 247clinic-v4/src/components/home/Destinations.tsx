@@ -8,10 +8,11 @@ import { DESTINATIONS, clinicsIn, type DestinationId } from "@/data/clinics";
 import { ROUTES } from "@/data/nav";
 import { Head } from "@/components/ui/Bits";
 import { TextLink } from "@/components/ui/Buttons";
+import { SnapRow } from "@/components/ui/SnapRow";
 
 export function DestTiles({ except }: { except?: DestinationId }) {
   return (
-    <ul className={`dest-grid ${except ? "five" : ""}`}>
+    <SnapRow className="dest-snap" gridFrom={640} label="Destinations" labels={{ prev: "Previous", next: "Next" }}>
       {DESTINATIONS.filter((d) => d.id !== except).map((d, k) => {
         const count = clinicsIn(d.id).length;
         return (
@@ -19,18 +20,18 @@ export function DestTiles({ except }: { except?: DestinationId }) {
             <a className="dest" href={`${BASE}/${d.id}`}>
               <span className="dest-media">
                 <span className="dest-pic">
-                  <img src={asset(`/img/dest-${d.id}-1200.webp`)} alt="" width={1200} height={805} loading="lazy" />
+                  <img src={asset(`/img/dest-${d.id}-cover-1200.webp`)} srcSet={`${asset(`/img/dest-${d.id}-cover-800.webp`)} 800w, ${asset(`/img/dest-${d.id}-cover-1200.webp`)} 1200w`} sizes="(min-width: 900px) 380px, (min-width: 640px) 46vw, 86vw" alt="" width={1200} height={960} loading="lazy" />
                 </span>
               </span>
               <span className="dest-meta">
-                <span className="dest-name">{d.name}</span>
+                <span className="sr-only">{d.name}</span>
                 <span className="dest-n"><b>{count}</b><span>{count === 1 ? "Clinic" : "Clinics"}</span></span>
               </span>
             </a>
           </li>
         );
       })}
-    </ul>
+    </SnapRow>
   );
 }
 

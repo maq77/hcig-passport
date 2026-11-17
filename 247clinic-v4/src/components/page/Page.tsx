@@ -15,12 +15,14 @@ import { asset, BASE, IS_PREVIEW } from "@/data/facts";
 import { More } from "@/components/ui/More";
 
 /* ---------- meta: the page's own h1 and opening line ---------- */
+const OG_IMAGE = IS_PREVIEW ? `https://hcig-passport.vercel.app${BASE}/og-image.jpg` : "https://www.247clinic.net/og-image.jpg";
 export function pageMeta(title: string, description: string, path: string): Metadata {
   return {
     title: `${title} | 24/7 Clinic`,
     description,
     ...(IS_PREVIEW ? {} : { alternates: { canonical: `https://www.247clinic.net${path}` } }),
-    openGraph: { title, description, siteName: "24/7 Clinic", type: "website" },
+    openGraph: { title, description, siteName: "24/7 Clinic", type: "website", images: [{ url: OG_IMAGE, width: 1200, height: 630 }] },
+    twitter: { card: "summary_large_image", images: [OG_IMAGE] },
   };
 }
 

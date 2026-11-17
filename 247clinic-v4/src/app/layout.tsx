@@ -35,13 +35,27 @@ const display = localFont({
 const hero = section("home", "hero");
 
 /* Meta from the brief's own lines (spec assumption): h1 + brand, and the opening sentence. */
+const BP = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+/* Absolute share image: the live domain for the live target, the preview host plus base path otherwise. */
+const OG_IMAGE = IS_PREVIEW ? `https://hcig-passport.vercel.app${BP}/og-image.jpg` : "https://www.247clinic.net/og-image.jpg";
+
 export const metadata: Metadata = {
   /* their live title, kept (the user, 2026-09-23) */
   title: THEIRS.pageTitle,
   description: hero.body[0],
   robots: IS_PREVIEW ? { index: false, follow: false } : { index: true, follow: true },
   ...(IS_PREVIEW ? {} : { alternates: { canonical: "https://www.247clinic.net/" }, metadataBase: new URL("https://www.247clinic.net") }),
-  icons: { icon: `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/logos/marks/247-logo.svg` },
+  icons: {
+    icon: [
+      { url: `${BP}/favicon.svg`, type: "image/svg+xml" },
+      { url: `${BP}/favicon-32.png`, sizes: "32x32", type: "image/png" },
+      { url: `${BP}/favicon-16.png`, sizes: "16x16", type: "image/png" },
+    ],
+    shortcut: `${BP}/favicon.ico`,
+    apple: { url: `${BP}/apple-touch-icon.png`, sizes: "180x180", type: "image/png" },
+  },
+  openGraph: { siteName: "24/7 Clinic", type: "website", images: [{ url: OG_IMAGE, width: 1200, height: 630 }] },
+  twitter: { card: "summary_large_image", images: [OG_IMAGE] },
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#ffffff" };
