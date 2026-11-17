@@ -18,8 +18,9 @@ export function WhatsAppFloat({ prompts, sub, aria }: { prompts: string[]; sub: 
   const reduce = useReducedMotion();
   const [i, setI] = useState(0);
   const [small, setSmall] = useState(false);
-  /* Phones: the header already carries WhatsApp, so the float waits until the hero has mostly scrolled away
-     (it covered the hero's words on a 390px screen). */
+  /* Phones and tablets (the stacked hero): the header already carries WhatsApp, so the float waits until the
+     hero has mostly scrolled away (it covered the hero's words on a 390px screen, and the hero now fills the
+     screen with the accreditation row at its foot). */
   const [away, setAway] = useState(false);
   const pill = useRef<HTMLSpanElement>(null);
 
@@ -46,7 +47,7 @@ export function WhatsAppFloat({ prompts, sub, aria }: { prompts: string[]; sub: 
       raf = 0;
       setSmall(window.scrollY > OPEN_ABOVE || overHeroFoot());
       const hero = document.querySelector<HTMLElement>(".hero, .ph");
-      setAway(window.innerWidth < 768 && !!hero && hero.getBoundingClientRect().bottom > window.innerHeight * 0.55);
+      setAway(window.innerWidth < 1024 && !!hero && hero.getBoundingClientRect().bottom > window.innerHeight * 0.55);
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(read); };
     read();
