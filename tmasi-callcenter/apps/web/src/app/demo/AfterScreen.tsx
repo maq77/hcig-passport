@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { baseOf, englishName, fmtClock, joinNames, maskPhone, median, stripAudioTags, transcriptText } from "../../lib/test-line-ui.ts";
 import { Banner } from "./Banner.tsx";
+import { SavingCard, SkeletonCards, useHeld } from "./Loading.tsx";
+import { chime, notifyReady } from "./cues.ts";
 import { Transcript, type TItem } from "./Transcript.tsx";
 import { ARABIC_STACK, Page, hasArabic } from "./shared.tsx";
 import type { TestLine } from "./useTestLine.ts";
@@ -111,6 +113,17 @@ export function AfterScreen({ tl, phone }: { tl: TestLine; phone: boolean }) {
   const [loadError, setLoadError] = useState<string | null>(null);
   const id = tl.afterCallId;
   const waiting = tl.importing || (tl.phase === "ended" && !tl.importResult && !tl.importError && tl.token !== null && !d);
+  // loading board L1: only for a call that was just ended (not one opened from Recent calls); held about 1.5 s minimum
+  const fresh = tl.importing || tl.importResult !== null || waiting;
+  const showLoading = useHeld(!tl.importError && !loadError && fresh && (tl.importing || !d));
+  const stage: "saving" | "loading" = tl.importing ? "saving" : "loading";
+  const chimed = useRef(false);
+  useEffect(() => {
+    if (!fresh || !d || showLoading || chimed.current) return;
+    chimed.current = true;
+    chime("ready");
+    notifyReady(`${d.personaEnd?.displayName ?? tl.personaName ?? "The assistant"}: the results of your call are ready.`);
+  }, [fresh, d, showLoading, tl.personaName]);
 
   useEffect(() => {
     if (!id || tl.importing) return;
@@ -302,7 +315,6 @@ export function AfterScreen({ tl, phone }: { tl: TestLine; phone: boolean }) {
   const notices = (
     <>
       {tl.banner ? <Banner text={tl.banner.text} /> : null}
-      {waiting ? <Banner tone="info" text="Saving the call. This takes a few seconds." /> : null}
       {tl.importError ? <Banner text={`The call could not be imported: ${tl.importError}`} /> : null}
       {loadError ? <Banner text={loadError} /> : null}
     </>
@@ -332,11 +344,20 @@ export function AfterScreen({ tl, phone }: { tl: TestLine; phone: boolean }) {
         </header>
         <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 12, padding: "6px 14px 14px" }}>
           {notices}
-          {summary}
-          {recording}
-          {caseCard}
-          {numbersCard}
-          {questionsCard}
+          {showLoading ? (
+            <>
+              <SavingCard stage={stage} phone />
+              <SkeletonCards phone />
+            </>
+          ) : (
+            <>
+              {summary}
+              {recording}
+              {caseCard}
+              {numbersCard}
+              {questionsCard}
+            </>
+          )}
         </div>
         <div style={{ position: "sticky", bottom: 0, padding: "12px 14px 24px", background: "#F4F7F8" }}>{newCall}</div>
       </Page>
@@ -359,18 +380,27 @@ export function AfterScreen({ tl, phone }: { tl: TestLine; phone: boolean }) {
         </div>
       </header>
       <main style={{ flex: 1, display: "flex", flexWrap: "wrap", gap: 20, padding: "0 32px 32px", maxWidth: 1440, width: "100%", boxSizing: "border-box", margin: "0 auto", alignContent: "flex-start" }}>
-        {tl.banner || waiting || tl.importError || loadError ? <div style={{ flex: "1 1 100%", display: "flex", flexDirection: "column", gap: 10 }}>{notices}</div> : null}
-        <div style={{ flex: "999 1 620px", minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
-          {summary}
-          {recording}
-          {transcript}
-        </div>
-        <aside style={{ flex: "1 1 360px", minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
-          {quality}
-          {caseCard}
-          {numbersCard}
-          {questionsCard}
-        </aside>
+        {tl.banner || tl.importError || loadError ? <div style={{ flex: "1 1 100%", display: "flex", flexDirection: "column", gap: 10 }}>{notices}</div> : null}
+        {showLoading ? (
+          <div style={{ flex: "1 1 100%", display: "flex", flexDirection: "column", gap: 18 }}>
+            <SavingCard stage={stage} phone={false} />
+            <SkeletonCards phone={false} />
+          </div>
+        ) : (
+          <>
+            <div style={{ flex: "999 1 620px", minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
+              {summary}
+              {recording}
+              {transcript}
+            </div>
+            <aside style={{ flex: "1 1 360px", minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
+              {quality}
+              {caseCard}
+              {numbersCard}
+              {questionsCard}
+            </aside>
+          </>
+        )}
       </main>
     </Page>
   );

@@ -2,6 +2,7 @@
 
 // All the call logic of the test line in one hook. The screens only draw what it returns.
 import { useConversation } from "@elevenlabs/react";
+import { chime, primeCues } from "./cues.ts";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ApiError,
@@ -185,6 +186,7 @@ export function useTestLine() {
       setStartedAt(Date.now());
       setNow(Date.now());
       setPhase("live");
+      chime("connect");
       const s = sessionRef.current;
       if (s) void postJson("/api/calls/link", { callId: s.callId, toolToken: s.toolToken, conversationId }).catch((e) => setBanner({ kind: "other", text: `Link failed: ${e instanceof Error ? e.message : e}` }));
     },
@@ -333,6 +335,7 @@ export function useTestLine() {
   }, []);
 
   const start = useCallback(async () => {
+    primeCues(); // inside the click: unlocks audio and asks for notification permission once
     reset();
     setPhase("connecting");
     try {

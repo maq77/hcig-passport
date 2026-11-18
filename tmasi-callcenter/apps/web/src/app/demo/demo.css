@@ -52,3 +52,19 @@
 /* review 2026-11-17: the rings grow to 1.7x as in the board; text stays above them */
 .ring{pointer-events:none}
 .above-orb{position:relative;z-index:1}
+
+/* Loading states, from the approved canvas board L1 "orb and steps" (2026-11-18) */
+.ld-spin{animation:ld-spin 2.8s cubic-bezier(.6,.1,.4,.9) infinite;transform-origin:50% 50%}
+@keyframes ld-spin{to{transform:rotate(360deg)}}
+.ld-breathe{animation:ld-breathe 3.2s ease-in-out infinite}
+@keyframes ld-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.ld-ripple{animation:ld-ripple 2.4s ease-out infinite}
+@keyframes ld-ripple{0%{transform:scale(1);opacity:.45}100%{transform:scale(1.6);opacity:0}}
+.ld-active{animation:ld-glow 1.4s ease-in-out infinite}
+@keyframes ld-glow{0%,100%{opacity:1}50%{opacity:.45}}
+.ld-shimmer{background:linear-gradient(90deg,#EEF2F4 0%,#E2EAED 45%,#EEF2F4 90%);background-size:220% 100%;animation:ld-sh 1.6s ease-in-out infinite}
+@keyframes ld-sh{from{background-position:120% 0}to{background-position:-120% 0}}
+.ld-dots span{display:inline-block;animation:ld-dot 1.2s ease-in-out infinite}
+.ld-dots span:nth-child(2){animation-delay:.2s}.ld-dots span:nth-child(3){animation-delay:.4s}
+@keyframes ld-dot{0%,100%{opacity:.25}50%{opacity:1}}
+@media (prefers-reduced-motion: reduce){.ld-spin,.ld-breathe,.ld-ripple,.ld-active,.ld-shimmer,.ld-dots span{animation:none !important}}
