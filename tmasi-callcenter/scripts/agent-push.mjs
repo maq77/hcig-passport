@@ -97,6 +97,10 @@ async function main() {
     const map = existsSync(mf) ? readJson(mf) : {};
     knowledge = Object.values(map).map((d) => ({ elDocId: d.elDocId, name: `${d.title} (${d.lang})`, usageMode: d.usageMode }));
   }
+  if (config.knowledge.liveSearch === false) {
+    knowledge = [];
+    console.log("Live knowledge search is off (agent.config.ts knowledge.liveSearch). Core facts are in the prompt.");
+  }
   if (knowledge.length === 0) console.log("No synced knowledge documents yet (run npm run kb:sync). Core facts are in the prompt.");
 
   const spec = buildAgentSpec({ config, basePrompt, coreFacts, firstMessages, personas, voiceFallback, knowledge });

@@ -130,12 +130,20 @@ export function clientToolSpecs(config: Pick<AgentConfigLike, "clientTools">): C
 }
 
 /** One entry per label with a voice id. Entries with an empty id use the gender fallback when there is one. */
+/**
+ * Two voice labels only, "woman" and "man", with no language in them. Pre-demo check 2026-11-18: with one label per
+ * language (EN_F, AREG_F, ...) the model wrapped replies in <EN_F> and then answered an Arabic question in English.
+ * The persona keeps one voice in every language (R4a), so the label carries the gender alone.
+ */
+export const VOICE_LABEL = { female: "woman", male: "man" } as const;
+
 export function buildSupportedVoices(personas: PersonaEntry[], fallback: VoiceFallback | null): SupportedVoiceSpec[] {
   const out: SupportedVoiceSpec[] = [];
-  for (const p of personas) {
-    const voiceId = p.el_voice_id || (fallback ? fallback[p.gender] : null);
+  for (const gender of ["female", "male"] as const) {
+    const p = personas.find((x) => x.gender === gender && x.lang === "en" && x.el_voice_id) ?? personas.find((x) => x.gender === gender && x.el_voice_id);
+    const voiceId = p?.el_voice_id || (fallback ? fallback[gender] : null);
     if (!voiceId) continue;
-    out.push({ label: p.label, voiceId, description: `${p.display_name}, ${p.gender}, ${p.lang}` });
+    out.push({ label: VOICE_LABEL[gender], voiceId, description: `The ${VOICE_LABEL[gender]}'s voice, used only after the caller asks for a ${VOICE_LABEL[gender]}` });
   }
   return out;
 }
@@ -173,7 +181,7 @@ export function buildAgentSpec(i: BuildSpecInput): AgentSpec {
   const { config } = i;
   const supportedVoices = buildSupportedVoices(i.personas, i.voiceFallback);
   const defaultPersona = i.personas.find((p) => p.lang === config.defaultLang && p.is_default) ?? i.personas[0];
-  const defaultVoiceId = supportedVoices.find((v) => v.label === defaultPersona?.label)?.voiceId ?? null;
+  const defaultVoiceId = supportedVoices.find((v) => v.label === VOICE_LABEL[defaultPersona?.gender === "male" ? "male" : "female"])?.voiceId ?? null;
   const evaluation: EvaluationCriterionSpec[] = config.evaluation.map((id) => ({
     id,
     name: id,

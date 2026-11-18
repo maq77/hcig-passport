@@ -21,7 +21,7 @@ export interface AgentConfig {
     personas: string;
     coreFactsDir: string;
   };
-  knowledge: { coreFacts: 'prompt'; rest: 'rag' };
+  knowledge: { coreFacts: 'prompt'; rest: 'rag'; liveSearch: boolean };
   clientTools: { name: string; waitForResponse: boolean }[];
   dynamicVariables: Record<string, string>;
   evaluation: string[];
@@ -45,7 +45,10 @@ const config: AgentConfig = {
     personas: 'agent/personas.json',
     coreFactsDir: 'agent/core-facts',
   },
-  knowledge: { coreFacts: 'prompt', rest: 'rag' }, // R6
+  // R6. liveSearch off for the manager demo (2026-11-18): when an Arabic question finds no English chunk, Claude Haiku 4.5
+  // copied the platform's "No relevant knowledge base chunks retrieved" block into its reply. Core facts stay in the prompt;
+  // the documents stay uploaded and the local index still grades calls. Back on after the demo with a fix (T085).
+  knowledge: { coreFacts: 'prompt', rest: 'rag', liveSearch: false },
   clientTools: [
     { name: 'capture_lead', waitForResponse: true },
     { name: 'open_case', waitForResponse: true },

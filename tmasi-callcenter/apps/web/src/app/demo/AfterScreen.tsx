@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
-import { baseOf, englishName, fmtClock, joinNames, maskPhone, median, transcriptText } from "../../lib/test-line-ui.ts";
+import { baseOf, englishName, fmtClock, joinNames, maskPhone, median, stripAudioTags, transcriptText } from "../../lib/test-line-ui.ts";
 import { Banner } from "./Banner.tsx";
 import { Transcript, type TItem } from "./Transcript.tsx";
 import { ARABIC_STACK, Page, hasArabic } from "./shared.tsx";
@@ -139,7 +139,7 @@ export function AfterScreen({ tl, phone }: { tl: TestLine; phone: boolean }) {
     const items: TItem[] = spoken.map((t) => ({
       id: t.idx,
       role: t.role as "agent" | "caller",
-      text: t.text as string,
+      text: t.role === "agent" ? stripAudioTags(t.text as string) : (t.text as string),
       lang: t.lang ?? "en",
       meta: t.role === "agent" ? `${persona} · ${baseOf(t.lang).toUpperCase()}${t.latencyMs != null ? ` · ${(t.latencyMs / 1000).toFixed(1)} s` : ""}` : `Caller · ${baseOf(t.lang).toUpperCase()}`,
     }));

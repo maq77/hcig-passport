@@ -35,11 +35,13 @@ describe("agent spec", () => {
   it("skips personas without a voice id, and uses the gender fallback when given", () => {
     const some = personas.map((p) => (p.label === "EN_F" ? { ...p, el_voice_id: "abc" } : p));
     const strict = buildSupportedVoices(some, null);
-    expect(strict).toEqual([expect.objectContaining({ label: "EN_F", voiceId: "abc" })]);
+    // two gender labels only, no language in them (pre-demo fix 2026-11-18)
+    expect(strict).toEqual([expect.objectContaining({ label: "woman", voiceId: "abc" })]);
     expect(allVoiceIdsEmpty(personas)).toBe(true);
     const fb = buildSupportedVoices(personas, { female: "vf", male: "vm" });
-    expect(fb).toHaveLength(20);
-    expect(fb.find((v) => v.label === "DE_M")?.voiceId).toBe("vm");
+    expect(fb).toHaveLength(2);
+    expect(fb.find((v) => v.label === "man")?.voiceId).toBe("vm");
+    expect(fb.find((v) => v.label === "woman")?.voiceId).toBe("vf");
   });
 
   it("generates JSON schemas for the five client tools; save_note does not wait", () => {
@@ -71,7 +73,7 @@ describe("buildAgentBody (vendor mapping)", () => {
     expect(c.agent!.prompt!.llm).toBe("claude-haiku-4-5");
     expect(c.tts!.modelId).toBe("eleven_v4_turbo");
     expect(c.tts!.expressiveMode).toBe(true);
-    expect(c.tts!.supportedVoices).toHaveLength(20);
+    expect(c.tts!.supportedVoices!.map((v) => v.label)).toEqual(["woman", "man"]);
     expect(c.turn!.turnEagerness).toBe("patient");
     expect(c.agent!.prompt!.builtInTools!.languageDetection).toBeDefined();
     const save = c.agent!.prompt!.tools!.find((t) => t.type === "client" && t.name === "save_note");

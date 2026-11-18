@@ -111,7 +111,8 @@ export async function switchPersona(env: ToolEnvelope) {
   if (personaId) await db.update(calls).set({ personaIdEnd: personaId }).where(eq(calls.id, call.id));
   await writeAudit(null, "call.switch_persona", "calls", call.id, { from: start?.label ?? null }, { to: target.label });
   const [row] = personaId ? await db.select().from(personasTable).where(eq(personasTable.id, personaId)) : [];
-  return { ok: true as const, label: target.label, display_name: row?.displayName ?? target.display_name };
+  // the agent speaks inside <woman>...</woman> or <man>...</man> (labels carry no language, see VOICE_LABEL)
+  return { ok: true as const, label: target.gender === "male" ? "man" : "woman", display_name: row?.displayName ?? target.display_name };
 }
 
 export async function csat(env: ToolEnvelope) {

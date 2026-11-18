@@ -102,3 +102,15 @@ describe("small helpers", () => {
     expect(recentMeta({ startedAt: "2026-11-17T09:00:00", durationS: 192, langsSeen: ["en", "ar"] }, now)).toBe("Today · 03:12 · EN, AR");
   });
 });
+
+describe("stripAudioTags", async () => {
+  const { stripAudioTags } = await import("../../apps/web/src/lib/test-line-ui.ts");
+  it("removes voice cues and blank lines but keeps the words", () => {
+    expect(stripAudioTags("[happy] Hi Sara, lovely to meet you!")).toBe("Hi Sara, lovely to meet you!");
+    expect(stripAudioTags("Let me read that back [slow] plus four nine one seven zero")).toBe("Let me read that back plus four nine one seven zero");
+    expect(stripAudioTags("\n\nUnser Büro ist in München.")).toBe("Unser Büro ist in München.");
+    expect(stripAudioTags("Arabic stays: تمام يا سارة")).toBe("Arabic stays: تمام يا سارة");
+    expect(stripAudioTags("<retrieved-knowledge-base>\nNo retrieved knowledge for this query\n</retrieved-knowledge-base>\n\nتمام")).toBe("تمام");
+    expect(stripAudioTags("<man>Hi there</man>")).toBe("Hi there");
+  });
+});

@@ -197,3 +197,17 @@ export function recentResult(c: Pick<RecentCall, "hasCase" | "gapCount">): { tex
 export function transcriptText(lines: { who: string; text: string }[]): string {
   return lines.map((l) => `${l.who}: ${l.text}`).join("\n\n") + "\n";
 }
+
+/**
+ * The agent's expressive audio tags ("[happy]", "[laughs]", "[slow]") steer the voice and are never spoken.
+ * They are removed from captions and transcripts on the page; blank lines the agent sends are collapsed.
+ */
+export function stripAudioTags(text: string): string {
+  return text
+    .replace(/<retrieved-knowledge-base>[\s\S]*?<\/retrieved-knowledge-base>\s*/g, "")
+    .replace(/\[[a-zA-Z][a-zA-Z \-]{0,30}\]\s*/g, "")
+    .replace(/<\/?(?:woman|man|[A-Z]{2,4}_[FM])>/g, "")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{2,}/g, "\n")
+    .trim();
+}

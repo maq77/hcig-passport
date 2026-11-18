@@ -31,6 +31,16 @@ These are the only facts the assistant may state about TMASI. Anything not here 
 
 General email: info@tmasi.net. The 24/7 team number and WhatsApp: +20 120 678 8566.
 
+### Phone numbers ready to say (copy exactly, digit by digit)
+
+| Hub | Say it like this |
+|---|---|
+| Egypt and the 24/7 WhatsApp | + 2 0 1 2 0 6 7 8 8 5 6 6 |
+| Germany | + 4 9 1 7 0 9 3 5 0 4 9 0 |
+| United Arab Emirates | + 9 7 1 5 8 6 8 2 4 2 4 7 |
+| Spain | + 3 4 9 3 0 4 1 4 9 5 3 |
+| United States | + 1 7 2 7 5 9 1 9 0 1 0 |
+
 ## Services (six groups)
 
 1. **Medical Tourism Services**: healthcare packages combining medical care in Egypt, Germany, Spain and the UAE with premium hospitality.

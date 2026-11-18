@@ -16,7 +16,7 @@ import {
   type Gender,
   type TokenResponse,
 } from "../../lib/test-line.ts";
-import { baseOf, consentFromReply, emptyCase, mergeCaseFields, type CaseEvent, type CaseFields, type Consent, type RecentCall } from "../../lib/test-line-ui.ts";
+import { baseOf, consentFromReply, emptyCase, mergeCaseFields, stripAudioTags, type CaseEvent, type CaseFields, type Consent, type RecentCall } from "../../lib/test-line-ui.ts";
 
 export type Phase = "idle" | "connecting" | "live" | "ended";
 
@@ -215,7 +215,7 @@ export function useTestLine() {
         latencyMs = tracker.current.takeForAgentLine();
         setThinking(false);
       }
-      setLines((prev) => [...prev, { id: lineId.current++, role: r, text: message, lang: baseOf(langRef.current), latencyMs, persona: r === "agent" ? personaNameRef.current : null }]);
+      setLines((prev) => [...prev, { id: lineId.current++, role: r, text: r === "agent" ? stripAudioTags(message) : message, lang: baseOf(langRef.current), latencyMs, persona: r === "agent" ? personaNameRef.current : null }]);
     },
     onModeChange: ({ mode }) => {
       if (mode === "speaking") {

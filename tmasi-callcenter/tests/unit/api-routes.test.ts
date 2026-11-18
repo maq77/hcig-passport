@@ -195,7 +195,7 @@ describe("tool routes", () => {
 
   it("switch_persona returns the other gender in the starting language", async () => {
     const res = await (await routes.switch!(post("/x", { callId, toolToken, gender: "female", lang: "en" }))).json();
-    expect(res).toEqual({ ok: true, label: "DE_F", display_name: "Lena" });
+    expect(res).toEqual({ ok: true, label: "woman", display_name: "Lena" });
   });
 
   it("csat stores 1 to 5 and save_note feeds the notes endpoint", async () => {
