@@ -415,3 +415,49 @@ body.has-layer .wa-dock, body:has(.dc-scrim, .viewer) .wa-dock { opacity: 0; vis
 :is(.final-close, .help-band) .h2 { max-width: 18ch; }
 :is(.final-close, .help-band) .lead { margin-inline: auto; }
 :is(.final-close, .help-band) .cta-row { margin-top: 10px; }
+
+/* ---------- social links (owner approved on the canvas 2026-11-18): top bar, header Follow, phone menu, footer ---------- */
+@keyframes follow-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@media (min-width: 1200px) {
+  .topbar-contact .tb-div { width: 1px; height: 16px; background: var(--line-2); }
+  .topbar-contact .tb-soc { display: flex; gap: 2px; margin-right: -6px; }
+  .topbar-contact .tb-soc a { justify-content: center; width: 28px; height: 28px; gap: 0; border-radius: 50%; color: rgba(41, 41, 41, 0.72); transition: color var(--t2) var(--ease), background-color var(--t2) var(--ease); }
+  .topbar-contact .tb-soc a:hover { color: var(--red); background: var(--tint-b); }
+  .topbar-contact .tb-soc a:focus-visible { outline: 2px solid var(--red); outline-offset: 1px; }
+
+  .follow { position: relative; display: flex; align-items: center; }
+  .follow-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 11px; background: none; border: 0; font: inherit; font-size: 15.5px; font-weight: 500; color: var(--red); white-space: nowrap; cursor: pointer; }
+  .follow-btn svg { transition: transform var(--t2) var(--ease); }
+  .follow.open .follow-btn svg { transform: rotate(180deg); }
+  .follow-btn:focus-visible, .follow-panel a:focus-visible { outline: 2px solid var(--red); outline-offset: -2px; border-radius: 12px; }
+  .follow-panel { position: absolute; z-index: 5; top: 100%; right: 0; margin-top: 8px; width: 236px; box-sizing: border-box; padding: 10px; display: flex; flex-direction: column; border-radius: 18px; background: var(--white); border: var(--hair) solid var(--line); box-shadow: 0 24px 50px rgba(41, 41, 41, 0.12); animation: follow-in var(--t2) var(--ease); }
+  .follow-panel[hidden] { display: none; }
+  .follow-panel::before { content: ""; position: absolute; left: 0; right: 0; top: -10px; height: 10px; }
+  .nav .follow-panel a { min-height: 0; display: flex; gap: 12px; padding: 10px 12px; border-radius: 12px; font-size: 14px; font-weight: 500; color: var(--ink); }
+  .nav .follow-panel a::after { display: none; }
+  .nav .follow-panel a:hover { background: var(--ivory); color: var(--red); }
+  .follow-panel i { width: 34px; height: 34px; flex: none; border-radius: 50%; border: var(--hair) solid var(--line); display: grid; place-items: center; color: var(--red); }
+}
+@media (min-width: 1200px) and (max-width: 1379px) { .follow-btn { padding: 0 7px; font-size: 14.5px; } }
+/* the nav stops fitting below this width: the top bar still carries the icons */
+@media (max-width: 1279px) { .follow { display: none; } }
+
+.menu-follow { flex: none; margin-top: 18px; padding-top: 18px; border-top: var(--hair) solid var(--line); display: flex; align-items: center; gap: 10px; opacity: 0; transform: translateY(24px); transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease); }
+.menu.open .menu-follow { opacity: 1; transform: none; transition: opacity var(--t3) var(--ease), transform var(--t3) var(--ease); transition-delay: calc(260ms + var(--i, 0) * 55ms); }
+.menu-follow-l { margin-right: auto; font-size: 11.5px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); }
+.menu-follow a, .foot-soc a { width: 44px; height: 44px; box-sizing: border-box; display: grid; place-items: center; border-radius: 50%; border: var(--hair) solid var(--line-2); background: var(--white); color: var(--ink); transition: background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease); }
+.foot-soc { display: flex; gap: 10px; margin-top: 22px; }
+.foot .foot-soc a, .foot-soc a { min-height: 44px; }
+.foot-soc a:hover { background: var(--red); border-color: var(--red); color: var(--white); }
+.menu-follow a:focus-visible, .foot-soc a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+  .follow-panel { animation: none; }
+  .follow-btn svg, .topbar-contact .tb-soc a, .foot-soc a, .menu-follow a { transition: none; }
+  .menu-follow, .menu.open .menu-follow { transition: opacity 200ms linear; transition-delay: 0s; transform: none; }
+}
+/* with Follow added the row needs a little less side padding between 1380 and 1479 so it never touches the actions */
+@media (min-width: 1380px) and (max-width: 1479px) {
+  .nav a { padding: 0 9px; }
+  .nav a::after { left: 9px; right: 9px; }
+  .follow-btn { padding: 0 9px; }
+}

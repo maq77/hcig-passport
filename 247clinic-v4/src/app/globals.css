@@ -612,3 +612,26 @@ html.js .rv.in { opacity: 1; transform: none; }
 .svc-feature-img { object-position: 72% 50%; }
 .stat-num { flex: none; white-space: nowrap; }
 @media (max-width: 767px) { .stat-num { min-width: 112px; } }
+
+/* Watch video pill (approved on the canvas 2026-11-18, board 3): on the On-site care photo and on every
+   Patient stories film. White pill, burgundy play disc with one soft ring breathing out of it; on hover the
+   pill turns burgundy and the disc white. Phones keep a 44px touch target. */
+@keyframes watchRing { 0% { transform: scale(1); opacity: 0.55; } 100% { transform: scale(1.7); opacity: 0; } }
+.watch { position: absolute; left: 14px; bottom: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 18px 0 7px; border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.94); color: var(--ink, #292929); font: inherit; font-size: 14px; font-weight: 600; line-height: 1; white-space: nowrap; box-shadow: 0 10px 28px rgba(41, 41, 41, 0.18); cursor: pointer; transition: background-color 0.35s var(--ease), color 0.35s var(--ease), transform 0.35s var(--ease); }
+.watch i { position: relative; display: grid; place-items: center; width: 32px; height: 32px; flex: none; border-radius: 50%; background: var(--primary); color: #fff; transition: background-color 0.35s var(--ease), color 0.35s var(--ease); }
+.watch i svg { width: 13px; height: 13px; margin-left: 2px; }
+.watch i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--primary); animation: watchRing 2.4s var(--ease) infinite; }
+.watch:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
+.watch:hover i { background: #fff; color: var(--primary); }
+.watch:hover i::after { border-color: #fff; }
+.watch:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+@media (min-width: 768px) {
+  .story .watch { height: 40px; padding: 0 15px 0 6px; gap: 9px; font-size: 13px; }
+  .story .watch i { width: 28px; height: 28px; }
+}
+@media (max-width: 767px) {
+  .watch { height: 44px; padding: 0 15px 0 6px; gap: 9px; font-size: 13px; }
+  .watch i { width: 30px; height: 30px; }
+  .story .watch { left: 12px; bottom: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .watch, .watch i { transition: none; } .watch:hover { transform: none; } }

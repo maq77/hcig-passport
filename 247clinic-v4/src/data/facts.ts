@@ -20,3 +20,11 @@ export const IS_PREVIEW = process.env.NEXT_PUBLIC_TARGET !== "live";
 /* Prefix a public file path with the basePath (next/image is unoptimized, and plain
    <video>/<img> do not get the basePath added for them). */
 export const asset = (p: string) => `${BASE}${p.startsWith("/") ? p : `/${p}`}`;
+
+/* Their social pages, sent by the owner 2026-11-18. Order everywhere: Instagram, Facebook, YouTube, LinkedIn. */
+export const SOCIAL = [
+  { id: "instagram", label: "Instagram", href: "https://www.instagram.com/247clinics/" },
+  { id: "facebook", label: "Facebook", href: "https://www.facebook.com/247clinictravelmedicalservices/" },
+  { id: "youtube", label: "YouTube", href: "https://www.youtube.com/@24_7clincis" },
+  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/showcase/247travelmedical/" },
+] as const;

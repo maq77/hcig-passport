@@ -1,14 +1,35 @@
 {
-  "source": "Guest reviews published by 24/7 Clinic on www.247clinic.net, quoted exactly, names as published. Carried from scripts/lp/data.js (collected 2026-09-08). Originals only: no translation is shown, because a translation would be new words.",
+  "source": "Real guest reviews from the 24/7 Clinic Google and Facebook pages, sent by the owner as screenshots on 2026-11-18. Quoted exactly; the ellipsis marks words left out. Marija Neskovic is shown in her original Serbian.",
   "reviews": [
-    { "name": "Joerg Finger", "country": "Germany", "lang": "de", "text": "Sehr freundlicher und kompetenter Arzt. Sehr schnelle Hilfe ich fühlte mich in guten Händen." },
-    { "name": "Carla di Scanno", "country": "Italy", "lang": "it", "text": "Molto professionale Disponibile e paziente Problema risolto in poche ore" },
-    { "name": "B Waltert", "country": "Switzerland", "lang": "de", "text": "Der Arzt war sehr nett und kompetent. Gute Unterstützung durch den Arzt." },
-    { "name": "Katarina Poindexter", "country": "Germany", "lang": "de", "text": "Ich bin sehr zufrieden sie haben mir wirklich geholfen. Sehr gutes Team." },
-    { "name": "Christa Offinger", "country": "Germany", "lang": "de", "text": "Danke für die sachliche und freundliche Behandlung. Es war alles bestens." },
-    { "name": "Nicotr Kraver", "country": "Switzerland", "lang": "de", "text": "Dr Mahmoud war ein sehr guter Arzt und konnte mir sehr gut helfen." },
-    { "name": "Andria Henzel", "country": "Germany", "lang": "de", "text": "Freundliche und schnelle Hilfe." },
-    { "name": "C.G.", "country": "Czech Republic", "lang": "de", "text": "Guter medizinischer Service" },
-    { "name": "Lavorsire Fabien", "country": "France", "lang": "fr", "text": "Très bien, merci" }
+    {
+      "name": "Markus Sutor",
+      "source": "facebook",
+      "lang": "en",
+      "text": "I can wholeheartedly recommend Dr. Mustafa and his team! From the very first meeting, I was treated with great kindness, professionalism, and expertise."
+    },
+    {
+      "name": "Marija Spasic",
+      "source": "google",
+      "lang": "en",
+      "text": "Truly exceptional medical care, compassion, and dedication. Highly recommended to anyone in need of medical assistance in Hurghada!"
+    },
+    {
+      "name": "Barbara Neveians",
+      "source": "facebook",
+      "lang": "en",
+      "text": "A very professional doctor who truly knows his field. … With this doctor, you feel that you are in good hands."
+    },
+    {
+      "name": "Mila Amethyst Nox",
+      "source": "facebook",
+      "lang": "en",
+      "text": "The doctor and the technician, Karim, are the most wonderful people ever! … I would recommend them 1000/10."
+    },
+    {
+      "name": "Marija Neskovic",
+      "source": "facebook",
+      "lang": "sr",
+      "text": "Preporuka za sve srpske turiste, brzi su, temeljni, rade 24/7. … Inace za kliniku i doktore sve pohvale!"
+    }
   ]
 }

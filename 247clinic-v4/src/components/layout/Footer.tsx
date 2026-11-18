@@ -7,13 +7,13 @@
    Accreditation lines are the ones he named: UCA only, part of HCIG.
    The full logo (with its tagline) is shown at 132px, above the 120px minimum. */
 import { Mail, MapPin, Phone } from "lucide-react";
-import { asset, BASE, PHONE } from "@/data/facts";
+import { asset, BASE, PHONE, SOCIAL } from "@/data/facts";
 import { DESTINATIONS } from "@/data/clinics";
 import { FOOTER_ONLY, MORE_PAGES, NAV } from "@/data/nav";
 import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
 import { section } from "@/content/load";
 import { CallButton, WaButton } from "@/components/ui/Buttons";
-import { WhatsAppGlyph } from "@/components/ui/Icon";
+import { SocialIcon, WhatsAppGlyph, type SocialName } from "@/components/ui/Icon";
 import { telHref, waHref } from "@/lib/wa";
 import { NewsletterBand } from "./NewsletterBand";
 
@@ -42,6 +42,11 @@ export function Footer({ nav, footerOnly }: { nav: string[]; footerOnly: string[
             <div className="brand">
               <img src={asset("/logos/marks/247-logo.svg")} alt="24/7 Clinic" width={132} height={128} loading="lazy" />
               <p>{THEIRS.about}</p>
+              <div className="foot-soc">
+                {SOCIAL.map((s) => (
+                  <a key={s.id} href={s.href} target="_blank" rel="noopener" aria-label={s.label}><SocialIcon name={s.id as SocialName} /></a>
+                ))}
+              </div>
             </div>
             <NewsletterBand email={THEIRS.email} title="Stay in Touch" line="Subscribe for news from 24/7 Clinic." label="Email address" button="Subscribe" />
           </div>

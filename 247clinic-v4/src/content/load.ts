@@ -49,8 +49,8 @@ export function global(): Global {
   return { nav: g.nav, footerOnly: g.footerOnly, whatsapp: g.whatsapp, finalMessage: msg };
 }
 
-/* Their guest reviews as published on 247clinic.net, quoted exactly, originals only. */
-export type Review = { name: string; country: string; lang: string; text: string };
+/* Their real guest reviews from the Google and Facebook pages (owner screenshots, 2026-11-18), quoted exactly, originals only. */
+export type Review = { name: string; lang: string; text: string; source: "google" | "facebook"; country?: string };
 export function reviews(): Review[] {
   return JSON.parse(fs.readFileSync(path.join(ROOT, "reviews.json"), "utf8")).reviews;
 }

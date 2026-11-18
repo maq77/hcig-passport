@@ -735,6 +735,43 @@
         "Where applicable, we coordinate directly with your insurer."
       ],
       "note": "The owner approved phone Set 1 on 2026-11-17 (canvas M1)."
+    },
+    {
+      "date": "2026-11-18",
+      "by": "the user",
+      "kind": "add",
+      "where": "home Patient stories (five real Google and Facebook reviews replace the nine on file)",
+      "text": [
+        "I can wholeheartedly recommend Dr. Mustafa and his team! From the very first meeting, I was treated with great kindness, professionalism, and expertise.",
+        "Truly exceptional medical care, compassion, and dedication. Highly recommended to anyone in need of medical assistance in Hurghada!",
+        "A very professional doctor who truly knows his field. … With this doctor, you feel that you are in good hands.",
+        "The doctor and the technician, Karim, are the most wonderful people ever! … I would recommend them 1000/10.",
+        "Preporuka za sve srpske turiste, brzi su, temeljni, rade 24/7. … Inace za kliniku i doktore sve pohvale!",
+        "Markus Sutor",
+        "Marija Spasic",
+        "Barbara Neveians",
+        "Mila Amethyst Nox",
+        "Marija Neskovic"
+      ],
+      "his_words": "Owner approved on the canvas 2026-11-18",
+      "reason": "Owner approved on the canvas 2026-11-18"
+    },
+    {
+      "date": "2026-11-18",
+      "by": "the user",
+      "kind": "add",
+      "where": "review source labels, social links (top bar, header Follow menu, phone menu, footer)",
+      "text": [
+        "Google review",
+        "Facebook review",
+        "Follow",
+        "Instagram",
+        "Facebook",
+        "YouTube",
+        "LinkedIn"
+      ],
+      "his_words": "Owner approved on the canvas 2026-11-18",
+      "reason": "Owner approved on the canvas 2026-11-18"
     }
   ],
   "fromTheirSite": {

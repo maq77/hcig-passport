@@ -10,9 +10,10 @@
    returns to the burger, the page under it does not scroll. Reduced motion: a 200ms fade. */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Clock, Globe, Mail, Phone, ShieldCheck } from "lucide-react";
+import { ChevronDown, Clock, Globe, Mail, Phone, ShieldCheck } from "lucide-react";
+import { SocialIcon, type SocialName } from "@/components/ui/Icon";
 import { CallButton, WaButton } from "@/components/ui/Buttons";
-import { asset, BASE, PHONE } from "@/data/facts";
+import { asset, BASE, PHONE, SOCIAL } from "@/data/facts";
 import { NAV } from "@/data/nav";
 import { DESTINATIONS } from "@/data/clinics";
 import { telHref } from "@/lib/wa";
@@ -21,6 +22,46 @@ type Labels = { nav: string[]; waLong: string; waShort: string; promises: string
 
 const PROMISE_ICONS = [Clock, ShieldCheck, Globe];
 const NEAR_TOP = 120;
+const FOLLOW = "Follow";
+
+/* Desktop "Follow" item: a real button that opens the four network links. Click, hover and focus-within open it
+   for pointer users; Escape, an outside click and focus leaving close it. */
+function FollowMenu() {
+  const [open, setOpen] = useState(false);
+  const wrap = useRef<HTMLDivElement>(null);
+  const btn = useRef<HTMLButtonElement>(null);
+  const timer = useRef(0);
+  const byHover = useRef(false);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { setOpen(false); btn.current?.focus(); } };
+    const onDown = (e: PointerEvent) => { if (wrap.current && !wrap.current.contains(e.target as Node)) setOpen(false); };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onDown);
+    return () => { document.removeEventListener("keydown", onKey); document.removeEventListener("pointerdown", onDown); };
+  }, [open]);
+  const hover = (on: boolean, e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    window.clearTimeout(timer.current);
+    if (on) { byHover.current = !open; setOpen(true); } else timer.current = window.setTimeout(() => { byHover.current = false; setOpen(false); }, 140);
+  };
+  return (
+    <div ref={wrap} className={`follow ${open ? "open" : ""}`} onPointerEnter={(e) => hover(true, e)} onPointerLeave={(e) => hover(false, e)}
+      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpen(false); }}>
+      <button ref={btn} type="button" className="follow-btn" aria-expanded={open} aria-controls="follow-panel" onClick={() => { if (byHover.current) { byHover.current = false; return; } setOpen((o) => !o); }}>
+        {FOLLOW}<ChevronDown size={14} aria-hidden="true" />
+      </button>
+      <div id="follow-panel" className="follow-panel" hidden={!open}>
+        {SOCIAL.map((s) => (
+          <a key={s.id} href={s.href} target="_blank" rel="noopener" aria-label={s.label}>
+            <i aria-hidden="true"><SocialIcon name={s.id as SocialName} size={16} /></i>{s.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const pad = (n: number) => String(n).padStart(2, "0");
 
 export function Header({ labels }: { labels: Labels }) {
@@ -119,6 +160,12 @@ export function Header({ labels }: { labels: Labels }) {
           <div className="topbar-contact">
             <a href={`mailto:${labels.email}`}><Mail size={15} aria-hidden="true" />{labels.email}</a>
             <a href={telHref} className="tb-phone" data-ev="phone_click" data-placement="topbar"><Phone size={15} aria-hidden="true" />{PHONE.display}</a>
+            <span className="tb-div" aria-hidden="true" />
+            <span className="tb-soc">
+              {SOCIAL.map((s) => (
+                <a key={s.id} href={s.href} target="_blank" rel="noopener" aria-label={s.label}><SocialIcon name={s.id as SocialName} size={s.id === "linkedin" ? 14 : 15} /></a>
+              ))}
+            </span>
           </div>
         </div>
       </div>
@@ -132,6 +179,7 @@ export function Header({ labels }: { labels: Labels }) {
             {links.map((l) => (
               <a key={l.href} href={l.href} aria-current={l.home ? "page" : undefined}><span>{l.label}</span></a>
             ))}
+            <FollowMenu />
           </nav>
           <div className="hdr-actions">
             <CallButton placement="header" iconOnly className="hdr-call" />
@@ -177,6 +225,12 @@ export function Header({ labels }: { labels: Labels }) {
             <WaButton placement="menu" block>{labels.waLong}</WaButton>
             <CallButton placement="menu" className="btn-block" />
             <a className="menu-mail" href={`mailto:${labels.email}`}><Mail size={16} aria-hidden="true" /><span>{labels.email}</span></a>
+          </div>
+          <div className="menu-follow" style={{ ["--i" as string]: links.length + DESTINATIONS.length }}>
+            <span className="menu-follow-l">{FOLLOW}</span>
+            {SOCIAL.map((s) => (
+              <a key={s.id} href={s.href} target="_blank" rel="noopener" aria-label={s.label} onClick={closeMenu}><SocialIcon name={s.id as SocialName} /></a>
+            ))}
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@ import { section, reviews } from "@/content/load";
 import { APPROVED, BRIEF, THEIRS } from "@/content/brief";
 import { preload } from "react-dom";
 import { asset, BASE, NUMBERS } from "@/data/facts";
-import { FLAGS, HERO_SLIDES, HOTEL_BRANDS, INSURERS, INTRO, PHOTOS, POSTS, STORIES, TRUSTED_PHOTOS, type Logo } from "@/data/media";
+import { HERO_SLIDES, HOTEL_BRANDS, INSURERS, INTRO, PHOTOS, POSTS, STORIES, TRUSTED_PHOTOS, type Logo } from "@/data/media";
 import { ROUTES } from "@/data/nav";
 import { CallButton, LinkButton, TextLink, WaButton } from "@/components/ui/Buttons";
 import { Head, Words } from "@/components/ui/Bits";
@@ -348,13 +348,13 @@ export function Stories() {
               <li key={f.id} className="story" data-shape={f.shape} style={f.pos ? { ["--pos" as string]: f.pos } : undefined}>
                 <InViewVideo src={asset(f.preview)} />
                 {f.flag && <span className="flag" aria-hidden="true"><img src={asset(`/logos/marks/flag-${f.flag}.svg`)} alt="" /></span>}
-                <Watch src={f.full} />
+                <Watch src={f.full} label="Watch video" />
               </li>
             ))}
           </StoryCarousel>
         </div>
         <div className="guests-words rv">
-          <GuestWords reviews={reviews()} flags={FLAGS} base={BASE} labels={{ prev: "Previous", next: "Next" }} labelledBy="st-h" />
+          <GuestWords reviews={reviews()} labels={{ prev: "Previous", next: "Next" }} labelledBy="st-h" />
         </div>
       </div>
 
