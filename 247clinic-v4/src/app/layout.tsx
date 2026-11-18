@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import "./pages.css";
 import "./detail.css";
 import "./home-calm.css";
-/* v6 header, hero, footer and WhatsApp float (the user, 2026-11-17: "copy the hero and header and footer of v6 to v3"). Last, so it wins. */
+/* v6 header, hero, footer and WhatsApp float (the user, 2026-11-17: "copy the hero and header and footer of v6 to v3"), in theme F since 2026-11-18. Last, so it wins. */
 /* v6 layout of the home sections (the user, 2026-11-17: "same spacing and layout in v3"). */
 import "./v6-layout.css";
 import "./v6-chrome.css";
@@ -20,9 +20,9 @@ import { MediaShimmer } from "@/components/ui/MediaShimmer";
 import { RevealObserver, Tracker } from "@/components/ui/Motion";
 
 const sans = Poppins({ subsets: ["latin", "latin-ext"], weight: ["400", "500", "600", "700"], variable: "--font-sans", display: "swap" });
-/* Cormorant Garamond for the v6 header menu, hero and footer headings: 300 and 400, upright only. */
-const lux = Cormorant_Garamond({ subsets: ["latin"], weight: ["300", "400"], style: ["normal"], variable: "--font-lux", display: "swap" });
-/* Calisto MT, licensed, supplied by the user 2026-09-23. Latin subsets built by scripts/fonts.mjs. */
+/* Theme F (Ms. Irina, 2026-11-18): the brand book's two fonts only. Calisto MT for headlines and numbers,
+   Poppins for everything else; Cormorant Garamond is gone from v3.
+   Calisto MT, licensed, supplied by the user 2026-09-23. Latin subsets built by scripts/fonts.mjs. */
 const display = localFont({
   src: [
     { path: "../fonts/calisto-400.woff2", weight: "400", style: "normal" },
@@ -69,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const g = global();
   const nav = g.nav.map((n) => n.title);
   return (
-    <html lang="en" className={`${sans.variable} ${lux.variable} ${display.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${display.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: JS_GATE }} />
         <script src="https://www.medparkhospitals.com/dashboard/t.js?s=247clinic" defer />
@@ -79,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header labels={{ nav, waLong: BRIEF.waUs, waShort: BRIEF.needDoctor, promises: (hero.subheading ?? "").split("•").map((s) => s.trim()), email: THEIRS.email, address: THEIRS.address, accredited: APPROVED.accredited, partOf: APPROVED.partOf }} />
         <main id="main">{children}</main>
         <Footer nav={nav} footerOnly={g.footerOnly.map((n) => n.title)} />
-        <WhatsAppFloat prompts={[BRIEF.needDoctor, BRIEF.needHelp, BRIEF.waUs]} sub={BRIEF.sticky} aria={g.whatsapp.floatingText} />
+        <WhatsAppFloat label={BRIEF.waUs} aria={g.whatsapp.floatingText} />
         <RevealObserver />
         <MediaShimmer />
         <Tracker />

@@ -1,37 +1,27 @@
 /* =============================================================================
    INNER PAGES (2026-11-12, the user: "finish making all other pages ... less crowded").
-   Phone first. The page hero is the home's cinema fade: photo on top, melting into
-   bordeaux, copy in white below; from 900px the photo fills the band and the bordeaux
-   veil comes in from the left, as on the desktop home hero.
+   Phone first. Theme F (Ms. Irina, 2026-11-18): the page hero is light like the home's. Phones: the photo on
+   top melting into white at its foot, the words on white below. From 1024px (v6-layout.css) the photo fills the
+   right of the band and melts into white from the left; the words sit on the white. No veil, no glow.
 ============================================================================= */
-.ph { position: relative; isolation: isolate; overflow: hidden; background: #1a1012; color: #fff; }
+.ph { position: relative; isolation: isolate; overflow: hidden; background: #fff; color: var(--ink); }
 .ph-media { position: relative; height: clamp(230px, 56vw, 340px); }
 .ph-media img { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos-m, var(--pos, 50% 50%)); }
-.ph-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(18, 10, 12, 0.45) 0px, rgba(18, 10, 12, 0) 60px, rgba(18, 10, 12, 0) clamp(90px, 22vw, 140px), rgba(139, 0, 22, 0.42) clamp(160px, 40vw, 240px), rgba(40, 6, 12, 0.94) clamp(220px, 54vw, 320px), #1a1012 clamp(260px, 62vw, 360px)); }
-.ph::after { content: ""; position: absolute; left: -160px; top: 180px; width: 520px; height: 520px; z-index: 0; border-radius: 50%; background: radial-gradient(circle, rgba(192, 0, 0, 0.28) 0%, rgba(139, 0, 22, 0) 65%); pointer-events: none; }
-.ph-in { position: relative; z-index: 2; margin-top: -64px; padding-block: 0 34px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
-.ph h1 { color: #fff; font-weight: 400; font-size: clamp(31px, 8.6vw, 40px); line-height: 1.1; letter-spacing: -0.01em; max-width: 18ch; }
-.ph-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: #ff7a7a; }
-.ph-eyebrow::before { content: ""; width: 26px; height: 1.5px; background: currentColor; }
-.ph-lead { color: rgba(255, 255, 255, 0.86); font-size: 16px; line-height: 1.6; max-width: 60ch; }
+.ph-media::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: min(50%, 140px); pointer-events: none; background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.72) 55%, #FFFFFF 100%); }
+.ph-veil { display: none; }
+.ph-in { position: relative; z-index: 2; margin-top: -44px; padding-block: 0 34px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.ph h1 { color: var(--ink); font-weight: 400; font-size: clamp(31px, 8.6vw, 40px); line-height: 1.1; letter-spacing: -0.01em; max-width: 18ch; }
+.ph-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--primary); }
+.ph-eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+.ph-lead { color: var(--ink-2); font-size: 16px; line-height: 1.6; max-width: 60ch; }
 .ph-ctas { margin-top: 8px; align-self: stretch; }
-.ph .btn-secondary { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.5); }
-.ph .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); border-color: #fff; }
-.crumbs ol { display: flex; flex-wrap: wrap; gap: 4px 8px; font-size: 13px; color: rgba(255, 255, 255, 0.72); }
+.crumbs ol { display: flex; flex-wrap: wrap; gap: 4px 8px; font-size: 13px; color: var(--ink-3); }
 .crumbs li { display: inline-flex; align-items: center; gap: 8px; }
 .crumbs li + li::before { content: ""; width: 5px; height: 5px; border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor; transform: rotate(45deg); opacity: 0.6; }
-.crumbs a:hover { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
-.crumbs [aria-current] { color: #fff; }
+.crumbs a:hover { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+.crumbs [aria-current] { color: var(--ink); }
 @media (min-width: 900px) {
-  .ph { min-height: clamp(440px, 44vw, 540px); display: flex; align-items: center; }
-  .ph-media { position: absolute; inset: 0; height: auto; }
-  .ph-media img { object-position: var(--pos, 50% 50%); }
-  .ph-veil { background: linear-gradient(90deg, rgba(26, 20, 20, 0.97) 0%, rgba(60, 0, 10, 0.88) 34%, rgba(139, 0, 22, 0.4) 58%, rgba(26, 20, 20, 0.04) 82%), linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0) 30%); }
-  .ph::after { left: 4%; top: 50%; transform: translateY(-50%); width: 640px; height: 640px; }
-  .ph-in { margin-top: 0; padding-block: 64px; gap: 16px; }
-  .ph h1 { font-size: clamp(42px, 4vw, 60px); max-width: 15ch; }
   .ph-lead { font-size: 17.5px; max-width: 52ch; }
-  .ph-ctas { align-self: flex-start; }
 }
 
 /* sections */
@@ -39,7 +29,7 @@
 .pg-narrow { max-width: 1000px; }
 .pg-copy { display: grid; gap: 14px; }
 .pg-copy p { font-size: 16.5px; line-height: 1.7; color: var(--ink-2); max-width: 64ch; }
-.pg-pull { font-family: var(--font-display), serif; font-size: clamp(21px, 2vw, 26px); line-height: 1.35; color: var(--ink); padding-top: 18px; position: relative; }
+.pg-pull { font-family: var(--font-display), serif; font-weight: 400; font-size: clamp(21px, 2vw, 26px); line-height: 1.35; color: var(--ink); padding-top: 18px; position: relative; }
 .pg-pull::before { content: ""; position: absolute; left: 0; top: 0; width: 28px; height: 1px; background: var(--primary); }
 .pg-note { display: flex; gap: 12px; align-items: flex-start; padding: 14px 16px; border-radius: 16px; background: var(--primary-tint); border: 1px solid var(--primary-line); color: var(--ink); font-size: 14.5px; line-height: 1.55; }
 .pg-note svg { color: var(--primary); flex: none; margin-top: 2px; }
@@ -74,7 +64,7 @@
 
 /* checked list in one card */
 .checks-card { padding: 20px 18px; border-radius: 20px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
-.checks-card h3 { font-family: var(--font-display), serif; font-size: 22px; font-weight: 700; margin-bottom: 14px; }
+.checks-card h3 { font-family: var(--font-display), serif; font-size: 22px; font-weight: 400; margin-bottom: 14px; }
 .checks-card ul { display: grid; gap: 11px; }
 .checks-card li { display: flex; gap: 10px; align-items: flex-start; font-size: 15.5px; color: var(--ink); line-height: 1.45; }
 .checks-card li svg { color: var(--primary); flex: none; margin-top: 1px; }
@@ -90,15 +80,12 @@
   .pg-split-media img { border-radius: 28px; }
 }
 
-/* the page's one call to action, bordeaux like the hero */
+/* the page's one call to action: a light burgundy card, charcoal words (theme F, 2026-11-18) */
 .pg-cta-wrap { padding-block: clamp(24px, 4vw, 48px); }
-.pg-cta { position: relative; overflow: hidden; display: grid; gap: 20px; padding: 28px 20px; border-radius: 26px; background: linear-gradient(120deg, #1a1012 0%, #3c000a 55%, #8b0016 130%); color: #fff; }
-.pg-cta::after { content: ""; position: absolute; right: -120px; top: -120px; width: 360px; height: 360px; border-radius: 50%; background: radial-gradient(circle, rgba(232, 18, 28, 0.32), rgba(232, 18, 28, 0) 65%); pointer-events: none; }
+.pg-cta { position: relative; overflow: hidden; display: grid; gap: 20px; padding: 28px 20px; border-radius: 26px; background: var(--primary-tint); color: var(--ink); }
 .pg-cta > * { position: relative; z-index: 1; }
-.pg-cta .h2 { color: #fff; font-weight: 400; }
-.pg-cta .lead { color: rgba(255, 255, 255, 0.84); margin-top: 8px; }
-.pg-cta .btn-secondary { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.5); }
-.pg-cta .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+.pg-cta .h2 { color: var(--ink); font-weight: 400; }
+.pg-cta .lead { color: var(--ink-2); margin-top: 8px; }
 @media (min-width: 900px) { .pg-cta { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 36px; padding: 44px 48px; border-radius: 32px; } }
 
 /* clinic cards (destination pages and the finder page) */
@@ -109,7 +96,7 @@
 .clinic-card { display: flex; flex-direction: column; gap: 14px; height: 100%; box-sizing: border-box; padding: 18px; border-radius: 20px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm); transition: box-shadow 0.35s var(--ease), border-color 0.35s var(--ease); }
 .clinic-card:hover { box-shadow: var(--shadow-md); border-color: var(--line-2); }
 .clinic-card-top { display: flex; gap: 12px; align-items: center; }
-.clinic-card h3 { font-family: var(--font-display), serif; font-size: 20px; font-weight: 700; line-height: 1.2; }
+.clinic-card h3 { font-family: var(--font-display), serif; font-size: 20px; font-weight: 400; line-height: 1.2; }
 .clinic-card h3 a:hover { color: var(--primary); }
 .clinic-card .dest { display: block; font-size: 13.5px; color: var(--ink-3); margin-top: 2px; }
 .clinic-card .cl-actions { margin-top: auto; }
@@ -127,6 +114,7 @@
 .pg-form input, .pg-form select, .pg-form textarea { width: 100%; box-sizing: border-box; min-height: 50px; padding: 12px 14px; border-radius: 14px; border: 1.5px solid var(--line-2); background: #fff; font: inherit; font-weight: 400; color: var(--ink); transition: border-color 0.2s, box-shadow 0.2s; }
 .pg-form textarea { min-height: 120px; resize: vertical; }
 .pg-form input:focus, .pg-form select:focus, .pg-form textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-tint); }
+.contact-card a:first-child .tile-ico { color: var(--ink); } /* the WhatsApp glyph in charcoal (theme F) */
 .pg-form .row2 { display: grid; gap: 14px; }
 .pg-form .btn { justify-self: start; }
 @media (min-width: 640px) { .pg-form { padding: 28px; } .pg-form .row2 { grid-template-columns: 1fr 1fr; } }

@@ -20,7 +20,6 @@ import { Slot, slotFile } from "@/components/ui/Slot";
 import { CountUp, InViewVideo } from "@/components/ui/Motion";
 import { Marquee } from "@/components/ui/Marquee";
 import { More } from "@/components/ui/More";
-import { Watermark } from "@/components/ui/Watermark";
 import { SnapRow } from "@/components/ui/SnapRow";
 import { BigPlay, Watch } from "@/components/ui/Viewer";
 import { Drift } from "@/components/ui/ScrollFx";
@@ -41,16 +40,20 @@ const d = (ms: number) => ({ ["--d" as string]: `${ms}ms` });
 const k = (n: number) => ({ ["--k" as string]: n });
 
 /* ---------------- 1. hero ----------------
-   Ported from v6 as it is (the user, 2026-11-17: "copy the hero and header and footer of v6 to v3").
-   v6 (spec 015): desktop, the ink panel left (44%) and the photo right (56%); phones, the photo
-   on top and the ink panel below with stacked buttons. Two tiers in Cormorant (his 0.9 / 0.8 edit),
-   one foot row: the approved accreditation line with the UCA mark, and the slide counter. */
+   Theme F (Ms. Irina, 2026-11-18, canvas EHR1TvKpp3Tfamj14uEz9T WowDesk and WowPhone, approved without any
+   logo shapes). Desktop: the bright photo fills the right of the screen and melts into white from the left,
+   the words sit on white. Phones: the photo on top melting into white at its foot, the words on white below.
+   Two tiers in Calisto, the second burgundy. WhatsApp is the charcoal option 00 button, Find Your Clinic the
+   burgundy one, so they never compete. The slides keep their controls on a small white plate. The first
+   screen ends on the slim burgundy strip with the four promises (it closes on the accreditation line, as the
+   owner asked of the hero's foot). */
 export function Hero() {
   const s = section("home", "hero");
-  /* Two lines, the second in red. A line break in the heading splits them; older content
+  /* Two lines, the second in burgundy. A line break in the heading splits them; older content
      split at the full stop. Nothing is added to the words. */
   const [first, ...rest] = s.heading.includes("\n") ? s.heading.split("\n") : s.heading.split(/(?<=\.)\s+/);
-  const [live] = (s.subheading ?? "").split("•").map((t) => t.trim()).filter(Boolean);
+  const promises = (s.subheading ?? "").split("•").map((t) => t.trim()).filter(Boolean);
+  const [live] = promises;
   /* Each slide is captioned with the title of what it shows, further down the page. */
   const svc = section("home", "medical-services");
   const care = section("home", "what-is-247-clinic");
@@ -68,7 +71,7 @@ export function Hero() {
           ? <HeroCarousel slides={slides} label="Photos" labels={{ prev: "Previous", next: "Next", show: "Show photo" }} />
           : <Slot file="hero-desktop.webp" purpose="hero image" px="2400 x 1350" />}
       </div>
-      <div className="hero-panel on-ink">
+      <div className="hero-panel">
         <div className="hero-copy">
           <p className="hero-k label" style={k(0)}><span className="rule" aria-hidden="true" />{live}</p>
           <h1 id="hero-h">
@@ -78,14 +81,13 @@ export function Hero() {
           <p className="hero-text" style={k(1)}>{s.body[0]}</p>
           <div className="cta-row hero-ctas" style={k(2)}>
             <WaButton placement="hero">{s.ctas[0].label}</WaButton>
-            <LinkButton href={href(ROUTES.clinics)} placement="hero" ev="find_clinic_click">{s.ctas[1].label}</LinkButton>
+            <LinkButton primary href={href(ROUTES.clinics)} placement="hero" ev="find_clinic_click">{s.ctas[1].label}</LinkButton>
           </div>
         </div>
-        <p className="hero-foot" style={k(3)}>
-          <span className="hero-uca"><img src={asset("/logos/marks/uca.png")} alt="" width={30} height={30} /></span>
-          <span>{APPROVED.accredited}</span>
-        </p>
       </div>
+      <ul className="hero-strip" style={k(3)}>
+        {[...promises, APPROVED.accredited].map((p) => <li key={p}><span>{p}</span></li>)}
+      </ul>
     </section>
   );
 }
@@ -194,7 +196,7 @@ export function Services() {
                       <span className="svc-text">
                         <h3>{it.title}</h3>
                         {it.text && <span className="svc-quick">{it.text}</span>}
-                        <OpenMark label="Open" />
+                        <OpenMark label="Open" arrow />
                       </span>
                     </span>
                   </span>
@@ -248,7 +250,6 @@ export function Intro() {
   return (
     <>
     <section className="section bg-surface intro pm-d" aria-labelledby="intro-h">
-      <Watermark />
       <div className="container intro-grid">
         <div className="intro-label">
           <Head eyebrow="On-site care" id="intro-h" title={s.heading} lead={<p>{s.body[0]}</p>} />
@@ -317,7 +318,7 @@ export function Insurance(_: { insuranceMessage: string }) {
       </div>
       <div className="band ins2-band rv">
         <span className="band-label">{BRIEF.insurancePartners}</span>
-        <Marquee label={BRIEF.insurancePartners} bg="#faf7f5" speed={30}>
+        <Marquee label={BRIEF.insurancePartners} bg="#f8f6f5" speed={30}>
           {INSURERS.map((l) => <LogoTile key={l.name} l={l} />)}
         </Marquee>
       </div>

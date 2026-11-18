@@ -1,7 +1,9 @@
 /* Footer, rewritten 2026-09-23 (the user: "re write footer"). A help band first
    (brief section 42 and 27), then brand, menu, destinations and contact.
-   v6 (spec 015): the help band is the closing line in Cormorant on ivory, then a solid ink footer: the
-   newsletter as one hairline input row, four labelled columns, the UCA and group lines, the copyright.
+   v6 (spec 015): the help band is the closing line, then the footer: the newsletter as one hairline input
+   row, four labelled columns, the UCA and group lines, the copyright.
+   Theme F (Ms. Irina, 2026-11-18): no dark surfaces. The help band is the light burgundy tint, the footer the
+   soft off-white with charcoal words and warm gray hairlines, so it carries the full colour logo.
    Accreditation lines are the ones he named: UCA only, part of HCIG.
    The full logo (with its tagline) is shown at 132px, above the 120px minimum. */
 import { Mail, MapPin, Phone } from "lucide-react";
@@ -34,11 +36,11 @@ export function Footer({ nav, footerOnly }: { nav: string[]; footerOnly: string[
         </div>
       </div>
 
-      <div className="foot-ink on-ink">
+      <div className="foot-ink">
         <div className="container">
           <div className="foot-top">
             <div className="brand">
-              <img src={asset("/logos/marks/247-logo-ivory.svg")} alt="24/7 Clinic" width={132} height={128} loading="lazy" />
+              <img src={asset("/logos/marks/247-logo.svg")} alt="24/7 Clinic" width={132} height={128} loading="lazy" />
               <p>{THEIRS.about}</p>
             </div>
             <NewsletterBand email={THEIRS.email} title="Stay in Touch" line="Subscribe for news from 24/7 Clinic." label="Email address" button="Subscribe" />

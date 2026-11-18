@@ -47,51 +47,21 @@
   .services .cta-row { display: none; }
 }
 
-/* 12. Shimmer: a slow light sweep on the WhatsApp buttons and the bordeaux 07 card; the
-   numbers and the small red heading lines shine once when they appear. */
-@keyframes shSweep { 0%, 62% { transform: translateX(-130%) skewX(-18deg); } 100% { transform: translateX(240%) skewX(-18deg); } }
-@keyframes shText { from { background-position: 120% 0; } to { background-position: -20% 0; } }
-@keyframes shLine { from { background-position: 120% 0; } to { background-position: -40% 0; } }
-main .btn-wa { position: relative; overflow: hidden; isolation: isolate; }
-main .btn-wa::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 45%; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(37, 211, 102, 0), rgba(37, 211, 102, 0.2), rgba(255, 255, 255, 0.65), rgba(37, 211, 102, 0.2), rgba(37, 211, 102, 0)); animation: shSweep 4.4s ease-in-out infinite; }
-.svc-feature::before { content: ""; position: absolute; top: -20%; bottom: -20%; left: 0; width: 40%; z-index: 0; pointer-events: none; background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0)); animation: shSweep 5.6s ease-in-out infinite; }
-.stat.in .stat-num b { background: linear-gradient(100deg, var(--primary) 0%, var(--primary) 40%, #ff9a9a 50%, var(--primary) 60%, var(--primary) 100%); background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shText 1.6s ease-out 0.5s both; }
-.eyebrow.rv.in::before { background: linear-gradient(90deg, currentColor 0%, currentColor 35%, #ffc2c2 50%, currentColor 65%, currentColor 100%); background-size: 250% 100%; animation: shLine 1.4s ease-out 0.3s both; }
-@media (prefers-reduced-motion: reduce) {
-  main .btn-wa::after, .svc-feature::before { animation: none; display: none; }
-  .stat.in .stat-num b, .eyebrow.rv.in::before { animation: none; }
-}
+/* 12. The shimmer sweeps on the WhatsApp buttons and the 07 card, and the pink shine on the numbers and heading
+   lines, were removed with theme F (2026-11-18: no green shimmer, "the more simple, the best feeling"). */
 
 /* =============================================================================
    HIS REVIEW NOTES ON v3 (2026-11-12): "waves less", "I don't like gradients", no gradient on the What We Treat
    image, at most 3 colours (red, ivory, ink; WhatsApp green stays on WhatsApp only). Dark areas are solid ink.
    Kept on purpose: the shimmer light sweeps he picked, the marquee edge fades and the text-clamp fade in "More".
 ============================================================================= */
-:root { --primary-tint: #f6f1ec; --primary-line: #e6ded6; }
 .bg-surface { background: var(--surface); }
 .stage-veil, .final::before { display: none; }
 .final-scrim { background: transparent; }
 .map-frame { background: var(--surface); }
-/* The 07 feature card and every dark panel: solid ink, no bordeaux wash, no red glow. */
-.svc-feature { background: #1a1414; }
-.svc-feature::after { display: none; }
-.pg-cta { background: #1a1414; }
-.pg-cta::after { display: none; }
-.pg-band.dark { background: #1a1414; }
-.pg-band.dark .eyebrow { color: rgba(251, 248, 244, 0.82); }
-/* Page heroes (fixes the Medical Services "What We Treat" hero): no veil on the photo.
-   Phones: photo on top, words on solid ink below. Desktop: solid ink panel on the left, the photo clear on the right. */
-.ph { background: #1a1414; }
-.ph-veil, .ph::after { display: none; }
-.ph-in { margin-top: 0; padding-top: 26px; }
-.ph-eyebrow { color: rgba(251, 248, 244, 0.82); }
-.ph-eyebrow::before { background: #e20613; }
-@media (min-width: 900px) {
-  .ph-media { left: 47%; }
-  .ph-in { padding-top: 64px; }
-  .ph-in > * { max-width: min(560px, 40vw); }
-}
-.ph-sub { color: rgba(251, 248, 244, 0.88); }
+/* Theme F (2026-11-18): the 07 card, the call to action panels and the feature band are light (globals.css,
+   pages.css, detail.css); no glow anywhere. Page heroes are light like the home's (pages.css). */
+.svc-feature::after, .pg-cta::after, .ph::after { display: none; }
 
 
 /* =============================================================================
@@ -118,8 +88,8 @@ main .btn-wa::after { content: ""; position: absolute; top: 0; bottom: 0; left: 
 .voices-dots i.on { transform: scale(1.6); background: var(--primary); }
 .voices-arrows { display: flex; gap: 8px; }
 .voices-arrows button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line-2); background: #fff; color: var(--ink); display: grid; place-items: center; cursor: pointer; transition: background 0.3s var(--ease), color 0.3s, border-color 0.3s; }
-.voices-arrows button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
-.voices-title { margin: 0 0 20px; font-family: var(--font-display), serif; font-weight: 700; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; color: var(--ink); display: flex; align-items: center; gap: 14px; }
+.voices-arrows button:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+.voices-title { margin: 0 0 20px; font-family: var(--font-display), serif; font-weight: 400; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; color: var(--ink); display: flex; align-items: center; gap: 14px; }
 .voices-title::before { content: ""; width: 28px; height: 1px; background: var(--primary); }
 .voices-wall { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; padding-bottom: 32px; }
 .voices-wall li { border-radius: 18px; overflow: hidden; aspect-ratio: 3 / 4; background: var(--surface-2); box-shadow: var(--shadow-sm); }
@@ -144,7 +114,7 @@ main .btn-wa::after { content: ""; position: absolute; top: 0; bottom: 0; left: 
 /* 1. The opening curtain was removed (the user, 2026-11-16: "remove the loader that runs before page loads"); the hero copy rises at once. */
 
 /* 2. Shimmer while a photo "loads", then a slow blur-up (MediaShimmer adds the classes). */
-html.js .shim { background-color: #efe9e3 !important; background-image: linear-gradient(110deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.65) 46%, rgba(255, 255, 255, 0) 62%) !important; background-size: 220% 100% !important; background-repeat: no-repeat !important; animation: shimmer 1.6s linear infinite; }
+html.js .shim { background-color: #F3EFEE !important; background-image: linear-gradient(110deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.65) 46%, rgba(255, 255, 255, 0) 62%) !important; background-size: 220% 100% !important; background-repeat: no-repeat !important; animation: shimmer 1.6s linear infinite; }
 @keyframes shimmer { from { background-position: 130% 0; } to { background-position: -130% 0; } }
 html.js img.shim-i { opacity: 0; filter: blur(14px); transition: opacity 1.2s var(--ease), filter 1.5s var(--ease); }
 html.js img.shim-i.ld { opacity: 1; filter: blur(0); }
@@ -197,7 +167,7 @@ html.js .hw.in .w > span { transform: none; opacity: 1; filter: blur(0); }
 .ins2-steps { list-style: none; margin: 0; padding: 6px 24px; border-radius: 26px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-sm); counter-reset: none; }
 .ins2-steps li { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 14px; align-items: start; padding: 22px 0; }
 .ins2-steps li + li { border-top: 1px solid var(--line); }
-.ins2-steps .n { font: 700 22px/1.2 var(--font-display), serif; color: var(--primary); }
+.ins2-steps .n { font: 400 22px/1.2 var(--font-display), serif; color: var(--primary); }
 .ins2-steps h3 { margin: 0; font-size: 17px; font-weight: 600; color: var(--ink); line-height: 1.35; }
 .ins2-steps p { margin: 6px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
 @media (min-width: 1024px) { .ins2-steps { padding: 10px 36px; } .ins2-steps li { padding: 26px 0; } }
@@ -284,14 +254,14 @@ html.js .voices-sub.rv.in::after { transform: scaleX(1); }
 @media (min-width: 1024px) { .intro .intro-grid { column-gap: clamp(48px, 5vw, 96px); } }
 .how-line { position: relative; display: grid; gap: 22px; margin-top: clamp(56px, 7vw, 104px); }
 .how-line-head { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
-.how-line-h { margin: 0; font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 700; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.15; color: var(--ink); text-wrap: balance; }
+.how-line-h { margin: 0; font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 400; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.15; color: var(--ink); text-wrap: balance; }
 .sline-wrap { position: relative; }
 .sline { position: relative; display: grid; }
 .sline::before { content: ""; position: absolute; left: 20px; top: 30px; bottom: 30px; width: 1.5px; background: var(--line-2); }
 .sl-step { position: relative; }
 .sl-q { margin: 0; font: inherit; }
 .sl-q button { width: 100%; display: grid; grid-template-columns: 40px minmax(0, 1fr) 36px; align-items: center; gap: 14px; min-height: 60px; padding: 10px 0; text-align: left; font-family: var(--font-sans), sans-serif; font-size: 16px; font-weight: 600; line-height: 1.35; color: var(--ink); cursor: pointer; }
-.sl-n { position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--line-2); background: #fff; font-family: var(--font-display), serif; font-weight: 700; font-size: 16px; color: var(--primary); }
+.sl-n { position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--line-2); background: #fff; font-family: var(--font-display), serif; font-weight: 400; font-size: 16px; color: var(--primary); }
 .sl-step:first-child .sl-n { border-color: var(--primary); }
 .sl-plus { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--line-2); background: #fff; color: var(--ink); transition: transform 0.4s var(--ease), background-color 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease); }
 .sl-q button:hover .sl-plus { background: var(--primary); border-color: var(--primary); color: #fff; }
@@ -358,7 +328,7 @@ html:not(.js) .sl-a { height: auto; opacity: 1; }
 .gw-line i.held { animation-play-state: paused; }
 @keyframes gwLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .gw-btn { display: grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 50%; border: 1px solid var(--line-2); background: #fff; color: var(--ink); cursor: pointer; transition: background-color 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease); }
-.gw-btn:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
+.gw-btn:hover { background: var(--primary); border-color: var(--primary); color: #fff; }
 .gw-btn:active { transform: scale(0.98); }
 /* Trusted by Patients: v6's spacing and row height */
 .voices-moments { margin-top: clamp(52px, 6vw, 88px); }
@@ -375,11 +345,11 @@ html:not(.js) .sl-a { height: auto; opacity: 1; }
 .dest:hover .dest-pic, .dest:focus-visible .dest-pic { transform: scale(1.04); }
 .dest:focus-visible { outline: 2.5px solid var(--primary); outline-offset: 4px; border-radius: 12px; }
 .dest-cap { display: contents; }
-.dest-name { font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 700; font-size: 21px; line-height: 1.15; color: var(--ink); transition: color 0.3s var(--ease); }
+.dest-name { font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 400; font-size: 21px; line-height: 1.15; color: var(--ink); transition: color 0.3s var(--ease); }
 .dest:hover .dest-name { color: var(--primary); }
 .dest-ct { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1.5px solid var(--line-2); }
 .dest-n { display: inline-flex; align-items: baseline; gap: 6px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); }
-.dest-n b { font-family: var(--font-display), serif; font-size: 20px; font-weight: 700; letter-spacing: 0; color: var(--primary); }
+.dest-n b { font-family: var(--font-display), serif; font-size: 20px; font-weight: 400; letter-spacing: 0; color: var(--primary); }
 .dest-go { display: grid; place-items: center; flex: none; width: 24px; height: 24px; color: var(--primary); transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease); }
 .dest-go svg { width: 14px; height: 14px; }
 @media (min-width: 640px) {

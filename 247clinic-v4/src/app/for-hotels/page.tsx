@@ -31,8 +31,9 @@ export default function ForHotels() {
   const cta = section(P, "cta");
   const form = `${BASE}/contact-us#business`;
   const partner = hero.ctas[0].label;
-  const PartnerBtn = ({ red }: { red?: boolean }) => (
-    <a href={form} className={`btn ${red ? "btn-call" : "btn-white"}`} data-placement="for-hotels-partner">
+  /* Theme F (2026-11-18): every surface is light now, so the partnership button is the burgundy one everywhere. */
+  const PartnerBtn = (_: { red?: boolean }) => (
+    <a href={form} className="btn btn-primary" data-placement="for-hotels-partner">
       <span>{partner}</span><ArrowRight size={18} aria-hidden="true" />
     </a>
   );

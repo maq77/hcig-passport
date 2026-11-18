@@ -6,3 +6,10 @@ export function WhatsAppGlyph({ size = 22 }: { size?: number }) {
     </svg>
   );
 }
+
+/* Theme F (Ms. Irina, 2026-11-18): the small WhatsApp-green "we are online" light inside the charcoal WhatsApp
+   buttons (canvas EHR1TvKpp3Tfamj14uEz9T, WA1 option 00). The ring breathes (transform and opacity only) and
+   rests as a still dot under reduced motion (globals.css .wa-dot). */
+export function WaDot() {
+  return <span className="wa-dot" aria-hidden="true"><i /></span>;
+}

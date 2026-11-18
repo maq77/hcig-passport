@@ -3,44 +3,52 @@
    The top bar, header, phone menu, home hero, footer, newsletter and WhatsApp float are v6's, copied from
    247clinic-v4/src/app/styles (chrome.css, the hero of home.css, the help band lines of home.css and the
    motion bits they use) as they are on main at 0e6c95bca. Every ported root carries the class "v6":
-   .topbar, .site-header, .menu, .hero, .site-footer and .wa-float. v6's tokens, element defaults and the
-   system rules these parts use (buttons, type roles, container, reveals) are set on .v6 only, so the rest
-   of v3 keeps its own look. Loaded last (layout.tsx); v3's old header, sheet, hero and footer rules were
-   removed from globals.css, home-calm.css and pages.css, so nothing fights.
+   .topbar, .site-header, .menu, .hero, .site-footer, .wa-float and .wa-dock. Loaded last (layout.tsx).
+
+   THEME F, "Ms. Irina WOW" (2026-11-18, canvas EHR1TvKpp3Tfamj14uEz9T: WowDesk, WowPhone, IrinaSheet, WA1 00,
+   WA2 A, WA3 F; approved without any logo-derived shapes). Marketing director Irina's rules: no black or
+   near-black surface anywhere, black only as charcoal text; burgundy #851F35 for buttons, links, accents,
+   numerals and rules; white as the main ground, soft off-white #F8F6F5 for secondary grounds, light burgundy
+   #F6ECEE for soft cards and icon discs, warm gray #E7E2E0 for hairlines; no bright red beside burgundy (the
+   logo keeps its own colours); WhatsApp green only as the small living dot; one slim burgundy strip per page
+   at most; headlines in Calisto MT, everything else in Poppins; "the more simple, the best feeling".
 ============================================================================= */
 
-/* ---------- v6 tokens, on the ported parts only (tokens.css). --hdr and --topbar live on :root in globals.css. ---------- */
+/* ---------- tokens on the ported parts. --hdr and --topbar live on :root in globals.css. ---------- */
 .v6 {
-  --ivory: #FBF8F4;
-  --ink: #1A1414;
-  --red: #C00000;
-  --red-on-ink: #E8121C;
-  --panel-hero: linear-gradient(165deg, #86020D 0%, #5F0008 34%, #3A0006 66%, #000000 100%);
+  --ivory: #F8F6F5;           /* soft off-white */
+  --ink: #292929;             /* charcoal: text only */
+  --red: #851F35;             /* burgundy */
+  --red-deep: #6B1829;
+  --red-on-ink: #851F35;
+  --tint-b: #F6ECEE;          /* light burgundy */
   --white: #FFFFFF;
-  --wa: #25D366;
-  --wa-glyph: #1DA851;
-  --wa-ink: #0B7A3A;
+  --wa: #25D366;              /* the dot only */
+  --wa-glyph: #292929;
+  --wa-ink: #292929;
   --ink-100: var(--ink);
-  --ink-78: rgba(26, 20, 20, 0.78);
-  --ink-62: rgba(26, 20, 20, 0.62);
-  --line-2: rgba(26, 20, 20, 0.24);
-  --line: rgba(26, 20, 20, 0.12);
-  --tint: rgba(26, 20, 20, 0.04);
-  --tint-2: rgba(26, 20, 20, 0.07);
-  --on-ink: var(--ivory);
-  --on-ink-78: rgba(251, 248, 244, 0.78);
-  --on-ink-62: rgba(251, 248, 244, 0.62);
-  --on-ink-line: rgba(251, 248, 244, 0.16);
-  --on-ink-line-2: rgba(251, 248, 244, 0.32);
-  --on-ink-tint: rgba(251, 248, 244, 0.06);
+  --ink-78: rgba(41, 41, 41, 0.8);
+  --ink-62: rgba(41, 41, 41, 0.68);
+  --line-2: #D8D1CE;
+  --line: #E7E2E0;
+  --tint: #F8F6F5;
+  --tint-2: #F6ECEE;
+  /* Nothing is dark any more: the old "on ink" names now read as charcoal on light, so nothing can go pale. */
+  --on-ink: var(--ink);
+  --on-ink-78: var(--ink-78);
+  --on-ink-62: var(--ink-62);
+  --on-ink-line: var(--line);
+  --on-ink-line-2: var(--line-2);
+  --on-ink-tint: var(--ivory);
   --font-body: var(--font-sans), "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
-  --font-head: var(--font-lux), "Cormorant Garamond", Georgia, serif;
+  --font-head: var(--font-display), "Book Antiqua", Palatino, Georgia, serif;
   --font-num: var(--font-display), "Book Antiqua", Palatino, Georgia, serif;
   --fs-body: 16px;
   --fs-label: 12px;
-  --fs-h1: clamp(44px, 6.4vw, 92px);
-  --fs-h2: clamp(34px, 4.4vw, 60px);
-  --fs-h3: clamp(24px, 2vw, 28px);
+  /* Calisto runs wider than v6's Cormorant: 0.85 of v6's sizes keeps each line the same length. */
+  --fs-h1: clamp(38px, 5.45vw, 78px);
+  --fs-h2: clamp(29px, 3.75vw, 51px);
+  --fs-h3: clamp(22px, 1.8vw, 26px);
   --measure: 60ch;
   --r-tag: 4px;
   --r-card: 10px;
@@ -49,7 +57,7 @@
   --r-pill: 999px;
   --hair: 1px;
   --rule-w: 40px;
-  --shadow-float: 0 18px 48px rgba(26, 20, 20, 0.16);
+  --shadow-float: 0 16px 36px rgba(41, 41, 41, 0.16);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-io: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-curtain: cubic-bezier(0.76, 0, 0.24, 1);
@@ -63,39 +71,36 @@
 }
 @media (min-width: 1024px) { .v6 { --fs-body: 17px; --fs-label: 15px; } }
 
-/* ---------- v6 element defaults inside the ported parts (base.css), in the base layer as in v6,
-   so every class rule below still wins over them. ---------- */
+/* ---------- element defaults inside the ported parts, in the base layer, so every class rule below wins ---------- */
 @layer base {
   .v6 { font-family: var(--font-body); font-size: var(--fs-body); line-height: 1.7; color: var(--ink-78); font-synthesis: none; }
-  .v6 :is(h1, h2) { font-family: var(--font-head); color: var(--ink); font-weight: 300; text-wrap: balance; margin: 0; letter-spacing: -0.005em; }
+  .v6 :is(h1, h2) { font-family: var(--font-head); color: var(--ink); font-weight: 400; text-wrap: balance; margin: 0; letter-spacing: -0.005em; }
   .v6 :is(h3, h4) { font-family: var(--font-body); color: var(--ink); font-weight: 500; margin: 0; text-wrap: balance; }
   .v6 em, .v6 cite, .v6 address { font-style: normal; }
   .v6 :is(input, select, textarea) { font: inherit; font-size: 16px; }
   .v6 :focus-visible, .v6:focus-visible { outline: 1.5px solid var(--red); outline-offset: 3px; border-radius: var(--r-tag); }
 }
 
-/* ---------- the v6 system rules the ported parts use (system.css), scoped with :where(.v6): they keep v6's own
-   specificity, so the chrome and hero rules below still win over them as in v6, and they beat v3's same rules by order ---------- */
+/* ---------- the system rules the ported parts use, scoped with :where(.v6) so the rules below still win ---------- */
 :where(.v6) .lucide { stroke-width: 1.25; }
 :where(.v6) .container { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); box-sizing: border-box; }
-:where(.v6) .h2 { font-family: var(--font-head); font-weight: 300; font-size: var(--fs-h2); line-height: 1.06; letter-spacing: -0.01em; color: var(--ink); }
+:where(.v6) .h2 { font-family: var(--font-head); font-weight: 400; font-size: var(--fs-h2); line-height: 1.12; letter-spacing: -0.005em; color: var(--ink); }
 :where(.v6) .num { font-family: var(--font-num); font-weight: 400; font-variant-numeric: tabular-nums lining-nums; }
 :where(.v6) .label { font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; line-height: 1.2; }
 :where(.v6) .lead { font-size: var(--fs-body); line-height: 1.7; color: var(--ink-78); max-width: var(--measure); }
 @media (min-width: 1024px) { :where(.v6) .lead { font-size: 18px; } }
 :where(.v6) .rule { display: block; width: var(--rule-w); height: var(--hair); background: var(--red); }
-:where(.v6) .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 10px 26px; border-radius: var(--r-pill); font-weight: 500; font-size: 15px; letter-spacing: 0.01em; line-height: 1.2; text-align: center; touch-action: manipulation; box-sizing: border-box; border: 1px solid transparent; box-shadow: none; transition: transform var(--t1) var(--ease), background-color var(--t2) var(--ease), border-color var(--t2) var(--ease), color var(--t2) var(--ease); }
+:where(.v6) .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 10px 26px; border-radius: var(--r-pill); font-weight: 600; font-size: 15px; letter-spacing: 0.01em; line-height: 1.2; text-align: center; touch-action: manipulation; box-sizing: border-box; border: 1.5px solid transparent; box-shadow: none; transition: transform var(--t2) var(--ease), background-color var(--t2) var(--ease), border-color var(--t2) var(--ease), color var(--t2) var(--ease); }
 :where(.v6) .btn:active { transform: scale(0.98); }
 :where(.v6) .btn svg { flex: none; transition: transform var(--t2) var(--ease); }
-:where(.v6) .btn-wa { background: var(--white); color: var(--wa-ink); border: 2px solid var(--wa); }
-:where(.v6) .btn-wa svg { color: var(--wa-glyph); }
-:where(.v6) .btn-wa:hover { background: var(--white); border-color: var(--wa-glyph); box-shadow: none; }
-:where(.v6) .btn-wa:hover svg { transform: rotate(-8deg); }
-.v6 .btn-wa::after { content: none; } /* v3's shimmer sweep (home-calm.css main .btn-wa::after) is not part of v6; kept at .v6 strength to beat it */
-:where(.v6) .btn-call { background: var(--red); color: var(--white); }
-:where(.v6) .btn-call:hover { background: var(--ink); }
-:where(.v6) .btn-secondary { background: transparent; color: var(--ink); border-color: var(--line-2); }
-:where(.v6) .btn-secondary:hover { background: transparent; border-color: var(--ink); }
+/* WhatsApp, option 00: white, a charcoal frame and letters, the living green dot; hover fills charcoal. */
+:where(.v6) .btn-wa { background: var(--white); color: var(--ink); border-color: var(--ink); }
+:where(.v6) .btn-wa:hover { background: var(--ink); border-color: var(--ink); color: var(--white); transform: translateY(-2px); }
+.v6 .btn-wa::after { content: none; }
+:where(.v6) .btn-call, :where(.v6) .btn-primary { background: var(--red); color: var(--white); border-color: var(--red); }
+:where(.v6) .btn-call:hover, :where(.v6) .btn-primary:hover { background: var(--red-deep); border-color: var(--red-deep); }
+:where(.v6) .btn-secondary { background: var(--white); color: var(--ink); border-color: rgba(41, 41, 41, 0.3); }
+:where(.v6) .btn-secondary:hover { border-color: var(--ink); }
 :where(.v6) .btn-secondary:hover svg { transform: translateX(3px); }
 :where(.v6) .btn-sm { min-height: 44px; padding: 8px 18px; font-size: 14px; }
 :where(.v6) .btn-icon { width: 44px; min-height: 44px; padding: 0; }
@@ -103,18 +108,15 @@
 :where(.v6) .cta-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 :where(.v6) .cta-row.center { justify-content: center; }
 @media (max-width: 639px) { :where(.v6) .cta-row .btn:not(.btn-icon) { width: 100%; } }
-:where(.v6) .on-ink .btn-secondary { color: var(--ivory); border-color: var(--on-ink-line-2); }
-:where(.v6) .on-ink .btn-secondary:hover { border-color: var(--ivory); }
-:where(.v6) .on-ink .btn-call:hover { background: var(--red-on-ink); }
 
-/* ---------- v6 reveals inside the ported parts (motion.css): 16px rise, 900ms ---------- */
+/* ---------- reveals inside the ported parts: 16px rise, 900ms ---------- */
 html.js .v6 .rv { opacity: 0; transform: translateY(16px); transition: opacity var(--t3) var(--ease), transform var(--t3) var(--ease); transition-delay: var(--d, 0ms); }
 html.js .v6 .rv.in { opacity: 1; transform: none; }
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes riseLine { from { transform: translateY(105%); } to { transform: none; } }
 html.js .hero h1 .ln > span { animation: riseLine var(--t3) var(--ease) both; }
 html.js .hero h1 .ln + .ln > span { animation-delay: 70ms; }
-html.js :is(.hero-copy > :not(h1), .hero-foot) { animation: rise var(--t3) var(--ease) both; animation-delay: calc(var(--k, 0) * 70ms + 140ms); }
+html.js .hero-copy > :not(h1) { animation: rise var(--t3) var(--ease) both; animation-delay: calc(var(--k, 0) * 70ms + 140ms); }
 @media (prefers-reduced-motion: reduce) {
   html.js .v6 .rv { opacity: 1 !important; transform: none !important; }
   .menu { clip-path: none !important; opacity: 0; transition: opacity 200ms linear, visibility 0s linear 200ms !important; }
@@ -123,31 +125,29 @@ html.js :is(.hero-copy > :not(h1), .hero-foot) { animation: rise var(--t3) var(-
   .site-header { transform: none !important; }
 }
 
-/* ======================= v6 chrome.css, as it is ======================= */
-/* The chrome: top bar, header, the phone menu, footer, newsletter band and the WhatsApp float. */
+/* =========================== the chrome =========================== */
 
-/* ---------- top bar: ink, 36px, desktop ---------- */
+/* ---------- top bar: soft off-white, charcoal words, burgundy marks, 36px, desktop ---------- */
 .topbar { display: none; }
 @media (min-width: 1200px) {
-  .topbar { display: block; height: var(--topbar); background: var(--ink); font-size: 13px; color: var(--on-ink-78); }
+  .topbar { display: block; height: var(--topbar); box-sizing: border-box; background: var(--ivory); border-bottom: var(--hair) solid var(--line); font-size: 13px; color: var(--ink-78); }
   .topbar-in { max-width: 1440px; margin-inline: auto; padding: 0 32px; height: 100%; display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; }
   .promises, .topbar-contact { display: flex; align-items: center; gap: 28px; }
   .promises li, .topbar-contact a { display: inline-flex; align-items: center; gap: 8px; font-weight: 400; letter-spacing: 0.02em; }
-  .promises svg, .topbar-contact svg { color: var(--red-on-ink); }
+  .promises svg, .topbar-contact svg { color: var(--red); }
   .topbar-contact a { transition: color var(--t2) var(--ease); }
-  .topbar-contact a:hover { color: var(--ivory); }
-  .topbar-contact .tb-phone { color: var(--ivory); font-variant-numeric: tabular-nums; }
+  .topbar-contact a:hover { color: var(--red); }
+  .topbar-contact .tb-phone { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
 }
 
 /* ---------- header ----------
-   Phone and tablet: a 60px bar that slides away on scroll down and comes back on scroll up.
-   Desktop: 88px that settles to 68px on scroll. The bar never animates its height: the ivory
-   ground is clipped and the row lifts, so nothing below it moves. */
+   Phone and tablet: a 60px white bar that slides away on scroll down and comes back on scroll up.
+   Desktop: 88px that settles to 68px on scroll. White at 94% with blur and a warm gray hairline. The bar never
+   animates its height: the ground is clipped and the row lifts, so nothing below it moves. */
 .site-header { position: sticky; top: 0; z-index: 60; height: var(--hdr); pointer-events: none; transition: transform var(--t2) var(--ease); --cut: 0px; }
 .site-header > * { pointer-events: auto; }
-.site-header::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(251, 248, 244, 0.92); -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2); clip-path: inset(0 0 var(--cut) 0); transition: clip-path var(--t2) var(--ease); }
-.site-header::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: var(--hair); background: var(--line); opacity: 0; transform: translateY(calc(var(--hdr) - var(--cut) - 1px)); transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease); }
-.site-header.scrolled::after { opacity: 1; }
+.site-header::before { content: ""; position: absolute; inset: 0; z-index: -1; background: rgba(255, 255, 255, 0.94); -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2); clip-path: inset(0 0 var(--cut) 0); transition: clip-path var(--t2) var(--ease); }
+.site-header::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: var(--hair); background: var(--line); transform: translateY(calc(var(--hdr) - var(--cut) - 1px)); transition: transform var(--t2) var(--ease); }
 .site-header.away { transform: translateY(-100%); }
 .hdr { position: relative; height: var(--hdr); max-width: 1440px; margin-inline: auto; padding-inline: 16px; display: flex; align-items: center; gap: 10px; box-sizing: border-box; transition: transform var(--t2) var(--ease); }
 .hdr .logo { display: flex; align-items: center; flex: none; min-height: 44px; }
@@ -155,9 +155,11 @@ html.js :is(.hero-copy > :not(h1), .hero-foot) { animation: rise var(--t3) var(-
 .nav { display: none; }
 .hdr-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .hdr .wa-long, .hdr .hdr-call { display: none; }
-.hdr .wa-short { white-space: nowrap; min-height: 44px; padding: 6px 16px; gap: 8px; font-size: 14px; }
-@media (max-width: 359px) { .hdr .wa-short { padding: 6px 12px; font-size: 13.5px; } }
+.hdr .wa-short { white-space: nowrap; min-height: 44px; padding: 6px 15px; gap: 8px; font-size: 13.5px; }
+@media (max-width: 359px) { .hdr .wa-short { padding: 6px 11px; font-size: 13px; } }
 @media (min-width: 380px) { .hdr .hdr-call { display: inline-flex; } }
+/* The call button: a burgundy disc (the black frame of 2026-11-17 is gone with the dark surfaces). */
+.hdr .hdr-call { width: 44px; min-height: 44px; height: 44px; flex: none; border: 0; }
 .menu-btn { position: relative; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; color: var(--ink); border: var(--hair) solid var(--line-2); transition: border-color var(--t2) var(--ease); }
 .menu-btn:hover { border-color: var(--ink); }
 .menu-btn .bars { position: relative; width: 18px; height: 7px; }
@@ -165,7 +167,6 @@ html.js :is(.hero-copy > :not(h1), .hero-foot) { animation: rise var(--t3) var(-
 .menu-btn .bars::before { top: 0; }
 .menu-btn .bars::after { bottom: 0; }
 @media (min-width: 1200px) {
-  /* Larger logo and nav (his header zoom of 1.1), compact buttons (his 0.7 on the two buttons). */
   .site-header.scrolled { --cut: 20px; }
   .site-header.away { transform: none; }
   .site-header.scrolled .hdr { transform: translateY(-10px); }
@@ -175,10 +176,11 @@ html.js :is(.hero-copy > :not(h1), .hero-foot) { animation: rise var(--t3) var(-
   .nav { display: flex; gap: 2px; margin-inline: auto; }
   .nav a { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 11px; font-size: 15.5px; font-weight: 500; color: var(--ink); white-space: nowrap; transition: color var(--t2) var(--ease); }
   .nav a::after { content: ""; position: absolute; left: 11px; right: 11px; bottom: 6px; height: var(--hair); background: var(--red); transform: scaleX(0); transform-origin: left center; transition: transform var(--t2) var(--ease); }
+  .nav a:hover { color: var(--red); }
   .nav a:hover::after, .nav a[aria-current="page"]::after { transform: scaleX(1); }
   .nav a[aria-current="page"] { color: var(--red); }
   .hdr-actions { flex: none; margin-left: 0; gap: 10px; padding-left: 18px; border-left: var(--hair) solid var(--line); }
-  .hdr .hdr-call { display: inline-flex; width: 44px; min-height: 44px; flex: none; }
+  .hdr .hdr-call { display: inline-flex; }
   .hdr .wa-long { display: inline-flex; flex: none; white-space: nowrap; min-height: 44px; padding: 8px 18px; font-size: 14px; }
   .hdr .wa-short, .menu-btn { display: none; }
 }
@@ -191,20 +193,20 @@ html.js :is(.hero-copy > :not(h1), .hero-foot) { animation: rise var(--t3) var(-
   .hdr .wa-long { padding: 8px 14px; font-size: 13.5px; }
 }
 
-/* ---------- the phone menu: a full screen ivory sheet that opens as a circle from the burger ---------- */
-.menu { position: fixed; inset: 0; z-index: 90; display: flex; flex-direction: column; background: var(--ivory); overflow-y: auto; overscroll-behavior: contain; visibility: hidden; clip-path: circle(0px at var(--mx, calc(100% - 38px)) var(--my, 30px)); transition: clip-path 700ms var(--ease-io), visibility 0s linear 700ms; }
+/* ---------- the phone menu: a full screen white sheet that opens as a circle from the burger ---------- */
+.menu { position: fixed; inset: 0; z-index: 90; display: flex; flex-direction: column; background: var(--white); overflow-y: auto; overscroll-behavior: contain; visibility: hidden; clip-path: circle(0px at var(--mx, calc(100% - 38px)) var(--my, 30px)); transition: clip-path 700ms var(--ease-io), visibility 0s linear 700ms; }
 .menu.open { visibility: visible; clip-path: circle(var(--mr, 150vmax) at var(--mx, calc(100% - 38px)) var(--my, 30px)); transition: clip-path 700ms var(--ease-io), visibility 0s; }
-.menu-top { flex: none; display: flex; align-items: center; justify-content: space-between; height: 60px; padding-inline: 16px; }
+.menu-top { flex: none; display: flex; align-items: center; justify-content: space-between; height: 60px; padding-inline: 16px; border-bottom: var(--hair) solid var(--line); }
 .menu-top img { height: 40px; width: auto; }
 .menu-btn.close .bars::before { transform: translateY(3px) rotate(45deg); }
 .menu-btn.close .bars::after { transform: translateY(-3px) rotate(-45deg); }
 .menu-body { flex: 1; display: flex; flex-direction: column; padding: 8px 20px 28px; }
-.menu-list { border-top: var(--hair) solid var(--line); }
+.menu-list { border-top: 0; }
 .menu li { opacity: 0; transform: translateY(24px); transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease); }
 .menu.open li { opacity: 1; transform: none; transition: opacity var(--t3) var(--ease), transform var(--t3) var(--ease); transition-delay: calc(260ms + var(--i, 0) * 55ms); }
-.menu-list a { display: flex; align-items: baseline; gap: 16px; min-height: 56px; padding: 12px 2px; border-bottom: var(--hair) solid var(--line); color: var(--ink); }
-.menu-n { flex: none; width: 26px; font-size: 13px; color: var(--red); }
-.menu-t { font-family: var(--font-head); font-weight: 400; font-size: clamp(27px, 7.4vw, 34px); line-height: 1.1; }
+.menu-list a { display: flex; align-items: baseline; gap: 16px; min-height: 56px; padding: 12px 2px; box-sizing: border-box; border-bottom: var(--hair) solid var(--line); color: var(--ink); }
+.menu-n { flex: none; width: 26px; font-size: 14px; color: var(--red); }
+.menu-t { font-family: var(--font-head); font-weight: 400; font-size: clamp(23px, 6.3vw, 29px); line-height: 1.15; }
 .menu-list a[aria-current="page"] .menu-t { color: var(--red); }
 .menu-dest { margin-top: 26px; }
 .menu-dest .label { display: block; color: var(--ink-62); margin-bottom: 10px; }
@@ -215,15 +217,15 @@ html.js :is(.hero-copy > :not(h1), .hero-foot) { animation: rise var(--t3) var(-
 .menu-mail { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; font-size: 15px; color: var(--ink-78); }
 .menu-mail svg { color: var(--red); }
 
-/* ---------- footer: the closing line on ivory (rules shared with the home's in home.css), then solid ink ---------- */
+/* ---------- footer: the closing line on the light burgundy tint, then the soft off-white footer ---------- */
 .site-footer { position: relative; display: flow-root; background: var(--ivory); }
-.help-band { border-top: var(--hair) solid var(--line); }
+.help-band { background: var(--tint-b); }
 /* a page that ends with its own call to action, and the home (its FAQ ends with the line), do not repeat it */
 body:has(.pg-cta-wrap, .final-close) .site-footer .help-band { display: none; }
-.foot-ink { padding-block: clamp(52px, 6vw, 96px) 28px; background: var(--ink); color: var(--on-ink-78); }
-.foot-top { display: grid; gap: 32px; padding-bottom: clamp(36px, 4vw, 56px); border-bottom: var(--hair) solid var(--on-ink-line); }
+.foot-ink { padding-block: clamp(52px, 6vw, 96px) 28px; background: var(--ivory); color: var(--ink-78); border-top: var(--hair) solid var(--line); }
+.foot-top { display: grid; gap: 32px; padding-bottom: clamp(36px, 4vw, 56px); border-bottom: var(--hair) solid var(--line); }
 .foot-top .brand > img { display: block; width: 104px; height: auto; }
-.foot-top .brand > p { max-width: 42ch; margin: 18px 0 0; font-size: 15px; line-height: 1.65; color: var(--on-ink-78); }
+.foot-top .brand > p { max-width: 42ch; margin: 18px 0 0; font-size: 15px; line-height: 1.65; color: var(--ink-78); }
 @media (min-width: 900px) {
   .foot-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: end; gap: 64px; }
   .foot-top .brand > img { width: 132px; }
@@ -234,158 +236,182 @@ body:has(.pg-cta-wrap, .final-close) .site-footer .help-band { display: none; }
   .foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.3fr) minmax(0, 1.4fr); gap: 48px; }
   .foot > :nth-child(n + 3) { grid-column: auto; }
 }
-.foot h4 { margin: 0 0 6px; font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--on-ink-62); }
+.foot h4 { margin: 0 0 6px; font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-62); }
 .foot li { font-size: 15px; line-height: 1.5; }
-.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--on-ink-78); transition: color var(--t2) var(--ease); }
+.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-78); transition: color var(--t2) var(--ease); }
 .contact li:last-child { padding-top: 10px; }
-.foot a:hover { color: var(--ivory); }
+.foot a:hover { color: var(--red); }
 .contact li { display: flex; align-items: flex-start; gap: 10px; }
 .contact a { display: inline-flex; align-items: center; gap: 10px; }
-.contact svg { flex: none; color: var(--red-on-ink); }
+.contact svg { flex: none; color: var(--red); }
 .contact li:last-child svg { margin-top: 4px; }
-.contact li:first-child svg { color: var(--wa); }
-.foot-base { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; padding-top: 24px; border-top: var(--hair) solid var(--on-ink-line); font-size: 13.5px; color: var(--on-ink-62); }
+.contact li:first-child svg { color: var(--ink); }
+.foot-base { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; padding-top: 24px; border-top: var(--hair) solid var(--line); font-size: 13.5px; color: var(--ink-62); }
 .badges { display: flex; flex-wrap: wrap; gap: 12px 28px; }
-.badges li { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; color: var(--on-ink-78); }
-.badge-plate { display: grid; place-items: center; width: 40px; height: 40px; flex: none; border-radius: var(--r-tag); background: var(--ivory); }
+.badges li { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; color: var(--ink-78); }
+.badge-plate { display: grid; place-items: center; width: 40px; height: 40px; flex: none; box-sizing: border-box; border-radius: var(--r-tag); background: var(--white); border: var(--hair) solid var(--line); }
 .badge-plate img { width: 30px; height: 30px; object-fit: contain; }
+/* Phones and tablets: the footer leaves room for the concierge dock, so it never covers the last line. */
+@media (max-width: 1023px) { .foot-ink { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); } }
 
-/* ---------- newsletter: on the ink footer, the field as one hairline row ---------- */
+/* ---------- newsletter: the field as one hairline row ---------- */
 .news-band { display: grid; gap: 18px; }
-.news-h { margin: 0; font-family: var(--font-head); font-weight: 400; font-size: clamp(28px, 3vw, 38px); line-height: 1.1; color: var(--ivory); }
-.news-copy p { margin: 6px 0 0; font-size: 15px; line-height: 1.6; color: var(--on-ink-78); }
-.news-form { display: flex; align-items: center; gap: 12px; border-bottom: var(--hair) solid var(--on-ink-line-2); transition: border-color var(--t2) var(--ease); }
-.news-form:focus-within { border-color: var(--ivory); }
-.news-form input { flex: 1; min-width: 0; min-height: 52px; padding: 0; border: 0; background: transparent; font-size: 16px; color: var(--ivory); outline: none; }
-.news-form input::placeholder { color: var(--on-ink-62); }
-.news-go { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 2px; font-size: 15px; font-weight: 500; color: var(--ivory); }
-.news-go svg { color: var(--red-on-ink); transition: transform var(--t2) var(--ease); }
+.news-h { margin: 0; font-family: var(--font-head); font-weight: 400; font-size: clamp(25px, 2.55vw, 32px); line-height: 1.15; color: var(--ink); }
+.news-copy p { margin: 6px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink-78); }
+.news-form { display: flex; align-items: center; gap: 12px; border-bottom: var(--hair) solid var(--line-2); transition: border-color var(--t2) var(--ease); }
+.news-form:focus-within { border-color: var(--ink); }
+.news-form input { flex: 1; min-width: 0; min-height: 52px; padding: 0; border: 0; background: transparent; font-size: 16px; color: var(--ink); outline: none; }
+.news-form input::placeholder { color: var(--ink-62); }
+.news-go { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 2px; font-size: 15px; font-weight: 600; color: var(--ink); transition: color var(--t2) var(--ease); }
+.news-go svg { color: var(--red); transition: transform var(--t2) var(--ease); }
+.news-go:hover { color: var(--red); }
 .news-go:hover svg { transform: translateX(3px); }
-.news-go:focus-visible { outline: 1.5px solid var(--red-on-ink); outline-offset: 4px; border-radius: var(--r-tag); }
+.news-go:focus-visible { outline: 1.5px solid var(--red); outline-offset: 4px; border-radius: var(--r-tag); }
 
-/* ---------- floating WhatsApp: white, the green frame. The pill opens near the top, the round icon past it;
-   hidden while a layer (menu, opening card, film) is up. Only transform, opacity and colour move. ---------- */
-.wa-float { position: fixed; right: clamp(14px, 2vw, 28px); bottom: clamp(14px, 2vw, 28px); z-index: 55; display: block; width: 60px; height: 60px; transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease), visibility 0s; }
-.wa-float:hover { transform: translateY(-2px); }
-.wa-float .g { position: relative; z-index: 2; display: grid; place-items: center; width: 60px; height: 60px; box-sizing: border-box; border-radius: 50%; background: var(--white); color: var(--wa-glyph); border: 2px solid transparent; transition: border-color var(--t2) var(--ease); }
-.wa-float.small .g { border-color: var(--wa); box-shadow: var(--shadow-float); }
-.wa-pill { position: absolute; right: 0; top: 0; display: flex; align-items: center; height: 60px; padding: 0 64px 0 22px; box-sizing: border-box; white-space: nowrap; border-radius: var(--r-pill); background: var(--white); color: var(--wa-ink); border: 2px solid var(--wa); box-shadow: var(--shadow-float); transform-origin: right center; transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease); }
-.wa-float.small .wa-pill { opacity: 0; transform: translateX(10px) scale(0.96); pointer-events: none; }
-.wa-float .t { display: flex; flex-direction: column; min-width: 150px; line-height: 1.2; }
-.wa-float .t b { font-size: 15px; font-weight: 600; }
-.wa-float .t small { font-size: 12px; font-weight: 500; }
-.wa-float::before { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: 50%; border: 2px solid var(--wa); pointer-events: none; animation: waRing 2.8s ease-out infinite; }
-.wa-float:not(.small)::before { opacity: 0; animation: none; }
-@keyframes waRing { from { transform: scale(1); opacity: 0.6; } to { transform: scale(1.45); opacity: 0; } }
-.wa-float.away, body.has-layer .wa-float { opacity: 0; visibility: hidden; transform: translateY(12px); pointer-events: none; transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease), visibility 0s linear var(--t2); }
-@media (max-width: 640px) {
-  .wa-float { right: 16px; bottom: 18px; }
-  .wa-pill { display: none; }
-  .wa-float .g { border-color: var(--wa); box-shadow: var(--shadow-float); }
-  .wa-float:not(.small)::before { opacity: 1; animation: waRing 2.8s ease-out infinite; }
-  .wa-float .g svg { width: 32px; height: 32px; }
-  .foot-ink { padding-bottom: 100px; }
-}
-/* "Powered by Pulse Marketing" sits in the copyright line, in the same type (his ask 2026-11-17). */
+/* ---------- "Powered by Pulse Marketing" sits in the copyright line, in the same type (his ask 2026-11-17) ---------- */
 .copy .powered { white-space: nowrap; }
 .copy .powered::before { content: "|"; margin-inline: 10px; opacity: 0.5; }
 
-/* ======================= v6 home.css: the hero, as it is ======================= */
+/* ---------- the living green dot (WA1 option 00): a 10px WhatsApp-green light whose ring breathes out.
+   Transform and opacity only; a still dot under reduced motion. Shared with globals.css. ---------- */
+.wa-dot { position: relative; display: block; width: 10px; height: 10px; flex: none; border-radius: 50%; background: var(--wa, #25D366); }
+.wa-dot i { position: absolute; inset: 0; border-radius: 50%; background: var(--wa, #25D366); animation: waBreathe 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+@keyframes waBreathe { 0% { transform: scale(1); opacity: 0.55; } 70% { transform: scale(2.4); opacity: 0; } 100% { transform: scale(2.4); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .wa-dot i { animation: none !important; opacity: 0; } }
+
+/* ---------- desktop floating WhatsApp, WA2 option A: the open pill near the top, the disc past 200px ---------- */
+.wa-float { display: none; }
+@media (min-width: 1024px) {
+  .wa-float { position: fixed; right: clamp(16px, 2vw, 28px); bottom: clamp(16px, 2vw, 28px); z-index: 55; display: block; width: 58px; height: 58px; border-radius: 50%; translate: 0 calc(-1 * var(--lift, 0px)); transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease), visibility 0s; }
+  .wa-float:hover { transform: translateY(-2px); }
+  .wa-float .g { position: absolute; inset: 0; display: grid; place-items: center; box-sizing: border-box; border-radius: 50%; background: var(--white); color: var(--ink); border: 1.5px solid var(--ink); box-shadow: var(--shadow-float); opacity: 0; transform: scale(0.86); pointer-events: none; transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease), background-color var(--t2) var(--ease), color var(--t2) var(--ease); }
+  .wa-float .g .wa-dot { position: absolute; top: 4px; right: 4px; border: 2px solid var(--white); box-sizing: content-box; }
+  .wa-float.small .g { opacity: 1; transform: none; pointer-events: auto; }
+  .wa-pill { position: absolute; right: 0; bottom: 0; display: flex; align-items: center; gap: 10px; height: 58px; padding: 0 24px; box-sizing: border-box; white-space: nowrap; border-radius: var(--r-pill); background: var(--white); color: var(--ink); border: 1.5px solid var(--ink); box-shadow: var(--shadow-float); font-size: 14.5px; transform-origin: right center; transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease), background-color var(--t2) var(--ease), color var(--t2) var(--ease); }
+  .wa-pill b { font-weight: 600; }
+  .wa-float.small .wa-pill { opacity: 0; transform: translateX(10px) scale(0.96); pointer-events: none; }
+  .wa-float:hover .wa-pill, .wa-float:hover .g { background: var(--ink); color: var(--white); }
+  .wa-float:focus-visible { outline-offset: 4px; border-radius: 50%; }
+  body.has-layer .wa-float, body:has(.dc-scrim, .viewer) .wa-float { opacity: 0; visibility: hidden; transform: translateY(12px); pointer-events: none; transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease), visibility 0s linear var(--t2); }
+}
+
+/* ---------- phones and tablets, WA3 option F, the concierge dock: a frosted white bar with call and WhatsApp,
+   once the hero has scrolled away. 12px from the screen edges, above the home indicator. ---------- */
+.wa-dock { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); z-index: 55; max-width: 520px; margin-inline: auto; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 8px; padding: 8px; box-sizing: border-box; border-radius: var(--r-pill); background: rgba(255, 255, 255, 0.9); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); border: var(--hair) solid var(--line); box-shadow: 0 18px 40px rgba(41, 41, 41, 0.16); opacity: 0; visibility: hidden; transform: translateY(calc(100% + 16px)); transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease), visibility 0s linear var(--t2); }
+.wa-dock.on { opacity: 1; visibility: visible; transform: none; transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease), visibility 0s; }
+body.has-layer .wa-dock, body:has(.dc-scrim, .viewer) .wa-dock { opacity: 0; visibility: hidden; transform: translateY(calc(100% + 16px)); transition: opacity var(--t2) var(--ease), transform var(--t2) var(--ease), visibility 0s linear var(--t2); }
+.dock-call { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--red); color: var(--white); transition: background-color var(--t2) var(--ease), transform var(--t1) var(--ease); }
+.dock-call:hover { background: var(--red-deep); }
+.dock-call:active { transform: scale(0.96); }
+.wa-dock .dock-wa { width: 100%; min-height: 48px; padding: 0 16px; font-size: 14.5px; }
+@media (min-width: 1024px) { .wa-dock { display: none; } }
+
 /* =============================================================================
-   HERO. One screen, phone and desktop (his words: "the bottom of first screen that guest sees is
-   the accredited by part").
-   Phone and tablet: the screen under the header. The photo on top flexes to absorb the space (at
-   least 26svh), the slide strip sits on its foot as a flat ink plate, then the ink panel with
-   stacked buttons, its last row the accreditation. Short screens (under 720px) drop the paragraph.
-   A phone on its side keeps a 300px photo and simply scrolls: nothing is clipped.
-   Desktop: the ink panel left (44%), the photo right (56%), the screen under the top bar and
-   header (560px to 1000px). One foot row at the bottom of the screen: the accreditation on the
-   panel, the slide counter on an ink plate at the photo's corner.
+   HERO, theme F (WowDesk and WowPhone). One screen, phone and desktop: the hero ends on the slim burgundy strip
+   with the four promises, its last one the accreditation (his words: "the bottom of first screen that guest
+   sees is the accredited by part").
+   Phones and tablets: the photo on top (at least 28svh) melting into white at its foot, the words on white below
+   rising a little over the fade, the two buttons stacked, then the strip as 2 x 2. Short screens (under 720px)
+   drop the paragraph; a phone on its side keeps a 300px photo and simply scrolls.
+   Desktop: the bright photo fills the right two thirds and melts into white from the left; the words sit on the
+   white; the strip runs the full width at the foot of the screen. The slides keep their controls on a small
+   white plate in the photo's top corner: the counter, the burgundy progress, two hairline arrows.
 ============================================================================= */
-.hero { position: relative; background: var(--ink); background-image: var(--panel-hero); color: var(--ivory); --red-on-ink: #F7B7B7; }
+.hero { position: relative; background: var(--white); color: var(--ink); }
 .hero-media { position: relative; }
+.hero-media::after { content: ""; position: absolute; z-index: 3; pointer-events: none; }
 .hc { position: relative; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
-.hc-stage { position: relative; height: 56svh; min-height: 300px; max-height: 560px; overflow: hidden; background: var(--ink); }
+.hc-stage { position: relative; height: 56svh; min-height: 300px; max-height: 560px; overflow: hidden; background: var(--ivory); }
 .hc-slide { position: absolute; inset: 0; overflow: hidden; will-change: transform; }
 .hc-pic { display: contents; }
 .hc-slide img { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos-m, var(--pos, 50% 50%)); -webkit-user-drag: none; }
-.hc-foot { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "bars bars" "cap arrows"; align-items: center; gap: 0 16px; padding: 0 var(--gutter); }
-.hc-bars { grid-area: bars; display: flex; gap: 6px; }
+.hc-foot { position: absolute; top: 12px; right: 12px; z-index: 4; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "cap arrows" "bars bars"; align-items: center; column-gap: 8px; width: 176px; box-sizing: border-box; padding: 4px 4px 6px 14px; border-radius: var(--r-photo); background: rgba(255, 255, 255, 0.92); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: var(--hair) solid rgba(231, 226, 224, 0.9); box-shadow: 0 10px 28px rgba(41, 41, 41, 0.12); }
+.hc-cap { grid-area: cap; position: relative; min-width: 0; height: 40px; display: flex; align-items: center; overflow: hidden; }
+.hc-caption { margin: 0; display: flex; align-items: baseline; gap: 12px; min-width: 0; font-size: 13px; color: var(--ink-78); white-space: nowrap; }
+.hc-caption > span:last-child { overflow: hidden; text-overflow: ellipsis; }
+.hc-count { flex: none; font-family: var(--font-num); font-size: 15px; letter-spacing: 0.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.hc-arrows { grid-area: arrows; display: flex; gap: 2px; }
+.hc-arrow { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; border: var(--hair) solid var(--line); background: var(--white); color: var(--ink); transition: border-color var(--t2) var(--ease), color var(--t2) var(--ease), transform var(--t1) var(--ease); }
+.hc-arrow:hover { border-color: var(--ink); }
+.hc-arrow:active { transform: scale(0.96); }
+.hc-bars { grid-area: bars; display: flex; gap: 4px; padding-right: 10px; }
 .hc-bars li { flex: 1; }
-.hc-bar { width: 100%; height: 44px; padding: 0; display: grid; align-items: center; }
-.hc-track { position: relative; display: block; height: var(--hair); overflow: hidden; background: var(--on-ink-line-2); transition: transform var(--t2) var(--ease); }
-.hc-fill { position: absolute; inset: 0; background: var(--ivory); transform-origin: left center; transform: scaleX(0); }
+.hc-bar { width: 100%; height: 14px; padding: 0; display: grid; align-items: center; }
+.hc-track { position: relative; display: block; height: 2px; overflow: hidden; border-radius: 2px; background: var(--line); transition: transform var(--t2) var(--ease); }
+.hc-fill { position: absolute; inset: 0; background: var(--red); transform-origin: left center; transform: scaleX(0); }
 .hc-bar.done .hc-fill, .hc-bar.on .hc-fill:not(.run) { transform: scaleX(1); }
 .hc-fill.run { animation-name: hcFill; animation-timing-function: linear; animation-fill-mode: forwards; }
 @keyframes hcFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-.hc-bar:hover .hc-track, .hc-bar:focus-visible .hc-track { transform: scaleY(2); }
-.hc-cap { grid-area: cap; position: relative; min-width: 0; height: 44px; display: flex; align-items: center; overflow: hidden; }
-.hc-caption { margin: 0; display: flex; align-items: baseline; gap: 12px; min-width: 0; font-size: 13px; color: var(--on-ink-78); white-space: nowrap; }
-.hc-caption > span:last-child { overflow: hidden; text-overflow: ellipsis; }
-.hc-count { flex: none; font-family: var(--font-num); font-size: 15px; letter-spacing: 0.04em; color: var(--ivory); font-variant-numeric: tabular-nums; }
-.hc-arrows { grid-area: arrows; display: flex; gap: 8px; }
-.hc-arrow { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: var(--hair) solid var(--on-ink-line-2); color: var(--ivory); transition: border-color var(--t2) var(--ease), transform var(--t1) var(--ease); }
-.hc-arrow:hover { border-color: var(--ivory); }
-.hc-arrow:active { transform: scale(0.96); }
+.hc-bar:hover .hc-track, .hc-bar:focus-visible .hc-track { transform: scaleY(1.8); }
 
-.hero-panel { position: relative; display: flex; flex-direction: column; gap: 28px; padding: 26px var(--gutter) 30px; container-type: inline-size; }
+.hero-panel { position: relative; z-index: 4; }
 .hero-copy { display: flex; flex-direction: column; }
-.hero-k { display: inline-flex; align-items: center; gap: 14px; color: var(--on-ink-78); }
-.hero-k .rule { background: var(--red-on-ink); }
-.hero h1 { margin-top: 18px; color: var(--ivory); font-weight: 300; font-size: min(var(--fs-h1), 12.5cqi); line-height: 1.04; letter-spacing: -0.012em; }
+.hero-k { display: inline-flex; align-items: center; gap: 12px; margin: 0; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; color: var(--red); }
+.hero-k .rule { width: 36px; background: var(--red); }
+.hero h1 { margin-top: 14px; color: var(--ink); font-weight: 400; font-size: clamp(29px, 8.9vw, 38px); line-height: 1.08; letter-spacing: -0.01em; }
 .hero h1 .ln { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
 .hero h1 .ln > span { display: inline-block; }
-.hero h1 .accent { font-size: 0.86em; color: var(--red-on-ink); }
-.hero-text { margin-top: 18px; font-size: 16px; line-height: 1.7; color: var(--on-ink-78); max-width: 52ch; }
-.hero-ctas { margin-top: 26px; flex-direction: column; align-items: stretch; gap: 10px; }
-.hero-ctas .btn { width: 100%; }
-.hero-foot { display: flex; align-items: center; gap: 14px; padding-top: 18px; border-top: var(--hair) solid var(--on-ink-line); font-size: 13px; line-height: 1.4; color: var(--on-ink-78); }
-.hero-uca { width: 40px; height: 40px; flex: none; border-radius: var(--r-card); background: var(--ivory); display: grid; place-items: center; }
-.hero-uca img { width: 30px; height: 30px; object-fit: contain; }
-@media (max-width: 767px) { .hero h1 .accent { font-weight: 400; } }
+.hero h1 .accent { font-size: 0.82em; color: var(--red); }
+.hero-text { margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink-78); max-width: 46ch; }
+.hero-ctas { margin-top: 20px; flex-direction: column; align-items: stretch; gap: 10px; }
+.hero-ctas .btn { width: 100%; min-height: 54px; font-size: 15px; font-weight: 600; }
+.hero-ctas .btn-primary { box-shadow: 0 14px 30px rgba(133, 31, 53, 0.25); }
+
+/* the slim burgundy strip: the four promises in Calisto, white on burgundy (9.4:1) */
+.hero-strip { position: relative; z-index: 4; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; background: var(--red); color: var(--white); font-family: var(--font-head); font-weight: 400; text-align: center; }
+.hero-strip li { display: flex; align-items: center; justify-content: center; min-height: 50px; padding: 9px 10px; box-sizing: border-box; font-size: 14.5px; line-height: 1.22; text-wrap: balance; }
+.hero-strip li:nth-child(even) { border-left: var(--hair) solid rgba(255, 255, 255, 0.25); }
+.hero-strip li:nth-child(n + 3) { border-top: var(--hair) solid rgba(255, 255, 255, 0.25); }
+
 @media (max-width: 1023px) {
   .hero { display: flex; flex-direction: column; min-height: calc(100svh - var(--hdr)); }
-  .hero-media { flex: 1 0 auto; display: flex; flex-direction: column; min-height: 26svh; }
+  .hero-media { flex: 1 0 auto; display: flex; flex-direction: column; min-height: 28svh; }
+  .hero-media::after { left: 0; right: 0; bottom: 0; height: min(46%, 140px); background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.72) 55%, #FFFFFF 100%); }
   .hc { flex: 1; display: flex; flex-direction: column; }
   .hc-stage { flex: 1; height: auto; min-height: 0; max-height: none; }
-  .hc-foot { position: absolute; left: 0; right: 0; bottom: 0; z-index: 4; grid-template-rows: 16px 44px; padding: 0 var(--gutter) 4px; background: var(--ink-62); }
-  .hc-bar { margin-top: -28px; align-items: end; }
-  .hc-caption { color: var(--ivory); }
-  .hero-panel { flex: none; gap: 22px; padding: 22px var(--gutter) 18px; }
-  .hero h1 { margin-top: 14px; }
-  .hero-text { margin-top: 14px; line-height: 1.6; }
-  .hero-ctas { margin-top: 20px; }
-  .hero-foot { padding-top: 14px; }
+  .hc-caption > span:last-child { display: none; }
+  .hero-panel { flex: none; margin-top: -52px; padding: 0 var(--gutter) 20px; }
 }
 @media (max-width: 1023px) and (max-height: 719px) and (orientation: portrait) { .hero-text { display: none; } }
 @media (max-width: 1023px) and (orientation: landscape) { .hero-media { min-height: 300px; } }
 @media (min-width: 640px) and (max-width: 1023px) {
   .hero-ctas { flex-direction: row; }
-  .hero-ctas .btn { width: auto; }
+  .hero-ctas .btn { width: auto; padding-inline: 28px; }
+  .hero-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .hero-strip li { min-height: 64px; }
+  .hero-strip li + li { border-left: var(--hair) solid rgba(255, 255, 255, 0.25); }
+  .hero-strip li:nth-child(n + 3) { border-top: 0; }
 }
 @media (min-width: 1024px) {
-  .hero { display: grid; grid-template-columns: minmax(0, 44fr) minmax(0, 56fr); height: clamp(560px, calc(100svh - var(--topbar) - var(--hdr)), 1000px); }
-  .hero-panel { grid-column: 1; grid-row: 1; justify-content: space-between; gap: 24px; padding: clamp(36px, 6vh, 72px) clamp(32px, 3.4vw, 56px) 0 max(var(--gutter), calc((100vw - 1440px) / 2 + var(--gutter))); }
-  .hero-copy { flex: 1; justify-content: center; }
-  .hero h1 { font-size: min(var(--fs-h1), 12cqi, 10.6vh); }
-  .hero-text { margin-top: 22px; font-size: 17px; }
-  .hero-ctas { flex-direction: row; align-items: center; margin-top: 32px; gap: 12px; }
-  .hero-ctas .btn { width: auto; }
-  .hero-foot { height: 84px; padding-top: 0; box-sizing: border-box; }
-  .hero-media { grid-column: 2; grid-row: 1; }
+  .hero { display: grid; grid-template-columns: minmax(0, 34fr) minmax(0, 66fr); grid-template-rows: minmax(0, 1fr) auto; height: clamp(560px, calc(100svh - var(--topbar) - var(--hdr)), 1000px); }
+  .hero-media { grid-column: 2; grid-row: 1; z-index: 1; }
+  /* the white fade, set on the photo: solid at its left edge, gone by about two thirds of the screen */
+  .hero-media::after { inset: 0; background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 4.5%, rgba(255, 255, 255, 0.86) 21%, rgba(255, 255, 255, 0) 55%); }
   .hc, .hc-stage { position: absolute; inset: 0; height: auto; min-height: 0; max-height: none; }
   .hc-slide img { object-position: var(--pos, 50% 50%); }
-  .hc-foot { position: absolute; left: 0; bottom: 0; z-index: 4; width: min(440px, 100%); height: 84px; box-sizing: border-box; grid-template-rows: 22px 1fr; gap: 0 20px; padding: 0 20px 0 28px; background: var(--ink); border-top: var(--hair) solid var(--on-ink-line); border-top-right-radius: var(--r-photo); }
-  .hc-bar { height: 44px; margin-top: -22px; align-items: end; }
-  .hc-cap { height: auto; }
+  .hc-foot { top: 24px; right: 24px; width: min(400px, calc(100% - 48px)); padding: 6px 6px 8px 18px; }
+  .hc-cap { height: 44px; }
+  .hc-arrow { width: 44px; height: 44px; }
+  .hero-panel { grid-column: 1 / -1; grid-row: 1; display: flex; align-items: center; padding: 0 0 20px max(clamp(40px, 8.3vw, 120px), calc((100vw - 1440px) / 2 + 120px)); pointer-events: none; }
+  .hero-panel > * { pointer-events: auto; }
+  .hero-copy { max-width: 640px; }
+  .hero-k { gap: 14px; font-size: 13px; }
+  .hero-k .rule { width: 40px; }
+  .hero h1 { margin-top: 24px; font-size: clamp(42px, min(4.6vw, 7.6vh), 72px); line-height: 1.06; }
+  .hero-text { margin-top: 24px; font-size: 18px; line-height: 1.7; max-width: 44ch; }
+  .hero-ctas { flex-direction: row; align-items: center; margin-top: 32px; gap: 14px; }
+  .hero-ctas .btn { width: auto; min-height: 56px; padding: 0 30px; font-size: 16px; }
+  .hero-strip { grid-column: 1 / -1; grid-row: 2; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .hero-strip li { min-height: 88px; padding: 14px 24px; font-size: clamp(17px, 1.5vw, 22px); }
+  .hero-strip li + li { border-left: var(--hair) solid rgba(255, 255, 255, 0.25); }
+  .hero-strip li:nth-child(n + 3) { border-top: 0; }
 }
-/* ======================= v6 home.css: the closing line of the help band ======================= */
+@media (min-width: 1024px) and (max-height: 760px) { .hero-strip li { min-height: 72px; padding-block: 10px; } }
+
+/* ======================= the closing line of the help band ======================= */
 /* the closing line (the footer's help band says it on inner pages) */
-:is(.final-close, .help-band) { padding-block: var(--section); background: var(--ivory); text-align: center; }
+:is(.final-close, .help-band) { padding-block: var(--section); background: var(--tint-b, #F6ECEE); text-align: center; }
 :is(.final-close-in, .help-in) { display: flex; flex-direction: column; align-items: center; gap: 18px; }
 :is(.final-close, .help-band) .h2 { max-width: 18ch; }
 :is(.final-close, .help-band) .lead { margin-inline: auto; }
 :is(.final-close, .help-band) .cta-row { margin-top: 10px; }
-
-/* Header call button: a black frame around the red disc, to match the brand (his ask 2026-11-17). */
-.hdr .hdr-call { border: 2px solid #000000; box-sizing: border-box; }

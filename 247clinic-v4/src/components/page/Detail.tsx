@@ -27,9 +27,10 @@ export function DetailBody({ img, pos, kicker, title, text, points, note, closin
   );
 }
 
-/* The small "Open" mark on a card that opens. */
-export function OpenMark({ label }: { label: string }) {
+/* The small "Open" mark on a card that opens. With `arrow` (the home's What we treat cards, theme F): a round
+   hairline arrow as on the approved WowDesk board, the word kept for screen readers. */
+export function OpenMark({ label, arrow }: { label: string; arrow?: boolean }) {
   return (
-    <span className="dc-open"><i aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M12 5v14M5 12h14" /></svg></i>{label}</span>
+    <span className={`dc-open ${arrow ? "dc-arrow" : ""}`}><i aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth={arrow ? 1.6 : 2.2} strokeLinecap="round" strokeLinejoin="round"><path d={arrow ? "M5 12h14M13 6l6 6-6 6" : "M12 5v14M5 12h14"} /></svg></i><span className="dc-open-t">{label}</span></span>
   );
 }

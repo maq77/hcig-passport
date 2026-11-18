@@ -1,6 +1,7 @@
-/* Green = WhatsApp, red = call and emergency (the user, 2026-09-23). */
+/* Theme F (Ms. Irina, 2026-11-18, canvas EHR1TvKpp3Tfamj14uEz9T): WhatsApp is option 00, a white pill with a
+   charcoal frame and letters and a small living green dot; call and the main actions are burgundy. */
 import { ArrowRight, Phone } from "lucide-react";
-import { WhatsAppGlyph } from "./Icon";
+import { WaDot } from "./Icon";
 import { telHref, waHref, type WaContext } from "@/lib/wa";
 import { PHONE } from "@/data/facts";
 import type { EventName } from "@/lib/track";
@@ -14,7 +15,7 @@ export function WaButton({ children, ctx = "homepage", hotel, destination, class
   return (
     <a href={waHref(ctx, { hotel, destination })} target="_blank" rel="noopener" data-ev={ev} data-placement={placement}
       className={`btn btn-wa ${small ? "btn-sm" : ""} ${block ? "btn-block" : ""} ${className}`}>
-      <WhatsAppGlyph size={small ? 18 : 20} />
+      <WaDot />
       <span>{children}</span>
     </a>
   );
@@ -31,11 +32,11 @@ export function CallButton({ placement, small, iconOnly, className = "" }: Commo
   );
 }
 
-export function LinkButton({ href, children, placement, ev, className = "" }: {
-  href: string; children: React.ReactNode; placement: string; ev?: EventName; className?: string;
+export function LinkButton({ href, children, placement, ev, className = "", primary }: {
+  href: string; children: React.ReactNode; placement: string; ev?: EventName; className?: string; primary?: boolean;
 }) {
   return (
-    <a href={href} data-ev={ev} data-placement={placement} className={`btn btn-secondary ${className}`}>
+    <a href={href} data-ev={ev} data-placement={placement} className={`btn ${primary ? "btn-primary" : "btn-secondary"} ${className}`}>
       <span>{children}</span>
       <ArrowRight size={18} aria-hidden="true" />
     </a>

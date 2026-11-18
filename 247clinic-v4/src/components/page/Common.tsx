@@ -6,7 +6,7 @@ import { asset, BASE } from "@/data/facts";
 import { CLINICS, DESTINATIONS, clinicPath, type Clinic, type DestinationId } from "@/data/clinics";
 import { INSURERS } from "@/data/media";
 import { waHref } from "@/lib/wa";
-import { WhatsAppGlyph } from "@/components/ui/Icon";
+import { WaDot } from "@/components/ui/Icon";
 import { Marquee } from "@/components/ui/Marquee";
 import { ClinicFinder } from "@/components/home/ClinicFinder";
 import { iconFor } from "./Page";
@@ -120,7 +120,7 @@ export function ClinicCards({ list }: { list: Clinic[] }) {
             </div>
             <div className="cl-actions">
               <a className="cl-wa" href={waHref("hotel", { hotel: c.hotel })} target="_blank" rel="noopener" data-ev="whatsapp_medical_click" data-placement="clinic-card">
-                <WhatsAppGlyph size={16} /><span>{waLabel}</span>
+                <WaDot /><span>{waLabel}</span>
               </a>
               <a className="cl-sec" href={dirHref(c)} target="_blank" rel="noopener" data-ev="clinic_directions_click" data-placement="clinic-card">
                 <Navigation size={15} aria-hidden="true" /><span>Directions</span>
@@ -166,10 +166,10 @@ export function InsurerBand() {
   return (
     <div className="band rv">
       <span className="band-label">{BRIEF.insurancePartners}</span>
-      <Marquee label={BRIEF.insurancePartners} bg="#faf7f5">
+      <Marquee label={BRIEF.insurancePartners} bg="#f8f6f5">
         {INSURERS.slice(0, half).map((l) => <li key={l.name} className="logo-tile"><img src={asset(l.src)} alt={l.name} width={l.w} height={l.h} loading="lazy" /></li>)}
       </Marquee>
-      <Marquee label={BRIEF.insurancePartners} direction="right" bg="#faf7f5">
+      <Marquee label={BRIEF.insurancePartners} direction="right" bg="#f8f6f5">
         {INSURERS.slice(half).map((l) => <li key={l.name} className="logo-tile"><img src={asset(l.src)} alt={l.name} width={l.w} height={l.h} loading="lazy" /></li>)}
       </Marquee>
     </div>

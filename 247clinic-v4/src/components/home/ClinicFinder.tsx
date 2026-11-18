@@ -10,7 +10,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowUpRight, Crosshair, MapPin, Navigation } from "lucide-react";
-import { WhatsAppGlyph } from "@/components/ui/Icon";
+import { WaDot, WhatsAppGlyph } from "@/components/ui/Icon";
 import { DESTINATIONS, type DestinationId } from "@/data/clinics";
 import { waHref } from "@/lib/wa";
 import "leaflet/dist/leaflet.css";
@@ -39,23 +39,23 @@ function loadMaps() {
 }
 
 const STYLES: google.maps.MapTypeStyle[] = [
-  { elementType: "geometry", stylers: [{ color: "#f7f3ef" }] },
+  { elementType: "geometry", stylers: [{ color: "#f8f6f5" }] },
   { elementType: "labels.text.fill", stylers: [{ color: "#6e6461" }] },
   { elementType: "labels.text.stroke", stylers: [{ color: "#ffffff" }] },
   { featureType: "administrative", elementType: "geometry.stroke", stylers: [{ color: "#ddd3cc" }] },
   { featureType: "administrative.land_parcel", stylers: [{ visibility: "off" }] },
   { featureType: "poi", stylers: [{ visibility: "off" }] },
   { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] },
-  { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#f1e4dc" }] },
+  { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#f6ecee" }] },
   { featureType: "road", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
   { featureType: "transit", stylers: [{ visibility: "off" }] },
-  { featureType: "water", elementType: "geometry", stylers: [{ color: "#bfe3ea" }] },
-  { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#6fa3b1" }] },
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#e7e2e0" }] },
+  { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#6b6766" }] },
 ];
 
 const PIN = (active: boolean) =>
   `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 30"><path d="M12 29s9-8.2 9-17A9 9 0 1 0 3 12c0 8.8 9 17 9 17Z" fill="${active ? "#9a0000" : "#c00000"}" stroke="#ffffff" stroke-width="1.4"/><circle cx="12" cy="11.6" r="3.4" fill="#ffffff"/></svg>`,
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 30"><path d="M12 29s9-8.2 9-17A9 9 0 1 0 3 12c0 8.8 9 17 9 17Z" fill="${active ? "#6B1829" : "#851F35"}" stroke="#ffffff" stroke-width="1.4"/><circle cx="12" cy="11.6" r="3.4" fill="#ffffff"/></svg>`,
   )}`;
 
 /* Medcierge's camera path (van Wijk and Nuij, the one Leaflet flies): one move that zooms
@@ -249,7 +249,7 @@ export function ClinicFinder({ clinics, labels, base }: { clinics: FinderClinic[
                 </div>
                 <div className="cl-actions">
                   <a className="cl-wa" href={waHref("hotel", { hotel: c.hotel })} target="_blank" rel="noopener" data-ev="whatsapp_medical_click" data-placement="finder">
-                    <WhatsAppGlyph size={16} /><span>{labels.waClinic}</span>
+                    <WaDot /><span>{labels.waClinic}</span>
                   </a>
                   {c.mappable && (
                     <>
@@ -309,7 +309,7 @@ function LeafletFallback({ clinics }: { clinics: FinderClinic[] }) {
       L.control.attribution({ position: "bottomleft", prefix: false }).addTo(map);
       L.tileLayer("https://tile.openstreetmap.de/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "&copy; OpenStreetMap" }).addTo(map);
       const g = L.featureGroup(clinics.filter((c) => c.mappable).map((c) =>
-        L.circleMarker([c.lat, c.lng], { radius: 7, color: "#fff", weight: 2, fillColor: "#C00000", fillOpacity: 1 }).bindTooltip(c.hotel))).addTo(map);
+        L.circleMarker([c.lat, c.lng], { radius: 7, color: "#fff", weight: 2, fillColor: "#851F35", fillOpacity: 1 }).bindTooltip(c.hotel))).addTo(map);
       map.fitBounds(g.getBounds(), { padding: [36, 36] });
     })();
     return () => { gone = true; map?.remove(); };

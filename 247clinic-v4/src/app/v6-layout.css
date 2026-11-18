@@ -54,22 +54,35 @@ html.js [data-e-section] .eyebrow.rv.in { letter-spacing: 0.2em; }
   [data-e-section="Facilities"] .std + .std { padding-left: 12px; }
 }
 
-/* ---------- 4. what we treat: photo then words, 2 x 3 on phones, three columns on desktop; 07 as one panel ---------- */
-[data-e-section="Services"] .svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 12px; }
-[data-e-section="Services"] .svc { overflow: visible; border: 0; border-radius: 0; background: none; box-shadow: none; }
-[data-e-section="Services"] .svc:hover { transform: none; box-shadow: none; }
-[data-e-section="Services"] .svc-media { display: block; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 16px; background: var(--surface-2); }
+/* ---------- 4. what we treat: theme F photo cards (WowDesk "What we treat", 2026-11-18): a white card with a
+   soft burgundy-tinted shadow, the photo on top, the title in Calisto and a round hairline arrow.
+   2 x 3 on phones, three columns on desktop; 07 as one light burgundy panel. ---------- */
+[data-e-section="Services"] .svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 12px; }
+[data-e-section="Services"] .svc { overflow: hidden; border: 0; border-radius: 18px; background: #fff; box-shadow: var(--shadow-card); transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease); }
+[data-e-section="Services"] .svc:hover { transform: translateY(-4px); box-shadow: 0 28px 60px rgba(133, 31, 53, 0.14), 0 2px 6px rgba(41, 41, 41, 0.05); }
+[data-e-section="Services"] .svc-media { display: block; overflow: hidden; aspect-ratio: 1 / 1; border-radius: 0; background: var(--surface); }
 [data-e-section="Services"] .svc .slot, [data-e-section="Services"] .svc .slot-img { width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; }
-[data-e-section="Services"] .svc-body { gap: 6px; padding: 12px 0 0; }
+[data-e-section="Services"] .svc-body { gap: 6px; padding: 12px 12px 12px 14px; }
 [data-e-section="Services"] .svc-body .ico { display: none; }
-[data-e-section="Services"] .svc-text { display: flex; flex-direction: column; gap: 6px; flex: 1; }
-[data-e-section="Services"] .svc h3 { min-height: 0; }
-[data-e-section="Services"] .svc .dc-open { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--line); }
-@media (min-width: 640px) { [data-e-section="Services"] .svc-grid { gap: 36px 18px; } }
-@media (min-width: 1024px) {
-  [data-e-section="Services"] .svc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 24px; }
+[data-e-section="Services"] .svc-text { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+[data-e-section="Services"] .svc h3 { min-height: 0; font-family: var(--font-display), "Book Antiqua", Palatino, Georgia, serif; font-weight: 400; font-size: 17px; line-height: 1.2; color: var(--ink); }
+[data-e-section="Services"] .svc .dc-arrow { margin-top: auto; padding-top: 0; align-self: flex-end; }
+[data-e-section="Services"] .svc .dc-arrow i { width: 34px; height: 34px; background: #fff; border: 1px solid var(--line); color: var(--primary); }
+[data-e-section="Services"] .svc .dc-arrow .dc-open-t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+[data-e-section="Services"] .dc-trigger:hover .svc .dc-arrow i { background: var(--primary); border-color: var(--primary); color: #fff; transform: translateX(2px); }
+@media (min-width: 640px) {
+  [data-e-section="Services"] .svc-grid { gap: 20px 18px; }
   [data-e-section="Services"] .svc-media { aspect-ratio: 4 / 3; }
-  [data-e-section="Services"] .svc-body { gap: 8px; padding: 16px 0 0; }
+  [data-e-section="Services"] .svc-body { padding: 16px 18px 18px 20px; }
+  [data-e-section="Services"] .svc h3 { font-size: 20px; }
+}
+@media (min-width: 1024px) {
+  [data-e-section="Services"] .svc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 24px; }
+  [data-e-section="Services"] .svc-text { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 14px; row-gap: 8px; }
+  [data-e-section="Services"] .svc h3 { grid-column: 1; grid-row: 1; font-size: 22px; }
+  [data-e-section="Services"] .svc .dc-arrow { grid-column: 2; grid-row: 1; margin: 0; align-self: center; }
+  [data-e-section="Services"] .svc .dc-arrow i { width: 38px; height: 38px; }
+  [data-e-section="Services"] .svc .svc-quick { grid-column: 1 / -1; grid-row: 2; }
 }
 [data-e-section="Services"] .svc-feature { gap: 20px; margin-top: 36px; padding: 14px 14px 26px; border-radius: 16px; }
 [data-e-section="Services"] .svc-feature-copy { align-items: flex-start; gap: 16px; padding: 0 8px; }
@@ -77,8 +90,8 @@ html.js [data-e-section] .eyebrow.rv.in { letter-spacing: 0.2em; }
 [data-e-section="Services"] .svc-feature-ico { display: none; }
 [data-e-section="Services"] .svc-feature-n { font-size: 22px; line-height: 1; letter-spacing: 0; }
 [data-e-section="Services"] .svc-feature-img { aspect-ratio: 16 / 10; border-radius: 10px; }
-[data-e-section="Services"] .svc-feature-list { grid-template-columns: 1fr 1fr; gap: 0 14px; width: 100%; border-top: 1px solid rgba(251, 248, 244, 0.16); }
-[data-e-section="Services"] .svc-feature-list li { gap: 8px; padding: 10px 0; border-bottom: 1px solid rgba(251, 248, 244, 0.16); font-size: 13.5px; }
+[data-e-section="Services"] .svc-feature-list { grid-template-columns: 1fr 1fr; gap: 0 14px; width: 100%; border-top: 1px solid rgba(133, 31, 53, 0.14); }
+[data-e-section="Services"] .svc-feature-list li { gap: 8px; padding: 10px 0; border-bottom: 1px solid rgba(133, 31, 53, 0.14); font-size: 13.5px; }
 @media (min-width: 900px) {
   [data-e-section="Services"] .svc-feature { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 56px; margin-top: 48px; padding: 48px; }
   [data-e-section="Services"] .svc-feature-img { height: 380px; aspect-ratio: auto; border-radius: 16px; }
@@ -165,7 +178,7 @@ html.js [data-e-section] .eyebrow.rv.in { letter-spacing: 0.2em; }
   [data-e-section="FinalCta"] .faq-side { position: sticky; top: calc(var(--hdr) + 32px); gap: 14px; }
 }
 /* the closing line under the FAQ, as on v6 (the footer's help band is then left out on the home) */
-[data-e-section="FinalCta"] .final-close { padding-block: clamp(64px, 8vw, 120px); background: #fff; text-align: center; }
+[data-e-section="FinalCta"] .final-close { padding-block: clamp(64px, 8vw, 120px); background: var(--primary-tint); text-align: center; }
 [data-e-section="FinalCta"] .final-close-in { display: flex; flex-direction: column; align-items: center; gap: 18px; }
 [data-e-section="FinalCta"] .final-close .rule { display: block; width: 40px; height: 1px; background: var(--primary); }
 [data-e-section="FinalCta"] .final-close .h2 { max-width: 600px; } /* v6 says 18ch in Cormorant (about 515px); Calisto needs the room to break the same way */
@@ -181,20 +194,22 @@ html.js [data-e-section] .eyebrow.rv.in { letter-spacing: 0.2em; }
    v6's section rhythm, the label column on desktop (heading in 4 of 12 columns, the content in 8), the tiles as
    hairline rows in v6's columns. v3 keeps its colours and type.
 ============================================================================= */
-/* the page hero: the photo at 40svh on phones, then the ink panel; from 1024px the panel left (44%), the photo right */
+/* the page hero (theme F): the photo at 40svh on phones melting into white, the words on white below rising a
+   little over the fade; from 1024px the photo fills the right of the band and melts into white from the left */
 .ph-media { height: 40svh; min-height: 220px; max-height: 380px; }
-.ph-in { margin-top: 0; padding-block: 22px 36px; gap: 14px; }
+.ph-in { margin-top: -44px; padding-block: 0 36px; gap: 14px; }
 .ph h1 { font-size: clamp(32px, 9.2vw, 40px); line-height: 1.1; }
 @media (min-width: 900px) and (max-width: 1023px) {
   .ph { display: block; min-height: 0; }
   .ph-media { position: relative; inset: auto; left: auto; height: 40svh; }
-  .ph-in { padding-top: 22px; }
   .ph-in > * { max-width: none; }
 }
 @media (min-width: 1024px) {
   .ph { display: flex; align-items: center; min-height: clamp(480px, 38vw, 560px); }
-  .ph-media { position: absolute; inset: 0 0 0 44%; height: auto; min-height: 0; max-height: none; }
-  .ph-in { padding-block: clamp(28px, 4vh, 44px) clamp(32px, 5vh, 52px); gap: 18px; }
+  .ph-media { position: absolute; inset: 0 0 0 36%; height: auto; min-height: 0; max-height: none; }
+  .ph-media img { object-position: var(--pos, 50% 50%); }
+  .ph-media::after { top: 0; height: auto; background: linear-gradient(90deg, #FFFFFF 0%, #FFFFFF 4%, rgba(255, 255, 255, 0.86) 16%, rgba(255, 255, 255, 0) 45%); }
+  .ph-in { margin-top: 0; padding-block: clamp(28px, 4vh, 44px) clamp(32px, 5vh, 52px); gap: 18px; }
   .ph-in > * { max-width: min(560px, calc(44vw - max(var(--gutter), (100vw - 1280px) / 2 + var(--gutter)) - 40px)); }
   .ph h1 { font-size: clamp(42px, 3.7vw, 58px); max-width: 14ch; }
   .ph-ctas { align-self: flex-start; }
@@ -228,5 +243,5 @@ html.js [data-e-section] .eyebrow.rv.in { letter-spacing: 0.2em; }
   .tile, .tiles.has-text .tile { grid-template-columns: 36px minmax(0, 1fr); gap: 16px; padding: 24px 0; }
 }
 @media (min-width: 1100px) { .tiles.c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.pg-band.dark .tiles, .pg-band.dark .tile { border-color: rgba(251, 248, 244, 0.16); }
+.pg-band.dark .tiles, .pg-band.dark .tile { border-color: rgba(133, 31, 53, 0.14); }
 .glass-tiles .tile-ico { background: none; border: 0; }
