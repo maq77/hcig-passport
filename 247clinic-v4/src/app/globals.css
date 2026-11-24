@@ -7,10 +7,10 @@
    hairlines, charcoal text. WhatsApp green survives only as the small living dot. No bright red beside the
    burgundy (the logo keeps its own colours). */
 :root {
-  --primary: #851F35;        /* burgundy: 9.4:1 on white */
-  --primary-deep: #6B1829;
-  --primary-tint: #F6ECEE;   /* light burgundy */
-  --primary-line: #E9D3D8;
+  --primary: #890000;        /* deep red (his trial 2026-11-24, was burgundy #851F35): 10.2:1 on white */
+  --primary-deep: #6E0000;
+  --primary-tint: #F6EBEB;   /* light red */
+  --primary-line: #E9CFCF;
   --ink: #292929;            /* charcoal: 14.5:1 on white */
   --ink-2: #4E4B4A;          /* body text */
   --ink-3: #686463;          /* quiet text */
@@ -25,10 +25,10 @@
   --wa-ink: #292929;
   --wa-tint: #F8F6F5;
 
-  --shadow-sm: 0 1px 2px rgba(41, 41, 41, 0.04), 0 6px 18px rgba(133, 31, 53, 0.06);
-  --shadow-md: 0 4px 12px rgba(41, 41, 41, 0.05), 0 20px 44px rgba(133, 31, 53, 0.09);
-  --shadow-lg: 0 10px 24px rgba(41, 41, 41, 0.06), 0 34px 70px rgba(133, 31, 53, 0.12);
-  --shadow-card: 0 22px 54px rgba(133, 31, 53, 0.1), 0 2px 6px rgba(41, 41, 41, 0.05);
+  --shadow-sm: 0 1px 2px rgba(41, 41, 41, 0.04), 0 6px 18px rgba(137, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(41, 41, 41, 0.05), 0 20px 44px rgba(137, 0, 0, 0.09);
+  --shadow-lg: 0 10px 24px rgba(41, 41, 41, 0.06), 0 34px 70px rgba(137, 0, 0, 0.12);
+  --shadow-card: 0 22px 54px rgba(137, 0, 0, 0.1), 0 2px 6px rgba(41, 41, 41, 0.05);
 
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --gutter: clamp(16px, 4.4vw, 64px);
@@ -91,7 +91,7 @@
 .btn-wa { background: #fff; color: var(--ink); border: 1.5px solid var(--ink); box-shadow: none; }
 .btn-wa svg { color: currentColor; }
 .btn-wa:hover { background: var(--ink); border-color: var(--ink); color: #fff; transform: translateY(-2px); }
-.btn-call, .btn-primary { background: var(--primary); color: #fff; border: 1.5px solid var(--primary); box-shadow: 0 10px 24px rgba(133, 31, 53, 0.18); }
+.btn-call, .btn-primary { background: var(--primary); color: #fff; border: 1.5px solid var(--primary); box-shadow: 0 10px 24px rgba(137, 0, 0, 0.18); }
 .btn-call:hover, .btn-primary:hover { background: var(--primary-deep); border-color: var(--primary-deep); }
 .btn-primary svg { color: currentColor; }
 .btn-primary:hover svg { transform: translateX(3px); }
@@ -156,7 +156,7 @@
 .bigplay .ring.r2 { animation-delay: 1.3s; }
 @keyframes ring { from { transform: scale(1); opacity: 0.9; } to { transform: scale(1.9); opacity: 0; } }
 .bigplay-label { padding: 8px 16px; border-radius: 999px; background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); font-weight: 600; font-size: 14.5px; color: var(--ink); box-shadow: var(--shadow-sm); transition: transform 0.35s var(--ease); }
-.bigplay:hover .bigplay-disc { transform: scale(1.08); box-shadow: 0 22px 50px rgba(133, 31, 53, 0.24); }
+.bigplay:hover .bigplay-disc { transform: scale(1.08); box-shadow: 0 22px 50px rgba(137, 0, 0, 0.24); }
 .bigplay:hover .bigplay-disc svg { transform: scale(1.1); }
 .bigplay:hover .bigplay-label { transform: translateY(2px); }
 @media (min-width: 900px) { .bigplay-disc { width: 104px; height: 104px; } .bigplay-disc svg { width: 36px; height: 36px; } }
@@ -205,7 +205,7 @@ html.js .more.is-long:not(.is-open) .more-body { -webkit-mask-image: linear-grad
 html:not(.js) .more-body { height: auto !important; }
 html:not(.js) .more-btn { display: none; }
 .more-btn { border: 1px solid var(--line); background: #fff; color: var(--ink); box-shadow: 0 1px 2px rgba(41, 41, 41, 0.05); }
-.more-btn:hover { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 8px 18px rgba(133, 31, 53, 0.2); }
+.more-btn:hover { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 8px 18px rgba(137, 0, 0, 0.2); }
 .more.is-open .more-btn { background: var(--primary); border-color: var(--primary); color: #fff; }
 .more-btn:focus-visible { outline: 2.5px solid var(--primary); outline-offset: 3px; border-radius: 50%; }
 
@@ -292,7 +292,7 @@ html:not(.js) .more-btn { display: none; }
 .snap-line { flex: 1; height: 3px; border-radius: 3px; background: var(--line-2); overflow: hidden; }
 .snap-line span { display: block; height: 100%; border-radius: inherit; background: var(--primary); transform-origin: left center; transition: transform 0.18s linear; }
 .snap-arrow { width: 44px; height: 44px; flex: none; border-radius: 50%; display: grid; place-items: center; background: #fff; border: 1px solid var(--line-2); color: var(--ink); box-shadow: var(--shadow-sm); transition: background-color 0.2s var(--ease), color 0.2s var(--ease), border-color 0.2s var(--ease), opacity 0.2s var(--ease); }
-.snap-arrow:hover:not(:disabled) { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 8px 18px rgba(133, 31, 53, 0.2); }
+.snap-arrow:hover:not(:disabled) { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 8px 18px rgba(137, 0, 0, 0.2); }
 .snap-arrow:disabled { opacity: 0.35; cursor: default; }
 @media (min-width: 768px) {
   .posts-row .snap-track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; overflow: visible; margin: 0; padding: 0; }
@@ -411,7 +411,7 @@ html:not(.js) .more-btn { display: none; }
 .post-img { display: block; aspect-ratio: 980 / 500; overflow: hidden; }
 .post-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
 .post:hover .post-img img { transform: scale(1.05); }
-.post-date { position: relative; z-index: 2; align-self: flex-start; margin: -34px 0 -34px 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 68px; height: 68px; border-radius: 14px; background: var(--primary); color: #fff; box-shadow: 0 10px 22px rgba(133, 31, 53, 0.2); }
+.post-date { position: relative; z-index: 2; align-self: flex-start; margin: -34px 0 -34px 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 68px; height: 68px; border-radius: 14px; background: var(--primary); color: #fff; box-shadow: 0 10px 22px rgba(137, 0, 0, 0.2); }
 .post-date b { font-size: 24px; line-height: 1; }
 .post-date span { font-size: 11px; font-weight: 600; letter-spacing: 0.04em; }
 .post-body { display: flex; flex-direction: column; gap: 10px; padding: 44px 22px 20px; }

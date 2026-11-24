@@ -18,10 +18,10 @@
 .v6 {
   --ivory: #F8F6F5;           /* soft off-white */
   --ink: #292929;             /* charcoal: text only */
-  --red: #851F35;             /* burgundy */
-  --red-deep: #6B1829;
-  --red-on-ink: #851F35;
-  --tint-b: #F6ECEE;          /* light burgundy */
+  --red: #890000;             /* deep red (his trial 2026-11-24, was burgundy #851F35) */
+  --red-deep: #6E0000;
+  --red-on-ink: #890000;
+  --tint-b: #F6EBEB;          /* light red */
   --white: #FFFFFF;
   --wa: #25D366;              /* the dot only */
   --wa-glyph: #292929;
@@ -32,7 +32,7 @@
   --line-2: #D8D1CE;
   --line: #E7E2E0;
   --tint: #F8F6F5;
-  --tint-2: #F6ECEE;
+  --tint-2: #F6EBEB;
   /* Nothing is dark any more: the old "on ink" names now read as charcoal on light, so nothing can go pale. */
   --on-ink: var(--ink);
   --on-ink-78: var(--ink-78);
@@ -355,7 +355,7 @@ body.has-layer .wa-dock, body:has(.dc-scrim, .viewer) .wa-dock { opacity: 0; vis
 .hero-text { margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: var(--ink-78); max-width: 46ch; }
 .hero-ctas { margin-top: 20px; flex-direction: column; align-items: stretch; gap: 10px; }
 .hero-ctas .btn { width: 100%; min-height: 54px; font-size: 15px; font-weight: 600; }
-.hero-ctas .btn-primary { box-shadow: 0 14px 30px rgba(133, 31, 53, 0.25); }
+.hero-ctas .btn-primary { box-shadow: 0 14px 30px rgba(137, 0, 0, 0.25); }
 
 /* the slim burgundy strip: the four promises in Calisto, white on burgundy (9.4:1) */
 .hero-strip { position: relative; z-index: 4; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; background: var(--red); color: var(--white); font-family: var(--font-head); font-weight: 400; text-align: center; }
@@ -410,7 +410,7 @@ body.has-layer .wa-dock, body:has(.dc-scrim, .viewer) .wa-dock { opacity: 0; vis
 
 /* ======================= the closing line of the help band ======================= */
 /* the closing line (the footer's help band says it on inner pages) */
-:is(.final-close, .help-band) { padding-block: var(--section); background: var(--tint-b, #F6ECEE); text-align: center; }
+:is(.final-close, .help-band) { padding-block: var(--section); background: var(--tint-b, #F6EBEB); text-align: center; }
 :is(.final-close-in, .help-in) { display: flex; flex-direction: column; align-items: center; gap: 18px; }
 :is(.final-close, .help-band) .h2 { max-width: 18ch; }
 :is(.final-close, .help-band) .lead { margin-inline: auto; }

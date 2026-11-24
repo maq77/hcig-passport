@@ -46,7 +46,7 @@ const STYLES: google.maps.MapTypeStyle[] = [
   { featureType: "administrative.land_parcel", stylers: [{ visibility: "off" }] },
   { featureType: "poi", stylers: [{ visibility: "off" }] },
   { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] },
-  { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#f6ecee" }] },
+  { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#f6ebeb" }] },
   { featureType: "road", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
   { featureType: "transit", stylers: [{ visibility: "off" }] },
   { featureType: "water", elementType: "geometry", stylers: [{ color: "#e7e2e0" }] },
@@ -55,7 +55,7 @@ const STYLES: google.maps.MapTypeStyle[] = [
 
 const PIN = (active: boolean) =>
   `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 30"><path d="M12 29s9-8.2 9-17A9 9 0 1 0 3 12c0 8.8 9 17 9 17Z" fill="${active ? "#6B1829" : "#851F35"}" stroke="#ffffff" stroke-width="1.4"/><circle cx="12" cy="11.6" r="3.4" fill="#ffffff"/></svg>`,
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 30"><path d="M12 29s9-8.2 9-17A9 9 0 1 0 3 12c0 8.8 9 17 9 17Z" fill="${active ? "#6E0000" : "#890000"}" stroke="#ffffff" stroke-width="1.4"/><circle cx="12" cy="11.6" r="3.4" fill="#ffffff"/></svg>`,
   )}`;
 
 /* Medcierge's camera path (van Wijk and Nuij, the one Leaflet flies): one move that zooms
@@ -309,7 +309,7 @@ function LeafletFallback({ clinics }: { clinics: FinderClinic[] }) {
       L.control.attribution({ position: "bottomleft", prefix: false }).addTo(map);
       L.tileLayer("https://tile.openstreetmap.de/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "&copy; OpenStreetMap" }).addTo(map);
       const g = L.featureGroup(clinics.filter((c) => c.mappable).map((c) =>
-        L.circleMarker([c.lat, c.lng], { radius: 7, color: "#fff", weight: 2, fillColor: "#851F35", fillOpacity: 1 }).bindTooltip(c.hotel))).addTo(map);
+        L.circleMarker([c.lat, c.lng], { radius: 7, color: "#fff", weight: 2, fillColor: "#890000", fillOpacity: 1 }).bindTooltip(c.hotel))).addTo(map);
       map.fitBounds(g.getBounds(), { padding: [36, 36] });
     })();
     return () => { gone = true; map?.remove(); };
