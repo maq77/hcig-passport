@@ -13,7 +13,7 @@ export const metadata = pageMeta(s.heading, s.body[0], "/our-clinics");
 export default function OurClinics() {
   return (
     <>
-      <PageHero eyebrow="Find a clinic" title={s.heading} lead={s.body} img="/img/clinic-in-hotel.webp" pos="62% 18%" posM="60% 40%"
+      <PageHero eyebrow="Find a clinic" title={s.heading} lead={s.body} img="/img/hero-resort.webp" pos="60% 50%" posM="72% 50%"
         trail={[{ name: "Home", path: "/" }, { name: "Find a Clinic", path: "/our-clinics" }]}>
         <WaButton placement="clinics-hero">{BRIEF.waUs}</WaButton>
       </PageHero>
