@@ -19,11 +19,11 @@ export function generateStaticParams() {
 const tpl = section("destination-template", "destination-seo-pages");
 const fill = (s: string, name: string) => s.replace(/Hurghada/g, name);
 const HERO_IMG: Record<DestinationId, [string, string]> = {
-  "hurghada": ["/img/hero-resort.webp", "60% 50%"],
+  "hurghada": ["/img/clinic-in-hotel.webp", "60% 22%"],
   "sahl-hasheesh": ["/img/doctor-promenade.webp", "66% 55%"],
   "soma-bay": ["/img/resort-pool.webp", "50% 55%"],
-  "marsa-alam": ["/img/doctor-promenade.webp", "66% 55%"],
-  "el-quseir": ["/img/hero-resort-enhanced.jpg", "50% 50%"],
+  "marsa-alam": ["/img/team-resort.webp", "68% 60%"],
+  "el-quseir": ["/img/doctor-promenade.webp", "66% 55%"],
   "north-coast": ["/img/resort-pool.webp", "35% 55%"],
 };
 

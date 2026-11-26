@@ -13,7 +13,7 @@ export default function Accreditation() {
   const cta = s.ctas[0].label;
   return (
     <>
-      <PageHero eyebrow="Accreditation" title={s.heading} lead={s.body} img="/img/hero-resort-enhanced.jpg" pos="50% 40%" posM="70% 40%"
+      <PageHero eyebrow="Accreditation" title={s.heading} lead={s.body} img="/img/team-resort.webp" pos="62% 60%" posM="74% 62%"
         trail={[{ name: "Home", path: "/" }, { name: "International Accreditation", path: "/international-accreditation" }]}>
         <LinkButton href={`${BASE}/our-clinics`} placement="accreditation-hero" ev="find_clinic_click">{cta}</LinkButton>
       </PageHero>
