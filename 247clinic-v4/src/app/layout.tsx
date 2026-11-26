@@ -46,7 +46,9 @@ export const metadata: Metadata = {
   title: THEIRS.pageTitle,
   description: hero.body[0],
   robots: IS_PREVIEW ? { index: false, follow: false } : { index: true, follow: true },
-  ...(IS_PREVIEW ? {} : { alternates: { canonical: `${SITE}/` }, metadataBase: new URL(SITE) }),
+  /* every relative share-image URL resolves against the real host (the preview had localhost:3000 before) */
+  metadataBase: new URL(IS_PREVIEW ? PREVIEW_HOST : SITE),
+  ...(IS_PREVIEW ? {} : { alternates: { canonical: `${SITE}/` } }),
   /* Search Console HTML-tag verification, only when a token is set for the live build. */
   ...(!IS_PREVIEW && GSC_TOKEN ? { verification: { google: GSC_TOKEN } } : {}),
   icons: {
