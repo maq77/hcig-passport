@@ -13,7 +13,7 @@ export default function InsurancePartners() {
   const cta = s.ctas[0].label;
   return (
     <>
-      <PageHero eyebrow="Insurance & cashless" title={s.heading} lead={[opening]} img="/slots/svc-specialist.webp" pos="50% 50%" posM="40% 50%"
+      <PageHero eyebrow="Insurance & cashless" title={s.heading} lead={[opening]} img="/img/insurance-desk.webp" pos="50% 50%" posM="58% 50%"
         trail={[{ name: "Home", path: "/" }, { name: "For Hotels & Partners", path: "/for-hotels" }, { name: "For Insurance & Assistance Companies", path: "/insurance-assistance-partners" }]}>
         <LinkButton href={`${BASE}/contact-us#business`} placement="insurers-hero">{cta}</LinkButton>
       </PageHero>

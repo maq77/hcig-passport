@@ -73,7 +73,8 @@
     "Instagram",
     "Facebook",
     "YouTube",
-    "LinkedIn"
+    "LinkedIn",
+    "View All Articles"
   ],
   "patterns": [
     "^Call \\+20 122 222 8247$",

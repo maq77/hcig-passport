@@ -13,13 +13,13 @@ export default function About() {
   const [opening, model, teams] = s.body;
   return (
     <>
-      <PageHero eyebrow="About Us" title={s.heading} lead={[opening]} img="/img/hero-resort-authentic.jpg" pos="50% 62%" posM="50% 70%"
+      <PageHero eyebrow="About Us" title={s.heading} lead={[opening]} img="/img/team-resort.webp" pos="62% 60%" posM="74% 62%"
         trail={[{ name: "Home", path: "/" }, { name: "About Us", path: "/about-us" }]}>
         <WaButton placement="about-hero">{BRIEF.waUs}</WaButton>
       </PageHero>
 
       <Band id="ab-model">
-        <Split img="/img/new-medical-care.jpg" ratio="4 / 4.4">
+        <Split img="/img/care-beach.webp" ratio="4 / 4.4">
           <p className="pg-pull rv">{model}</p>
           <p className="lead rv">{teams}</p>
         </Split>

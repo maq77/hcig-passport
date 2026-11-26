@@ -20,7 +20,7 @@ export default function Faqs() {
   };
   return (
     <>
-      <PageHero eyebrow="FAQ" title={home.heading} lead={home.body} img="/img/why-bedside.webp" pos="50% 50%" posM="62% 50%"
+      <PageHero eyebrow="FAQ" title={home.heading} lead={home.body} img="/img/bedside-suite.webp" pos="55% 50%" posM="62% 50%"
         trail={[{ name: "Home", path: "/" }, { name: "FAQs", path: "/faqs" }]}>
         <WaButton placement="faq-hero">{BRIEF.waUs}</WaButton>
       </PageHero>

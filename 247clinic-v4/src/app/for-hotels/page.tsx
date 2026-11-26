@@ -15,10 +15,10 @@ export const metadata = pageMeta(hero.heading, hero.body[0], "/for-hotels");
 
 /* Photos: real ones first (clinic care at a resort, the team with the golf cart, the hotel). */
 const MODEL_IMG: [string, string][] = [
-  ["/img/new-medical-care.jpg", "50% 38%"],
-  ["/slots/svc-specialist.webp", "50% 55%"],
-  ["/img/hero-resort-authentic.jpg", "50% 84%"],
-  ["/img/why-resort.webp", "50% 60%"],
+  ["/img/care-beach.webp", "50% 55%"],
+  ["/img/insurance-desk.webp", "50% 50%"],
+  ["/img/team-resort.webp", "70% 60%"],
+  ["/img/resort-pool.webp", "45% 60%"],
 ];
 
 export default function ForHotels() {

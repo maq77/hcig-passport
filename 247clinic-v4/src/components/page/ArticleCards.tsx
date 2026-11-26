@@ -19,7 +19,7 @@ export function ArticleCards({ items, withOld, feature }: { items: Article[]; wi
       {cards.map((c, i) => (
         <li key={c.href} className="rv" style={{ transitionDelay: `${(i % 3) * 90}ms` }}>
           <a className="post card" href={c.href} {...(c.out ? { target: "_blank", rel: "noopener" } : {})}>
-            <span className="post-img"><img src={asset(c.img)} alt="" width={1376} height={768} loading="lazy" /></span>
+            <span className="post-img"><img src={asset(c.img)} alt="" width={1600} height={893} loading="lazy" /></span>
             <span className="post-date"><b>{c.day}</b><span>{c.month}</span></span>
             <span className="post-body">
               <h3>{c.title}</h3>

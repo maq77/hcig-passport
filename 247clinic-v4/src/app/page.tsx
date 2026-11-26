@@ -1,4 +1,5 @@
 import { Destinations, Facilities, FinalCta, Hero, HotelBand, Insurance, Intro, Posts, Services, Stories } from "@/components/home/Sections";
+import { BlogHome } from "@/components/home/BlogHome";
 import { WA_MESSAGES } from "@/lib/wa";
 import layout from "@/content/home-layout.json";
 import Block from "@/components/editor/Block";
@@ -30,6 +31,8 @@ const SECTIONS: Record<string, FC> = {
   Hero, HotelBand, Facilities, Services, Intro,
   Insurance: () => <Insurance insuranceMessage={WA_MESSAGES.insurance} />,
   Stories, Destinations, FinalCta, Posts,
+  /* Irina's articles, option A (his pick 2026-11-26), after Destinations. */
+  Blog: BlogHome,
 };
 
 type Layout = {

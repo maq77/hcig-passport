@@ -35,7 +35,7 @@ export default function Insurance() {
       </Band>
 
       <Band id="ins-need" title={need.title}>
-        <Split img="/img/why-bedside.webp" rev>
+        <Split img="/img/bedside-suite.webp" rev>
           <Checks title={`${needLead}:`} items={needList.replace(/\.\s*$/, "").split(/,\s*/)} />
           <div className="cta-row rv">
             <WaButton placement="insurance-need" ctx="insurance">{s.ctas[0].label}</WaButton>

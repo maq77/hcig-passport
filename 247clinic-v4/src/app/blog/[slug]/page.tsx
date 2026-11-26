@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
   if (!a) return {};
   const base = pageMeta(a.title, a.metaDescription, `/blog/${a.slug}`);
   /* Her SEO title is the whole title tag (no second brand suffix). */
-  return { ...base, title: { absolute: a.seoTitle }, openGraph: { ...base.openGraph, title: a.seoTitle, type: "article", images: [{ url: asset(a.cover), width: 1376, height: 768 }] } };
+  return { ...base, title: { absolute: a.seoTitle }, openGraph: { ...base.openGraph, title: a.seoTitle, type: "article", images: [{ url: asset(a.cover), width: 1600, height: 893 }] } };
 }
 
 /* "**bold** rest" -> nodes */
