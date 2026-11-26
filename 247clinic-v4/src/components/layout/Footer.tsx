@@ -15,7 +15,6 @@ import { section } from "@/content/load";
 import { CallButton, WaButton } from "@/components/ui/Buttons";
 import { SocialIcon, WhatsAppGlyph, type SocialName } from "@/components/ui/Icon";
 import { telHref, waHref } from "@/lib/wa";
-import { NewsletterBand } from "./NewsletterBand";
 
 export function Footer({ nav, footerOnly }: { nav: string[]; footerOnly: string[] }) {
   const year = new Date().getFullYear();
@@ -48,7 +47,11 @@ export function Footer({ nav, footerOnly }: { nav: string[]; footerOnly: string[
                 ))}
               </div>
             </div>
-            <NewsletterBand email={THEIRS.email} title="Stay in Touch" line="Subscribe for news from 24/7 Clinic." label="Email address" button="Subscribe" />
+            {/* His ask 2026-11-26: the subscribe block goes ("we dont need that"); the UCA and HCIG lines take its place. */}
+            <ul className="badges foot-proof">
+              <li><span className="badge-plate"><img src={asset("/logos/marks/uca.png")} alt="" width={48} height={48} loading="lazy" /></span><span>{APPROVED.accredited}</span></li>
+              <li><span className="badge-plate"><img src={asset("/logos/marks/hcig.png")} alt="" width={50} height={48} loading="lazy" /></span><span>{APPROVED.partOf}</span></li>
+            </ul>
           </div>
 
           <div className="foot">
@@ -79,10 +82,6 @@ export function Footer({ nav, footerOnly }: { nav: string[]; footerOnly: string[
           </div>
 
           <div className="foot-base">
-            <ul className="badges">
-              <li><span className="badge-plate"><img src={asset("/logos/marks/uca.png")} alt="" width={48} height={48} loading="lazy" /></span><span>{APPROVED.accredited}</span></li>
-              <li><span className="badge-plate"><img src={asset("/logos/marks/hcig.png")} alt="" width={50} height={48} loading="lazy" /></span><span>{APPROVED.partOf}</span></li>
-            </ul>
             <span className="copy">&copy; {year} 24/7 Clinic. {THEIRS.rights} <span className="powered">Powered by Pulse Marketing</span></span>
           </div>
         </div>

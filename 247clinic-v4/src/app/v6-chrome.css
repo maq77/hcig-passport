@@ -251,6 +251,13 @@ body:has(.pg-cta-wrap, .final-close) .site-footer .help-band { display: none; }
 .badges li { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; color: var(--ink-78); }
 .badge-plate { display: grid; place-items: center; width: 40px; height: 40px; flex: none; box-sizing: border-box; border-radius: var(--r-tag); background: var(--white); border: var(--hair) solid var(--line); }
 .badge-plate img { width: 30px; height: 30px; object-fit: contain; }
+/* The UCA and HCIG lines sit where the subscribe block was (his ask 2026-11-26): stacked, larger plates,
+   at the right edge of the logo row on desktop, under the logo text on phones. */
+.foot-proof { display: grid; gap: 14px; }
+.foot-proof li { gap: 16px; font-size: 15px; line-height: 1.45; }
+.foot-proof .badge-plate { width: 56px; height: 56px; }
+.foot-proof .badge-plate img { width: 40px; height: 40px; }
+@media (min-width: 900px) { .foot-top .foot-proof { justify-self: end; align-self: end; } }
 /* Phones and tablets: the footer leaves room for the concierge dock, so it never covers the last line. */
 @media (max-width: 1023px) { .foot-ink { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); } }
 
@@ -271,6 +278,7 @@ body:has(.pg-cta-wrap, .final-close) .site-footer .help-band { display: none; }
 /* ---------- "Powered by Pulse Marketing" sits in the copyright line, in the same type (his ask 2026-11-17) ---------- */
 .copy .powered { white-space: nowrap; }
 .copy .powered::before { content: "|"; margin-inline: 10px; opacity: 0.5; }
+@media (max-width: 599px) { .copy .powered { display: block; margin-top: 4px; } .copy .powered::before { content: none; } }
 
 /* ---------- the living green dot (WA1 option 00): a 10px WhatsApp-green light whose ring breathes out.
    Transform and opacity only; a still dot under reduced motion. Shared with globals.css. ---------- */
@@ -304,6 +312,8 @@ body.has-layer .wa-dock, body:has(.dc-scrim, .viewer) .wa-dock { opacity: 0; vis
 .dock-call:hover { background: var(--red-deep); }
 .dock-call:active { transform: scale(0.96); }
 .wa-dock .dock-wa { width: 100%; min-height: 48px; padding: 0 16px; font-size: 14.5px; }
+/* Very narrow phones (folded Fold, large text): the label stays on one line; with very large text it may wrap inside the pill. */
+@media (max-width: 339px) { .wa-dock .dock-wa { padding: 0 10px; gap: 8px; font-size: 13.5px; } }
 @media (min-width: 1024px) { .wa-dock { display: none; } }
 
 /* =============================================================================
