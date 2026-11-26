@@ -40,7 +40,7 @@ export default function ForHotels() {
   return (
     <>
       <PageHero eyebrow="For Hotels & Partners" title={hero.heading} sub={hero.subheading}
-        img="/img/hero-resort.webp" pos="62% 50%" posM="72% 50%"
+        img="/img/clinic-in-hotel.webp" pos="62% 18%" posM="60% 40%"
         trail={[{ name: "Home", path: "/" }, { name: "For Hotels & Partners", path: "/for-hotels" }]}>
         <PartnerBtn />
         <a href="#model" className="btn btn-secondary"><span>{hero.ctas[1].label}</span><ArrowDown size={18} aria-hidden="true" /></a>

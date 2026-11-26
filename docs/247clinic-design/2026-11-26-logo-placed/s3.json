@@ -1,0 +1,28 @@
+{
+ "src": "C:/Users/maqmo/Downloads/247 logo edits/3 team at the resort.jpg",
+ "out": "3-logo.jpg",
+ "logos": [
+  {
+   "cx": 1538,
+   "cy": 880,
+   "w": 30
+  },
+  {
+   "cx": 1821,
+   "cy": 824,
+   "w": 44
+  },
+  {
+   "cx": 2152,
+   "cy": 838,
+   "w": 38,
+   "squash": 0.9
+  },
+  {
+   "cx": 2165,
+   "cy": 1105,
+   "w": 50,
+   "opacity": 0.92
+  }
+ ]
+}

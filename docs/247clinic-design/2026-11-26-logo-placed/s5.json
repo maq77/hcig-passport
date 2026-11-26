@@ -1,0 +1,13 @@
+{
+ "src": "C:/Users/maqmo/Downloads/247 logo edits/5 bedside suite.jpg",
+ "out": "5-logo.jpg",
+ "logos": [
+  {
+   "cx": 1062,
+   "cy": 872,
+   "w": 50,
+   "rot": -10,
+   "squash": 0.85
+  }
+ ]
+}

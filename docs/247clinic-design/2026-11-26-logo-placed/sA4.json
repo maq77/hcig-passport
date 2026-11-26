@@ -1,0 +1,19 @@
+{
+ "src": "C:/Users/maqmo/Downloads/247 logo edits/A4 doctor visit cover.jpg",
+ "out": "A4-logo.jpg",
+ "logos": [
+  {
+   "cx": 1045,
+   "cy": 690,
+   "w": 46,
+   "squash": 0.9
+  },
+  {
+   "cx": 770,
+   "cy": 1158,
+   "w": 50,
+   "rot": 16,
+   "opacity": 0.92
+  }
+ ]
+}
