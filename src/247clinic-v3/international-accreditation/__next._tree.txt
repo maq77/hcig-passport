@@ -10,6 +10,6 @@
 :HL["/247clinic/v3/_next/static/media/calisto_400-s.p.3o3vzlv8k1lzq.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/247clinic/v3/_next/static/media/calisto_700-s.p.0m8yrpuysj1pt.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/247clinic/v3/_next/static/media/e2334d715941921e-s.p.3o_v2fun1jzxk.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/247clinic/v3/img/hero-resort-enhanced.jpg","image",{"fetchPriority":"high"}]
+:HL["/247clinic/v3/img/team-resort.webp","image",{"fetchPriority":"high"}]
 :HL["/247clinic/v3/logos/marks/uca.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"international-accreditation","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"HchHzXALlJdlJLCygIhBM"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"international-accreditation","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"BK-5v64gp0bO2UgEJiCPn"}
