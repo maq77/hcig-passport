@@ -55,6 +55,7 @@ export default async function HotelClinic({ params }: P) {
     address: { "@type": "PostalAddress", addressLocality: dest, addressCountry: "EG" },
     ...(c.coord === "placeholder" ? {} : { geo: { "@type": "GeoCoordinates", latitude: c.lat, longitude: c.lng } }),
     url: `https://www.247clinic.net${clinicPath(c)}`,
+    parentOrganization: { "@id": "https://www.247clinic.net/#org" },
   };
   return (
     <>

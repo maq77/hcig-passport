@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
   if (!a) return {};
   const base = pageMeta(a.title, a.metaDescription, `/blog/${a.slug}`);
   /* Her SEO title is the whole title tag (no second brand suffix). */
-  return { ...base, title: { absolute: a.seoTitle }, openGraph: { ...base.openGraph, title: a.seoTitle, type: "article", images: [{ url: asset(a.cover), width: 1600, height: 893 }] } };
+  return { ...base, title: { absolute: a.seoTitle }, openGraph: { ...base.openGraph, title: a.seoTitle, type: "article", images: [{ url: asset(`/img/blog/og/${a.slug}.jpg`), width: 1200, height: 630 }] } };
 }
 
 /* "**bold** rest" -> nodes */
@@ -55,10 +55,11 @@ export default async function ArticlePage({ params }: P) {
     description: a.metaDescription,
     datePublished: a.date,
     dateModified: a.date,
-    image: `https://www.247clinic.net${a.cover}`,
     mainEntityOfPage: `https://www.247clinic.net/blog/${a.slug}`,
-    author: { "@type": "Organization", name: "24/7 Clinic", url: "https://www.247clinic.net" },
-    publisher: { "@type": "Organization", name: "24/7 Clinic", logo: { "@type": "ImageObject", url: "https://www.247clinic.net/logos/marks/247-logo.svg" } },
+    author: { "@type": "Organization", "@id": "https://www.247clinic.net/#org", name: "24/7 Clinic", url: "https://www.247clinic.net" },
+    publisher: { "@id": "https://www.247clinic.net/#org" },
+    image: `https://www.247clinic.net/img/blog/og/${a.slug}.jpg`,
+    inLanguage: "en",
   };
   return (
     <>

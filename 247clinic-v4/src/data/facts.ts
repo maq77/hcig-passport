@@ -16,6 +16,12 @@ export const NUMBERS = [
 
 export const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 export const IS_PREVIEW = process.env.NEXT_PUBLIC_TARGET !== "live";
+/* The live domain, and the preview host (moved to hcig-passport-psi on 2026-11-26, new Vercel account). */
+export const SITE = "https://www.247clinic.net";
+export const PREVIEW_HOST = "https://hcig-passport-psi.vercel.app";
+/* Filled at live build time by go_live.ps1 from deploy/live-settings.json; empty means not used. */
+export const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID ?? "";
+export const GSC_TOKEN = process.env.NEXT_PUBLIC_GSC_TOKEN ?? "";
 
 /* Prefix a public file path with the basePath (next/image is unoptimized, and plain
    <video>/<img> do not get the basePath added for them). */
