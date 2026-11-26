@@ -1,5 +1,5 @@
 {
-  "devNotes": "Five articles from Irina (marketing), sent 2026-11-25, words kept exactly. Title split at the colon: title is the h1, subtitle the red line under it. A block starting with '## ' is one of her bold sub-headings. **text** marks sentences set in bold (his ask 2026-11-26: a sentence with its own point or importance is bold). Article 5's SEO title, meta description and URL are hers; articles 1-4 use her title before the colon plus her ' | 24/7 Clinics' pattern, and one of her own sentences as the meta description. In her last line of article 5 the dash became a colon (no dashes rule); the words are unchanged.",
+  "devNotes": "Five articles from Irina (marketing), sent 2026-11-25, words kept exactly. Title split at the colon: title is the h1, subtitle the red line under it. A block starting with '## ' is one of her bold sub-headings. **text** marks sentences set in bold (his ask 2026-11-26: a sentence with its own point or importance is bold). Article 5's SEO title, meta description and URL are hers; articles 1-4 use her title before the colon plus her ' | 24/7 Clinics' pattern, and one of her own sentences as the meta description. In her last line of article 5 the dash became a colon (no dashes rule); the words are unchanged. Dates (his ask 2026-11-26: different dates from June 2026 to today): 18 Jun, 23 Jul, 27 Aug, 8 Oct, 26 Nov 2026; lists show the newest first.",
   "articles": [
     {
       "slug": "travel-medical-insurance-in-egypt",
@@ -7,9 +7,9 @@
       "subtitle": "Accessing Healthcare Without Financial Stress",
       "seoTitle": "Travel Medical Insurance in Egypt | 24/7 Clinics",
       "metaDescription": "Travel medical insurance plays an important role in protecting international travellers from unexpected healthcare expenses abroad.",
-      "date": "2026-11-25",
-      "day": "25",
-      "month": "Nov 2026",
+      "date": "2026-06-18",
+      "day": "18",
+      "month": "Jun 2026",
       "cover": "/img/blog/travel-medical-insurance-in-egypt.webp",
       "blocks": [
         "Travelling to Egypt offers an opportunity to enjoy some of the world’s most beautiful coastal destinations, from the vibrant resorts of Hurghada and Sharm El Sheikh to the peaceful beaches of Marsa Alam and the Mediterranean North Coast. However, even a carefully planned holiday can be interrupted by an unexpected illness or injury, making access to reliable medical care an essential part of the travel experience.",
@@ -33,9 +33,9 @@
       "subtitle": "Inside Egypt’s In-Hotel Medical Clinics",
       "seoTitle": "Inside Egypt’s In-Hotel Medical Clinics | 24/7 Clinics",
       "metaDescription": "An in-hotel medical clinic offers a practical alternative by allowing guests to receive medical attention without unnecessarily leaving their accommodation.",
-      "date": "2026-11-25",
-      "day": "25",
-      "month": "Nov 2026",
+      "date": "2026-07-23",
+      "day": "23",
+      "month": "Jul 2026",
       "cover": "/img/blog/in-hotel-medical-clinics-in-egypt.webp",
       "blocks": [
         "The hospitality industry has evolved considerably over the past decade, with international travellers increasingly expecting their holiday destinations to offer not only exceptional accommodation and leisure experiences but also convenient access to professional healthcare.",
@@ -63,9 +63,9 @@
       "subtitle": "Essential Medical Advice for Travellers",
       "seoTitle": "Staying Healthy on Holiday in Egypt | 24/7 Clinics",
       "metaDescription": "Understanding common travel-related health concerns and knowing when to seek medical assistance can help visitors enjoy their holiday with greater confidence.",
-      "date": "2026-11-25",
-      "day": "25",
-      "month": "Nov 2026",
+      "date": "2026-08-27",
+      "day": "27",
+      "month": "Aug 2026",
       "cover": "/img/blog/staying-healthy-on-holiday-in-egypt.webp",
       "blocks": [
         "Egypt’s year-round sunshine, spectacular marine life and world-class resorts make it an attractive destination for travellers of all ages. From diving in the Red Sea to exploring ancient historical sites and relaxing along the Mediterranean coastline, the country offers an exceptional variety of holiday experiences.",
@@ -98,9 +98,9 @@
       "subtitle": "Doctor Visits and International Patient Support in Egypt",
       "seoTitle": "Doctor Visits and International Patient Support in Egypt | 24/7 Clinics",
       "metaDescription": "24/7 Clinics combines hotel-based healthcare with medical assistance services, creating a more accessible and coordinated approach to treating international patients.",
-      "date": "2026-11-25",
-      "day": "25",
-      "month": "Nov 2026",
+      "date": "2026-10-08",
+      "day": "8",
+      "month": "Oct 2026",
       "cover": "/img/blog/doctor-visits-and-patient-support-in-egypt.webp",
       "blocks": [
         "International travel has changed the way people expect to access healthcare. Travellers increasingly value medical services that are accessible, responsive and adapted to their individual circumstances, particularly when visiting destinations far from home.",
@@ -133,8 +133,8 @@
       "subtitle": "The Risks of Self-Medication While on Holiday in Egypt",
       "seoTitle": "Pharmacy or Doctor in Egypt | 24/7 Clinics",
       "metaDescription": "Avoid the risks of self-medication during your holiday in Egypt. Access in-hotel doctors, prescribed medication and travel insurance assistance with 24/7 Clinics.",
-      "date": "2026-11-25",
-      "day": "25",
+      "date": "2026-11-26",
+      "day": "26",
       "month": "Nov 2026",
       "cover": "/img/blog/pharmacy-or-doctor-in-egypt.webp",
       "blocks": [

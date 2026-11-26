@@ -62,5 +62,7 @@ export type Article = {
   date: string; day: string; month: string; cover: string; blocks: string[];
 };
 export function articles(): Article[] {
-  return JSON.parse(fs.readFileSync(path.join(ROOT, "en", "blog-articles.json"), "utf8")).articles;
+  const list: Article[] = JSON.parse(fs.readFileSync(path.join(ROOT, "en", "blog-articles.json"), "utf8")).articles;
+  /* Newest first everywhere (blog page, home section, "Our Blog" under an article). */
+  return list.sort((a, b) => b.date.localeCompare(a.date));
 }
