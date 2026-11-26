@@ -1,17 +1,23 @@
-/* Their blog (brief 30: not a priority). The two published posts, linked to their live
-   articles, so the footer link never lands on a missing page. */
+/* Their blog. Irina's five articles (2026-11-25) open on this site; the two posts of their old site follow,
+   linked to their live articles. */
 import { THEIRS } from "@/content/brief";
-import { Posts } from "@/components/home/Sections";
+import { articles } from "@/content/load";
+import { ArticleCards } from "@/components/page/ArticleCards";
 import { PageHero, pageMeta } from "@/components/page/Page";
 
 export const metadata = pageMeta(THEIRS.blog, THEIRS.about, "/blog");
 
 export default function Blog() {
+  const list = articles();
   return (
     <>
-      <PageHero title={THEIRS.blog} img="/img/post-red-sea.webp" pos="50% 40%"
+      <PageHero title={THEIRS.blog} img={list[0]?.cover ?? "/img/post-red-sea.webp"} pos="50% 40%"
         trail={[{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }]} />
-      <Posts noHead />
+      <section className="section bg-surface" aria-label={THEIRS.blog}>
+        <div className="container">
+          <ArticleCards items={list} withOld feature />
+        </div>
+      </section>
     </>
   );
 }

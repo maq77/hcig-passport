@@ -204,3 +204,21 @@
   .svc-rows > :is(.svc-wide-first, .svc-wide-last) .svc-row-body { padding: 26px 28px; align-content: center; }
 }
 @media (min-width: 768px) and (max-width: 1099px) { .svc-rows:not(.compact) > .svc-wide-last { grid-template-columns: 1fr; } .svc-rows:not(.compact) > .svc-wide-last .svc-row-img { aspect-ratio: 16 / 9; height: auto; } .svc-rows:not(.compact) > .svc-wide-last .svc-row-body { padding: 4px 22px 24px; } }
+
+/* ---------- Irina's articles (2026-11-26): one readable column, her sub-headings in the display face, the bold
+   sentences in ink with a thin red rule when the whole paragraph is the point. ---------- */
+.article-wrap article { max-width: 720px; margin-inline: auto; }
+.article-body { display: grid; gap: 20px; font-size: 17.5px; line-height: 1.8; color: var(--ink-2); }
+.article-body p { margin: 0; }
+.article-body > p:first-child { font-size: clamp(19px, 1.6vw, 21px); line-height: 1.7; color: var(--ink); }
+.article-body h2 { margin: 26px 0 -2px; font-family: var(--font-display), serif; font-weight: 400; font-size: clamp(25px, 2.6vw, 32px); line-height: 1.2; color: var(--ink); text-wrap: balance; }
+.article-body strong { font-weight: 600; color: var(--ink); }
+.article-body p.is-key { padding-left: 18px; border-left: 2px solid var(--primary); }
+@media (max-width: 599px) { .article-body { font-size: 16.5px; line-height: 1.75; gap: 18px; } .article-body h2 { margin-top: 18px; } }
+.article-date { font-size: 12.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); }
+.post-sub { font-size: 15px; line-height: 1.5; color: var(--primary); }
+@media (min-width: 768px) {
+  .article-cards.feature-first .snap-track > li:first-child { grid-column: 1 / -1; }
+  .article-cards.feature-first .snap-track > li:first-child .post-img { aspect-ratio: 21 / 9; }
+}
+

@@ -54,3 +54,13 @@ export type Review = { name: string; lang: string; text: string; source: "google
 export function reviews(): Review[] {
   return JSON.parse(fs.readFileSync(path.join(ROOT, "reviews.json"), "utf8")).reviews;
 }
+
+/* Irina's articles (content/247clinic/en/blog-articles.json, 2026-11-25), words kept exactly.
+   A block "## ..." is a sub-heading; **...** marks a sentence set in bold. */
+export type Article = {
+  slug: string; title: string; subtitle: string; seoTitle: string; metaDescription: string;
+  date: string; day: string; month: string; cover: string; blocks: string[];
+};
+export function articles(): Article[] {
+  return JSON.parse(fs.readFileSync(path.join(ROOT, "en", "blog-articles.json"), "utf8")).articles;
+}
