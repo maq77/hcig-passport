@@ -5,8 +5,11 @@ import { ImagePlus } from "lucide-react";
 /* Section headings rise word by word out of a soft blur (the user, 2026-11-12: "adding animation and motion for
    section heading ... takes its time so it feel more premium"). The words stay one sentence for readers and search. */
 export function Words({ text }: { text: string }) {
-  const words = text.split(" ");
-  return <>{words.map((w, i) => <Fragment key={i}><span className="w" style={{ ["--i" as string]: i }}><span>{w}</span></span>{i < words.length - 1 ? " " : null}</Fragment>)}</>;
+  /* The word "|br|" in a heading starts a new line there (his ask 2026-11-27: "A Hospitality Advantage." on its own line). */
+  const words = text.split(" ").filter(Boolean);
+  return <>{words.map((w, i) => w === "|br|"
+    ? <span key={i} className="line-break" aria-hidden="true" />
+    : <Fragment key={i}><span className="w" style={{ ["--i" as string]: i }}><span>{w}</span></span>{i < words.length - 1 && words[i + 1] !== "|br|" ? " " : null}</Fragment>)}</>;
 }
 
 export function Head({ eyebrow, title, id, lead, center, as: As = "h2" }: {

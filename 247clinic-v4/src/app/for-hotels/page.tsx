@@ -72,7 +72,7 @@ export default function ForHotels() {
         <p className="pg-statement rv">{ch.body[0]} <em>{ch.body[1]}</em></p>
       </Band>
 
-      <Band id="h-adv" title={adv.heading} center tint>
+      <Band id="h-adv" title={adv.heading.replace(". A ", ". |br| A ")} center tint>
         <div className="pg-two">
           <Checks title={adv.body[0]} items={adv.items.slice(0, 6).map((i) => i.title)} />
           <Checks title={adv.body[1]} items={adv.items.slice(6).map((i) => i.title)} />
@@ -81,7 +81,7 @@ export default function ForHotels() {
       </Band>
 
       <Band id="h-svc" title={svc.heading} eyebrow={svc.subheading ?? undefined} lead={<p>{svc.body[0]}</p>} dark>
-        <ul className="glass-tiles">
+        <ul className="glass-tiles svc-guest">
           {svc.items.map((it, i) => {
             const Ico = iconFor(it.title);
             return <li key={it.title} className="rv" style={{ ["--d" as string]: `${(i % 4) * 60}ms` }}><span className="tile-ico" aria-hidden="true"><Ico size={22} /></span><b>{it.title}</b></li>;
